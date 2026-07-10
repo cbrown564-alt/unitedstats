@@ -18,6 +18,9 @@ export type DetailSectionTab = {
  * breakpoint; inactive panels stay hidden (no desktop stack). `desktopOnly` tabs
  * are absent from the tab bar and remain visible on `sm+` only — e.g. match lineup
  * reached elsewhere on mobile.
+ *
+ * Tab chrome is always compact and left-aligned (natural label width, medium
+ * active weight, 2px indicator) — not equal-width stretch.
  */
 export function DetailSectionTabs({
   tabs,
@@ -27,8 +30,7 @@ export function DetailSectionTabs({
   /** On mobile, pins this block (e.g. match hero) with the tab bar under one sticky
    *  head so the scoreline stays visible while scrolling long tab panels. */
   stickyHead,
-  /** On mobile, tab buttons share the full width and panel content bleeds to the
-   *  viewport edges (season detail, etc.). */
+  /** On mobile, panel content bleeds to the viewport edges (season detail, etc.). */
   edgeTabs,
 }: {
   tabs: DetailSectionTab[];
@@ -48,17 +50,12 @@ export function DetailSectionTabs({
 
   if (visible.length === 0) return null;
 
-  const stretchTabs = stickyHead || edgeTabs;
-
   const tabBarClass = stickyHead
-    ? "-mx-4 flex items-stretch border-b border-line bg-pitch/95 px-0 backdrop-blur-md sm:-mx-6 sm:sticky sm:sticky-subnav sm:top-0 sm:z-30 sm:mt-8 sm:overflow-x-auto sm:px-6 sm:backdrop-blur-md lg:static lg:mx-0 lg:mt-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
-    : edgeTabs
-      ? "sticky top-0 z-30 -mx-4 flex items-stretch border-b border-line bg-pitch/95 px-0 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
-      : "sticky top-0 z-30 -mx-4 flex items-stretch overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none";
+    ? "-mx-4 flex items-stretch gap-1 overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:sticky sm:sticky-subnav sm:top-0 sm:z-30 sm:mt-8 sm:px-6 sm:backdrop-blur-md lg:static lg:mx-0 lg:mt-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
+    : "sticky top-0 z-30 -mx-4 flex items-stretch gap-1 overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none";
 
-  const tabButtonClass = stretchTabs
-    ? "min-h-11 min-w-0 flex-1 border-b px-1 py-2.5 text-center text-sm transition-colors focus-ring sm:px-3"
-    : "min-h-11 shrink-0 flex-none border-b px-2.5 py-2.5 text-center text-sm transition-colors focus-ring sm:min-w-0 sm:flex-1 sm:px-3";
+  const tabButtonClass =
+    "min-h-11 shrink-0 flex-none border-b-2 px-3 py-2.5 text-sm transition-colors focus-ring";
 
   const tabBar =
     tabbable.length > 1 ? (
@@ -74,7 +71,7 @@ export function DetailSectionTabs({
             onClick={() => setActive(tab.id)}
             className={`${tabButtonClass} ${
               current === tab.id
-                ? "border-devil/45 text-ink"
+                ? "border-devil/55 font-medium text-ink"
                 : "border-transparent text-ink-dim hover:text-ink"
             }`}
           >
