@@ -111,8 +111,6 @@ type Props = {
    * `climax` = one full-bleed Camp Nou still behind the pocket (trial alternative).
    */
   atmosphere?: TrebleAtmosphere;
-  /** Unbeaten tail length absorbed as a morph foot-fact (no dedicated spine beat). */
-  unbeatenGames: number;
 };
 
 /**
@@ -120,9 +118,11 @@ type Props = {
  * verb (docs/JOURNEY.md §2, §4b). The club timeline runs as one faint line;
  * at May '99 the filament leaves the axis, coils a pocket around the ghost "99",
  * and three gold knots land in date order — the 16th, the 22nd, the 26th —
- * before the thread returns to the line. Atmosphere is either three place
- * monuments or one immersive Camp Nou still. Same skeleton as RhymeMorph:
- * scroll owns time, reduced motion lands the finished composition.
+ * before the thread returns to the line. Copy is manner-first (lever A): season
+ * → three must-wins → all three from the bench; the haul is a quiet foot-fact.
+ * Atmosphere is either three place/trophy monuments or one immersive Camp Nou
+ * still. Same skeleton as RhymeMorph: scroll owns time, reduced motion lands
+ * the finished composition.
  */
 export function TrebleSpinoff({
   seasonLabel,
@@ -132,7 +132,6 @@ export function TrebleSpinoff({
   places,
   climax,
   atmosphere = "places",
-  unbeatenGames,
 }: Props) {
   const { runwayRef, progress, reduced } = useJourneyStage();
   const p = reduced ? 1 : progress;
@@ -216,21 +215,23 @@ export function TrebleSpinoff({
     ? 0.34
     : 0.12 + awaken * 0.14 + draw * 0.08 + land * 0.06;
 
-  // Copy: season and size, then the window (the sub names the dates as their
-  // knots land), then the haul. Facts only — the beats below carry the rhyme,
-  // the comeback, and the teamsheet.
+  // Copy — lever A (docs/JOURNEY.md §4b): stakes → manner, not haul.
+  // Season and size, then three must-wins (final day / Cup final / European
+  // final — evidence-honest gloss, not pundit heat), then land on the bench.
+  // The haul is a quiet foot-fact after land; beats below deepen latency,
+  // from-behind, and the teamsheet.
   const line =
     p < 0.34
       ? `${seasonLabel}.`
       : p < 0.72
-        ? `The last ${numWord(spanDays)} days.`
-        : `${numWord(deciders.length, true)} trophies.`;
+        ? `${numWord(deciders.length, true)} must-wins.`
+        : "All three, from the bench.";
   const sub =
     p < 0.34
       ? `${games} games.`
       : p < 0.72
-        ? deciders.map((x) => `${dayOrdinal(x.date).replace(/^t/, "T")}.`).join(" ")
-        : deciders.map((x) => x.competition).join(". ") + ".";
+        ? "Final day. Cup final. European final."
+        : deciders.map((x) => `${dayOrdinal(x.date).replace(/^t/, "T")}.`).join(" ");
 
   const dayLabels = deciders.map((x) => dayLabel(x.date));
   const placeLabels = deciders.map((x) => x.place).join(", ");
@@ -271,7 +272,7 @@ export function TrebleSpinoff({
       <div
         className={`${reduced ? "relative" : "sticky top-0"} z-10 h-dvh`}
         role="img"
-        aria-label={`The ${seasonLabel} season: ${games} games, ending with ${numWord(deciders.length)} trophies in ${numWord(spanDays)} days at ${placeLabels} — ${dayLabels.join(", ")} ${departYear}.`}
+        aria-label={`The ${seasonLabel} season: ${games} games, then ${numWord(deciders.length)} must-wins in ${numWord(spanDays)} days — final day, Cup final, European final — all three from the bench. ${dayLabels.join(", ")} ${departYear}, ${placeLabels}.`}
       >
         <div className="journey-floodlit full-bleed-viewport relative h-full overflow-hidden">
           {/* Atmosphere — same floodlit register as the chapter-one stage */}
@@ -551,15 +552,15 @@ export function TrebleSpinoff({
             })}
           </svg>
 
-          {/* The hand-off: the pocket resolves; unbeaten run is a foot-fact, then
-             the thread runs on into the bench rhyme below. */}
+          {/* The hand-off: manner has landed; the haul is a quiet foot-fact, then
+             the thread runs on into the bench-latency rhyme below. */}
           <div
             className="absolute inset-x-0 bottom-[4%] z-20 flex flex-col items-center"
             style={{ opacity: land, transform: `translateY(${lerp(20, 0, land)}px)` }}
           >
             <p className="mb-3 text-xs text-ink-dim sm:text-sm">
-              <span className="stat-num font-semibold text-ink">{unbeatenGames}</span>
-              {" "}without defeat.
+              <span className="stat-num font-semibold text-ink">{deciders.length}</span>
+              {" "}trophies.
             </p>
             <p className="text-[11px] font-medium lowercase tracking-[0.14em] text-ink-faint">
               follow the thread

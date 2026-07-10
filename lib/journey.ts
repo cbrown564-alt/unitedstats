@@ -123,6 +123,93 @@ export function subGoals(receipt: MatchReceipt): SubGoal[] {
     }));
 }
 
+/**
+ * Scoreline while United were behind — lever C on the Treble chapter
+ * (docs/JOURNEY.md §4b). Prefers the board at full time when they were still
+ * trailing into stoppage ("0–1 at 90′"); otherwise the first deficit
+ * ("0–1 after 26′"). Null when United never trailed. Journey-local; not a
+ * general-purpose chart.
+ */
+export type TrailingBoard = {
+  /** United goals at the anchored moment. */
+  united: number;
+  /** Opponent goals at the anchored moment. */
+  opponent: number;
+  /** En-dash scoreline, e.g. "0–1". */
+  score: string;
+  /** Fan-facing clock phrase — "after 26′" or "at 90′". */
+  when: string;
+};
+
+type TimedGoal = {
+  clock: number;
+  minute: number;
+  added: number | null;
+  delta: 1 | -1;
+};
+
+function eventClock(minute: number, added: number | null): number {
+  if (minute === 90 && added != null && added > 0) return 90 + added;
+  return minute;
+}
+
+export function trailingBoard(receipt: MatchReceipt): TrailingBoard | null {
+  const timed: TimedGoal[] = [
+    ...receipt.unitedGoals
+      .filter((g) => g.minute != null)
+      .map((g) => ({
+        clock: eventClock(g.minute as number, g.added_time),
+        minute: g.minute as number,
+        added: g.added_time,
+        delta: 1 as const,
+      })),
+    ...receipt.opponentGoals
+      .filter((g) => g.minute != null)
+      .map((g) => ({
+        clock: eventClock(g.minute as number, g.added_time),
+        minute: g.minute as number,
+        added: g.added_time,
+        delta: -1 as const,
+      })),
+  ].sort((a, b) => a.clock - b.clock || a.delta - b.delta);
+
+  let united = 0;
+  let opponent = 0;
+  let firstDeficit: TrailingBoard | null = null;
+  let boardAt90: TrailingBoard | null = null;
+
+  for (const g of timed) {
+    if (g.delta === 1) united += 1;
+    else opponent += 1;
+
+    if (united < opponent) {
+      const score = scoreline(united, opponent);
+      if (!firstDeficit) {
+        firstDeficit = {
+          united,
+          opponent,
+          score,
+          when: `after ${g.minute}′`,
+        };
+      }
+      // Still behind at the regulation whistle — the Bayern shape.
+      if (g.clock <= 90) {
+        boardAt90 = {
+          united,
+          opponent,
+          score,
+          when: "at 90′",
+        };
+      }
+    } else if (g.clock <= 90) {
+      boardAt90 = null;
+    }
+  }
+
+  // Prefer trailing-at-90 when they were behind into stoppage; else first deficit.
+  return boardAt90 ?? firstDeficit;
+}
+
 /** The tail of a date-ordered sequence after its final defeat — the "didn't lose
  *  again" run a season spine proves. Null when the sequence ends on the defeat. */
 export function unbeatenTail(

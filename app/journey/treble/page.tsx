@@ -8,7 +8,7 @@ import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
 import { MatchFlow } from "@/components/MatchFlow";
 import { FormationPitch, Bench } from "@/components/FormationPitch";
 import { matchesSequence } from "@/lib/trails";
-import { matchReceipt, subGoals, unbeatenTail, type MatchReceipt, type SubGoal } from "@/lib/journey";
+import { matchReceipt, subGoals, unbeatenTail, trailingBoard, type MatchReceipt, type SubGoal, type TrailingBoard } from "@/lib/journey";
 import { familyName } from "@/lib/names";
 import placeMedia from "@/data/canonical/journey-place-media.json";
 
@@ -16,7 +16,7 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — the Treble",
   description:
-    "1998–99: sixty-three games, then three trophies in eleven days — and in every decider, a substitute scored.",
+    "1998–99: three must-wins in eleven days — two from behind, all three from the bench.",
   robots: { index: false, follow: false },
 };
 
@@ -62,25 +62,27 @@ function clockLabel(minute: number, added: number | null): string {
 }
 
 /**
- * One decider, told with the real /match surfaces. The gold line above the flow
- * names the substitute the beat is about — minute on, minute scored — read from
- * `match_lineups.sub_on` and `match_events`, never asserted.
+ * One decider, told with the real /match surfaces. Lever C: when United trailed,
+ * a quiet scoreboard sits above the flow — the board *before* the winner — so
+ * from-behind is seen, not asserted. Final score stays muted in the header.
  */
 function DeciderCard({
   receipt,
   heading,
   goals,
+  trailing,
 }: {
   receipt: MatchReceipt;
   heading: string;
   goals: SubGoal[];
+  trailing?: TrailingBoard | null;
 }) {
   return (
     <div className="flex flex-col">
       <div className="flex items-baseline justify-center gap-3">
         <span className="stat-num text-lg font-bold text-ink">{dayMonthShort(receipt.date)}</span>
         <span className="text-sm text-ink-dim">v {receipt.opponent}</span>
-        <span className="stat-num text-sm text-gold">{receipt.score}</span>
+        <span className="stat-num text-sm text-ink-faint">{receipt.score}</span>
       </div>
       <p className="mt-1 text-center text-[11px] uppercase tracking-[0.16em] text-ink-faint">{heading}</p>
       <div className="mt-3 flex flex-col items-center gap-1">
@@ -92,7 +94,14 @@ function DeciderCard({
         ))}
       </div>
 
-      <div className="mt-7">
+      {trailing && (
+        <div className="mt-6 flex flex-col items-center gap-1" aria-label={`Trailing ${trailing.score} ${trailing.when}`}>
+          <p className="stat-num text-3xl font-bold tracking-tight text-ink-dim sm:text-4xl">{trailing.score}</p>
+          <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-faint">{trailing.when}</p>
+        </div>
+      )}
+
+      <div className={trailing ? "mt-5" : "mt-7"}>
         <MatchFlow
           unitedGoals={receipt.unitedGoals}
           opponentGoals={receipt.opponentGoals}
@@ -200,7 +209,6 @@ export default function TrebleJourneyPage() {
         places={places}
         climax={climax}
         atmosphere="places"
-        unbeatenGames={tail.games}
       />
 
       {/* Beats 1–4 — down the floodlit field. */}
@@ -237,7 +245,12 @@ export default function TrebleJourneyPage() {
             <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(80%_70%_at_50%_8%,rgba(216,33,13,0.13),transparent_70%)] py-10 sm:py-16">
               <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>16</span>
               <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-8">
-                <DeciderCard receipt={league} heading="Premier League — final day" goals={leagueSubs} />
+                <DeciderCard
+                  receipt={league}
+                  heading="Premier League — final day"
+                  goals={leagueSubs}
+                  trailing={trailingBoard(league)}
+                />
               </div>
             </div>
           </JourneyBeat>
@@ -255,7 +268,12 @@ export default function TrebleJourneyPage() {
             <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(80%_70%_at_50%_8%,rgba(111,159,224,0.13),transparent_70%)] py-10 sm:py-16">
               <span className="pointer-events-none absolute right-[6%] top-0 stat-num text-8xl font-bold text-ink/[0.035] sm:text-[10rem]" aria-hidden>26</span>
               <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-8">
-                <DeciderCard receipt={euro} heading="Champions League final" goals={euroSubs} />
+                <DeciderCard
+                  receipt={euro}
+                  heading="Champions League final"
+                  goals={euroSubs}
+                  trailing={trailingBoard(euro)}
+                />
                 <div className="mx-auto mt-10 grid max-w-4xl gap-8 sm:grid-cols-[3fr_2fr] sm:gap-10">
                   <div className="mx-auto w-full max-w-[26rem]">
                     <FormationPitch
@@ -278,11 +296,16 @@ export default function TrebleJourneyPage() {
             </div>
           </JourneyBeat>
 
-          {/* Beat 4 — the door. Season first; question secondary. */}
+          {/* Beat 4 — the door. Stack recap (lever D); season first; question secondary. */}
           <JourneyBeat
             step={4}
-            headline={`${numWord(spanDays, true)} days. ${numWord(deciders.length, true)} trophies.`}
-            sub="In all three, a substitute scored. Now run the season back."
+            headline={
+              <>
+                Three must-wins. Two from behind.{" "}
+                <JourneyThreadAnchor>All three from the bench.</JourneyThreadAnchor>
+              </>
+            }
+            sub={`${numWord(spanDays, true)} days. ${numWord(deciders.length, true)} trophies. Now run the season back.`}
             className="min-h-[65vh] justify-center"
           >
             <div className="flex flex-col items-center gap-6 pb-16">

@@ -9,7 +9,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { matchReceipt, subGoals, unbeatenTail } from "../lib/journey";
+import { matchReceipt, subGoals, unbeatenTail, trailingBoard } from "../lib/journey";
 import { matchesSequence } from "../lib/trails";
 
 test("unbeatenTail reads the run after the last defeat", () => {
@@ -85,4 +85,31 @@ test("treble: a substitute scored in all three deciders", () => {
   for (const p of bayern.starters) {
     assert.equal(bayern.marks.goals.get(p.player_id ?? ""), undefined, `${p.player_display_name} did not score`);
   }
+});
+
+test("treble: trailingBoard pins the from-behind scorelines (lever C)", () => {
+  // Spurs — behind after Ferdinand 26′, leveled before half-time; first deficit.
+  const spurs = matchReceipt("1999-05-16-tottenham-hotspur-h");
+  assert.ok(spurs);
+  assert.deepEqual(trailingBoard(spurs), {
+    united: 0,
+    opponent: 1,
+    score: "0–1",
+    when: "after 26′",
+  });
+
+  // Newcastle — never trailed; no board.
+  const newcastle = matchReceipt("1999-05-22-newcastle-united-n");
+  assert.ok(newcastle);
+  assert.equal(trailingBoard(newcastle), null);
+
+  // Bayern — still 0–1 at the regulation whistle.
+  const bayern = matchReceipt("1999-05-26-bayern-munich-n");
+  assert.ok(bayern);
+  assert.deepEqual(trailingBoard(bayern), {
+    united: 0,
+    opponent: 1,
+    score: "0–1",
+    when: "at 90′",
+  });
 });
