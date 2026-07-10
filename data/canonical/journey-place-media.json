@@ -1,58 +1,76 @@
 {
-  "generatedAt": "2026-07-09T22:22:00.000Z",
+  "generatedAt": "2026-07-10T06:40:00.000Z",
   "sourceId": "wikimedia-commons",
-  "sourceName": "Wikimedia Commons imageinfo (hand-selected journey place monuments)",
+  "sourceName": "Wikimedia Commons imageinfo (hand-selected journey stage monuments)",
   "sourceUrls": [
     "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
   ],
   "notes": [
-    "Three grounds for the Treble spin-off stage (docs/JOURNEY.md §4b, monument A): Old Trafford, Wembley, Camp Nou.",
-    "Wembley uses the Twin Towers (5 June 1999) — the ground that hosted the 1999 FA Cup final, not the post-2007 arch.",
-    "Camp Nou is labelled Camp Nou in copy (the question page also says Nou Camp); the Commons file is the modern exterior.",
-    "URLs and license metadata come from Wikimedia Commons imageinfo. Re-run scripts/cache-journey-places.ts after changing records."
+    "Stage monuments for the Treble spin-off (docs/JOURNEY.md §4b): three trophy perspectives, not stadium exteriors.",
+    "16 May — squad celebration with the Premier League trophy at Old Trafford (Seán Murray, cropped).",
+    "22 May — Keane lifts the FA Cup at Wembley (Michael Cairns). Cache uses the full presentation file for resolution; objectPosition matches the Commons cropped framing on Keane.",
+    "After May — open-top bus parade with all three trophies (Seán Murray). No licensed Camp Nou European Cup lift exists on Commons; the parade is the haul.",
+    "climaxAtmosphere remains available as the single immersive alternative (Camp Nou winners board).",
+    "Stadium exterior WebPs (old-trafford/wembley/camp-nou) are retained on disk from the earlier place trial but are no longer the stage records.",
+    "Re-run scripts/cache-journey-places.ts after changing records."
   ],
+  "climaxAtmosphere": {
+    "placeId": "barcelona-climax",
+    "label": "Camp Nou · 26 May 1999",
+    "commonsFile": "1999 UEFA Champions League celebration.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/1999_UEFA_Champions_League_celebration.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:1999_UEFA_Champions_League_celebration.jpg",
+    "license": "CC BY-SA 2.0",
+    "artist": "Seán Murray",
+    "credit": "Winners — Flickr / Seán Murray",
+    "sourceId": "wikimedia-commons",
+    "localPath": "/media/journey/barcelona-climax.webp",
+    "objectPosition": "50% 42%",
+    "fit": "landscape"
+  },
   "records": [
     {
-      "placeId": "old-trafford",
-      "label": "Old Trafford",
+      "placeId": "pl-celebration",
+      "label": "Premier League",
       "decider": "league",
-      "commonsFile": "Manchester United Old Trafford (cropped).jpg",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Manchester_United_Old_Trafford_%28cropped%29.jpg",
-      "pageUrl": "https://commons.wikimedia.org/wiki/File:Manchester_United_Old_Trafford_(cropped).jpg",
-      "license": "CC BY-SA 3.0 de",
-      "artist": "Arne Müseler",
-      "credit": "Arne Müseler / www.arne-mueseler.com",
+      "commonsFile": "1998-99 Premier League title celebrations (cropped).jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fe/1998-99_Premier_League_title_celebrations_%28cropped%29.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:1998-99_Premier_League_title_celebrations_(cropped).jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Seán Murray",
+      "credit": "FA Premier League title celebrations — Flickr / Seán Murray",
       "sourceId": "wikimedia-commons",
-      "localPath": "/media/journey/old-trafford.webp",
-      "objectPosition": "50% 45%"
+      "localPath": "/media/journey/pl-celebration.webp",
+      "objectPosition": "45% 42%"
     },
     {
-      "placeId": "wembley",
-      "label": "Wembley",
+      "placeId": "fa-cup-lift",
+      "label": "FA Cup",
       "decider": "cup",
-      "commonsFile": "Wembley Stadium Twin Towers, 5 June 1999.jpg",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Wembley_Stadium_Twin_Towers%2C_5_June_1999.jpg",
-      "pageUrl": "https://commons.wikimedia.org/wiki/File:Wembley_Stadium_Twin_Towers,_5_June_1999.jpg",
-      "license": "Public domain",
-      "artist": "Responsible?",
-      "credit": "Self-photographed, 5 June 1999",
+      "commonsFile": "1999 FA Cup Final trophy presentation.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f1/1999_FA_Cup_Final_trophy_presentation.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:1999_FA_Cup_Final_trophy_presentation_(cropped).jpg",
+      "license": "CC BY 2.0",
+      "artist": "Michael Cairns",
+      "credit": "FA Cup Final trophy presentation — Flickr / Michael Cairns",
       "sourceId": "wikimedia-commons",
-      "localPath": "/media/journey/wembley.webp",
-      "objectPosition": "50% 40%"
+      "localPath": "/media/journey/fa-cup-lift.webp",
+      "objectPosition": "32% 48%",
+      "crop": "keane-podium"
     },
     {
-      "placeId": "camp-nou",
-      "label": "Camp Nou",
+      "placeId": "treble-parade",
+      "label": "Champions League",
       "decider": "europe",
-      "commonsFile": "Camp Nou.jpg",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Camp_Nou.jpg",
-      "pageUrl": "https://commons.wikimedia.org/wiki/File:Camp_Nou.jpg",
-      "license": "CC BY 2.0",
-      "artist": "Kieran Lynam",
-      "credit": "originally posted to Flickr as Camp Nou",
+      "commonsFile": "Manchester United Treble celebration.jpg",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Manchester_United_Treble_celebration.jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Manchester_United_Treble_celebration.jpg",
+      "license": "CC BY-SA 2.0",
+      "artist": "Seán Murray",
+      "credit": "Treble open-top bus parade — Flickr / Seán Murray",
       "sourceId": "wikimedia-commons",
-      "localPath": "/media/journey/camp-nou.webp",
-      "objectPosition": "50% 40%"
+      "localPath": "/media/journey/treble-parade.webp",
+      "objectPosition": "48% 32%"
     }
   ]
 }

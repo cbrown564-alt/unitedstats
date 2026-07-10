@@ -83,6 +83,16 @@ export type TreblePlaceMonument = {
   objectPosition?: string;
 };
 
+export type TrebleClimaxAtmosphere = {
+  imageSrc: string;
+  objectPosition?: string;
+  /** Quiet credit label for the Commons still (artist · night). */
+  credit?: string;
+};
+
+/** Stage atmosphere — three grounds with the knots, or one immersive Camp Nou still. */
+export type TrebleAtmosphere = "places" | "climax";
+
 type Props = {
   /** Season label, e.g. "1998–99". */
   seasonLabel: string;
@@ -94,6 +104,13 @@ type Props = {
   axisEndYear: number;
   /** Place monuments — Old Trafford · Wembley · Camp Nou — keyed by label. */
   places: TreblePlaceMonument[];
+  /** Single immersive still behind the ghost "99" (climax atmosphere mode). */
+  climax?: TrebleClimaxAtmosphere;
+  /**
+   * `places` = three grounds with the knots (monument A).
+   * `climax` = one full-bleed Camp Nou still behind the pocket (trial alternative).
+   */
+  atmosphere?: TrebleAtmosphere;
   /** Unbeaten tail length absorbed as a morph foot-fact (no dedicated spine beat). */
   unbeatenGames: number;
 };
@@ -103,9 +120,9 @@ type Props = {
  * verb (docs/JOURNEY.md §2, §4b). The club timeline runs as one faint line;
  * at May '99 the filament leaves the axis, coils a pocket around the ghost "99",
  * and three gold knots land in date order — the 16th, the 22nd, the 26th —
- * before the thread returns to the line. Place monuments (licensed Commons
- * stills) dissolve into the floodlights with each knot. Same skeleton as
- * RhymeMorph: scroll owns time, reduced motion lands the finished composition.
+ * before the thread returns to the line. Atmosphere is either three place
+ * monuments or one immersive Camp Nou still. Same skeleton as RhymeMorph:
+ * scroll owns time, reduced motion lands the finished composition.
  */
 export function TrebleSpinoff({
   seasonLabel,
@@ -113,10 +130,13 @@ export function TrebleSpinoff({
   deciders,
   axisEndYear,
   places,
+  climax,
+  atmosphere = "places",
   unbeatenGames,
 }: Props) {
   const { runwayRef, progress, reduced } = useJourneyStage();
   const p = reduced ? 1 : progress;
+  const useClimax = atmosphere === "climax" && !!climax?.imageSrc;
 
   const departYear = Number(deciders[0]?.date.slice(0, 4)) || 1999;
   const spanDays =
@@ -180,10 +200,21 @@ export function TrebleSpinoff({
   const draw = reduced ? 1 : lerp(departAt + 0.03, 1, smoothstep(0.08, 0.66, p));
   const land = reduced ? 1 : smoothstep(0.72, 0.92, p);
 
-  const ninetyNineOpacity = reduced ? 0.13 : 0.05 + awaken * 0.04 + draw * 0.04 + land * 0.03;
+  const ninetyNineOpacity = reduced
+    ? useClimax
+      ? 0.18
+      : 0.13
+    : useClimax
+      ? 0.08 + awaken * 0.06 + draw * 0.05 + land * 0.04
+      : 0.05 + awaken * 0.04 + draw * 0.04 + land * 0.03;
   const axisOpacity = 0.08 + awaken * 0.1;
   // Place stills stay atmospheric — never compete with the filament or type.
   const placeBase = reduced ? 0.22 : 0.06 + awaken * 0.08;
+  // Climax still: one immersive plane behind the pocket — stronger than place
+  // panels, still dissolved enough that type and thread stay the hero.
+  const climaxOpacity = reduced
+    ? 0.34
+    : 0.12 + awaken * 0.14 + draw * 0.08 + land * 0.06;
 
   // Copy: season and size, then the window (the sub names the dates as their
   // knots land), then the haul. Facts only — the beats below carry the rhyme,
@@ -260,38 +291,58 @@ export function TrebleSpinoff({
             aria-hidden
           />
 
-          {/* Place monuments — three grounds dissolve into the floodlights as
-             their knots land. Atmosphere, not match photography. */}
-          {placePanels.map((panel) => {
-            const dec = panel.decider;
-            if (!dec) return null;
-            const monument = placeByLabel.get(dec.place);
-            if (!monument) return null;
-            const f = knotFracs[panel.knotIndex];
-            const op = reduced
-              ? placeBase
-              : placeBase + smoothstep(f - 0.02, f + 0.08, draw) * 0.16 + land * 0.04;
-            const wash =
-              panel.side === "left"
-                ? "bg-[linear-gradient(to_right,rgba(216,33,13,0.72),rgba(216,33,13,0.14),transparent)]"
-                : panel.side === "right"
-                  ? "bg-[linear-gradient(to_left,rgba(216,33,13,0.72),rgba(216,33,13,0.14),transparent)]"
-                  : "bg-[linear-gradient(to_top,rgba(216,33,13,0.55),rgba(216,33,13,0.12),transparent)]";
-            return (
-              <div key={dec.id} className={panel.className} style={{ opacity: op }} aria-hidden>
-                <Image
-                  src={monument.imageSrc}
-                  alt=""
-                  fill
-                  priority={panel.knotIndex === 0}
-                  sizes="(max-width: 640px) 46vw, 38vw"
-                  className="object-cover grayscale contrast-125"
-                  style={{ objectPosition: monument.objectPosition ?? "50% 45%" }}
-                />
-                <div className={`absolute inset-0 ${wash} mix-blend-color`} />
-              </div>
-            );
-          })}
+          {/* Atmosphere still — either one immersive Camp Nou climax, or three
+             place monuments dissolving in with their knots. */}
+          {useClimax && climax ? (
+            <div
+              className="pointer-events-none absolute inset-0 z-[1] [mask-image:radial-gradient(ellipse_78%_72%_at_50%_58%,#000_20%,transparent_78%),linear-gradient(to_top,transparent_0%,#000_18%,#000_72%,transparent_100%)]"
+              style={{ opacity: climaxOpacity }}
+              aria-hidden
+            >
+              <Image
+                src={climax.imageSrc}
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover grayscale contrast-125"
+                style={{ objectPosition: climax.objectPosition ?? "50% 42%" }}
+              />
+              <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_55%,rgba(216,33,13,0.55),rgba(216,33,13,0.12)_55%,transparent_78%)] mix-blend-color" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.55)_0%,transparent_28%,transparent_62%,rgba(0,0,0,0.72)_100%)]" />
+            </div>
+          ) : (
+            placePanels.map((panel) => {
+              const dec = panel.decider;
+              if (!dec) return null;
+              const monument = placeByLabel.get(dec.place);
+              if (!monument) return null;
+              const f = knotFracs[panel.knotIndex];
+              const op = reduced
+                ? placeBase
+                : placeBase + smoothstep(f - 0.02, f + 0.08, draw) * 0.16 + land * 0.04;
+              const wash =
+                panel.side === "left"
+                  ? "bg-[linear-gradient(to_right,rgba(216,33,13,0.72),rgba(216,33,13,0.14),transparent)]"
+                  : panel.side === "right"
+                    ? "bg-[linear-gradient(to_left,rgba(216,33,13,0.72),rgba(216,33,13,0.14),transparent)]"
+                    : "bg-[linear-gradient(to_top,rgba(216,33,13,0.55),rgba(216,33,13,0.12),transparent)]";
+              return (
+                <div key={dec.id} className={panel.className} style={{ opacity: op }} aria-hidden>
+                  <Image
+                    src={monument.imageSrc}
+                    alt=""
+                    fill
+                    priority={panel.knotIndex === 0}
+                    sizes="(max-width: 640px) 46vw, 38vw"
+                    className="object-cover grayscale contrast-125"
+                    style={{ objectPosition: monument.objectPosition ?? "50% 45%" }}
+                  />
+                  <div className={`absolute inset-0 ${wash} mix-blend-color`} />
+                </div>
+              );
+            })
+          )}
 
           {/* Stage copy — narrative column, kept clear of the visual core */}
           <div className="absolute inset-x-0 top-0 z-20 flex flex-col items-center px-5 pt-10 text-center sm:pt-14 lg:pt-16">
@@ -341,9 +392,9 @@ export function TrebleSpinoff({
               className="display"
               style={{
                 opacity: ninetyNineOpacity,
-                transform: `scale(${lerp(1, 0.92, land)})`,
+                transform: `scale(${lerp(0.88, 0.82, land)})`,
                 transformOrigin: `${POCKET_CX}px ${POCKET_CY}px`,
-                fontSize: "270px",
+                fontSize: "200px",
                 fill: "rgb(255 59 31)",
                 filter: "blur(0.5px)",
               }}

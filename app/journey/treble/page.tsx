@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TrebleSpinoff, type TrebleDecider, type TreblePlaceMonument } from "@/components/journey/TrebleSpinoff";
+import { TrebleSpinoff, type TrebleDecider, type TreblePlaceMonument, type TrebleClimaxAtmosphere } from "@/components/journey/TrebleSpinoff";
 import { BenchLatency, type BenchLatencyNight } from "@/components/journey/BenchLatency";
 import { JourneyBeat, JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
 import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
@@ -25,8 +25,10 @@ const LEAGUE_DECIDER = "1999-05-16-tottenham-hotspur-h";
 const CUP_FINAL = "1999-05-22-newcastle-united-n";
 const EURO_FINAL = "1999-05-26-bayern-munich-n";
 
-/** Grounds for the three deciders — place monuments on the stage (monument A). */
-const PLACES = ["Old Trafford", "Wembley", "Camp Nou"] as const;
+/** Competitions for the three deciders — latency beat right-hand labels. */
+const COMPETITIONS = ["Premier League", "FA Cup", "Champions League"] as const;
+/** Grounds — match truth when a beat needs the place, not the competition. */
+const MATCH_PLACES = ["Old Trafford", "Wembley", "Camp Nou"] as const;
 
 const NUM_WORDS = [
   "zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
@@ -123,11 +125,13 @@ export default function TrebleJourneyPage() {
   const euroSubs = subGoals(euro);
 
   const receipts = [league, cup, euro];
+  const stageLabels = placeMedia.records.map((rec) => rec.label);
   const deciders: TrebleDecider[] = receipts.map((r, i) => ({
     id: r.id,
     date: r.date,
     competition: r.competition.replace(/^UEFA /, ""),
-    place: PLACES[i],
+    // Stage knot labels follow the monument set (Premier League · FA Cup · Champions League).
+    place: stageLabels[i] ?? MATCH_PLACES[i],
   }));
   const spanDays =
     Math.round((Date.parse(euro.date) - Date.parse(league.date)) / 86_400_000) + 1;
@@ -138,6 +142,13 @@ export default function TrebleJourneyPage() {
     imageSrc: rec.localPath,
     objectPosition: rec.objectPosition,
   }));
+  const climax: TrebleClimaxAtmosphere | undefined = placeMedia.climaxAtmosphere
+    ? {
+        imageSrc: placeMedia.climaxAtmosphere.localPath,
+        objectPosition: placeMedia.climaxAtmosphere.objectPosition,
+        credit: `${placeMedia.climaxAtmosphere.artist} · ${placeMedia.climaxAtmosphere.label}`,
+      }
+    : undefined;
 
   // The comeback's cast, read off the receipts. Copy falls back to plainer lines
   // if a re-ingest ever changes the shapes (the golden test pins them meanwhile).
@@ -158,17 +169,17 @@ export default function TrebleJourneyPage() {
   const latencyNights: BenchLatencyNight[] = [
     {
       label: `${dayMonthShort(league.date)} · ${league.opponent}`,
-      place: PLACES[0],
+      place: COMPETITIONS[0],
       goals: leagueSubs,
     },
     {
       label: `${dayMonthShort(cup.date)} · ${cup.opponent}`,
-      place: PLACES[1],
+      place: COMPETITIONS[1],
       goals: cupSubs,
     },
     {
       label: `${dayMonthShort(euro.date)} · ${euro.opponent}`,
-      place: PLACES[2],
+      place: COMPETITIONS[2],
       goals: euroSubs,
     },
   ];
@@ -187,6 +198,8 @@ export default function TrebleJourneyPage() {
         deciders={deciders}
         axisEndYear={new Date().getFullYear()}
         places={places}
+        climax={climax}
+        atmosphere="places"
         unbeatenGames={tail.games}
       />
 

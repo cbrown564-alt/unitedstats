@@ -1,9 +1,9 @@
 /**
- * Build the large, route-specific stadium stills used by /journey/treble beat 0.
+ * Build the large, route-specific stills used by /journey/treble beat 0.
  *
  * Same pattern as cache-journey-portraits.ts: Commons originals recorded in
- * data/canonical/journey-place-media.json → 1024px WebP under public/media/journey/.
- * Treated as place monuments (grayscale + red wash in the stage), not match photography.
+ * data/canonical/journey-place-media.json → WebP under public/media/journey/.
+ * Place monuments are 1024²; the climax atmosphere is a 1920×1080 landscape.
  *
  * Usage: npx tsx scripts/cache-journey-places.ts
  */
@@ -15,12 +15,21 @@ type PlaceMedia = {
   placeId: string;
   imageUrl: string;
   sourceId: string;
+  fit?: "square" | "landscape";
+  /** Optional named crop for monument framing (e.g. Keane on the FA Cup podium). */
+  crop?: string;
+};
+
+type Manifest = {
+  records: PlaceMedia[];
+  climaxAtmosphere?: PlaceMedia;
 };
 
 const ROOT = process.cwd();
 const MANIFEST = path.join(ROOT, "data/canonical/journey-place-media.json");
 const OUTPUT_DIR = path.join(ROOT, "public/media/journey");
-const SIZE = 1024;
+const SQUARE = 1024;
+const LANDSCAPE = { w: 1920, h: 1080 } as const;
 
 async function sleep(ms: number) {
   await new Promise((resolve) => setTimeout(resolve, ms));
@@ -40,40 +49,69 @@ async function fetchOriginal(url: string): Promise<Buffer> {
   throw lastError ?? new Error(`Image download failed: ${url}`);
 }
 
+async function cacheRecord(record: PlaceMedia) {
+  if (record.sourceId !== "wikimedia-commons") {
+    throw new Error(`Expected a Commons source for ${record.placeId}`);
+  }
+
+  const landscape = record.fit === "landscape";
+  const output = path.join(OUTPUT_DIR, `${record.placeId}.webp`);
+  const wantW = landscape ? LANDSCAPE.w : SQUARE;
+  const wantH = landscape ? LANDSCAPE.h : SQUARE;
+
+  try {
+    const existing = await sharp(output).metadata();
+    if (existing.width === wantW && existing.height === wantH) {
+      console.log(`${record.placeId}: already cached → ${path.relative(ROOT, output)}`);
+      return;
+    }
+  } catch {
+    // missing or unreadable — fetch below
+  }
+
+  const original = await fetchOriginal(record.imageUrl);
+  let pipeline = sharp(original, { failOn: "none" }).rotate();
+
+  // FA Cup presentation is a wide crowd shot — extract the Keane podium region
+  // so the monument matches the Commons cropped framing at 1024² scale.
+  if (record.crop === "keane-podium") {
+    const meta = await sharp(original, { failOn: "none" }).metadata();
+    const w = meta.width ?? wantW;
+    const h = meta.height ?? wantH;
+    // Podium sits left-of-centre in the full frame; take a tall-ish square around it.
+    const side = Math.round(Math.min(w, h) * 0.55);
+    const left = Math.round(w * 0.18);
+    const top = Math.round(h * 0.28);
+    pipeline = pipeline.extract({
+      left: Math.max(0, Math.min(left, w - side)),
+      top: Math.max(0, Math.min(top, h - side)),
+      width: Math.min(side, w),
+      height: Math.min(side, h),
+    });
+  }
+
+  await pipeline
+    .resize(wantW, wantH, { fit: "cover", position: landscape ? "centre" : "attention" })
+    .webp({ quality: 86 })
+    .toFile(output);
+
+  const meta = await sharp(output).metadata();
+  if (meta.width !== wantW || meta.height !== wantH) {
+    throw new Error(`Unexpected output size for ${record.placeId}`);
+  }
+  console.log(`${record.placeId}: ${meta.width}×${meta.height} → ${path.relative(ROOT, output)}`);
+  await sleep(1200);
+}
+
 async function main() {
-  const source = JSON.parse(await fs.readFile(MANIFEST, "utf8")) as { records: PlaceMedia[] };
+  const source = JSON.parse(await fs.readFile(MANIFEST, "utf8")) as Manifest;
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
   for (const record of source.records) {
-    if (record.sourceId !== "wikimedia-commons") {
-      throw new Error(`Expected a Commons source for ${record.placeId}`);
-    }
-
-    const output = path.join(OUTPUT_DIR, `${record.placeId}.webp`);
-    try {
-      const existing = await sharp(output).metadata();
-      if (existing.width === SIZE && existing.height === SIZE) {
-        console.log(`${record.placeId}: already cached → ${path.relative(ROOT, output)}`);
-        continue;
-      }
-    } catch {
-      // missing or unreadable — fetch below
-    }
-
-    const original = await fetchOriginal(record.imageUrl);
-    // Landscape stadium stills → square cover crop centred on the bowl / towers.
-    await sharp(original, { failOn: "none" })
-      .rotate()
-      .resize(SIZE, SIZE, { fit: "cover", position: "attention" })
-      .webp({ quality: 86 })
-      .toFile(output);
-
-    const meta = await sharp(output).metadata();
-    if (meta.width !== SIZE || meta.height !== SIZE) {
-      throw new Error(`Unexpected output size for ${record.placeId}`);
-    }
-    console.log(`${record.placeId}: ${meta.width}×${meta.height} → ${path.relative(ROOT, output)}`);
-    await sleep(1200);
+    await cacheRecord(record);
+  }
+  if (source.climaxAtmosphere) {
+    await cacheRecord({ ...source.climaxAtmosphere, fit: "landscape" });
   }
 }
 

@@ -366,27 +366,21 @@ Copy discipline unchanged: no manufactured mystery, every line a fact/date/measu
 moves into the latency beat and the door receipts — it is not deleted from the
 record, only from the beat count.
 
-### Stage monument — **A. Place** (locked 2026-07-09)
+### Stage monument — **trophy perspectives** (trial 2026-07-10)
 
-No Best/Ronaldo-style portrait duel. The spin-off needs *weight*, not a second
-loop. **Chosen: place** — Old Trafford · Wembley · Camp Nou land with the three
-gold knots (time + place per §2).
+Locked earlier as place (grounds). Trial now: three licensed trophy stills as
+different perspectives on the same haul — celebration → lift → parade.
 
-Treatment: licensed Commons stills, heavily treated (grayscale + red wash +
-edge masks) — the same monument register as chapter 1's portraits, not match
-photography and not a badge strip. Manifest:
-`data/canonical/journey-place-media.json`; cache via
-`scripts/cache-journey-places.ts` → `public/media/journey/{old-trafford,wembley,camp-nou}.webp`.
+| Knot | Label | File | Why |
+|------|-------|------|-----|
+| 16 May | Premier League | Seán Murray PL title celebration, cropped (CC BY-SA 2.0) | Squad + Premier League trophy at OT |
+| 22 May | FA Cup | Michael Cairns FA Cup presentation (CC BY 2.0), Keane-podium crop | Captain lifts the Cup |
+| after | Champions League | Seán Murray open-top bus (CC BY-SA 2.0) | All three trophies — no Commons Camp Nou European Cup lift exists; parade stands in for the haul |
 
-| Ground | File | Why this one |
-|--------|------|--------------|
-| Old Trafford | Arne Müseler aerial (CC BY-SA 3.0 de) | Clear bowl identity at monument scale |
-| Wembley | Twin Towers, **5 June 1999** (public domain) | The ground that hosted the Cup final — not the post-2007 arch |
-| Camp Nou | Kieran Lynam, 2008 (CC BY 2.0) | Pre-rebuild bowl; avoids modern Qatar branding |
-
-Each place name fades in with its knot; at land the stills sit as quiet
-atmosphere behind the pocket. Quiet Commons attribution lives in the manifest
-(same pattern as player-media). Do not ship three named player portraits.
+Stadium exteriors and the single Camp Nou climax still remain in
+`data/canonical/journey-place-media.json` / `public/media/journey/` as
+alternatives (`atmosphere="places"` vs `"climax"`). Flip the record set to
+restore grounds.
 
 ### Stage sketch (beat 0 — unchanged geometry)
 
