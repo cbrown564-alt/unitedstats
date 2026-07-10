@@ -81,7 +81,7 @@ export interface GreatNight {
  */
 
 /** Zero-based day index within the UTC year — the deterministic rotation seed,
- *  matching `lib/now.ts` and `lib/entryPoints.ts` so the surfaces turn in step. */
+ *  matching `lib/now.ts` so the served surfaces turn in step. */
 function dayOfYear(d: Date): number {
   const start = Date.UTC(d.getUTCFullYear(), 0, 0);
   const today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());

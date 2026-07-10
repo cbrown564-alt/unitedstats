@@ -69,11 +69,12 @@ Camp Nou) — not only chronology.
 
 ### Now — standalone stories
 
-Build and prove **one story at a time** as a self-contained arc. Each story gets
-its own chrome-off, `noindex` route under **`/stories/[slug]`** (lab paths today
-still live at `/journey` and `/journey/treble` until the rename). Cross-links
-between stories stay light; do not wait on a master timeline to ship the next
-chapter.
+Build and prove **one story at a time** as a self-contained arc. Each story has
+its own chrome-off, `noindex` route under **`/stories/[slug]`**, with the
+`/stories` shelf as the product entry point. The shelf sits above Explore in the
+primary navigation. The former `/journey*` lab paths permanently redirect to
+their matching story. Cross-links between stories stay light; do not wait on a
+master timeline to ship the next chapter.
 
 These stories are **building blocks with a secondary purpose**: each proves a
 metaphor verb (loop, spin-off, …) and a product lens, and each is worth reading
@@ -249,11 +250,11 @@ called the 2008 win "*a second European Cup*" — it was the **third** ('68, '99
 
 ### Build notes (durable decisions & gotchas)
 
-- **Chrome-free without FOUC.** `/journey` hides the app shell via
+- **Chrome-free without FOUC.** Story chapters hide the app shell via
   `html[data-chrome="off"]` rules (`globals.css`). Setting that in a
   post-hydration effect flashed the sidebar on load — fixed by a path-gated
   `beforeInteractive` script in `app/layout.tsx` (runs before first paint on
-  hard loads of `/journey` and `/journey/*`). `useJourneyStage` keeps it in
+  hard loads of `/stories/[slug]`). `useJourneyStage` keeps it in
   sync for client-side nav and clears it on exit. Do not put a raw `<script>`
   in page components — React 19 warns that those never execute on the client.
 - **One coordinate system.** Thread, ghost years, and names all live in a single
@@ -308,9 +309,9 @@ called the 2008 win "*a second European Cup*" — it was the **third** ('68, '99
 
 The second metaphor verb. Where the pilot proved the **loop** (history rhyming
 across forty years), this chapter proves the **spin-off**: a singular campaign
-that leaves the main axis into its own pocket, then returns. Packaging: standalone
-story under `/stories` when renamed (§3); lab route today is `/journey/treble`
-(`noindex`) + light chapter cross-links. The pilot's arc stays untouched.
+that leaves the main axis into its own pocket, then returns. It is published at
+`/stories/eleven-days-in-may` (`noindex`) with light chapter cross-links. The
+pilot's arc stays untouched.
 
 ### The facts (verified in the record, 2026-07-09)
 
@@ -348,7 +349,7 @@ but the chapter still read as a chrome-off trailer for `/questions/treble`:
   preface another authored page.
 - **Stage without monument** — type + thread only. Correct to refuse a Best /
   Ronaldo portrait duel, but the landed stage still needs visual weight so it
-  doesn't lose the side-by-side with `/journey`.
+  doesn't lose the side-by-side with `/stories/two-no-7s`.
 
 North star: **Two No. 7s** = history rhymes across forty years, three product
 lenses. **Treble** = a singular eleven-day pocket where **three must-wins were
@@ -487,8 +488,9 @@ grounds to celebration → lift → parade). Structure unchanged.
    bench."
 3. `trailingBoard()` above Spurs/Bayern `MatchFlow` — `0–1 after 26′` /
    `0–1 at 90′`; Newcastle null. Final score demoted from gold in the card header.
-4. Packaging stance locked in §3: standalone `/stories/[slug]` (lab paths still
-   `/journey*`); stitched time-journey later. Lever **E** still open.
+4. Packaging stance locked in §3: standalone `/stories/[slug]`, with `/stories`
+   as its primary shelf and permanent redirects from `/journey*`; stitched
+   time-journey later. Lever **E** was resolved below.
 
 ### Why the astonishment was missing — and what A/C/D changed (2026-07-10)
 
@@ -520,8 +522,12 @@ astonishment has to come from which facts get staged, in which order.
 4. **The latency** — Cole and Sheringham within two minutes (`BenchLatency`).
 5. **The English first** — frame only; do not lead with it (same overshadow risk).
 
-Still open: lever **E** (uniqueness of manner as a United-record slice), and a
-real nostalgist pass on whether the manner now outranks the haul.
+**Lever E — resolved not to claim.** Establishing that this manner is unique
+across English football would need a cross-club, cross-competition source and a
+definition of "must-win" outside Red Thread's data contract. That would weaken
+the chapter's evidence discipline. The story keeps the specific, fully
+derivable stack and makes no uniqueness claim. Reader response is now ordinary
+post-release product feedback, not a gate for publishing the finished chapter.
 
 ### Decision log (2026-07-10) — levers A + C + D
 
@@ -531,7 +537,7 @@ real nostalgist pass on whether the manner now outranks the haul.
 | **B. Stage the stack under the myth** | Declined (A chosen) |
 | **C. Scoreline-before-winner** | **Shipped** — `trailingBoard()` |
 | **D. Door as stack** | **Shipped** with A |
-| **E. Uniqueness of manner** | Open |
+| **E. Uniqueness of manner** | **Declined** — no claim without an evidence-complete cross-club comparison |
 
 Morph copy phases:
 
@@ -560,9 +566,9 @@ story.
 
 The third chapter. Same metaphor verb as the Treble (spin-off), different
 shape: not an eleven-day campaign pocket, but a **place pocket** — Old Trafford
-as the ground where one rule has held for four decades. Packaging: standalone
-story under `/stories` when renamed (§3); lab route target `/journey/fortress`
-(`noindex`) + light chapter cross-links. Chapters 1–2 stay untouched.
+as the ground where one rule has held for four decades. It is published at
+`/stories/fortress-ot` (`noindex`) with light chapter cross-links. Chapters 1–2
+stay untouched.
 
 ### The facts (verified in the record, 2026-07-10)
 
@@ -677,7 +683,7 @@ portrait duel.
 
 ### Status
 
-**2026-07-10 — beat sheet locked; first build shipped** to `/journey/fortress`:
+**2026-07-10 — beat sheet locked; first build shipped** to `/stories/fortress-ot`:
 
 1. `FortressSpinoff` — place pocket, OT monument, three crack knots; manner-first
    copy (place → led at HT → fallen behind only three times); foot "Never lost."
@@ -745,7 +751,8 @@ Falsifiable:
 
 If (1) fails, the morph is wrong or the copy is — fix before adding chapters.
 
-**Status (2026-07-09):** the **multi-beat arc is built and polished** on `/journey`.
+**Status (2026-07-10):** the **multi-beat arc is built and polished** at
+`/stories/two-no-7s`.
 The flat single-fact version is gone: the morph carries the shirt rhyme (beat 0),
 then three stations each reuse a different app surface carrying a *new* rhyming
 fact — the peak (`CareerDuelChart`, season 5 emphasised), the cup
@@ -761,19 +768,22 @@ Information rises, so the copy states facts instead of manufacturing suspense.
 - (4) reduced motion lands the morph state; beats 1–4 are always visible. ✓
 - (5) one visual language — reused charts bring their own axes (honest showcase),
   floodlit dressing stays around them; source links use the same knot register. ✓
-- (1) — the season-5 jolt — is now *shown* (emphasis band + aligned peak dots)
-  and re-staked on the trophy/goal climax; still **awaits a real nostalgist**.
+- (1) — the season-5 jolt — is shown (emphasis band + aligned peak dots) and
+  re-staked on the trophy/goal climax. It is ready for normal reader feedback;
+  it is no longer a packaging gate.
 
 ---
 
-## 8. Prototype location
+## 8. Implementation location
 
 - Doc: this file (`docs/JOURNEY.md`)
-- Routes: `/journey` (chapter 1, the loop), `/journey/treble` (chapter 2, the
-  spin-off campaign), and `/journey/fortress` (chapter 3, the place spin-off) —
-  all prototype, `noindex`, chrome-off via the root layout pre-paint script.
-  **Packaging target:** rename to `/stories/[slug]` (§3); stitched time-journey
-  later.
+- Shelf: `/stories` — the primary-navigation entry point above Explore.
+- Routes: `/stories/two-no-7s` (chapter 1, the loop),
+  `/stories/eleven-days-in-may` (chapter 2, the spin-off campaign), and
+  `/stories/fortress-ot` (chapter 3, the place spin-off) — all `noindex` and
+  chrome-off via the root-layout pre-paint script. `/journey`,
+  `/journey/treble`, and `/journey/fortress` permanently redirect to their
+  corresponding canonical story. The stitched time-journey remains later.
 - Chapter 1 beat 0 (opening morph): `components/journey/RhymeMorph.tsx`
 - Chapter 2 beat 0 (spin-off pocket): `components/journey/TrebleSpinoff.tsx`
   — discovery arc (place monuments → bench latency → Spurs → Barcelona teamsheet

@@ -75,8 +75,8 @@ pick one canonical surface for peak season, top opponent, club rank, etc.
 
 ### 7. Push back when the literal spec undermines the goal
 
-Faithful execution that adds noise or duplication is still a failure (see
-`docs/RESTRAINT-PASS-PHASE2-REVIEW.md`). Examples from the player refinement pass:
+Faithful execution that adds noise or duplication is still a failure. Examples
+from the player refinement pass:
 
 - Season chart **open** in Career History — it orients before the table.
 - Transfers get a **dedicated tab + timeline**, not row #1 buried in overview.
@@ -266,4 +266,3 @@ When applying this plan to a new detail page:
 - `app/player/[id]/page.tsx` — reference detail page.
 - `docs/SOURCE-AUDIT.md` — multi-lane data model (club record, match-attributed, curated).
 - `docs/MOBILE.md` — shell tiers and screenshot workflow.
-- `docs/RESTRAINT-PASS-PHASE2-REVIEW.md` — push back when the spec undermines the goal.

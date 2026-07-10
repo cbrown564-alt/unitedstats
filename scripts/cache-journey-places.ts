@@ -1,5 +1,5 @@
 /**
- * Build the large, route-specific stills used by /journey/treble beat 0.
+ * Build the large, route-specific stills used by the Eleven days in May story.
  *
  * Same pattern as cache-journey-portraits.ts: Commons originals recorded in
  * data/canonical/journey-place-media.json → WebP under public/media/journey/.

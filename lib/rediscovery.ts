@@ -1,6 +1,6 @@
 import { getDb } from "./db";
 import { cachedQuery } from "./queryCache";
-import { MATCH_SELECT, matchById, type MatchRow } from "./queries";
+import { MATCH_SELECT, type MatchRow } from "./queries";
 import { scoreline, scoreNote, fmtRound, resultTone, fmtDate, venuePrefix } from "./format";
 import { CANONICAL_FAME } from "./curatedNights";
 import type { RediscoveryPrompt } from "./rediscovery-prompt";
@@ -247,16 +247,11 @@ export function scorePool(matches: MatchRow[], opts: RediscoveryOpts = {}): Scor
   return scored.sort((a, b) => b.total - a.total || b.charge - a.charge || b.match.date.localeCompare(a.match.date));
 }
 
-/** Deterministic day-of-year seed — matches greatNights / entryPoints rotation. */
+/** Deterministic day-of-year seed — matches the served-night rotation. */
 function dayOfYear(d: Date): number {
   const start = Date.UTC(d.getUTCFullYear(), 0, 0);
   const today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
   return Math.floor((today - start) / 86_400_000);
-}
-
-function pickFromPool(pool: ScoredNight[], seed: number): ScoredNight | null {
-  if (pool.length === 0) return null;
-  return pool[seed % pool.length] ?? pool[0];
 }
 
 export function buildPrompt(night: ScoredNight): RediscoveryPrompt {
@@ -284,14 +279,6 @@ export function buildPrompt(night: ScoredNight): RediscoveryPrompt {
 export function rediscoveryPool(opts: RediscoveryOpts = {}): ScoredNight[] {
   const key = `rediscovery:pool:${opts.sinceYear ?? "all"}:${opts.now?.toISOString().slice(0, 10) ?? "now"}`;
   return cachedQuery(key, 300_000, () => scorePool(allMatches(), opts));
-}
-
-/** A deterministic roll over the global pool (homepage / surprise nostalgia). */
-function rediscoveryRoll(opts: RediscoveryOpts = {}): RediscoveryPrompt | null {
-  const now = opts.now ?? new Date();
-  const pool = rediscoveryPool({ ...opts, now });
-  const pick = pickFromPool(pool, dayOfYear(now));
-  return pick ? buildPrompt(pick) : null;
 }
 
 /** Top N engine picks for re-roll walks — seeded rotation, not behavioural. */

@@ -24,5 +24,5 @@ break. These bounds are recorded here as durable rules.
 - Collections and embeds are best-effort convenience surfaces, not part of the
   citable record (curated cuts and the `/api/v1` answers are). See
   `docs/process/PHASE0-CITABLE-CONTRACT.md` for what is citable.
-- If `/collection` or `/embed` are retired (see `docs/RESTRAINT-PASS.md`
-  Phase 3), these bounds retire with them.
+- `/collection` and `/embed` were retired with the restraint pass; these bounds
+  retired with them.

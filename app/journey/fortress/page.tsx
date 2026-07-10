@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FortressSpinoff, type FortressCrackKnot } from "@/components/journey/FortressSpinoff";
+import { FortressSpinoff } from "@/components/journey/FortressSpinoff";
 import { ThreeCracks, crackGoalClock, type ThreeCrackNight } from "@/components/journey/ThreeCracks";
 import { JourneyBeat, JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
 import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
@@ -83,7 +83,8 @@ function NightCard({
 }
 
 /**
- * Journey chapter 3 — Fortress OT as a place spin-off (docs/JOURNEY.md §4c).
+ * Story chapter 3 — Fortress OT as a place spin-off (docs/JOURNEY.md §4c),
+ * rendered from /stories/fortress-ot; the legacy /journey/fortress path redirects.
  * Discovery arc: pocket + OT monument → three cracks → Bournemouth night →
  * Ipswich hinge → door with the living wall into home matches.
  */
@@ -377,7 +378,7 @@ export default function FortressJourneyPage() {
               >
                 The full answer →
               </Link>
-              <JourneyChapterNav current="/journey/fortress" />
+              <JourneyChapterNav current="/stories/fortress-ot" />
             </div>
           </JourneyBeat>
         </div>

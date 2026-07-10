@@ -7,6 +7,7 @@ const stroke = {
 };
 
 export type NavIconId =
+  | "journey"
   | "discover"
   | "matches"
   | "seasons"
@@ -21,6 +22,15 @@ export function NavIcon({ id, className }: { id: NavIconId; className?: string }
   const props = { ...stroke, className, "aria-hidden": true as const };
 
   switch (id) {
+    case "journey":
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
+          <path d="M3 12h4c2.5 0 2.5-6 5-6s2.5 12 5 12h4" />
+          <circle cx="3" cy="12" r="1.25" />
+          <circle cx="12" cy="6" r="1.25" />
+          <circle cx="21" cy="18" r="1.25" />
+        </svg>
+      );
     case "discover":
       return (
         <svg width="20" height="20" viewBox="0 0 24 24" {...props}>

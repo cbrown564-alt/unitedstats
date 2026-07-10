@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
@@ -303,12 +302,6 @@ export default async function OpponentPage({
         matchCount={total}
         hasCupMeetings={cup.p > 0}
       />
-
-      <p className="text-sm">
-        <Link href="/search?kind=opponent" className="text-devil-bright hover:underline focus-ring">
-          ← All opponents
-        </Link>
-      </p>
     </div>
   );
 }

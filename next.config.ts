@@ -50,6 +50,11 @@ const nextConfig: NextConfig = {
       { source: "/questions/ferguson", destination: "/questions/ferguson-era", permanent: true },
       { source: "/questions/decline", destination: "/questions/ferguson-era", permanent: true },
       { source: "/opponents", destination: "/search", permanent: true },
+      // Journey prototypes are now published as standalone stories. Preserve the
+      // original links while making /stories/[slug] the only canonical home.
+      { source: "/journey", destination: "/stories/two-no-7s", permanent: true },
+      { source: "/journey/treble", destination: "/stories/eleven-days-in-may", permanent: true },
+      { source: "/journey/fortress", destination: "/stories/fortress-ot", permanent: true },
     ];
   },
   async headers() {

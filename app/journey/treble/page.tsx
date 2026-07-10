@@ -116,8 +116,8 @@ function DeciderCard({
 /**
  * Journey chapter 2 — the Treble as the spin-off verb (docs/JOURNEY.md §4b).
  * Discovery arc: pocket + place monuments → bench latency → one night (Spurs) →
- * Barcelona teamsheet jolt → door into the season. Sibling of /journey (the loop);
- * not linked from nav; noindex.
+ * Barcelona teamsheet jolt → door into the season. Rendered from
+ * /stories/eleven-days-in-may; the legacy /journey/treble path redirects.
  */
 export default function TrebleJourneyPage() {
   const seq = matchesSequence({ season: SEASON });
@@ -327,7 +327,7 @@ export default function TrebleJourneyPage() {
               >
                 The full answer →
               </Link>
-              <JourneyChapterNav current="/journey/treble" />
+              <JourneyChapterNav current="/stories/eleven-days-in-may" />
             </div>
           </JourneyBeat>
         </div>

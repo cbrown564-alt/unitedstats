@@ -9,10 +9,8 @@
  *
  *   - the "surprise me" pool (`lib/surprise.ts`)
  *   - the answer-foot related trails (`lib/related.ts`)
- *   - the personal entry chips + breadth tease (`lib/entryPoints.ts`)
  *
- * The surprise/related checks are pure (no DB); the entry-point resolution reads
- * the live db (npm run build:db).
+ * These checks are pure.
  */
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -21,7 +19,6 @@ import { QUESTIONS, questionSlugs } from "../lib/questions";
 import { CURATED_CUTS } from "../lib/cut";
 import { surpriseFacts, pickIndex } from "../lib/surprise";
 import { relatedAnswers, relatedSlugs } from "../lib/related";
-import { allEntryPoints, entryStrip } from "../lib/entryPoints";
 
 const slugSet = new Set(questionSlugs());
 
@@ -71,46 +68,4 @@ test("every answer carries a curated trail of 2–3 valid next steps", () => {
       }
     }
   }
-});
-
-test("every entry chip resolves to a real entity page with an honest hint", () => {
-  const HREF_PREFIX: Record<string, string> = {
-    player: "/player/",
-    rivalry: "/opponent/",
-    era: "/", // a season (/seasons/) or a manager (/manager/)
-  };
-  const points = allEntryPoints(); // throws if any id is unknown — that *is* the check
-  assert.ok(points.length >= 8 + 5 + 4, `thin entry registry: ${points.length}`);
-  const validKind = new Set(["player", "rivalry", "era"]);
-  for (const p of points) {
-    assert.ok(validKind.has(p.kind), `entry has unknown kind: ${p.kind}`);
-    assert.ok(p.label.length > 0, `entry ${p.href} has no label`);
-    assert.ok(p.hint.length > 0, `entry ${p.href} has no hint`);
-    assert.ok(p.href.startsWith(HREF_PREFIX[p.kind]), `entry ${p.label} href mismatches its kind: ${p.href}`);
-    if (p.kind === "era") {
-      assert.ok(
-        p.href.startsWith("/seasons/") || p.href.startsWith("/manager/") || p.href.startsWith("/questions/"),
-        `era ${p.label} must land on a season, manager, or curated question page: ${p.href}`,
-      );
-    }
-  }
-});
-
-test("the entry strip is balanced, distinct, and rotates by day", () => {
-  const a = entryStrip(new Date("2026-01-01T12:00:00Z"));
-  const sameDay = entryStrip(new Date("2026-01-01T23:00:00Z"));
-  const next = entryStrip(new Date("2026-01-02T12:00:00Z"));
-
-  // Two players, a rivalry, an era — the shape the homepage hero renders.
-  assert.equal(a.filter((p) => p.kind === "player").length, 2, "strip should show two players");
-  assert.equal(a.filter((p) => p.kind === "rivalry").length, 1, "strip should show one rivalry");
-  assert.equal(a.filter((p) => p.kind === "era").length, 1, "strip should show one era");
-
-  // The two players are always distinct (drawn half the pool apart).
-  const players = a.filter((p) => p.kind === "player").map((p) => p.href);
-  assert.equal(new Set(players).size, players.length, "strip repeated a player");
-
-  // Deterministic within a UTC day; turns over across days (the static guardrail).
-  assert.deepEqual(a.map((p) => p.href), sameDay.map((p) => p.href), "strip changed within one UTC day");
-  assert.notDeepEqual(a.map((p) => p.href), next.map((p) => p.href), "strip did not rotate across days");
 });

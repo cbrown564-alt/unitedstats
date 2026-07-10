@@ -108,8 +108,8 @@ function FinalCard({
 }
 
 /**
- * Throwaway journey lab — Ronaldo ↔ Best, the trophy-rhyme arc.
- * Scoped in docs/JOURNEY.md §4; not linked from nav; noindex. Beat 0 is the
+ * The Two No. 7s story body — rendered from /stories/two-no-7s. The legacy
+ * /journey path permanently redirects in next.config.ts. Beat 0 is the
  * opening morph; beats 1–3 each showcase a different app surface carrying a new
  * rhyming fact; beat 4 is the door into the living product.
  */
@@ -266,7 +266,7 @@ export default function JourneyPage() {
                   2008 final →
                 </Link>
               </div>
-              <JourneyChapterNav current="/journey" />
+              <JourneyChapterNav current="/stories/two-no-7s" />
             </div>
           </JourneyBeat>
         </div>

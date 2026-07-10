@@ -1,5 +1,5 @@
 /**
- * Journey chapter facts — golden pins for the numbers the /journey chapters put
+ * Journey chapter facts — golden pins for the numbers the /stories chapters put
  * in copy. Each chapter's headlines state facts read from the DB at render; these
  * tests pin the closed historical slices behind them (docs/JOURNEY.md §4, §4b) so
  * an ingest regression can't silently rewrite a story.
@@ -9,7 +9,29 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { matchReceipt, subGoals, unbeatenTail, trailingBoard, fortressRun, crackRescuer } from "../lib/journey";
+import {
+  JOURNEY_CHAPTERS,
+  crackRescuer,
+  fortressRun,
+  journeyChapterBySlug,
+  matchReceipt,
+  subGoals,
+  trailingBoard,
+  unbeatenTail,
+} from "../lib/journey";
+
+test("published stories have stable slugs and canonical story routes", () => {
+  assert.deepEqual(
+    JOURNEY_CHAPTERS.map(({ slug, href }) => ({ slug, href })),
+    [
+      { slug: "two-no-7s", href: "/stories/two-no-7s" },
+      { slug: "eleven-days-in-may", href: "/stories/eleven-days-in-may" },
+      { slug: "fortress-ot", href: "/stories/fortress-ot" },
+    ],
+  );
+  assert.equal(journeyChapterBySlug("fortress-ot")?.title, "Fortress OT");
+  assert.equal(journeyChapterBySlug("not-a-story"), undefined);
+});
 import { matchesSequence } from "../lib/trails";
 
 test("unbeatenTail reads the run after the last defeat", () => {

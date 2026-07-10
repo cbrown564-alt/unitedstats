@@ -1,9 +1,9 @@
 # Status
 
-Living project status for Red Thread (repo: **unitedstats**). Updated 2026-07-02.
-Supersedes the transient progress notes in `docs/RESTRAINT-PASS.md` for *what is
-done, what is closed, and what comes next*. Product vocabulary and the bar a
-surface must clear remain in `CONTEXT.md` and `PRODUCT.md`.
+Living project status for Red Thread (repo: **unitedstats**). Updated 2026-07-10.
+The durable record of *what is done, what is closed, and what comes next*.
+Product vocabulary and the bar a surface must clear remain in `CONTEXT.md` and
+`PRODUCT.md`.
 
 ---
 
@@ -15,9 +15,11 @@ homepage. **Phase 2 question expansion was attempted and did not work** — the
 front door stays at four promoted myths, not a rebuilt catalogue. **`/explore`
 is approved as-is** — no further reshape pass. **Mobile is complete** (Waves
 0–2). **Phase 3a rediscovery engine is shipped** (charge × fadedness scoring,
-entity rails, homepage/surprise integration, optional era bias). Next major work:
-the **on-site copy rewrite**, then a **cleanup** pass to retire scaffolding and
-dead code.
+entity rails, homepage/surprise integration, optional era bias). The three-chapter
+**Stories** shelf is now published above Explore in the primary navigation; it is
+a completed soul surface, not a parallel roadmap. The live-route copy rewrite
+and restraint cleanup are complete; the remaining work is minor backlog and one
+analytics scope decision.
 
 ---
 
@@ -50,6 +52,7 @@ dead code.
 | `/match/[id]` | Full-bleed sticky hero; mobile section tabs |
 | `/seasons/[season]` | Prev/next merged into breadcrumb row |
 | `/compare` | Curated debates + custom picker (custom picker accepted for now) |
+| `/stories` | Shelf for three standalone, chrome-off `noindex` stories: Two No. 7s, Eleven days in May, and Fortress OT; legacy `/journey*` routes permanently redirect |
 
 ### Mobile — complete
 
@@ -72,6 +75,27 @@ opponent, and player pages; homepage and `/surprise` consume the engine;
 optional era bias via `?since=` + `EraPrompt`. Curated nights moved to
 `lib/curatedNights.ts`. Tests in `tests/rediscovery.test.ts`.
 
+## Done — Stories shelf (2026-07-10)
+
+Three evidence-led standalone chapters are published at `/stories/[slug]` and
+entered through `/stories`, which now precedes Explore in the desktop and mobile
+navigation. Each chapter retains its chrome-off, `noindex` presentation and
+light chapter cross-links; `/journey`, `/journey/treble`, and
+`/journey/fortress` permanently redirect to their canonical story URLs.
+
+The chapter shelf is deliberately complete at three stories. The stitched
+time-journey and further chapters remain deferred until a distinct beat sheet
+earns them (`docs/JOURNEY.md`). The Treble makes no unsupported cross-club
+uniqueness claim.
+
+## Done — Copy and restraint cleanup (2026-07-10)
+
+The complete Tier A copy inventory (115 items) has been rewritten and passes the
+strict smell gate. The old EntryChips registry and its tests are gone, as is the
+opponent-page “All opponents” backtrail. The transient restraint-plan documents
+were retired, with their remaining references removed. `docs/MOBILE.md` already
+records Waves 0–2 as complete; its remaining ideas are explicitly optional.
+
 ---
 
 ## Closed — not continuing
@@ -86,48 +110,12 @@ optional era bias via `?since=` + `EraPrompt`. Curated nights moved to
 
 ---
 
-## Next — two workstreams
+## Next — minor backlog and one decision
 
-In leverage order.
-
-### 1. On-site copy rewrite
-
-**Why.** Audience evidence ranked templated connective copy as the **#1
-pre-launch credibility fix** — same disease as the 6,200-line docs already cut.
-The question *format* and data voice are fine; the *connective tissue* between
-modules reads as AI-generated prototype.
-
-**Scope:**
-
-- Plain, human voice across page deks, section intros, and `QuestionModules` copy
-- Keep coverage grades and provenance language — those are trust, not decoration
-- Register: product with atmosphere (`DESIGN.md`); not punditry, not liturgy
-
-**Out of scope:** Rewriting `PRODUCT.md` / `CONTEXT.md` (already reconciled).
-
-**Definition of done:** A pass over the live routes a first-time visitor hits
-(home, explore, one question depth page, match, player, data) with no
-remaining "spine / front door / red thread" templated cadence in user-visible copy.
-
----
-
-### 2. Cleanup
-
-**Why.** Close the restraint pass properly: remove scaffolding, dead code, and
-stale docs so the repo reflects decisions above.
-
-| Item | Action |
-|---|---|
-| `docs/RESTRAINT-PASS.md` | Delete when rediscovery + copy are done (pass's own definition of done) |
-| `docs/RESTRAINT-PASS-PHASE2-REVIEW.md` | Delete with restraint scaffolding |
-| `lib/entryPoints.ts` | Remove module + tests (dead since EntryChips cut) |
-| `/opponent/[id]` "All opponents" footer trail | Remove per `CONTEXT.md` §4 (discover via search/matches) |
-| `docs/ARCHITECTURE.md` "836 lineups" class drift | Already fixed Jul 2026 — keep in sync on future data milestones |
-| `docs/MOBILE.md` status header | Mark complete / move wishlist items to `BACKLOG.md` if still wanted |
-| Analytics supply-lines Act III | **Decide:** build assist-partnership barbell (`CONTEXT.md` §4) or explicitly drop from scope and note in `BACKLOG.md` |
-
-**Definition of done:** Knip clean; no references to deleted restraint docs;
-`STATUS.md` remains the single progress doc until the next major phase completes.
+- Decide whether analytics should retain the assist-partnership lane; either
+  build it as a bounded player-page lens or explicitly drop it to `BACKLOG.md`.
+- Keep the P1–P3 data and media items in `BACKLOG.md` moving only when they earn
+  priority over record maintenance.
 
 ---
 
@@ -145,7 +133,6 @@ workstreams above, not ahead of them.
 |---|---|
 | `PRODUCT.md` | Product definition and promise |
 | `CONTEXT.md` | Nostalgist, soul+foundation, lens-not-loom, surface verdicts |
-| `docs/RESTRAINT-PASS.md` | Phase 3a spec (transient — delete after cleanup) |
 | `docs/HOMEPAGE.md` | TonightHero / spark design diary |
 | `docs/MOBILE.md` | Mobile shipped phases |
 | `BACKLOG.md` | Minor open bugs and polish |

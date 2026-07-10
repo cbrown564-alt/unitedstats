@@ -84,7 +84,7 @@ Homepage carousel shows first **3** of the launch set.
 
 | Surface | Item | Ref |
 | --- | --- | --- |
-| home | All-time peaks cut | `RESTRAINT-PASS-PHASE2-REVIEW` |
+| home | All-time peaks cut | phase-2 restraint review |
 | home | EntryChips / era pills removed | `795cc63` |
 | home | "Today in the Record" removed | `795cc63` |
 | home | Latest-results opponent truncation | `795cc63` |

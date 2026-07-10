@@ -9,10 +9,35 @@ import { leadHeldAtHome } from "./trails";
  * docs/JOURNEY.md §4b). Numbers match the stage kickers ("Red Thread / 01").
  */
 export const JOURNEY_CHAPTERS = [
-  { number: "01", title: "Two No. 7s", href: "/journey" },
-  { number: "02", title: "Eleven days in May", href: "/journey/treble" },
-  { number: "03", title: "Fortress OT", href: "/journey/fortress" },
+  {
+    slug: "two-no-7s",
+    number: "01",
+    title: "Two No. 7s",
+    href: "/stories/two-no-7s",
+    description: "George Best and Cristiano Ronaldo: the same shirt, fifth season, European Cup and final goal.",
+  },
+  {
+    slug: "eleven-days-in-may",
+    number: "02",
+    title: "Eleven days in May",
+    href: "/stories/eleven-days-in-may",
+    description: "The Treble's three must-wins: two comebacks, all decided from the bench.",
+  },
+  {
+    slug: "fortress-ot",
+    number: "03",
+    title: "Fortress OT",
+    href: "/stories/fortress-ot",
+    description: "Since 1984, just three home league leads have turned into deficits — each rescued.",
+  },
 ] as const;
+
+export type JourneyChapterSlug = (typeof JOURNEY_CHAPTERS)[number]["slug"];
+
+/** Resolve one published standalone story from its canonical URL segment. */
+export function journeyChapterBySlug(slug: string) {
+  return JOURNEY_CHAPTERS.find((chapter) => chapter.slug === slug);
+}
 
 /**
  * A single match "receipt" assembled for a journey beat — the same shapes the

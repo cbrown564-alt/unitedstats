@@ -172,8 +172,8 @@ result, not yet executed cuts.
     `lib/historyDigests.ts`, `lib/now.ts` (already dead), the `digestCard` OG card,
     the `/api/v1/answers/history-digests` route + machine answer, the `history-digest`
     citable unit + JSON-LD, the data dir, the ingest script, and the digest tests.
-    All green (tsc / knip / lint / 126 tests). `lib/entryPoints.ts` is *separately*
-    dead (the removed EntryChips backing) — a future small cut, left for now.
+    All green (tsc / knip / lint / 126 tests). The removed EntryChips backing
+    was deleted in the follow-up cleanup.
 
 ## 5. What this supersedes in `PRODUCT.md` (reconciled 2026-06-29)
 

@@ -293,21 +293,10 @@ Craft's Baseball Reference redesign case study identifies discoverability, custo
 - **Auto-update pipeline** — new results flow in via GitHub Actions after each
   match; no servers, no paid APIs (see `docs/PIPELINE.md`).
 
-## What's next
+## Current direction
 
-The pass that reshaped this product is recorded in `CONTEXT.md` (the shared
-picture — who it's for, what it's for, the bar) and `docs/RESTRAINT-PASS.md` (the
-live plan). In leverage order:
-
-1. **Design the first-contact spark** — the homepage served-night and the
-   rediscovery engine that generates it. This is the gate; it outranks everything
-   else, because without a spark nothing downstream gets its turn.
-2. **The surface-by-surface pass** — hold *lens, not loom* against every route:
-   reshape `/compare` into a few authored lenses, keep the moments (`/match`,
-   `/on-this-day`, `/surprise`), give entity pages a rediscovery rail, and finish
-   removing build-anything machinery.
-3. **Rewrite the on-site copy** in a plain, human voice — the templated connective
-   copy is the same AI-voice disease as the docs already cut.
-
-Slice-collapse and the `/history-changed` freshness loop are already done; the
-group-by-anything `/cut` builder is retired.
+The first-contact spark, rediscovery rails, Stories shelf, and live-route copy
+pass are complete. Red Thread is now in a maintenance phase: protect the record,
+keep the product restrained, and take only work that earns a clear user-facing
+place. `STATUS.md` holds the active backlog and the remaining analytics
+assist-partnership decision.

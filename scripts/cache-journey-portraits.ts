@@ -1,5 +1,5 @@
 /**
- * Build the large, route-specific portraits used by the /journey opening.
+ * Build the large, route-specific portraits used by the Two No. 7s story.
  *
  * The shared player portrait cache intentionally uses small 320px cards. The
  * immersive journey enlarges two faces to half-viewport scale, so it needs its

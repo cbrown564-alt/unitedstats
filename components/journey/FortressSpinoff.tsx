@@ -45,7 +45,7 @@ function cubicLen(
   return len;
 }
 
-export type FortressCrackKnot = {
+type FortressCrackKnot = {
   id: string;
   date: string;
   /** Short opponent label on the knot (Spurs · Wednesday · Bournemouth). */
