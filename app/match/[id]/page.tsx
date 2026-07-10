@@ -539,17 +539,17 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 />
               </div>
               <div className="hero-grid pointer-events-none absolute inset-0 opacity-40" aria-hidden />
-              <div className="full-bleed-foreground relative space-y-5 py-7 pl-4 sm:py-12 sm:pl-6 lg:pl-0">
-                <div className="flex items-start justify-end gap-3 pr-4 sm:pr-6 lg:pr-0">
+              <div className="full-bleed-foreground relative pt-3 pb-4 pl-4 sm:pt-4 sm:pb-5 sm:pl-6 lg:pl-0">
+                <div className="absolute right-4 top-3 z-10 sm:right-6 sm:top-4 lg:right-0">
                   <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
                 </div>
-                <header className="space-y-4">
-                  <nav className="flex items-center justify-center gap-2 text-sm text-ink-faint">
+                <header className="space-y-3">
+                  <nav className="flex items-center justify-center gap-2 pr-16 text-sm text-ink-faint sm:pr-20">
                     <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
                     <span aria-hidden>·</span>
                     <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} bare />
                   </nav>
-                  <div className="space-y-2 border-t border-line py-5 text-center">
+                  <div className="space-y-1.5 border-t border-line py-3 text-center sm:py-4">
                     <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
                       <p className="text-xs font-semibold uppercase tracking-[0.25em] text-devil-bright">
                         {fmtDateLong(m.date)}
