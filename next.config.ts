@@ -55,6 +55,7 @@ const nextConfig: NextConfig = {
       { source: "/journey", destination: "/stories/two-no-7s", permanent: true },
       { source: "/journey/treble", destination: "/stories/eleven-days-in-may", permanent: true },
       { source: "/journey/fortress", destination: "/stories/fortress-ot", permanent: true },
+      { source: "/journey/fergie-time", destination: "/stories/fergie-time", permanent: true },
     ];
   },
   async headers() {

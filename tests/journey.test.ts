@@ -12,6 +12,7 @@ import test from "node:test";
 import {
   JOURNEY_CHAPTERS,
   crackRescuer,
+  fergieTimeEchoes,
   fortressRun,
   journeyChapterBySlug,
   matchReceipt,
@@ -27,10 +28,52 @@ test("published stories have stable slugs and canonical story routes", () => {
       { slug: "two-no-7s", href: "/stories/two-no-7s" },
       { slug: "eleven-days-in-may", href: "/stories/eleven-days-in-may" },
       { slug: "fortress-ot", href: "/stories/fortress-ot" },
+      { slug: "fergie-time", href: "/stories/fergie-time" },
     ],
   );
   assert.equal(journeyChapterBySlug("fortress-ot")?.title, "Fortress OT");
+  assert.equal(journeyChapterBySlug("fergie-time")?.title, "Fergie time");
   assert.equal(journeyChapterBySlug("not-a-story"), undefined);
+});
+
+test("fergie time: three late two-goal comebacks share the 0–1 to 2–1 shape", () => {
+  assert.deepEqual(
+    fergieTimeEchoes().map((night) => ({
+      id: night.id,
+      score: night.score,
+      deficit: night.deficit.score,
+      lateGoals: night.lateGoals.map((goal) => ({ name: goal.name, minute: goal.minute, added: goal.added })),
+    })),
+    [
+      {
+        id: "1993-04-10-sheffield-wednesday-h",
+        score: "2–1",
+        deficit: "0–1",
+        lateGoals: [
+          { name: "Steve Bruce", minute: 86, added: null },
+          { name: "Steve Bruce", minute: 90, added: 6 },
+        ],
+      },
+      {
+        id: "1999-05-26-bayern-munich-n",
+        score: "2–1",
+        deficit: "0–1",
+        lateGoals: [
+          { name: "Teddy Sheringham", minute: 90, added: 1 },
+          { name: "Ole Gunnar Solskjær", minute: 90, added: 3 },
+        ],
+      },
+      {
+        id: "2023-10-07-brentford-h",
+        score: "2–1",
+        deficit: "0–1",
+        lateGoals: [
+          { name: "Scott McTominay", minute: 90, added: 3 },
+          { name: "Scott McTominay", minute: 90, added: 7 },
+        ],
+      },
+    ],
+  );
 });
 import { matchesSequence } from "../lib/trails";
 

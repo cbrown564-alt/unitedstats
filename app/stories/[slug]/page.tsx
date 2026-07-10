@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import TwoNoSevensStory from "@/app/journey/page";
 import ElevenDaysInMayStory from "@/app/journey/treble/page";
 import FortressOtStory from "@/app/journey/fortress/page";
+import FergieTimeStory from "@/app/journey/fergie-time/page";
 import { JOURNEY_CHAPTERS, journeyChapterBySlug, type JourneyChapterSlug } from "@/lib/journey";
 
 export const revalidate = 86400;
@@ -12,6 +13,7 @@ const STORY_COMPONENTS: Record<JourneyChapterSlug, ComponentType> = {
   "two-no-7s": TwoNoSevensStory,
   "eleven-days-in-may": ElevenDaysInMayStory,
   "fortress-ot": FortressOtStory,
+  "fergie-time": FergieTimeStory,
 };
 
 export function generateStaticParams() {

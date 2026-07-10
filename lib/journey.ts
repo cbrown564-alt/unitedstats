@@ -30,6 +30,13 @@ export const JOURNEY_CHAPTERS = [
     href: "/stories/fortress-ot",
     description: "Since 1984, just three home league leads have turned into deficits — each rescued.",
   },
+  {
+    slug: "fergie-time",
+    number: "04",
+    title: "Fergie time",
+    href: "/stories/fergie-time",
+    description: "Three 2–1 comebacks, thirty years apart — the last one came a decade after Ferguson left.",
+  },
 ] as const;
 
 export type JourneyChapterSlug = (typeof JOURNEY_CHAPTERS)[number]["slug"];
@@ -235,6 +242,63 @@ export function trailingBoard(receipt: MatchReceipt): TrailingBoard | null {
 
   // Prefer trailing-at-90 when they were behind into stoppage; else first deficit.
   return boardAt90 ?? firstDeficit;
+}
+
+/**
+ * Three 2–1 comebacks that make the Fergie-time chapter's cross-manager loop.
+ * The dates are the authored selection; every score, goal clock, and player label
+ * remains read from the match receipt so the chapter cannot drift from the record.
+ */
+const FERGIE_TIME_ECHO_IDS = [
+  "1993-04-10-sheffield-wednesday-h",
+  "1999-05-26-bayern-munich-n",
+  "2023-10-07-brentford-h",
+] as const;
+
+export type FergieTimeEcho = {
+  id: string;
+  date: string;
+  opponent: string;
+  score: string;
+  /** The point United first went behind, used as the rail's starting score. */
+  deficit: TrailingBoard;
+  /** The two United goals after the 85th that turned 0–1 into 2–1. */
+  lateGoals: {
+    playerId: string | null;
+    name: string;
+    minute: number;
+    added: number | null;
+  }[];
+};
+
+/**
+ * The Fergie-time story's repeated shape: three 0–1 → 2–1 recoveries, each
+ * completed by two late United goals. This is deliberately journey-local, not
+ * a claim that these are the only such matches in United history.
+ */
+export function fergieTimeEchoes(): FergieTimeEcho[] {
+  return FERGIE_TIME_ECHO_IDS.flatMap((id) => {
+    const receipt = matchReceipt(id);
+    if (!receipt) return [];
+    const deficit = trailingBoard(receipt);
+    const lateGoals = receipt.unitedGoals
+      .filter((goal) => goal.minute != null && goal.minute >= 86)
+      .map((goal) => ({
+        playerId: goal.player_id,
+        name: goal.player_display_name ?? goal.player_name ?? "",
+        minute: goal.minute as number,
+        added: goal.added_time,
+      }));
+    if (!deficit || lateGoals.length !== 2) return [];
+    return [{
+      id: receipt.id,
+      date: receipt.date,
+      opponent: receipt.opponent,
+      score: receipt.score,
+      deficit,
+      lateGoals,
+    }];
+  });
 }
 
 /** The tail of a date-ordered sequence after its final defeat — the "didn't lose

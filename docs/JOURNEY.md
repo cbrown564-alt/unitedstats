@@ -708,6 +708,48 @@ the three cracks are the story.
 
 ---
 
+## 4d. Chapter 4 — Fergie time (the loop across managers)
+
+The fourth chapter turns the familiar phrase into a record-backed loop rather
+than a manager hagiography. It is published at `/stories/fergie-time` (`noindex`)
+with a permanent redirect from `/journey/fergie-time`.
+
+### The rhyme (verified in the record)
+
+| Night | Shape | Late goals |
+|------|-------|------------|
+| 10 Apr 1993 — Sheffield Wednesday, 2–1 | 0–1 down → 2–1 | Steve Bruce 86′, 90+6′ |
+| 26 May 1999 — Bayern, 2–1 | 0–1 down → 2–1 | Teddy Sheringham 90+1′, Ole Gunnar Solskjær 90+3′ |
+| 7 Oct 2023 — Brentford, 2–1 | 0–1 down → 2–1 | Scott McTominay 90+3′, 90+7′ |
+
+The first two landed under Ferguson; the third came a decade after his final
+match. Each score, clock, and scorer is from `match_events`; none is asserted in
+copy. The story does **not** claim those are the only late comebacks, or that a
+manager owns a clock.
+
+### Beat sheet (shipped — the repeated 2–1)
+
+| Beat | Graphic | Headline / evidence | Door |
+|------|---------|---------------------|------|
+| **0. The loop** | `FergieTimeLoop` — timeline leaves at 1993, circles through 1999, returns at 2023 around a digital added-time clock | “0–1.” → “90+.” → “2–1.” | — |
+| **1. The rhyme** | `StoppageEcho` — one shared, live countdown | Two late knots land on a 86′ → 90+7′ rail; all six clocks stay explicit | `/questions/late-goals` pointer |
+| **2. The original receipt** | `MatchFlow` — Wednesday 1993 | Sheridan 64′; Bruce 86′, 90+6′ | `/match/1993-04-10-sheffield-wednesday-h` |
+| **3. The continuation** | `MatchFlow` — Brentford 2023 | Jensen 26′; McTominay 90+3′, 90+7′ | `/match/2023-10-07-brentford-h` |
+| **4. The door** | compact `LateGoalScatter` | Ferguson: 9.9% of recorded goals after 85′; since: 14.4%. The final five regulation minutes barely change (7.2% → 7.6%); the larger shift is stoppage time (2.8% → 6.8%). | Primary `/matches?goalWindow=late`; question secondary |
+
+The final percentages are a qualified context, not a claim that “Fergie time”
+became more of a tactical trait: minute coverage thins before the modern era and
+the longer added-time window is the visible driver. The three receipts are the
+chapter’s discovery; the rate is its honest hand-off into the product.
+
+### North star, locked
+
+Fergie time = **three 2–1 comebacks, thirty years apart, each made by two late
+goals — and the last one came after Ferguson.** The phrase belongs to a manager;
+the repeating scoreline belongs to the record.
+
+---
+
 ## 5. Later chapters (sketch only — do not build yet)
 
 Ordered by how cleanly they reuse existing surfaces:
@@ -716,7 +758,7 @@ Ordered by how cleanly they reuse existing surfaces:
 |---------|---------------|--------|
 | ~~Treble 1998–99~~ | Spin-off | **Manner-first pass live (A/C/D) — see §4b** |
 | ~~Fortress OT~~ | Spin-off (place) | **Manner-first first build — see §4c** |
-| Fergie time | Spin-off / loop across managers | `LateGoalScatter`, manager-era bars |
+| ~~Fergie time~~ | Loop across managers | **Built — see §4d** |
 | Forgotten night | Bead on the axis | Rediscovery / `/surprise` |
 | Skyline breath | Follow | `HistorySkyline` / seasons `FinishTimeline` |
 
@@ -794,6 +836,10 @@ Information rises, so the copy states facts instead of manufacturing suspense.
   — OT monument (`public/media/journey/old-trafford.webp`) → three cracks →
   Bournemouth night → Ipswich hinge → wall + home-matches door
 - Chapter 3 beat 1 (three cracks): `components/journey/ThreeCracks.tsx`
+- Chapter 4 beat 0 (manager-loop): `components/journey/FergieTimeLoop.tsx`
+  — 1993 / 1999 / 2023 around the digital added-time clock; `StoppageEcho.tsx`
+  is the journey-local shared-countdown proof. The two single-night receipts are Wednesday
+  1993 and Brentford 2023; Barcelona stays a knot, not a replay of chapter 2.
 - Shared stage skeleton: `components/journey/useJourneyStage.ts` (chrome-off +
   reduced-motion + scroll progress), `components/journey/stageMath.ts`
 - Station beats (headline frame + source pointers): `components/journey/JourneyBeat.tsx`
