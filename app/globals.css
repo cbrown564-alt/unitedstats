@@ -2183,11 +2183,12 @@ body.mobile-sheet-open {
 
 /* Match sticky head: give the orient line air under the hero rule at every width. */
 .match-sticky-head .detail-breadcrumb {
-  padding-block: 0.75rem 0.5rem;
+  padding-block: 0.75rem 0.375rem;
 }
 
-/* Match detail — hero + section tabs share one sticky head on mobile. */
-@media (max-width: 639px) {
+/* Match detail — hero + breadcrumb + tabs share one sticky head below lg
+   (phone + midsize / half-screen), matching the mobile chrome. */
+@media (max-width: 1023px) {
   .match-sticky-head {
     position: sticky;
     top: env(safe-area-inset-top, 0px);

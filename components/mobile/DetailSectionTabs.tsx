@@ -27,8 +27,8 @@ export function DetailSectionTabs({
   defaultTab,
   ariaLabel = "Page sections",
   idPrefix = "detail",
-  /** On mobile, pins this block (e.g. match hero) with the tab bar under one sticky
-   *  head so the scoreline stays visible while scrolling long tab panels. */
+  /** On phone and midsize, pins this block (e.g. match hero) with the tab bar
+   *  under one sticky head so the scoreline stays visible while scrolling. */
   stickyHead,
   /** On mobile, panel content bleeds to the viewport edges (season detail, etc.). */
   edgeTabs,
@@ -51,7 +51,7 @@ export function DetailSectionTabs({
   if (visible.length === 0) return null;
 
   const tabBarClass = stickyHead
-    ? "-mx-4 flex items-stretch gap-1 overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:sticky sm:sticky-subnav sm:top-0 sm:z-30 sm:mt-8 sm:px-6 sm:backdrop-blur-md lg:static lg:mx-0 lg:mt-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
+    ? "-mx-4 flex items-stretch gap-1 overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none"
     : "sticky top-0 z-30 -mx-4 flex items-stretch gap-1 overflow-x-auto border-b border-line bg-pitch/95 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:static lg:mx-0 lg:overflow-visible lg:bg-transparent lg:px-0 lg:backdrop-blur-none";
 
   const tabButtonClass =
@@ -85,7 +85,7 @@ export function DetailSectionTabs({
   return (
     <div className="space-y-5 pb-[var(--mobile-nav-clearance)] sm:space-y-8 lg:pb-0">
       {stickyHead ? (
-        <div className="match-sticky-head sm:static">
+        <div className="match-sticky-head lg:static">
           {stickyHead}
           {tabBar}
         </div>
