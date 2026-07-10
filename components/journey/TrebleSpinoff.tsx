@@ -91,7 +91,7 @@ export type TrebleClimaxAtmosphere = {
 };
 
 /** Stage atmosphere — three grounds with the knots, or one immersive Camp Nou still. */
-export type TrebleAtmosphere = "places" | "climax";
+type TrebleAtmosphere = "places" | "climax";
 
 type Props = {
   /** Season label, e.g. "1998–99". */
