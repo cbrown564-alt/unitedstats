@@ -157,11 +157,6 @@ export default function JourneyPage() {
 
   return (
     <>
-      {/* Hide the app chrome before first paint so the immersive stage never
-         flashes the sidebar/footer on load. RhymeMorph keeps it in sync for
-         client-side navigation and restores the chrome on the way out. */}
-      <script dangerouslySetInnerHTML={{ __html: `document.documentElement.dataset.chrome="off"` }} />
-
       {/* Beat 0 — the opening morph (its own sticky runway). */}
       <RhymeMorph a={morphA} b={morphB} />
 

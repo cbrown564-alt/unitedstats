@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 function clamp01(t: number): number {
   return Math.min(1, Math.max(0, t));
@@ -10,12 +10,12 @@ function clamp01(t: number): number {
  * The shared skeleton of a journey opening stage (RhymeMorph, TrebleSpinoff):
  *
  * - **Chrome-off while mounted.** Journey routes hand the whole screen to the
- *   stage. A matching inline script in each route's page.tsx sets
- *   `data-chrome="off"` before first paint so the shell never flashes on load;
- *   this effect covers client-side navigation into the route and clears the
- *   attribute on the way out. Navigating between two journey chapters is safe:
- *   React runs the outgoing stage's cleanup before the incoming stage's effect,
- *   so the attribute lands set.
+ *   stage. Root layout's path-gated `beforeInteractive` script sets
+ *   `data-chrome="off"` before first paint on hard loads; this layout effect
+ *   covers client-side navigation into the route and clears the attribute on
+ *   the way out. Navigating between two journey chapters is safe: React runs
+ *   the outgoing stage's cleanup before the incoming stage's effect, so the
+ *   attribute lands set.
  * - **Reduced motion.** Tracks `prefers-reduced-motion`; stages skip to their
  *   landed composition when it's on.
  * - **Scroll owns time.** Progress 0→1 across the runway element (sticky-stage
@@ -26,7 +26,7 @@ export function useJourneyStage() {
   const [progress, setProgress] = useState(0);
   const [reduced, setReduced] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.dataset.chrome = "off";
     return () => {
       delete document.documentElement.dataset.chrome;

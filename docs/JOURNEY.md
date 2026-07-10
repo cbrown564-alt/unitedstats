@@ -251,10 +251,11 @@ called the 2008 win "*a second European Cup*" — it was the **third** ('68, '99
 
 - **Chrome-free without FOUC.** `/journey` hides the app shell via
   `html[data-chrome="off"]` rules (`globals.css`). Setting that in a
-  post-hydration effect flashed the sidebar on load — fixed by emitting the
-  attribute from a synchronous inline `<script>` in `page.tsx` (present in the
-  SSR HTML, runs before first paint). The effect only keeps it in sync for
-  client-side nav and clears it on exit.
+  post-hydration effect flashed the sidebar on load — fixed by a path-gated
+  `beforeInteractive` script in `app/layout.tsx` (runs before first paint on
+  hard loads of `/journey` and `/journey/*`). `useJourneyStage` keeps it in
+  sync for client-side nav and clears it on exit. Do not put a raw `<script>`
+  in page components — React 19 warns that those never execute on the client.
 - **One coordinate system.** Thread, ghost years, and names all live in a single
   SVG `viewBox="0 0 1000 700"` (`preserveAspectRatio="xMidYMid meet"`). The first
   cut had the thread in SVG and the years in HTML `justify-between` — they
@@ -555,6 +556,152 @@ story.
 
 ---
 
+## 4c. Chapter 3 — Fortress OT (the spin-off, place)
+
+The third chapter. Same metaphor verb as the Treble (spin-off), different
+shape: not an eleven-day campaign pocket, but a **place pocket** — Old Trafford
+as the ground where one rule has held for four decades. Packaging: standalone
+story under `/stories` when renamed (§3); lab route target `/journey/fortress`
+(`noindex`) + light chapter cross-links. Chapters 1–2 stay untouched.
+
+### The facts (verified in the record, 2026-07-10)
+
+Slice: Old Trafford home *league* games United led at half-time, half-time
+reconstructed from minute-stamped events (`leadHeldAtHome()`). Coverage is the
+verifiable sample (every goal has a minute; reconstructed FT matches the row) —
+not Opta's complete half-time ledger. Opta cites **400** unbeaten back to
+August 1984 (W365 D35); our sample's post-Ipswich tail is **395** (W360 D35).
+
+| Fact | Value | Source |
+|------|-------|--------|
+| Last lead lost at HT | **7 May 1984** — Ipswich Town **1–2** (HT 1–0). Hughes 25′; d'Avray 47′; Sunderland 86′ | `leadHeldAtHome` + `match_events` |
+| Unbeaten since (sample) | **395** home league games led at the break — **360W 35D 0L** | `leadHeldAtHome` (games after Ipswich → present) |
+| Lead surrendered (draws) | **35** draws in the run — the gold hollow dots | `result === "D"` |
+| Fell *behind* after leading | **Only 3** in the whole run — all rescued to draws | `worst < 0` |
+| The three cracks | Spurs **3–3** (7 Dec 1986, HT 2–0) · Wednesday **2–2** (9 Dec 1995, HT 1–0) · Bournemouth **4–4** (15 Dec 2025, HT 2–1) | receipts |
+| Held clean | **330 / 395** never even went level after the break | `riskMinute == null` |
+| All-time sample | 833 led-at-HT games, 1910–2026: 723W 92D **18L** (last L = Ipswich) | `leadHeldAtHome` |
+
+The three-cracks count is the chapter's rising fact — the discovery even a fan
+who knows "fortress OT" hasn't seen stated. It plays the role "all three from
+the bench" played in the Treble and "each scored in the final" played in the
+pilot. The **395 / never lost** is the haul; the manner is **fallen behind only
+three times, and the point held**.
+
+### Why not ship the question page as a journey
+
+`/questions/fortress` already leads with the unbeaten-run hero + full
+`LeadHeldDotplot` + top-5 close-call `MatchFlow`s + decade win-rate bars. A
+journey that opens on the wall and walks the same close calls is a chrome-off
+trailer (the wound §4b named). Rules carried forward:
+
+- **One lens per beat** — do not repeat `MatchFlow` three times as the arc.
+- **Unique through-line viz** — the three cracks, not the full wall as beat 1
+  (the wall is the question's lead chart; journey borrows it later or at the door).
+- **Rising information** — hinge → rule → cracks, or rule → cracks → hinge;
+  not "here's a big number, then five similar nights."
+- **Door into the living product** — primary `/matches?venue=H` (or a home
+  filter that keeps the fortress slice honest); `/questions/fortress` secondary.
+- **Place, not portrait duel** — Old Trafford is the monument; no player faces.
+
+### Beat sheet (proposed — manner-first, three cracks)
+
+Order of *revelation*. Five beats (0–4). Each beat below the morph uses a
+**different** graphic shape.
+
+| Beat | Graphic (surface showcased) | Headline | Sub / evidence | Source pointer |
+|------|------------------------------|----------|----------------|----------------|
+| **0. The spin-off** | `FortressSpinoff` — axis, OT place pocket, three gold crack-knots land late | "Old Trafford." → **"Led at half-time."** → **"Fallen behind only three times."** | "Home. League." → **"Since May 1984."** → crack dates as knots land. Foot after land: **"Never lost."** (haul as quiet consequence — manner owns the land) | — |
+| **1. The rhyme** | **Three cracks** — one compact composition: the only nights the lead went negative *(chapter-unique; question page never isolates this trio)* | "In four decades, **fallen behind only three times.**" | "Spurs 3–3. Wednesday 2–2. Bournemouth 4–4. All drew." | Quiet; receipts wait for beats 2–3 |
+| **2. One night** | `MatchFlow` + trailing board when behind *(showcases `/match`; only full single-night receipt before the hinge)* | "December 2025: **led at the break, fell behind, drew 4–4.**" | Board for the moment United went behind; then the rescue. | Bournemouth receipt |
+| **3. The hinge** | `MatchFlow` — Ipswich 1984, the last defeat *(new shape vs beat 2: the night the rule broke, not a crack that held)* | "May 1984: the last time the lead was **actually lost.**" | "Hughes 25. d'Avray 47. Sunderland 86. 1–2." | Ipswich receipt |
+| **4. The door** | Quiet exit + `LeadHeldDotplot` as the living wall *(honest reuse at the hand-off, not as the opening lens)* | **"Three cracks. Zero defeats."** | "395 games led at half-time since Ipswich. Now walk every home night." | **Primary:** `Every home match →` (`/matches?venue=H`); three crack receipts + Ipswich. **Secondary:** the full answer (`/questions/fortress`). Chapter cross-links. |
+
+**Rising information (must hold):**
+
+1. Pocket names the place, then the rule (led at HT), then lands on **fallen
+   behind only three times** (manner). "Never lost" / 395 is a foot-fact.
+2. Beat 1 deepens the three cracks as one rhyme — scores only; flow withheld.
+3. Beat 2 shows one crack in full — the most recent — so `/match` earns its place.
+4. Beat 3 is a **new shape**: the hinge defeat that started the run. Not another
+   surrendered draw.
+5. Door recaps the stack (three cracks · zero defeats), shows the wall, opens
+   home matches (question optional).
+
+**Coverage honesty (copy must carry):** the sample is minute-complete games, not
+Opta's 400. Prefer "in every verifiable home league game led at the break" / "in
+our record since Ipswich" over a naked "400". Foot-fact can nod at Opta's figure
+once if needed; do not lead with it.
+
+### Stage sketch (beat 0)
+
+```
+1886 ──────────────────────────●──── now
+                              ╱ ╲
+                          return  depart (OT / led at HT)
+                            ╲      ╱
+                             pocket        ghost "OT" + place monument
+                          ●    ●    ●
+                       Dec '86  Dec '95  Dec '25   ← three crack knots
+                         foot: Never lost. (395)
+```
+
+- Same skeleton as `TrebleSpinoff` / `RhymeMorph`: sticky ~210vh, one SVG,
+  scroll-owned progress, `prefers-reduced-motion` lands the finished pocket.
+  Kicker "Red Thread / 03".
+- Morph owns all motion; beats below stay static.
+- Monument: Old Trafford exterior / floodlit bowl (place), not a player duel.
+  Reuse journey place-media pipeline if a still exists; otherwise type + thread
+  until a licensed still is cached.
+
+### Three-cracks viz (beat 1 — journey-local)
+
+```
+  Spurs        0′ ──●──●── HT ──●──●──●╲●── FT     (every goal; crack at 73′)
+  Wednesday    0′ ──●────── HT ──●──●╲●──── FT
+  Bournemouth  0′ ──●──●──● HT ──●╲●──●──●── FT
+```
+
+- SVG filament per night: full-match **margin thread** (step path). Gold knots =
+  United goals; pale = opponent; devil-bright flare = first negative margin.
+  Shared clock (0→90) and margin scales so the three nights rhyme. HT/FT marks.
+- Data from `matchReceipt` goals × `fortressRun()` cracks — no new ingest.
+- Do **not** invent a general-purpose chart type for the whole app in this pass.
+
+### Out of scope
+
+Homepage/packaging beyond door cross-links; decade win-rate bars (question's
+job); general-purpose new chart types; touching chapters 1–2; opening on the
+full `LeadHeldDotplot` as beat 1; Opta-complete half-time backfill; player
+portrait duel.
+
+### Status
+
+**2026-07-10 — beat sheet locked; first build shipped** to `/journey/fortress`:
+
+1. `FortressSpinoff` — place pocket, OT monument, three crack knots; manner-first
+   copy (place → led at HT → fallen behind only three times); foot "Never lost."
+2. Beat 1 `ThreeCracks` — HT → fell behind → drew across Spurs / Wednesday /
+   Bournemouth.
+3. Beat 2 Bournemouth `MatchFlow` + trailing board `2–3 after 52′`.
+4. Beat 3 Ipswich hinge — the last lead lost.
+5. Door: `LeadHeldDotplot` (cracks haloed) + primary `/matches?venue=H`; question
+   secondary. Chapter nav includes 03.
+
+**Alternative held (not recommended):** hinge-first — morph lands on Ipswich
+1984, then the wall, then close calls. Stronger narrative open, weaker discovery
+(the myth already knows "since the mid-80s"; it does not know "behind only
+three times").
+
+### North star, locked
+
+Fortress = a place pocket at Old Trafford where **led at half-time has meant
+unbeaten for four decades — and in that run United have fallen behind only
+three times, each rescued to a draw.** The 395 / never-lost is the consequence;
+the three cracks are the story.
+
+---
+
 ## 5. Later chapters (sketch only — do not build yet)
 
 Ordered by how cleanly they reuse existing surfaces:
@@ -562,7 +709,7 @@ Ordered by how cleanly they reuse existing surfaces:
 | Chapter | Metaphor verb | Reuse |
 |---------|---------------|--------|
 | ~~Treble 1998–99~~ | Spin-off | **Manner-first pass live (A/C/D) — see §4b** |
-| Fortress | Spin-off | `LeadHeldDotplot`, surrendered-lead flows |
+| ~~Fortress OT~~ | Spin-off (place) | **Manner-first first build — see §4c** |
 | Fergie time | Spin-off / loop across managers | `LateGoalScatter`, manager-era bars |
 | Forgotten night | Bead on the axis | Rediscovery / `/surprise` |
 | Skyline breath | Follow | `HistorySkyline` / seasons `FinishTimeline` |
@@ -622,8 +769,9 @@ Information rises, so the copy states facts instead of manufacturing suspense.
 ## 8. Prototype location
 
 - Doc: this file (`docs/JOURNEY.md`)
-- Routes: `/journey` (chapter 1, the loop) and `/journey/treble` (chapter 2, the
-  spin-off) — both prototype, `noindex`, chrome-off via the pre-paint script.
+- Routes: `/journey` (chapter 1, the loop), `/journey/treble` (chapter 2, the
+  spin-off campaign), and `/journey/fortress` (chapter 3, the place spin-off) —
+  all prototype, `noindex`, chrome-off via the root layout pre-paint script.
   **Packaging target:** rename to `/stories/[slug]` (§3); stitched time-journey
   later.
 - Chapter 1 beat 0 (opening morph): `components/journey/RhymeMorph.tsx`
@@ -632,6 +780,10 @@ Information rises, so the copy states facts instead of manufacturing suspense.
   → season door); place stills from `data/canonical/journey-place-media.json`
   via `scripts/cache-journey-places.ts`
 - Chapter 2 beat 1 (bench latency): `components/journey/BenchLatency.tsx`
+- Chapter 3 beat 0 (place pocket): `components/journey/FortressSpinoff.tsx`
+  — OT monument (`public/media/journey/old-trafford.webp`) → three cracks →
+  Bournemouth night → Ipswich hinge → wall + home-matches door
+- Chapter 3 beat 1 (three cracks): `components/journey/ThreeCracks.tsx`
 - Shared stage skeleton: `components/journey/useJourneyStage.ts` (chrome-off +
   reduced-motion + scroll progress), `components/journey/stageMath.ts`
 - Station beats (headline frame + source pointers): `components/journey/JourneyBeat.tsx`
@@ -639,9 +791,9 @@ Information rises, so the copy states facts instead of manufacturing suspense.
 - Chapter cross-links: `components/journey/JourneyChapterNav.tsx` over
   `JOURNEY_CHAPTERS` (`lib/journey.ts`)
 - Receipt data (`MatchFlow` + `FormationPitch`/`Bench` props for any match):
-  `lib/journey.ts` (`matchReceipt`, `subGoals`, `unbeatenTail`, `trailingBoard`),
-  mirroring `app/match/[id]/page.tsx`; chapter facts golden-pinned in
-  `tests/journey.test.ts`
+  `lib/journey.ts` (`matchReceipt`, `subGoals`, `unbeatenTail`, `trailingBoard`,
+  `fortressRun`), mirroring `app/match/[id]/page.tsx`; chapter facts golden-pinned
+  in `tests/journey.test.ts`
 - Journey portraits: `scripts/cache-journey-portraits.ts` → `public/media/journey/`
   (chapter 1 only; chapter 2 refuses a portrait duel)
 - Reused surfaces (extended, not forked): `CareerDuelChartLazy`

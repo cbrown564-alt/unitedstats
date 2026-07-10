@@ -9,7 +9,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { matchReceipt, subGoals, unbeatenTail, trailingBoard } from "../lib/journey";
+import { matchReceipt, subGoals, unbeatenTail, trailingBoard, fortressRun, crackRescuer } from "../lib/journey";
 import { matchesSequence } from "../lib/trails";
 
 test("unbeatenTail reads the run after the last defeat", () => {
@@ -112,4 +112,76 @@ test("treble: trailingBoard pins the from-behind scorelines (lever C)", () => {
     score: "0–1",
     when: "at 90′",
   });
+});
+
+test("fortress: last half-time lead lost is Ipswich 1984; run is unbeaten since", () => {
+  const run = fortressRun();
+  assert.ok(run);
+  assert.equal(run.lastLoss.id, "1984-05-07-ipswich-town-h");
+  assert.equal(run.lastLoss.date, "1984-05-07");
+  assert.equal(run.lastLoss.gf, 1);
+  assert.equal(run.lastLoss.ga, 2);
+  assert.equal(run.lastLoss.htf, 1);
+  assert.equal(run.lastLoss.hta, 0);
+  // Sample tail — Opta cites 400; our minute-complete slice is the verifiable run.
+  assert.equal(run.games, 395);
+  assert.equal(run.w, 360);
+  assert.equal(run.d, 35);
+});
+
+test("fortress: fallen behind only three times in the run — all draws", () => {
+  const run = fortressRun();
+  assert.ok(run);
+  assert.equal(run.cracks.length, 3);
+  assert.deepEqual(
+    run.cracks.map((c) => ({
+      id: c.id,
+      ht: c.ht,
+      ft: c.ft,
+      worst: c.worst,
+      fellBehindMinute: c.fellBehindMinute,
+    })),
+    [
+      { id: "1986-12-07-tottenham-hotspur-h", ht: "2–0", ft: "3–3", worst: -1, fellBehindMinute: 73 },
+      { id: "1995-12-09-sheffield-wednesday-h", ht: "1–0", ft: "2–2", worst: -1, fellBehindMinute: 79 },
+      { id: "2025-12-15-bournemouth-h", ht: "2–1", ft: "4–4", worst: -1, fellBehindMinute: 52 },
+    ],
+  );
+});
+
+test("fortress: Ipswich hinge and Bournemouth crack receipts carry the flow", () => {
+  const ipswich = matchReceipt("1984-05-07-ipswich-town-h");
+  assert.ok(ipswich);
+  assert.equal(ipswich.unitedGoals.length, 1);
+  assert.equal(ipswich.opponentGoals.length, 2);
+  assert.equal(ipswich.unitedGoals[0]?.minute, 25);
+  assert.equal(ipswich.opponentGoals[1]?.minute, 86);
+
+  const bourne = matchReceipt("2025-12-15-bournemouth-h");
+  assert.ok(bourne);
+  assert.deepEqual(trailingBoard(bourne), {
+    united: 2,
+    opponent: 3,
+    score: "2–3",
+    when: "after 52′",
+  });
+});
+
+test("fortress: crackRescuer is the United equaliser after falling behind", () => {
+  const spurs = matchReceipt("1986-12-07-tottenham-hotspur-h");
+  assert.ok(spurs);
+  assert.deepEqual(crackRescuer(spurs), {
+    playerId: "peter-davenport",
+    name: "Peter Davenport",
+    minute: 88,
+    added: null,
+  });
+
+  const wednesday = matchReceipt("1995-12-09-sheffield-wednesday-h");
+  assert.ok(wednesday);
+  assert.equal(crackRescuer(wednesday)?.playerId, "eric-cantona");
+
+  const bourne = matchReceipt("2025-12-15-bournemouth-h");
+  assert.ok(bourne);
+  assert.equal(crackRescuer(bourne)?.playerId, "bruno-fernandes");
 });

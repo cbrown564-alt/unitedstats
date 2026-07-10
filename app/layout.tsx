@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteShell } from "@/components/SiteShell";
 import { SITE_URL } from "@/lib/site";
@@ -44,6 +45,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
+        {/* Journey chapters own the viewport (docs/JOURNEY.md). Path-gated so
+            non-journey routes stay chrome-on; useJourneyStage covers client nav. */}
+        <Script id="journey-chrome-off" strategy="beforeInteractive">
+          {`if(location.pathname==="/journey"||location.pathname.startsWith("/journey/"))document.documentElement.dataset.chrome="off"`}
+        </Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(websiteJsonLd()) }} />
         <SiteShell>{children}</SiteShell>
         <Analytics />

@@ -1,6 +1,7 @@
 import { matchById, eventsForMatch, lineupForMatch, type EventRow, type LineupRow } from "./queries";
 import type { MatchMarks } from "@/components/FormationPitch";
 import { scoreline } from "./format";
+import { leadHeldAtHome } from "./trails";
 
 /**
  * The journey's chapter registry — one entry per shipped chapter, feeding the
@@ -10,6 +11,7 @@ import { scoreline } from "./format";
 export const JOURNEY_CHAPTERS = [
   { number: "01", title: "Two No. 7s", href: "/journey" },
   { number: "02", title: "Eleven days in May", href: "/journey/treble" },
+  { number: "03", title: "Fortress OT", href: "/journey/fortress" },
 ] as const;
 
 /**
@@ -227,4 +229,186 @@ export function unbeatenTail(
     to: tail[tail.length - 1].date,
     lastLoss: lastLossIdx >= 0 ? seq[lastLossIdx].date : null,
   };
+}
+
+/**
+ * One night the fortress nearly cracked — led at half-time, then the margin went
+ * negative in the second half, rescued to a draw (docs/JOURNEY.md §4c).
+ */
+export type FortressCrack = {
+  id: string;
+  date: string;
+  opponent: string;
+  /** Half-time scoreline, e.g. "2–0". */
+  ht: string;
+  /** Full-time scoreline, e.g. "3–3". */
+  ft: string;
+  htf: number;
+  hta: number;
+  gf: number;
+  ga: number;
+  /** Deepest second-half margin (always < 0 for a crack). */
+  worst: number;
+  /** Minute United first went behind after the break. */
+  fellBehindMinute: number | null;
+};
+
+/**
+ * The Fortress chapter's closed slice — unbeaten run since the last half-time
+ * lead lost at Old Trafford, plus the three cracks (fell behind after leading).
+ * All derived from {@link leadHeldAtHome}; no hand-asserted counts.
+ */
+export type FortressRun = {
+  /** Games led at HT after the last loss, chronological. */
+  games: number;
+  w: number;
+  d: number;
+  /** The last home-league half-time lead that was actually lost. */
+  lastLoss: {
+    id: string;
+    date: string;
+    opponent: string;
+    gf: number;
+    ga: number;
+    htf: number;
+    hta: number;
+  };
+  /** Nights in the run where the second-half margin went negative — all draws. */
+  cracks: FortressCrack[];
+  from: string;
+  to: string;
+};
+
+/** Compact opponent labels for stage / crack copy — not a general name helper. */
+export function fortressShortOpponent(name: string): string {
+  const map: Record<string, string> = {
+    "Tottenham Hotspur": "Spurs",
+    "Sheffield Wednesday": "Wednesday",
+    "AFC Bournemouth": "Bournemouth",
+    "Ipswich Town": "Ipswich",
+  };
+  return map[name] ?? name;
+}
+
+/** Fortress OT run + three cracks, read off `leadHeldAtHome()` (docs/JOURNEY.md §4c). */
+export function fortressRun(): FortressRun | null {
+  const lh = leadHeldAtHome();
+  if (lh.games.length === 0) return null;
+
+  const losses = lh.games.filter((g) => g.result === "L");
+  const last = losses[losses.length - 1];
+  if (!last) return null;
+
+  const lastIdx = lh.games.findIndex((g) => g.id === last.id);
+  const since = lh.games.slice(lastIdx + 1);
+  if (since.length === 0) return null;
+
+  const cracks: FortressCrack[] = since
+    .filter((g) => g.worst < 0)
+    .map((g) => {
+      const receipt = matchReceipt(g.id);
+      let uf = 0;
+      let oa = 0;
+      let fellBehindMinute: number | null = null;
+      if (receipt) {
+        const timed = [
+          ...receipt.unitedGoals
+            .filter((e) => e.minute != null)
+            .map((e) => ({ minute: e.minute as number, delta: 1 as const })),
+          ...receipt.opponentGoals
+            .filter((e) => e.minute != null)
+            .map((e) => ({ minute: e.minute as number, delta: -1 as const })),
+        ].sort((a, b) => a.minute - b.minute);
+        for (const e of timed) {
+          if (e.delta === 1) uf += 1;
+          else oa += 1;
+          if (e.minute > 45 && uf < oa && fellBehindMinute == null) {
+            fellBehindMinute = e.minute;
+          }
+        }
+      }
+      return {
+        id: g.id,
+        date: g.date,
+        opponent: g.opponent_name,
+        ht: scoreline(g.htf, g.hta),
+        ft: scoreline(g.gf, g.ga),
+        htf: g.htf,
+        hta: g.hta,
+        gf: g.gf,
+        ga: g.ga,
+        worst: g.worst,
+        fellBehindMinute,
+      };
+    });
+
+  return {
+    games: since.length,
+    w: since.filter((g) => g.result === "W").length,
+    d: since.filter((g) => g.result === "D").length,
+    lastLoss: {
+      id: last.id,
+      date: last.date,
+      opponent: last.opponent_name,
+      gf: last.gf,
+      ga: last.ga,
+      htf: last.htf,
+      hta: last.hta,
+    },
+    cracks,
+    from: since[0].date,
+    to: since[since.length - 1].date,
+  };
+}
+
+/**
+ * The United scorer who restored level after the crack — the face the ThreeCracks
+ * beat puts in the shadow. Null when the receipt has no such goal (shouldn't
+ * happen on a rescued draw).
+ */
+export type CrackRescuer = {
+  playerId: string;
+  name: string;
+  minute: number;
+  added: number | null;
+};
+
+/** First United goal that returns the margin to 0 after it has gone negative. */
+export function crackRescuer(receipt: MatchReceipt): CrackRescuer | null {
+  const timed = [
+    ...receipt.unitedGoals
+      .filter((g) => g.minute != null && g.player_id)
+      .map((g) => ({
+        clock: g.minute === 90 && g.added_time ? 90 + g.added_time : (g.minute as number),
+        minute: g.minute as number,
+        added: g.added_time,
+        delta: 1 as const,
+        playerId: g.player_id as string,
+        name: g.player_display_name ?? g.player_name ?? "",
+      })),
+    ...receipt.opponentGoals
+      .filter((g) => g.minute != null)
+      .map((g) => ({
+        clock: g.minute === 90 && g.added_time ? 90 + g.added_time : (g.minute as number),
+        minute: g.minute as number,
+        added: g.added_time,
+        delta: -1 as const,
+        playerId: "",
+        name: "",
+      })),
+  ].sort((a, b) => a.clock - b.clock || a.delta - b.delta);
+
+  let margin = 0;
+  let cracked = false;
+  for (const g of timed) {
+    margin += g.delta;
+    if (!cracked && margin < 0) {
+      cracked = true;
+      continue;
+    }
+    if (cracked && g.delta === 1 && margin === 0) {
+      return { playerId: g.playerId, name: g.name, minute: g.minute, added: g.added };
+    }
+  }
+  return null;
 }
