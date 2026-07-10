@@ -6,7 +6,7 @@ type Knot = { id: string; side: "left" | "right" };
 
 type Node = Knot & { x: number; y: number; stitchX: number };
 
-type Geometry = { height: number; nodes: Node[] };
+type Geometry = { height: number; nodes: Node[]; origin: Point };
 
 type Point = { x: number; y: number };
 
@@ -49,7 +49,7 @@ function threadPath(points: readonly Point[]): string {
  */
 export function ThreadOfNights({ knots, children }: { knots: readonly Knot[]; children: ReactNode }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [geometry, setGeometry] = useState<Geometry>({ height: 1, nodes: [] });
+  const [geometry, setGeometry] = useState<Geometry>({ height: 1, nodes: [], origin: { x: 500, y: 112 } });
   const [progress, setProgress] = useState(0);
   const [reduced, setReduced] = useState(false);
 
@@ -76,6 +76,8 @@ export function ThreadOfNights({ knots, children }: { knots: readonly Knot[]; ch
       const rootRect = root.getBoundingClientRect();
       const mobile = window.innerWidth < 640;
       const toViewX = (x: number) => ((x - rootRect.left) / Math.max(1, rootRect.width)) * 1000;
+      const originElement = root.querySelector<HTMLElement>("[data-thread-origin]");
+      const originRect = originElement?.getBoundingClientRect();
       const nodes = knots.flatMap((knot) => {
         const seam = root.querySelector<HTMLElement>(`[data-thread-stitch="${knot.id}"]`);
         if (!seam) return [];
@@ -90,7 +92,15 @@ export function ThreadOfNights({ knots, children }: { knots: readonly Knot[]; ch
           y: rect.top - rootRect.top + 48,
         }];
       });
-      setGeometry({ height: Math.max(1, root.scrollHeight), nodes });
+      setGeometry({
+        height: Math.max(1, root.scrollHeight),
+        nodes,
+        // The opening filament is introduced by the cue itself, never through the
+        // title it is inviting the reader to leave behind.
+        origin: originRect
+          ? { x: toViewX(originRect.left + originRect.width / 2), y: originRect.bottom - rootRect.top + 14 }
+          : { x: 500, y: 112 },
+      });
     };
 
     measure();
@@ -139,7 +149,7 @@ export function ThreadOfNights({ knots, children }: { knots: readonly Knot[]; ch
   }, [reduced]);
 
   const mobile = geometry.nodes.length > 0 && geometry.nodes[0]?.x === 84;
-  const start = { x: mobile ? 84 : 72, y: 112 };
+  const start = { x: mobile ? 84 : geometry.origin.x, y: geometry.origin.y };
   const end = { x: mobile ? 84 : 928, y: geometry.height - 72 };
   const path = threadPath([start, ...geometry.nodes, end]);
 

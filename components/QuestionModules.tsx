@@ -646,7 +646,7 @@ function FergusonEraModule({ variant }: ModuleProps) {
           <p className="mt-0.5 text-xs text-ink-dim text-pretty">
             {fergPoint && longestSince ? (
               <>
-                Ferguson's <span className="text-ink">{fmtNum(fergPoint.matches)}</span> matches at{" "}
+                Ferguson’s <span className="text-ink">{fmtNum(fergPoint.matches)}</span> matches at{" "}
                 <span className="text-ink">{fergPoint.ppg.toFixed(2)}</span> points per game sit alone in the top-right — no successor has matched both.
                 Since 2013 every permanent spell has been shorter; the longest,{" "}
                 {longestSince.name.split(" ").pop()}, reached just{" "}

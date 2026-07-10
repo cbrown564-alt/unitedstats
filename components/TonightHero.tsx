@@ -394,8 +394,11 @@ export function TonightHero({
   const bag = useRef<string[]>([]);
 
   useEffect(() => {
-    setActiveIndex(seed);
-    bag.current = [];
+    const timer = window.setTimeout(() => {
+      setActiveIndex(seed);
+      bag.current = [];
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, [seed, nights]);
 
   const night = nights[activeIndex];

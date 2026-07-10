@@ -64,8 +64,17 @@ export function MobileBottomNav() {
   useEffect(() => {
     if (!isNarrowShell) return;
     if (SearchCommand) return;
-    setSearchLoading(true);
-    void ensureSearch().finally(() => setSearchLoading(false));
+    let cancelled = false;
+    const timer = window.setTimeout(() => {
+      setSearchLoading(true);
+      void ensureSearch().finally(() => {
+        if (!cancelled) setSearchLoading(false);
+      });
+    }, 0);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
   }, [SearchCommand, ensureSearch, isNarrowShell]);
 
   const closeMenu = () => setMenuOpen(false);

@@ -7,6 +7,10 @@ const DRAG_START_PX = 8;
 
 type DragPhase = "idle" | "dismiss" | "scroll";
 
+function isInteractiveTarget(target: EventTarget | null) {
+  return target instanceof Element && Boolean(target.closest("a, button, input, select, textarea, [role='button']"));
+}
+
 function readScrollTop(scrollRef?: RefObject<HTMLElement | null>) {
   return scrollRef?.current?.scrollTop ?? 0;
 }
@@ -29,6 +33,7 @@ export function useSheetSwipe(
     startX: 0,
     offset: 0,
     phase: "idle" as DragPhase,
+    ignored: false,
   });
 
   const resetTransform = useCallback(() => {
@@ -36,18 +41,22 @@ export function useSheetSwipe(
   }, [sheetRef]);
 
   const resetDrag = useCallback(() => {
-    dragRef.current = { startY: 0, startX: 0, offset: 0, phase: "idle" };
+    dragRef.current = { startY: 0, startX: 0, offset: 0, phase: "idle", ignored: false };
     resetTransform();
   }, [resetTransform]);
 
   const finishDrag = useCallback(() => {
     const drag = dragRef.current;
+    if (drag.ignored) {
+      dragRef.current = { startY: 0, startX: 0, offset: 0, phase: "idle", ignored: false };
+      return;
+    }
     if (drag.phase === "dismiss") {
       const shouldClose = drag.offset > threshold;
       resetTransform();
       if (shouldClose) onClose();
     }
-    dragRef.current = { startY: 0, startX: 0, offset: 0, phase: "idle" };
+    dragRef.current = { startY: 0, startX: 0, offset: 0, phase: "idle", ignored: false };
   }, [onClose, resetTransform, threshold]);
 
   // Touch — non-passive touchmove + preventDefault stops page scroll behind the sheet.
@@ -89,6 +98,7 @@ export function useSheetSwipe(
         startX: e.touches[0].clientX,
         offset: 0,
         phase: "idle",
+        ignored: isInteractiveTarget(e.target),
       };
     };
 
@@ -97,6 +107,8 @@ export function useSheetSwipe(
       const y = e.touches[0].clientY;
       const x = e.touches[0].clientX;
       const drag = dragRef.current;
+
+      if (drag.ignored) return;
 
       if (drag.phase === "idle") {
         beginMove(y, x);
@@ -134,11 +146,13 @@ export function useSheetSwipe(
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     if (e.pointerType === "touch") return;
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (isInteractiveTarget(e.target)) return;
     dragRef.current = {
       startY: e.clientY,
       startX: e.clientX,
       offset: 0,
       phase: "idle",
+      ignored: false,
     };
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   }, []);

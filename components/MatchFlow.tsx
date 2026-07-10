@@ -74,20 +74,9 @@ function GoalLabel({
   focused: boolean;
 }) {
   const anchorTx = anchorTransform(p);
-  const lane0 = lane === 0;
   const minuteClass = focused ? "text-gold" : side === "united" ? "text-devil-bright" : "text-ink-dim";
-  const posClass =
-    side === "united"
-      ? lane0
-        ? "bottom-[18px] sm:bottom-[28px]"
-        : "bottom-[40px] sm:bottom-[54px]"
-      : lane0
-        ? "top-[18px] sm:top-[28px]"
-        : "top-[40px] sm:top-[54px]";
-  const connClass =
-    side === "united"
-      ? `bottom-2 ${lane0 ? "h-[10px] sm:h-[20px]" : "h-[32px] sm:h-[46px]"}`
-      : `top-2 ${lane0 ? "h-[10px] sm:h-[20px]" : "h-[32px] sm:h-[46px]"}`;
+  const labelOffset = [18, 42, 66][lane] ?? 18;
+  const connectorHeight = [10, 34, 58][lane] ?? 10;
 
   const name = g.playerId ? (
     <Link href={`/player/${g.playerId}`} className={focused ? "font-semibold text-gold hover:text-ink" : "text-ink hover:text-devil-bright"}>
@@ -112,10 +101,14 @@ function GoalLabel({
 
   return (
     <>
-      <span aria-hidden className={`absolute left-1/2 w-px -translate-x-1/2 bg-line/80 ${connClass}`} />
       <span
-        className={`absolute flex max-w-[4.25rem] flex-col items-center text-center leading-tight sm:max-w-none sm:flex-row sm:items-center sm:gap-1 sm:whitespace-nowrap sm:text-[11px] ${posClass}`}
-        style={{ left: "50%", transform: anchorTx }}
+        aria-hidden
+        className={`absolute left-1/2 w-px -translate-x-1/2 bg-line/80 ${side === "united" ? "bottom-2" : "top-2"}`}
+        style={{ height: connectorHeight }}
+      />
+      <span
+        className="absolute flex max-w-[4.25rem] flex-col items-center text-center leading-tight sm:max-w-none sm:flex-row sm:items-center sm:gap-1 sm:whitespace-nowrap sm:text-[11px]"
+        style={{ left: "50%", transform: anchorTx, [side === "united" ? "bottom" : "top"]: labelOffset }}
       >
         {g.minutePath ? (
           <Pickable fieldPath={g.minutePath} className="shrink-0">
@@ -240,20 +233,22 @@ export function MatchFlow({
   }
   segs.push({ from: prev, to: end, margin: cur });
 
-  // Lane-stagger labels per side when goals on the same side sit close in time.
+  // Greedily stagger dense goal clusters across three lanes. Two lanes were not
+  // enough for high-scoring nights such as Chelsea 5–6 and caused name collisions.
   const unitedMarks = sorted.filter((g) => g.side === "united");
   const oppMarks = sorted.filter((g) => g.side === "opponent");
   const lane = new Map<string, number>();
-  const LABEL_GAP = 11;
+  const LABEL_GAP = 14;
   const assignLanes = (marks: GoalMark[]) => {
-    let prevPos = -Infinity;
-    let prevLane = 1;
+    const lastAt = [-Infinity, -Infinity, -Infinity];
     for (const g of marks) {
       const p = markPos(g);
-      const ln = p - prevPos < LABEL_GAP ? (prevLane === 0 ? 1 : 0) : 0;
+      const available = lastAt.findIndex((last) => p - last >= LABEL_GAP);
+      const ln = available >= 0
+        ? available
+        : lastAt.indexOf(Math.min(...lastAt));
       lane.set(g.key, ln);
-      prevPos = p;
-      prevLane = ln;
+      lastAt[ln] = p;
     }
   };
   assignLanes(unitedMarks);
@@ -261,9 +256,10 @@ export function MatchFlow({
 
   const unitedMaxLane = unitedMarks.reduce((max, g) => Math.max(max, lane.get(g.key) ?? 0), 0);
   const oppMaxLane = oppMarks.reduce((max, g) => Math.max(max, lane.get(g.key) ?? 0), 0);
-  const unitedZoneH =
-    unitedMaxLane >= 1 ? "h-[62px] sm:h-[60px]" : "h-[46px] sm:h-[60px]";
-  const oppZoneH = oppMaxLane >= 1 ? "h-[62px] sm:h-[60px]" : "h-[46px] sm:h-[60px]";
+  const zoneHeight = (maxLane: number) =>
+    maxLane >= 2 ? "h-[86px]" : maxLane >= 1 ? "h-[64px]" : "h-[46px] sm:h-[60px]";
+  const unitedZoneH = zoneHeight(unitedMaxLane);
+  const oppZoneH = zoneHeight(oppMaxLane);
 
   const PAD = 1.4;
   const barStops = segs

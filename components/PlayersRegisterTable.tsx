@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DataTable, type SortDirection } from "@/components/DataTable";
 import { CareerSpanBar } from "@/components/charts/CareerSpanBar";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
@@ -71,12 +71,6 @@ export function PlayersRegisterTable({
   const router = useRouter();
   const [showAssists, setShowAssists] = useState(sortKey === "assists");
 
-  useEffect(() => {
-    if (sortKey === "assists") {
-      setShowAssists(true);
-    }
-  }, [sortKey]);
-
   function sortHref(nextSortKey: string, nextDirection: SortDirection) {
     const params = new URLSearchParams();
     if (rawQuery) params.set("q", rawQuery);
@@ -96,7 +90,7 @@ export function PlayersRegisterTable({
     label: "Assists",
     key: "assists",
     numeric: true,
-    hideBelow: showAssists ? undefined : "hidden",
+    hideBelow: showAssists || sortKey === "assists" ? undefined : "hidden",
     sortKey: "assists",
     sortDefaultDirection: PLAYER_SORT_DEFAULTS.assists,
     sortLabel: "assists",

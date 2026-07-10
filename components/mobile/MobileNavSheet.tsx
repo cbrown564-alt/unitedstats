@@ -39,7 +39,6 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
             className={["mobile-sheet-link", pathname === "/" ? "mobile-sheet-link--active" : ""].join(" ")}
           >
             <span className="mobile-sheet-link-label">Home</span>
-            <span className="mobile-sheet-link-hint">Tonight&apos;s spark</span>
           </Link>
 
           {NAV_SECTIONS.map(([label, href]) => {

@@ -43,7 +43,7 @@ function MobileMatchFilterControlsInner({ open, onOpen, onClose }: MobileMatchFi
   useEffect(() => {
     if (!open) return;
     const ac = new AbortController();
-    setLoading(true);
+    const frame = window.requestAnimationFrame(() => setLoading(true));
     const qs = searchParams.toString();
     fetch(`/api/v1/matches/view${qs ? `?${qs}` : ""}`, { signal: ac.signal })
       .then((res) => {
@@ -52,15 +52,22 @@ function MobileMatchFilterControlsInner({ open, onOpen, onClose }: MobileMatchFi
       })
       .then((json) => {
         if (!ac.signal.aborted) {
+          window.cancelAnimationFrame(frame);
           setView(json.data);
           setLoading(false);
         }
       })
       .catch((err: unknown) => {
         if (err instanceof DOMException && err.name === "AbortError") return;
-        if (!ac.signal.aborted) setLoading(false);
+        if (!ac.signal.aborted) {
+          window.cancelAnimationFrame(frame);
+          setLoading(false);
+        }
       });
-    return () => ac.abort();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      ac.abort();
+    };
   }, [open, searchParams]);
 
   return (

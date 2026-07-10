@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MatchFlow } from "@/components/MatchFlow";
@@ -94,8 +95,8 @@ function ReceiptFlow({
         {receipt.score.replace(/[^0-9]/g, "")}
       </span>
       <div className="relative mb-6 flex items-center justify-between border-b border-white/[0.08] pb-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-ink-faint">
-        <span>Match evidence</span>
-        <span className="stat-num">RT–{String(sequence).padStart(2, "0")}</span>
+        <span>The turning point</span>
+        <span className="stat-num">Night {String(sequence).padStart(2, "0")}</span>
       </div>
       <div className="relative flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-xs">
         <span className="stat-num font-bold text-ink">{receipt.date}</span>
@@ -121,6 +122,7 @@ function NightStation({
   title,
   detail,
   treatment,
+  memory,
   children,
 }: {
   night: Night;
@@ -128,15 +130,40 @@ function NightStation({
   title: ReactNode;
   detail: string;
   treatment: { label: string; motif: Motif };
+  memory?: { src: string; position?: string };
   children: ReactNode;
 }) {
   const onLeft = night.side === "left";
+  const featured = ["torrent", "reversal", "late", "flare"].includes(treatment.motif);
+  const sectionAtmosphere: Record<Motif, string> = {
+    single: "radial-gradient(52% 58% at 18% 52%, rgba(245,197,24,0.06), transparent 72%)",
+    comeback: "radial-gradient(58% 70% at 82% 52%, rgba(255,59,31,0.1), transparent 72%)",
+    torrent: "radial-gradient(76% 62% at 28% 52%, rgba(255,59,31,0.17), transparent 70%)",
+    cut: "linear-gradient(164deg, transparent 0 52%, rgba(0,0,0,0.22) 52.2%)",
+    paired: "radial-gradient(65% 66% at 72% 52%, rgba(245,197,24,0.07), transparent 72%)",
+    late: "radial-gradient(34% 72% at 88% 55%, rgba(245,197,24,0.11), transparent 75%)",
+    shock: "radial-gradient(62% 64% at 18% 54%, rgba(0,0,0,0.32), transparent 74%)",
+    reversal: "linear-gradient(145deg, rgba(0,0,0,0.2) 0 48%, rgba(255,59,31,0.09) 48.3% 100%)",
+    memory: "radial-gradient(58% 64% at 78% 52%, rgba(245,197,24,0.07), transparent 72%)",
+    flare: "radial-gradient(42% 68% at 88% 54%, rgba(255,105,72,0.16), transparent 74%)",
+  };
   return (
     <section
       data-thread-anchor={night.key}
-      className="relative flex min-h-[42rem] items-center px-5 py-16 sm:min-h-[45rem] sm:px-8 lg:px-12"
+      data-night-motif={treatment.motif}
+      className={`relative flex items-center px-5 py-16 sm:px-8 lg:px-[6vw] ${featured ? "min-h-[50rem] sm:min-h-[56rem]" : "min-h-[38rem] sm:min-h-[44rem]"}`}
+      style={{ backgroundImage: sectionAtmosphere[treatment.motif] }}
     >
-      <div className={`relative w-full pl-16 sm:pl-20 ${onLeft ? "lg:mr-auto lg:max-w-[48%] lg:pl-0" : "lg:ml-auto lg:max-w-[48%] lg:pl-0"}`}>
+      {memory && (
+        <div
+          className={`pointer-events-none absolute inset-y-0 hidden w-[43vw] max-w-[42rem] overflow-hidden opacity-30 lg:block ${onLeft ? "right-0 [mask-image:linear-gradient(to_left,#000_12%,rgba(0,0,0,0.84)_60%,transparent_100%)]" : "left-0 [mask-image:linear-gradient(to_right,#000_12%,rgba(0,0,0,0.84)_60%,transparent_100%)]"}`}
+          aria-hidden
+        >
+          <Image src={memory.src} alt="" fill sizes="43vw" className={`object-cover grayscale contrast-125 ${memory.position ?? "object-[50%_25%]"}`} />
+          <span className={`absolute inset-0 bg-[linear-gradient(to_bottom,rgba(13,11,10,0.56),transparent_32%,rgba(13,11,10,0.86))] ${onLeft ? "bg-devil/30 mix-blend-color" : "bg-gold/20 mix-blend-color"}`} />
+        </div>
+      )}
+      <div className={`relative w-full pl-16 sm:pl-20 ${onLeft ? "lg:mr-auto lg:pl-0" : "lg:ml-auto lg:pl-0"} ${featured ? "lg:max-w-[70%]" : "lg:max-w-[62%]"}`}>
         <span
           className={`pointer-events-none absolute -top-16 select-none stat-num text-[8rem] font-bold leading-none text-ink/[0.035] sm:text-[10rem] ${onLeft ? "left-8 lg:-left-8" : "left-8 lg:-right-8 lg:left-auto"}`}
           aria-hidden
@@ -152,12 +179,9 @@ function NightStation({
           data-thread-stitch={night.key}
           className="relative mt-9 border border-white/[0.11] bg-[#0d0b0a]/80 p-1 shadow-[0_24px_64px_rgb(0_0_0_/_0.2)] [clip-path:polygon(0_0,calc(100%_-_13px)_0,100%_13px,100%_100%,13px_100%,0_calc(100%_-_13px))]"
         >
-          <span className={`absolute -left-2 top-10 z-20 h-4 w-4 -translate-y-1/2 rounded-full border border-gold/70 bg-[#160b08] shadow-[0_0_18px_rgb(245_197_24_/_0.38)] ${onLeft ? "lg:-right-2 lg:left-auto" : ""}`} aria-hidden>
-            <span className="absolute inset-[4px] rounded-full bg-gold" />
-          </span>
           {children}
           <div className="relative border-t border-white/[0.08] bg-black/15 px-5 py-4 sm:px-7">
-            <JourneySourceLink href={`/match/${night.id}`} label="Open the full match receipt" />
+            <JourneySourceLink href={`/match/${night.id}`} label="See every goal and the final score" />
           </div>
         </div>
       </div>
@@ -168,7 +192,7 @@ function NightStation({
 /**
  * Journey chapter 5 — a deliberately smaller prototype of the eventual stitched
  * journey. A single filament descends from 1886 to now, spinning into ten
- * evidence-backed match receipts and then returning to the living archive.
+ * defining matches and then returning to the living archive.
  */
 export default function ThreadOfNightsJourneyPage() {
   const byKey = new Map(
@@ -213,15 +237,20 @@ export default function ThreadOfNightsJourneyPage() {
         <div className="max-w-4xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">Red Thread / 05</p>
           <h1 className="mt-7 max-w-3xl text-balance text-[3.35rem] font-semibold leading-[0.92] tracking-tight text-ink sm:text-7xl lg:text-[6.5rem]">
-            A thread <span className="text-devil-bright">of nights.</span>
+            Ten nights. <span className="text-devil-bright">One club.</span>
           </h1>
           <p className="mt-7 max-w-2xl text-pretty text-base leading-7 text-ink-dim sm:text-lg">
-            Ten matches, 115 years apart. Not a greatest-hits list: a path through the record, where each knot opens the night beneath it.
+            A hundred and fifteen years of United, told through the moments that still make a fan stop and remember.
+          </p>
+          <p className="stat-num mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-ink-dim sm:text-base" aria-label="Three moments on the thread">
+            <span><span className="text-gold">82′</span> Turnbull</span>
+            <span><span className="text-gold">110′</span> Whiteside</span>
+            <span><span className="text-devil-bright">120′</span> Amad</span>
           </p>
         </div>
         <div className="mt-20 flex max-w-4xl items-center justify-between text-[10px] font-semibold uppercase tracking-[0.24em] text-ink-faint">
           <span>1886</span>
-          <span>follow the thread ↓</span>
+          <span data-thread-origin>follow the thread ↓</span>
           <span>now</span>
         </div>
       </header>
@@ -230,8 +259,9 @@ export default function ThreadOfNightsJourneyPage() {
         night={night("first-cup")}
         index={1}
         treatment={NIGHT_TREATMENTS["first-cup"]}
-        title={<>The first Cup was <JourneyThreadAnchor>one goal.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(firstCupTurnbull)}. Bristol City did not score.`}
+        memory={{ src: "/media/players/sandy-turnbull.webp", position: "object-[50%_30%]" }}
+        title={<>The first Cup came down to <JourneyThreadAnchor>one goal.</JourneyThreadAnchor></>}
+        detail={`${goalPhrase(firstCupTurnbull)} settled it. Bristol City never found a way back.`}
       >
         <ReceiptFlow receipt={firstCup} detail="FA Cup final · Crystal Palace" motif="single" label="The first Cup" sequence={1} focusPlayerIds={firstCupTurnbull?.player_id ? [firstCupTurnbull.player_id] : undefined} />
       </NightStation>
@@ -241,7 +271,7 @@ export default function ThreadOfNightsJourneyPage() {
         index={2}
         treatment={NIGHT_TREATMENTS.blackpool}
         title={<>Blackpool led twice. <JourneyThreadAnchor>United won 4–2.</JourneyThreadAnchor></>}
-        detail={`${blackpool.opponentGoals.map(goalPhrase).join(". ")}. ${goalPhrase(blackpoolRowley)} started the response; ${goalPhrase(blackpoolAnderson)} finished it.`}
+        detail={`${blackpool.opponentGoals.map(goalPhrase).join(". ")}. ${goalPhrase(blackpoolRowley)} began the fightback; ${goalPhrase(blackpoolAnderson)} made sure of it.`}
       >
         <ReceiptFlow receipt={blackpool} detail="FA Cup final · Wembley" motif="comeback" label="The lead changed hands" sequence={2} focusPlayerIds={blackpoolRowley?.player_id ? [blackpoolRowley.player_id] : undefined} />
       </NightStation>
@@ -250,8 +280,9 @@ export default function ThreadOfNightsJourneyPage() {
         night={night("chelsea-eleven")}
         index={3}
         treatment={NIGHT_TREATMENTS["chelsea-eleven"]}
+        memory={{ src: "/media/players/dennis-viollet.webp", position: "object-[50%_22%]" }}
         title={<>Chelsea 5. <JourneyThreadAnchor>United 6.</JourneyThreadAnchor></>}
-        detail={`Eleven goals at Stamford Bridge. ${scorer(viollet)} scored three; ${scorer(taylor)} scored two.`}
+        detail={`An eleven-goal blur at Stamford Bridge. ${scorer(viollet)} struck three times; ${scorer(taylor)} added two more.`}
       >
         <ReceiptFlow receipt={chelsea} detail="First Division · Stamford Bridge" motif="torrent" label="The eleven-goal night" sequence={3} focusPlayerIds={[viollet?.player_id, taylor?.player_id].filter((id): id is string => !!id)} />
       </NightStation>
@@ -270,8 +301,8 @@ export default function ThreadOfNightsJourneyPage() {
         night={night("brighton-replay")}
         index={5}
         treatment={NIGHT_TREATMENTS["brighton-replay"]}
-        title={<>Five days later, <JourneyThreadAnchor>4–0.</JourneyThreadAnchor></>}
-        detail={`${brightonFinal.score} after extra time in the first final. Then Robson twice, Whiteside and Mühren in the replay.`}
+        title={<>The cup final replay, <JourneyThreadAnchor>4–0.</JourneyThreadAnchor></>}
+        detail={`${brightonFinal.score} in the first final. Five days later, Robson scored twice, with Whiteside and Mühren completing the answer.`}
       >
         <div className="grid gap-5">
           <div>
@@ -286,8 +317,9 @@ export default function ThreadOfNightsJourneyPage() {
         night={night("everton-110")}
         index={6}
         treatment={NIGHT_TREATMENTS["everton-110"]}
+        memory={{ src: "/media/players/norman-whiteside.webp", position: "object-[50%_20%]" }}
         title={<>No goal until <JourneyThreadAnchor>110′.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(whiteside)}. The only goal in 120 minutes against Everton.`}
+        detail={`${goalPhrase(whiteside)}. One clean finish after 110 minutes of deadlock against Everton.`}
       >
         <ReceiptFlow receipt={everton} detail="FA Cup final · Wembley · extra time" motif="late" label="The wait" sequence={6} focusPlayerIds={whiteside?.player_id ? [whiteside.player_id] : undefined} />
       </NightStation>
@@ -297,7 +329,7 @@ export default function ThreadOfNightsJourneyPage() {
         index={7}
         treatment={NIGHT_TREATMENTS["york-shock"]}
         title={<>York scored three <JourneyThreadAnchor>at Old Trafford.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(yorkBarnes)} twice, then ${goalPhrase(yorkBarras)}. No United response knot.`}
+        detail={`${goalPhrase(yorkBarnes)} twice, then ${goalPhrase(yorkBarras)}. Old Trafford had no answer.`}
       >
         <ReceiptFlow receipt={york} detail="League Cup · second round, first leg" motif="shock" label="The shock" sequence={7} />
       </NightStation>
@@ -306,8 +338,9 @@ export default function ThreadOfNightsJourneyPage() {
         night={night("spurs-five")}
         index={8}
         treatment={NIGHT_TREATMENTS["spurs-five"]}
+        memory={{ src: "/media/journey/beckham-white-hart-lane.jpg", position: "object-[50%_50%]" }}
         title={<>Three down at half-time. <JourneyThreadAnchor>Five up at full-time.</JourneyThreadAnchor></>}
-        detail={`${spurs.opponentGoals.length} Tottenham goals before the interval. ${spurs.unitedGoals.length} United goals after it, from 46′ to 87′.`}
+        detail={`${spurs.opponentGoals.length} Tottenham goals before the interval. Then ${spurs.unitedGoals.length} from United, from 46′ to 87′.`}
       >
         <ReceiptFlow receipt={spurs} detail="Premier League · White Hart Lane" motif="reversal" label="The reversal" sequence={8} />
       </NightStation>
@@ -326,8 +359,9 @@ export default function ThreadOfNightsJourneyPage() {
         night={night("liverpool-120")}
         index={10}
         treatment={NIGHT_TREATMENTS["liverpool-120"]}
-        title={<>Amad <JourneyThreadAnchor>at 120′.</JourneyThreadAnchor></>}
-        detail={`${liverpool.score} after extra time. ${goalPhrase(amad)} was the final knot.`}
+        memory={{ src: "/media/players/amad-diallo.webp", position: "object-[50%_22%]" }}
+        title={<>Amad. <JourneyThreadAnchor>120′.</JourneyThreadAnchor></>}
+        detail={`${liverpool.score} after extra time. ${goalPhrase(amad)} sent Old Trafford into the night.`}
       >
         <ReceiptFlow receipt={liverpool} detail="FA Cup quarter-final · Old Trafford · extra time" motif="flare" label="The final flare" sequence={10} focusPlayerIds={amad?.player_id ? [amad.player_id] : undefined} />
       </NightStation>
@@ -336,10 +370,10 @@ export default function ThreadOfNightsJourneyPage() {
         <div className="max-w-3xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-devil-bright">Now</p>
           <h2 className="mt-5 text-balance text-5xl font-semibold leading-[0.98] tracking-tight text-ink sm:text-7xl">
-            Ten knots. <JourneyThreadAnchor>The thread keeps going.</JourneyThreadAnchor>
+            Ten nights. <JourneyThreadAnchor>There is always another one.</JourneyThreadAnchor>
           </h2>
           <p className="mt-6 max-w-xl text-pretty text-base leading-7 text-ink-dim">
-            These are ten routes into a living archive. Pull another night, or walk every match from the beginning.
+            Start with another night you might have forgotten, or trace every match from the beginning.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/surprise" className="inline-flex items-center gap-2 rounded-full border border-devil-bright/60 bg-devil/15 px-6 py-3 text-sm font-semibold text-ink shadow-[0_0_30px_-6px_rgba(255,59,31,0.6)] transition hover:border-devil-bright hover:bg-devil/25 focus-ring">Pull another night →</Link>

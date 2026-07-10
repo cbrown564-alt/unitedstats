@@ -46,7 +46,7 @@ export default async function StoryPage({
   const { slug } = await params;
   // This never shipped as a public story, but preserves the prototype URL that
   // may still be open locally while the broader B-story takes its place.
-  if (slug === "rome-before-the-seven") redirect("/stories/a-thread-of-nights");
+  if (slug === "rome-before-the-seven" || slug === "forgotten-night") redirect("/stories/a-thread-of-nights");
   const chapter = journeyChapterBySlug(slug);
   if (!chapter) notFound();
 

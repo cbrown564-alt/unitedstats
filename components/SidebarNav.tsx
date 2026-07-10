@@ -34,8 +34,11 @@ export function SidebarNav() {
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "1") setCollapsed(true);
-    setMounted(true);
+    const frame = window.requestAnimationFrame(() => {
+      if (stored === "1") setCollapsed(true);
+      setMounted(true);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

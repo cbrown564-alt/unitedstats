@@ -31,10 +31,7 @@ export function EntityRediscoveryRail({
   const [prompt, setPrompt] = useState(basePrompt);
 
   useEffect(() => {
-    if (sinceYear == null) {
-      setPrompt(basePrompt);
-      return;
-    }
+    if (sinceYear == null) return;
 
     let cancelled = false;
     fetch(`/api/v1/rediscovery/${kind}/${encodeURIComponent(id)}?since=${sinceYear}`)
@@ -51,6 +48,7 @@ export function EntityRediscoveryRail({
     };
   }, [kind, id, sinceYear, basePrompt]);
 
-  if (!prompt) return null;
-  return <RediscoveryRail prompt={prompt} />;
+  const displayedPrompt = sinceYear == null ? basePrompt : prompt;
+  if (!displayedPrompt) return null;
+  return <RediscoveryRail prompt={displayedPrompt} />;
 }

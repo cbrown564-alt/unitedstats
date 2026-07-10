@@ -61,11 +61,14 @@ export function SearchCommand({
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const onDismissRef = useRef(onDismiss);
-  onDismissRef.current = onDismiss;
   const router = useRouter();
   const baseId = useId();
   const listId = `${baseId}-list`;
   const optionId = (i: number) => `${baseId}-opt-${i}`;
+
+  useEffect(() => {
+    onDismissRef.current = onDismiss;
+  }, [onDismiss]);
 
   const { shaped, questions, entities, total, displayTotal } = useSiteSearch(q);
   const ready = q.trim().length >= 2;

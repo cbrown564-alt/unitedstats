@@ -73,7 +73,8 @@ export function BottomSheet({
   useFocusTrap(sheetRef, mounted && !closing);
 
   useEffect(() => {
-    setPortalTarget(document.body);
+    const frame = window.requestAnimationFrame(() => setPortalTarget(document.body));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

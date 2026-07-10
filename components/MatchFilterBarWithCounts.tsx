@@ -96,10 +96,7 @@ export function MatchFilterBarWithCounts({
   }, [fetchQs]);
 
   useEffect(() => {
-    if (!chipKeys) {
-      setChipCounts(EMPTY_CHIP_COUNTS);
-      return;
-    }
+    if (!chipKeys) return;
     const ac = new AbortController();
     const qs = fetchQs
       ? `${fetchQs}&keys=${encodeURIComponent(chipKeys)}`
@@ -125,7 +122,7 @@ export function MatchFilterBarWithCounts({
       sheetLayout={sheetLayout}
       params={params}
       chips={chips}
-      chipCounts={chipCounts}
+      chipCounts={chipKeys ? chipCounts : EMPTY_CHIP_COUNTS}
       options={options}
       optionsLoading={!optionsLoaded}
       counts={counts}

@@ -50,7 +50,7 @@ interface NonPortraitFlag extends AuditSubject {
   reasons: string[];
 }
 
-interface MissingLocalPathFlag extends AuditSubject {}
+type MissingLocalPathFlag = AuditSubject;
 
 interface DuplicateCommonsFileFlag {
   commonsFile: string;
