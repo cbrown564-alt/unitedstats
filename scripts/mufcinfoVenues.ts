@@ -202,50 +202,6 @@ export interface SplitVenue {
   note: string | null;
 }
 
-interface MatchJob {
-  season: string;
-  match: Match;
-}
-
-interface ImportStats {
-  checked: number;
-  noPage: number;
-  noVenue: number;
-  alreadySet: number;
-  conflict: number;
-  wouldWrite: number;
-  written: number;
-  stadiumsAdded: number;
-  failed: number;
-}
-
-function numberArg(flag: string, fallback: number): number {
-  const index = process.argv.indexOf(flag);
-  if (index < 0) return fallback;
-  const value = Number(process.argv[index + 1]);
-  return Number.isFinite(value) && value >= 0 ? value : fallback;
-}
-
-function stringArg(flag: string): string | null {
-  const index = process.argv.indexOf(flag);
-  if (index < 0) return null;
-  const value = process.argv[index + 1];
-  return value && !value.startsWith("--") ? value : null;
-}
-
-function usage(): never {
-  console.error(
-    "usage: tsx scripts/ingest/mufcinfo-stadiums.ts <season> [<endSeason>] | current | all " +
-      "[--date YYYY-MM-DD] [--inspect YYYY-MM-DD] [--write] [--refresh]",
-  );
-  process.exit(1);
-}
-
-function seasonsFromArgs(): string[] {
-  if (DATE || INSPECT) return [seasonOfDate((DATE ?? INSPECT)!)];
-  return parseSeasonArgs(process.argv.slice(2), { allowAll: true }) ?? usage();
-}
-
 /** Fold a venue label to the alias-map key form. */
 export function normalizeVenueKey(raw: string): string {
   return htmlDecode(raw)
