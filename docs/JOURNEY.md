@@ -750,6 +750,67 @@ the repeating scoreline belongs to the record.
 
 ---
 
+## 4e. Chapter 5 — A thread of nights (the B-story prototype)
+
+This is **not** the eventual stitched journey. It is the supporting B-story that
+proves the stitched journey's continuous-thread grammar on a smaller, self-
+contained surface: one filament travels down the club record from 1886 toward
+now and spins into ten deliberately unlike nights. It is published at
+`/stories/a-thread-of-nights` (`noindex`).
+
+The job is twofold: make a supporter remember or discover a match, then show
+that Red Thread can organise the full archive into more routes like it. It is
+not a ranking of the club's greatest games, and it avoids European Cup finals so
+the existing myth chapters keep their own territory.
+
+### The ten knots (locked)
+
+| # | Night | Fact staged | Shape |
+|---|-------|-------------|-------|
+| 1 | 1909 — Bristol City, 1–0 | Turnbull 22′; first FA Cup | one knot |
+| 2 | 1948 — Blackpool, 4–2 | Blackpool led twice; United won | comeback |
+| 3 | 1954 — Chelsea, 6–5 | eleven goals; Viollet three, Taylor two | torrent |
+| 4 | 1976 — Southampton, 0–1 | Stokes 83′; the final lost | cut |
+| 5 | 1983 — Brighton, 4–0 replay | 2–2 aet, then 4–0 five days later | paired receipt |
+| 6 | 1985 — Everton, 1–0 aet | Whiteside 110′; one goal in 120 minutes | tense knot |
+| 7 | 1995 — York City, 0–3 | three York goals at Old Trafford | shock |
+| 8 | 2001 — Spurs, 5–3 | three down at half-time; five after it | reversal |
+| 9 | 2016 — Crystal Palace, 2–1 aet | Palace 78′; Mata 81′; Lingard 110′ | living memory |
+| 10 | 2024 — Liverpool, 4–3 aet | Amad 120′ | final flare |
+
+Every score, clock and scorer is read from `matchReceipt()`; the chapter's tests
+pin the ten selected IDs and scorelines. The 1983 knot additionally reads the
+original final receipt (`1983-05-21-brighton-and-hove-albion-n`).
+
+### Visual and motion contract (shipped)
+
+- **One SVG, one filament.** `ThreadOfNights` measures the seam of every evidence
+  slip and draws one restrained spline directly through them. It enters from the
+  upper left, stitches the alternating receipts into a single chronology, and
+  leaves toward the lower right. There is no parallel timeline or progress rail.
+- **The match is physically part of the route.** Each receipt has an authored
+  seam and gold tack. On desktop the thread travels directly from seam to seam;
+  on mobile it becomes a quiet left-gutter filament with a short sewn tack into
+  each full-width slip. The old enter-loop-return routing is deliberately gone.
+- **Scroll owns the draw.** Only the early part is bright on arrival. Scroll
+  draws the line forward and wakes each knot; the completed route remains as a
+  quiet trace. `prefers-reduced-motion` renders the finished line and all knots
+  immediately — no content waits for movement.
+- **Match flow is evidence, not chrome.** The reusable `MatchFlow` rail carries
+  each game's real event sequence inside an archival slip. Curatorial labels and
+  restrained, match-specific material treatments distinguish a one-goal first,
+  an eleven-goal torrent, a final lost, a replay pair and a 120′ flare without
+  inventing ten incompatible chart types.
+
+### Door
+
+Every station links to its `/match/[id]` receipt. The final line does not close
+history: **“Pull another night”** opens `/surprise`; **“Every match”** opens the
+archive. This is the explicit bridge from a curated discovery route into the
+living product.
+
+---
+
 ## 5. Later chapters (sketch only — do not build yet)
 
 Ordered by how cleanly they reuse existing surfaces:
@@ -759,7 +820,7 @@ Ordered by how cleanly they reuse existing surfaces:
 | ~~Treble 1998–99~~ | Spin-off | **Manner-first pass live (A/C/D) — see §4b** |
 | ~~Fortress OT~~ | Spin-off (place) | **Manner-first first build — see §4c** |
 | ~~Fergie time~~ | Loop across managers | **Built — see §4d** |
-| Forgotten night | Bead on the axis | Rediscovery / `/surprise` |
+| ~~A thread of nights~~ | Continuous follow + spin-offs | **Built — see §4e** |
 | Skyline breath | Follow | `HistorySkyline` / seasons `FinishTimeline` |
 
 Each chapter should be authorable as a short beat sheet before any motion work.

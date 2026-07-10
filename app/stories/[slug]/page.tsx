@@ -1,10 +1,11 @@
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import TwoNoSevensStory from "@/app/journey/page";
 import ElevenDaysInMayStory from "@/app/journey/treble/page";
 import FortressOtStory from "@/app/journey/fortress/page";
 import FergieTimeStory from "@/app/journey/fergie-time/page";
+import ThreadOfNightsStory from "@/app/journey/forgotten-night/page";
 import { JOURNEY_CHAPTERS, journeyChapterBySlug, type JourneyChapterSlug } from "@/lib/journey";
 
 export const revalidate = 86400;
@@ -14,6 +15,7 @@ const STORY_COMPONENTS: Record<JourneyChapterSlug, ComponentType> = {
   "eleven-days-in-may": ElevenDaysInMayStory,
   "fortress-ot": FortressOtStory,
   "fergie-time": FergieTimeStory,
+  "a-thread-of-nights": ThreadOfNightsStory,
 };
 
 export function generateStaticParams() {
@@ -42,6 +44,9 @@ export default async function StoryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  // This never shipped as a public story, but preserves the prototype URL that
+  // may still be open locally while the broader B-story takes its place.
+  if (slug === "rome-before-the-seven") redirect("/stories/a-thread-of-nights");
   const chapter = journeyChapterBySlug(slug);
   if (!chapter) notFound();
 

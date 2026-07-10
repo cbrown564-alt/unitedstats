@@ -37,6 +37,32 @@ export const JOURNEY_CHAPTERS = [
     href: "/stories/fergie-time",
     description: "Three 2–1 comebacks, thirty years apart — the last one came a decade after Ferguson left.",
   },
+  {
+    slug: "a-thread-of-nights",
+    number: "05",
+    title: "A thread of nights",
+    href: "/stories/a-thread-of-nights",
+    description: "Ten surprising Manchester United matches, from the first FA Cup to Amad at 120′.",
+  },
+] as const;
+
+/**
+ * The B-story's deliberately authored rediscovery set. These are not a ranking
+ * of the club's greatest matches: each knot gives the continuous thread a
+ * different shape — firsts, high scores, a final lost, a shock, comebacks and
+ * living memory. The page reads every displayed fact back from its receipt.
+ */
+export const THREAD_OF_NIGHTS = [
+  { key: "first-cup", id: "1909-04-24-bristol-city-n", side: "left" },
+  { key: "blackpool", id: "1948-04-24-blackpool-n", side: "right" },
+  { key: "chelsea-eleven", id: "1954-10-16-chelsea-a", side: "left" },
+  { key: "southampton-final", id: "1976-05-01-southampton-n", side: "right" },
+  { key: "brighton-replay", id: "1983-05-26-brighton-and-hove-albion-n", side: "left" },
+  { key: "everton-110", id: "1985-05-18-everton-n", side: "right" },
+  { key: "york-shock", id: "1995-09-20-york-city-h", side: "left" },
+  { key: "spurs-five", id: "2001-09-29-tottenham-hotspur-a", side: "right" },
+  { key: "palace-final", id: "2016-05-21-crystal-palace-n", side: "left" },
+  { key: "liverpool-120", id: "2024-03-17-liverpool-h", side: "right" },
 ] as const;
 
 export type JourneyChapterSlug = (typeof JOURNEY_CHAPTERS)[number]["slug"];

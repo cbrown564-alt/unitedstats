@@ -11,6 +11,7 @@ import test from "node:test";
 
 import {
   JOURNEY_CHAPTERS,
+  THREAD_OF_NIGHTS,
   crackRescuer,
   fergieTimeEchoes,
   fortressRun,
@@ -29,11 +30,43 @@ test("published stories have stable slugs and canonical story routes", () => {
       { slug: "eleven-days-in-may", href: "/stories/eleven-days-in-may" },
       { slug: "fortress-ot", href: "/stories/fortress-ot" },
       { slug: "fergie-time", href: "/stories/fergie-time" },
+      { slug: "a-thread-of-nights", href: "/stories/a-thread-of-nights" },
     ],
   );
   assert.equal(journeyChapterBySlug("fortress-ot")?.title, "Fortress OT");
   assert.equal(journeyChapterBySlug("fergie-time")?.title, "Fergie time");
+  assert.equal(journeyChapterBySlug("a-thread-of-nights")?.title, "A thread of nights");
   assert.equal(journeyChapterBySlug("not-a-story"), undefined);
+});
+
+test("thread of nights: the ten curated knots resolve to their intended scorelines", () => {
+  assert.deepEqual(
+    THREAD_OF_NIGHTS.map(({ id }) => id),
+    [
+      "1909-04-24-bristol-city-n",
+      "1948-04-24-blackpool-n",
+      "1954-10-16-chelsea-a",
+      "1976-05-01-southampton-n",
+      "1983-05-26-brighton-and-hove-albion-n",
+      "1985-05-18-everton-n",
+      "1995-09-20-york-city-h",
+      "2001-09-29-tottenham-hotspur-a",
+      "2016-05-21-crystal-palace-n",
+      "2024-03-17-liverpool-h",
+    ],
+  );
+  assert.deepEqual(
+    THREAD_OF_NIGHTS.map(({ id }) => matchReceipt(id)?.score),
+    ["1–0", "4–2", "6–5", "0–1", "4–0", "1–0 (a.e.t)", "0–3", "5–3", "2–1 (a.e.t)", "4–3 (a.e.t)"],
+  );
+  const spurs = matchReceipt("2001-09-29-tottenham-hotspur-a");
+  const liverpool = matchReceipt("2024-03-17-liverpool-h");
+  assert.ok(spurs);
+  assert.ok(liverpool);
+  assert.equal(spurs.opponentGoals.filter((goal) => (goal.minute ?? 99) <= 45).length, 3);
+  assert.equal(spurs.unitedGoals.filter((goal) => (goal.minute ?? 0) > 45).length, 5);
+  assert.equal(liverpool.unitedGoals.at(-1)?.player_display_name, "Amad Diallo");
+  assert.equal(liverpool.unitedGoals.at(-1)?.minute, 120);
 });
 
 test("fergie time: three late two-goal comebacks share the 0–1 to 2–1 shape", () => {
