@@ -5,14 +5,16 @@
 **Parent:** [`docs/JOURNEY.md`](./JOURNEY.md)  
 **Working title:** *The line through time*
 
-**Narrative master v2 — built 11 July 2026:** an 84-second evaluation master now
-renders from `video/RedThreadMasterV2.tsx` to
-`output/video/red-thread-master-v2.mp4`. It corrects the first prototype's broken
-chronology: the film reaches Ronaldo at 2008 before the thread loops backward to
-Best at 1968, then states the complete four-part rhyme. From there it follows the
+**Motion and sound master v3 — built 11 July 2026:** an 84-second evaluation
+master renders from `video/RedThreadMasterV2.tsx` to
+`output/video/red-thread-master-v3.mp4`. It keeps chronology intact, coordinates
+the opening camera with the filament draw, and carries the 2008 knot into a full
+1968↔2008 loop before the filament exits through 1999. From there it follows the
 locked scale progression—1999 Treble pocket → three Fergie-time echoes → all 671
 recorded post-85′ goals → 395-match Fortress record → all 6,028 matches. The
-earlier 14-second simultaneous reveal remains only as a comparison artifact.
+score is a timestamp-structured instrumental generated with Lyria 3 Pro and
+normalized to picture length. The earlier 14-second simultaneous reveal remains
+only as a comparison artifact.
 
 This document scopes the first cinematic compression of Red Thread: an authored,
 animated journey through Manchester United history that can stand alone as a

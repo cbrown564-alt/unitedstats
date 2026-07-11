@@ -179,12 +179,11 @@ function Field({ energy = 0.5 }: { energy?: number }) {
 }
 
 function FilmKicker({ frame }: { frame: number }) {
-  const act = frame < 540 ? "FOLLOW" : frame < 1110 ? "LOOP" : frame < 1590 ? "SPIN OFF" : frame < 2040 ? "ECHO" : frame < 2310 ? "PLACE" : "RECORD";
   const finalFade = 1 - smoothstep(2400, 2460, frame);
   return (
     <div style={{ position: "absolute", left: 74, top: 56, display: "flex", alignItems: "center", gap: 16, opacity: finalFade, fontFamily: MONO, fontSize: 15, letterSpacing: "0.24em", color: C.faint }}>
       <span style={{ width: 8, height: 8, borderRadius: 20, background: C.red, boxShadow: `0 0 16px ${C.red}` }} />
-      RED THREAD&nbsp;&nbsp;/&nbsp;&nbsp;{act}
+      RED THREAD&nbsp;&nbsp;/&nbsp;&nbsp;1886—NOW
     </div>
   );
 }
@@ -202,26 +201,30 @@ type TimelineEvent = {
 const TIMELINE_EVENTS: TimelineEvent[] = [
   { year: 1886, x: 220, start: 18, eyebrow: "30 OCTOBER 1886", headline: "The first match.", sub: "Fleetwood Rangers 2–2 Newton Heath." },
   { year: 1909, x: 930, start: 118, eyebrow: "24 APRIL 1909", headline: "The first FA Cup.", sub: "Bristol City 0–1 United." },
-  { year: 1954, x: 1770, start: 226, eyebrow: "16 OCTOBER 1954", headline: "Eleven goals.", sub: "Chelsea 5–6 United." },
-  { year: 1968, x: 2310, start: 320, eyebrow: "29 MAY 1968", headline: "European champions.", sub: "Benfica 1–4 United · Wembley.", european: true },
-  { year: 1999, x: 3080, start: 405, eyebrow: "26 MAY 1999", headline: "European champions.", sub: "Bayern 1–2 United · Barcelona.", european: true },
-  { year: 2008, x: 3520, start: 482, eyebrow: "21 MAY 2008", headline: "European champions.", sub: "United 1–1 Chelsea · 6–5 pens · Moscow.", european: true },
+  { year: 1954, x: 1770, start: 232, eyebrow: "16 OCTOBER 1954", headline: "Eleven goals.", sub: "Chelsea 5–6 United." },
+  { year: 1968, x: 2310, start: 340, eyebrow: "29 MAY 1968", headline: "European champions.", sub: "Benfica 1–4 United · Wembley.", european: true },
+  { year: 1999, x: 3080, start: 438, eyebrow: "26 MAY 1999", headline: "European champions.", sub: "Bayern 1–2 United · Barcelona.", european: true },
+  { year: 2008, x: 3520, start: 516, eyebrow: "21 MAY 2008", headline: "European champions.", sub: "United 1–1 Chelsea · 6–5 pens · Moscow.", european: true },
 ];
 
 function HistoricalTimeline({ frame }: { frame: number }) {
   const duration = 585;
   const opacity = sceneOpacity(frame, duration, 42);
-  const travel = interpolate(frame, [18, 520], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
-  // Hold each authored knot near centre while its fact is legible, then travel
-  // decisively to the next one. A single continuous linear pan made 1968 slide
-  // off-screen before its European-Cup status had landed.
+  const historicalEase = Easing.bezier(0.77, 0, 0.175, 1);
+  // The filament pulls the camera: draw and pan share the same authored beats,
+  // while every fact lands only after its knot has reached the reading position.
   const cameraX = interpolate(
     frame,
-    [0, 78, 96, 164, 184, 274, 294, 370, 390, 452, 470, 540],
-    [0, 0, 30, 30, -810, -810, -1350, -1350, -2120, -2120, -2560, -2560],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) },
+    [0, 60, 110, 174, 224, 282, 332, 380, 430, 460, 508, 570],
+    [740, 740, 30, 30, -810, -810, -1350, -1350, -2120, -2120, -2560, -2560],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
   );
-  const draw = lerp(0.025, 0.89, travel);
+  const draw = interpolate(
+    frame,
+    [0, 60, 110, 174, 224, 282, 332, 380, 430, 460, 508, 570],
+    [0.025, 0.07, 0.24, 0.24, 0.45, 0.45, 0.58, 0.58, 0.77, 0.77, 0.9, 0.95],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
+  );
   const worldScale = lerp(1, 1.025, smoothstep(340, 520, frame));
   return (
     <AbsoluteFill style={{ opacity }}>
@@ -286,51 +289,63 @@ const RHYME_FACTS = [
 function RhymeLoop({ frame }: { frame: number }) {
   const duration = 630;
   const opacity = sceneOpacity(frame, duration, 42);
-  const backwardDraw = smoothstep(60, 188, frame);
+  const circleDraw = smoothstep(60, 356, frame);
+  const exitDraw = smoothstep(540, 620, frame);
   const bestArrival = smoothstep(154, 215, frame);
   const ronaldoArrival = smoothstep(0, 54, frame);
   const finalFact = smoothstep(474, 548, frame);
+  const handoff = smoothstep(0, 78, frame);
+  const contentFade = 1 - smoothstep(532, 580, frame);
+  const worldX = lerp(-530, 0, handoff);
   const baseY = 696;
-  const backPath = "M 1490 696 C 1475 340, 1245 230, 980 292 C 755 220, 455 352, 430 696";
+  const circlePath = "M 1490 696 C 1490 420, 1253 196, 960 196 C 667 196, 430 420, 430 696 C 430 972, 667 996, 960 996 C 1253 996, 1490 972, 1490 696";
+  const exitPath = "M 1490 696 C 1360 660, 1190 674, 980 696";
   const activeFact = [...RHYME_FACTS].reverse().find((fact) => frame >= fact.start) ?? null;
   const titleOpacity = frame < 205 ? windowed(frame, 28, 60, 168, 204) : 0;
   return (
     <AbsoluteFill style={{ opacity }}>
-      <Portrait side="right" src="media/journey/cristiano-ronaldo.webp" opacity={0.31 * ronaldoArrival} />
-      <Portrait side="left" src="media/journey/george-best.webp" opacity={0.31 * bestArrival} />
+      <div style={{ position: "absolute", inset: 0, transform: `translateX(${worldX}px)` }}>
+      <Portrait side="right" src="media/journey/cristiano-ronaldo.webp" opacity={0.31 * ronaldoArrival * contentFade} />
+      <Portrait side="left" src="media/journey/george-best.webp" opacity={0.31 * bestArrival * contentFade} />
       <svg width="1920" height="1080" style={{ position: "absolute", inset: 0 }}>
         <defs>
           <linearGradient id="back-thread" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stopColor={C.gold} /><stop offset="0.42" stopColor="#ff7149" /><stop offset="1" stopColor={C.red} /></linearGradient>
           <filter id="back-glow" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="12" /></filter>
         </defs>
+        <g opacity={contentFade}>
         <path d={`M 430 ${baseY} C 720 674, 1190 718, 1490 ${baseY}`} fill="none" stroke={C.red} strokeOpacity="0.38" strokeWidth="3" />
         {[{ year: 1968, x: 430 }, { year: 1999, x: 980 }, { year: 2008, x: 1490 }].map((item) => (
           <g key={item.year}>
             <circle cx={item.x} cy={baseY} r={item.year === 1999 ? 7 : 9} fill={item.year === 1999 ? C.gold : C.cream} />
             <text x={item.x} y={baseY + 54} textAnchor="middle" fill={item.year === 1999 ? C.gold : C.ink} style={{ fontFamily: MONO, fontSize: 29 }}>{item.year}</text>
-            {item.year === 1999 && <text x={item.x} y={baseY + 84} textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 13, fontWeight: 600, letterSpacing: "0.18em" }}>THE THREAD WAITS</text>}
+            {item.year === 1999 && <text x={item.x} y={baseY + 84} textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 13, fontWeight: 600, letterSpacing: "0.18em" }}>ELEVEN DAYS IN MAY</text>}
           </g>
         ))}
-        <path d={backPath} fill="none" stroke={C.red} strokeWidth="32" strokeOpacity={0.17 * backwardDraw} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - backwardDraw} filter="url(#back-glow)" />
-        <path d={backPath} fill="none" stroke="url(#back-thread)" strokeWidth="4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - backwardDraw} />
-        <circle cx="430" cy={baseY} r={lerp(0, 32, bestArrival)} fill={C.gold} fillOpacity="0.18" />
-        <circle cx="1490" cy={baseY} r={lerp(0, 24, ronaldoArrival)} fill={C.gold} fillOpacity="0.14" />
+        <path d={circlePath} fill="none" stroke={C.red} strokeWidth="32" strokeOpacity={0.17 * circleDraw} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - circleDraw} filter="url(#back-glow)" />
+        <path d={circlePath} fill="none" stroke="url(#back-thread)" strokeWidth="4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - circleDraw} />
+        </g>
+        <path d={exitPath} fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.14 * exitDraw} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - exitDraw} filter="url(#back-glow)" />
+        <path d={exitPath} fill="none" stroke="url(#back-thread)" strokeWidth="4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - exitDraw} />
+        <circle cx="430" cy={baseY} r={lerp(0, 32, bestArrival)} fill={C.gold} fillOpacity={0.18 * contentFade} />
+        <circle cx="1490" cy={baseY} r={lerp(0, 24, ronaldoArrival)} fill={C.gold} fillOpacity={0.14 * contentFade} />
         <circle cx="980" cy={baseY} r={lerp(7, 30, smoothstep(560, 618, frame))} fill="none" stroke={C.gold} strokeOpacity={1 - smoothstep(590, 630, frame)} />
+        <circle cx="980" cy={baseY} r="7" fill={C.gold} opacity={smoothstep(540, 580, frame)} />
       </svg>
+      </div>
 
       <div style={{ position: "absolute", top: 122, insetInline: 0, textAlign: "center", opacity: titleOpacity }}>
-        <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.26em", color: C.dim }}>2008 REACHED</div>
-        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.04em" }}>Then the thread loops back.</div>
+        <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.26em", color: C.dim }}>1968&nbsp;&nbsp;↔&nbsp;&nbsp;2008</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.04em" }}>Forty years. The same summit.</div>
       </div>
 
       {activeFact && (
-        <div style={{ position: "absolute", top: 105, left: 570, right: 570, textAlign: "center", opacity: smoothstep(activeFact.start, activeFact.start + 26, frame), transform: `translateY(${lerp(24, 0, smoothstep(activeFact.start, activeFact.start + 26, frame))}px)` }}>
+        <div style={{ position: "absolute", top: 105, left: 570, right: 570, textAlign: "center", opacity: smoothstep(activeFact.start, activeFact.start + 26, frame) * contentFade, transform: `translateY(${lerp(24, 0, smoothstep(activeFact.start, activeFact.start + 26, frame))}px)` }}>
           <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.25em", color: C.gold }}>{activeFact.label}</div>
           <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 54, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>{activeFact.headline}</div>
         </div>
       )}
 
-      <div style={{ position: "absolute", left: 210, right: 210, bottom: 90, display: "grid", gridTemplateColumns: "1fr 120px 1fr", alignItems: "center", gap: 24, opacity: smoothstep(192, 226, frame) }}>
+      <div style={{ position: "absolute", left: 210, right: 210, bottom: 90, display: "grid", gridTemplateColumns: "1fr 120px 1fr", alignItems: "center", gap: 24, opacity: smoothstep(192, 226, frame) * contentFade }}>
         <RhymeLedger side="left" frame={frame} />
         <div style={{ textAlign: "center", fontFamily: SANS, fontSize: 166, fontWeight: 800, color: `rgba(255,59,31,${alpha(0.1 + finalFact * 0.05)})` }}>7</div>
         <RhymeLedger side="right" frame={frame} />
@@ -392,7 +407,7 @@ function TreblePocket({ frame }: { frame: number }) {
 
       <div style={{ position: "absolute", top: 94, insetInline: 0, textAlign: "center" }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.24em", color: C.gold }}>1998–99 · ELEVEN DAYS</div>
-        <div style={{ marginTop: 16, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>{frame < 82 ? "The thread opens." : frame < 414 ? "Three must-wins." : "All three, from the bench."}</div>
+        <div style={{ marginTop: 16, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>{frame < 82 ? "Eleven days changed everything." : frame < 414 ? "Three must-wins." : "All three, from the bench."}</div>
       </div>
 
       <div style={{ position: "absolute", left: 575, right: 575, top: 318, textAlign: "center", opacity: 1 - land * 0.25 }}>
@@ -451,9 +466,9 @@ function FergieConstellation({ frame }: { frame: number }) {
       </svg>
       <div style={{ position: "absolute", top: 100, insetInline: 0, textAlign: "center", opacity: constellation }}>
         <div style={{ fontFamily: MONO, color: C.gold, fontSize: 18, letterSpacing: "0.23em" }}>{DATA.lateGoals.length} RECORDED GOALS AFTER 85′</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>The whole late-goal constellation.</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>One pressure, repeated across eras.</div>
       </div>
-      <div style={{ position: "absolute", insetInline: 0, bottom: 52, textAlign: "center", opacity: smoothstep(392, 444, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>The phrase belongs to Ferguson. The repeating shape belongs to the record.</div>
+      <div style={{ position: "absolute", insetInline: 0, bottom: 52, textAlign: "center", opacity: smoothstep(392, 444, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>From 1993 to 2023, the same impossible finish.</div>
     </AbsoluteFill>
   );
 }
@@ -483,7 +498,7 @@ function Fortress({ frame }: { frame: number }) {
       </svg>
       <div style={{ position: "absolute", top: 92, insetInline: 0, textAlign: "center" }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.24em", color: C.red }}>OLD TRAFFORD · HOME LEAGUE</div>
-        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 58, fontWeight: 600, letterSpacing: "-0.045em" }}>{frame < 122 ? "Zoom out again." : frame < 214 ? "Led at half-time." : "Only three ever fell behind."}</div>
+        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 58, fontWeight: 600, letterSpacing: "-0.045em" }}>{frame < 122 ? "At Old Trafford, a lead held." : frame < 214 ? "395 times ahead at half-time." : "Only three needed rescuing."}</div>
       </div>
       <div style={{ position: "absolute", left: 290, right: 290, top: 350, display: "grid", gridTemplateColumns: "1.25fr 1fr 1fr 1fr", gap: 24, alignItems: "end", opacity: numbers }}>
         <FortressNumber value={String(DATA.fortress.games.length)} label="VERIFIABLE MATCHES" />
@@ -523,9 +538,9 @@ function RecordOpens({ frame }: { frame: number }) {
         <ArchiveStat value={DATA.counts.lineups.toLocaleString("en-GB")} label="LINEUP ROWS" />
       </div>
       <div style={{ position: "absolute", top: 268, insetInline: 0, textAlign: "center", opacity: final, transform: `translateY(${lerp(28, 0, final)}px)` }}>
-        <div style={{ fontFamily: MONO, fontSize: 16, color: C.red, letterSpacing: "0.25em" }}>THE RECORD OPENS</div>
+        <div style={{ fontFamily: MONO, fontSize: 16, color: C.red, letterSpacing: "0.25em" }}>140 YEARS, CONNECTED</div>
         <div style={{ marginTop: 20, fontFamily: SANS, fontSize: 76, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>The line continues.</div>
-        <div style={{ marginTop: 24, fontFamily: SANS, fontSize: 23, color: C.dim }}>Every match since 1886. Every claim opens into its receipt.</div>
+        <div style={{ marginTop: 24, fontFamily: SANS, fontSize: 23, color: C.dim }}>Every match since 1886. Every line leads back to the evidence.</div>
       </div>
       <div style={{ position: "absolute", left: 74, right: 74, bottom: 46, display: "flex", justifyContent: "space-between", opacity: smoothstep(220, 262, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>
         <span>RED THREAD · AN INDEPENDENT HISTORICAL ARCHIVE</span><span>FOLLOW THE LINE&nbsp;&nbsp;↗</span>
@@ -538,7 +553,7 @@ function ArchiveStat({ value, label }: { value: string; label: string }) {
   return <div style={{ paddingTop: 20, borderTop: "1px solid rgba(243,237,232,.18)", textAlign: "center" }}><div style={{ fontFamily: MONO, fontSize: 62, color: C.ink }}>{value}</div><div style={{ marginTop: 12, fontFamily: SANS, fontSize: 14, fontWeight: 600, letterSpacing: "0.2em", color: C.faint }}>{label}</div></div>;
 }
 
-export function RedThreadMasterV2() {
+export function RedThreadMasterV2({ withAudio = true }: { withAudio?: boolean }) {
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill style={{ color: C.ink, fontFamily: SANS }}>
@@ -551,7 +566,7 @@ export function RedThreadMasterV2() {
       {frame >= 1980 && frame < 2370 && <Fortress frame={frame - 1980} />}
       {frame >= 2280 && <RecordOpens frame={frame - 2280} />}
       <FilmKicker frame={frame} />
-      <Audio src={staticFile("video/audio/master-v2.wav")} volume={0.88} />
+      {withAudio && <Audio src={staticFile("video/audio/master-v3.mp3")} volume={0.82} />}
     </AbsoluteFill>
   );
 }

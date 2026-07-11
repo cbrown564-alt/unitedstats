@@ -2,13 +2,14 @@
 
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
-## Master v2 — 84 seconds
+## Master v3 — 84 seconds
 
-`red-thread-master-v2` is the story-correct first master:
+`red-thread-master-v3` is the motion- and sound-refined master:
 
 1. follows the chronological line from the first match in 1886 through 1909 and
    1954, giving 1968, 1999 and 2008 special European-Cup status;
-2. reaches Ronaldo in 2008, then draws a backward arc to Best in 1968;
+2. reaches Ronaldo in 2008, then draws a complete time loop through Best in
+   1968 and returns through 1999;
 3. lands the full rhyme: European Cup, final goal, Ballon d'Or and club peak in
    each player's fifth United season;
 4. returns to 1999 and enters the three-must-win Treble pocket;
@@ -33,10 +34,12 @@ npm run video:studio
 npm run video:render
 ```
 
-The data fixture and both sound beds are deterministic and generated locally by
-`npm run video:prepare`. The current master is written to
-`output/video/red-thread-master-v2.mp4`; use `npm run video:render:prototype` only
-to reproduce the earlier 14-second study.
+The data fixture is rebuilt locally by `npm run video:prepare`. The master score
+is an authored, timestamped Lyria 3 Pro generation cached at
+`public/video/audio/master-v3.mp3`; regenerate it deliberately with
+`npm run video:score:force`, not on every render. The current master is written
+to `output/video/red-thread-master-v3.mp4`; use
+`npm run video:render:prototype` only to reproduce the earlier 14-second study.
 
 ## Source contract
 
@@ -45,5 +48,8 @@ to reproduce the earlier 14-second study.
 - The Best monument is CC0 (Hans Peters / Anefo).
 - The Ronaldo monument is CC BY 2.0 (Gordon Flood).
 - No broadcast footage, commentary, crowd recording or commercial music is used.
+- The master uses an instrumental Lyria 3 Pro score generated from the authored
+  structure in `scripts/generate-video-score.mjs`; its prompt and provenance are
+  stored alongside the audio in `master-v3.json`.
 - Master: 1920×1080, 30 fps, 2,520 frames / 84 seconds.
 - Prototype: 1920×1080, 30 fps, 420 frames / 14 seconds.

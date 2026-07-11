@@ -22,6 +22,9 @@ is frozen from the same canonical record used by the five published stories.
   `data/canonical/journey-place-media.json`.
 - Old Trafford monument: its Commons metadata is retained by the journey media
   pipeline.
-- Both sound beds are deterministic original synthesis generated in `scripts/`.
+- The current master score is an instrumental Lyria 3 Pro generation created
+  from the timestamped structure in `scripts/generate-video-score.mjs`. The
+  generated MP3 carries Google's SynthID watermark; its prompt, model and timing
+  normalization are recorded in `public/video/audio/master-v3.json`.
+- The superseded prototype sound bed remains deterministic original synthesis.
   No broadcast footage, commentary, match audio or commercial music is present.
-
