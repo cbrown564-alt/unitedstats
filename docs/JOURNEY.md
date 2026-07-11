@@ -67,6 +67,11 @@ Camp Nou) — not only chronology.
 
 ## 3. Packaging
 
+The downstream cinematic compression is now scoped separately in
+[`docs/SIZZLE-REEL-SCOPE.md`](./SIZZLE-REEL-SCOPE.md). That document treats the
+film as a new authored arc built from the five proven stories, not a stitched
+screen recording of them.
+
 ### Now — standalone stories
 
 Build and prove **one story at a time** as a self-contained arc. Each story has
