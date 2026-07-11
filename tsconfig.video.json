@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["video/**/*.ts", "video/**/*.tsx", "remotion.config.ts"],
+  "exclude": ["node_modules", ".next", "tests"]
+}
