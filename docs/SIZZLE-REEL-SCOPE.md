@@ -5,9 +5,9 @@
 **Parent:** [`docs/JOURNEY.md`](./JOURNEY.md)  
 **Working title:** *The line through time*
 
-**Motion and sound master v3 — built 11 July 2026:** an 84-second evaluation
+**Motion and sound master v4 — built 11 July 2026:** an 84-second evaluation
 master renders from `video/RedThreadMasterV2.tsx` to
-`output/video/red-thread-master-v3.mp4`. It keeps chronology intact, coordinates
+`output/video/red-thread-master-v4.mp4`. It keeps chronology intact, coordinates
 the opening camera with the filament draw, and carries the 2008 knot into a full
 1968↔2008 loop before the filament exits through 1999. From there it follows the
 locked scale progression—1999 Treble pocket → three Fergie-time echoes → all 671
@@ -15,6 +15,12 @@ recorded post-85′ goals → 395-match Fortress record → all 6,028 matches. T
 score is a timestamp-structured instrumental generated with Lyria 3 Pro and
 normalized to picture length. The earlier 14-second simultaneous reveal remains
 only as a comparison artifact.
+
+The v4 Treble passage replaces v3's calm circular summary with a tightening
+eleven-day fuse. Each match begins in jeopardy, the substitute intervention
+lands as evidence, the recovery gaps contract from six days to four, and the
+European final holds at 90 minutes before the two-goal reversal. V3 remains a
+comparison artifact at `output/video/red-thread-master-v3.mp4`.
 
 This document scopes the first cinematic compression of Red Thread: an authored,
 animated journey through Manchester United history that can stand alone as a

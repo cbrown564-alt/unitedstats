@@ -48,7 +48,7 @@
     "video:studio": "npm run video:prepare && remotion studio video/index.ts",
     "video:score": "node scripts/generate-video-score.mjs",
     "video:score:force": "node scripts/generate-video-score.mjs --force",
-    "video:render": "npm run video:prepare && remotion render video/index.ts red-thread-master-v3 output/video/red-thread-master-v3.mp4",
+    "video:render": "npm run video:prepare && remotion render video/index.ts red-thread-master-v4 output/video/red-thread-master-v4.mp4",
     "video:render:prototype": "npm run video:audio && remotion render video/index.ts red-thread-loop-prototype output/video/red-thread-loop-prototype.mp4",
     "upload:db": "tsx scripts/upload-db.ts",
     "revalidate": "tsx scripts/revalidate.ts",

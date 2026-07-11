@@ -369,59 +369,131 @@ function RhymeLedger({ side, frame }: { side: "left" | "right"; frame: number })
 }
 
 const TREBLE_BEATS = [
-  { start: 85, day: "16 MAY", place: "THE TITLE", fact: "0–1 after 26′", proof: "Cole · on 46′ · scored 48′", image: "media/journey/pl-celebration.webp" },
-  { start: 195, day: "22 MAY", place: "THE CUP", fact: "United 2–0 Newcastle", proof: "Sheringham · on 9′ · scored 11′", image: "media/journey/fa-cup-lift.webp" },
-  { start: 305, day: "26 MAY", place: "EUROPE", fact: "0–1 at 90′", proof: "Sheringham 90+1′ · Solskjær 90+3′", image: "media/journey/barcelona-climax.webp" },
-];
+  {
+    start: 62, end: 190, day: "DAY 1 · 16 MAY", place: "THE LEAGUE", interval: "",
+    danger: "0–1", dangerLabel: "BEHIND AFTER 26′", player: "COLE", arrival: "ON 46′",
+    intervention: "WINNER · 48′", result: "2–1", coda: "FROM BEHIND.",
+    image: "media/journey/pl-celebration.webp",
+  },
+  {
+    start: 178, end: 306, day: "DAY 7 · 22 MAY", place: "THE CUP", interval: "SIX DAYS LATER",
+    danger: "0–0", dangerLabel: "NINTH MINUTE", player: "SHERINGHAM", arrival: "ON 9′",
+    intervention: "SCORED · 11′", result: "2–0", coda: "FROM THE BENCH. AGAIN.",
+    image: "media/journey/fa-cup-lift.webp",
+  },
+  {
+    start: 294, end: 450, day: "DAY 11 · 26 MAY", place: "EUROPE", interval: "FOUR DAYS LATER",
+    danger: "0–1", dangerLabel: "NINETY MINUTES GONE", player: "SHERINGHAM + SOLSKJÆR", arrival: "BOTH SUBSTITUTES",
+    intervention: "90+1′ · 90+3′", result: "2–1", coda: "FROM BEHIND. AGAIN.",
+    image: "media/journey/barcelona-climax.webp",
+  },
+] as const;
+
+function TreblePressureRail({ frame }: { frame: number }) {
+  const draw = smoothstep(10, 414, frame);
+  const points = [530, 965, 1390];
+  return (
+    <div style={{ position: "absolute", left: 0, right: 0, bottom: 58, height: 112 }}>
+      <svg width="1920" height="112" style={{ position: "absolute", inset: 0 }}>
+        <defs>
+          <linearGradient id="treble-fuse" x1="0" x2="1"><stop offset="0" stopColor={C.red} /><stop offset="0.72" stopColor="#ff7149" /><stop offset="1" stopColor={C.gold} /></linearGradient>
+          <filter id="treble-fuse-glow" x="-20%" y="-800%" width="140%" height="1700%"><feGaussianBlur stdDeviation="8" /></filter>
+        </defs>
+        <path d="M 350 47 C 650 45, 1110 54, 1570 47" fill="none" stroke={C.red} strokeWidth="24" strokeOpacity={0.14 * draw} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} filter="url(#treble-fuse-glow)" />
+        <path d="M 350 47 C 650 45, 1110 54, 1570 47" fill="none" stroke="url(#treble-fuse)" strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
+        {TREBLE_BEATS.map((beat, index) => {
+          const arrival = smoothstep(beat.start, beat.start + 26, frame);
+          const settled = frame >= beat.end - 18;
+          return (
+            <g key={beat.day} opacity={0.18 + arrival * 0.82}>
+              <circle cx={points[index]} cy="49" r={settled ? 24 : 17} fill={C.gold} fillOpacity={0.12 + arrival * 0.1} />
+              <circle cx={points[index]} cy="49" r="7" fill={arrival > 0.5 ? C.gold : C.red} stroke={arrival > 0.5 ? C.cream : C.red} strokeWidth="1.4" />
+              <text x={points[index]} y="91" textAnchor="middle" fill={arrival > 0.5 ? C.ink : C.faint} style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.12em" }}>{["16 MAY", "22 MAY", "26 MAY"][index]}</text>
+            </g>
+          );
+        })}
+        <text x="748" y="29" textAnchor="middle" fill={C.faint} opacity={smoothstep(170, 205, frame)} style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.16em" }}>6 DAYS</text>
+        <text x="1178" y="29" textAnchor="middle" fill={C.faint} opacity={smoothstep(286, 320, frame)} style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.16em" }}>4 DAYS</text>
+      </svg>
+    </div>
+  );
+}
+
+function TrebleNight({ frame, index }: { frame: number; index: number }) {
+  const beat = TREBLE_BEATS[index];
+  const local = frame - beat.start;
+  const intro = smoothstep(0, 24, local);
+  const intervention = smoothstep(index === 2 ? 78 : 56, index === 2 ? 96 : 72, local);
+  const result = smoothstep(index === 2 ? 104 : 86, index === 2 ? 130 : 108, local);
+  const leave = 1 - smoothstep(beat.end - beat.start - 24, beat.end - beat.start, local);
+  const opacity = intro * leave;
+  const dangerOpacity = 1 - smoothstep(index === 2 ? 68 : 44, index === 2 ? 82 : 58, local);
+  const resultPulse = smoothstep(0, 18, local - (index === 2 ? 110 : 92));
+  return (
+    <div style={{ position: "absolute", inset: 0, opacity }}>
+      <div style={{ position: "absolute", left: 130, top: 120, width: 420, transform: `translateX(${lerp(-34, 0, intro)}px)` }}>
+        {beat.interval && <div style={{ marginBottom: 16, fontFamily: MONO, fontSize: 15, letterSpacing: "0.2em", color: C.red }}>{beat.interval}</div>}
+        <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: "0.18em", color: C.gold }}>{beat.day}</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 46, fontWeight: 600, letterSpacing: "-0.035em", color: C.ink }}>{beat.place}</div>
+      </div>
+
+      <div style={{ position: "absolute", left: 610, right: 150, top: 145, bottom: 210, borderLeft: "1px solid rgba(243,237,232,.14)", paddingLeft: 86 }}>
+        <div style={{ position: "absolute", left: 86, top: 34, opacity: dangerOpacity }}>
+          <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.2em", color: C.red }}>{beat.dangerLabel}</div>
+          <div style={{ marginTop: 8, fontFamily: MONO, fontSize: 154, lineHeight: 0.9, letterSpacing: "-0.08em", color: C.ink }}>{beat.danger}</div>
+        </div>
+
+        <div style={{ position: "absolute", left: 86, top: 18, opacity: intervention, transform: `translateY(${lerp(26, 0, intervention)}px)` }}>
+          <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.2em", color: C.gold }}>{beat.arrival}</div>
+          <div style={{ marginTop: 14, fontFamily: SANS, fontSize: index === 2 ? 48 : 58, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>{beat.player}</div>
+          <div style={{ marginTop: 16, fontFamily: MONO, fontSize: 26, color: C.gold }}>{beat.intervention}</div>
+        </div>
+
+        <div style={{ position: "absolute", right: 30, top: 36, width: 350, textAlign: "right", opacity: result, transform: `scale(${lerp(1.08, 1, resultPulse)})`, transformOrigin: "right top" }}>
+          <div style={{ fontFamily: MONO, fontSize: 152, lineHeight: 0.9, letterSpacing: "-0.08em", color: C.gold }}>{beat.result}</div>
+          <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 24, fontWeight: 600, letterSpacing: "0.08em", color: C.ink }}>{beat.coda}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function TreblePocket({ frame }: { frame: number }) {
   const duration = 540;
   const opacity = sceneOpacity(frame, duration, 40);
-  const ringDraw = smoothstep(20, 420, frame);
-  const active = [...TREBLE_BEATS].reverse().find((beat) => frame >= beat.start) ?? TREBLE_BEATS[0];
-  const beatIndex = TREBLE_BEATS.indexOf(active);
-  const land = smoothstep(414, 485, frame);
+  const land = smoothstep(438, 478, frame);
+  const intro = windowed(frame, 4, 24, 48, 68);
   return (
     <AbsoluteFill style={{ opacity }}>
       {TREBLE_BEATS.map((beat, index) => {
-        const visible = windowed(frame, beat.start - 30, beat.start + 24, beat.start + 92, beat.start + 122);
+        const visible = windowed(frame, beat.start - 12, beat.start + 22, beat.end - 34, beat.end + 2);
+        const photoReveal = smoothstep(beat.start + (index === 2 ? 72 : 50), beat.start + (index === 2 ? 104 : 82), frame);
+        const zoom = lerp(1.055, 1.015, smoothstep(beat.start, beat.end, frame));
         return (
-          <div key={beat.day} style={{ position: "absolute", inset: 0, opacity: visible * 0.29, WebkitMaskImage: "radial-gradient(ellipse 72% 74% at 50% 55%,#000 18%,transparent 76%)" }}>
-            <Img src={staticFile(beat.image)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: index === 2 ? "50% 42%" : "50% 40%", filter: "grayscale(1) contrast(1.22) brightness(.72)" }} />
-            <AbsoluteFill style={{ background: "radial-gradient(ellipse at center,rgba(216,33,13,.55),rgba(216,33,13,.08) 62%,transparent)", mixBlendMode: "color" }} />
+          <div key={beat.day} style={{ position: "absolute", inset: 0, opacity: visible * photoReveal * (index === 2 ? 0.42 : 0.32), transform: `scale(${zoom})`, WebkitMaskImage: "linear-gradient(to left,#000 0%,#000 38%,transparent 86%),linear-gradient(to top,transparent 0%,#000 30%,#000 82%,transparent 100%)", maskComposite: "intersect" }}>
+            <Img src={staticFile(beat.image)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: index === 2 ? "58% 42%" : "62% 40%", filter: "grayscale(1) contrast(1.28) brightness(.72)" }} />
+            <AbsoluteFill style={{ background: "linear-gradient(to left,rgba(216,33,13,.68),rgba(216,33,13,.16) 56%,transparent)", mixBlendMode: "color" }} />
           </div>
         );
       })}
-      <svg width="1920" height="1080" style={{ position: "absolute", inset: 0 }}>
-        <defs><filter id="pocket-glow"><feGaussianBlur stdDeviation="10" /></filter></defs>
-        <text x="960" y="590" textAnchor="middle" fill={C.red} opacity="0.13" style={{ fontFamily: SANS, fontSize: 430, fontWeight: 800 }}>99</text>
-        <circle cx="960" cy="585" r="292" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.13 * ringDraw} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - ringDraw} filter="url(#pocket-glow)" />
-        <circle cx="960" cy="585" r="292" fill="none" stroke={C.red} strokeWidth="3.4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - ringDraw} />
-        {[
-          { x: 668, y: 585 }, { x: 960, y: 877 }, { x: 1252, y: 585 },
-        ].map((point, index) => {
-          const arrival = smoothstep(TREBLE_BEATS[index].start, TREBLE_BEATS[index].start + 34, frame);
-          return <g key={index} opacity={0.25 + arrival * 0.75}><circle cx={point.x} cy={point.y} r="20" fill={C.gold} fillOpacity="0.13" /><circle cx={point.x} cy={point.y} r="7" fill={C.gold} stroke={C.cream} /></g>;
-        })}
-      </svg>
+      <div style={{ position: "absolute", left: 102, top: 80, fontFamily: SANS, fontSize: 360, fontWeight: 800, letterSpacing: "-0.09em", color: `rgba(216,33,13,${alpha(0.045 + land * 0.055)})` }}>11</div>
 
-      <div style={{ position: "absolute", top: 94, insetInline: 0, textAlign: "center" }}>
-        <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.24em", color: C.gold }}>1998–99 · ELEVEN DAYS</div>
-        <div style={{ marginTop: 16, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>{frame < 82 ? "Eleven days changed everything." : frame < 414 ? "Three must-wins." : "All three, from the bench."}</div>
+      <div style={{ position: "absolute", top: 118, insetInline: 0, textAlign: "center", opacity: intro, transform: `translateY(${lerp(24, 0, intro)}px)` }}>
+        <div style={{ fontFamily: MONO, fontSize: 17, letterSpacing: "0.25em", color: C.gold }}>1998–99 · THE TREBLE</div>
+        <div style={{ marginTop: 20, fontFamily: SANS, fontSize: 72, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Eleven days. No margin.</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 25, color: C.dim }}>Three games. Lose one, and it is gone.</div>
       </div>
 
-      <div style={{ position: "absolute", left: 575, right: 575, top: 318, textAlign: "center", opacity: 1 - land * 0.25 }}>
-        <div style={{ fontFamily: MONO, color: C.gold, fontSize: 20, letterSpacing: "0.2em" }}>{active.day}</div>
-        <div style={{ marginTop: 8, fontFamily: SANS, color: C.ink, fontSize: 31, fontWeight: 600, letterSpacing: "0.08em" }}>{active.place}</div>
-        <div style={{ marginTop: 42, fontFamily: MONO, color: C.ink, fontSize: 49 }}>{active.fact}</div>
-        <div style={{ marginTop: 16, fontFamily: SANS, color: C.dim, fontSize: 22 }}>{active.proof}</div>
-      </div>
+      {TREBLE_BEATS.map((_, index) => <TrebleNight key={index} frame={frame} index={index} />)}
+      <TreblePressureRail frame={frame} />
 
-      <div style={{ position: "absolute", left: 260, right: 260, bottom: 52, opacity: land, transform: `translateY(${lerp(22, 0, land)}px)`, textAlign: "center" }}>
-        <div style={{ fontFamily: SANS, fontSize: 38, fontWeight: 600, color: C.ink }}>Three must-wins. Two from behind. All three from the bench.</div>
-        <div style={{ marginTop: 12, fontFamily: MONO, fontSize: 16, letterSpacing: "0.2em", color: C.gold }}>THREE TROPHIES FOLLOWED</div>
+      <div style={{ position: "absolute", inset: 0, opacity: land, background: "radial-gradient(64% 70% at 50% 48%,#2b0c08,#0c0b0a 76%)" }} />
+      <div style={{ position: "absolute", insetInline: 120, top: 184, opacity: land, transform: `translateY(${lerp(30, 0, land)}px)`, textAlign: "center" }}>
+        <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: "0.26em", color: C.gold }}>THE IMPOSSIBLE ELEVEN DAYS</div>
+        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 78, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Three must-wins.<br />Two from behind.</div>
+        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 42, fontWeight: 600, color: C.gold }}>Every match-winner came from the bench.</div>
+        <div style={{ marginTop: 24, fontFamily: MONO, fontSize: 18, letterSpacing: "0.22em", color: C.ink }}>11 DAYS&nbsp;&nbsp;·&nbsp;&nbsp;3 WINS&nbsp;&nbsp;·&nbsp;&nbsp;3 TROPHIES</div>
       </div>
-      <div style={{ position: "absolute", right: 72, bottom: 48, fontFamily: MONO, color: C.faint, fontSize: 13, letterSpacing: "0.16em" }}>{beatIndex + 1}&nbsp;/&nbsp;3</div>
     </AbsoluteFill>
   );
 }
@@ -561,8 +633,8 @@ export function RedThreadMasterV2({ withAudio = true }: { withAudio?: boolean })
       <Field energy={smoothstep(0, MASTER_DURATION_SECONDS * FPS, frame)} />
       {frame < 585 && <HistoricalTimeline frame={frame} />}
       {frame >= 510 && frame < 1140 && <RhymeLoop frame={frame - 510} />}
-      {frame >= 1080 && frame < 1620 && <TreblePocket frame={frame - 1080} />}
       {frame >= 1530 && frame < 2040 && <FergieConstellation frame={frame - 1530} />}
+      {frame >= 1080 && frame < 1620 && <TreblePocket frame={frame - 1080} />}
       {frame >= 1980 && frame < 2370 && <Fortress frame={frame - 1980} />}
       {frame >= 2280 && <RecordOpens frame={frame - 2280} />}
       <FilmKicker frame={frame} />
