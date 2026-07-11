@@ -4,6 +4,7 @@ import {
   Easing,
   Img,
   interpolate,
+  Sequence,
   staticFile,
   useCurrentFrame,
 } from "remotion";
@@ -145,6 +146,12 @@ function sceneOpacity(local: number, duration: number, fade = 34): number {
   return smoothstep(0, fade, local) * (1 - smoothstep(duration - fade, duration, local));
 }
 
+function masterMusicVolume(frame: number): number {
+  const duckIn = smoothstep(1380, 1404, frame);
+  const duckOut = smoothstep(1440, 1462, frame);
+  return lerp(0.82, 0.27, duckIn * (1 - duckOut));
+}
+
 function Fonts() {
   return (
     <style>{`
@@ -200,32 +207,31 @@ type TimelineEvent = {
 
 const TIMELINE_EVENTS: TimelineEvent[] = [
   { year: 1886, x: 220, start: 18, eyebrow: "30 OCTOBER 1886", headline: "The first match.", sub: "Fleetwood Rangers 2–2 Newton Heath." },
-  { year: 1909, x: 930, start: 118, eyebrow: "24 APRIL 1909", headline: "The first FA Cup.", sub: "Bristol City 0–1 United." },
-  { year: 1954, x: 1770, start: 232, eyebrow: "16 OCTOBER 1954", headline: "Eleven goals.", sub: "Chelsea 5–6 United." },
-  { year: 1968, x: 2310, start: 340, eyebrow: "29 MAY 1968", headline: "European champions.", sub: "Benfica 1–4 United · Wembley.", european: true },
-  { year: 1999, x: 3080, start: 438, eyebrow: "26 MAY 1999", headline: "European champions.", sub: "Bayern 1–2 United · Barcelona.", european: true },
-  { year: 2008, x: 3520, start: 516, eyebrow: "21 MAY 2008", headline: "European champions.", sub: "United 1–1 Chelsea · 6–5 pens · Moscow.", european: true },
+  { year: 1954, x: 1770, start: 138, eyebrow: "16 OCTOBER 1954", headline: "Eleven goals.", sub: "Chelsea 5–6 United." },
+  { year: 1968, x: 2310, start: 238, eyebrow: "29 MAY 1968", headline: "European champions.", sub: "Benfica 1–4 United · Wembley.", european: true },
+  { year: 1999, x: 3080, start: 334, eyebrow: "26 MAY 1999", headline: "European champions.", sub: "Bayern 1–2 United · Barcelona.", european: true },
+  { year: 2008, x: 3520, start: 414, eyebrow: "21 MAY 2008", headline: "European champions.", sub: "United 1–1 Chelsea · 6–5 pens · Moscow.", european: true },
 ];
 
 function HistoricalTimeline({ frame }: { frame: number }) {
-  const duration = 585;
+  const duration = 490;
   const opacity = sceneOpacity(frame, duration, 42);
   const historicalEase = Easing.bezier(0.77, 0, 0.175, 1);
   // The filament pulls the camera: draw and pan share the same authored beats,
   // while every fact lands only after its knot has reached the reading position.
   const cameraX = interpolate(
     frame,
-    [0, 60, 110, 174, 224, 282, 332, 380, 430, 460, 508, 570],
-    [740, 740, 30, 30, -810, -810, -1350, -1350, -2120, -2120, -2560, -2560],
+    [0, 54, 96, 126, 174, 218, 258, 306, 348, 390, 426, 500],
+    [740, 740, -650, -650, -1350, -1350, -2120, -2120, -2560, -2560, -2560, -2560],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
   );
   const draw = interpolate(
     frame,
-    [0, 60, 110, 174, 224, 282, 332, 380, 430, 460, 508, 570],
-    [0.025, 0.07, 0.24, 0.24, 0.45, 0.45, 0.58, 0.58, 0.77, 0.77, 0.9, 0.95],
+    [0, 54, 96, 126, 174, 218, 258, 306, 348, 390, 426, 500],
+    [0.025, 0.07, 0.45, 0.45, 0.58, 0.58, 0.77, 0.77, 0.9, 0.9, 0.95, 0.97],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
   );
-  const worldScale = lerp(1, 1.025, smoothstep(340, 520, frame));
+  const worldScale = lerp(1, 1.025, smoothstep(238, 460, frame));
   return (
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", inset: 0, transform: `translateX(${cameraX}px) scale(${worldScale})`, transformOrigin: "50% 62%" }}>
@@ -264,7 +270,7 @@ function HistoricalTimeline({ frame }: { frame: number }) {
           );
         })}
       </div>
-      <div style={{ position: "absolute", right: 64, bottom: 46, opacity: smoothstep(430, 510, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>1886&nbsp;&nbsp;→&nbsp;&nbsp;2008</div>
+      <div style={{ position: "absolute", right: 64, bottom: 46, opacity: smoothstep(360, 430, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>1886&nbsp;&nbsp;→&nbsp;&nbsp;2008</div>
     </AbsoluteFill>
   );
 }
@@ -312,7 +318,7 @@ function RhymeLoop({ frame }: { frame: number }) {
           <linearGradient id="back-thread" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stopColor={C.gold} /><stop offset="0.42" stopColor="#ff7149" /><stop offset="1" stopColor={C.red} /></linearGradient>
           <filter id="back-glow" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="12" /></filter>
         </defs>
-        <g opacity={contentFade}>
+        <g opacity={contentFade * smoothstep(45, 90, frame)}>
         <path d={`M 430 ${baseY} C 720 674, 1190 718, 1490 ${baseY}`} fill="none" stroke={C.red} strokeOpacity="0.38" strokeWidth="3" />
         {[{ year: 1968, x: 430 }, { year: 1999, x: 980 }, { year: 2008, x: 1490 }].map((item) => (
           <g key={item.year}>
@@ -593,29 +599,60 @@ function RecordOpens({ frame }: { frame: number }) {
   const opacity = smoothstep(0, 36, frame);
   const field = smoothstep(0, 118, frame);
   const stats = windowed(frame, 72, 112, 154, 186);
-  const final = smoothstep(190, 230, frame);
+  const receipt = smoothstep(142, 176, frame);
+  const cta = smoothstep(184, 218, frame);
   return (
     <AbsoluteFill style={{ opacity }}>
-      <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, opacity: field * (1 - final * 0.66), transform: `scale(${lerp(1.2, 0.92, field)})`, transformOrigin: "center" }}>
-        <path d={matchPaths.W} fill={C.gold} fillOpacity="0.36" />
-        <path d={matchPaths.D} fill={C.draw} fillOpacity="0.28" />
-        <path d={matchPaths.L} fill={C.red} fillOpacity="0.3" />
-        <path d="M 105 918 C 520 885, 940 928, 1815 888" fill="none" stroke={C.red} strokeOpacity="0.68" strokeWidth="3" />
-        <circle cx="1814" cy="888" r="8" fill={C.gold} />
-        <path d="M 1814 888 C 1860 878, 1900 864, 1985 828" fill="none" stroke={C.red} strokeWidth="3" />
+      <svg width="1920" height="1080" style={{ position: "absolute", inset: 0 }}>
+        <g style={{ opacity: field * (1 - receipt * 0.78), transform: `scale(${lerp(1.2, 0.92, field)})`, transformOrigin: "center" }}>
+          <path d={matchPaths.W} fill={C.gold} fillOpacity="0.36" />
+          <path d={matchPaths.D} fill={C.draw} fillOpacity="0.28" />
+          <path d={matchPaths.L} fill={C.red} fillOpacity="0.3" />
+          <path d="M 105 918 C 520 885, 940 928, 1815 888" fill="none" stroke={C.red} strokeOpacity="0.68" strokeWidth="3" />
+          <circle cx="1814" cy="888" r="8" fill={C.gold} />
+        </g>
+        <path d="M 1814 888 C 1640 850, 1410 690, 1032 548" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.13 * receipt} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - receipt} style={{ filter: "blur(8px)" }} />
+        <path d="M 1814 888 C 1640 850, 1410 690, 1032 548" fill="none" stroke={C.red} strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - receipt} />
+        <circle cx="1032" cy="548" r={lerp(5, 13, receipt)} fill={C.gold} opacity={receipt} />
       </svg>
       <div style={{ position: "absolute", left: 290, right: 290, top: 344, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22, opacity: stats }}>
         <ArchiveStat value={DATA.counts.matches.toLocaleString("en-GB")} label="MATCHES" />
         <ArchiveStat value={DATA.counts.events.toLocaleString("en-GB")} label="GOAL & MATCH EVENTS" />
         <ArchiveStat value={DATA.counts.lineups.toLocaleString("en-GB")} label="LINEUP ROWS" />
       </div>
-      <div style={{ position: "absolute", top: 268, insetInline: 0, textAlign: "center", opacity: final, transform: `translateY(${lerp(28, 0, final)}px)` }}>
-        <div style={{ fontFamily: MONO, fontSize: 16, color: C.red, letterSpacing: "0.25em" }}>140 YEARS, CONNECTED</div>
-        <div style={{ marginTop: 20, fontFamily: SANS, fontSize: 76, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>The line continues.</div>
-        <div style={{ marginTop: 24, fontFamily: SANS, fontSize: 23, color: C.dim }}>Every match since 1886. Every line leads back to the evidence.</div>
+
+      <div style={{ position: "absolute", left: 176, top: 202, width: 856, height: 520, opacity: receipt, transform: `translateX(${lerp(-30, 0, receipt)}px) scale(${lerp(0.97, 1, receipt)})`, transformOrigin: "right center", border: "1px solid rgba(243,237,232,.2)", background: "rgba(12,11,10,.86)", boxShadow: "0 28px 90px rgba(0,0,0,.42)", padding: "42px 48px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: MONO, fontSize: 14, letterSpacing: "0.19em", color: C.faint }}>
+          <span>MATCH RECEIPT</span><span>26 MAY 1999</span>
+        </div>
+        <div style={{ marginTop: 34, display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "baseline", gap: 22 }}>
+          <div style={{ fontFamily: SANS, fontSize: 35, fontWeight: 600, textAlign: "right", color: C.dim }}>BAYERN</div>
+          <div style={{ fontFamily: MONO, fontSize: 80, lineHeight: 1, letterSpacing: "-0.08em", color: C.ink }}>1–2</div>
+          <div style={{ fontFamily: SANS, fontSize: 35, fontWeight: 600, color: C.ink }}>UNITED</div>
+        </div>
+        <div style={{ marginTop: 16, textAlign: "center", fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.gold }}>EUROPEAN CUP FINAL · CAMP NOU</div>
+        <div style={{ marginTop: 34, borderTop: "1px solid rgba(243,237,232,.14)" }}>
+          {[{ clock: "90+1′", player: "SHERINGHAM" }, { clock: "90+3′", player: "SOLSKJÆR" }].map((event) => (
+            <div key={event.clock} style={{ display: "grid", gridTemplateColumns: "112px 1fr auto", alignItems: "center", padding: "17px 0", borderBottom: "1px solid rgba(243,237,232,.1)" }}>
+              <span style={{ fontFamily: MONO, fontSize: 18, color: C.gold }}>{event.clock}</span>
+              <span style={{ fontFamily: SANS, fontSize: 19, fontWeight: 600, color: C.ink }}>{event.player}</span>
+              <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.16em", color: C.faint }}>SUBSTITUTE</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ marginTop: 23, fontFamily: MONO, fontSize: 13, letterSpacing: "0.08em", color: C.faint }}>/match/1999-05-26-bayern-munich-n</div>
       </div>
-      <div style={{ position: "absolute", left: 74, right: 74, bottom: 46, display: "flex", justifyContent: "space-between", opacity: smoothstep(220, 262, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>
-        <span>RED THREAD · AN INDEPENDENT HISTORICAL ARCHIVE</span><span>FOLLOW THE LINE&nbsp;&nbsp;↗</span>
+
+      <div style={{ position: "absolute", left: 1160, right: 120, top: 310, opacity: cta, transform: `translateY(${lerp(26, 0, cta)}px)` }}>
+        <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.24em", color: C.red }}>THE EVIDENCE IS THE DOOR</div>
+        <div style={{ marginTop: 23, fontFamily: SANS, fontSize: 72, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Pull a thread.</div>
+        <div style={{ marginTop: 25, width: 342, height: 3, background: `linear-gradient(90deg,${C.red},${C.gold})`, transform: `scaleX(${cta})`, transformOrigin: "left" }} />
+        <div style={{ marginTop: 25, fontFamily: MONO, fontSize: 17, letterSpacing: "0.08em", color: C.gold }}>unitedstats.vercel.app/stories&nbsp;&nbsp;↗</div>
+        <div style={{ marginTop: 18, maxWidth: 520, fontFamily: SANS, fontSize: 21, lineHeight: 1.5, color: C.dim }}>Every match since 1886. Every claim leads back to its receipt.</div>
+      </div>
+
+      <div style={{ position: "absolute", left: 74, right: 74, bottom: 46, display: "flex", justifyContent: "space-between", opacity: smoothstep(202, 232, frame), fontFamily: MONO, fontSize: 13, letterSpacing: "0.17em", color: C.faint }}>
+        <span>RED THREAD · AN INDEPENDENT HISTORICAL ARCHIVE</span><span>140 YEARS, CONNECTED</span>
       </div>
     </AbsoluteFill>
   );
@@ -631,14 +668,21 @@ export function RedThreadMasterV2({ withAudio = true }: { withAudio?: boolean })
     <AbsoluteFill style={{ color: C.ink, fontFamily: SANS }}>
       <Fonts />
       <Field energy={smoothstep(0, MASTER_DURATION_SECONDS * FPS, frame)} />
-      {frame < 585 && <HistoricalTimeline frame={frame} />}
-      {frame >= 510 && frame < 1140 && <RhymeLoop frame={frame - 510} />}
+      {frame < 525 && <HistoricalTimeline frame={frame} />}
+      {frame >= 450 && frame < 1080 && <RhymeLoop frame={frame - 450} />}
       {frame >= 1530 && frame < 2040 && <FergieConstellation frame={frame - 1530} />}
       {frame >= 1080 && frame < 1620 && <TreblePocket frame={frame - 1080} />}
       {frame >= 1980 && frame < 2370 && <Fortress frame={frame - 1980} />}
       {frame >= 2280 && <RecordOpens frame={frame - 2280} />}
       <FilmKicker frame={frame} />
-      {withAudio && <Audio src={staticFile("video/audio/master-v3.mp3")} volume={0.82} />}
+      {withAudio && (
+        <>
+          <Audio src={staticFile("video/audio/master-v3.mp3")} volume={masterMusicVolume} />
+          <Sequence from={1080} durationInFrames={540}>
+            <Audio src={staticFile("video/audio/master-v5-sfx.wav")} volume={0.7} />
+          </Sequence>
+        </>
+      )}
     </AbsoluteFill>
   );
 }
