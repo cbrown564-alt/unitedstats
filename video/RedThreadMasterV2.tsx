@@ -66,10 +66,73 @@ type FortressGame = {
   worst: number;
 };
 
+type FeaturedEvent = {
+  seq: number;
+  type: string;
+  playerId: string | null;
+  player: string | null;
+  side: "united" | "opponent";
+  minute: number | null;
+  added: number | null;
+};
+
+type FeaturedLineupPlayer = {
+  playerId: string | null;
+  name: string;
+  side: "united" | "opponent";
+  shirt: number | null;
+  role: string | null;
+  careerBand: string | null;
+  started: boolean;
+  bench: boolean;
+  subOn: number | null;
+  subOff: number | null;
+};
+
+type FeaturedPlayer = {
+  id: string;
+  name: string;
+  image: string | null;
+  apps: number;
+  goals: number;
+  firstYear: number | null;
+  lastYear: number | null;
+};
+
+type FeaturedMatch = {
+  matchId: string;
+  year: number;
+  x: number;
+  start: number;
+  visualMode: "first-xi" | "score-storm" | "extra-time-burst" | "bench-reversal" | "penalty-constellation";
+  eyebrow: string;
+  headline: string;
+  match: {
+    id: string;
+    date: string;
+    opponent: string;
+    venue: "H" | "A" | "N";
+    stadium: string | null;
+    competition: string;
+    round: string | null;
+    gf: number;
+    ga: number;
+    aet: boolean;
+    penGf: number | null;
+    penGa: number | null;
+    eventsComplete: boolean;
+    hasLineup: boolean;
+  };
+  events: FeaturedEvent[];
+  lineup: FeaturedLineupPlayer[];
+  featuredPlayers: FeaturedPlayer[];
+};
+
 type MasterData = {
   counts: { matches: number; events: number; lineups: number };
   firstMatch: { id: string; date: string; opponent: string; score: string; clubName: string };
   matches: MatchPoint[];
+  featuredMatches: FeaturedMatch[];
   lateGoals: LateGoal[];
   fergieEchoes: Echo[];
   fortress: {
@@ -195,23 +258,230 @@ function FilmKicker({ frame }: { frame: number }) {
   );
 }
 
-type TimelineEvent = {
-  year: number;
-  x: number;
-  start: number;
-  eyebrow: string;
-  headline: string;
-  sub: string;
-  european?: boolean;
-};
+const familyName = (name: string | null) => name?.trim().split(/\s+/).at(-1) ?? "Goal";
 
-const TIMELINE_EVENTS: TimelineEvent[] = [
-  { year: 1886, x: 220, start: 18, eyebrow: "30 OCTOBER 1886", headline: "The first match.", sub: "Fleetwood Rangers 2–2 Newton Heath." },
-  { year: 1954, x: 1770, start: 138, eyebrow: "16 OCTOBER 1954", headline: "Eleven goals.", sub: "Chelsea 5–6 United." },
-  { year: 1968, x: 2310, start: 238, eyebrow: "29 MAY 1968", headline: "European champions.", sub: "Benfica 1–4 United · Wembley.", european: true },
-  { year: 1999, x: 3080, start: 334, eyebrow: "26 MAY 1999", headline: "European champions.", sub: "Bayern 1–2 United · Barcelona.", european: true },
-  { year: 2008, x: 3520, start: 414, eyebrow: "21 MAY 2008", headline: "European champions.", sub: "United 1–1 Chelsea · 6–5 pens · Moscow.", european: true },
-];
+const goalEvents = (match: FeaturedMatch) => match.events.filter((event) =>
+  ["goal", "pen-goal", "own-goal-for", "opp-goal", "own-goal-against"].includes(event.type) && event.minute != null,
+);
+
+function playerImage(player: FeaturedPlayer | undefined): string | null {
+  if (!player?.image) return null;
+  return staticFile(player.image.replace(/^\//, ""));
+}
+
+function FilmPortrait({ player, side = "right", opacity = 0.34 }: { player: FeaturedPlayer | undefined; side?: "left" | "right"; opacity?: number }) {
+  const src = playerImage(player);
+  if (!src) return null;
+  return (
+    <div style={{ position: "absolute", top: -36, bottom: -18, [side]: -10, width: 470, opacity, WebkitMaskImage: `linear-gradient(to ${side === "right" ? "left" : "right"},#000 10%,#000 48%,transparent 96%),linear-gradient(to top,transparent 0%,#000 24%,#000 86%,transparent 100%)`, maskComposite: "intersect" }}>
+      <Img src={src} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 32%", filter: "grayscale(1) contrast(1.35) brightness(.72)" }} />
+      <AbsoluteFill style={{ background: `linear-gradient(to ${side === "right" ? "left" : "right"},rgba(216,33,13,.66),transparent 76%)`, mixBlendMode: "color" }} />
+    </div>
+  );
+}
+
+function MatchScore({ match, compact = false }: { match: FeaturedMatch; compact?: boolean }) {
+  return (
+    <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
+      <span style={{ fontFamily: MONO, fontSize: compact ? 56 : 82, lineHeight: 0.9, letterSpacing: "-0.08em", color: C.ink }}>{match.match.gf}–{match.match.ga}</span>
+      <span style={{ maxWidth: 330, fontFamily: SANS, fontSize: compact ? 19 : 22, lineHeight: 1.2, color: C.dim }}>{match.match.opponent}</span>
+    </div>
+  );
+}
+
+function FirstXiSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const starters = match.lineup.filter((player) => player.side === "united" && player.started && !player.bench).sort((a, b) => (a.shirt ?? 99) - (b.shirt ?? 99));
+  const positions = [
+    [50, 84], [34, 68], [66, 68], [22, 50], [50, 50], [78, 50],
+    [10, 25], [30, 20], [50, 18], [70, 20], [90, 25],
+  ];
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <div style={{ position: "absolute", left: 18, top: 0, width: 500 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>NEWTON HEATH · THE FIRST RECORDED XI</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 48, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>Eleven names emerge from the dark.</div>
+        <div style={{ marginTop: 19 }}><MatchScore match={match} compact /></div>
+      </div>
+      <div style={{ position: "absolute", right: 0, top: -18, width: 405, height: 360, border: "1px solid rgba(243,237,232,.12)", background: "rgba(12,11,10,.42)", clipPath: "polygon(7% 0,100% 0,100% 100%,0 100%,0 9%)" }}>
+        <svg width="405" height="360" style={{ position: "absolute", inset: 0, opacity: 0.42 }}>
+          <g fill="none" stroke={C.line} strokeWidth="1.2"><line x1="0" y1="180" x2="405" y2="180" /><circle cx="202.5" cy="180" r="46" /><rect x="102" y="0" width="201" height="62" /><rect x="102" y="298" width="201" height="62" /></g>
+        </svg>
+        {starters.slice(0, 11).map((player, index) => {
+          const [x, y] = positions[index] ?? [50, 50];
+          const arrive = smoothstep(index * 0.045, index * 0.045 + 0.26, progress);
+          const scored = player.playerId === "jack-doughty";
+          return (
+            <div key={`${player.playerId}-${index}`} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: 86, transform: `translate(-50%,-50%) scale(${lerp(0.7, scored ? 1.1 : 1, arrive)})`, opacity: arrive * (scored ? 1 : 0.68), textAlign: "center" }}>
+              <div style={{ width: scored ? 21 : 15, height: scored ? 21 : 15, margin: "0 auto", borderRadius: 30, background: scored ? C.gold : C.red, boxShadow: scored ? `0 0 24px ${C.gold}` : `0 0 12px rgba(255,59,31,.45)`, border: `1px solid ${C.cream}` }} />
+              <div style={{ marginTop: 5, fontFamily: MONO, fontSize: 10, letterSpacing: "0.03em", color: scored ? C.ink : C.dim }}>{familyName(player.name)}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ScoreStormSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const events = goalEvents(match);
+  let united = 0;
+  let opponent = 0;
+  const states = [{ minute: 0, lead: 0 }];
+  for (const event of events) {
+    if (event.side === "united") united += 1;
+    else opponent += 1;
+    states.push({ minute: event.minute ?? 0, lead: united - opponent });
+  }
+  states.push({ minute: 90, lead: united - opponent });
+  const x = (minute: number) => 45 + (Math.min(90, minute) / 90) * 760;
+  const y = (lead: number) => 225 - lead * 48;
+  const path = states.map((state, index) => `${index === 0 ? "M" : "L"} ${x(state.minute)} ${y(state.lead)}`).join(" ");
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <FilmPortrait player={match.featuredPlayers[0]} opacity={0.26} />
+      <div style={{ position: "absolute", left: 18, top: 0 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>STAMFORD BRIDGE · 11 TIMED GOALS</div>
+        <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 51, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>Six scored. Then 6–3 became 6–5.</div>
+      </div>
+      <svg width="870" height="330" style={{ position: "absolute", left: 0, bottom: -18, overflow: "visible" }}>
+        <line x1="45" x2="805" y1="225" y2="225" stroke={C.faint} strokeOpacity="0.4" />
+        <path d={path} fill="none" stroke={C.red} strokeWidth="28" strokeOpacity="0.12" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - progress} />
+        <path d={path} fill="none" stroke={C.ink} strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - progress} />
+        {events.map((event, index) => {
+          const reveal = smoothstep(index / events.length - 0.04, index / events.length + 0.1, progress);
+          const minute = event.minute ?? 0;
+          const previous = states[index];
+          const current = states[index + 1];
+          const isViollet = event.playerId === "dennis-viollet";
+          return (
+            <g key={event.seq} opacity={reveal}>
+              <line x1={x(minute)} x2={x(minute)} y1={y(previous.lead)} y2={y(current.lead)} stroke={event.side === "united" ? C.gold : C.draw} strokeWidth={isViollet ? 5 : 3} />
+              <circle cx={x(minute)} cy={y(current.lead)} r={isViollet ? 8 : 5} fill={event.side === "united" ? C.gold : C.draw} />
+              {isViollet && <text x={x(minute)} y={y(current.lead) - 16} textAnchor="middle" fill={C.gold} style={{ fontFamily: MONO, fontSize: 11 }}>{minute}′</text>}
+            </g>
+          );
+        })}
+        <text x="45" y="266" fill={C.faint} style={{ fontFamily: MONO, fontSize: 12 }}>0′</text><text x="805" y="266" textAnchor="end" fill={C.faint} style={{ fontFamily: MONO, fontSize: 12 }}>90′</text>
+      </svg>
+      <div style={{ position: "absolute", right: 18, top: 48 }}><MatchScore match={match} compact /></div>
+      <div style={{ position: "absolute", right: 34, bottom: 18, textAlign: "right", fontFamily: MONO, color: C.gold }}><div style={{ fontSize: 42 }}>15′ · 41′ · 57′</div><div style={{ marginTop: 5, fontSize: 13, letterSpacing: "0.18em" }}>DENNIS VIOLLET · HAT-TRICK</div></div>
+    </div>
+  );
+}
+
+function ExtraTimeSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const extra = goalEvents(match).filter((event) => (event.minute ?? 0) > 90 && event.side === "united");
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <FilmPortrait player={match.featuredPlayers[0]} opacity={0.43} />
+      <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>WEMBLEY · EXTRA TIME</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Level at ninety.<br />Three strikes in seven minutes.</div>
+      </div>
+      <div style={{ position: "absolute", left: 10, right: 35, bottom: 22, height: 126 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 78, height: 2, background: C.line }} />
+        <div style={{ position: "absolute", left: 5, top: 55, fontFamily: MONO, fontSize: 54, color: C.faint }}>90′</div>
+        {extra.map((event, index) => {
+          const x = 320 + ((event.minute ?? 90) - 90) / 10 * 510;
+          const reveal = smoothstep(0.28 + index * 0.16, 0.48 + index * 0.16, progress);
+          return (
+            <div key={event.seq} style={{ position: "absolute", left: x, top: lerp(80, 4 + index * 12, reveal), width: 150, opacity: reveal, transform: "translateX(-50%)", textAlign: "center" }}>
+              <div style={{ fontFamily: MONO, fontSize: 30, color: C.gold }}>{event.minute}′</div>
+              <div style={{ marginTop: 5, fontFamily: SANS, fontSize: 16, fontWeight: 600, color: C.ink }}>{familyName(event.player)}</div>
+              <div style={{ width: 3, height: 38 + index * 10, margin: "8px auto 0", background: C.gold, boxShadow: `0 0 20px ${C.gold}` }} />
+            </div>
+          );
+        })}
+        <div style={{ position: "absolute", right: 0, top: 76, fontFamily: MONO, fontSize: 13, color: C.faint }}>100′</div>
+      </div>
+      <div style={{ position: "absolute", right: 18, top: 56 }}><MatchScore match={match} compact /></div>
+    </div>
+  );
+}
+
+function BenchReversalSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const scorers = match.featuredPlayers;
+  const starters = match.lineup.filter((player) => player.side === "united" && player.started && !player.bench);
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>CAMP NOU · 90 MINUTES GONE</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>The starting XI fades.<br />The bench enters history.</div>
+      </div>
+      <div style={{ position: "absolute", left: 20, bottom: 12, width: 470, height: 150, opacity: 0.42 }}>
+        {starters.map((player, index) => {
+          const x = 20 + (index % 6) * 76;
+          const y = 20 + Math.floor(index / 6) * 68;
+          return <div key={`${player.playerId}-${index}`} style={{ position: "absolute", left: x, top: y, width: 58, textAlign: "center" }}><div style={{ width: 10, height: 10, margin: "0 auto", borderRadius: 20, background: C.faint }} /><div style={{ marginTop: 5, fontFamily: MONO, fontSize: 8.5, color: C.faint }}>{familyName(player.name)}</div></div>;
+        })}
+      </div>
+      <div style={{ position: "absolute", right: 12, top: 20, width: 430, height: 330, borderLeft: "1px solid rgba(243,237,232,.14)", paddingLeft: 34 }}>
+        <div style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.2em", color: C.faint }}>USED SUBSTITUTES</div>
+        {scorers.map((player, index) => {
+          const reveal = smoothstep(0.2 + index * 0.22, 0.48 + index * 0.22, progress);
+          const event = match.events.find((candidate) => candidate.playerId === player.id && candidate.side === "united");
+          const lineupPlayer = match.lineup.find((candidate) => candidate.playerId === player.id);
+          return (
+            <div key={player.id} style={{ position: "absolute", left: lerp(34, 4, reveal), top: 58 + index * 116, display: "flex", alignItems: "center", gap: 18, opacity: 0.3 + reveal * 0.7 }}>
+              <div style={{ width: 70, height: 70, display: "grid", placeItems: "center", clipPath: "polygon(20% 5%,38% 0,50% 10%,62% 0,80% 5%,100% 23%,87% 37%,78% 31%,78% 100%,22% 100%,22% 31%,13% 37%,0 23%)", background: "linear-gradient(180deg,#ff3b1f,#8f170b)", boxShadow: `0 0 ${20 * reveal}px rgba(245,197,24,.6)`, fontFamily: MONO, fontSize: 24, color: C.cream }}>
+                {lineupPlayer?.shirt ?? "·"}
+              </div>
+              <div><div style={{ fontFamily: SANS, fontSize: 25, fontWeight: 600, color: C.ink }}>{familyName(player.name)}</div><div style={{ marginTop: 4, fontFamily: MONO, fontSize: 20, color: C.gold }}>{event ? displayClock(event.minute ?? 90, event.added) : "GOAL"}</div></div>
+            </div>
+          );
+        })}
+        <div style={{ position: "absolute", left: 34, right: 0, bottom: 10, height: 3, background: `linear-gradient(90deg,${C.red},${C.gold})`, transform: `scaleX(${smoothstep(0.32, 0.88, progress)})`, transformOrigin: "left" }} />
+      </div>
+      <div style={{ position: "absolute", left: 20, bottom: 165 }}><MatchScore match={match} compact /></div>
+    </div>
+  );
+}
+
+function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const won = match.match.penGf ?? 0;
+  const lost = match.match.penGa ?? 0;
+  const total = won + lost;
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <FilmPortrait player={match.featuredPlayers[0]} side="left" opacity={0.4} />
+      <div style={{ position: "absolute", right: 10, top: 0, width: 510 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>MOSCOW · AFTER EXTRA TIME</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 50, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Level in the rain.<br />Eleven marks decide it.</div>
+      </div>
+      <div style={{ position: "absolute", right: 55, bottom: 0, width: 430, height: 235 }}>
+        {Array.from({ length: total }, (_, index) => {
+          const angle = (-145 + index * (290 / Math.max(1, total - 1))) * Math.PI / 180;
+          const x = 215 + Math.cos(angle) * 170;
+          const y = 126 + Math.sin(angle) * 92;
+          const reveal = smoothstep(index / total * 0.66, index / total * 0.66 + 0.2, progress);
+          const united = index < won;
+          return <div key={index} style={{ position: "absolute", left: x, top: y, width: united ? 22 : 16, height: united ? 22 : 16, borderRadius: 30, background: united ? C.gold : C.draw, opacity: reveal * (united ? 1 : 0.62), transform: `translate(-50%,-50%) scale(${lerp(0.4, 1, reveal)})`, boxShadow: united ? `0 0 18px rgba(245,197,24,.45)` : "none" }} />;
+        })}
+        <div style={{ position: "absolute", inset: "66px 0 auto", textAlign: "center" }}><div style={{ fontFamily: MONO, fontSize: 72, lineHeight: 1, color: C.ink }}>{won}–{lost}</div><div style={{ marginTop: 8, fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", color: C.faint }}>SHOOT-OUT · AGGREGATE RECORD</div></div>
+      </div>
+      <div style={{ position: "absolute", left: 18, bottom: 25 }}><MatchScore match={match} compact /></div>
+      <div style={{ position: "absolute", left: 18, top: 20, width: 360, textAlign: "center", fontFamily: MONO, color: C.gold }}><div style={{ fontSize: 17 }}>25′ · RONALDO</div><div style={{ marginTop: 6, fontSize: 11, letterSpacing: "0.18em", color: C.faint }}>THE NUMBER SEVEN RETURNS</div></div>
+    </div>
+  );
+}
+
+function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; frame: number; end: number }) {
+  const show = windowed(frame, match.start - 18, match.start + 6, end - 20, end + 4);
+  const progress = smoothstep(match.start - 12, Math.min(end - 12, match.start + 58), frame);
+  const body = match.visualMode === "first-xi" ? <FirstXiSignature match={match} progress={progress} />
+    : match.visualMode === "score-storm" ? <ScoreStormSignature match={match} progress={progress} />
+    : match.visualMode === "extra-time-burst" ? <ExtraTimeSignature match={match} progress={progress} />
+    : match.visualMode === "bench-reversal" ? <BenchReversalSignature match={match} progress={progress} />
+    : <PenaltyConstellationSignature match={match} progress={progress} />;
+  return (
+    <div style={{ position: "absolute", left: match.x - 480, top: 184, width: 960, height: 430, opacity: show, transform: `translateY(${lerp(30, 0, smoothstep(match.start - 18, match.start + 8, frame))}px)` }}>
+      {body}
+      <div style={{ position: "absolute", left: 18, right: 18, bottom: -34, display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: MONO, fontSize: 11, letterSpacing: "0.14em", color: C.faint }}>
+        <span>{match.eyebrow}</span><span>/match/{match.match.id}</span>
+      </div>
+    </div>
+  );
+}
 
 function HistoricalTimeline({ frame }: { frame: number }) {
   const duration = 490;
@@ -221,14 +491,14 @@ function HistoricalTimeline({ frame }: { frame: number }) {
   // while every fact lands only after its knot has reached the reading position.
   const cameraX = interpolate(
     frame,
-    [0, 54, 96, 126, 174, 218, 258, 306, 348, 390, 426, 500],
-    [740, 740, -650, -650, -1350, -1350, -2120, -2120, -2560, -2560, -2560, -2560],
+    [0, 45, 75, 145, 175, 235, 265, 325, 355, 500],
+    [740, 740, -810, -810, -1350, -1350, -2120, -2120, -2560, -2560],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
   );
   const draw = interpolate(
     frame,
-    [0, 54, 96, 126, 174, 218, 258, 306, 348, 390, 426, 500],
-    [0.025, 0.07, 0.45, 0.45, 0.58, 0.58, 0.77, 0.77, 0.9, 0.9, 0.95, 0.97],
+    [0, 45, 75, 145, 175, 235, 265, 325, 355, 500],
+    [0.025, 0.07, 0.45, 0.48, 0.6, 0.64, 0.78, 0.82, 0.94, 0.97],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
   );
   const worldScale = lerp(1, 1.025, smoothstep(238, 460, frame));
@@ -244,31 +514,21 @@ function HistoricalTimeline({ frame }: { frame: number }) {
           </defs>
           <path d="M 74 676 C 520 645, 960 698, 1390 660 S 2210 632, 2680 675 S 3370 632, 4040 660" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.16 * draw} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} filter="url(#history-glow)" />
           <path d="M 74 676 C 520 645, 960 698, 1390 660 S 2210 632, 2680 675 S 3370 632, 4040 660" fill="none" stroke="url(#history-filament)" strokeWidth="3.4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
-          {TIMELINE_EVENTS.map((event) => {
+          {DATA.featuredMatches.map((event) => {
             const arrived = smoothstep(event.start - 24, event.start + 8, frame);
+            const european = event.match.competition.toLowerCase().includes("europe");
             return (
               <g key={event.year} opacity={0.22 + arrived * 0.78}>
-                {event.european && <circle cx={event.x} cy="665" r="26" fill={C.gold} fillOpacity="0.1" stroke={C.gold} strokeOpacity="0.42" />}
-                <circle cx={event.x} cy="665" r={event.european ? 8 : 5.5} fill={event.european ? C.gold : C.cream} />
-                <line x1={event.x} x2={event.x} y1="636" y2="700" stroke={event.european ? C.gold : C.ink} strokeOpacity="0.32" />
-                <text x={event.x} y="744" textAnchor="middle" fill={event.european ? C.gold : C.faint} style={{ fontFamily: MONO, fontSize: event.european ? 23 : 18, letterSpacing: "0.08em" }}>{event.year}</text>
-                {event.european && <text x={event.x} y="784" textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 14, fontWeight: 600, letterSpacing: "0.2em" }}>EUROPEAN CUP</text>}
+                {european && <circle cx={event.x} cy="665" r="26" fill={C.gold} fillOpacity="0.1" stroke={C.gold} strokeOpacity="0.42" />}
+                <circle cx={event.x} cy="665" r={european ? 8 : 5.5} fill={european ? C.gold : C.cream} />
+                <line x1={event.x} x2={event.x} y1="636" y2="700" stroke={european ? C.gold : C.ink} strokeOpacity="0.32" />
+                <text x={event.x} y="744" textAnchor="middle" fill={european ? C.gold : C.faint} style={{ fontFamily: MONO, fontSize: european ? 23 : 18, letterSpacing: "0.08em" }}>{event.year}</text>
+                {european && <text x={event.x} y="784" textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 14, fontWeight: 600, letterSpacing: "0.2em" }}>EUROPEAN CUP</text>}
               </g>
             );
           })}
         </svg>
-        {TIMELINE_EVENTS.map((event) => {
-          const hold = event.european ? 54 : 66;
-          const show = windowed(frame, event.start - 18, event.start + 8, event.start + hold, event.start + hold + 22);
-          return (
-            <div key={event.year} style={{ position: "absolute", left: event.x - 235, top: 272, width: 470, textAlign: "center", opacity: show, transform: `translateY(${lerp(28, 0, show)}px)` }}>
-              <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.19em", color: event.european ? C.gold : C.faint }}>{event.eyebrow}</div>
-              <div style={{ marginTop: 16, fontFamily: MONO, fontSize: 92, lineHeight: 0.92, letterSpacing: "-0.06em", color: C.ink }}>{event.year}</div>
-              <div style={{ marginTop: 20, fontFamily: SANS, fontSize: 42, fontWeight: 600, letterSpacing: "-0.035em", color: C.ink }}>{event.headline}</div>
-              <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 20, color: C.dim }}>{event.sub}</div>
-            </div>
-          );
-        })}
+        {DATA.featuredMatches.map((event, index) => <FeaturedMatchSignature key={event.matchId} match={event} frame={frame} end={DATA.featuredMatches[index + 1]?.start ?? 510} />)}
       </div>
       <div style={{ position: "absolute", right: 64, bottom: 46, opacity: smoothstep(360, 430, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>1886&nbsp;&nbsp;→&nbsp;&nbsp;2008</div>
     </AbsoluteFill>
@@ -678,6 +938,9 @@ export function RedThreadMasterV2({ withAudio = true }: { withAudio?: boolean })
       {withAudio && (
         <>
           <Audio src={staticFile("video/audio/master-v3.mp3")} volume={masterMusicVolume} />
+          <Sequence from={0} durationInFrames={540}>
+            <Audio src={staticFile("video/audio/master-v6-opening-sfx.wav")} volume={0.48} />
+          </Sequence>
           <Sequence from={1080} durationInFrames={540}>
             <Audio src={staticFile("video/audio/master-v5-sfx.wav")} volume={0.7} />
           </Sequence>

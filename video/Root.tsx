@@ -7,7 +7,7 @@ export function RemotionRoot() {
   return (
     <>
       <Composition
-        id="red-thread-master-v5"
+        id="red-thread-master-v6"
         component={RedThreadMasterV2}
         durationInFrames={MASTER_DURATION_SECONDS * 30}
         fps={30}
@@ -15,10 +15,18 @@ export function RemotionRoot() {
         height={1080}
       />
       <Composition
-        id="red-thread-master-v5-silent"
+        id="red-thread-master-v6-silent"
         component={RedThreadMasterV2}
         defaultProps={{ withAudio: false }}
         durationInFrames={MASTER_DURATION_SECONDS * 30}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="red-thread-opening-v6"
+        component={RedThreadMasterV2}
+        durationInFrames={525}
         fps={30}
         width={1920}
         height={1080}

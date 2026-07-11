@@ -5,24 +5,33 @@
 **Parent:** [`docs/JOURNEY.md`](./JOURNEY.md)  
 **Working title:** *The line through time*
 
-**Motion and sound master v5 — built 11 July 2026:** an 84-second evaluation
+**Match-rich master v6 — built 11 July 2026:** an 84-second evaluation
 master renders from `video/RedThreadMasterV2.tsx` to
-`output/video/red-thread-master-v5.mp4`. It keeps chronology intact, coordinates
-the opening camera with the filament draw, and carries the 2008 knot into a full
-1968↔2008 loop before the filament exits through 1999. From there it follows the
+`output/video/red-thread-master-v6.mp4`. It replaces the opening's repeated text
+cards with five distinct, canonical-data match signatures: the 1886 lineup,
+1954 score-state storm, 1968 extra-time burst and Best monument, 1999 bench
+intervention, and 2008 Ronaldo/penalty constellation. The camera now holds long
+enough for each match object to resolve, then carries the 2008 knot into a full
+1968↔2008 loop and exits through 1999. From there it follows the
 locked scale progression—1999 Treble pocket → three Fergie-time echoes → all 671
 recorded post-85′ goals → 395-match Fortress record → all 6,028 matches. The
 score is a timestamp-structured instrumental generated with Lyria 3 Pro and
 normalized to picture length. The earlier 14-second simultaneous reveal remains
 only as a comparison artifact.
 
+The opening signatures are driven by the same match events, lineups and player
+media as `/match/[id]` and `/player/[id]`. An authored manifest selects what each
+match foregrounds, while the facts and receipt paths remain generated. A new
+procedural effects stem gives the lineup assembly, eleven goals, extra-time
+burst, substitute reversal and shoot-out distinct but related sonic identities.
+
 The Treble passage replaces v3's calm circular summary with a tightening
 eleven-day fuse. Each match begins in jeopardy, the substitute intervention
 lands as evidence, the recovery gaps contract from six days to four, and the
-European final holds at 90 minutes before the two-goal reversal. V3 remains a
-comparison artifact at `output/video/red-thread-master-v3.mp4`. V5 adds an
-authored effects stem and music duck around 90:00, removes one opening archive
-stop so the central loop begins two seconds earlier, and resolves the final
+European final holds at 90 minutes before the two-goal reversal. V5 remains a
+comparison artifact at `output/video/red-thread-master-v5.mp4`. V5 added an
+authored effects stem and music duck around 90:00, removed one opening archive
+stop so the central loop began two seconds earlier, and resolved the final
 filament into a real match receipt before “Pull a thread.”
 
 This document scopes the first cinematic compression of Red Thread: an authored,
