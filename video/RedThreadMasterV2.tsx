@@ -10,6 +10,7 @@ import {
 } from "remotion";
 import generated from "./generated-master-data.json";
 import { lerp, smoothstep, windowed } from "./math";
+import { pitchPlacement, PITCH_BAND_ORDER } from "../lib/placement";
 
 const C = {
   pitch: "#0c0b0a",
@@ -854,12 +855,21 @@ function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number
         const match = DATA.featuredMatches.find((candidate) => candidate.matchId === final.matchId);
         if (!match) return null;
         const starters = match.lineup.filter((player) => player.side === "united" && player.started && !player.bench);
-        const bands = {
-          FWD: starters.filter((player) => player.careerBand === "FWD"),
-          MID: starters.filter((player) => player.careerBand === "MID"),
-          DEF: starters.filter((player) => player.careerBand === "DEF"),
-          GK: starters.filter((player) => player.careerBand === "GK"),
-        };
+        const placed = starters.map((player) => ({
+          player,
+          at: pitchPlacement({
+            role: player.role,
+            shirt: player.shirt,
+            career_band: player.careerBand,
+          }, match.year),
+        }));
+        const bands = PITCH_BAND_ORDER.map((band) => ({
+          band,
+          players: placed
+            .filter((entry) => entry.at?.band === band)
+            .sort((a, b) => (a.at!.lat - b.at!.lat) || ((a.player.shirt ?? 99) - (b.player.shirt ?? 99)))
+            .map((entry) => entry.player),
+        })).filter((entry) => entry.players.length > 0);
         const events = match.events.filter((event) => event.minute != null && ["goal", "opp-goal", "own-goal-for", "own-goal-against"].includes(event.type));
         const maxMinute = match.match.aet ? 120 : 90;
         const reveal = smoothstep(292 + finalIndex * 7, 326 + finalIndex * 7, frame);
@@ -889,12 +899,12 @@ function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number
                 <rect x="142" y="0" width="126" height="32" fill="none" stroke={C.faint} />
                 <rect x="142" y="190" width="126" height="32" fill="none" stroke={C.faint} />
               </svg>
-              {(Object.entries(bands) as [keyof typeof bands, FeaturedLineupPlayer[]][]).flatMap(([band, players]) => players.map((player, index) => {
+              {bands.flatMap(({ band, players }) => players.map((player, index) => {
                 const focused = player.playerId === final.focusId;
                 const y = band === "FWD" ? 18 : band === "MID" ? 43 : band === "DEF" ? 70 : 91;
                 const x = ((index + 1) / (players.length + 1)) * 100;
                 return (
-                  <div key={`${final.matchId}-${player.playerId}`} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: 68, transform: "translate(-50%,-50%)", textAlign: "center", opacity: focused ? 1 : 0.2 }}>
+                  <div key={`${final.matchId}-${player.playerId}`} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: 68, transform: `translate(-50%,-50%) scale(${focused ? 1.1 : 1})`, textAlign: "center", opacity: focused ? 1 : 0.35 }}>
                     <div style={{ width: focused ? 23 : 16, height: focused ? 23 : 16, margin: "0 auto", display: "grid", placeItems: "center", clipPath: "polygon(20% 5%,38% 0,50% 10%,62% 0,80% 5%,100% 23%,87% 37%,78% 31%,78% 100%,22% 100%,22% 31%,13% 37%,0 23%)", background: focused ? C.red : C.redDeep, color: C.cream, fontFamily: MONO, fontSize: focused ? 10 : 8, boxShadow: focused ? `0 0 20px ${C.gold}` : "none" }}>{player.shirt}</div>
                     <div style={{ marginTop: 3, overflow: "hidden", textOverflow: "ellipsis", fontFamily: SANS, fontSize: focused ? 10 : 8, fontWeight: focused ? 700 : 400, color: focused ? C.ink : C.dim, whiteSpace: "nowrap" }}>{familyName(player.name)}</div>
                   </div>
