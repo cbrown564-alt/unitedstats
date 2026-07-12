@@ -44,7 +44,7 @@
     "copy:deck": "node scripts/copy-deck.mjs",
     "video:data": "tsx scripts/generate-video-data.ts",
     "video:audio": "node scripts/generate-video-audio.mjs",
-    "video:sfx": "node scripts/generate-video-sfx.mjs && node scripts/generate-video-opening-sfx.mjs",
+    "video:sfx": "node scripts/generate-video-sfx.mjs && node scripts/generate-video-opening-sfx.mjs && node scripts/generate-video-body-sfx.mjs",
     "video:prepare": "npm run video:data && npm run video:sfx",
     "video:studio": "npm run video:prepare && remotion studio video/index.ts",
     "video:score": "node scripts/generate-video-score.mjs",

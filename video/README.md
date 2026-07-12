@@ -67,5 +67,10 @@ to `output/video/red-thread-master-v6.mp4`; use
 - The five opening signatures have their own deterministic procedural stem from
   `scripts/generate-video-opening-sfx.mjs`, documented by
   `master-v6-opening-sfx.json`.
+- The rhyme, Fergie, Fortress and close cues live in a third stem from
+  `scripts/generate-video-body-sfx.mjs` (`master-v6-body-sfx.wav`), silent during
+  the opening and Treble ranges so the other stems keep ownership there.
+- Captions for mute/review playback: `public/video/captions/master-v6.vtt`; the
+  silent composition burns the same cue list on-screen.
 - Master: 1920×1080, 30 fps, 2,520 frames / 84 seconds.
 - Prototype: 1920×1080, 30 fps, 420 frames / 14 seconds.
