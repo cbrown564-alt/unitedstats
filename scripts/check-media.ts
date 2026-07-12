@@ -7,6 +7,7 @@
  * Usage:
  *   npm run check:media
  *   npm run check:media -- --strict-coverage
+ *   npm run check:player-media-roster
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -24,6 +25,7 @@ interface MediaRecordBase {
 
 interface MediaManifest<T extends MediaRecordBase> {
   records: T[];
+  missing?: { playerId?: string }[];
 }
 
 interface MediaLane {
@@ -38,11 +40,12 @@ const lanes: MediaLane[] = [
   { label: "own-goal scorer", file: "og-scorer-media.json", key: (record) => String(record.name) },
 ];
 
-function parseArgs(argv: string[]): { strictCoverage: boolean } {
+function parseArgs(argv: string[]): { strictCoverage: boolean; strictRoster: boolean } {
   const strictCoverage = argv.includes("--strict-coverage");
-  const unknown = argv.filter((arg) => arg !== "--strict-coverage");
+  const strictRoster = argv.includes("--strict-roster");
+  const unknown = argv.filter((arg) => arg !== "--strict-coverage" && arg !== "--strict-roster");
   if (unknown.length) throw new Error(`Unknown argument: ${unknown.join(" ")}`);
-  return { strictCoverage };
+  return { strictCoverage, strictRoster };
 }
 
 function diskPathFor(localPath: string): string | null {
@@ -70,7 +73,7 @@ async function validateLocalImage(localPath: string): Promise<string | null> {
 }
 
 async function main() {
-  const { strictCoverage } = parseArgs(process.argv.slice(2));
+  const { strictCoverage, strictRoster } = parseArgs(process.argv.slice(2));
   const failures: string[] = [];
   let checked = 0;
   let cached = 0;
@@ -95,6 +98,19 @@ async function main() {
       }
       const failure = await validateLocalImage(record.localPath);
       if (failure) failures.push(`${lane.label} ${key}: ${failure} (${record.localPath})`);
+    }
+
+    if (strictRoster && lane.label === "player") {
+      const playerRecords = readJson<{ records: { playerId: string }[] }>(
+        path.join(CANONICAL, "player-records.json"),
+      ).records;
+      const covered = new Set([
+        ...manifest.records.map((record) => String(record.playerId)),
+        ...(manifest.missing ?? []).map((record) => String(record.playerId)),
+      ]);
+      for (const player of playerRecords) {
+        if (!covered.has(player.playerId)) failures.push(`player roster ${player.playerId}: absent from records and missing`);
+      }
     }
   }
 

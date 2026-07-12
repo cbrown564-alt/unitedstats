@@ -1,10 +1,11 @@
 /**
- * Build a licensed player image manifest for the top Manchester United player
- * records. Wikidata P18 points to Wikimedia Commons files, then Commons
- * imageinfo supplies reusable URLs plus license/attribution metadata.
+ * Build a licensed player image manifest for Manchester United player records.
+ * Wikidata P18 points to Wikimedia Commons files, then Commons imageinfo
+ * supplies reusable URLs plus license/attribution metadata.
  *
  * Usage:
  *   npm run ingest:player-media
+ *   npm run ingest:player-media -- --all
  */
 import path from "node:path";
 import { CANONICAL, readJson, writeJson } from "../lib";
@@ -13,6 +14,8 @@ const USER_AGENT = "unitedstats/1.0 player-media ingest";
 const SOURCE_ID = "wikidata-commons";
 const TOP_N = 100;
 const PREMIER_LEAGUE_ERA_START_YEAR = 1992;
+const API_BATCH_DELAY_MS = 1500;
+const MAX_API_ATTEMPTS = 8;
 
 /**
  * Players featured on editorial surfaces (e.g. the /questions cup-specialists
@@ -364,6 +367,40 @@ function selectTopPlayers(playerRecords: PlayerRecord[]): SelectedPlayer[] {
   return [...selected.values()];
 }
 
+function selectAllPlayers(playerRecords: PlayerRecord[]): SelectedPlayer[] {
+  const selected = new Map<string, SelectedPlayer>();
+  for (const player of playerRecords) {
+    selected.set(player.playerId, {
+      ...player,
+      overallRank: null,
+      premierLeagueEraRank: null,
+    });
+  }
+
+  // Preserve the existing editorial exceptions when running the exhaustive
+  // pass. They are still valid player-media records even when they are not in
+  // the competitive first-team appearance table.
+  const recordById = new Map(playerRecords.map((player) => [player.playerId, player]));
+  for (const featured of FEATURED_PLAYERS) {
+    if (selected.has(featured.playerId)) continue;
+    const record = recordById.get(featured.playerId);
+    selected.set(featured.playerId, {
+      playerId: featured.playerId,
+      name: featured.name,
+      wikiTitle: featured.wikiTitle,
+      career: record?.career ?? "",
+      firstYear: record?.firstYear ?? null,
+      lastYear: record?.lastYear ?? null,
+      apps: record?.apps ?? 0,
+      goals: record?.goals ?? 0,
+      overallRank: null,
+      premierLeagueEraRank: null,
+    });
+  }
+
+  return [...selected.values()];
+}
+
 function stripHtml(value: string | undefined): string | null {
   if (!value) return null;
   const stripped = value
@@ -386,15 +423,15 @@ function sleep(ms: number): Promise<void> {
 }
 
 async function apiJson<T>(base: string, params: Record<string, string>, attempt = 1): Promise<T> {
+  if (attempt > 1) await sleep(Math.min(60000, attempt * attempt * 3000));
   const url = new URL(base);
   for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
 
-  const res = await fetch(url, { headers: { "user-agent": USER_AGENT } });
+  const res = await fetch(url, { headers: { "user-agent": USER_AGENT, accept: "application/json" } });
   if (!res.ok) {
-    if ((res.status === 429 || res.status >= 500) && attempt < 5) {
+    if ((res.status === 429 || res.status >= 500) && attempt < MAX_API_ATTEMPTS) {
       const retryAfter = Number(res.headers.get("retry-after"));
-      const delay = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : attempt * 2000;
-      await sleep(delay);
+      if (Number.isFinite(retryAfter) && retryAfter > 0) await sleep(Math.min(120000, retryAfter * 1000));
       return apiJson<T>(base, params, attempt + 1);
     }
     throw new Error(`${base} ${res.status} ${res.statusText}`);
@@ -436,6 +473,7 @@ async function fetchWikidataIds(titles: string[]): Promise<Map<string, string>> 
       const qid = pageQids.get(lookup) ?? pageQids.get(normalizedTitle);
       if (qid) out.set(title, qid);
     }
+    await sleep(API_BATCH_DELAY_MS);
   }
 
   return out;
@@ -457,6 +495,7 @@ async function fetchCommonsFiles(qids: string[]): Promise<Map<string, string>> {
       const image = json.entities?.[qid]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
       if (image && IMAGE_EXTENSIONS.has(fileExtension(image))) out.set(qid, image);
     }
+    await sleep(API_BATCH_DELAY_MS);
   }
 
   return out;
@@ -497,6 +536,7 @@ async function fetchWikipediaPageImages(players: SelectedPlayer[]): Promise<Map<
         });
       }
     }
+    await sleep(API_BATCH_DELAY_MS);
   }
 
   return out;
@@ -523,6 +563,7 @@ async function fetchCommonsMetadata(files: string[]): Promise<Map<string, Common
       const info = page.imageinfo?.[0];
       if (info?.url) out.set(commonsFileKey(file), info);
     }
+    await sleep(API_BATCH_DELAY_MS);
   }
 
   return out;
@@ -530,7 +571,10 @@ async function fetchCommonsMetadata(files: string[]): Promise<Map<string, Common
 
 async function main() {
   const playerRecords = readJson<PlayerRecordsFile>(path.join(CANONICAL, "player-records.json")).records;
-  const topPlayers = selectTopPlayers(playerRecords);
+  const exhaustive = process.argv.includes("--all");
+  const unknownArgs = process.argv.slice(2).filter((arg) => arg !== "--all");
+  if (unknownArgs.length) throw new Error(`Unknown argument(s): ${unknownArgs.join(" ")}`);
+  const topPlayers = exhaustive ? selectAllPlayers(playerRecords) : selectTopPlayers(playerRecords);
 
   const qidsByTitle = await fetchWikidataIds(topPlayers.map((p) => p.wikiTitle));
   const filesByQid = await fetchCommonsFiles([...qidsByTitle.values()]);
@@ -642,12 +686,17 @@ async function main() {
     generatedAt: retrievedAt,
     sourceId: SOURCE_ID,
     sourceName: "Wikidata P18, Wikipedia pageimages, and Wikimedia Commons imageinfo",
-    requestedTopPlayers: TOP_N,
-    requestedTopPlayersPerCohort: TOP_N,
+    requestedTopPlayers: exhaustive ? null : TOP_N,
+    requestedTopPlayersPerCohort: exhaustive ? null : TOP_N,
     selectedPlayers: topPlayers.length,
+    selectionMode: exhaustive ? "all player records plus featured exceptions" : "top appearance cohorts plus featured exceptions",
     ranking: [
-      "Top players by verified competitive appearances in data/canonical/player-records.json.",
-      `Premier League-era cohort means records whose United career reaches ${PREMIER_LEAGUE_ERA_START_YEAR} or later; source records do not split appearances by era.`,
+      exhaustive
+        ? "All verified competitive player records in data/canonical/player-records.json, plus the existing featured exceptions."
+        : "Top players by verified competitive appearances in data/canonical/player-records.json.",
+      ...(exhaustive
+        ? []
+        : [`Premier League-era cohort means records whose United career reaches ${PREMIER_LEAGUE_ERA_START_YEAR} or later; source records do not split appearances by era.`]),
     ],
     sourceUrls: [
       "https://www.wikidata.org/wiki/Property:P18",

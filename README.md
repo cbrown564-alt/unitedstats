@@ -92,7 +92,8 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 | `npm run ingest:transfermarkt` | transfermarkt-datasets modern match sheets |
 | `npm run ingest:transfers` | MUFCInfo transfer archive |
 | `npm run ingest:player-records` | Wikipedia player-list career totals |
-| `npm run ingest:player-media` | Wikidata/Commons player portraits |
+| `npm run ingest:player-media` | Wikidata/Commons portraits for the curated appearance cohorts |
+| `npm run ingest:player-media:all` | Exhaustive Wikimedia-first pass for every verified United player record |
 | `npm run ingest:manager-media` | Manager portraits |
 | `npm run ingest:ogscorer-media` | Own-goal scorer media |
 | `npm run ingest:player-shirts` | Shirt-number decade summaries |
@@ -106,6 +107,8 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 |---|---|
 | `npm run check:static` | Enforce static/SSG route disposition |
 | `npm run check:media` | Verify cached media files |
+| `npm run check:player-media-roster` | Assert every verified United player is represented in the media ledger |
+| `npm run check:player-media-research` | Validate disjoint research batches before media-manifest merge |
 | `npm run check:perf` | Performance budget checks |
 
 ## Data coverage
