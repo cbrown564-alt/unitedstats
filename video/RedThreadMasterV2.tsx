@@ -209,6 +209,49 @@ function sceneOpacity(local: number, duration: number, fade = 34): number {
   return smoothstep(0, fade, local) * (1 - smoothstep(duration - fade, duration, local));
 }
 
+const THREAD_TRAVEL_EASE = Easing.bezier(0.77, 0, 0.175, 1);
+
+function clamp01(value: number): number {
+  return Math.max(0, Math.min(1, value));
+}
+
+function travelState(frame: number): { x: number; energy: number } {
+  let x = DATA.featuredMatches[0].x;
+
+  for (let index = 1; index < DATA.featuredMatches.length; index++) {
+    const previous = DATA.featuredMatches[index - 1];
+    const next = DATA.featuredMatches[index];
+    const travelStart = next.start - 48;
+    const travelEnd = next.start - 14;
+
+    if (frame < travelStart) return { x, energy: 0 };
+    if (frame <= travelEnd) {
+      const linear = clamp01((frame - travelStart) / (travelEnd - travelStart));
+      const eased = THREAD_TRAVEL_EASE(linear);
+      return {
+        x: lerp(previous.x, next.x, eased),
+        energy: Math.sin(linear * Math.PI),
+      };
+    }
+
+    x = next.x;
+  }
+
+  return { x, energy: 0 };
+}
+
+function featuredMatchMotion(frame: number, match: FeaturedMatch, end: number) {
+  const firstMatch = match.matchId === DATA.featuredMatches[0].matchId;
+  const enter = smoothstep(match.start - (firstMatch ? 18 : 42), match.start + 5, frame);
+  const exit = smoothstep(end - 48, end - 12, frame);
+
+  return {
+    enter,
+    exit,
+    presence: enter * (1 - exit),
+  };
+}
+
 function masterMusicVolume(frame: number): number {
   const duckIn = smoothstep(1380, 1404, frame);
   const duckOut = smoothstep(1440, 1462, frame);
@@ -466,15 +509,19 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
 }
 
 function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; frame: number; end: number }) {
-  const show = windowed(frame, match.start - 18, match.start + 6, end - 20, end + 4);
+  const { enter, exit, presence } = featuredMatchMotion(frame, match, end);
   const progress = smoothstep(match.start - 12, Math.min(end - 12, match.start + 58), frame);
+  const translateX = lerp(76, 0, enter) + lerp(0, -96, exit);
+  const translateY = lerp(18, 0, enter) + lerp(0, -8, exit);
+  const scale = lerp(0.985, 1, enter) - exit * 0.012;
+  const blur = (1 - enter) * 3.5 + exit * 2.5;
   const body = match.visualMode === "first-xi" ? <FirstXiSignature match={match} progress={progress} />
     : match.visualMode === "score-storm" ? <ScoreStormSignature match={match} progress={progress} />
     : match.visualMode === "extra-time-burst" ? <ExtraTimeSignature match={match} progress={progress} />
     : match.visualMode === "bench-reversal" ? <BenchReversalSignature match={match} progress={progress} />
     : <PenaltyConstellationSignature match={match} progress={progress} />;
   return (
-    <div style={{ position: "absolute", left: match.x - 480, top: 184, width: 960, height: 430, opacity: show, transform: `translateY(${lerp(30, 0, smoothstep(match.start - 18, match.start + 8, frame))}px)` }}>
+    <div style={{ position: "absolute", left: match.x - 480, top: 184, width: 960, height: 430, opacity: presence, filter: `blur(${blur.toFixed(2)}px)`, transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`, transformOrigin: "50% 100%" }}>
       {body}
       <div style={{ position: "absolute", left: 18, right: 18, bottom: -34, display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: MONO, fontSize: 11, letterSpacing: "0.14em", color: C.faint }}>
         <span>{match.eyebrow}</span><span>/match/{match.match.id}</span>
@@ -486,25 +533,21 @@ function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; f
 function HistoricalTimeline({ frame }: { frame: number }) {
   const duration = 490;
   const opacity = sceneOpacity(frame, duration, 42);
-  const historicalEase = Easing.bezier(0.77, 0, 0.175, 1);
-  // The filament pulls the camera: draw and pan share the same authored beats,
-  // while every fact lands only after its knot has reached the reading position.
-  const cameraX = interpolate(
-    frame,
-    [0, 45, 75, 145, 175, 235, 265, 325, 355, 500],
-    [740, 740, -810, -810, -1350, -1350, -2120, -2120, -2560, -2560],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
-  );
+  // One travelling thread head now drives the camera and the handoff between
+  // match signatures, so the chronology reads as a continuous pull rather than
+  // a sequence of independent slides.
+  const travel = travelState(frame);
+  const cameraX = 960 - travel.x;
   const draw = interpolate(
     frame,
     [0, 45, 75, 145, 175, 235, 265, 325, 355, 500],
     [0.025, 0.07, 0.45, 0.48, 0.6, 0.64, 0.78, 0.82, 0.94, 0.97],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: historicalEase },
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: THREAD_TRAVEL_EASE },
   );
-  const worldScale = lerp(1, 1.025, smoothstep(238, 460, frame));
+  const worldScale = 1 + travel.energy * 0.014 + smoothstep(238, 460, frame) * 0.012;
   return (
     <AbsoluteFill style={{ opacity }}>
-      <div style={{ position: "absolute", inset: 0, transform: `translateX(${cameraX}px) scale(${worldScale})`, transformOrigin: "50% 62%" }}>
+      <div style={{ position: "absolute", inset: 0, transform: `translate3d(${cameraX}px, 0, 0) scale(${worldScale})`, transformOrigin: `${travel.x}px 665px` }}>
         <svg width="4200" height="1080" style={{ position: "absolute", inset: 0 }}>
           <defs>
             <linearGradient id="history-filament" x1="0" y1="0" x2="1" y2="0">
@@ -514,11 +557,14 @@ function HistoricalTimeline({ frame }: { frame: number }) {
           </defs>
           <path d="M 74 676 C 520 645, 960 698, 1390 660 S 2210 632, 2680 675 S 3370 632, 4040 660" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.16 * draw} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} filter="url(#history-glow)" />
           <path d="M 74 676 C 520 645, 960 698, 1390 660 S 2210 632, 2680 675 S 3370 632, 4040 660" fill="none" stroke="url(#history-filament)" strokeWidth="3.4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
-          {DATA.featuredMatches.map((event) => {
+          {DATA.featuredMatches.map((event, index) => {
             const arrived = smoothstep(event.start - 24, event.start + 8, frame);
+            const end = DATA.featuredMatches[index + 1]?.start ?? 510;
+            const motion = featuredMatchMotion(frame, event, end);
             const european = event.match.competition.toLowerCase().includes("europe");
             return (
               <g key={event.year} opacity={0.22 + arrived * 0.78}>
+                <line x1={event.x} x2={event.x} y1="606" y2="656" stroke={european ? C.gold : C.cream} strokeWidth="1.5" strokeOpacity={motion.presence * 0.34} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - motion.enter} />
                 {european && <circle cx={event.x} cy="665" r="26" fill={C.gold} fillOpacity="0.1" stroke={C.gold} strokeOpacity="0.42" />}
                 <circle cx={event.x} cy="665" r={european ? 8 : 5.5} fill={european ? C.gold : C.cream} />
                 <line x1={event.x} x2={event.x} y1="636" y2="700" stroke={european ? C.gold : C.ink} strokeOpacity="0.32" />
@@ -527,6 +573,10 @@ function HistoricalTimeline({ frame }: { frame: number }) {
               </g>
             );
           })}
+          <g opacity={0.72 + travel.energy * 0.28}>
+            <circle cx={travel.x} cy="665" r={22 + travel.energy * 13} fill={C.red} fillOpacity={0.08 + travel.energy * 0.08} filter="url(#history-glow)" />
+            <circle cx={travel.x} cy="665" r={5.5 + travel.energy * 2.5} fill={travel.energy > 0.08 ? C.gold : C.cream} />
+          </g>
         </svg>
         {DATA.featuredMatches.map((event, index) => <FeaturedMatchSignature key={event.matchId} match={event} frame={frame} end={DATA.featuredMatches[index + 1]?.start ?? 510} />)}
       </div>

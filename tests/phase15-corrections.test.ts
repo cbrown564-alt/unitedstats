@@ -3,6 +3,9 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+
+const npmCommand = process.platform === "win32" ? "npm.cmd" : "npm";
+const npxCommand = process.platform === "win32" ? "npx.cmd" : "npx";
 import test from "node:test";
 import type React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -182,14 +185,16 @@ test("sample correction applies to a temp canonical copy and passes validation",
   const canonical = path.join(tmp, "canonical");
   fs.cpSync(path.join(process.cwd(), "data/canonical"), canonical, { recursive: true });
   try {
-    execFileSync("npx", ["tsx", "scripts/apply-correction-fixture.ts", "tests/fixtures/corrections/sample-attendance.json", "--canonical", canonical], {
+    execFileSync(npxCommand, ["tsx", "scripts/apply-correction-fixture.ts", "tests/fixtures/corrections/sample-attendance.json", "--canonical", canonical], {
       cwd: process.cwd(),
       stdio: "pipe",
+      shell: process.platform === "win32",
     });
-    execFileSync("npm", ["run", "validate"], {
+    execFileSync(npmCommand, ["run", "validate"], {
       cwd: process.cwd(),
       env: { ...process.env, UNITEDSTATS_CANONICAL_DIR: canonical },
       stdio: "pipe",
+      shell: process.platform === "win32",
     });
   } finally {
     fs.rmSync(tmp, { recursive: true, force: true });
