@@ -20,6 +20,8 @@ const apiKey = process.env.ELEVENLABS_API_KEY;
 if (!apiKey) throw new Error("ELEVENLABS_API_KEY is required.");
 
 const force = process.argv.includes("--force");
+const onlyArg = process.argv.find((arg) => arg.startsWith("--only="));
+const onlyId = onlyArg?.slice("--only=".length);
 const outputDir = resolve("public/video/audio/elevenlabs-post-punk-finals");
 mkdirSync(outputDir, { recursive: true });
 
@@ -56,12 +58,50 @@ const treatments = [
       { text:"[Outro]\nSix thousand and twenty-eight matches.\nPick one.\nPull a thread.", duration_ms:6000, positive_styles:["close deadpan voice","single bass answer","clean abrupt-resonant ending","characterful invitation"], negative_styles:[...sharedNegative,"advertising slogan","grand ending","applause"], context_adherence:"high" },
     ],
   },
+  {
+    id: "post-punk-song-continuous",
+    title: "Post-punk red-line song · continuous",
+    thesis: "One uninterrupted generation with a persistent rhythm section and the winning character retained end to end.",
+    chunks: [
+      { text:"[Intro]\nFirst eleven on the paper.\nThen the line begins to run.", duration_ms:18000, positive_styles:["angular modern electronic post-punk","122 BPM maintained throughout the entire song","cool understated British vocalist","dry motorik drum machine already audible from the first second","rubbery mono bass","one clipped guitar-harmonic timbre","playful restraint","continuous audible music"], negative_styles:[...sharedNegative,"silence","dropout","free-time intro","ambient intro","nostalgic rock"], context_adherence:"high" },
+      { text:"[Verse - same rhythm section continues]\nSixty-eight to two thousand eight,\nnumber seven keeps the date.\nFinal goal and season five—\nthe same red line, still alive.", duration_ms:20000, positive_styles:["same exact drum machine bass and guitar timbres as the intro","spoken-sung rhythmic verse","wry factual lyric","broken electronic beat","short melodic bass answer","continuous 122 BPM pulse","catchy but dry"], negative_styles:[...sharedNegative,"silence","dropout","new instrumentation","tempo change","singalong chorus","dense harmony"], context_adherence:"high" },
+      { text:"[Refrain - continuous transition]\nEleven days. No margin.\nThree doors. Three turns.\nThe line holds.", duration_ms:16000, positive_styles:["same exact rhythm section continues without stopping","slightly firmer post-punk pulse","memorable clipped refrain","voice doubles only the words the line holds","sharp rhythmic gaps inside a continuously audible groove"], negative_styles:[...sharedNegative,"silence","dropout","new sound palette","shouted chorus","power chords","victory mood"], context_adherence:"high" },
+      { text:"[Pressure verse - reduce density but never stop]\nAfter eighty-five—\nthings become less certain.\nOne clock. Six strikes.\nYou may have noticed a pattern.", duration_ms:20000, positive_styles:["same mono bass sustains a quiet repeating figure","same drum machine reduces to dry hi-hat and rim but remains continuously audible","deadpan British spoken voice","same clipped guitar harmonic punctuation","dry humour","controlled late-pressure tension","no full silence"], negative_styles:[...sharedNegative,"silence","dropout","complete breakdown","new instruments","comedy music","poetry slam","dramatic riser"], context_adherence:"high" },
+      { text:"[Fortress bridge - instrumental, exact same band continues playing]", duration_ms:10000, positive_styles:["continuous audible instrumental post-punk groove","exact same 122 BPM drum machine","exact same wiry mono bass","exact same clipped guitar harmonics","no voice but the rhythm never stops","low architectural pressure","clear continuation from the previous verse and into the outro"], negative_styles:[...sharedNegative,"silence","dropout","pause","breakdown","new timbre","new instrument","ambient interlude","climax"], context_adherence:"high" },
+      { text:"[Outro - same groove under the voice]\nSix thousand and twenty-eight matches.\nPick one.\nPull a thread.", duration_ms:6000, positive_styles:["same bass drums and guitar continue beneath the close deadpan voice","characterful invitation","continuous rhythm until the final word","one clean band cutoff with a short natural tail"], negative_styles:[...sharedNegative,"silence before the vocal","dropout","new sound palette","advertising slogan","grand ending","applause","long fadeout"], context_adherence:"high" },
+    ],
+  },
+  {
+    id: "post-punk-reference-leaning",
+    title: "Post-punk transmission · reference-leaning",
+    thesis: "The same six-part picture structure, with sparser non-rhyming text and more of the signed-off audition's 118 BPM transmission character.",
+    chunks: [
+      { text:"[Instrumental intro]", duration_ms:18000, positive_styles:["taut minimal post-punk electronics","118 BPM","dry motorik drum machine","wiry mono bass","rare clipped guitar harmonics","severe and contemporary","continuous forward motion with open space"], negative_styles:[...sharedNegative,"vocals","lyrics","bright melody","retro revival","silence","ambient intro"], context_adherence:"high" },
+      { text:"[Spoken-sung transmission — same rhythm section continues]\nSixty-eight.\nTwo thousand eight.\nNumber seven turns the page.", duration_ms:20000, positive_styles:["detached low British spoken-sung voice","dry factual fragments rather than a conventional verse","wry understated delivery","irregular vocal entrances","same motorik drums and wiry bass","clipped guitar punctuation","generous space between lines"], negative_styles:[...sharedNegative,"rhyming verse","cheerful pop","earnest indie singing","continuous singing","vocal harmonies","new instrumentation","tempo change"], context_adherence:"high" },
+      { text:"[Clipped transmission — continuous transition]\nEleven days.\nNo margin.\nThree nights turn.", duration_ms:16000, positive_styles:["same low detached British voice","same exact sound palette","short factual transmissions","elastic pauses inside a quiet continuous pulse","dry humour through understatement","controlled momentum"], negative_styles:[...sharedNegative,"melodic refrain","shouted chorus","voice doubling","singalong","power chords","victory mood","dropout"], context_adherence:"high" },
+      { text:"[Late-pressure transmission — reduce density but keep a pulse]\nAfter eighty-five.\nOne clock.\nSix strikes.\nStill counting.", duration_ms:20000, positive_styles:["same close deadpan British voice","same bass reduced to a spare repeating figure","dry rim and hi-hat remain audible","long gaps between factual fragments","quiet comic timing","tension through withholding","no melodrama"], negative_styles:[...sharedNegative,"comedy music","poetry slam","dramatic narrator","riser","dense beat","complete silence","new instruments"], context_adherence:"high" },
+      { text:"[Instrumental fortress — exact same sound world continues]", duration_ms:10000, positive_styles:["skeletal 118 BPM motorik pulse","same wiry mono bass","same clipped guitar harmonic family","low architectural pressure","sparse continuous motion","no climax"], negative_styles:[...sharedNegative,"vocals","lyrics","solo","new timbre","ambient interlude","triumphant return","full silence"], context_adherence:"high" },
+      { text:"[Final close transmission]\nSix thousand and twenty-eight.\nPull a thread.", duration_ms:6000, positive_styles:["same low detached British voice","dry characterful invitation","same sparse groove under the words","one unresolved bass answer","clean abrupt-resonant ending"], negative_styles:[...sharedNegative,"advertising slogan","grand finale","melodic cadence","applause","long fadeout"], context_adherence:"high" },
+    ],
+  },
 ];
+
+const continuousTreatment=treatments.find((treatment)=>treatment.id==="post-punk-song-continuous");
+if(!continuousTreatment)throw new Error("Continuous post-punk treatment is missing.");
+for(let take=2;take<=6;take+=1){
+  treatments.push({...continuousTreatment,id:`post-punk-song-continuous-take-${take}`,title:`Post-punk red-line song · take ${take}`,thesis:"Independent stochastic take using the exact same composition plan."});
+}
+
+const referenceLeaningTreatment=treatments.find((treatment)=>treatment.id==="post-punk-reference-leaning");
+if(!referenceLeaningTreatment)throw new Error("Reference-leaning post-punk treatment is missing.");
+for(let take=2;take<=4;take+=1){
+  treatments.push({...referenceLeaningTreatment,id:`post-punk-reference-leaning-take-${take}`,title:`Post-punk transmission · reference-leaning take ${take}`,thesis:"Independent stochastic take using the exact same reference-leaning composition plan."});
+}
 
 const manifest={provider:"ElevenLabs",model:"music_v2",durationSeconds:90,generatedAt:new Date().toISOString(),pictureActs:["00:00–00:18 archive","00:18–00:38 rhyme","00:38–00:54 Treble","00:54–01:14 Fergie time","01:14–01:24 fortress","01:24–01:30 receipt"],treatments:[]};
 for(const treatment of treatments){
   const output=resolve(outputDir,`${treatment.id}.mp3`);
-  if(!existsSync(output)||force){
+  if((!onlyId || treatment.id === onlyId) && (!existsSync(output)||force)){
     console.log(`Generating ${treatment.id}…`);
     const response=await fetch("https://api.elevenlabs.io/v1/music?output_format=mp3_48000_192",{
       method:"POST",headers:{"xi-api-key":apiKey,"Content-Type":"application/json"},
@@ -88,4 +128,4 @@ if(!existsSync(bridgeOutput)||force){
 }
 manifest.fortressBridge={file:"public/video/audio/elevenlabs-post-punk-finals/post-punk-song-fortress-bridge.mp3",timeline:"01:14–01:25",purpose:"Fill the unintended full-silence gap while preserving the final vocal landing."};
 writeFileSync(resolve(outputDir,"manifest.json"),`${JSON.stringify(manifest,null,2)}\n`);
-console.log("Wrote two full-length post-punk treatments.");
+console.log(`Wrote ${treatments.length} full-length post-punk treatments.`);

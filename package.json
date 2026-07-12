@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "eslint",
     "knip": "knip",
+    "og:review": "tsx scripts/render-og-review.ts",
     "ingest": "tsx scripts/ingest/engsoccerdata.ts",
     "ingest:wikipedia": "tsx scripts/ingest/wikipedia.ts",
     "ingest:lineups": "tsx scripts/ingest/final-lineups.ts",

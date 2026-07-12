@@ -22,7 +22,10 @@ export async function localOgMedia(src?: string | null, options: Omit<OgMedia, "
     const path = join(process.cwd(), "public", ...src.split("/").filter(Boolean));
     const original = readFileSync(path);
     const data = path.toLowerCase().endsWith(".webp") ? await sharp(original).png().toBuffer() : original;
-    return { src: Uint8Array.from(data).buffer, ...options };
+    // Copy only renderer fields: registry records deliberately carry source and
+    // licence metadata (and also have their own `src`) which must never replace
+    // the resolved ArrayBuffer when a whole registry entry is passed here.
+    return { src: Uint8Array.from(data).buffer, position: options.position, treatment: options.treatment };
   } catch {
     return undefined;
   }
@@ -97,6 +100,30 @@ function OgTrustStrip({ items, dark = false }: { items: TrustItem[]; dark?: bool
       ))}
     </div>
   );
+}
+
+/** Literal shared shell for every OG composition: canvas, media crop, fixed scrim,
+ * red identity spine, safe zone, brand line, and structured evidence line. */
+function OgFrame({ eyebrow, strip, media, scrim, darkEvidence = false, contextRight, padding = "58px 72px", children }: {
+  eyebrow: string; strip: TrustItem[]; media?: OgMedia; scrim?: string; darkEvidence?: boolean;
+  contextRight?: string; padding?: string; children: ReactNode;
+}) {
+  return <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", overflow: "hidden", background: PITCH, color: INK, fontFamily: "Archivo" }}>
+    {media && <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, display: "flex", overflow: "hidden" }}>
+      {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
+      <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, background: scrim ?? "linear-gradient(90deg, rgba(12,11,10,.98), rgba(12,11,10,.72) 58%, rgba(12,11,10,.28))" }} />
+    </div>}
+    <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
+    <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding }}>
+      <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
+        <OgBrand /><span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
+        {contextRight && <span style={{ color: INK_FAINT, marginLeft: "auto", letterSpacing: 0, fontSize: 24 }}>{contextRight}</span>}
+      </div>
+      {children}
+      <OgTrustStrip items={strip} dark={darkEvidence || !!media} />
+    </div>
+  </div>;
 }
 
 /**
@@ -507,6 +534,24 @@ export function seasonCard(
       strip,
     },
     headers,
+  );
+}
+
+/** The deliberately exceptional 1998–99 card: authored media plus a defining claim. */
+export function seasonPosterCard(
+  { season, claim, marker, results, media, strip }: { season: string; claim: string; marker: string; results: ("W" | "D" | "L")[]; media: OgMedia; strip: TrustItem[] },
+  headers?: Record<string, string>,
+) {
+  return new ImageResponse(
+    <OgFrame eyebrow="LANDMARK SEASON" strip={strip} media={media} darkEvidence padding="56px 72px 54px 88px" scrim="linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.88) 47%, rgba(12,11,10,.22) 82%, rgba(12,11,10,.38) 100%)">
+        <div style={{ display: "flex", flexDirection: "column", width: 720 }}>
+          <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 24, letterSpacing: 2 }}>{marker}</span>
+          <span style={{ fontSize: 82, fontWeight: 800, lineHeight: 1, letterSpacing: -2, marginTop: 12 }}>{season}</span>
+          <span style={{ color: INK, fontSize: 31, lineHeight: 1.25, marginTop: 20 }}>{claim}</span>
+          <div style={{ display: "flex", marginTop: 28 }}>{seasonSpine(results)}</div>
+        </div>
+    </OgFrame>,
+    ogOptions(headers),
   );
 }
 

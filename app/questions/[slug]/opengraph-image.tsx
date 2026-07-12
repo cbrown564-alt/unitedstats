@@ -2,6 +2,7 @@ import { questionBySlug } from "@/lib/questions";
 import { immutableDataHeaders } from "@/lib/cache";
 import { questionAnswer } from "@/lib/questionCardData";
 import { OG_CONTENT_TYPE, OG_SIZE, evidenceCard, localOgMedia, questionCard, trustStrip } from "@/lib/og-card";
+import { OG_MEDIA, type CuratedOgMedia } from "@/lib/og-media";
 
 // On-demand + CDN-cached: the cards carry live counts read from the DB, so they
 // can't be baked at build time the way the evergreen text card was.
@@ -10,11 +11,11 @@ export const alt = "Red Thread question — a sourced answer about Manchester Un
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
-const CURATED_MEDIA: Record<string, { src: string; position?: string }> = {
-  treble: { src: "/media/journey/camp-nou.webp", position: "54% 45%" },
-  fortress: { src: "/media/journey/old-trafford.webp", position: "55% 45%" },
-  europe: { src: "/media/journey/barcelona-climax.webp", position: "50% 35%" },
-  "late-goals": { src: "/media/journey/bruno-fernandes.webp", position: "60% 25%" },
+const CURATED_MEDIA: Record<string, CuratedOgMedia> = {
+  treble: OG_MEDIA.campNou1999,
+  fortress: OG_MEDIA.oldTrafford,
+  europe: OG_MEDIA.barcelona,
+  "late-goals": OG_MEDIA.brunoFernandes,
 };
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {

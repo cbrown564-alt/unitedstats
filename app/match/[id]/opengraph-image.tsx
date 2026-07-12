@@ -1,6 +1,7 @@
 import { matchById, eventsForMatch } from "@/lib/queries";
 import { immutableDataHeaders } from "@/lib/cache";
 import { OG_CONTENT_TYPE, OG_SIZE, entityCard, localOgMedia, matchCard, trustStrip, type MatchGoal } from "@/lib/og-card";
+import { OG_MEDIA, type CuratedOgMedia } from "@/lib/og-media";
 
 // On-demand + CDN-cached rather than 6,000+ images baked into every build.
 export const dynamic = "force-dynamic";
@@ -12,10 +13,10 @@ const GOAL_TYPES = new Set(["goal", "pen-goal", "opp-goal", "own-goal-for", "own
 // An opponent goal or an own goal we conceded sits on the opponent's side; every
 // other goal type (our goals, our penalties, own goals in our favour) is United's.
 const OPP_SIDE = new Set(["opp-goal", "own-goal-against"]);
-const CURATED_MATCH_MEDIA: Record<string, { src: string; position?: string }> = {
-  "1968-05-29-benfica-n": { src: "/media/journey/george-best.webp", position: "62% 25%" },
-  "1999-05-26-bayern-munich-n": { src: "/media/journey/camp-nou.webp", position: "52% 45%" },
-  "2008-05-21-chelsea-n": { src: "/media/journey/cristiano-ronaldo.webp", position: "62% 22%" },
+const CURATED_MATCH_MEDIA: Record<string, CuratedOgMedia> = {
+  "1968-05-29-benfica-n": OG_MEDIA.georgeBest,
+  "1999-05-26-bayern-munich-n": OG_MEDIA.campNou1999,
+  "2008-05-21-chelsea-n": OG_MEDIA.cristianoRonaldo2008,
 };
 
 /** Cup rounds announce themselves on the eyebrow; league matchdays don't. */

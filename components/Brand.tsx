@@ -10,44 +10,63 @@ function ThreadlineMark({ size = 34 }: { size?: number }) {
         </clipPath>
       </defs>
       <rect x="1" y="1" width="56" height="56" rx="14" fill="#161312" stroke="#2c2522" strokeWidth="1.5" />
-      <g clipPath={`url(#${clipId})`} stroke="#ff3b1f" strokeWidth="2.5" strokeLinecap="round">
-        {/* Crest: loose end near the bottom point, up the left edge, pointed
-            peak, sharp right shoulder, then the edge fuses into the thread */}
+      <g
+        clipPath={`url(#${clipId})`}
+        stroke="#ff3b1f"
+        strokeWidth="2.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {/* A proper football-crest silhouette, drawn as a single strand. */}
         <path
-          d="M 27.8 47.0
-             C 25.9 45.6 23.4 43.9 21.2 41.8
-             C 18.0 38.9 15.4 35.3 13.9 31.4
-             C 12.6 28.0 11.8 24.4 11.4 20.6
-             C 11.1 17.9 11.0 15.9 11.0 14.2
-             C 16.3 13.5 22.5 10.9 27.4 8.2
-             C 33.4 10.0 42.0 11.6 47.0 13.4
-             C 47.2 16.6 46.6 20.0 45.9 22.5
-             C 45.5 23.9 44.9 25.0 44.3 26.2"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
+          d="M 29 8.6
+             C 24.1 11.3 18.1 13.3 11.4 14.5
+             C 11.6 25.3 12.7 32.7 17.2 38.7
+             C 20.3 42.8 24.4 46.1 29 48.7
+             C 33.6 46.1 37.7 42.8 40.8 38.7
+             C 45.3 32.7 46.4 25.3 46.6 14.5
+             C 39.9 13.3 33.9 11.3 29 8.6 Z"
         />
-        {/* Thread: exits the tile at the bottom, S-curves past the bottom
-            point, climbs the right side, spirals in to end below the eye */}
+
+        {/* A quieter inner strand gives the shield the layered construction
+            of an old embroidered badge. */}
         <path
-          d="M 25.9 59.5
-             C 26.2 56.5 26.5 54.5 27.3 52.3
-             C 28.2 49.9 29.5 48.6 30.9 47.2
-             C 32.4 45.7 33.6 44.2 34.6 42.6
-             C 36.1 40.2 38.8 36.4 40.9 33.0
-             C 42.5 30.4 43.6 28.3 44.3 26.2
-             C 44.9 24.4 45.2 22.9 45.1 21.4
-             C 44.9 18.9 43.9 16.9 42.0 15.4
-             C 40.6 14.3 39.0 13.9 37.3 13.9
-             C 35.2 13.9 33.0 14.5 31.4 15.9
-             C 30.4 16.8 29.8 17.4 29.3 18.4
-             C 28.7 19.9 28.4 21.6 28.5 23.3
-             C 28.6 25.0 29.1 26.3 30.0 27.5
-             C 30.9 28.6 32.1 29.3 33.5 29.6
-             C 34.5 29.8 35.3 29.7 36.3 29.5"
-          strokeLinejoin="round"
+          d="M 15.2 23.9
+             C 20.4 22.0 25.3 21.9 29.7 23.8
+             C 35.2 26.1 38.8 30.9 40.4 36.8"
+          opacity="0.58"
         />
-        {/* The eye */}
-        <circle cx="35.8" cy="23.6" r="2.3" fill="#ff3b1f" stroke="none" />
+
+        {/* The live thread enters from below, follows the shield point, then
+            coils into an open knot. The dark halo creates an over/under weave. */}
+        <path
+          d="M 25.6 59.5
+             C 25.7 54.3 26.7 50.6 29 47.7
+             C 31.1 45.0 34.3 42.5 36.6 39.3
+             C 39.3 35.5 41.2 31.6 41.0 27.3
+             C 40.7 22.0 37.5 18.6 33.0 18.3
+             C 28.5 18.1 24.9 20.6 24.2 24.2
+             C 23.5 27.8 25.6 30.8 29.3 31.5
+             C 32.7 32.1 35.6 30.0 35.9 27.1
+             C 36.1 25.0 35.0 23.5 33.3 22.9"
+          stroke="#161312"
+          strokeWidth="5.9"
+        />
+        <path
+          d="M 25.6 59.5
+             C 25.7 54.3 26.7 50.6 29 47.7
+             C 31.1 45.0 34.3 42.5 36.6 39.3
+             C 39.3 35.5 41.2 31.6 41.0 27.3
+             C 40.7 22.0 37.5 18.6 33.0 18.3
+             C 28.5 18.1 24.9 20.6 24.2 24.2
+             C 23.5 27.8 25.6 30.8 29.3 31.5
+             C 32.7 32.1 35.6 30.0 35.9 27.1
+             C 36.1 25.0 35.0 23.5 33.3 22.9"
+        />
+
+        {/* A short overpass makes the knot read as woven, not merely tangled. */}
+        <path d="M 27.4 31.0 C 29.8 31.9 32.1 31.4 33.8 30.0" stroke="#161312" strokeWidth="5.9" />
+        <path d="M 27.4 31.0 C 29.8 31.9 32.1 31.4 33.8 30.0" />
       </g>
     </svg>
   );

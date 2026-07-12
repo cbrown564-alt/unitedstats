@@ -41,6 +41,7 @@ reference.
 npm run video:studio
 npm run video:render:opening
 npm run video:render
+npm run video:render:post-punk:song
 ```
 
 The factual data fixture and edition contracts are checked by `npm run video:prepare`. The master score
@@ -53,6 +54,26 @@ older procedural SFX stems remain as iteration records but are not mixed into
 the master.
 The current master is written to `output/video/releases/european-master-90/film.mp4`; use
 `npm run video:render:prototype` only to reproduce the earlier 14-second study.
+
+## Selected post-punk soundtrack edition
+
+The approved vocal soundtrack is **Continuous Take 5**, selected on 12 July
+2026 from six stochastic renders of the same ElevenLabs `music_v2` composition
+plan. The plan uses a continuous 122 BPM electronic post-punk arrangement with
+a cool British spoken-sung vocal, dry motorik drums, mono bass and clipped
+guitar harmonics. The selection decision was based on the generated
+performance—voice, diction, phrasing, instrumental interpretation and mix—not
+on a different prompt.
+
+`post-punk-song` now resolves to
+`public/video/audio/elevenlabs-post-punk-finals/post-punk-song-continuous-take-5.mp3`
+in `audio/plans.ts`. Render the selected edition with
+`npm run video:render:post-punk:song`; its release output is
+`output/video/releases/post-punk-song-90/film.mp4`.
+
+The signed-off 30-second reference and all full-length audition takes remain in
+`public/video/audio/elevenlabs-post-punk-finals/index.html` as decision records.
+They are not mixed into the selected film.
 
 ## Source contract
 
@@ -68,6 +89,10 @@ The current master is written to `output/video/releases/european-master-90/film.
 - The master uses an instrumental Lyria 3 Pro score generated from the authored
   structure in `scripts/generate-video-score.mjs`; its prompt and provenance are
   stored alongside the audio in `master-v3.json`.
+- The selected post-punk edition uses ElevenLabs `music_v2` Continuous Take 5.
+  Its shared composition plan and the stochastic bake-off manifest are stored in
+  `scripts/generate-elevenlabs-post-punk-finals.mjs` and
+  `public/video/audio/elevenlabs-post-punk-finals/manifest.json`.
 - Superseded procedural SFX stems and their cue manifests remain under
   `public/video/audio/` for provenance and comparison. They are intentionally
   excluded from the European master after the final sound-design audit found that their tonal

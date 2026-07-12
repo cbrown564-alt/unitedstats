@@ -281,6 +281,21 @@ specialist, sound is the highest-leverage choice after motion direction.
 Deliver stereo at a platform-safe loudness, preserve a dialogue/VO lane even if
 unused, and keep music, effects and atmosphere as separate stems.
 
+### Current implementation decision — 12 July 2026
+
+For the rendered 90-second post-punk edition, **ElevenLabs Continuous Take 5**
+is the approved soundtrack performance. It was selected from six stochastic
+renders of one shared `music_v2` composition plan; the selection therefore
+chooses a performance, not a different lyrical or structural treatment. The
+stable `post-punk-song` audio plan points to that asset, and
+`npm run video:render:post-punk:song` produces the reviewed release at
+`output/video/releases/post-punk-song-90/film.mp4`.
+
+This settles the current authored score for the film render. The recommendation
+to retain separable stems remains relevant for future platform edits: the
+selected generation is presently a stereo master rather than a delivered stem
+package.
+
 ---
 
 ## 7. Format and deliverables

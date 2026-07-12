@@ -1,6 +1,7 @@
 import { seasonMatches } from "@/lib/queries";
 import { immutableDataHeaders } from "@/lib/cache";
-import { OG_CONTENT_TYPE, OG_SIZE, entityCard, seasonCard, trustStrip } from "@/lib/og-card";
+import { OG_CONTENT_TYPE, OG_SIZE, entityCard, localOgMedia, seasonCard, seasonPosterCard, trustStrip } from "@/lib/og-card";
+import { OG_MEDIA } from "@/lib/og-media";
 
 export const dynamic = "force-dynamic";
 export const alt = "Manchester United season — Red Thread";
@@ -20,6 +21,11 @@ export default async function Image({ params }: { params: Promise<{ season: stri
   const w = results.filter((r) => r === "W").length;
   const d = results.filter((r) => r === "D").length;
   const l = results.filter((r) => r === "L").length;
+  if (season === "1998-99") {
+    const authored = OG_MEDIA.trebleParade1999;
+    const media = await localOgMedia(authored.src, authored);
+    if (media) return seasonPosterCard({ season, claim: "Champions. FA Cup winners. European champions.", marker: "THE TREBLE · 33 WINS · 3 TROPHIES", results, media, strip: trustStrip() }, immutableDataHeaders);
+  }
   return seasonCard(
     {
       season,

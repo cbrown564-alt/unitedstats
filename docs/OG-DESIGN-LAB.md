@@ -2,6 +2,16 @@
 
 Status: first production slice implemented and visually verified.
 
+## Production verification baseline (12 July 2026)
+
+- `npm run og:review` renders the representative matrix, 300px thumbnails, and a contact sheet under `output/og-review/`.
+- `npm run knip` passes.
+- The production build compiles successfully, then stops in the repository's pre-existing video-plan type check: `scripts/validate-video-editions.ts:24` reads optional `fadeIn` from a narrow inferred clip union. The unrelated working change in `video/audio/plans.ts` was deliberately left untouched.
+- Running-app probes return PNG responses for the root, Data, Matches, question, player, and match image routes. Dynamic record routes carry `public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`; static collection routes are framework-cached in production and `no-store` in development.
+- Utility pages intentionally inherit the root image through metadata rather than exposing their own `/opengraph-image` handler. `/opponents` redirects to Search, so a separate opponent collection card is not warranted.
+
+The generated review PNGs remain build artifacts rather than committed fixtures. The script and its deterministic payloads are the durable fixture; this avoids binary churn while keeping every case reproducible.
+
 ## Decision
 
 Adopt the **match-night poster with the answer-signal discipline** as the OpenGraph design direction.
@@ -66,7 +76,7 @@ type OgCardPayload = {
     treatment?: "full" | "panel" | "texture";
   };
   context?: string;
-  trustStrip: string[];
+  trustStrip: { lead: string; detail: string }[];
 };
 ```
 
