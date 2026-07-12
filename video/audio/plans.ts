@@ -50,7 +50,7 @@ export const AUDIO_PLANS = {
   "post-punk-song": {
     id: "post-punk-song",
     clips: [{
-      asset: "video/audio/elevenlabs-post-punk-finals/post-punk-song-continuous-take-5.mp3",
+      asset: "video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3",
       timelineFrom: 0,
       duration: 2700,
       gain: 0.88,

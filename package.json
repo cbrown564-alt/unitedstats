@@ -45,6 +45,8 @@
     "copy:deck": "node scripts/copy-deck.mjs",
     "video:data": "tsx scripts/generate-video-data.ts",
     "video:audio": "node scripts/generate-video-audio.mjs",
+    "video:audio:manchester-bakeoff": "node scripts/generate-elevenlabs-manchester-bakeoff.mjs",
+    "video:audio:factory-lyrics-bakeoff": "node scripts/generate-elevenlabs-factory-lyrics-bakeoff.mjs",
     "video:sfx": "node scripts/generate-video-sfx.mjs && node scripts/generate-video-opening-sfx.mjs && node scripts/generate-video-body-sfx.mjs",
     "video:validate": "tsx scripts/validate-video-editions.ts",
     "video:prepare": "npm run video:data && npm run video:validate",

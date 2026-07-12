@@ -14,3 +14,44 @@
 - Experiments (use with caution):
   ✓ viewTransition
 
+ GET / 200 in 1234ms (next.js: 181ms, application-code: 1053ms)
+ GET /opengraph-image 200 in 524ms (next.js: 90ms, application-code: 434ms)
+ GET /data/opengraph-image 200 in 649ms (next.js: 411ms, application-code: 238ms)
+ GET /matches/opengraph-image 200 in 538ms (next.js: 272ms, application-code: 266ms)
+ GET /seasons/1998-99/opengraph-image 500 in 1353ms (next.js: 1084ms, application-code: 269ms)
+ GET /seasons/1998-99/opengraph-image 500 in 195ms (next.js: 12ms, application-code: 183ms)
+ GET /seasons/1998-99/opengraph-image 500 in 191ms (next.js: 4ms, application-code: 187ms)
+ GET /seasons/1998-99/opengraph-image 500 in 181ms (next.js: 4ms, application-code: 177ms)
+ GET /questions/treble/opengraph-image 200 in 1538ms (next.js: 1019ms, application-code: 519ms)
+ GET /player/wayne-rooney/opengraph-image 200 in 885ms (next.js: 673ms, application-code: 212ms)
+ GET /match/1999-05-26-bayern-munich-n/opengraph-image 200 in 1338ms (next.js: 874ms, application-code: 465ms)
+ GET /search/opengraph-image 404 in 92ms (next.js: 28ms, application-code: 64ms)
+ GET /seasons/1998-99/opengraph-image 500 in 143ms (next.js: 10ms, application-code: 133ms)
+ GET /seasons/1998-99/opengraph-image 500 in 208ms (next.js: 4ms, application-code: 203ms)
+ GET /seasons/1998-99/opengraph-image 500 in 149ms (next.js: 4ms, application-code: 145ms)
+ GET /seasons/1998-99/opengraph-image 500 in 189ms (next.js: 3ms, application-code: 187ms)
+✓ Compiled in 255ms
+✓ Compiled in 260ms
+ GET /opengraph-image 200 in 214ms (next.js: 36ms, application-code: 178ms)
+ GET /data/opengraph-image 200 in 189ms (next.js: 33ms, application-code: 155ms)
+ GET /matches/opengraph-image 200 in 191ms (next.js: 37ms, application-code: 154ms)
+ GET /seasons/1998-99/opengraph-image 500 in 187ms (next.js: 33ms, application-code: 154ms)
+ GET /seasons/1998-99/opengraph-image 500 in 126ms (next.js: 2ms, application-code: 124ms)
+ GET /seasons/1998-99/opengraph-image 500 in 125ms (next.js: 2ms, application-code: 122ms)
+ GET /seasons/1998-99/opengraph-image 500 in 130ms (next.js: 3ms, application-code: 127ms)
+ GET /questions/treble/opengraph-image 200 in 524ms (next.js: 42ms, application-code: 482ms)
+ GET /player/wayne-rooney/opengraph-image 200 in 285ms (next.js: 32ms, application-code: 253ms)
+ GET /match/1999-05-26-bayern-munich-n/opengraph-image 200 in 526ms (next.js: 35ms, application-code: 492ms)
+ GET /seasons/1998-99/opengraph-image 500 in 174ms (next.js: 9ms, application-code: 165ms)
+✓ Compiled in 212ms
+ GET /seasons/1998-99/opengraph-image 200 in 725ms (next.js: 30ms, application-code: 695ms)
+✓ Compiled in 212ms
+✓ Compiled in 355ms
+ GET / 200 in 653ms (next.js: 89ms, application-code: 564ms)
+ GET /stories 200 in 358ms (next.js: 74ms, application-code: 284ms)
+ GET /stories 200 in 69ms (next.js: 6ms, application-code: 63ms)
+✓ Compiled in 1709ms
+ GET /explore 200 in 4.2s (next.js: 147ms, application-code: 4.1s)
+ GET /stories 200 in 385ms (next.js: 79ms, application-code: 306ms)
+ GET /stories 200 in 70ms (next.js: 5ms, application-code: 65ms)
+ GET /stories 200 in 70ms (next.js: 5ms, application-code: 65ms)

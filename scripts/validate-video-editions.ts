@@ -1,4 +1,5 @@
 import { AUDIO_PLANS } from "../video/audio/plans";
+import type { AudioPlan } from "../video/core/types";
 import { FILM_MATCH_LIBRARY } from "../video/data/match-library";
 import { FILM_EDITIONS } from "../video/editions";
 
@@ -18,7 +19,7 @@ for (const edition of FILM_EDITIONS) {
     previousStart = match.start;
     seen.add(match.matchId);
   }
-  const plan = AUDIO_PLANS[edition.audioPlanId as keyof typeof AUDIO_PLANS];
+  const plan: AudioPlan = AUDIO_PLANS[edition.audioPlanId as keyof typeof AUDIO_PLANS];
   for (const clip of plan.clips) {
     if (clip.timelineFrom + clip.duration > edition.durationInFrames + 1) errors.push(`${edition.id}/${plan.id}: audio clip exceeds edition duration`);
     if ((clip.fadeIn ?? 0) + (clip.fadeOut ?? 0) > clip.duration) errors.push(`${edition.id}/${plan.id}: audio fades exceed clip duration`);

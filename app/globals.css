@@ -173,6 +173,214 @@ html {
 
 .stories-index-cue:hover { color: var(--color-ink); }
 
+.stories-film {
+  position: relative;
+  display: flex;
+  min-height: 58rem;
+  scroll-margin-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem var(--stories-gutter) 9rem;
+  background:
+    radial-gradient(60% 52% at 50% 52%, rgb(126 24 14 / 0.2), transparent 76%),
+    #0d0a09;
+  isolation: isolate;
+}
+
+.stories-film::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  z-index: -1;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-devil-bright), rgb(255 59 31 / 0.18) 22%, rgb(255 59 31 / 0.18) 78%, var(--color-devil-bright));
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgb(255 59 31 / 0.28);
+  content: "";
+}
+
+.stories-film-knot {
+  position: absolute;
+  top: 4.7rem;
+  left: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid var(--color-gold);
+  border-radius: 50%;
+  background: #0d0a09;
+  transform: translateX(-50%);
+  box-shadow: 0 0 18px rgb(245 197 24 / 0.7);
+}
+
+.stories-film-heading {
+  position: relative;
+  width: min(100%, 72rem);
+  padding: 0 0 3rem;
+  text-align: center;
+}
+
+.stories-film-heading h2 {
+  max-width: 12ch;
+  margin: 1.2rem auto 0;
+  font-size: clamp(3rem, 6.5vw, 6.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.stories-film-heading > p:last-child {
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--color-ink-dim);
+}
+
+.stories-film-player {
+  position: relative;
+  width: min(100%, 72rem);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgb(243 237 232 / 0.14);
+  background: #080706;
+  box-shadow: 0 2rem 6rem rgb(0 0 0 / 0.48), 0 0 0 1px rgb(216 33 13 / 0.08);
+}
+
+.stories-film-player iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.stories-film-play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  background: #080706;
+  color: var(--color-ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.stories-film-poster,
+.stories-film-shade {
+  position: absolute;
+  inset: 0;
+}
+
+.stories-film-poster {
+  background-image: url("https://i.ytimg.com/vi/KGE3OyR1vzs/maxresdefault.jpg");
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.002);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), filter 500ms ease;
+}
+
+.stories-film-shade {
+  background:
+    linear-gradient(180deg, rgb(5 4 3 / 0.08), transparent 38%, rgb(5 4 3 / 0.7)),
+    radial-gradient(circle at center, transparent 12%, rgb(5 4 3 / 0.18) 72%);
+  transition: background-color 300ms ease;
+}
+
+.stories-film-play:hover .stories-film-poster,
+.stories-film-play:focus-visible .stories-film-poster {
+  filter: brightness(1.08);
+  transform: scale(1.018);
+}
+
+.stories-film-duration {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  padding: 0.38rem 0.55rem;
+  background: rgb(8 7 6 / 0.82);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.stories-film-playmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(4.3rem, 7vw, 6.4rem);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgb(243 237 232 / 0.5);
+  border-radius: 50%;
+  background: rgb(13 10 9 / 0.84);
+  transform: translate(-50%, -50%);
+  transition: border-color 240ms ease, background-color 240ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 0 0.55rem rgb(8 7 6 / 0.12);
+}
+
+.stories-film-playmark i {
+  width: 0;
+  height: 0;
+  margin-left: 0.3rem;
+  border-top: 0.68rem solid transparent;
+  border-bottom: 0.68rem solid transparent;
+  border-left: 1rem solid var(--color-gold);
+}
+
+.stories-film-play:hover .stories-film-playmark,
+.stories-film-play:focus-visible .stories-film-playmark {
+  border-color: var(--color-devil-bright);
+  background: rgb(23 10 7 / 0.92);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.stories-film-playcopy {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1.25rem;
+  left: 1.4rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stories-film-playcopy b,
+.stories-film-playcopy small {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stories-film-playcopy small { color: var(--color-ink-dim); }
+
+.stories-film-actions {
+  display: flex;
+  width: min(100%, 72rem);
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.stories-film-next,
+.stories-film-youtube {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stories-film-next { color: var(--color-gold); }
+.stories-film-youtube { color: var(--color-ink-faint); }
+.stories-film-next:hover,
+.stories-film-youtube:hover { color: var(--color-ink); }
+
 .stories-thread {
   position: relative;
   padding: 2rem var(--stories-gutter) 7rem;
@@ -394,6 +602,19 @@ html {
   .stories-index-hero { min-height: calc(100svh - 5rem); padding-top: 4.5rem; padding-bottom: 6rem; }
   .stories-index-hero h1, .stories-index-rhyme { font-size: clamp(3.1rem, 16vw, 5.2rem); }
   .stories-index-intro { max-width: 27rem; margin-top: 1.75rem; }
+  .stories-film { min-height: 42rem; padding: 7rem var(--stories-gutter) 7rem; }
+  .stories-film-knot { top: 3.8rem; }
+  .stories-film-heading { padding-bottom: 2.25rem; }
+  .stories-film-heading h2 { font-size: clamp(2.9rem, 14vw, 4.5rem); }
+  .stories-film-player {
+    width: calc(100% + var(--stories-gutter) * 2);
+    margin-inline: calc(var(--stories-gutter) * -1);
+    border-right: 0;
+    border-left: 0;
+  }
+  .stories-film-duration { top: 0.8rem; right: 0.8rem; }
+  .stories-film-playcopy { right: 0.9rem; bottom: 0.8rem; left: 0.9rem; }
+  .stories-film-actions { align-items: flex-start; flex-direction: column; margin-top: 1.6rem; }
   .stories-thread { padding-top: 0; padding-bottom: 4rem; }
   .stories-thread-line { left: 1.55rem; }
   .stories-knot { min-height: 39rem; }

@@ -14,14 +14,9 @@ export type NavGroup = {
 /** Primary site sections — grouped for sidebar, flat list for mobile shell. */
 export const NAV_GROUPS: readonly NavGroup[] = [
   {
-    label: "Journey",
-    items: [
-      { label: "Stories", href: "/stories", icon: "journey" },
-    ],
-  },
-  {
     label: "Explore",
     items: [
+      { label: "Stories", href: "/stories", icon: "journey" },
       { label: "Discover", href: "/explore", icon: "discover" },
       { label: "Matches", href: "/matches", icon: "matches" },
       { label: "Seasons", href: "/seasons", icon: "seasons" },
