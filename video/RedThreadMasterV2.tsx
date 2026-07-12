@@ -11,6 +11,7 @@ import {
 import generated from "./generated-master-data.json";
 import { lerp, smoothstep, windowed } from "./math";
 import { pitchPlacement, PITCH_BAND_ORDER } from "../lib/placement";
+import { BALLON_1968, BALLON_2008, type BallonRanking } from "./ballon-rankings";
 
 const C = {
   pitch: "#0c0b0a",
@@ -157,11 +158,19 @@ type FeaturedMatch = {
   featuredPlayers: FeaturedPlayer[];
 };
 
+type CareerDuelSeason = {
+  n: number;
+  season: string;
+  goals: number;
+  apps: number;
+};
+
 type MasterData = {
   counts: { matches: number; events: number; lineups: number };
   firstMatch: { id: string; date: string; opponent: string; score: string; clubName: string };
   matches: MatchPoint[];
   featuredMatches: FeaturedMatch[];
+  careerDuel: { ronaldo: CareerDuelSeason[]; best: CareerDuelSeason[] };
   lateGoals: LateGoal[];
   fergieEchoes: Echo[];
   fortress: {
@@ -843,14 +852,46 @@ function Portrait({ side, src, opacity, scale = 1 }: { side: "left" | "right"; s
   );
 }
 
+function EvidenceShirt({ number }: { number: number | null }) {
+  if (number == null) return <div style={{ width: 28, height: 28 }} />;
+  return (
+    <svg width="28" height="28" viewBox="0 0 100 100" style={{ display: "block" }}>
+      <defs>
+        <linearGradient id={`evidence-shirt-${number}`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#ff3b1f" />
+          <stop offset="100%" stopColor="#9a1809" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M 20,12 C 32,8 38,14 50,14 C 62,14 68,8 80,12 L 96,28 C 92,34 84,38 80,38 L 80,92 C 80,96 76,100 72,100 L 28,100 C 24,100 20,96 20,92 L 20,38 C 16,38 8,34 4,28 Z"
+        fill={`url(#evidence-shirt-${number})`}
+        stroke="rgba(255,115,85,.62)"
+        strokeWidth="3.5"
+        strokeLinejoin="round"
+      />
+      <path d="M 38,14 C 38,22 62,22 62,14" fill="none" stroke="rgba(255,115,85,.62)" strokeWidth="3.5" strokeLinecap="round" />
+      <text x="50" y="60" dominantBaseline="central" textAnchor="middle" fill={C.ink} style={{ fontFamily: MONO, fontSize: 30, fontWeight: 600 }}>
+        {number}
+      </text>
+    </svg>
+  );
+}
+
+function evidenceScore(match: FeaturedMatch): string {
+  const score = `${match.match.gf}–${match.match.ga}`;
+  return match.match.penGf != null && match.match.penGa != null
+    ? `${score} (${match.match.penGf}–${match.match.penGa} pens)`
+    : score;
+}
+
 function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number }) {
   const finals = [
-    { matchId: "1968-05-29-benfica-n", focusId: "george-best", label: "1968 · BEST · 92′" },
-    { matchId: "2008-05-21-chelsea-n", focusId: "cristiano-ronaldo", label: "2008 · RONALDO · 25′" },
+    { matchId: "1968-05-29-benfica-n", focusId: "george-best", competition: "European Cup Final", focusName: "Best", minute: 92 },
+    { matchId: "2008-05-21-chelsea-n", focusId: "cristiano-ronaldo", competition: "Champions League Final", focusName: "Ronaldo", minute: 25 },
   ] as const;
 
   return (
-    <div style={{ position: "absolute", left: 500, right: 500, top: 270, height: 350, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 34, opacity }}>
+    <div style={{ position: "absolute", left: 490, right: 490, top: 242, height: 405, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 46, opacity }}>
       {finals.map((final, finalIndex) => {
         const match = DATA.featuredMatches.find((candidate) => candidate.matchId === final.matchId);
         if (!match) return null;
@@ -871,49 +912,197 @@ function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number
             .map((entry) => entry.player),
         })).filter((entry) => entry.players.length > 0);
         const events = match.events.filter((event) => event.minute != null && ["goal", "opp-goal", "own-goal-for", "own-goal-against"].includes(event.type));
+        const goals = new Map<string, number>();
+        for (const event of events) {
+          if (event.side === "united" && event.playerId) goals.set(event.playerId, (goals.get(event.playerId) ?? 0) + 1);
+        }
         const maxMinute = match.match.aet ? 120 : 90;
         const reveal = smoothstep(292 + finalIndex * 7, 326 + finalIndex * 7, frame);
+        const shape = [...bands].reverse().filter((entry) => entry.band !== "GK").map((entry) => entry.players.length).join("–");
 
         return (
-          <div key={final.matchId} style={{ position: "relative", overflow: "hidden", border: "1px solid rgba(243,237,232,.1)", background: "rgba(8,7,6,.46)", opacity: reveal, clipPath: finalIndex === 0 ? "polygon(3% 0,100% 0,100% 100%,0 100%,0 3%)" : "polygon(0 0,97% 0,100% 3%,100% 100%,0 100%)" }}>
-            <div style={{ padding: "16px 18px 0", fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.16em", color: C.gold }}>{final.label}</div>
-            <div style={{ position: "relative", height: 62, margin: "3px 18px 0" }}>
-              <div style={{ position: "absolute", left: 0, right: 0, top: 32, height: 2, background: "rgba(243,237,232,.14)" }} />
+          <div key={final.matchId} style={{ position: "relative", opacity: reveal, textAlign: "center" }}>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 12 }}>
+              <span style={{ fontFamily: MONO, fontSize: 20, fontWeight: 700, color: C.ink }}>{match.year}</span>
+              <span style={{ fontFamily: SANS, fontSize: 14, color: C.dim }}>v {match.match.opponent}</span>
+              <span style={{ fontFamily: MONO, fontSize: 13, color: C.gold }}>{evidenceScore(match)}</span>
+            </div>
+            <div style={{ marginTop: 4, fontFamily: SANS, fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: C.faint }}>{final.competition}</div>
+            <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 12, fontWeight: 500, color: C.dim }}>
+              <span style={{ marginRight: 8, fontFamily: MONO, color: C.gold }}>No. 7</span>{final.focusName} · {final.minute}′
+            </div>
+
+            <div style={{ position: "relative", height: 56, margin: "6px 0 0" }}>
+              <div style={{ position: "absolute", left: 0, right: 0, top: 28, height: 1, background: "rgba(243,237,232,.14)" }} />
               {events.map((event) => {
                 const focused = event.playerId === final.focusId;
                 const x = Math.min(100, ((event.minute ?? 0) / maxMinute) * 100);
                 return (
-                  <div key={event.seq} style={{ position: "absolute", left: `${x}%`, top: 32, transform: "translate(-50%,-50%)" }}>
-                    <div style={{ width: focused ? 13 : 7, height: focused ? 13 : 7, borderRadius: 20, background: focused ? C.gold : event.side === "united" ? C.red : C.draw, opacity: focused ? 1 : 0.46, boxShadow: focused ? `0 0 18px ${C.gold}` : "none", border: focused ? `1px solid ${C.cream}` : "none" }} />
-                    {focused && <div style={{ position: "absolute", left: "50%", top: -24, transform: "translateX(-50%)", whiteSpace: "nowrap", fontFamily: MONO, fontSize: 10, color: C.gold }}>{event.minute}′</div>}
+                  <div key={event.seq} style={{ position: "absolute", left: `${x}%`, top: 28, transform: "translate(-50%,-50%)" }}>
+                    <div style={{ width: focused ? 12 : 7, height: focused ? 12 : 7, borderRadius: 20, background: focused ? C.gold : event.side === "united" ? C.red : C.draw, opacity: focused ? 1 : 0.46, boxShadow: focused ? `0 0 16px ${C.gold}` : "none", border: focused ? `1px solid ${C.cream}` : "none" }} />
+                    {focused && <div style={{ position: "absolute", left: "50%", top: -21, transform: "translateX(-50%)", whiteSpace: "nowrap", fontFamily: MONO, fontSize: 9, color: C.gold }}>{event.minute}′</div>}
                   </div>
                 );
               })}
-              <span style={{ position: "absolute", left: 0, top: 43, fontFamily: MONO, fontSize: 8, color: C.faint }}>0′</span>
-              <span style={{ position: "absolute", right: 0, top: 43, fontFamily: MONO, fontSize: 8, color: C.faint }}>{maxMinute}′</span>
+              <span style={{ position: "absolute", left: 0, top: 39, fontFamily: MONO, fontSize: 8, color: C.faint }}>0′</span>
+              <span style={{ position: "absolute", right: 0, top: 39, fontFamily: MONO, fontSize: 8, color: C.faint }}>{maxMinute}′</span>
             </div>
-            <div style={{ position: "absolute", left: 18, right: 18, top: 100, bottom: 16, border: "1px solid rgba(243,237,232,.08)", background: "rgba(0,0,0,.12)" }}>
-              <svg width="100%" height="100%" viewBox="0 0 410 222" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, opacity: 0.28 }}>
-                <line x1="0" x2="410" y1="111" y2="111" stroke={C.faint} />
-                <circle cx="205" cy="111" r="28" fill="none" stroke={C.faint} />
-                <rect x="142" y="0" width="126" height="32" fill="none" stroke={C.faint} />
-                <rect x="142" y="190" width="126" height="32" fill="none" stroke={C.faint} />
+
+            <div style={{ position: "absolute", left: 0, right: 0, top: 118, height: 278, overflow: "hidden", border: `1px solid ${C.line}`, borderRadius: 8, background: C.pitch }}>
+              <svg width="100%" height="100%" viewBox="0 0 100 150" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, opacity: 0.6 }}>
+                <g fill="none" stroke={C.line}>
+                  <line x1="0" x2="100" y1="75" y2="75" />
+                  <ellipse cx="50" cy="75" rx="13" ry="9" />
+                  <rect x="28" y="132" width="44" height="18" />
+                  <rect x="40" y="144" width="20" height="6" />
+                  <rect x="28" y="0" width="44" height="18" />
+                  <rect x="40" y="0" width="20" height="6" />
+                </g>
               </svg>
               {bands.flatMap(({ band, players }) => players.map((player, index) => {
                 const focused = player.playerId === final.focusId;
-                const y = band === "FWD" ? 18 : band === "MID" ? 43 : band === "DEF" ? 70 : 91;
+                const y = band === "FWD" ? 14 : band === "MID" ? 39 : band === "DEF" ? 68 : 90;
                 const x = ((index + 1) / (players.length + 1)) * 100;
                 return (
-                  <div key={`${final.matchId}-${player.playerId}`} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: 68, transform: `translate(-50%,-50%) scale(${focused ? 1.1 : 1})`, textAlign: "center", opacity: focused ? 1 : 0.35 }}>
-                    <div style={{ width: focused ? 23 : 16, height: focused ? 23 : 16, margin: "0 auto", display: "grid", placeItems: "center", clipPath: "polygon(20% 5%,38% 0,50% 10%,62% 0,80% 5%,100% 23%,87% 37%,78% 31%,78% 100%,22% 100%,22% 31%,13% 37%,0 23%)", background: focused ? C.red : C.redDeep, color: C.cream, fontFamily: MONO, fontSize: focused ? 10 : 8, boxShadow: focused ? `0 0 20px ${C.gold}` : "none" }}>{player.shirt}</div>
-                    <div style={{ marginTop: 3, overflow: "hidden", textOverflow: "ellipsis", fontFamily: SANS, fontSize: focused ? 10 : 8, fontWeight: focused ? 700 : 400, color: focused ? C.ink : C.dim, whiteSpace: "nowrap" }}>{familyName(player.name)}</div>
+                  <div key={`${final.matchId}-${player.playerId}`} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: 70, transform: `translate(-50%,-50%) scale(${focused ? 1.1 : 1})`, textAlign: "center", opacity: focused ? 1 : 0.35, filter: focused ? "drop-shadow(0 0 9px rgba(245,197,24,.65))" : "none" }}>
+                    <div style={{ position: "relative", width: 28, margin: "0 auto" }}>
+                      <EvidenceShirt number={player.shirt} />
+                      {(goals.get(player.playerId ?? "") ?? 0) > 0 && <span style={{ position: "absolute", right: -7, bottom: -2, fontFamily: MONO, fontSize: 8, color: C.gold }}>●{(goals.get(player.playerId ?? "") ?? 0) > 1 ? goals.get(player.playerId ?? "") : ""}</span>}
+                    </div>
+                    <div style={{ marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", fontFamily: SANS, fontSize: 9, lineHeight: 1.05, fontWeight: focused ? 700 : 400, color: focused ? C.ink : C.dim, whiteSpace: "nowrap" }}>{familyName(player.name)}</div>
                   </div>
                 );
               }))}
             </div>
+            <div style={{ position: "absolute", left: 0, top: 400, fontFamily: MONO, fontSize: 9, color: C.faint }}>{shape} <span style={{ fontFamily: SANS, textTransform: "none" }}>— shape from recorded positions, not coordinates</span></div>
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function BallonRankingPanel({
+  year,
+  rows,
+  frame,
+  side,
+}: {
+  year: number;
+  rows: BallonRanking[];
+  frame: number;
+  side: "left" | "right";
+}) {
+  const max = Math.max(...rows.map((row) => row.points));
+  return (
+    <div style={{ width: 430 }}>
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 10, borderBottom: `1px solid ${C.line}`, paddingBottom: 8 }}>
+        <span style={{ fontFamily: MONO, fontSize: 16, fontWeight: 700, color: C.ink }}>{year} BALLOT</span>
+        <span style={{ fontFamily: MONO, fontSize: 10, letterSpacing: "0.14em", color: C.faint }}>TOP 20 · POINTS</span>
+      </div>
+      {rows.map((row, index) => {
+        const reveal = smoothstep(390 + index * 1.15, 407 + index * 1.15, frame);
+        const winner = row.rank === 1;
+        return (
+          <div key={`${year}-${row.name}`} style={{ height: 14, display: "grid", gridTemplateColumns: "22px 126px 1fr 34px", alignItems: "center", gap: 5, opacity: reveal }}>
+            <span style={{ fontFamily: MONO, fontSize: 8, color: winner ? C.gold : C.faint }}>{String(row.rank).padStart(2, "0")}</span>
+            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: SANS, fontSize: winner ? 10 : 8.5, fontWeight: winner ? 700 : 400, color: winner ? C.ink : C.dim }}>{row.name}</span>
+            <span style={{ height: winner ? 5 : 2, background: "rgba(243,237,232,.08)", overflow: "hidden" }}>
+              <span style={{ display: "block", width: `${(row.points / max) * 100}%`, height: "100%", background: winner ? `linear-gradient(${side === "left" ? "90deg" : "270deg"},${C.red},${C.gold})` : "rgba(243,237,232,.28)", transform: `scaleX(${reveal})`, transformOrigin: side === "left" ? "left" : "right" }} />
+            </span>
+            <span style={{ textAlign: "right", fontFamily: MONO, fontSize: winner ? 10 : 8, fontWeight: winner ? 700 : 400, color: winner ? C.gold : C.faint }}>{row.points}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function BallonRankings({ frame, opacity }: { frame: number; opacity: number }) {
+  return (
+    <div style={{ position: "absolute", left: 500, right: 500, top: 260, display: "flex", justifyContent: "space-between", gap: 80, opacity }}>
+      <BallonRankingPanel year={1968} rows={BALLON_1968} frame={frame} side="left" />
+      <BallonRankingPanel year={2008} rows={BALLON_2008} frame={frame} side="right" />
+    </div>
+  );
+}
+
+function curvePath(points: { x: number; y: number }[]): string {
+  if (points.length === 0) return "";
+  if (points.length === 1) return `M ${points[0].x} ${points[0].y}`;
+  let path = `M ${points[0].x} ${points[0].y}`;
+  for (let index = 0; index < points.length - 1; index++) {
+    const p0 = points[Math.max(0, index - 1)];
+    const p1 = points[index];
+    const p2 = points[index + 1];
+    const p3 = points[Math.min(points.length - 1, index + 2)];
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+    path += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+  }
+  return path;
+}
+
+function RhymeCareerChart({ frame, opacity }: { frame: number; opacity: number }) {
+  const ronaldo = DATA.careerDuel.ronaldo;
+  const best = DATA.careerDuel.best;
+  const maxN = Math.max(ronaldo.length, best.length);
+  const maxGoals = Math.max(...ronaldo.map((row) => row.goals), ...best.map((row) => row.goals));
+  const left = 58;
+  const right = 1050;
+  const top = 55;
+  const bottom = 328;
+  const x = (n: number) => left + ((n - 1) / Math.max(1, maxN - 1)) * (right - left);
+  const y = (goals: number) => bottom - (goals / (maxGoals * 1.1)) * (bottom - top);
+  const ronaldoPoints = ronaldo.map((row) => ({ x: x(row.n), y: y(row.goals) }));
+  const bestPoints = best.map((row) => ({ x: x(row.n), y: y(row.goals) }));
+  const ronaldoPath = curvePath(ronaldoPoints);
+  const bestPath = curvePath(bestPoints);
+  const draw = smoothstep(478, 522, frame);
+  const peak = smoothstep(508, 532, frame);
+  const seasonFiveX = x(5);
+  const ronaldoPeak = ronaldo.find((row) => row.n === 5);
+  const bestPeak = best.find((row) => row.n === 5);
+
+  return (
+    <div style={{ position: "absolute", left: 405, top: 247, width: 1110, height: 380, opacity }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+          <span style={{ fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.14em", color: C.faint }}>GOALS BY CAREER SEASON</span>
+          <span style={{ fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.13em", color: C.gold }}>SHARED PEAK · SEASON 5</span>
+        </div>
+        <div style={{ display: "flex", gap: 18, fontFamily: SANS, fontSize: 11, color: C.ink }}>
+          <span><i style={{ display: "inline-block", width: 9, height: 9, marginRight: 6, borderRadius: 2, background: C.red }} />Cristiano Ronaldo</span>
+          <span><i style={{ display: "inline-block", width: 9, height: 9, marginRight: 6, borderRadius: 2, background: "#70a2ff" }} />George Best</span>
+        </div>
+      </div>
+      <svg width="1110" height="350" viewBox="0 0 1110 350" style={{ marginTop: 5, overflow: "visible" }}>
+        <defs>
+          <linearGradient id="rhyme-career-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={C.red} stopOpacity=".25" /><stop offset="1" stopColor={C.red} stopOpacity=".02" /></linearGradient>
+          <linearGradient id="rhyme-career-blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#70a2ff" stopOpacity=".22" /><stop offset="1" stopColor="#70a2ff" stopOpacity=".02" /></linearGradient>
+          <clipPath id="rhyme-career-draw"><rect x="0" y="0" width={right * draw} height="350" /></clipPath>
+        </defs>
+        {[0, 15, 30, 45].map((tick) => (
+          <g key={tick}>
+            <line x1={left} x2={right} y1={y(tick)} y2={y(tick)} stroke={C.line} strokeOpacity=".8" />
+            <text x={left - 16} y={y(tick) + 4} textAnchor="end" fill={C.faint} style={{ fontFamily: MONO, fontSize: 10 }}>{tick}</text>
+          </g>
+        ))}
+        <rect x={seasonFiveX - 24} y={top} width="48" height={bottom - top} fill={C.gold} fillOpacity=".09" />
+        <g clipPath="url(#rhyme-career-draw)">
+          <path d={`${ronaldoPath} L ${ronaldoPoints.at(-1)?.x ?? right} ${bottom} L ${left} ${bottom} Z`} fill="url(#rhyme-career-red)" />
+          <path d={`${bestPath} L ${bestPoints.at(-1)?.x ?? right} ${bottom} L ${left} ${bottom} Z`} fill="url(#rhyme-career-blue)" />
+          <path d={ronaldoPath} fill="none" stroke={C.red} strokeWidth="2.4" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
+          <path d={bestPath} fill="none" stroke="#70a2ff" strokeWidth="2.4" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
+        </g>
+        {ronaldoPeak && <g opacity={peak}><circle cx={seasonFiveX} cy={y(ronaldoPeak.goals)} r="11" fill={C.pitch} stroke={C.gold} strokeWidth="2" /><circle cx={seasonFiveX} cy={y(ronaldoPeak.goals)} r="5" fill={C.red} /></g>}
+        {bestPeak && <g opacity={peak}><circle cx={seasonFiveX} cy={y(bestPeak.goals)} r="11" fill={C.pitch} stroke={C.gold} strokeWidth="2" /><circle cx={seasonFiveX} cy={y(bestPeak.goals)} r="5" fill="#70a2ff" /></g>}
+        <text x={left} y="347" fill={C.faint} style={{ fontFamily: MONO, fontSize: 10 }}>1</text>
+        <text x={right} y="347" textAnchor="end" fill={C.faint} style={{ fontFamily: MONO, fontSize: 10 }}>{maxN}</text>
+        <text x={(left + right) / 2} y="347" textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 10 }}>Career season</text>
+      </svg>
     </div>
   );
 }
@@ -942,6 +1131,8 @@ function RhymeLoop({ frame }: { frame: number }) {
   const activeFact = [...RHYME_FACTS].reverse().find((fact) => frame >= fact.start) ?? null;
   const titleOpacity = frame < 205 ? windowed(frame, 28, 60, 168, 204) : 0;
   const finalEvidence = windowed(frame, 292, 318, 365, 382) * contentFade;
+  const ballonEvidence = windowed(frame, 382, 398, 456, 474) * contentFade;
+  const careerEvidence = windowed(frame, 474, 488, 550, 574) * contentFade;
   return (
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", inset: 0, transform: `translateX(${worldX}px)` }}>
@@ -974,6 +1165,8 @@ function RhymeLoop({ frame }: { frame: number }) {
       </div>
 
       <RhymeFinalEvidence frame={frame} opacity={finalEvidence} />
+      <BallonRankings frame={frame} opacity={ballonEvidence} />
+      <RhymeCareerChart frame={frame} opacity={careerEvidence} />
 
       <div style={{ position: "absolute", top: 122, insetInline: 0, textAlign: "center", opacity: titleOpacity }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.26em", color: C.dim }}>1968&nbsp;&nbsp;↔&nbsp;&nbsp;2008</div>

@@ -9,6 +9,7 @@ is frozen from the same canonical record used by the five published stories.
 | 1909 first FA Cup; 1954 Chelsea 6–5; European Cup wins in 1968, 1999 and 2008 | Canonical match receipts and `docs/JOURNEY.md` |
 | Best/Ronaldo fifth-season peaks, goal totals, European final goals and shirt 7 | `docs/JOURNEY.md` §4; golden-pinned canonical queries/receipts |
 | George Best won the 1968 Ballon d'Or; Cristiano Ronaldo won the 2008 Ballon d'Or | UEFA's [Ballon d'Or winners history](https://www.uefa.com/ballondor/news/0287-195e642735da-0594342b9554-1000--history-of-the-ballon-d-or-all-the-winners/) and [Ronaldo's 2008 award report](https://www.uefa.com/uefachampionsleague/news/01d4-0e707fe4919f-772c18bc5bc3-1000--ballon-d-or-crowns-ronaldo-s-golden-year/) |
+| Ballon d'Or top-20 ballot fields and points | RSSSF transcriptions of the France Football ballots for [1968](https://www.rsssf.org/miscellaneous/europa-poy68.html) and [2008](https://www.rsssf.org/miscellaneous/europa-poy08.html); each panel is independently scaled because the electorates differed |
 | Treble: three must-wins, two from behind, all three decided from the bench | `docs/JOURNEY.md` §4b; `tests/journey.test.ts` |
 | Fergie-time three-match echo and 671-goal constellation | `fergieTimeEchoes()` and `lateGoalScatter("1950-01-01")`; frozen by `scripts/generate-video-data.ts` |
 | Fortress: 395 games, 360W 35D 0L, three rescued cracks | `fortressRun()` / `leadHeldAtHome()`; `docs/JOURNEY.md` §4c; `tests/journey.test.ts` |

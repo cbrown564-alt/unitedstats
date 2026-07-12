@@ -1,6 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { getDb } from "../lib/db";
+import { comparePlayers } from "../lib/compare";
 import { fergieTimeEchoes, fortressRun } from "../lib/journey";
 import { eventsForMatch, lineupForMatch, matchById, playerById } from "../lib/queries";
 import { lateGoalScatter, leadHeldAtHome } from "../lib/trails";
@@ -57,6 +58,11 @@ const counts = db
        (SELECT COUNT(*) FROM match_lineups) lineups`,
   )
   .get() as { matches: number; events: number; lineups: number };
+
+const careerComparison = comparePlayers("cristiano-ronaldo", "george-best");
+if (!careerComparison || careerComparison.signature?.kind !== "career") {
+  throw new Error("Ronaldo / Best career comparison is unavailable");
+}
 
 const featuredMatches = FEATURED_MATCH_MANIFEST.map((entry) => {
   const match = matchById(entry.matchId);
@@ -132,6 +138,10 @@ const fixture = {
   },
   matches,
   featuredMatches,
+  careerDuel: {
+    ronaldo: careerComparison.signature.a,
+    best: careerComparison.signature.b,
+  },
   lateGoals,
   fergieEchoes: fergieTimeEchoes(),
   fortress: {
