@@ -235,6 +235,20 @@ function displayClock(minute: number, added: number | null): string {
   return minute === 90 && added ? `90+${added}′` : `${minute}′`;
 }
 
+const ECHO_ANNOTATIONS = DATA.fergieEchoes.map((echo) => {
+  const goals = DATA.lateGoals.filter((goal) => goal.matchId === echo.id);
+  const marker = goals.at(-1) ?? goals[0];
+  if (!marker) return null;
+  const shortOpponent = echo.opponent.replace(/^FC\s+/i, "").replace(/\s+United$/i, "").replace(/\s+Hotspur$/i, "");
+  return {
+    echo,
+    marker,
+    point: lateGoalXY(marker),
+    clocks: echo.lateGoals.map((goal) => displayClock(goal.minute, goal.added)).join(" · "),
+    label: `${echo.date.slice(0, 4)} · ${shortOpponent}`,
+  };
+}).filter((row): row is NonNullable<typeof row> => row != null);
+
 function familyLabel(fullName: string): string {
   const parts = fullName.replace(/^Sir\s+/i, "").trim().split(/\s+/).filter(Boolean);
   return parts[parts.length - 1] ?? fullName;
@@ -1054,7 +1068,8 @@ function FergieConstellation({ frame }: { frame: number }) {
   const countdownFrom = 42;
   const countdownFrames = 360;
   const sweep = clamp01((frame - countdownFrom) / countdownFrames);
-  const constellation = smoothstep(countdownFrom + countdownFrames + 18, countdownFrom + countdownFrames + 110, frame);
+  const bloomFrom = countdownFrom + countdownFrames + 18;
+  const constellation = smoothstep(bloomFrom, bloomFrom + 92, frame);
   const intro = windowed(frame, 4, 22, 34, 48);
   return (
     <AbsoluteFill style={{ opacity }}>
@@ -1063,20 +1078,47 @@ function FergieConstellation({ frame }: { frame: number }) {
         <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 52, fontWeight: 600, letterSpacing: "-0.04em" }}>The same late shape.</div>
       </div>
 
-      <div style={{ position: "absolute", inset: 0, opacity: 1 - constellation, transform: `scale(${lerp(1, 0.92, constellation)})` }}>
+      <div style={{ position: "absolute", inset: 0, opacity: (1 - smoothstep(bloomFrom - 8, bloomFrom + 36, frame)), transform: `scale(${lerp(1, 0.94, constellation)})` }}>
         <FilmStoppageEcho frame={frame} sweep={sweep} />
       </div>
 
       <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, opacity: constellation }}>
         <path d={lateGoalPath} fill="rgba(255,210,120,.54)" />
         <line x1="150" x2="1770" y1="775" y2="775" stroke={C.red} strokeOpacity="0.45" />
-        {[86, 90, 94, 98].map((clock) => <text key={clock} x="105" y={775 - (clock - 85) * 38 + 6} fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }}>{clock === 94 ? "90+4" : clock === 98 ? "90+8" : `${clock}′`}</text>)}
+        {[86, 90, 94, 98].map((clock) => (
+          <text key={clock} x="105" y={775 - (clock - 85) * 38 + 6} fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }}>
+            {clock === 94 ? "90+4" : clock === 98 ? "90+8" : `${clock}′`}
+          </text>
+        ))}
+        {[1950, 1970, 1990, 2010, yearOf(DATA.lateGoals.at(-1)?.date ?? "2026")].map((year) => {
+          const x = 150 + ((year - LATE_GOAL_YEAR_FROM) / LATE_GOAL_YEAR_SPAN) * 1620;
+          return (
+            <g key={year}>
+              <line x1={x} x2={x} y1="775" y2="788" stroke={C.faint} strokeOpacity="0.55" />
+              <text x={x} y="812" textAnchor="middle" fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }}>{year}</text>
+            </g>
+          );
+        })}
+        {ECHO_ANNOTATIONS.map((annotation, index) => {
+          const reveal = smoothstep(bloomFrom + 20 + index * 18, bloomFrom + 55 + index * 18, frame);
+          const labelY = annotation.point.y - 36 - (index % 2) * 18;
+          return (
+            <g key={annotation.echo.id} opacity={reveal}>
+              <circle cx={annotation.point.x} cy={annotation.point.y} r="11" fill={C.gold} fillOpacity="0.18" />
+              <circle cx={annotation.point.x} cy={annotation.point.y} r="5.5" fill={C.gold} stroke={C.cream} strokeWidth="1.5" />
+              <line x1={annotation.point.x} x2={annotation.point.x} y1={annotation.point.y - 8} y2={labelY + 10} stroke={C.gold} strokeOpacity="0.55" strokeWidth="1.2" />
+              <text x={annotation.point.x} y={labelY} textAnchor="middle" fill={C.gold} style={{ fontFamily: MONO, fontSize: 15, fontWeight: 600 }}>{annotation.label}</text>
+              <text x={annotation.point.x} y={labelY + 18} textAnchor="middle" fill={C.ink} style={{ fontFamily: MONO, fontSize: 13 }}>{annotation.clocks}</text>
+            </g>
+          );
+        })}
+        <circle cx="960" cy="500" r={lerp(48, 8, smoothstep(bloomFrom + 20, bloomFrom + 90, frame))} fill={C.gold} fillOpacity={0.2 * (1 - smoothstep(bloomFrom + 60, bloomFrom + 110, frame))} />
       </svg>
       <div style={{ position: "absolute", top: 100, insetInline: 0, textAlign: "center", opacity: constellation }}>
         <div style={{ fontFamily: MONO, color: C.gold, fontSize: 18, letterSpacing: "0.23em" }}>{DATA.lateGoals.length} RECORDED GOALS AFTER 85′</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>One pressure, repeated across eras.</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>The same late finish.</div>
       </div>
-      <div style={{ position: "absolute", insetInline: 0, bottom: 52, textAlign: "center", opacity: smoothstep(countdownFrom + countdownFrames + 90, countdownFrom + countdownFrames + 150, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>From 1993 to 2023, the same impossible finish.</div>
+      <div style={{ position: "absolute", insetInline: 0, bottom: 36, textAlign: "center", opacity: smoothstep(bloomFrom + 90, bloomFrom + 140, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>Three nights. Then every late goal in the record.</div>
     </AbsoluteFill>
   );
 }
@@ -1261,7 +1303,7 @@ const CAPTIONS: { start: number; end: number; text: string }[] = [
   { start: 1570, end: 1670, text: "Three must-wins. Every winner from the bench." },
   { start: 1620, end: 1680, text: "Fergie time — the same late shape" },
   { start: 1680, end: 2040, text: "Eleven minutes. Six strikes. No release." },
-  { start: 2040, end: 2160, text: `${DATA.lateGoals.length} goals after 85′` },
+  { start: 2040, end: 2160, text: "The same late finish." },
   { start: 2230, end: 2410, text: "Only three needed rescuing" },
   { start: 2510, end: 2630, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches — pull a thread` },
   { start: 2630, end: 2700, text: "Every claim leads back to its receipt" },
