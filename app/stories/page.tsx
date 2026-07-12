@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import StoriesFilm from "@/components/stories/StoriesFilm";
 import { JOURNEY_CHAPTERS, type JourneyChapterSlug } from "@/lib/journey";
 import { seoMetadata } from "@/lib/seo";
 
@@ -93,33 +92,10 @@ export default function StoriesPage() {
         <p className="stories-index-intro">
           Five patterns hiding in the record. Follow the line from one unlikely echo to the next.
         </p>
-        <a className="stories-index-cue focus-ring" href="#red-thread-film">
+        <a className="stories-index-cue focus-ring" href="#story-01">
           Pull the thread <span aria-hidden>↓</span>
         </a>
       </header>
-
-      <section id="red-thread-film" className="stories-film" aria-labelledby="stories-film-title">
-        <span className="stories-film-knot" aria-hidden />
-        <div className="stories-film-heading">
-          <p className="stories-index-eyebrow">Red Thread / The film</p>
-          <h2 id="stories-film-title" className="display">Ninety seconds. Five patterns.</h2>
-          <p>Watch the record move, then choose a thread to follow.</p>
-        </div>
-        <StoriesFilm />
-        <div className="stories-film-actions">
-          <a className="stories-film-next focus-ring" href="#story-01">
-            Explore the five stories <span aria-hidden>↓</span>
-          </a>
-          <a
-            className="stories-film-youtube focus-ring"
-            href="https://youtu.be/KGE3OyR1vzs"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Watch on YouTube <span aria-hidden>↗</span>
-          </a>
-        </div>
-      </section>
 
       <main className="stories-thread" aria-label="Red Thread stories">
         <span className="stories-thread-line" aria-hidden />

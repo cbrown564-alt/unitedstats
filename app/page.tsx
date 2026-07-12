@@ -14,6 +14,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { PageHeader } from "@/components/PageHeader";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
+import StoriesFilm from "@/components/stories/StoriesFilm";
 import { greatNights } from "@/lib/greatNights";
 
 // The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
@@ -67,16 +68,45 @@ export default function Home() {
 
   return (
     <div className="space-y-10 sm:space-y-14 lg:space-y-16">
+      {/* 1. THE FILM — ninety seconds of the record in motion, the first screen. */}
+      <section
+        id="red-thread-film"
+        className="full-bleed-viewport stories-film -mt-8 sm:-mt-10"
+        aria-labelledby="home-film-title"
+      >
+        <span className="stories-film-knot" aria-hidden />
+        <div className="stories-film-heading">
+          <p className="stories-index-eyebrow">Red Thread / The film</p>
+          <h2 id="home-film-title" className="display">Ninety seconds. Five patterns.</h2>
+          <p>Watch the record move, then step into a night from the archive.</p>
+        </div>
+        <StoriesFilm />
+        <div className="stories-film-actions">
+          <a className="stories-film-next focus-ring" href="#the-spark">
+            See tonight&apos;s match <span aria-hidden>↓</span>
+          </a>
+          <a
+            className="stories-film-youtube focus-ring"
+            href="https://youtu.be/KGE3OyR1vzs"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch on YouTube <span aria-hidden>↗</span>
+          </a>
+        </div>
+      </section>
+
       {/* The front door, fused into one piece (CONTEXT.md §§2,6): the spark and the
           foundation it belongs to, set so the Red Thread runs out of the night and
           straight on behind the foundation plate. They live in their own wrapper —
           outside the page's section rhythm — so the card can pull up over the
           thread's foot; the rest of the page keeps its spacing. */}
       <div>
-        {/* 1. THE SPARK — the front door is the gate, and its whole job is to fire
-            the nostalgic jolt in the first seconds: a single served match-night,
-            chosen for you, is the entire first screen, the Red Thread its spine. */}
-        <TonightHero nights={nights} seed={seed} />
+        {/* 2. THE SPARK — a single served match-night, chosen for you, the Red Thread
+            its spine. */}
+        <section id="the-spark" aria-label="Tonight's match">
+          <TonightHero nights={nights} seed={seed} />
+        </section>
 
         {/* 2. THE FOUNDATION (CONTEXT.md §2) — the whole record the night belongs to:
             every season as a breathing skyline, the scope, the search. Pulled up so

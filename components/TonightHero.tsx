@@ -421,7 +421,7 @@ export function TonightHero({
   const onThisDay = night.framing === "on-this-day";
 
   return (
-    <div className="full-bleed-viewport relative -mt-8 sm:-mt-10">
+    <div className="full-bleed-viewport relative">
       {/* The stage. Bleeds past the column to the page edges and pulls flush under
           the header so it reads as a floodlit field, not a card on a page. */}
       <Link
