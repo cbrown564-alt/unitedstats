@@ -1,0 +1,16 @@
+
+> unitedstats@0.1.0 predev
+> node -e "require('node:fs').existsSync('data/united.db')||require('node:child_process').execSync('npm run build:db',{stdio:'inherit'})"
+
+
+> unitedstats@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.5.0.2:3000
+- Environments: .env.local, .env
+✓ Ready in 549ms
+- Experiments (use with caution):
+  ✓ viewTransition
+

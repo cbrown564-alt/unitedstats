@@ -1,0 +1,37 @@
+{
+  "provider": "ElevenLabs",
+  "model": "music_v2",
+  "durationSeconds": 30,
+  "auditionWindow": "00:38-01:08",
+  "generatedAt": "2026-07-12T13:35:11.893Z",
+  "candidates": [
+    {
+      "id": "a-analogue-forensic",
+      "label": "Analogue forensic",
+      "hypothesis": "Best brand fit: tactile, precise, archival and contemporary without becoming nostalgic.",
+      "prompt": "Instrumental underscore for a premium cinematic data documentary about Manchester United history. This is a 30-second audition spanning an eleven-day Treble run into tense late-goal match clocks. The moving red data filament is the protagonist. Preserve space for on-screen facts. Begin with controlled forward motion, make three increasingly weighty fact landings, then strip back into late-pressure negative space and a precise release. End unresolved so it can continue into the next act. No vocals, speech, choir, crowd, chants, commentary, whistles, football anthem, rock guitar, heroic brass, trailer braams, EDM drop, sentimental strings, or victory fanfare. 82 BPM, dark warm tonality. Restrained prepared-piano ticks, muted frame drum, warm sub pulse, bowed-wire harmonics, granular tape movement, dry close detail and deep stereo air. Minimal motif, asymmetric accents, emotionally exact, never grand.",
+      "file": "public/video/audio/elevenlabs-bakeoff/a-analogue-forensic.mp3"
+    },
+    {
+      "id": "b-data-pulse",
+      "label": "Data pulse",
+      "hypothesis": "Best motion fit: makes charts and the red thread feel computational and propulsive.",
+      "prompt": "Instrumental underscore for a premium cinematic data documentary about Manchester United history. This is a 30-second audition spanning an eleven-day Treble run into tense late-goal match clocks. The moving red data filament is the protagonist. Preserve space for on-screen facts. Begin with controlled forward motion, make three increasingly weighty fact landings, then strip back into late-pressure negative space and a precise release. End unresolved so it can continue into the next act. No vocals, speech, choir, crowd, chants, commentary, whistles, football anthem, rock guitar, heroic brass, trailer braams, EDM drop, sentimental strings, or victory fanfare. 96 BPM. Minimal modular synth pulses, soft clock-divided percussion, rounded electronic bass, tiny glitch articulations and filtered noise. Clean editorial technology aesthetic, crisp transients, restrained harmony, no cyberpunk aggression and no dance groove.",
+      "file": "public/video/audio/elevenlabs-bakeoff/b-data-pulse.mp3"
+    },
+    {
+      "id": "c-archive-mechanical",
+      "label": "Archive mechanical",
+      "hypothesis": "Best sound-world fit: blurs score and sound design using material, historical textures.",
+      "prompt": "Instrumental underscore for a premium cinematic data documentary about Manchester United history. This is a 30-second audition spanning an eleven-day Treble run into tense late-goal match clocks. The moving red data filament is the protagonist. Preserve space for on-screen facts. Begin with controlled forward motion, make three increasingly weighty fact landings, then strip back into late-pressure negative space and a precise release. End unresolved so it can continue into the next act. No vocals, speech, choir, crowd, chants, commentary, whistles, football anthem, rock guitar, heroic brass, trailer braams, EDM drop, sentimental strings, or victory fanfare. 76 BPM. Music made from subtle paper movement, projector mechanics, pencil taps, distant metal resonance, low room tone and sparse felt piano. Musique-concrete documentary texture with a quiet tonal spine. Intimate museum-installation quality, tactile and human, never spooky.",
+      "file": "public/video/audio/elevenlabs-bakeoff/c-archive-mechanical.mp3"
+    },
+    {
+      "id": "d-human-momentum",
+      "label": "Human momentum",
+      "hypothesis": "Best emotional fit: adds warmth and sporting stakes while testing the cliché boundary.",
+      "prompt": "Instrumental underscore for a premium cinematic data documentary about Manchester United history. This is a 30-second audition spanning an eleven-day Treble run into tense late-goal match clocks. The moving red data filament is the protagonist. Preserve space for on-screen facts. Begin with controlled forward motion, make three increasingly weighty fact landings, then strip back into late-pressure negative space and a precise release. End unresolved so it can continue into the next act. No vocals, speech, choir, crowd, chants, commentary, whistles, football anthem, rock guitar, heroic brass, trailer braams, EDM drop, sentimental strings, or victory fanfare. 88 BPM. Hand-played low toms with brushes, muted upright bass pulse, felt piano and restrained tremolo strings used as texture only. Human microtiming, grounded physical momentum, quiet confidence, documentary realism, no anthem and no triumphal cadence.",
+      "file": "public/video/audio/elevenlabs-bakeoff/d-human-momentum.mp3"
+    }
+  ]
+}

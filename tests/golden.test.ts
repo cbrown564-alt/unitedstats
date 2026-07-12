@@ -267,6 +267,20 @@ test("shaped search: record away at Arsenal", () => {
   assert.equal(hit.href, "/matches?opponent=arsenal&venue=A");
 });
 
+test("shaped search: result words filter head-to-head evidence", () => {
+  for (const [query, expected] of [
+    ["losses v Newcastle", "L"],
+    ["wins against Newcastle", "W"],
+    ["draws v Newcastle", "D"],
+  ] as const) {
+    const hit = runSearch(query).shaped.find((s) => /Newcastle United/.test(s.title));
+    assert.ok(hit, `expected a shaped answer for '${query}'`);
+    const url = new URL(`https://example.test${hit.href}`);
+    assert.equal(url.searchParams.get("opponent"), "newcastle-united");
+    assert.equal(url.searchParams.get("result"), expected);
+  }
+});
+
 test("shaped search: record under a manager and a season token", () => {
   const under = runSearch("record under busby").shaped;
   assert.ok(under.some((s) => s.title === "Record under Sir Matt Busby"));

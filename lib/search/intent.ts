@@ -157,6 +157,8 @@ interface ParsedIntent {
   metricExplicit: boolean;
   /** A minute window on the goals metric ("late goals" → after the 85th minute). */
   goalWindow?: GoalWindow;
+  /** Explicit result slice ("wins", "drawn", "losses"). */
+  result?: "W" | "D" | "L";
   /** Opponent resolved from an explicit connector ("vs liverpool"). */
   opponent?: IndexRow;
   /** A no-connector residual that might be an opponent for a team head-to-head —
@@ -228,6 +230,26 @@ function parseIntent(norm: string): ParsedIntent {
     const next = s.replace(re, " ");
     if (next !== s) {
       goalWindow = win;
+      s = next.replace(/\s+/g, " ");
+      break;
+    }
+  }
+
+  // 1c. result — a scope rather than a metric, so "losses v Newcastle" keeps
+  // the head-to-head record shape while its evidence link shows only defeats.
+  let result: ParsedIntent["result"];
+  const resultWords: [ParsedIntent["result"], RegExp][] = [
+    ["W", /\b(?:wins?|won|victor(?:y|ies))\b/g],
+    ["D", /\b(?:draws?|drawn)\b/g],
+    ["L", /\b(?:loss(?:es)?|lost|defeats?)\b/g],
+  ];
+  for (const [code, re] of resultWords) {
+    const next = s.replace(re, " ");
+    if (next !== s) {
+      result = code;
+      filter.result = code;
+      link.result = code;
+      triggered = true;
       s = next.replace(/\s+/g, " ");
       break;
     }
@@ -362,7 +384,7 @@ function parseIntent(norm: string): ParsedIntent {
   }
 
   return {
-    subjectKind, subject, metric, metricExplicit, goalWindow, opponent, opponentCandidate,
+    subjectKind, subject, metric, metricExplicit, goalWindow, result, opponent, opponentCandidate,
     filter, link, labels, triggered, question, teamLeftoverClean,
   };
 }
@@ -387,6 +409,7 @@ function cleanSubject(s: string): { text: string; verb: boolean; question: boole
 function scopeFilter(intent: ParsedIntent, opponentId?: string): MatchFilter {
   return {
     opponent: opponentId,
+    result: intent.result,
     competition: intent.filter.competition,
     venue: intent.filter.venue,
     type: intent.filter.type,
@@ -412,6 +435,7 @@ function scopeExtra(f: MatchFilter): { sql: string; params: Record<string, strin
 function scopeLink(intent: ParsedIntent, extra: Record<string, string | undefined>): Record<string, string | undefined> {
   return {
     opponent: intent.opponent?.entity_id,
+    result: intent.result,
     competition: intent.filter.competition,
     venue: intent.filter.venue,
     type: intent.filter.type,
@@ -464,7 +488,8 @@ function teamRecordVs(opp: IndexRow, extra: MatchFilter, label?: string): Shaped
   const where = venue === "A" ? "away at" : venue === "H" ? "at home to" : "against";
   const filter: MatchFilter = { ...extra, opponent: opp.entity_id };
   const link: Record<string, string | undefined> = {
-    opponent: opp.entity_id, venue, type: extra.type, competition: extra.competition, round: extra.round,
+    opponent: opp.entity_id, venue, result: extra.result, type: extra.type,
+    competition: extra.competition, round: extra.round, manager: extra.manager, season: extra.season,
     from: extra.from ? extra.from.slice(0, 4) : undefined,
     to: extra.to ? extra.to.slice(0, 4) : undefined,
   };

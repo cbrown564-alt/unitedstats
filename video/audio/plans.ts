@@ -36,6 +36,38 @@ export const AUDIO_PLANS = {
       },
     ],
   },
+  "post-punk-editorial": {
+    id: "post-punk-editorial",
+    clips: [{
+      asset: "video/audio/elevenlabs-post-punk-finals/post-punk-editorial.mp3",
+      timelineFrom: 0,
+      duration: 2700,
+      gain: 0.88,
+      fadeIn: 12,
+      fadeOut: 24,
+    }],
+  },
+  "post-punk-song": {
+    id: "post-punk-song",
+    clips: [
+      {
+        asset: "video/audio/elevenlabs-post-punk-finals/post-punk-song.mp3",
+        timelineFrom: 0,
+        duration: 2700,
+        gain: 0.88,
+        fadeIn: 12,
+        fadeOut: 24,
+      },
+      {
+        asset: "video/audio/elevenlabs-post-punk-finals/post-punk-song-fortress-bridge.mp3",
+        timelineFrom: 74 * 30,
+        duration: 11 * 30,
+        gain: 0.66,
+        fadeIn: 15,
+        fadeOut: 21,
+      },
+    ],
+  },
   silent: { id: "silent", clips: [] },
 } as const satisfies Record<string, AudioPlan>;
 

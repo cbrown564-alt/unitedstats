@@ -1,6 +1,6 @@
 import { matchById, eventsForMatch } from "@/lib/queries";
 import { immutableDataHeaders } from "@/lib/cache";
-import { OG_CONTENT_TYPE, OG_SIZE, entityCard, matchCard, trustStrip, type MatchGoal } from "@/lib/og-card";
+import { OG_CONTENT_TYPE, OG_SIZE, entityCard, localOgMedia, matchCard, trustStrip, type MatchGoal } from "@/lib/og-card";
 
 // On-demand + CDN-cached rather than 6,000+ images baked into every build.
 export const dynamic = "force-dynamic";
@@ -12,6 +12,11 @@ const GOAL_TYPES = new Set(["goal", "pen-goal", "opp-goal", "own-goal-for", "own
 // An opponent goal or an own goal we conceded sits on the opponent's side; every
 // other goal type (our goals, our penalties, own goals in our favour) is United's.
 const OPP_SIDE = new Set(["opp-goal", "own-goal-against"]);
+const CURATED_MATCH_MEDIA: Record<string, { src: string; position?: string }> = {
+  "1968-05-29-benfica-n": { src: "/media/journey/george-best.webp", position: "62% 25%" },
+  "1999-05-26-bayern-munich-n": { src: "/media/journey/camp-nou.webp", position: "52% 45%" },
+  "2008-05-21-chelsea-n": { src: "/media/journey/cristiano-ronaldo.webp", position: "62% 22%" },
+};
 
 /** Cup rounds announce themselves on the eyebrow; league matchdays don't. */
 function meaningfulRound(round: string | null): string | null {
@@ -44,6 +49,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
     : m.ht_gf != null && m.ht_ga != null
       ? `Half-time ${m.ht_gf}–${m.ht_ga}`
       : undefined;
+  const curated = CURATED_MATCH_MEDIA[id];
 
   return matchCard(
     {
@@ -56,6 +62,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
       goals,
       footnote,
       strip: trustStrip(),
+      media: curated ? await localOgMedia(curated.src, { position: curated.position, treatment: "full" }) : undefined,
     },
     immutableDataHeaders,
   );

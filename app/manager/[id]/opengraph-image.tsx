@@ -1,6 +1,6 @@
 import { managerById } from "@/lib/queries";
 import { immutableDataHeaders } from "@/lib/cache";
-import { OG_CONTENT_TYPE, OG_SIZE, entityCard, managerCard, trustStrip } from "@/lib/og-card";
+import { OG_CONTENT_TYPE, OG_SIZE, entityCard, localOgMedia, managerCard, trustStrip } from "@/lib/og-card";
 
 export const dynamic = "force-dynamic";
 export const alt = "Manchester United manager — Red Thread";
@@ -30,6 +30,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
       l: m.l,
       era: from && to ? `${from}–${to}` : undefined,
       strip: trustStrip(),
+      media: await localOgMedia(`/media/managers/${id}.webp`, { position: "50% 25%", treatment: "panel" }),
     },
     immutableDataHeaders,
   );

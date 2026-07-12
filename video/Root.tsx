@@ -1,6 +1,6 @@
 import { Composition } from "remotion";
 import { RedThreadFilm } from "./compositions/RedThreadFilm";
-import { EUROPEAN_MASTER_90, MATCH_TIMELINE_24 } from "./editions";
+import { EUROPEAN_MASTER_90, EUROPEAN_POST_PUNK_EDITORIAL_90, EUROPEAN_POST_PUNK_SONG_90, MATCH_TIMELINE_24 } from "./editions";
 import { LOOP_PROTOTYPE } from "./film-data";
 import { RedThreadLoopPrototype } from "./RedThreadLoopPrototype";
 
@@ -20,6 +20,20 @@ export function RemotionRoot() {
         defaultProps={{ editionId: EUROPEAN_MASTER_90.id, withAudio: false, withCaptions: true }}
         durationInFrames={EUROPEAN_MASTER_90.durationInFrames}
         {...EUROPEAN_MASTER_90.format}
+      />
+      <Composition
+        id="red-thread-european-post-punk-editorial-90"
+        component={RedThreadFilm}
+        defaultProps={{ editionId: EUROPEAN_POST_PUNK_EDITORIAL_90.id }}
+        durationInFrames={EUROPEAN_POST_PUNK_EDITORIAL_90.durationInFrames}
+        {...EUROPEAN_POST_PUNK_EDITORIAL_90.format}
+      />
+      <Composition
+        id="red-thread-european-post-punk-song-90"
+        component={RedThreadFilm}
+        defaultProps={{ editionId: EUROPEAN_POST_PUNK_SONG_90.id }}
+        durationInFrames={EUROPEAN_POST_PUNK_SONG_90.durationInFrames}
+        {...EUROPEAN_POST_PUNK_SONG_90.format}
       />
       <Composition
         id="red-thread-european-master-90-captions"

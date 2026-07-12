@@ -1,11 +1,32 @@
+/* eslint-disable @next/next/no-img-element -- ImageResponse requires native img elements. */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { ReactNode } from "react";
 import { ImageResponse } from "next/og";
+import sharp from "sharp";
 import { getMeta } from "@/lib/queries";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
+
+export type OgMedia = {
+  src: string | ArrayBuffer;
+  position?: string;
+  treatment?: "full" | "panel" | "texture";
+};
+
+/** Resolve only locally cached media. A missing file is an intentional fallback. */
+export async function localOgMedia(src?: string | null, options: Omit<OgMedia, "src"> = {}): Promise<OgMedia | undefined> {
+  if (!src || !src.startsWith("/")) return undefined;
+  try {
+    const path = join(process.cwd(), "public", ...src.split("/").filter(Boolean));
+    const original = readFileSync(path);
+    const data = path.toLowerCase().endsWith(".webp") ? await sharp(original).png().toBuffer() : original;
+    return { src: Uint8Array.from(data).buffer, ...options };
+  } catch {
+    return undefined;
+  }
+}
 
 // The site's own faces, bundled as static TTFs (Satori can't read the woff2 that
 // next/font caches). Archivo is the default; Plex Mono carries the numerals, so a
@@ -30,7 +51,6 @@ const ogOptions = (headers?: Record<string, string>) => ({
 // Brand tokens, inlined: the OG renderer (Satori) has no access to the
 // stylesheet's CSS custom properties, so these mirror app/globals.css.
 const PITCH = "#0c0b0a";
-const PANEL = "#161312";
 const PANEL_2 = "#1f1a18";
 const LINE = "#2c2522";
 const INK = "#f3ede8";
@@ -51,15 +71,32 @@ function OgBrand() {
   );
 }
 
-/** The trust strip every card carries: scale, coverage honesty, openness. */
-export function trustStrip(): string[] {
+export type TrustItem = { lead: string; detail: string };
+
+/** The evidence promise every card carries: scale, honesty, inspectability. */
+export function trustStrip(): TrustItem[] {
   const meta = getMeta();
   const matches = Number(meta.matches);
   return [
-    `${Number.isFinite(matches) ? matches.toLocaleString("en-GB") : meta.matches} matches`,
-    "coverage shown",
-    "open dataset",
+    { lead: `${Number.isFinite(matches) ? matches.toLocaleString("en-GB") : meta.matches} matches`, detail: "checked" },
+    { lead: "Gaps shown", detail: "never hidden" },
+    { lead: "Open data", detail: "you can inspect" },
   ];
+}
+
+function OgTrustStrip({ items, dark = false }: { items: TrustItem[]; dark?: boolean }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", background: dark ? "rgba(12,11,10,.82)" : "transparent", padding: dark ? "12px 16px" : 0, borderRadius: dark ? 8 : 0 }}>
+      <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 16, letterSpacing: 2, marginRight: 22 }}>EVIDENCE</span>
+      {items.map((item, index) => (
+        <div key={item.lead} style={{ display: "flex", alignItems: "baseline" }}>
+          {index > 0 && <span style={{ color: LINE, fontSize: 22, margin: "0 18px" }}>•</span>}
+          <span style={{ color: INK, fontSize: 21, fontWeight: 600 }}>{item.lead}</span>
+          <span style={{ color: INK_DIM, fontSize: 20, marginLeft: 7 }}>{item.detail}</span>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 /**
@@ -73,7 +110,7 @@ function renderCard(
     eyebrow: string;
     title: string;
     subtitle: string;
-    strip: string[];
+    strip: TrustItem[];
   },
   headers?: Record<string, string>,
 ) {
@@ -102,26 +139,7 @@ function renderCard(
               {subtitle}
             </div>
           </div>
-          <div style={{ display: "flex" }}>
-            {strip.map((chip) => (
-              <div
-                key={chip}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  border: `1px solid ${LINE}`,
-                  background: PANEL,
-                  borderRadius: 10,
-                  padding: "12px 22px",
-                  marginRight: 16,
-                  fontSize: 24,
-                  color: INK,
-                }}
-              >
-                {chip}
-              </div>
-            ))}
-          </div>
+          <OgTrustStrip items={strip} />
         </div>
       </div>
     ),
@@ -134,7 +152,7 @@ export function evidenceCard(
   { question, summary, strip }: {
     question: string;
     summary: string;
-    strip: string[];
+    strip: TrustItem[];
   },
   headers?: Record<string, string>,
 ) {
@@ -143,7 +161,7 @@ export function evidenceCard(
 
 /** An entity's social card (match, player, manager, opponent, season). */
 export function entityCard(
-  props: { eyebrow: string; title: string; subtitle: string; strip: string[] },
+  props: { eyebrow: string; title: string; subtitle: string; strip: TrustItem[] },
   headers?: Record<string, string>,
 ) {
   return renderCard(props, headers);
@@ -206,7 +224,7 @@ function goalStrip(goals: MatchGoal[]) {
  */
 export function matchCard(
   {
-    eyebrow, home, away, score, outcome, date, goals, footnote, strip,
+    eyebrow, home, away, score, outcome, date, goals, footnote, strip, media,
   }: {
     eyebrow: string;
     home: string;
@@ -216,7 +234,8 @@ export function matchCard(
     date: string;
     goals: MatchGoal[];
     footnote?: string;
-    strip: string[];
+    strip: TrustItem[];
+    media?: OgMedia;
   },
   headers?: Record<string, string>,
 ) {
@@ -230,7 +249,13 @@ export function matchCard(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
+        {media && <div style={{ position: "absolute", right: 0, top: 0, width: 650, height: 630, display: "flex", overflow: "hidden" }}>
+          {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
+          <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.88) 34%, rgba(12,11,10,.34) 100%)" }} />
+        </div>}
+        {media && <div style={{ position: "absolute", left: 16, top: 0, width: 535, height: 630, background: PITCH }} />}
+        <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
             <OgBrand />
             <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
@@ -249,23 +274,62 @@ export function matchCard(
             {goals.length > 0 && <div style={{ display: "flex", marginTop: 40 }}>{goalStrip(goals)}</div>}
           </div>
 
-          <div style={{ display: "flex" }}>
-            {strip.map((chip) => (
-              <div
-                key={chip}
-                style={{
-                  display: "flex", alignItems: "center", border: `1px solid ${LINE}`, background: PANEL,
-                  borderRadius: 10, padding: "12px 22px", marginRight: 16, fontSize: 24, color: INK,
-                }}
-              >
-                {chip}
-              </div>
-            ))}
-          </div>
+          <OgTrustStrip items={strip} dark={!!media} />
         </div>
       </div>
     ),
     ogOptions(headers),
+  );
+}
+
+/** Cinematic authored story card: full-canvas archive media with one concrete claim. */
+export function storyCard(
+  { chapter, title, claim, marker, media, strip }: { chapter: string; title: string; claim: string; marker: string; media: OgMedia; strip: TrustItem[] },
+  headers?: Record<string, string>,
+) {
+  return new ImageResponse(
+    <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: PITCH, color: INK, fontFamily: "Archivo", overflow: "hidden" }}>
+      {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
+      <img src={media.src} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.9) 42%, rgba(12,11,10,.22) 78%, rgba(12,11,10,.38) 100%)" }} />
+      <div style={{ position: "absolute", left: 16, top: 0, width: 730, height: 630, background: "rgba(12,11,10,.76)" }} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
+      <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "56px 72px 54px 88px" }}>
+        <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}><div style={{ display: "flex", width: 220 }}><OgBrand /></div><span style={{ color: INK_DIM, marginLeft: 14 }}>STORY / {chapter}</span></div>
+        <div style={{ display: "flex", flexDirection: "column", width: 690 }}>
+          <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 25, letterSpacing: 2 }}>{marker}</span>
+          <span style={{ fontSize: 70, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2, marginTop: 14 }}>{title}</span>
+          <span style={{ fontSize: 28, color: INK_DIM, lineHeight: 1.3, marginTop: 22 }}>{claim}</span>
+        </div>
+        <OgTrustStrip items={strip} dark />
+      </div>
+    </div>,
+    ogOptions(headers),
+  );
+}
+
+/** Stable collection identity card: one archive promise, without implying a single record. */
+export function collectionCard(
+  { eyebrow, title, marker, description, strip }: { eyebrow: string; title: string; marker: string; description: string; strip: TrustItem[] },
+) {
+  return new ImageResponse(
+    <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", overflow: "hidden", background: PITCH, color: INK, fontFamily: "Archivo" }}>
+      <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
+      <div style={{ position: "absolute", right: -100, top: -170, width: 610, height: 860, border: `2px solid ${LINE}`, transform: "rotate(18deg)" }} />
+      <div style={{ position: "absolute", right: 80, top: 0, width: 2, height: 630, background: LINE }} />
+      <div style={{ position: "absolute", right: 178, top: 0, width: 2, height: 630, background: LINE }} />
+      <div style={{ position: "absolute", right: 276, top: 0, width: 2, height: 630, background: LINE }} />
+      <div style={{ position: "relative", display: "flex", width: "100%", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px 54px 88px" }}>
+        <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}><OgBrand /><span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span></div>
+        <div style={{ display: "flex", flexDirection: "column", width: 780 }}>
+          <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 23, letterSpacing: 2 }}>{marker}</span>
+          <span style={{ fontSize: 76, fontWeight: 800, lineHeight: 1, letterSpacing: -2, marginTop: 15 }}>{title}</span>
+          <span style={{ color: INK_DIM, fontSize: 29, lineHeight: 1.3, marginTop: 24 }}>{description}</span>
+        </div>
+        <OgTrustStrip items={strip} />
+      </div>
+    </div>,
+    ogOptions(),
   );
 }
 
@@ -334,7 +398,7 @@ function careerBar(firstYear: number, lastYear: number) {
  *  surface's unfurl reads as one family. */
 function renderStatCard(
   {
-    eyebrow, title, contextRight, figure, figureLabel, accent = "gold", shape, strip,
+    eyebrow, title, contextRight, figure, figureLabel, accent = "gold", shape, strip, media,
   }: {
     eyebrow: string;
     title: string;
@@ -343,7 +407,8 @@ function renderStatCard(
     figureLabel: string;
     accent?: "gold" | "devil" | "ink";
     shape: ReactNode;
-    strip: string[];
+    strip: TrustItem[];
+    media?: OgMedia;
   },
   headers?: Record<string, string>,
 ) {
@@ -352,7 +417,12 @@ function renderStatCard(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
+        {media && <div style={{ position: "absolute", right: 0, top: 0, width: 460, height: 630, display: "flex", overflow: "hidden" }}>
+          {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
+          <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 35%" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.72) 20%, rgba(12,11,10,.08) 66%, rgba(12,11,10,.28) 100%)" }} />
+        </div>}
+        <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
             <OgBrand />
             <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
@@ -360,8 +430,8 @@ function renderStatCard(
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ display: "flex", width: Q_WIDTH, overflow: "hidden" }}>
-              <span style={{ fontSize: 62, fontWeight: 800, letterSpacing: -1.5, color: INK, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <div style={{ display: "flex", width: media ? 690 : Q_WIDTH, overflow: "hidden" }}>
+              <span style={{ fontSize: media ? 58 : 62, fontWeight: 800, letterSpacing: -1.5, color: INK, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {title}
               </span>
             </div>
@@ -372,16 +442,7 @@ function renderStatCard(
             <div style={{ display: "flex", marginTop: 38 }}>{shape}</div>
           </div>
 
-          <div style={{ display: "flex" }}>
-            {strip.map((chip) => (
-              <div
-                key={chip}
-                style={{ display: "flex", alignItems: "center", border: `1px solid ${LINE}`, background: PANEL, borderRadius: 10, padding: "12px 22px", marginRight: 16, fontSize: 24, color: INK }}
-              >
-                {chip}
-              </div>
-            ))}
-          </div>
+          <OgTrustStrip items={strip} dark={!!media} />
         </div>
       </div>
     ),
@@ -393,7 +454,7 @@ const winPct = (w: number, p: number) => `${Math.round((100 * w) / (p || 1))}%`;
 
 /** A manager's card: their record drawn as a W-D-L conviction bar, win % as the figure. */
 export function managerCard(
-  { name, role, p, w, d, l, era, strip }: { name: string; role: string; p: number; w: number; d: number; l: number; era?: string; strip: string[] },
+  { name, role, p, w, d, l, era, strip, media }: { name: string; role: string; p: number; w: number; d: number; l: number; era?: string; strip: TrustItem[]; media?: OgMedia },
   headers?: Record<string, string>,
 ) {
   return renderStatCard(
@@ -405,6 +466,7 @@ export function managerCard(
       figureLabel: `won · ${p.toLocaleString("en-GB")} matches in charge`,
       shape: vizWdl(w, d, l),
       strip,
+      media,
     },
     headers,
   );
@@ -412,7 +474,7 @@ export function managerCard(
 
 /** A head-to-head card: the all-time record as a conviction bar, win % as the figure. */
 export function opponentCard(
-  { name, p, w, d, l, since, strip }: { name: string; p: number; w: number; d: number; l: number; since?: string; strip: string[] },
+  { name, p, w, d, l, since, strip }: { name: string; p: number; w: number; d: number; l: number; since?: string; strip: TrustItem[] },
   headers?: Record<string, string>,
 ) {
   return renderStatCard(
@@ -432,7 +494,7 @@ export function opponentCard(
 
 /** A season's card: the season drawn as a diverging result spine, win % as the figure. */
 export function seasonCard(
-  { season, results, w, d, l, strip }: { season: string; results: ("W" | "D" | "L")[]; w: number; d: number; l: number; strip: string[] },
+  { season, results, w, d, l, strip }: { season: string; results: ("W" | "D" | "L")[]; w: number; d: number; l: number; strip: TrustItem[] },
   headers?: Record<string, string>,
 ) {
   return renderStatCard(
@@ -450,7 +512,7 @@ export function seasonCard(
 
 /** A player's card: their years drawn as a career span on the club timeline, goals as the figure. */
 export function playerCard(
-  { name, position, goals, apps, firstYear, lastYear, strip }: { name: string; position?: string; goals: number; apps: number; firstYear: number; lastYear: number; strip: string[] },
+  { name, position, goals, apps, firstYear, lastYear, strip, media }: { name: string; position?: string; goals: number; apps: number; firstYear: number; lastYear: number; strip: TrustItem[]; media?: OgMedia },
   headers?: Record<string, string>,
 ) {
   return renderStatCard(
@@ -461,6 +523,7 @@ export function playerCard(
       figureLabel: `goals · ${apps.toLocaleString("en-GB")} appearances`,
       shape: careerBar(firstYear, lastYear),
       strip,
+      media,
     },
     headers,
   );
@@ -561,14 +624,15 @@ function vizWdl(w: number, d: number, l: number) {
  */
 export function questionCard(
   {
-    question, figure, gloss, visual, strip, accent = "gold",
+    question, figure, gloss, visual, strip, accent = "gold", media,
   }: {
     question: string;
     figure: string;
     gloss: string;
     visual: QuestionVisual;
-    strip: string[];
+    strip: TrustItem[];
     accent?: "gold" | "devil";
+    media?: OgMedia;
   },
   headers?: Record<string, string>,
 ) {
@@ -582,8 +646,14 @@ export function questionCard(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
         <div style={{ width: 16, height: "100%", background: DEVIL }} />
+        {media && <div style={{ position: "absolute", right: 0, top: 0, width: 520, height: 630, display: "flex", overflow: "hidden" }}>
+          {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
+          <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.84) 28%, rgba(12,11,10,.2) 72%, rgba(12,11,10,.38) 100%)" }} />
+        </div>}
         <div
           style={{
+            position: "relative",
             flex: 1,
             display: "flex",
             flexDirection: "column",
@@ -607,26 +677,7 @@ export function questionCard(
             <div style={{ display: "flex", marginTop: 30 }}>{body}</div>
           </div>
 
-          <div style={{ display: "flex" }}>
-            {strip.map((chip) => (
-              <div
-                key={chip}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  border: `1px solid ${LINE}`,
-                  background: PANEL,
-                  borderRadius: 10,
-                  padding: "12px 22px",
-                  marginRight: 16,
-                  fontSize: 24,
-                  color: INK,
-                }}
-              >
-                {chip}
-              </div>
-            ))}
-          </div>
+          <OgTrustStrip items={strip} dark={!!media} />
         </div>
       </div>
     ),

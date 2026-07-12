@@ -1,0 +1,68 @@
+{
+  "provider": "ElevenLabs",
+  "model": "music_v2",
+  "durationSeconds": 30,
+  "auditionWindow": "00:38–01:08",
+  "generatedAt": "2026-07-12T14:01:01.782Z",
+  "sourceTaste": [
+    "Deconstructed UK pulse",
+    "Time-loop jazz",
+    "Post-punk transmission"
+  ],
+  "candidates": [
+    {
+      "id": "a-uk-pulse-refined",
+      "title": "UK pulse · refined",
+      "family": "pure",
+      "vocal": false,
+      "thesis": "Is the broken electronic grid itself the identity?",
+      "prompt": "A 30-second audition scored to a premium data film about Manchester United history, covering the 1998–99 Treble's three must-win matches and the transition into a tense Fergie-time clock. The moving red data line is the visual protagonist. Build three controlled rhythmic landings, then remove density for late-pressure negative space. Keep typography legible. No crowd, stadium ambience, sports anthem, heroic brass, trailer impacts, sentimental strings or victory fanfare. Instrumental forward-looking UK broken rhythm, 132 BPM felt in half-time. Ghost two-step percussion, rounded sub pressure, dry rim fragments, granular red-line flickers and rare non-lexical vocal grains used only as percussion. Minimal harmony. The beat repeatedly withholds its expected landing; no club drop, glossy synthwave or four-on-the-floor.",
+      "file": "public/video/audio/elevenlabs-convergence-bakeoff/a-uk-pulse-refined.mp3"
+    },
+    {
+      "id": "b-time-loop-jazz-refined",
+      "title": "Time-loop jazz · refined",
+      "family": "pure",
+      "vocal": false,
+      "thesis": "Is human timing and cyclic intelligence the identity?",
+      "prompt": "A 30-second audition scored to a premium data film about Manchester United history, covering the 1998–99 Treble's three must-win matches and the transition into a tense Fergie-time clock. The moving red data line is the visual protagonist. Build three controlled rhythmic landings, then remove density for late-pressure negative space. Keep typography legible. No crowd, stadium ambience, sports anthem, heroic brass, trailer impacts, sentimental strings or victory fanfare. Instrumental contemporary chamber jazz in a repeating seven-beat cycle. Muted bass clarinet, dry upright-bass harmonics, prepared piano and brushed snare fragments. No solos: the ensemble behaves like a precise clock that breathes. At the late-pressure transition, leave only bass clarinet key noise and one low pulse. No lounge, swing-era, big band or vintage pastiche.",
+      "file": "public/video/audio/elevenlabs-convergence-bakeoff/b-time-loop-jazz-refined.mp3"
+    },
+    {
+      "id": "c-post-punk-refined",
+      "title": "Post-punk transmission · refined",
+      "family": "pure",
+      "vocal": true,
+      "thesis": "Is the dry Manchester-coded voice and attitude the identity?",
+      "prompt": "A 30-second audition scored to a premium data film about Manchester United history, covering the 1998–99 Treble's three must-win matches and the transition into a tense Fergie-time clock. The moving red data line is the visual protagonist. Build three controlled rhythmic landings, then remove density for late-pressure negative space. Keep typography legible. No crowd, stadium ambience, sports anthem, heroic brass, trailer impacts, sentimental strings or victory fanfare. Taut minimal post-punk/electronic transmission at 118 BPM: dry motorik drum machine, wiry mono bass, clipped guitar harmonics and a detached low spoken-sung British voice. Lyrics only: \"Eleven days / no margin / three nights turn / after eighty-five.\" Severe and contemporary, not nostalgic. Strip the voice and drums away for the final clock pressure. No pub rock, chant, anthem or large chorus.",
+      "file": "public/video/audio/elevenlabs-convergence-bakeoff/c-post-punk-refined.mp3"
+    },
+    {
+      "id": "d-broken-meter",
+      "title": "Broken-meter data club",
+      "family": "cross",
+      "vocal": false,
+      "thesis": "UK pulse × time-loop jazz: programmed force with a living seven-beat cycle.",
+      "prompt": "A 30-second audition scored to a premium data film about Manchester United history, covering the 1998–99 Treble's three must-win matches and the transition into a tense Fergie-time clock. The moving red data line is the visual protagonist. Build three controlled rhythmic landings, then remove density for late-pressure negative space. Keep typography legible. No crowd, stadium ambience, sports anthem, heroic brass, trailer impacts, sentimental strings or victory fanfare. Instrumental hybrid of sparse UK broken-beat electronics and contemporary chamber jazz. A 132 BPM electronic grid is interrupted by a seven-beat acoustic cycle: prepared-piano attacks, bass-clarinet breaths, sub bass and ghosted two-step drums. Crisp and nocturnal, with human microtiming inside machine precision. No solos, lounge mood, EDM drop or decorative glitch overload.",
+      "file": "public/video/audio/elevenlabs-convergence-bakeoff/d-broken-meter.mp3"
+    },
+    {
+      "id": "e-red-line-transmission",
+      "title": "Red-line transmission",
+      "family": "cross",
+      "vocal": true,
+      "thesis": "UK pulse × post-punk: rhythm plus cultural voice, without retro costume.",
+      "prompt": "A 30-second audition scored to a premium data film about Manchester United history, covering the 1998–99 Treble's three must-win matches and the transition into a tense Fergie-time clock. The moving red data line is the visual protagonist. Build three controlled rhythmic landings, then remove density for late-pressure negative space. Keep typography legible. No crowd, stadium ambience, sports anthem, heroic brass, trailer impacts, sentimental strings or victory fanfare. Minimal British electronic post-punk at 128 BPM: broken two-step percussion, taut synth bass, one dry guitar harmonic family and a cool understated spoken-sung voice. Lyrics only: \"Eleven days / the line holds / three turns late / the record opens.\" The vocal arrives as short transmissions, never a full chorus. Modern, clipped and spacious; no retro revival, rock drive, club drop or chant.",
+      "file": "public/video/audio/elevenlabs-convergence-bakeoff/e-red-line-transmission.mp3"
+    },
+    {
+      "id": "f-seventh-record",
+      "title": "The seventh record",
+      "family": "cross",
+      "vocal": true,
+      "thesis": "Time-loop jazz × post-punk: uneven live cycle with dry spoken attitude.",
+      "prompt": "A 30-second audition scored to a premium data film about Manchester United history, covering the 1998–99 Treble's three must-win matches and the transition into a tense Fergie-time clock. The moving red data line is the visual protagonist. Build three controlled rhythmic landings, then remove density for late-pressure negative space. Keep typography legible. No crowd, stadium ambience, sports anthem, heroic brass, trailer impacts, sentimental strings or victory fanfare. Experimental post-punk chamber miniature in seven-beat cycles: dry upright bass, muted bass clarinet, prepared piano, skeletal drum machine and a close detached British spoken voice. Text only: \"One clock. Six strikes. Three recoveries.\" The words cut across the meter like factual annotations. Angular, intelligent and restrained; no swing, poetry slam, pub rock, jazz solo or cinematic swell.",
+      "file": "public/video/audio/elevenlabs-convergence-bakeoff/f-seventh-record.mp3"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { playerById } from "@/lib/queries";
 import { immutableDataHeaders } from "@/lib/cache";
-import { OG_CONTENT_TYPE, OG_SIZE, entityCard, playerCard, trustStrip } from "@/lib/og-card";
+import { OG_CONTENT_TYPE, OG_SIZE, entityCard, localOgMedia, playerCard, trustStrip } from "@/lib/og-card";
 
 // On-demand + CDN-cached rather than ~1,000 images baked into every build.
 export const dynamic = "force-dynamic";
@@ -39,6 +39,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
       firstYear,
       lastYear,
       strip: trustStrip(),
+      media: await localOgMedia(`/media/players/${id}.webp`, { position: "50% 25%", treatment: "panel" }),
     },
     immutableDataHeaders,
   );
