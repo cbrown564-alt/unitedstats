@@ -1,17 +1,19 @@
-import { Audio } from "@remotion/media";
 import {
   AbsoluteFill,
   Easing,
   Img,
   interpolate,
-  Sequence,
   staticFile,
   useCurrentFrame,
 } from "remotion";
-import generated from "./generated-master-data.json";
-import { lerp, smoothstep, windowed } from "./math";
-import { pitchPlacement, PITCH_BAND_ORDER } from "../lib/placement";
-import { BALLON_1968, BALLON_2008, type BallonRanking } from "./ballon-rankings";
+import generated from "../generated-master-data.json";
+import { getAudioPlan } from "../audio/plans";
+import { AudioTimeline } from "../core/AudioTimeline";
+import type { OpeningMatchEdit, RedThreadFilmProps } from "../core/types";
+import { getFilmEdition } from "../editions";
+import { lerp, smoothstep, windowed } from "../math";
+import { pitchPlacement, PITCH_BAND_ORDER } from "../../lib/placement";
+import { BALLON_1968, BALLON_2008, type BallonRanking } from "../ballon-rankings";
 
 const C = {
   pitch: "#0c0b0a",
@@ -30,9 +32,9 @@ const SANS = "ArchivoMaster, Arial, sans-serif";
 const MONO = "PlexMaster, Consolas, monospace";
 const FPS = 30;
 /** Hybrid spine: four opening cards → v5 rhyme/Treble/Fergie middle → Fortress → receipt. */
-export const MASTER_DURATION_SECONDS = 90;
+const MASTER_DURATION_SECONDS = 90;
 /** Opening composition length — four signatures in the lean 18s window. */
-export const OPENING_DURATION_FRAMES = 540;
+const OPENING_DURATION_FRAMES = 540;
 
 /**
  * Global act windows (frames). Local scene clocks subtract the *LocalOrigin.
@@ -129,14 +131,8 @@ type FeaturedPlayer = {
   lastYear: number | null;
 };
 
-type FeaturedMatch = {
+type FeaturedMatchFact = {
   matchId: string;
-  year: number;
-  x: number;
-  start: number;
-  visualMode: "first-xi" | "score-storm" | "extra-time-burst" | "bench-reversal" | "penalty-constellation";
-  eyebrow: string;
-  headline: string;
   match: {
     id: string;
     date: string;
@@ -158,6 +154,8 @@ type FeaturedMatch = {
   featuredPlayers: FeaturedPlayer[];
 };
 
+type FeaturedMatch = FeaturedMatchFact & OpeningMatchEdit;
+
 type CareerDuelSeason = {
   n: number;
   season: string;
@@ -169,7 +167,7 @@ type MasterData = {
   counts: { matches: number; events: number; lineups: number };
   firstMatch: { id: string; date: string; opponent: string; score: string; clubName: string };
   matches: MatchPoint[];
-  featuredMatches: FeaturedMatch[];
+  featuredMatches: FeaturedMatchFact[];
   careerDuel: { ronaldo: CareerDuelSeason[]; best: CareerDuelSeason[] };
   lateGoals: LateGoal[];
   fergieEchoes: Echo[];
@@ -452,14 +450,14 @@ function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
-function travelState(frame: number): { x: number; energy: number; anticipation: number; settle: number } {
-  let x = DATA.featuredMatches[0].x;
+function travelState(frame: number, matches: readonly FeaturedMatch[]): { x: number; energy: number; anticipation: number; settle: number } {
+  let x = matches[0].x;
   let anticipation = 0;
   let settle = 0;
 
-  for (let index = 1; index < DATA.featuredMatches.length; index++) {
-    const previous = DATA.featuredMatches[index - 1];
-    const next = DATA.featuredMatches[index];
+  for (let index = 1; index < matches.length; index++) {
+    const previous = matches[index - 1];
+    const next = matches[index];
     const travelStart = next.start - 48;
     const travelEnd = next.start - 14;
     anticipation = Math.max(anticipation, windowed(frame, travelStart - 10, travelStart - 4, travelStart, travelStart + 5));
@@ -483,8 +481,8 @@ function travelState(frame: number): { x: number; energy: number; anticipation: 
   return { x, energy: 0, anticipation, settle };
 }
 
-function featuredMatchMotion(frame: number, match: FeaturedMatch, end: number) {
-  const firstMatch = match.matchId === DATA.featuredMatches[0].matchId;
+function featuredMatchMotion(frame: number, match: FeaturedMatch, end: number, firstMatchId = match.matchId) {
+  const firstMatch = match.matchId === firstMatchId;
   const enter = smoothstep(match.start - (firstMatch ? 18 : 42), match.start + 5, frame);
   const exit = smoothstep(end - 48, end - 12, frame);
 
@@ -493,20 +491,6 @@ function featuredMatchMotion(frame: number, match: FeaturedMatch, end: number) {
     exit,
     presence: enter * (1 - exit),
   };
-}
-
-const MUSIC_LEVEL = 0.82;
-const MUSIC_TAIL_FROM = 83.4 * FPS;
-const MUSIC_TAIL_SOURCE = 77.4 * FPS;
-
-function musicHeadVolume(frame: number): number {
-  return MUSIC_LEVEL * (1 - smoothstep(MUSIC_TAIL_FROM, MUSIC_TAIL_FROM + 24, frame));
-}
-
-function musicTailVolume(frame: number): number {
-  const enter = smoothstep(0, 24, frame);
-  const exit = 1 - smoothstep(150, 198, frame);
-  return MUSIC_LEVEL * enter * exit;
 }
 
 function Fonts() {
@@ -760,8 +744,8 @@ function BenchReversalSignature({ match, progress }: { match: FeaturedMatch; pro
   );
 }
 
-function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; frame: number; end: number }) {
-  const { enter, exit, presence } = featuredMatchMotion(frame, match, end);
+function FeaturedMatchSignature({ match, frame, end, firstMatchId }: { match: FeaturedMatch; frame: number; end: number; firstMatchId: string }) {
+  const { enter, exit, presence } = featuredMatchMotion(frame, match, end, firstMatchId);
   // Finish the signature animation before travel/exit begins so the card can be read.
   const progressEnd = Math.min(end - 52, match.start + 90);
   const progress = smoothstep(match.start - 8, progressEnd, frame);
@@ -787,11 +771,10 @@ function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; f
   );
 }
 
-function HistoricalTimeline({ frame }: { frame: number }) {
-  const duration = ACT.openingUntil;
+function HistoricalTimeline({ frame, matches, duration }: { frame: number; matches: readonly FeaturedMatch[]; duration: number }) {
   const opacity = sceneOpacity(frame, duration, 36);
   // One travelling thread head drives the camera through four match cards.
-  const travel = travelState(frame);
+  const travel = travelState(frame, matches);
   const cameraX = 960 - travel.x + travel.anticipation * 11 - travel.settle * 5;
   const draw = interpolate(
     frame,
@@ -812,10 +795,10 @@ function HistoricalTimeline({ frame }: { frame: number }) {
           </defs>
           <path d="M 74 676 C 520 645, 960 698, 1390 660 S 2210 632, 2680 675 S 3370 632, 4040 660" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.16 * draw} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} filter="url(#history-glow)" />
           <path d="M 74 676 C 520 645, 960 698, 1390 660 S 2210 632, 2680 675 S 3370 632, 4040 660" fill="none" stroke="url(#history-filament)" strokeWidth="3.4" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
-          {DATA.featuredMatches.map((event, index) => {
+          {matches.map((event, index) => {
             const arrived = smoothstep(event.start - 24, event.start + 8, frame);
-            const end = DATA.featuredMatches[index + 1]?.start ?? ACT.openingUntil;
-            const motion = featuredMatchMotion(frame, event, end);
+            const end = matches[index + 1]?.start ?? duration;
+            const motion = featuredMatchMotion(frame, event, end, matches[0].matchId);
             const european = event.match.competition.toLowerCase().includes("europe") || event.match.competition.toLowerCase().includes("champions");
             return (
               <g key={event.year} opacity={0.22 + arrived * 0.78}>
@@ -833,7 +816,7 @@ function HistoricalTimeline({ frame }: { frame: number }) {
             <circle cx={travel.x} cy="665" r={5.5 + travel.energy * 2.5} fill={travel.energy > 0.08 ? C.gold : C.cream} />
           </g>
         </svg>
-        {DATA.featuredMatches.map((event, index) => <FeaturedMatchSignature key={event.matchId} match={event} frame={frame} end={DATA.featuredMatches[index + 1]?.start ?? ACT.openingUntil} />)}
+        {matches.map((event, index) => <FeaturedMatchSignature key={event.matchId} match={event} frame={frame} end={matches[index + 1]?.start ?? duration} firstMatchId={matches[0].matchId} />)}
       </div>
       <AbsoluteFill style={{ opacity: travel.energy, background: "radial-gradient(46% 52% at 50% 61%, transparent 18%, rgba(3,2,2,.09) 56%, rgba(3,2,2,.28) 100%)" }} />
       <AbsoluteFill style={{ opacity: travel.settle, background: "radial-gradient(34% 40% at 50% 61%, rgba(245,197,24,.055), transparent 74%)" }} />
@@ -877,7 +860,7 @@ function EvidenceShirt({ number }: { number: number | null }) {
   );
 }
 
-function evidenceScore(match: FeaturedMatch): string {
+function evidenceScore(match: FeaturedMatchFact): string {
   const score = `${match.match.gf}–${match.match.ga}`;
   return match.match.penGf != null && match.match.penGa != null
     ? `${score} (${match.match.penGf}–${match.match.penGa} pens)`
@@ -902,7 +885,7 @@ function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number
             role: player.role,
             shirt: player.shirt,
             career_band: player.careerBand,
-          }, match.year),
+          }, yearOf(match.match.date)),
         }));
         const bands = PITCH_BAND_ORDER.map((band) => ({
           band,
@@ -923,7 +906,7 @@ function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number
         return (
           <div key={final.matchId} style={{ position: "relative", opacity: reveal, textAlign: "center" }}>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 12 }}>
-              <span style={{ fontFamily: MONO, fontSize: 20, fontWeight: 700, color: C.ink }}>{match.year}</span>
+              <span style={{ fontFamily: MONO, fontSize: 20, fontWeight: 700, color: C.ink }}>{yearOf(match.match.date)}</span>
               <span style={{ fontFamily: SANS, fontSize: 14, color: C.dim }}>v {match.match.opponent}</span>
               <span style={{ fontFamily: MONO, fontSize: 13, color: C.gold }}>{evidenceScore(match)}</span>
             </div>
@@ -1609,30 +1592,28 @@ function CaptionBurn({ frame, enabled }: { frame: number; enabled: boolean }) {
   );
 }
 
-export function RedThreadMasterV2({ withAudio = true, withCaptions = false }: { withAudio?: boolean; withCaptions?: boolean }) {
+export function RedThreadFilm({ editionId, withAudio = true, withCaptions = false }: RedThreadFilmProps) {
   const frame = useCurrentFrame();
+  const edition = getFilmEdition(editionId);
+  const factsById = new Map(DATA.featuredMatches.map((match) => [match.matchId, match]));
+  const openingMatches = edition.openingMatches.map((edit) => {
+    const fact = factsById.get(edit.matchId);
+    if (!fact) throw new Error(`Film data is missing match: ${edit.matchId}`);
+    return { ...fact, ...edit };
+  });
   return (
     <AbsoluteFill style={{ color: C.ink, fontFamily: SANS }}>
       <Fonts />
-      <Field energy={smoothstep(0, MASTER_DURATION_SECONDS * FPS, frame)} />
-      {frame < ACT.openingUntil + 30 && <HistoricalTimeline frame={frame} />}
-      {frame >= ACT.rhymeFrom && frame < ACT.rhymeUntil && <RhymeLoop frame={frame - ACT.rhymeLocalOrigin} />}
-      {frame >= ACT.fergieFrom && frame < ACT.fergieUntil && <FergieConstellation frame={frame - ACT.fergieLocalOrigin} />}
-      {frame >= ACT.trebleFrom && frame < ACT.trebleUntil && <TreblePocket frame={frame - ACT.trebleLocalOrigin} />}
-      {frame >= ACT.fortressFrom && frame < ACT.fortressUntil && <Fortress frame={frame - ACT.fortressLocalOrigin} />}
-      {frame >= ACT.recordFrom && <RecordOpens frame={frame - ACT.recordLocalOrigin} />}
+      <Field energy={smoothstep(0, edition.durationInFrames, frame)} />
+      {frame < edition.openingDurationInFrames + 30 && <HistoricalTimeline frame={frame} matches={openingMatches} duration={edition.openingDurationInFrames} />}
+      {edition.acts.rhyme && frame >= ACT.rhymeFrom && frame < ACT.rhymeUntil && <RhymeLoop frame={frame - ACT.rhymeLocalOrigin} />}
+      {edition.acts.fergie && frame >= ACT.fergieFrom && frame < ACT.fergieUntil && <FergieConstellation frame={frame - ACT.fergieLocalOrigin} />}
+      {edition.acts.treble && frame >= ACT.trebleFrom && frame < ACT.trebleUntil && <TreblePocket frame={frame - ACT.trebleLocalOrigin} />}
+      {edition.acts.fortress && frame >= ACT.fortressFrom && frame < ACT.fortressUntil && <Fortress frame={frame - ACT.fortressLocalOrigin} />}
+      {edition.acts.receipt && frame >= ACT.recordFrom && <RecordOpens frame={frame - ACT.recordLocalOrigin} />}
       <FilmKicker frame={frame} />
       <CaptionBurn frame={frame} enabled={withCaptions || !withAudio} />
-      {withAudio && (
-        <>
-          <Sequence from={0} durationInFrames={MUSIC_TAIL_FROM + 24} layout="none">
-            <Audio src={staticFile("video/audio/master-v3.mp3")} volume={(f) => musicHeadVolume(f)} />
-          </Sequence>
-          <Sequence from={MUSIC_TAIL_FROM} durationInFrames={198} layout="none">
-            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={MUSIC_TAIL_SOURCE} volume={(f) => musicTailVolume(f)} />
-          </Sequence>
-        </>
-      )}
+      {withAudio && <AudioTimeline plan={getAudioPlan(edition.audioPlanId)} />}
     </AbsoluteFill>
   );
 }

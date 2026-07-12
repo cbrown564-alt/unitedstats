@@ -2,9 +2,9 @@
 
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
-## Master v8 — 90 seconds
+## European master — 90 seconds
 
-`red-thread-master-v8` keeps the four-card opening from the hybrid cut, then
+`red-thread-european-master-90` keeps the four-card opening from the approved v8 cut, then
 restores the fuller v5 middle, with the Fergie act using the stories shared
 countdown:
 
@@ -43,7 +43,7 @@ npm run video:render:opening
 npm run video:render
 ```
 
-The data fixture is rebuilt locally by `npm run video:prepare`. The master score
+The factual data fixture and edition contracts are checked by `npm run video:prepare`. The master score
 is an authored, timestamped Lyria 3 Pro generation cached at
 `public/video/audio/master-v3.mp3`; regenerate it deliberately with
 `npm run video:score:force`, not on every render. Picture splices the cached 84s
@@ -51,15 +51,16 @@ score into its close tail to cover the 90s cut, using a short crossfade at the
 edit and a clean fade at the end. V8 deliberately uses the score alone: the
 older procedural SFX stems remain as iteration records but are not mixed into
 the master.
-The current master is written to `output/video/red-thread-master-v8.mp4`; use
+The current master is written to `output/video/releases/european-master-90/film.mp4`; use
 `npm run video:render:prototype` only to reproduce the earlier 14-second study.
 
 ## Source contract
 
 - `generated-master-data.json` is the frozen master data fixture.
-- `featured-match-manifest.ts` holds editorial visual choices for the opening
-  run; scores, events, lineups and player media remain generated. European Cup
-  finals use dedicated signatures (`extra-time-burst`, `bench-reversal`).
+- `data/match-library.ts` declares the factual matches available to films.
+- `editions/` holds timing, copy, match selection and signature choices. The
+  generated fixture contains scores, events, lineups and player media only.
+- `audio/plans.ts` holds score edits, gains and fades independently of picture.
 - `film-data.ts` is the earlier prototype's claim and asset manifest.
 - The Best monument is CC0 (Hans Peters / Anefo).
 - The Ronaldo monument is CC BY 2.0 (Gordon Flood).
@@ -69,7 +70,7 @@ The current master is written to `output/video/red-thread-master-v8.mp4`; use
   stored alongside the audio in `master-v3.json`.
 - Superseded procedural SFX stems and their cue manifests remain under
   `public/video/audio/` for provenance and comparison. They are intentionally
-  excluded from v8 after the final sound-design audit found that their tonal
+  excluded from the European master after the final sound-design audit found that their tonal
   ticks and impacts competed with the score rather than clarifying the picture.
 - Captions for mute/review playback: `public/video/captions/master-v8.vtt`; the
   silent composition burns the same cue list on-screen.

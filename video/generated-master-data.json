@@ -42212,12 +42212,6 @@
   "featuredMatches": [
     {
       "matchId": "1886-10-30-fleetwood-rangers-a",
-      "year": 1886,
-      "x": 220,
-      "start": 24,
-      "visualMode": "first-xi",
-      "eyebrow": "30 OCTOBER 1886",
-      "headline": "The first XI.",
       "featuredPlayers": [
         {
           "id": "jack-doughty",
@@ -42421,13 +42415,274 @@
       ]
     },
     {
+      "matchId": "1954-10-16-chelsea-a",
+      "featuredPlayers": [
+        {
+          "id": "dennis-viollet",
+          "name": "Dennis Viollet",
+          "image": "/media/players/dennis-viollet.webp",
+          "imagePage": "https://commons.wikimedia.org/wiki/File:Dennis_Viollet_1957.jpg",
+          "imageLicense": "Public domain",
+          "apps": 293,
+          "goals": 179,
+          "firstYear": 1953,
+          "lastYear": 1962
+        }
+      ],
+      "match": {
+        "id": "1954-10-16-chelsea-a",
+        "date": "1954-10-16",
+        "opponent": "Chelsea",
+        "venue": "A",
+        "stadium": "Stamford Bridge",
+        "competition": "First Division",
+        "round": null,
+        "gf": 6,
+        "ga": 5,
+        "aet": false,
+        "penGf": null,
+        "penGa": null,
+        "eventsComplete": true,
+        "hasLineup": true
+      },
+      "events": [
+        {
+          "seq": 0,
+          "type": "goal",
+          "playerId": "dennis-viollet",
+          "player": "Dennis Viollet",
+          "side": "united",
+          "minute": 15,
+          "added": null
+        },
+        {
+          "seq": 6,
+          "type": "opp-goal",
+          "playerId": null,
+          "player": "Seamus O'Connell",
+          "side": "opponent",
+          "minute": 20,
+          "added": null
+        },
+        {
+          "seq": 9,
+          "type": "opp-goal",
+          "playerId": null,
+          "player": "Jim Lewis",
+          "side": "opponent",
+          "minute": 35,
+          "added": null
+        },
+        {
+          "seq": 3,
+          "type": "goal",
+          "playerId": "tommy-taylor",
+          "player": "Tommy Taylor",
+          "side": "united",
+          "minute": 38,
+          "added": null
+        },
+        {
+          "seq": 1,
+          "type": "goal",
+          "playerId": "dennis-viollet",
+          "player": "Dennis Viollet",
+          "side": "united",
+          "minute": 41,
+          "added": null
+        },
+        {
+          "seq": 4,
+          "type": "goal",
+          "playerId": "tommy-taylor",
+          "player": "Tommy Taylor",
+          "side": "united",
+          "minute": 47,
+          "added": null
+        },
+        {
+          "seq": 2,
+          "type": "goal",
+          "playerId": "dennis-viollet",
+          "player": "Dennis Viollet",
+          "side": "united",
+          "minute": 57,
+          "added": null
+        },
+        {
+          "seq": 10,
+          "type": "opp-goal",
+          "playerId": null,
+          "player": "Ken Armstrong",
+          "side": "opponent",
+          "minute": 61,
+          "added": null
+        },
+        {
+          "seq": 5,
+          "type": "goal",
+          "playerId": "jackie-blanchflower",
+          "player": "Jackie Blanchflower",
+          "side": "united",
+          "minute": 63,
+          "added": null
+        },
+        {
+          "seq": 7,
+          "type": "opp-goal",
+          "playerId": null,
+          "player": "Seamus O'Connell",
+          "side": "opponent",
+          "minute": 67,
+          "added": null
+        },
+        {
+          "seq": 8,
+          "type": "opp-goal",
+          "playerId": null,
+          "player": "Seamus O'Connell",
+          "side": "opponent",
+          "minute": 76,
+          "added": null
+        }
+      ],
+      "lineup": [
+        {
+          "playerId": "ray-wood",
+          "name": "Ray Wood",
+          "side": "united",
+          "shirt": 1,
+          "role": null,
+          "careerBand": "GK",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "bill-foulkes",
+          "name": "Bill Foulkes",
+          "side": "united",
+          "shirt": 2,
+          "role": null,
+          "careerBand": "DEF",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "roger-byrne",
+          "name": "Roger Byrne",
+          "side": "united",
+          "shirt": 3,
+          "role": null,
+          "careerBand": "DEF",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "don-gibson",
+          "name": "Don Gibson",
+          "side": "united",
+          "shirt": 4,
+          "role": null,
+          "careerBand": "MID",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "allenby-chilton",
+          "name": "Allenby Chilton",
+          "side": "united",
+          "shirt": 5,
+          "role": null,
+          "careerBand": "MID",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "duncan-edwards",
+          "name": "Duncan Edwards",
+          "side": "united",
+          "shirt": 6,
+          "role": null,
+          "careerBand": "MID",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "johnny-berry",
+          "name": "Johnny Berry",
+          "side": "united",
+          "shirt": 7,
+          "role": null,
+          "careerBand": "FWD",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "jackie-blanchflower",
+          "name": "Jackie Blanchflower",
+          "side": "united",
+          "shirt": 8,
+          "role": null,
+          "careerBand": "MID",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "tommy-taylor",
+          "name": "Tommy Taylor",
+          "side": "united",
+          "shirt": 9,
+          "role": null,
+          "careerBand": "FWD",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "dennis-viollet",
+          "name": "Dennis Viollet",
+          "side": "united",
+          "shirt": 10,
+          "role": null,
+          "careerBand": "FWD",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        },
+        {
+          "playerId": "jack-rowley",
+          "name": "Jack Rowley",
+          "side": "united",
+          "shirt": 11,
+          "role": null,
+          "careerBand": "FWD",
+          "started": true,
+          "bench": false,
+          "subOn": null,
+          "subOff": null
+        }
+      ]
+    },
+    {
       "matchId": "1968-05-29-benfica-n",
-      "year": 1968,
-      "x": 2310,
-      "start": 150,
-      "visualMode": "extra-time-burst",
-      "eyebrow": "29 MAY 1968",
-      "headline": "Level at ninety. Three in seven minutes.",
       "featuredPlayers": [
         {
           "id": "george-best",
@@ -42663,12 +42918,6 @@
     },
     {
       "matchId": "1999-05-26-bayern-munich-n",
-      "year": 1999,
-      "x": 3080,
-      "start": 285,
-      "visualMode": "bench-reversal",
-      "eyebrow": "26 MAY 1999",
-      "headline": "The bench enters history.",
       "featuredPlayers": [
         {
           "id": "teddy-sheringham",
@@ -42899,12 +43148,6 @@
     },
     {
       "matchId": "2008-05-21-chelsea-n",
-      "year": 2008,
-      "x": 3520,
-      "start": 415,
-      "visualMode": "penalty-constellation",
-      "eyebrow": "21 MAY 2008",
-      "headline": "Decided from the spot.",
       "featuredPlayers": [
         {
           "id": "cristiano-ronaldo",

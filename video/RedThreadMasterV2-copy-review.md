@@ -1,6 +1,6 @@
 # Red Thread Master V2 — full copy review
 
-Scope: every fixed, viewer-facing line in `RedThreadMasterV2.tsx`, plus the templates that render data-driven copy and the optional caption track. Pure data values (player names, opponents, dates, scores, minutes, match IDs, and archive counts) are inventoried separately rather than rewritten as slogans.
+Scope: every fixed, viewer-facing line in `compositions/RedThreadFilm.tsx` (formerly `RedThreadMasterV2.tsx`), plus the templates that render data-driven copy and the optional caption track. Pure data values (player names, opponents, dates, scores, minutes, match IDs, and archive counts) are inventoried separately rather than rewritten as slogans.
 
 ## Recommended editorial direction
 

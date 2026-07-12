@@ -34,7 +34,7 @@ if (!process.env.GEMINI_API_KEY) {
 }
 
 const prompt = `
-Create an exactly 60-second, instrumental-only score for a cinematic data film about 140 years of football history. Modern cinematic minimalism and tactile analogue electronica at 82 BPM in a dark, warm tonality. The moving red filament is the protagonist. Use restrained prepared-piano ticks, warm sub-bass pulse, subtle bowed-wire texture, soft frame-drum impacts, granular tape movement and detailed stereo depth. Premium documentary sound: intimate, curious and emotionally precise, never bombastic.
+Create an exactly 84-second, instrumental-only score for a cinematic data film about 140 years of football history. Modern cinematic minimalism and tactile analogue electronica at 82 BPM in a dark, warm tonality. The moving red filament is the protagonist. Use restrained prepared-piano ticks, warm sub-bass pulse, subtle bowed-wire texture, soft frame-drum impacts, granular tape movement and detailed stereo depth. Premium documentary sound: intimate, curious and emotionally precise, never bombastic.
 
 [0:00 - 0:12] Archive ignition. Begin almost silently with a tactile pulse and bowed-wire overtone. Add small material accents as a few historical knots pass. Patient forward movement; no conventional melody yet.
 [0:12 - 0:26] Forty-year time loop. Widen the harmony gradually as the line circles from 2008 to 1968 and back. Make the completed circle feel inevitable and moving, not triumphant. Let a restrained prepared-piano motif emerge. Two fact landings only — do not overcrowd with fanfares.
@@ -77,7 +77,7 @@ writeFileSync(rawOutput, Buffer.from(audioBlock.data, "base64"));
 const sourceDuration = Number(execFileSync(ffprobe, [
   "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", rawOutput,
 ], { encoding: "utf8" }).trim());
-const targetDuration = 60;
+const targetDuration = 84;
 const tempo = sourceDuration / targetDuration;
 execFileSync(ffmpeg, [
   "-y", "-i", rawOutput,

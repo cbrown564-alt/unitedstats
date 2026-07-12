@@ -5,7 +5,7 @@ import { comparePlayers } from "../lib/compare";
 import { fergieTimeEchoes, fortressRun } from "../lib/journey";
 import { eventsForMatch, lineupForMatch, matchById, playerById } from "../lib/queries";
 import { lateGoalScatter, leadHeldAtHome } from "../lib/trails";
-import { FEATURED_MATCH_MANIFEST } from "../video/featured-match-manifest";
+import { FILM_MATCH_LIBRARY } from "../video/data/match-library";
 
 type MatchPoint = {
   id: string;
@@ -64,7 +64,7 @@ if (!careerComparison || careerComparison.signature?.kind !== "career") {
   throw new Error("Ronaldo / Best career comparison is unavailable");
 }
 
-const featuredMatches = FEATURED_MATCH_MANIFEST.map((entry) => {
+const featuredMatches = FILM_MATCH_LIBRARY.map((entry) => {
   const match = matchById(entry.matchId);
   if (!match) throw new Error(`Featured film match is unavailable: ${entry.matchId}`);
 

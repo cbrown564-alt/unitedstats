@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d0b0a" />
+    <title>UnitedStats · OpenGraph design lab</title>
+    <style>
+      :root {
+        --pitch: #0d0b0a;
+        --ink: #f3ede8;
+        --muted: #a89c94;
+        --faint: #6f645d;
+        --line: #2b2521;
+        --panel: #161311;
+        --red: #ef3b22;
+        --gold: #ffd94a;
+        --paper: #e8e0d5;
+        --paper-ink: #171311;
+        --sans: Arial, Helvetica, sans-serif;
+        --display: Georgia, 'Times New Roman', serif;
+        --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+      }
+
+      * { box-sizing: border-box; }
+      html { background: var(--pitch); color: var(--ink); scroll-behavior: smooth; }
+      body { margin: 0; font-family: var(--sans); line-height: 1.5; }
+      button { font: inherit; }
+      a { color: inherit; }
+
+      .shell { width: min(1420px, calc(100% - 40px)); margin: 0 auto; }
+      .masthead { display: flex; justify-content: space-between; gap: 24px; align-items: end; padding: 32px 0 28px; border-bottom: 1px solid var(--line); }
+      .eyebrow, .label { color: var(--red); font: 700 11px/1.2 var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+      .brand { font-size: 13px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+      .brand b { color: var(--red); }
+      h1, h2, h3, p { margin: 0; }
+      h1 { max-width: 780px; margin-top: 10px; font: 700 clamp(34px, 5vw, 74px)/.96 var(--display); letter-spacing: -.045em; }
+      .dek { max-width: 680px; margin-top: 16px; color: var(--muted); font-size: 15px; line-height: 1.65; }
+      .meta { color: var(--faint); font: 12px var(--mono); white-space: nowrap; }
+
+      .decision-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
+      .decision { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; }
+      .decision strong { color: var(--ink); font-size: 15px; }
+      .decision-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px rgba(255,217,74,.1); }
+      .switcher { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--line); background: var(--panel); }
+      .switcher button { border: 0; padding: 9px 12px; color: var(--muted); background: transparent; cursor: pointer; font: 700 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+      .switcher button:hover, .switcher button[aria-pressed="true"] { color: var(--ink); background: #29211e; }
+
+      .prototype-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding: 34px 0 48px; }
+      .prototype { min-width: 0; }
+      .prototype[hidden] { display: none; }
+      .prototype-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 10px; }
+      .prototype h2 { font: 700 23px/.98 var(--display); letter-spacing: -.02em; }
+      .prototype-number { color: var(--red); font: 12px var(--mono); }
+      .premise { min-height: 62px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+      .preview { position: relative; overflow: hidden; aspect-ratio: 1200 / 630; margin-top: 18px; border: 1px solid var(--line); box-shadow: 0 22px 60px rgba(0,0,0,.26); }
+      .preview > * { position: absolute; }
+      .signal { background: var(--pitch); }
+      .signal::before { content: ''; position: absolute; inset: 0; opacity: .4; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 9% 16%, 9% 16%; }
+      .signal::after { content: ''; inset: 0 auto 0 0; width: 7px; background: var(--red); }
+      .poster { background: #13100e; }
+      .poster::before { content: ''; inset: 0; background: linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.72) 42%, rgba(12,11,10,.1) 100%), linear-gradient(0deg, rgba(12,11,10,.9), transparent 55%), url('media/journey/old-trafford.webp') center/cover; opacity: .9; }
+      .poster::after { content: ''; right: 0; bottom: 0; width: 38%; height: 7px; background: var(--red); }
+      .archive { color: var(--paper-ink); background: var(--paper); }
+      .archive::before { content: ''; inset: 0; opacity: .24; background-image: linear-gradient(#73685f 1px, transparent 1px), linear-gradient(90deg, #73685f 1px, transparent 1px); background-size: 5.5% 100%, 100% 100%; }
+      .archive::after { content: ''; inset: 0 0 0 auto; width: 34%; background: #1b1715; }
+      .archive-photo { right: 6%; top: 16%; width: 22%; height: 48%; object-fit: cover; filter: grayscale(1); opacity: .82; z-index: 1; }
+      .signal i { display: block; flex: 1; min-width: 0; background: rgba(239,59,34,.55); }
+      .art-copy { inset: 8% 6%; display: flex; flex-direction: column; justify-content: space-between; z-index: 2; }
+      .art-top, .art-foot { display: flex; justify-content: space-between; align-items: start; gap: 12px; font-size: clamp(7px, 1.3vw, 12px); }
+      .art-top .muted, .art-foot .muted { color: var(--faint); }
+      .art-main { max-width: 72%; }
+      .art-main .label { margin-bottom: 9px; font-size: clamp(7px, 1.1vw, 11px); }
+      .art-main h3 { max-width: 13ch; font: 700 clamp(22px, 4.1vw, 56px)/.92 var(--display); letter-spacing: -.055em; }
+      .art-stat { display: flex; align-items: baseline; gap: 9px; margin-top: 16px; }
+      .art-stat strong { color: var(--gold); font: 400 clamp(28px, 4.5vw, 62px)/1 var(--mono); }
+      .art-stat span { max-width: 130px; color: var(--muted); font-size: clamp(8px, 1.2vw, 13px); line-height: 1.15; }
+      .poster .art-main { max-width: 60%; }
+      .poster .art-main h3 { max-width: 12ch; font-family: var(--sans); font-size: clamp(23px, 4.5vw, 62px); font-weight: 800; letter-spacing: -.065em; }
+      .poster .art-main .label { color: var(--gold); }
+      .poster .art-top { color: var(--ink); }
+      .poster .art-top .muted, .poster .art-foot .muted { color: #d6cbc2; }
+      .poster .art-foot strong { color: var(--gold); font: 400 clamp(24px, 3.5vw, 50px)/1 var(--mono); }
+      .poster .art-foot { align-items: end; color: #d6cbc2; text-transform: uppercase; letter-spacing: .12em; }
+      .archive .art-main { max-width: 64%; }
+      .archive .art-main .label { color: #c13a26; }
+      .archive .art-main h3 { max-width: 10ch; text-transform: uppercase; }
+      .archive .art-main p { max-width: 280px; margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(22,19,18,.3); color: #554b44; font-size: clamp(8px, 1.2vw, 13px); }
+      .archive .art-foot { padding-right: 31%; }
+      .archive .art-foot strong { color: #c13a26; font: 400 clamp(23px, 3.4vw, 48px)/1 var(--mono); }
+
+      .tradeoff { min-height: 72px; margin-top: 14px; padding: 0 0 0 13px; border-left: 2px solid var(--line); color: var(--faint); font-size: 12px; line-height: 1.6; }
+      .tradeoff b { color: var(--muted); }
+
+      .evidence { display: grid; grid-template-columns: .8fr 1.2fr; gap: 42px; padding: 28px 0 46px; border-top: 1px solid var(--line); }
+      .evidence h2 { margin-top: 7px; font: 700 clamp(26px, 4vw, 47px)/.98 var(--display); letter-spacing: -.04em; }
+      .evidence-copy { color: var(--muted); font-size: 14px; line-height: 1.7; }
+      .evidence-copy p + p { margin-top: 14px; }
+      .score-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 12px; }
+      .score-table th, .score-table td { padding: 10px 8px; border-top: 1px solid var(--line); text-align: left; }
+      .score-table th { color: var(--faint); font: 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+      .score-table th:not(:first-child), .score-table td:not(:first-child) { text-align: center; }
+      .score-table td { color: var(--muted); }
+      .score-table td:first-child { color: var(--ink); }
+      .score { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; padding: 4px 6px; color: var(--ink); background: #29211e; font: 700 11px var(--mono); }
+      .score.best { color: var(--pitch); background: var(--gold); }
+
+      .guardrails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+      .guardrail { min-height: 150px; padding: 20px; background: var(--panel); }
+      .guardrail h3 { margin: 8px 0 7px; font-size: 14px; }
+      .guardrail p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+      footer { padding: 24px 0 40px; color: var(--faint); font: 11px var(--mono); }
+
+      @media (max-width: 900px) {
+        .shell { width: min(100% - 28px, 680px); }
+        .masthead, .decision-bar { display: block; }
+        .meta { display: block; margin-top: 18px; }
+        .switcher { margin-top: 18px; width: fit-content; max-width: 100%; overflow-x: auto; }
+        .prototype-grid { display: block; padding-top: 26px; }
+        .prototype + .prototype { margin-top: 42px; }
+        .premise, .tradeoff { min-height: 0; }
+        .evidence { display: block; }
+        .evidence-copy { margin-top: 18px; }
+        .guardrails { grid-template-columns: 1fr; }
+        .guardrail { min-height: 0; }
+      }
+
+      @media (max-width: 520px) {
+        .shell { width: min(100% - 22px, 680px); }
+        h1 { font-size: 42px; }
+        .art-copy { inset: 8% 6%; }
+        .art-main h3, .poster .art-main h3, .archive .art-main h3 { font-size: 28px; }
+        .art-main .label { font-size: 8px; }
+        .art-stat strong, .poster .art-foot strong, .archive .art-foot strong { font-size: 26px; }
+        .art-top, .art-foot { font-size: 7px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <div class="eyebrow">Dev · OpenGraph design lab</div>
+          <h1>Make the share image feel like UnitedStats.</h1>
+          <p class="dek">Three intentionally different directions for a 1200 × 630 share card. Compare the job each one does, then use the decision notes to choose a production path.</p>
+        </div>
+        <div class="meta">RED THREAD / OG-01<br />CURRENT PALETTE + ARCHIVE MEDIA</div>
+      </header>
+
+      <section class="decision-bar" aria-label="Decision summary">
+        <div class="decision"><span class="decision-dot" aria-hidden="true"></span><span>Current read: <strong>poster frame + data inset</strong></span></div>
+        <nav class="switcher" aria-label="Prototype filter">
+          <button type="button" data-filter="all" aria-pressed="true">Compare all</button>
+          <button type="button" data-filter="signal" aria-pressed="false">01 Signal</button>
+          <button type="button" data-filter="poster" aria-pressed="false">02 Poster</button>
+          <button type="button" data-filter="archive" aria-pressed="false">03 Archive</button>
+        </nav>
+      </section>
+
+      <section class="prototype-grid" aria-label="Prototype directions">
+        <article class="prototype" data-prototype="signal">
+          <div class="prototype-head"><h2>Answer signal</h2><span class="prototype-number">01</span></div>
+          <p class="premise">Keep the evidence object as the hero. The card answers the question before the click.</p>
+          <div class="preview signal" role="img" aria-label="Dark answer signal prototype">
+            <div class="art-copy">
+              <div class="art-top"><span class="brand"><b>RED</b> THREAD</span><span class="muted">TESTED AGAINST THE RECORD</span><span class="muted">1986 — 2026</span></div>
+              <div class="art-main"><div class="label">A question with a number behind it</div><h3>Did United really win late?</h3><div class="art-stat"><strong>18.4%</strong><span>of goals arrived after 75′ in the Ferguson era</span></div></div>
+              <div class="art-foot"><span class="muted">6,800+ matches</span><span class="muted">coverage shown</span><span class="muted">open dataset</span></div>
+            </div>
+            <div style="right: 8%; bottom: 22%; width: 31%; height: 18%; display: flex; align-items: end; gap: 3%; border-bottom: 1px solid rgba(255,255,255,.2); z-index: 2;">
+              <i style="height: 38%"></i><i style="height: 53%"></i><i style="height: 29%"></i><i style="height: 68%"></i><i style="height: 44%"></i><i style="height: 84%"></i><i style="height: 57%"></i><i style="height: 76%"></i><i style="height: 92%; background: var(--gold)"></i><i style="height: 63%; background: var(--gold)"></i><i style="height: 100%; background: var(--gold)"></i><i style="height: 72%; background: var(--gold)"></i>
+            </div>
+          </div>
+          <p class="tradeoff"><b>Tradeoff:</b> Most legible and easiest to roll into the existing renderer; the media is supporting evidence.</p>
+        </article>
+
+        <article class="prototype" data-prototype="poster">
+          <div class="prototype-head"><h2>Match-night poster</h2><span class="prototype-number">02</span></div>
+          <p class="premise">Let rich archive media carry the emotional entry point, then pin a hard statistic over it.</p>
+          <div class="preview poster" role="img" aria-label="Image-led match-night poster prototype">
+            <div class="art-copy">
+              <div class="art-top"><span class="brand"><b>RED</b> THREAD</span><span class="muted">OG / 02</span></div>
+              <div class="art-main"><div class="label">A night in the record</div><h3>The noise stops. The pattern stays.</h3><p class="muted" style="margin-top: 12px; max-width: 240px; font-size: clamp(8px, 1.2vw, 13px);">Every match since 1886, with the finding and the evidence in the frame.</p></div>
+              <div class="art-foot"><strong>6,800+</strong><span>matches<br />open evidence</span></div>
+            </div>
+          </div>
+          <p class="tradeoff"><b>Tradeoff:</b> Most memorable in a feed; needs careful image selection and contrast testing per card.</p>
+        </article>
+
+        <article class="prototype" data-prototype="archive">
+          <div class="prototype-head"><h2>Archive cover</h2><span class="prototype-number">03</span></div>
+          <p class="premise">Treat every shared link like a small piece of club ephemera: date, place, finding, provenance.</p>
+          <div class="preview archive" role="img" aria-label="Editorial archive cover prototype">
+            <img class="archive-photo" src="media/journey/camp-nou.webp" alt="Historic European football stadium" />
+            <div class="art-copy">
+              <div class="art-top"><span class="brand"><b>RED</b> THREAD</span><span class="muted">FIELD NOTE 001 / 1886—NOW</span></div>
+              <div class="art-main"><div class="label">MANCHESTER UNITED / THE FULL LEDGER</div><h3>History, with receipts.</h3><p>Ask a question. Get the answer. Follow every match back to the source.</p></div>
+              <div class="art-foot"><strong>1886—</strong><span class="muted">sourced<br />match by match</span></div>
+            </div>
+          </div>
+          <p class="tradeoff"><b>Tradeoff:</b> Most distinctive editorially; the type system has less room for long dynamic titles.</p>
+        </article>
+      </section>
+
+      <section class="evidence" aria-labelledby="recommendation-title">
+        <div>
+          <div class="eyebrow">Recommendation to test first</div>
+          <h2 id="recommendation-title">Start with the poster. Borrow the signal.</h2>
+        </div>
+        <div class="evidence-copy">
+          <p>The image-led treatment is the clearest step-change from plain cards, while the answer signal is the strongest ingredient to preserve: one finding, one figure, one readable shape.</p>
+          <p>The likely production direction is a poster frame with a data inset—not a full-bleed photo that asks the reader to infer the point.</p>
+          <table class="score-table">
+            <thead><tr><th>Criterion</th><th>Signal</th><th>Poster</th><th>Archive</th></tr></thead>
+            <tbody>
+              <tr><td>Trust / clarity</td><td><span class="score best">5</span></td><td><span class="score">4</span></td><td><span class="score">4</span></td></tr>
+              <tr><td>Feed memorability</td><td><span class="score">3</span></td><td><span class="score best">5</span></td><td><span class="score">4</span></td></tr>
+              <tr><td>Dynamic content fit</td><td><span class="score best">5</span></td><td><span class="score">3</span></td><td><span class="score">2</span></td></tr>
+              <tr><td>MVP feasibility</td><td><span class="score best">5</span></td><td><span class="score">4</span></td><td><span class="score">3</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="guardrails" aria-label="Production guardrails">
+        <div class="guardrail"><div class="label">01 / Message</div><h3>Lead with the finding</h3><p>Every card should expose one clear question or stat before the viewer opens the link.</p></div>
+        <div class="guardrail"><div class="label">02 / Image</div><h3>Use media as proof</h3><p>Choose a calm crop with enough tonal room for text; never let the photograph carry the whole meaning.</p></div>
+        <div class="guardrail"><div class="label">03 / System</div><h3>Design for variation</h3><p>Keep titles to a tested character range, reserve the gold for the key figure, and preserve the red thread.</p></div>
+      </section>
+
+      <footer>UnitedStats / internal design review · OpenGraph canvas: 1200 × 630</footer>
+    </main>
+    <script>
+      const buttons = [...document.querySelectorAll('[data-filter]')];
+      const prototypes = [...document.querySelectorAll('[data-prototype]')];
+      buttons.forEach((button) => button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        prototypes.forEach((prototype) => { prototype.hidden = filter !== 'all' && prototype.dataset.prototype !== filter; });
+      }));
+    </script>
+  </body>
+</html>
