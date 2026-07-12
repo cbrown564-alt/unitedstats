@@ -34,19 +34,18 @@ if (!process.env.GEMINI_API_KEY) {
 }
 
 const prompt = `
-Create an exactly 84-second, instrumental-only score for a cinematic data film about 140 years of football history. Modern cinematic minimalism and tactile analogue electronica at 82 BPM in a dark, warm tonality. The moving red filament is the protagonist. Use restrained prepared-piano ticks, warm sub-bass pulse, subtle bowed-wire texture, soft frame-drum impacts, granular tape movement and detailed stereo depth. Premium documentary sound: intimate, curious and emotionally precise, never bombastic.
+Create an exactly 60-second, instrumental-only score for a cinematic data film about 140 years of football history. Modern cinematic minimalism and tactile analogue electronica at 82 BPM in a dark, warm tonality. The moving red filament is the protagonist. Use restrained prepared-piano ticks, warm sub-bass pulse, subtle bowed-wire texture, soft frame-drum impacts, granular tape movement and detailed stereo depth. Premium documentary sound: intimate, curious and emotionally precise, never bombastic.
 
-[0:00 - 0:17] Archive ignition. Begin almost silently with a tactile pulse and bowed-wire overtone. Add small material accents as historical knots pass. Patient forward movement; no conventional melody yet.
-[0:17 - 0:36] Forty-year time loop. Widen the harmony gradually as the line circles from 2008 to 1968 and back. Make the completed circle feel inevitable and moving, not triumphant. Let a restrained prepared-piano motif emerge.
-[0:36 - 0:54] Eleven days in May. The analogue pulse becomes firmer. Land three increasingly weighty but controlled rhythmic accents while the motif develops. Build momentum without turning into an anthem.
-[0:54 - 1:08] Late pressure. Remove most harmonic support around the match clock. Use negative space, a minimal heartbeat-like pulse and granular tape tension, followed by two precise release impacts. Avoid literal alarm-clock ticking.
-[1:08 - 1:18] Fortress. Settle into architectural low resonance, grounded percussion and deep stereo space. Convey scale and certainty without menace.
-[1:18 - 1:24] The line continues. Open into restrained wonder and forward motion. End with one warm harmonic opening and a clean resonant tail, not a grand finale or abrupt stop.
+[0:00 - 0:12] Archive ignition. Begin almost silently with a tactile pulse and bowed-wire overtone. Add small material accents as a few historical knots pass. Patient forward movement; no conventional melody yet.
+[0:12 - 0:26] Forty-year time loop. Widen the harmony gradually as the line circles from 2008 to 1968 and back. Make the completed circle feel inevitable and moving, not triumphant. Let a restrained prepared-piano motif emerge. Two fact landings only — do not overcrowd with fanfares.
+[0:26 - 0:43] Eleven days in May. The analogue pulse becomes firmer. Land three increasingly weighty but controlled rhythmic accents while the motif develops. Build momentum without turning into an anthem.
+[0:43 - 0:54] Late pressure. Remove most harmonic support around the match clock. Use negative space, a minimal heartbeat-like pulse and granular tape tension, then open into a field of late goals — one scale bloom, not a second architectural act.
+[0:54 - 1:00] The line continues. Open into restrained wonder and forward motion as a receipt resolves. End with one warm harmonic opening and a clean resonant tail, not a grand finale or abrupt stop.
 
 Strictly no vocals, speech, choir, crowd chants, stadium recordings, football commentary, rock guitars, EDM drops, trailer braams, heroic brass, bombastic orchestra, jump scares, cheesy victory music, marching band, sports anthem or sentimental string swell.
 `;
 
-console.log("Generating an authored 84-second Lyria 3 Pro score…");
+console.log("Generating an authored 60-second Lyria 3 Pro score…");
 const response = await fetch("https://generativelanguage.googleapis.com/v1beta/interactions", {
   method: "POST",
   headers: {
@@ -78,7 +77,7 @@ writeFileSync(rawOutput, Buffer.from(audioBlock.data, "base64"));
 const sourceDuration = Number(execFileSync(ffprobe, [
   "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", rawOutput,
 ], { encoding: "utf8" }).trim());
-const targetDuration = 84;
+const targetDuration = 60;
 const tempo = sourceDuration / targetDuration;
 execFileSync(ffmpeg, [
   "-y", "-i", rawOutput,

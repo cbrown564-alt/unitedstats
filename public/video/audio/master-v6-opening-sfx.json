@@ -1,25 +1,27 @@
 {
   "method": "deterministic procedural synthesis",
   "sampleRate": 48000,
-  "durationSeconds": 18,
+  "durationSeconds": 12,
   "pictureStartSeconds": 0,
   "cues": {
-    "firstXi": 0.74,
+    "firstXi": 0.7,
     "threadTravels": [
-      1.5666666666666667,
-      4.666666666666667,
-      7.666666666666667,
-      10.8
+      1.4,
+      3.9,
+      5.4,
+      6.9
     ],
     "threadLandings": [
-      2.7,
-      5.8,
-      8.8,
-      11.933333333333334
+      2.533333333333333,
+      5.033333333333333,
+      6.533333333333333,
+      8.033333333333333
     ],
-    "scoreStorm": 3.25,
-    "extraTimeBurst": 7.18,
-    "benchReversal": 10.72,
-    "shootoutResolve": 15.35
+    "scoreStorm": 3.1,
+    "yearMarks": [
+      5.55,
+      7.05
+    ],
+    "shootoutResolve": 10.7
   }
 }

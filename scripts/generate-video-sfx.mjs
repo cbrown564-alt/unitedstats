@@ -122,6 +122,6 @@ mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, buffer);
 writeFileSync(
   resolve("public/video/audio/master-v5-sfx.json"),
-  `${JSON.stringify({ method: "deterministic procedural synthesis", sampleRate: SAMPLE_RATE, durationSeconds: DURATION, pictureStartSeconds: 36, cues: { leagueRelease: 41.3, cupRelease: 45.5, europeanEqualiser: 48.55, europeanWinner: 49.3, treblePayoff: 50.65 } }, null, 2)}\n`,
+  `${JSON.stringify({ method: "deterministic procedural synthesis", sampleRate: SAMPLE_RATE, durationSeconds: DURATION, pictureStartSeconds: 25.7, cues: { leagueRelease: 30.9, cupRelease: 35.1, europeanEqualiser: 38.15, europeanWinner: 38.9, treblePayoff: 40.25 } }, null, 2)}\n`,
 );
 process.stdout.write(`Generated ${output} (${DURATION}s stereo, normalized peak ${targetPeak.toFixed(2)})\n`);
