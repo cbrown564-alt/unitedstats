@@ -215,29 +215,35 @@ function clamp01(value: number): number {
   return Math.max(0, Math.min(1, value));
 }
 
-function travelState(frame: number): { x: number; energy: number } {
+function travelState(frame: number): { x: number; energy: number; anticipation: number; settle: number } {
   let x = DATA.featuredMatches[0].x;
+  let anticipation = 0;
+  let settle = 0;
 
   for (let index = 1; index < DATA.featuredMatches.length; index++) {
     const previous = DATA.featuredMatches[index - 1];
     const next = DATA.featuredMatches[index];
     const travelStart = next.start - 48;
     const travelEnd = next.start - 14;
+    anticipation = Math.max(anticipation, windowed(frame, travelStart - 10, travelStart - 4, travelStart, travelStart + 5));
+    settle = Math.max(settle, windowed(frame, travelEnd - 2, travelEnd + 3, travelEnd + 10, travelEnd + 20));
 
-    if (frame < travelStart) return { x, energy: 0 };
+    if (frame < travelStart) return { x, energy: 0, anticipation, settle };
     if (frame <= travelEnd) {
       const linear = clamp01((frame - travelStart) / (travelEnd - travelStart));
       const eased = THREAD_TRAVEL_EASE(linear);
       return {
         x: lerp(previous.x, next.x, eased),
         energy: Math.sin(linear * Math.PI),
+        anticipation,
+        settle,
       };
     }
 
     x = next.x;
   }
 
-  return { x, energy: 0 };
+  return { x, energy: 0, anticipation, settle };
 }
 
 function featuredMatchMotion(frame: number, match: FeaturedMatch, end: number) {
@@ -511,10 +517,13 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
 function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; frame: number; end: number }) {
   const { enter, exit, presence } = featuredMatchMotion(frame, match, end);
   const progress = smoothstep(match.start - 12, Math.min(end - 12, match.start + 58), frame);
-  const translateX = lerp(76, 0, enter) + lerp(0, -96, exit);
+  const translateX = lerp(58, 0, enter) + lerp(0, -72, exit);
   const translateY = lerp(18, 0, enter) + lerp(0, -8, exit);
   const scale = lerp(0.985, 1, enter) - exit * 0.012;
   const blur = (1 - enter) * 3.5 + exit * 2.5;
+  const bodyDepthX = lerp(22, 0, enter) + lerp(0, -26, exit);
+  const bodyDepthY = lerp(7, 0, enter) + lerp(0, -5, exit);
+  const footerDepthX = lerp(8, 0, enter) + lerp(0, -11, exit);
   const body = match.visualMode === "first-xi" ? <FirstXiSignature match={match} progress={progress} />
     : match.visualMode === "score-storm" ? <ScoreStormSignature match={match} progress={progress} />
     : match.visualMode === "extra-time-burst" ? <ExtraTimeSignature match={match} progress={progress} />
@@ -522,8 +531,8 @@ function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; f
     : <PenaltyConstellationSignature match={match} progress={progress} />;
   return (
     <div style={{ position: "absolute", left: match.x - 480, top: 184, width: 960, height: 430, opacity: presence, filter: `blur(${blur.toFixed(2)}px)`, transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`, transformOrigin: "50% 100%" }}>
-      {body}
-      <div style={{ position: "absolute", left: 18, right: 18, bottom: -34, display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: MONO, fontSize: 11, letterSpacing: "0.14em", color: C.faint }}>
+      <div style={{ position: "absolute", inset: 0, transform: `translate3d(${bodyDepthX}px, ${bodyDepthY}px, 0)` }}>{body}</div>
+      <div style={{ position: "absolute", left: 18, right: 18, bottom: -34, display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: MONO, fontSize: 11, letterSpacing: "0.14em", color: C.faint, transform: `translateX(${footerDepthX}px)` }}>
         <span>{match.eyebrow}</span><span>/match/{match.match.id}</span>
       </div>
     </div>
@@ -537,14 +546,14 @@ function HistoricalTimeline({ frame }: { frame: number }) {
   // match signatures, so the chronology reads as a continuous pull rather than
   // a sequence of independent slides.
   const travel = travelState(frame);
-  const cameraX = 960 - travel.x;
+  const cameraX = 960 - travel.x + travel.anticipation * 11 - travel.settle * 5;
   const draw = interpolate(
     frame,
     [0, 45, 75, 145, 175, 235, 265, 325, 355, 500],
     [0.025, 0.07, 0.45, 0.48, 0.6, 0.64, 0.78, 0.82, 0.94, 0.97],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: THREAD_TRAVEL_EASE },
   );
-  const worldScale = 1 + travel.energy * 0.014 + smoothstep(238, 460, frame) * 0.012;
+  const worldScale = 1 - travel.anticipation * 0.006 + travel.energy * 0.012 + travel.settle * 0.003 + smoothstep(238, 460, frame) * 0.012;
   return (
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", inset: 0, transform: `translate3d(${cameraX}px, 0, 0) scale(${worldScale})`, transformOrigin: `${travel.x}px 665px` }}>
@@ -580,6 +589,8 @@ function HistoricalTimeline({ frame }: { frame: number }) {
         </svg>
         {DATA.featuredMatches.map((event, index) => <FeaturedMatchSignature key={event.matchId} match={event} frame={frame} end={DATA.featuredMatches[index + 1]?.start ?? 510} />)}
       </div>
+      <AbsoluteFill style={{ opacity: travel.energy, background: "radial-gradient(46% 52% at 50% 61%, transparent 18%, rgba(3,2,2,.09) 56%, rgba(3,2,2,.28) 100%)" }} />
+      <AbsoluteFill style={{ opacity: travel.settle, background: "radial-gradient(34% 40% at 50% 61%, rgba(245,197,24,.055), transparent 74%)" }} />
       <div style={{ position: "absolute", right: 64, bottom: 46, opacity: smoothstep(360, 430, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>1886&nbsp;&nbsp;→&nbsp;&nbsp;2008</div>
     </AbsoluteFill>
   );

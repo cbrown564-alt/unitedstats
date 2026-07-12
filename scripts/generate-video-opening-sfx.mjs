@@ -40,6 +40,30 @@ function impact(time, pan, gain = 0.2, pitch = 82) {
   addTone({ start: time + 0.01, duration: 1.1, frequency: pitch * 4.5, gain: gain * 0.18, pan: -pan * 0.3, release: 1.05, glide: -0.18 });
 }
 
+function threadRush(start, duration, fromPan = 0.5, toPan = -0.55, gain = 0.022) {
+  const from = Math.max(0, Math.floor(start * SAMPLE_RATE));
+  const to = Math.min(samples, Math.ceil((start + duration) * SAMPLE_RATE));
+  let seed = Math.floor(start * 10_000) + 0x68;
+  let smoothedNoise = 0;
+
+  for (let index = from; index < to; index++) {
+    const progress = clamp((index / SAMPLE_RATE - start) / duration, 0, 1);
+    const envelope = Math.sin(progress * Math.PI) ** 1.7;
+    seed = (Math.imul(seed, 1_664_525) + 1_013_904_223) >>> 0;
+    const noise = (seed / 0xffffffff) * 2 - 1;
+    smoothedNoise += (noise - smoothedNoise) * 0.055;
+    const air = smoothedNoise * 0.72 + Math.sin(progress * Math.PI * 13) * 0.08;
+    const [gainL, gainR] = panGains(fromPan + (toPan - fromPan) * progress);
+    left[index] += air * envelope * gain * gainL;
+    right[index] += air * envelope * gain * gainR;
+  }
+}
+
+const threadTravels = [47 / 30, 140 / 30, 230 / 30, 324 / 30];
+const threadLandings = [81 / 30, 174 / 30, 264 / 30, 358 / 30];
+for (const start of threadTravels) threadRush(start, 34 / 30);
+for (const landing of threadLandings) impact(landing, -0.08, 0.055, 54);
+
 // 1886: eleven quiet names assemble around the first knot.
 for (let index = 0; index < 11; index++) tick(0.74 + index * 0.11, -0.72 + index * 0.144, 0.055, 390 + index * 13);
 impact(2.15, 0, 0.11, 66);
@@ -102,7 +126,7 @@ writeFileSync(resolve("public/video/audio/master-v6-opening-sfx.json"), `${JSON.
   sampleRate: SAMPLE_RATE,
   durationSeconds: DURATION,
   pictureStartSeconds: 0,
-  cues: { firstXi: 0.74, scoreStorm: 3.25, extraTimeBurst: 7.18, benchReversal: 10.72, shootoutResolve: 15.35 },
+  cues: { firstXi: 0.74, threadTravels, threadLandings, scoreStorm: 3.25, extraTimeBurst: 7.18, benchReversal: 10.72, shootoutResolve: 15.35 },
 }, null, 2)}\n`);
 process.stdout.write(`Generated ${output} (${DURATION}s stereo, normalized peak ${targetPeak.toFixed(2)})\n`);
 
