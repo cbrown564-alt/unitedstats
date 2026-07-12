@@ -80,9 +80,8 @@ export default function Home() {
         >
           <span className="stories-film-knot" aria-hidden />
           <div className="stories-film-heading">
-            <p className="stories-index-eyebrow">Red Thread / The film</p>
-            <h2 id="home-film-title" className="display">Ninety seconds. Five patterns.</h2>
-            <p>Watch the record move, then step into a night from the archive.</p>
+            <h2 id="home-film-title" className="display">Every United match since 1886</h2>
+            <p>A ninety-second tour — then open a night.</p>
           </div>
           <StoriesFilm />
         </section>
