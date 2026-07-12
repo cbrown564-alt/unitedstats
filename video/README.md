@@ -2,25 +2,27 @@
 
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
-## Master v6 lean — 60 seconds
+## Master v6 lean — 68 seconds
 
 `red-thread-master-v6` is the lean motion and sound master:
 
 1. opens three data-backed match signatures along the chronological line
    (1886 first XI, 1954 eleven-goal storm, 2008 penalty constellation),
-   passing 1968 and 1999 as year marks only so their proofs are not previewed;
+   each with readable dwell, passing 1968 and 1999 as year marks only so
+   their proofs are not previewed;
 2. reaches Ronaldo in 2008, then draws a complete time loop through Best in
    1968 and returns through 1999;
 3. lands two rhyme facts only: European Cup, and both No. 7s scoring in the
    final (Ballon d’Or / fifth-season inventory cut);
-4. enters the Treble fuse for the first full telling of the bench story;
+4. enters the Treble as a spin-off pocket around ghost 99 — three gold knots,
+   then BenchLatency proof that all three winners came from the bench;
 5. expands three Fergie-time echoes into all recorded post-85′ goals (the one
    scale bloom — Fortress omitted from this cut);
 6. finishes on the match field resolving into the real 1999 European final
    receipt and “Pull a thread.”
 
-The earlier 84-second inventory cut remains comparable via git history /
-`output/video/red-thread-master-v6.mp4` before re-render.
+The earlier 84-second inventory cut and the 60-second first lean pass remain
+comparable via git history / prior renders under `output/video/`.
 
 `generated-master-data.json` is rebuilt from the canonical database by
 `scripts/generate-video-data.ts`; it is not a hand-authored particle field.
@@ -43,8 +45,8 @@ npm run video:render
 The data fixture is rebuilt locally by `npm run video:prepare`. The master score
 is an authored, timestamped Lyria 3 Pro generation cached at
 `public/video/audio/master-v3.mp3`; regenerate it deliberately with
-`npm run video:score:force`, not on every render. Until a native 60s score is
-generated, picture splices the cached 84s score (0–54s + close tail from 78s).
+`npm run video:score:force`, not on every render. Until a native 68s score is
+generated, picture splices the cached 84s score (0–62s + close tail from 78s).
 The current master is written to `output/video/red-thread-master-v6.mp4`; use
 `npm run video:render:prototype` only to reproduce the earlier 14-second study.
 
@@ -72,5 +74,5 @@ The current master is written to `output/video/red-thread-master-v6.mp4`; use
   the opening and Treble ranges so the other stems keep ownership there.
 - Captions for mute/review playback: `public/video/captions/master-v6.vtt`; the
   silent composition burns the same cue list on-screen.
-- Master: 1920×1080, 30 fps, 1,800 frames / 60 seconds.
+- Master: 1920×1080, 30 fps, 2,040 frames / 68 seconds.
 - Prototype: 1920×1080, 30 fps, 420 frames / 14 seconds.

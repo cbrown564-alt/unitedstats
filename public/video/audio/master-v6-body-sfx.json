@@ -1,33 +1,33 @@
 {
   "method": "deterministic procedural synthesis",
   "sampleRate": 48000,
-  "durationSeconds": 60,
+  "durationSeconds": 68,
   "pictureStartSeconds": 0,
   "silentRangesSeconds": [
     [
       0,
-      12
+      18
     ],
     [
-      25.7,
-      42.7
+      28.7,
+      47.3
     ]
   ],
   "cues": {
-    "rhymeEnter": 11,
+    "rhymeEnter": 16,
     "rhymeFacts": [
-      15.67,
-      19
+      21.67,
+      25
     ],
-    "rhymeExit": 23,
-    "fergieClock": 41.5,
+    "rhymeExit": 29,
+    "fergieClock": 45.67,
     "fergieEchoes": [
-      42.5,
-      44,
-      45.5
+      46.6,
+      48.1,
+      49.6
     ],
-    "fergieBloom": 48.5,
-    "receiptLand": 54.7,
-    "ctaResolve": 56.5
+    "fergieBloom": 52,
+    "receiptLand": 61.3,
+    "ctaResolve": 62.7
   }
 }

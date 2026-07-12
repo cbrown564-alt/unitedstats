@@ -27,23 +27,25 @@ const C = {
 const SANS = "ArchivoMaster, Arial, sans-serif";
 const MONO = "PlexMaster, Consolas, monospace";
 const FPS = 30;
-/** Lean master: follow → loop → Treble → one scale bloom → receipt. */
-export const MASTER_DURATION_SECONDS = 60;
+/** Lean master: follow → loop → Treble pocket → one scale bloom → receipt. */
+export const MASTER_DURATION_SECONDS = 68;
+/** Opening composition length — three signatures with readable dwell. */
+export const OPENING_DURATION_FRAMES = 540;
 
 /** Global act windows (frames). Local scene clocks subtract the *LocalOrigin. */
 const ACT = {
-  openingUntil: 360,
-  rhymeFrom: 300,
-  rhymeLocalOrigin: 330,
-  rhymeUntil: 780,
-  trebleFrom: 740,
-  trebleLocalOrigin: 770,
-  trebleUntil: 1280,
-  fergieFrom: 1230,
-  fergieLocalOrigin: 1230,
-  fergieUntil: 1620,
-  recordFrom: 1560,
-  recordLocalOrigin: 1580,
+  openingUntil: OPENING_DURATION_FRAMES,
+  rhymeFrom: 480,
+  rhymeLocalOrigin: 510,
+  rhymeUntil: 900,
+  trebleFrom: 860,
+  trebleLocalOrigin: 890,
+  trebleUntil: 1420,
+  fergieFrom: 1370,
+  fergieLocalOrigin: 1370,
+  fergieUntil: 1780,
+  recordFrom: 1720,
+  recordLocalOrigin: 1740,
 } as const;
 
 type MatchPoint = {
@@ -276,10 +278,10 @@ function musicDuck(frame: number, inStart: number, inEnd: number, outStart: numb
 
 function masterMusicVolume(frame: number): number {
   const duck = Math.max(
-    musicDuck(frame, 470, 500, 680, 720), // rhyme facts land
-    musicDuck(frame, 1070, 1094, 1130, 1152), // Treble 90:00
-    musicDuck(frame, 1280, 1310, 1480, 1520), // Fergie clock tension
-    musicDuck(frame, 1640, 1665, 1720, 1760), // receipt / CTA
+    musicDuck(frame, 640, 670, 780, 820), // rhyme facts land
+    musicDuck(frame, 1240, 1265, 1300, 1330), // Treble Europe 90′
+    musicDuck(frame, 1400, 1430, 1580, 1620), // Fergie clock tension
+    musicDuck(frame, 1800, 1830, 1920, 1960), // receipt / CTA
   );
   return lerp(0.82, 0.24, duck);
 }
@@ -318,7 +320,7 @@ function Field({ energy = 0.5 }: { energy?: number }) {
 }
 
 function FilmKicker({ frame }: { frame: number }) {
-  const finalFade = 1 - smoothstep(1680, 1740, frame);
+  const finalFade = 1 - smoothstep(1920, 1980, frame);
   return (
     <div style={{ position: "absolute", left: 74, top: 56, display: "flex", alignItems: "center", gap: 16, opacity: finalFade, fontFamily: MONO, fontSize: 15, letterSpacing: "0.24em", color: C.faint }}>
       <span style={{ width: 8, height: 8, borderRadius: 20, background: C.red, boxShadow: `0 0 16px ${C.red}` }} />
@@ -366,9 +368,10 @@ function FirstXiSignature({ match, progress }: { match: FeaturedMatch; progress:
   ];
   return (
     <div style={{ position: "absolute", inset: 0 }}>
-      <div style={{ position: "absolute", left: 18, top: 0, width: 500 }}>
+      <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>NEWTON HEATH · 1886</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 48, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>The first recorded XI.</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 52, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>The first XI.</div>
+        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 22, color: C.dim }}>One match begins the record.</div>
         <div style={{ marginTop: 19 }}><MatchScore match={match} compact /></div>
       </div>
       <div style={{ position: "absolute", right: 0, top: -18, width: 405, height: 360, border: "1px solid rgba(243,237,232,.12)", background: "rgba(12,11,10,.42)", clipPath: "polygon(7% 0,100% 0,100% 100%,0 100%,0 9%)" }}>
@@ -410,7 +413,7 @@ function ScoreStormSignature({ match, progress }: { match: FeaturedMatch; progre
       <FilmPortrait player={match.featuredPlayers[0]} opacity={0.26} />
       <div style={{ position: "absolute", left: 18, top: 0 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>STAMFORD BRIDGE · 1954</div>
-        <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 51, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>Eleven timed goals.</div>
+        <div style={{ marginTop: 12, fontFamily: SANS, fontSize: 48, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>Eleven goals. One night.</div>
       </div>
       <svg width="870" height="330" style={{ position: "absolute", left: 0, bottom: -18, overflow: "visible" }}>
         <line x1="45" x2="805" y1="225" y2="225" stroke={C.faint} strokeOpacity="0.4" />
@@ -447,7 +450,7 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
       <FilmPortrait player={match.featuredPlayers[0]} side="left" opacity={0.4} />
       <div style={{ position: "absolute", right: 10, top: 0, width: 510 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>MOSCOW · 2008</div>
-        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 50, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Eleven marks decide it.</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 48, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Decided from the spot.</div>
       </div>
       <div style={{ position: "absolute", right: 55, bottom: 0, width: 430, height: 235 }}>
         {Array.from({ length: total }, (_, index) => {
@@ -469,7 +472,9 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
 function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; frame: number; end: number }) {
   if (match.visualMode === "year-mark") return null;
   const { enter, exit, presence } = featuredMatchMotion(frame, match, end);
-  const progress = smoothstep(match.start - 12, Math.min(end - 12, match.start + 58), frame);
+  // Finish the signature animation before travel/exit begins so the XI/storm can be read.
+  const progressEnd = Math.min(end - 52, match.start + 90);
+  const progress = smoothstep(match.start - 8, progressEnd, frame);
   const translateX = lerp(58, 0, enter) + lerp(0, -72, exit);
   const translateY = lerp(18, 0, enter) + lerp(0, -8, exit);
   const scale = lerp(0.985, 1, enter) - exit * 0.012;
@@ -499,11 +504,11 @@ function HistoricalTimeline({ frame }: { frame: number }) {
   const cameraX = 960 - travel.x + travel.anticipation * 11 - travel.settle * 5;
   const draw = interpolate(
     frame,
-    [0, 40, 70, 120, 150, 195, 220, 270, 310, 360],
+    [0, 50, 110, 160, 210, 280, 320, 360, 430, 540],
     [0.025, 0.08, 0.38, 0.42, 0.58, 0.64, 0.74, 0.82, 0.94, 0.97],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: THREAD_TRAVEL_EASE },
   );
-  const worldScale = 1 - travel.anticipation * 0.006 + travel.energy * 0.012 + travel.settle * 0.003 + smoothstep(200, 330, frame) * 0.012;
+  const worldScale = 1 - travel.anticipation * 0.006 + travel.energy * 0.012 + travel.settle * 0.003 + smoothstep(320, 480, frame) * 0.012;
   return (
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", inset: 0, transform: `translate3d(${cameraX}px, 0, 0) scale(${worldScale})`, transformOrigin: `${travel.x}px 665px` }}>
@@ -542,7 +547,7 @@ function HistoricalTimeline({ frame }: { frame: number }) {
       </div>
       <AbsoluteFill style={{ opacity: travel.energy, background: "radial-gradient(46% 52% at 50% 61%, transparent 18%, rgba(3,2,2,.09) 56%, rgba(3,2,2,.28) 100%)" }} />
       <AbsoluteFill style={{ opacity: travel.settle, background: "radial-gradient(34% 40% at 50% 61%, rgba(245,197,24,.055), transparent 74%)" }} />
-      <div style={{ position: "absolute", right: 64, bottom: 46, opacity: smoothstep(250, 310, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>1886&nbsp;&nbsp;→&nbsp;&nbsp;2008</div>
+      <div style={{ position: "absolute", right: 64, bottom: 46, opacity: smoothstep(420, 500, frame), fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.faint }}>1886&nbsp;&nbsp;→&nbsp;&nbsp;2008</div>
     </AbsoluteFill>
   );
 }
@@ -611,7 +616,7 @@ function RhymeLoop({ frame }: { frame: number }) {
 
       <div style={{ position: "absolute", top: 122, insetInline: 0, textAlign: "center", opacity: titleOpacity }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.26em", color: C.dim }}>1968&nbsp;&nbsp;↔&nbsp;&nbsp;2008</div>
-        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.04em" }}>The same summit.</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.04em" }}>Some nights return.</div>
       </div>
 
       {activeFact && (
@@ -644,133 +649,247 @@ function RhymeLedger({ side, frame }: { side: "left" | "right"; frame: number })
   );
 }
 
-const TREBLE_BEATS = [
+const TREBLE_DECIDERS = [
+  { date: "16 May", place: "Old Trafford", image: "media/journey/old-trafford.webp", objectPosition: "42% 48%" },
+  { date: "22 May", place: "Wembley", image: "media/journey/wembley.webp", objectPosition: "50% 40%" },
+  { date: "26 May", place: "Camp Nou", image: "media/journey/camp-nou.webp", objectPosition: "55% 42%" },
+] as const;
+
+const BENCH_SPANS = [
   {
-    start: 62, end: 190, day: "DAY 1 · 16 MAY", place: "THE LEAGUE", interval: "",
-    danger: "0–1", dangerLabel: "BEHIND AFTER 26′", player: "COLE", arrival: "ON 46′",
-    intervention: "WINNER · 48′", result: "2–1", coda: "FROM BEHIND.",
-    image: "media/journey/pl-celebration.webp",
+    label: "16 May · Tottenham",
+    competition: "Premier League",
+    rows: [{ on: 46, scored: 48, added: null as number | null, name: "Cole", latency: "two minutes" }],
   },
   {
-    start: 178, end: 306, day: "DAY 7 · 22 MAY", place: "THE CUP", interval: "SIX DAYS LATER",
-    danger: "0–0", dangerLabel: "NINTH MINUTE", player: "SHERINGHAM", arrival: "ON 9′",
-    intervention: "SCORED · 11′", result: "2–0", coda: "FROM THE BENCH. AGAIN.",
-    image: "media/journey/fa-cup-lift.webp",
+    label: "22 May · Newcastle",
+    competition: "FA Cup",
+    rows: [{ on: 9, scored: 11, added: null as number | null, name: "Sheringham", latency: "two minutes" }],
   },
   {
-    start: 294, end: 450, day: "DAY 11 · 26 MAY", place: "EUROPE", interval: "FOUR DAYS LATER",
-    danger: "0–1", dangerLabel: "NINETY MINUTES GONE", player: "SHERINGHAM + SOLSKJÆR", arrival: "BOTH SUBSTITUTES",
-    intervention: "90+1′ · 90+3′", result: "2–1", coda: "FROM BEHIND. AGAIN.",
-    image: "media/journey/barcelona-climax.webp",
+    label: "26 May · Bayern",
+    competition: "Champions League",
+    rows: [
+      { on: 67, scored: 90, added: 1, name: "Sheringham", latency: "stoppage" },
+      { on: 81, scored: 90, added: 3, name: "Solskjær", latency: "stoppage" },
+    ],
   },
 ] as const;
 
-function TreblePressureRail({ frame }: { frame: number }) {
-  const draw = smoothstep(10, 414, frame);
-  const points = [530, 965, 1390];
+const AXIS_END_MIN = 96;
+const benchPct = (minute: number) => (minute / AXIS_END_MIN) * 100;
+
+function TreblePlaceAtmosphere({ frame }: { frame: number }) {
   return (
-    <div style={{ position: "absolute", left: 0, right: 0, bottom: 58, height: 112 }}>
-      <svg width="1920" height="112" style={{ position: "absolute", inset: 0 }}>
+    <>
+      {TREBLE_DECIDERS.map((decider, index) => {
+        const knotAt = 90 + index * 55;
+        const op = smoothstep(knotAt, knotAt + 28, frame) * (1 - smoothstep(300, 340, frame)) * 0.28;
+        const side = index === 0 ? "left" : index === 2 ? "right" : "bottom";
+        const mask =
+          side === "left"
+            ? "linear-gradient(to right,#000 0%,#000 40%,transparent 92%),linear-gradient(to top,transparent 8%,#000 45%,transparent 100%)"
+            : side === "right"
+              ? "linear-gradient(to left,#000 0%,#000 40%,transparent 92%),linear-gradient(to top,transparent 8%,#000 45%,transparent 100%)"
+              : "linear-gradient(to top,#000 0%,#000 35%,transparent 88%),linear-gradient(to right,transparent 6%,#000 40%,#000 60%,transparent 94%)";
+        const box =
+          side === "left"
+            ? { left: 0, top: "16%", bottom: "22%", width: "38%" }
+            : side === "right"
+              ? { right: 0, top: "16%", bottom: "22%", width: "38%" }
+              : { left: "18%", right: "18%", bottom: 0, height: "36%" };
+        return (
+          <div key={decider.place} style={{ position: "absolute", ...box, opacity: op, WebkitMaskImage: mask, maskComposite: "intersect" }}>
+            <Img src={staticFile(decider.image)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: decider.objectPosition, filter: "grayscale(1) contrast(1.25) brightness(.72)" }} />
+            <AbsoluteFill style={{
+              background: side === "left"
+                ? "linear-gradient(to right,rgba(216,33,13,.72),rgba(216,33,13,.14),transparent)"
+                : side === "right"
+                  ? "linear-gradient(to left,rgba(216,33,13,.72),rgba(216,33,13,.14),transparent)"
+                  : "linear-gradient(to top,rgba(216,33,13,.55),rgba(216,33,13,.12),transparent)",
+              mixBlendMode: "color",
+            }} />
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+function TrebleSpinoffStage({ frame }: { frame: number }) {
+  const axisY = 210;
+  const axisX0 = 140;
+  const axisX1 = 1780;
+  const departX = 980;
+  const returnX = 1020;
+  const cx = 960;
+  const cy = 530;
+  const r = 205;
+  const neckY = cy - r;
+  const knotXY: [number, number][] = [
+    [cx - r, cy],
+    [cx, cy + r],
+    [cx + r, cy],
+  ];
+  const path =
+    `M ${axisX0} ${axisY} L ${departX} ${axisY} ` +
+    `C ${departX - 90} ${axisY + 30} ${cx + 130} ${neckY - 46} ${cx} ${neckY} ` +
+    `A ${r} ${r} 0 0 0 ${cx} ${cy + r} ` +
+    `A ${r} ${r} 0 0 0 ${cx} ${neckY} ` +
+    `C ${cx + 140} ${neckY - 42} ${returnX - 90} ${axisY + 6} ${returnX} ${axisY} ` +
+    `L ${axisX1} ${axisY}`;
+  const draw = interpolate(frame, [8, 280], [0.12, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: THREAD_TRAVEL_EASE });
+  const awaken = smoothstep(0, 36, frame);
+  const land = smoothstep(300, 360, frame);
+  const stageFade = 1 - smoothstep(300, 340, frame);
+  const ninetyNine = 0.05 + awaken * 0.04 + draw * 0.04 + land * 0.03;
+  return (
+    <div style={{ position: "absolute", inset: 0, opacity: stageFade }}>
+      <svg width="1920" height="1080" style={{ position: "absolute", inset: 0 }}>
         <defs>
-          <linearGradient id="treble-fuse" x1="0" x2="1"><stop offset="0" stopColor={C.red} /><stop offset="0.72" stopColor="#ff7149" /><stop offset="1" stopColor={C.gold} /></linearGradient>
-          <filter id="treble-fuse-glow" x="-20%" y="-800%" width="140%" height="1700%"><feGaussianBlur stdDeviation="8" /></filter>
+          <linearGradient id="treble-filament" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={C.red} stopOpacity="0.9" />
+            <stop offset="30%" stopColor="#ff5030" />
+            <stop offset="50%" stopColor="#ffd278" />
+            <stop offset="70%" stopColor="#ff5030" />
+            <stop offset="100%" stopColor={C.red} stopOpacity="0.9" />
+          </linearGradient>
+          <filter id="treble-pocket-glow" x="-20%" y="-80%" width="140%" height="260%"><feGaussianBlur stdDeviation="10" /></filter>
         </defs>
-        <path d="M 350 47 C 650 45, 1110 54, 1570 47" fill="none" stroke={C.red} strokeWidth="24" strokeOpacity={0.14 * draw} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} filter="url(#treble-fuse-glow)" />
-        <path d="M 350 47 C 650 45, 1110 54, 1570 47" fill="none" stroke="url(#treble-fuse)" strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
-        {TREBLE_BEATS.map((beat, index) => {
-          const arrival = smoothstep(beat.start, beat.start + 26, frame);
-          const settled = frame >= beat.end - 18;
+        <text x={cx} y={cy + 18} textAnchor="middle" fill={C.red} fillOpacity={ninetyNine} style={{ fontFamily: SANS, fontSize: 280, fontWeight: 800, letterSpacing: "-0.08em" }}>99</text>
+        <line x1={axisX0} y1={axisY} x2={axisX1} y2={axisY} stroke={C.red} strokeOpacity={0.08 + awaken * 0.1} strokeWidth="1.6" />
+        <text x={axisX0} y={axisY - 22} fill={C.dim} fillOpacity={0.2 + awaken * 0.35} style={{ fontFamily: MONO, fontSize: 18 }}>1886</text>
+        <text x={axisX1} y={axisY - 22} textAnchor="end" fill={C.dim} fillOpacity={0.2 + awaken * 0.35} style={{ fontFamily: SANS, fontSize: 18, fontWeight: 500, letterSpacing: "0.04em" }}>now</text>
+        <text x={departX} y={axisY - 26} textAnchor="middle" fill={C.ink} fillOpacity={0.35 + awaken * 0.55} style={{ fontFamily: MONO, fontSize: 28, fontWeight: 700 }}>1999</text>
+        <path d={path} fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={draw * 0.16} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} filter="url(#treble-pocket-glow)" />
+        <path d={path} fill="none" stroke="url(#treble-filament)" strokeWidth="3.6" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
+        <g opacity={lerp(0.5, 1, awaken)}>
+          <circle cx={departX} cy={axisY} r="22" fill="#fff" fillOpacity="0.08" />
+          <circle cx={departX} cy={axisY} r="13" fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="1.3" />
+          <circle cx={departX} cy={axisY} r="2.6" fill={C.cream} />
+        </g>
+        {TREBLE_DECIDERS.map((decider, index) => {
+          const [kx, ky] = knotXY[index];
+          const knotFrac = 0.34 + index * 0.18;
+          const op = smoothstep(knotFrac - 0.04, knotFrac + 0.04, draw);
+          const label =
+            index === 0
+              ? { x: kx - 28, y: ky - 4, anchor: "end" as const, placeY: ky + 24 }
+              : index === 1
+                ? { x: kx, y: ky + 38, anchor: "middle" as const, placeY: ky + 62 }
+                : { x: kx + 28, y: ky - 4, anchor: "start" as const, placeY: ky + 24 };
           return (
-            <g key={beat.day} opacity={0.18 + arrival * 0.82}>
-              <circle cx={points[index]} cy="49" r={settled ? 24 : 17} fill={C.gold} fillOpacity={0.12 + arrival * 0.1} />
-              <circle cx={points[index]} cy="49" r="7" fill={arrival > 0.5 ? C.gold : C.red} stroke={arrival > 0.5 ? C.cream : C.red} strokeWidth="1.4" />
-              <text x={points[index]} y="91" textAnchor="middle" fill={arrival > 0.5 ? C.ink : C.faint} style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.12em" }}>{["16 MAY", "22 MAY", "26 MAY"][index]}</text>
+            <g key={decider.date} opacity={op}>
+              <circle cx={kx} cy={ky} r="16" fill={C.gold} fillOpacity="0.16" />
+              <circle cx={kx} cy={ky} r="7" fill={C.gold} stroke={C.cream} strokeWidth="1.2" />
+              {index === 2 && <circle cx={kx} cy={ky} r={lerp(10, 22, smoothstep(260, 300, frame))} fill="none" stroke={C.gold} strokeOpacity={0.55 * (1 - smoothstep(300, 340, frame))} strokeWidth="1.5" />}
+              <text x={label.x} y={label.y} textAnchor={label.anchor} fill={C.dim} style={{ fontFamily: SANS, fontSize: 24, fontWeight: 500 }}>{decider.date}</text>
+              <text x={label.x} y={label.placeY} textAnchor={label.anchor} fill={C.faint} style={{ fontFamily: SANS, fontSize: 14, fontWeight: 500, letterSpacing: "0.14em" }}>{decider.place.toUpperCase()}</text>
             </g>
           );
         })}
-        <text x="748" y="29" textAnchor="middle" fill={C.faint} opacity={smoothstep(170, 205, frame)} style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.16em" }}>6 DAYS</text>
-        <text x="1178" y="29" textAnchor="middle" fill={C.faint} opacity={smoothstep(286, 320, frame)} style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.16em" }}>4 DAYS</text>
       </svg>
     </div>
   );
 }
 
-function TrebleNight({ frame, index }: { frame: number; index: number }) {
-  const beat = TREBLE_BEATS[index];
-  const local = frame - beat.start;
-  const intro = smoothstep(0, 24, local);
-  const intervention = smoothstep(index === 2 ? 78 : 56, index === 2 ? 96 : 72, local);
-  const result = smoothstep(index === 2 ? 104 : 86, index === 2 ? 130 : 108, local);
-  const leave = 1 - smoothstep(beat.end - beat.start - 24, beat.end - beat.start, local);
-  const opacity = intro * leave;
-  const dangerOpacity = 1 - smoothstep(index === 2 ? 68 : 44, index === 2 ? 82 : 58, local);
-  const resultPulse = smoothstep(0, 18, local - (index === 2 ? 110 : 92));
+function BenchLatencyFilm({ frame }: { frame: number }) {
+  const enter = smoothstep(300, 340, frame);
+  const leave = 1 - smoothstep(460, 500, frame);
+  const opacity = enter * leave;
+  const euroHold = windowed(frame, 400, 418, 438, 462);
   return (
     <div style={{ position: "absolute", inset: 0, opacity }}>
-      <div style={{ position: "absolute", left: 130, top: 120, width: 420, transform: `translateX(${lerp(-34, 0, intro)}px)` }}>
-        {beat.interval && <div style={{ marginBottom: 16, fontFamily: MONO, fontSize: 15, letterSpacing: "0.2em", color: C.red }}>{beat.interval}</div>}
-        <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: "0.18em", color: C.gold }}>{beat.day}</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 46, fontWeight: 600, letterSpacing: "-0.035em", color: C.ink }}>{beat.place}</div>
+      <div style={{ position: "absolute", left: 220, right: 220, top: 210, opacity: 1 - euroHold * 0.9 }}>
+        {BENCH_SPANS.map((night, nightIndex) => {
+          const nightArrive = smoothstep(305 + nightIndex * 22, 328 + nightIndex * 22, frame);
+          return (
+            <div key={night.label} style={{ marginBottom: 36, opacity: nightArrive, transform: `translateY(${lerp(18, 0, nightArrive)}px)` }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10, fontFamily: MONO, fontSize: 13, letterSpacing: "0.16em", color: C.faint }}>
+                <span>{night.label.toUpperCase()}</span>
+                <span>{night.competition.toUpperCase()}</span>
+              </div>
+              {night.rows.map((row) => {
+                const scoredAx = row.added ? 90 + row.added : row.scored;
+                const onPct = benchPct(row.on);
+                const scoredPct = benchPct(scoredAx);
+                const spanPct = Math.max(scoredPct - onPct, 0.4);
+                const mid = Math.min(Math.max(onPct + spanPct / 2, 8), 92);
+                const clock = row.added ? `${row.scored}+${row.added}′` : `${row.scored}′`;
+                return (
+                  <div key={`${row.name}-${row.on}`} style={{ position: "relative", marginBottom: night.rows.length > 1 ? 26 : 0, minHeight: 68 }}>
+                    <div style={{ position: "absolute", left: `${mid}%`, top: 0, transform: "translateX(-50%)", fontFamily: MONO, fontSize: 13, color: C.dim, whiteSpace: "nowrap" }}>
+                      <span style={{ color: C.faint }}>{row.on}′</span>
+                      {" → "}
+                      <span style={{ color: C.gold }}>{clock}</span>
+                    </div>
+                    <div style={{ position: "absolute", left: 0, right: 0, top: 26, height: 18 }}>
+                      <div style={{ position: "absolute", insetInline: 0, top: "50%", height: 1, background: "rgba(168,156,148,.18)", transform: "translateY(-50%)" }} />
+                      <div style={{ position: "absolute", left: `${benchPct(45)}%`, top: "50%", width: 1, height: 10, background: "rgba(168,156,148,.28)", transform: "translate(-50%,-50%)" }} />
+                      <div style={{ position: "absolute", left: `${benchPct(90)}%`, top: "50%", width: 1, height: 12, background: "rgba(168,156,148,.4)", transform: "translate(-50%,-50%)" }} />
+                      <div style={{ position: "absolute", left: `${onPct}%`, top: "50%", width: `${spanPct}%`, height: 3, borderRadius: 4, background: `linear-gradient(90deg,rgba(168,156,148,.5),${C.gold})`, transform: "translateY(-50%)" }} />
+                      <div style={{ position: "absolute", left: `${onPct}%`, top: "50%", width: 8, height: 8, borderRadius: 20, background: C.faint, transform: "translate(-50%,-50%)" }} />
+                      <div style={{ position: "absolute", left: `${scoredPct}%`, top: "50%", width: 14, height: 14, borderRadius: 20, background: C.gold, boxShadow: `0 0 16px rgba(245,197,24,.75)`, transform: "translate(-50%,-50%)" }} />
+                    </div>
+                    <div style={{ position: "absolute", left: `${mid}%`, top: 50, transform: "translateX(-50%)", textAlign: "center", whiteSpace: "nowrap" }}>
+                      <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: "0.14em", color: C.faint }}>{row.latency.toUpperCase()}</div>
+                      <div style={{ marginTop: 3, fontFamily: SANS, fontSize: 16, fontWeight: 600, color: C.dim }}>{row.name}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+        <div style={{ position: "relative", marginTop: 4, height: 18, fontFamily: MONO, fontSize: 12, letterSpacing: "0.14em", color: C.faint }}>
+          <span style={{ position: "absolute", left: 0 }}>0′</span>
+          <span style={{ position: "absolute", left: `${benchPct(45)}%`, transform: "translateX(-50%)" }}>45′</span>
+          <span style={{ position: "absolute", left: `${benchPct(90)}%`, transform: "translateX(-50%)" }}>90′</span>
+        </div>
       </div>
 
-      <div style={{ position: "absolute", left: 610, right: 150, top: 145, bottom: 210, borderLeft: "1px solid rgba(243,237,232,.14)", paddingLeft: 86 }}>
-        <div style={{ position: "absolute", left: 86, top: 34, opacity: dangerOpacity }}>
-          <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.2em", color: C.red }}>{beat.dangerLabel}</div>
-          <div style={{ marginTop: 8, fontFamily: MONO, fontSize: 154, lineHeight: 0.9, letterSpacing: "-0.08em", color: C.ink }}>{beat.danger}</div>
-        </div>
-
-        <div style={{ position: "absolute", left: 86, top: 18, opacity: intervention, transform: `translateY(${lerp(26, 0, intervention)}px)` }}>
-          <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.2em", color: C.gold }}>{beat.arrival}</div>
-          <div style={{ marginTop: 14, fontFamily: SANS, fontSize: index === 2 ? 48 : 58, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>{beat.player}</div>
-          <div style={{ marginTop: 16, fontFamily: MONO, fontSize: 26, color: C.gold }}>{beat.intervention}</div>
-        </div>
-
-        <div style={{ position: "absolute", right: 30, top: 36, width: 350, textAlign: "right", opacity: result, transform: `scale(${lerp(1.08, 1, resultPulse)})`, transformOrigin: "right top" }}>
-          <div style={{ fontFamily: MONO, fontSize: 152, lineHeight: 0.9, letterSpacing: "-0.08em", color: C.gold }}>{beat.result}</div>
-          <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 24, fontWeight: 600, letterSpacing: "0.08em", color: C.ink }}>{beat.coda}</div>
-        </div>
+      <div style={{ position: "absolute", left: 0, right: 0, top: 300, textAlign: "center", opacity: euroHold, transform: `scale(${lerp(0.96, 1, euroHold)})` }}>
+        <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.22em", color: C.red }}>NINETY MINUTES GONE</div>
+        <div style={{ marginTop: 12, fontFamily: MONO, fontSize: 148, lineHeight: 0.9, letterSpacing: "-0.08em", color: C.ink }}>0–1</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 24, color: C.dim }}>Then both from the bench.</div>
       </div>
     </div>
   );
 }
 
 function TreblePocket({ frame }: { frame: number }) {
-  const duration = 540;
+  const duration = 530;
   const opacity = sceneOpacity(frame, duration, 40);
-  const land = smoothstep(438, 478, frame);
-  const intro = windowed(frame, 4, 24, 48, 68);
+  const copyPhase = frame < 90 ? 0 : frame < 280 ? 1 : 2;
+  const copyLines = [
+    { line: "1998–99.", sub: "63 games." },
+    { line: "Three must-wins.", sub: "Final day. Cup final. European final." },
+    { line: "All three, from the bench.", sub: "The 16th. The 22nd. The 26th." },
+  ] as const;
+  const active = copyLines[copyPhase];
+  const copyOpacity = copyPhase === 0
+    ? windowed(frame, 6, 28, 72, 92)
+    : copyPhase === 1
+      ? windowed(frame, 92, 118, 260, 290)
+      : windowed(frame, 298, 318, 348, 368);
+  const land = smoothstep(450, 485, frame);
+  const handoff = smoothstep(486, 520, frame);
   return (
     <AbsoluteFill style={{ opacity }}>
-      {TREBLE_BEATS.map((beat, index) => {
-        const visible = windowed(frame, beat.start - 12, beat.start + 22, beat.end - 34, beat.end + 2);
-        const photoReveal = smoothstep(beat.start + (index === 2 ? 72 : 50), beat.start + (index === 2 ? 104 : 82), frame);
-        const zoom = lerp(1.055, 1.015, smoothstep(beat.start, beat.end, frame));
-        return (
-          <div key={beat.day} style={{ position: "absolute", inset: 0, opacity: visible * photoReveal * (index === 2 ? 0.42 : 0.32), transform: `scale(${zoom})`, WebkitMaskImage: "linear-gradient(to left,#000 0%,#000 38%,transparent 86%),linear-gradient(to top,transparent 0%,#000 30%,#000 82%,transparent 100%)", maskComposite: "intersect" }}>
-            <Img src={staticFile(beat.image)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: index === 2 ? "58% 42%" : "62% 40%", filter: "grayscale(1) contrast(1.28) brightness(.72)" }} />
-            <AbsoluteFill style={{ background: "linear-gradient(to left,rgba(216,33,13,.68),rgba(216,33,13,.16) 56%,transparent)", mixBlendMode: "color" }} />
-          </div>
-        );
-      })}
-      <div style={{ position: "absolute", left: 102, top: 80, fontFamily: SANS, fontSize: 360, fontWeight: 800, letterSpacing: "-0.09em", color: `rgba(216,33,13,${alpha(0.045 + land * 0.055)})` }}>11</div>
+      <TreblePlaceAtmosphere frame={frame} />
+      <TrebleSpinoffStage frame={frame} />
+      <BenchLatencyFilm frame={frame} />
 
-      <div style={{ position: "absolute", top: 118, insetInline: 0, textAlign: "center", opacity: intro, transform: `translateY(${lerp(24, 0, intro)}px)` }}>
-        <div style={{ fontFamily: MONO, fontSize: 17, letterSpacing: "0.25em", color: C.gold }}>1998–99 · THE TREBLE</div>
-        <div style={{ marginTop: 20, fontFamily: SANS, fontSize: 72, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Eleven days. No margin.</div>
-        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 25, color: C.dim }}>Three games. Lose one, and it is gone.</div>
+      <div style={{ position: "absolute", top: 96, insetInline: 0, textAlign: "center", opacity: copyOpacity * (1 - handoff), transform: `translateY(${lerp(18, 0, copyOpacity)}px)` }}>
+        <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.26em", color: C.gold }}>RED THREAD / 02</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: copyPhase === 2 ? 58 : 64, fontWeight: 600, letterSpacing: "-0.045em", color: C.ink }}>{active.line}</div>
+        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 22, color: C.dim }}>{active.sub}</div>
       </div>
 
-      {TREBLE_BEATS.map((_, index) => <TrebleNight key={index} frame={frame} index={index} />)}
-      <TreblePressureRail frame={frame} />
-
-      <div style={{ position: "absolute", inset: 0, opacity: land, background: "radial-gradient(64% 70% at 50% 48%,#2b0c08,#0c0b0a 76%)" }} />
-      <div style={{ position: "absolute", insetInline: 120, top: 184, opacity: land * (1 - smoothstep(500, 530, frame)), transform: `translateY(${lerp(30, 0, land)}px)`, textAlign: "center" }}>
-        <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: "0.26em", color: C.gold }}>THE IMPOSSIBLE ELEVEN DAYS</div>
-        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 78, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Three must-wins.<br />Two from behind.</div>
-        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 42, fontWeight: 600, color: C.gold }}>Every match-winner came from the bench.</div>
-        <div style={{ marginTop: 24, fontFamily: MONO, fontSize: 18, letterSpacing: "0.22em", color: C.ink }}>11 DAYS&nbsp;&nbsp;·&nbsp;&nbsp;3 WINS&nbsp;&nbsp;·&nbsp;&nbsp;3 TROPHIES</div>
+      <div style={{ position: "absolute", insetInline: 0, bottom: 64, textAlign: "center", opacity: land * (1 - handoff), transform: `translateY(${lerp(16, 0, land)}px)` }}>
+        <div style={{ fontFamily: SANS, fontSize: 20, color: C.dim }}><span style={{ fontFamily: MONO, fontWeight: 600, color: C.ink }}>3</span> trophies.</div>
       </div>
-      {/* Handoff: one late strike becomes the Fergie clock object */}
+
       <div style={{
         position: "absolute",
         left: "50%",
@@ -779,10 +898,10 @@ function TreblePocket({ frame }: { frame: number }) {
         height: 280,
         marginLeft: -140,
         marginTop: -140,
-        opacity: smoothstep(486, 520, frame),
-        transform: `scale(${lerp(0.4, 1.05, smoothstep(486, 535, frame))})`,
+        opacity: handoff,
+        transform: `scale(${lerp(0.4, 1.05, smoothstep(486, 530, frame))})`,
         borderRadius: 999,
-        border: `2px solid rgba(245,197,24,${0.35 + smoothstep(486, 535, frame) * 0.4})`,
+        border: `2px solid rgba(245,197,24,${0.35 + handoff * 0.4})`,
         boxShadow: "0 0 60px rgba(255,59,31,.25)",
         display: "grid",
         placeItems: "center",
@@ -964,17 +1083,17 @@ function RecordOpens({ frame }: { frame: number }) {
 }
 
 const CAPTIONS: { start: number; end: number; text: string }[] = [
-  { start: 18, end: 70, text: "1886 — the first recorded XI" },
-  { start: 90, end: 145, text: "1954 — eleven timed goals" },
-  { start: 255, end: 320, text: "2008 — eleven marks decide it" },
-  { start: 340, end: 470, text: "1968 ↔ 2008 — the same summit" },
-  { start: 470, end: 680, text: "Both No. 7. Both scored." },
-  { start: 780, end: 980, text: "1999 — eleven days, no margin" },
-  { start: 1070, end: 1210, text: "Three must-wins. Every winner from the bench." },
-  { start: 1250, end: 1450, text: "Fergie time — the same late shape" },
-  { start: 1450, end: 1580, text: `${DATA.lateGoals.length} goals after 85′` },
-  { start: 1600, end: 1720, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches — pull a thread` },
-  { start: 1720, end: 1800, text: "Every claim leads back to its receipt" },
+  { start: 24, end: 130, text: "1886 — the first XI" },
+  { start: 150, end: 250, text: "1954 — eleven goals, one night" },
+  { start: 390, end: 500, text: "2008 — decided from the spot" },
+  { start: 520, end: 640, text: "1968 ↔ 2008 — some nights return" },
+  { start: 650, end: 820, text: "Both No. 7. Both scored." },
+  { start: 900, end: 1180, text: "1998–99 — three must-wins" },
+  { start: 1190, end: 1370, text: "All three, from the bench." },
+  { start: 1400, end: 1600, text: "Fergie time — the same late shape" },
+  { start: 1600, end: 1740, text: `${DATA.lateGoals.length} goals after 85′` },
+  { start: 1780, end: 1920, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches — pull a thread` },
+  { start: 1920, end: 2040, text: "Every claim leads back to its receipt" },
 ];
 
 function CaptionBurn({ frame, enabled }: { frame: number; enabled: boolean }) {
@@ -1006,10 +1125,10 @@ function CaptionBurn({ frame, enabled }: { frame: number; enabled: boolean }) {
 
 function ActHandoffFilament({ frame }: { frame: number }) {
   const bridges = [
-    { start: 300, end: 360, d: "M 1490 696 C 1360 640, 1180 560, 980 520" }, // opening → rhyme
-    { start: 720, end: 790, d: "M 1490 696 C 1360 660, 1190 674, 980 696" }, // rhyme → 1999
-    { start: 1200, end: 1260, d: "M 960 540 C 960 480, 960 420, 960 360" }, // treble → clock
-    { start: 1520, end: 1590, d: "M 960 500 C 1180 640, 1500 800, 1814 888" }, // fergie → archive field
+    { start: 480, end: 540, d: "M 1490 696 C 1360 640, 1180 560, 980 520" }, // opening → rhyme
+    { start: 840, end: 910, d: "M 1490 696 C 1360 660, 1190 674, 980 696" }, // rhyme → 1999
+    { start: 1340, end: 1400, d: "M 960 540 C 960 480, 960 420, 960 360" }, // treble → clock
+    { start: 1680, end: 1750, d: "M 960 500 C 1180 640, 1500 800, 1814 888" }, // fergie → archive field
   ];
   return (
     <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
@@ -1045,17 +1164,17 @@ export function RedThreadMasterV2({ withAudio = true, withCaptions = false }: { 
       <CaptionBurn frame={frame} enabled={withCaptions || !withAudio} />
       {withAudio && (
         <>
-          <Sequence from={0} durationInFrames={54 * FPS} layout="none">
+          <Sequence from={0} durationInFrames={62 * FPS} layout="none">
             <Audio src={staticFile("video/audio/master-v3.mp3")} volume={(f) => masterMusicVolume(f)} />
           </Sequence>
-          <Sequence from={54 * FPS} durationInFrames={6 * FPS} layout="none">
-            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={78 * FPS} volume={(f) => masterMusicVolume(54 * FPS + f)} />
+          <Sequence from={62 * FPS} durationInFrames={6 * FPS} layout="none">
+            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={78 * FPS} volume={(f) => masterMusicVolume(62 * FPS + f)} />
           </Sequence>
           <Sequence from={0} durationInFrames={ACT.openingUntil}>
             <Audio src={staticFile("video/audio/master-v6-opening-sfx.wav")} volume={0.48} />
           </Sequence>
           <Audio src={staticFile("video/audio/master-v6-body-sfx.wav")} volume={0.52} />
-          <Sequence from={ACT.trebleLocalOrigin} durationInFrames={540}>
+          <Sequence from={ACT.trebleLocalOrigin} durationInFrames={530}>
             <Audio src={staticFile("video/audio/master-v5-sfx.wav")} volume={0.7} />
           </Sequence>
         </>

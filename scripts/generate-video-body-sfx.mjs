@@ -3,10 +3,10 @@ import { dirname, resolve } from "node:path";
 
 /**
  * Lean body stem: rhyme + Fergie + close.
- * Silent during 0–12s (opening) and ~25.7–42.7s (Treble; other stem owns that).
+ * Silent during 0–18s (opening) and ~28.7–47.3s (Treble; other stem owns that).
  */
 const SAMPLE_RATE = 48_000;
-const DURATION = 60;
+const DURATION = 68;
 const CHANNELS = 2;
 const samples = SAMPLE_RATE * DURATION;
 const left = new Float64Array(samples);
@@ -96,17 +96,17 @@ function clockTick(time, pan, gain = 0.05) {
 }
 
 const cues = {
-  rhymeEnter: 11.0,
-  rhymeFacts: [15.67, 19.0],
-  rhymeExit: 23.0,
-  fergieClock: 41.5,
-  fergieEchoes: [42.5, 44.0, 45.5],
-  fergieBloom: 48.5,
-  receiptLand: 54.7,
-  ctaResolve: 56.5,
+  rhymeEnter: 16.0,
+  rhymeFacts: [21.67, 25.0],
+  rhymeExit: 29.0,
+  fergieClock: 45.67,
+  fergieEchoes: [46.6, 48.1, 49.6],
+  fergieBloom: 52.0,
+  receiptLand: 61.3,
+  ctaResolve: 62.7,
 };
 
-// --- Rhyme loop (~11–26s): filament circle, two landed facts, exit to 1999 ---
+// --- Rhyme loop (~16–30s): filament circle, two landed facts, exit to 1999 ---
 filament(cues.rhymeEnter, 4.2, 0.038, 0.55, -0.55);
 addTone({ start: cues.rhymeEnter + 0.2, duration: 6.5, frequency: 73, gain: 0.035, attack: 0.8, release: 2.2, glide: 0.04, harmonics: [1, 2] });
 cues.rhymeFacts.forEach((time, index) => {
@@ -116,7 +116,7 @@ cues.rhymeFacts.forEach((time, index) => {
 filament(cues.rhymeExit, 2.2, 0.045, -0.2, 0.15);
 impact(cues.rhymeExit + 2.0, 0, 0.16, 62);
 
-// --- Fergie clock (~41–54s): tape tension, three echoes, late-goal bloom ---
+// --- Fergie clock (~46–59s): tape tension, three echoes, late-goal bloom ---
 pressure(cues.fergieClock, 5.2, 0.18);
 for (let index = 0; index < 14; index++) {
   const t = cues.fergieClock + 0.3 + index * 0.3;
@@ -130,9 +130,9 @@ filament(cues.fergieBloom, 3.2, 0.05, -0.5, 0.5);
 impact(cues.fergieBloom + 0.15, 0, 0.18, 54);
 for (let index = 0; index < 12; index++) tick(cues.fergieBloom + 0.35 + index * 0.16, -0.7 + index * 0.12, 0.035, 480 + (index % 5) * 35);
 
-// --- Close (~52–60s): field settle, receipt land, CTA ---
-filament(52.2, 2.8, 0.028, 0.4, -0.25);
-pressure(53.8, 1.2, 0.1);
+// --- Close (~57–68s): field settle, receipt land, CTA ---
+filament(57.5, 2.8, 0.028, 0.4, -0.25);
+pressure(59.2, 1.2, 0.1);
 impact(cues.receiptLand, -0.15, 0.2, 64);
 addTone({ start: cues.receiptLand, duration: 2.2, frequency: 196, gain: 0.04, attack: 0.02, release: 2.0, harmonics: [1, 2, 3] });
 impact(cues.ctaResolve, 0.1, 0.15, 88);
@@ -178,7 +178,7 @@ writeFileSync(
     sampleRate: SAMPLE_RATE,
     durationSeconds: DURATION,
     pictureStartSeconds: 0,
-    silentRangesSeconds: [[0, 12], [25.7, 42.7]],
+    silentRangesSeconds: [[0, 18], [28.7, 47.3]],
     cues,
   }, null, 2)}\n`,
 );

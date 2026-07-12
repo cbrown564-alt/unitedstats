@@ -1,6 +1,6 @@
 import { Composition } from "remotion";
 import { LOOP_PROTOTYPE } from "./film-data";
-import { MASTER_DURATION_SECONDS, RedThreadMasterV2 } from "./RedThreadMasterV2";
+import { MASTER_DURATION_SECONDS, OPENING_DURATION_FRAMES, RedThreadMasterV2 } from "./RedThreadMasterV2";
 import { RedThreadLoopPrototype } from "./RedThreadLoopPrototype";
 
 export function RemotionRoot() {
@@ -35,7 +35,7 @@ export function RemotionRoot() {
       <Composition
         id="red-thread-opening-v6"
         component={RedThreadMasterV2}
-        durationInFrames={360}
+        durationInFrames={OPENING_DURATION_FRAMES}
         fps={30}
         width={1920}
         height={1080}
