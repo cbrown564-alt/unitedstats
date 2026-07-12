@@ -2,30 +2,27 @@
 
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
-## Master v6 hybrid — 76 seconds
+## Master v7 — 90 seconds
 
-`red-thread-master-v6` combines four opening match cards with the lean second
-half, then restores Fortress before the receipt:
+`red-thread-master-v7` keeps the four-card opening from the hybrid cut, then
+restores the fuller v5 middle, with the Fergie act using the stories shared
+countdown:
 
 1. opens four data-backed match signatures along the chronological line
    (1886 first XI, 1968 extra-time burst, 1999 bench reversal, 2008 penalty
-   constellation) inside the lean 18s window — 1954 Chelsea dropped for dwell;
+   constellation) inside the lean 18s window;
 2. reaches Ronaldo in 2008, then draws a complete time loop through Best in
    1968 and returns through 1999;
-3. lands two rhyme facts only: European Cup, and both No. 7s scoring in the
-   final (Ballon d’Or / fifth-season inventory cut);
-4. enters the Treble as a spin-off pocket around ghost 99 — three gold knots,
-   then BenchLatency proof that all three winners came from the bench;
-5. expands three Fergie-time echoes into all recorded post-85′ goals, with the
-   three nights annotated on the scatter;
+3. lands four rhyme facts: European Cup, both No. 7s scoring in the final,
+   Ballon d’Or, and both peaking in their fifth United season;
+4. enters the Treble as the eleven-day fuse (three jeopardy nights → every
+   match-winner from the bench);
+5. runs the stories/fergie-time shared countdown (one clock, six strikes),
+   then blooms into all recorded post-85′ goals;
 6. enters Fortress OT as a dense lead-held wall inside the stadium card
    (three rescued cracks);
 7. finishes on the match field resolving into the real 1999 European final
    receipt and “Pull a thread.”
-
-The earlier 84-second inventory cut, the year-mark lean pass, and the 60-second
-first lean pass remain comparable via git history / prior renders under
-`output/video/`.
 
 `generated-master-data.json` is rebuilt from the canonical database by
 `scripts/generate-video-data.ts`; it is not a hand-authored particle field.
@@ -48,9 +45,9 @@ npm run video:render
 The data fixture is rebuilt locally by `npm run video:prepare`. The master score
 is an authored, timestamped Lyria 3 Pro generation cached at
 `public/video/audio/master-v3.mp3`; regenerate it deliberately with
-`npm run video:score:force`, not on every render. Until a native 68s score is
-generated, picture splices the cached 84s score (0–62s + close tail from 78s).
-The current master is written to `output/video/red-thread-master-v6.mp4`; use
+`npm run video:score:force`, not on every render. Picture splices the cached 84s
+score (0–84s + close tail from 78s) to cover the 90s cut.
+The current master is written to `output/video/red-thread-master-v7.mp4`; use
 `npm run video:render:prototype` only to reproduce the earlier 14-second study.
 
 ## Source contract
@@ -75,7 +72,7 @@ The current master is written to `output/video/red-thread-master-v6.mp4`; use
 - The rhyme, Fergie and close cues live in a body stem from
   `scripts/generate-video-body-sfx.mjs` (`master-v6-body-sfx.wav`), silent during
   the opening and Treble ranges so the other stems keep ownership there.
-- Captions for mute/review playback: `public/video/captions/master-v6.vtt`; the
+- Captions for mute/review playback: `public/video/captions/master-v7.vtt`; the
   silent composition burns the same cue list on-screen.
-- Master: 1920×1080, 30 fps, 2,280 frames / 76 seconds.
+- Master: 1920×1080, 30 fps, 2,700 frames / 90 seconds.
 - Prototype: 1920×1080, 30 fps, 420 frames / 14 seconds.

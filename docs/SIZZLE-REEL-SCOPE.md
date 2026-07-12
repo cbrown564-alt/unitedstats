@@ -5,16 +5,20 @@
 **Parent:** [`docs/JOURNEY.md`](./JOURNEY.md)  
 **Working title:** *The line through time*
 
-**Hybrid master v6 — built 12 July 2026:** a 76-second evaluation master
+**Hybrid master v7 — built 12 July 2026:** a 90-second evaluation master
 renders from `video/RedThreadMasterV2.tsx` to
-`output/video/red-thread-master-v6.mp4`. The opening keeps four canonical-data
+`output/video/red-thread-master-v7.mp4`. The opening keeps four canonical-data
 match signatures (1886 lineup, 1968 extra-time burst, 1999 bench reversal,
-2008 penalty constellation) inside the lean 18s window — the 1954 Chelsea
-score-storm is dropped so the European Cup finals keep readable dwell. From
-the Best↔Ronaldo comparison onward: two rhyme facts, Treble spin-off pocket,
-Fergie-time bloom (three annotated nights → full late-goal scatter), Fortress
-OT as a dense lead-held wall with three rescued cracks, and the 1999 final
-receipt before “Pull a thread.”
+2008 penalty constellation) inside the lean 18s window. From the Best↔Ronaldo
+comparison through Fergie bloom, the cut restores the fuller v5 middle: four
+rhyme facts (including Ballon d’Or and fifth United season), the eleven-day
+Treble fuse, and the stories/fergie-time shared countdown (one clock, six
+strikes) blooming into the late-goal scatter. Fortress OT and the 1999 final
+receipt close the film.
+
+**Prior hybrid master v6 (76s, 12 July 2026):** four opening cards with a lean
+two-fact rhyme, Treble spin-off pocket, Fergie clock hero, Fortress, and
+receipt — kept as a comparison artifact at `output/video/red-thread-master-v6.mp4`.
 
 **Prior match-rich master v6 (84s, 11 July 2026):** five opening signatures,
 four rhyme facts, Fortress act, and closing KPI strip — still a comparison

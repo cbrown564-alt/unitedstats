@@ -22,7 +22,7 @@ export type FeaturedMatchManifestEntry = {
  * foreground and how it should behave on film.
  *
  * Hybrid cut: four match cards in the lean 18s opening (1886, both European Cup
- * finals, 2008), then the lean Best↔Ronaldo loop / Treble pocket / Fergie bloom /
+ * finals, 2008), then the restored v5 Best↔Ronaldo loop / Treble fuse / Fergie bloom /
  * receipt unchanged. The 1954 Chelsea score-storm is dropped so the finals keep
  * readable dwell. Starts leave ~3s on-knot dwell before travel.
  */
