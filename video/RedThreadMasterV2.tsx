@@ -842,6 +842,72 @@ function Portrait({ side, src, opacity, scale = 1 }: { side: "left" | "right"; s
   );
 }
 
+function RhymeFinalEvidence({ frame, opacity }: { frame: number; opacity: number }) {
+  const finals = [
+    { matchId: "1968-05-29-benfica-n", focusId: "george-best", label: "1968 · BEST · 92′" },
+    { matchId: "2008-05-21-chelsea-n", focusId: "cristiano-ronaldo", label: "2008 · RONALDO · 25′" },
+  ] as const;
+
+  return (
+    <div style={{ position: "absolute", left: 500, right: 500, top: 270, height: 350, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 34, opacity }}>
+      {finals.map((final, finalIndex) => {
+        const match = DATA.featuredMatches.find((candidate) => candidate.matchId === final.matchId);
+        if (!match) return null;
+        const starters = match.lineup.filter((player) => player.side === "united" && player.started && !player.bench);
+        const bands = {
+          FWD: starters.filter((player) => player.careerBand === "FWD"),
+          MID: starters.filter((player) => player.careerBand === "MID"),
+          DEF: starters.filter((player) => player.careerBand === "DEF"),
+          GK: starters.filter((player) => player.careerBand === "GK"),
+        };
+        const events = match.events.filter((event) => event.minute != null && ["goal", "opp-goal", "own-goal-for", "own-goal-against"].includes(event.type));
+        const maxMinute = match.match.aet ? 120 : 90;
+        const reveal = smoothstep(292 + finalIndex * 7, 326 + finalIndex * 7, frame);
+
+        return (
+          <div key={final.matchId} style={{ position: "relative", overflow: "hidden", border: "1px solid rgba(243,237,232,.1)", background: "rgba(8,7,6,.46)", opacity: reveal, clipPath: finalIndex === 0 ? "polygon(3% 0,100% 0,100% 100%,0 100%,0 3%)" : "polygon(0 0,97% 0,100% 3%,100% 100%,0 100%)" }}>
+            <div style={{ padding: "16px 18px 0", fontFamily: MONO, fontSize: 12, fontWeight: 700, letterSpacing: "0.16em", color: C.gold }}>{final.label}</div>
+            <div style={{ position: "relative", height: 62, margin: "3px 18px 0" }}>
+              <div style={{ position: "absolute", left: 0, right: 0, top: 32, height: 2, background: "rgba(243,237,232,.14)" }} />
+              {events.map((event) => {
+                const focused = event.playerId === final.focusId;
+                const x = Math.min(100, ((event.minute ?? 0) / maxMinute) * 100);
+                return (
+                  <div key={event.seq} style={{ position: "absolute", left: `${x}%`, top: 32, transform: "translate(-50%,-50%)" }}>
+                    <div style={{ width: focused ? 13 : 7, height: focused ? 13 : 7, borderRadius: 20, background: focused ? C.gold : event.side === "united" ? C.red : C.draw, opacity: focused ? 1 : 0.46, boxShadow: focused ? `0 0 18px ${C.gold}` : "none", border: focused ? `1px solid ${C.cream}` : "none" }} />
+                    {focused && <div style={{ position: "absolute", left: "50%", top: -24, transform: "translateX(-50%)", whiteSpace: "nowrap", fontFamily: MONO, fontSize: 10, color: C.gold }}>{event.minute}′</div>}
+                  </div>
+                );
+              })}
+              <span style={{ position: "absolute", left: 0, top: 43, fontFamily: MONO, fontSize: 8, color: C.faint }}>0′</span>
+              <span style={{ position: "absolute", right: 0, top: 43, fontFamily: MONO, fontSize: 8, color: C.faint }}>{maxMinute}′</span>
+            </div>
+            <div style={{ position: "absolute", left: 18, right: 18, top: 100, bottom: 16, border: "1px solid rgba(243,237,232,.08)", background: "rgba(0,0,0,.12)" }}>
+              <svg width="100%" height="100%" viewBox="0 0 410 222" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, opacity: 0.28 }}>
+                <line x1="0" x2="410" y1="111" y2="111" stroke={C.faint} />
+                <circle cx="205" cy="111" r="28" fill="none" stroke={C.faint} />
+                <rect x="142" y="0" width="126" height="32" fill="none" stroke={C.faint} />
+                <rect x="142" y="190" width="126" height="32" fill="none" stroke={C.faint} />
+              </svg>
+              {(Object.entries(bands) as [keyof typeof bands, FeaturedLineupPlayer[]][]).flatMap(([band, players]) => players.map((player, index) => {
+                const focused = player.playerId === final.focusId;
+                const y = band === "FWD" ? 18 : band === "MID" ? 43 : band === "DEF" ? 70 : 91;
+                const x = ((index + 1) / (players.length + 1)) * 100;
+                return (
+                  <div key={`${final.matchId}-${player.playerId}`} style={{ position: "absolute", left: `${x}%`, top: `${y}%`, width: 68, transform: "translate(-50%,-50%)", textAlign: "center", opacity: focused ? 1 : 0.2 }}>
+                    <div style={{ width: focused ? 23 : 16, height: focused ? 23 : 16, margin: "0 auto", display: "grid", placeItems: "center", clipPath: "polygon(20% 5%,38% 0,50% 10%,62% 0,80% 5%,100% 23%,87% 37%,78% 31%,78% 100%,22% 100%,22% 31%,13% 37%,0 23%)", background: focused ? C.red : C.redDeep, color: C.cream, fontFamily: MONO, fontSize: focused ? 10 : 8, boxShadow: focused ? `0 0 20px ${C.gold}` : "none" }}>{player.shirt}</div>
+                    <div style={{ marginTop: 3, overflow: "hidden", textOverflow: "ellipsis", fontFamily: SANS, fontSize: focused ? 10 : 8, fontWeight: focused ? 700 : 400, color: focused ? C.ink : C.dim, whiteSpace: "nowrap" }}>{familyName(player.name)}</div>
+                  </div>
+                );
+              }))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 const RHYME_FACTS = [
   { start: 205, label: "CHAMPIONS OF EUROPE", left: "1968 · CHAMPIONS", right: "2008 · CHAMPIONS", headline: "Both became champions of Europe." },
   { start: 292, label: "THE FINAL", left: "BEST · 92′", right: "RONALDO · 25′", headline: "Both scored in the final." },
@@ -865,6 +931,7 @@ function RhymeLoop({ frame }: { frame: number }) {
   const exitPath = "M 1490 696 C 1360 660, 1190 674, 980 696";
   const activeFact = [...RHYME_FACTS].reverse().find((fact) => frame >= fact.start) ?? null;
   const titleOpacity = frame < 205 ? windowed(frame, 28, 60, 168, 204) : 0;
+  const finalEvidence = windowed(frame, 292, 318, 365, 382) * contentFade;
   return (
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", inset: 0, transform: `translateX(${worldX}px)` }}>
@@ -895,6 +962,8 @@ function RhymeLoop({ frame }: { frame: number }) {
         <circle cx="980" cy={baseY} r="7" fill={C.gold} opacity={smoothstep(540, 580, frame)} />
       </svg>
       </div>
+
+      <RhymeFinalEvidence frame={frame} opacity={finalEvidence} />
 
       <div style={{ position: "absolute", top: 122, insetInline: 0, textAlign: "center", opacity: titleOpacity }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.26em", color: C.dim }}>1968&nbsp;&nbsp;↔&nbsp;&nbsp;2008</div>
