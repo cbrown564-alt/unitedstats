@@ -2,9 +2,9 @@
 
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
-## Master v7 — 90 seconds
+## Master v8 — 90 seconds
 
-`red-thread-master-v7` keeps the four-card opening from the hybrid cut, then
+`red-thread-master-v8` keeps the four-card opening from the hybrid cut, then
 restores the fuller v5 middle, with the Fergie act using the stories shared
 countdown:
 
@@ -21,8 +21,9 @@ countdown:
    then blooms into all recorded post-85′ goals;
 6. enters Fortress OT as a dense lead-held wall inside the stadium card
    (three rescued cracks);
-7. finishes on the match field resolving into the real 1999 European final
-   receipt and “Pull a thread.”
+7. finishes on the match field resolving into a real mobile capture of the
+   1954 Chelsea 5–6 United match—scoreline, matchflow and lineup—beside
+   “Pull a thread.”
 
 `generated-master-data.json` is rebuilt from the canonical database by
 `scripts/generate-video-data.ts`; it is not a hand-authored particle field.
@@ -47,10 +48,10 @@ is an authored, timestamped Lyria 3 Pro generation cached at
 `public/video/audio/master-v3.mp3`; regenerate it deliberately with
 `npm run video:score:force`, not on every render. Picture splices the cached 84s
 score into its close tail to cover the 90s cut, using a short crossfade at the
-edit and a clean fade at the end. V7 deliberately uses the score alone: the
+edit and a clean fade at the end. V8 deliberately uses the score alone: the
 older procedural SFX stems remain as iteration records but are not mixed into
 the master.
-The current master is written to `output/video/red-thread-master-v7.mp4`; use
+The current master is written to `output/video/red-thread-master-v8.mp4`; use
 `npm run video:render:prototype` only to reproduce the earlier 14-second study.
 
 ## Source contract
@@ -68,9 +69,9 @@ The current master is written to `output/video/red-thread-master-v7.mp4`; use
   stored alongside the audio in `master-v3.json`.
 - Superseded procedural SFX stems and their cue manifests remain under
   `public/video/audio/` for provenance and comparison. They are intentionally
-  excluded from v7 after the final sound-design audit found that their tonal
+  excluded from v8 after the final sound-design audit found that their tonal
   ticks and impacts competed with the score rather than clarifying the picture.
-- Captions for mute/review playback: `public/video/captions/master-v7.vtt`; the
+- Captions for mute/review playback: `public/video/captions/master-v8.vtt`; the
   silent composition burns the same cue list on-screen.
 - Master: 1920×1080, 30 fps, 2,700 frames / 90 seconds.
 - Prototype: 1920×1080, 30 fps, 420 frames / 14 seconds.

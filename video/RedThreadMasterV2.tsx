@@ -336,7 +336,7 @@ function FilmStoppageEcho({ frame, sweep }: { frame: number; sweep: number }) {
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24, paddingBottom: 22, borderBottom: "1px solid rgba(243,237,232,.16)" }}>
           <div>
             <div style={{ fontFamily: MONO, fontSize: 13, letterSpacing: "0.28em", color: C.red }}>ONE SHARED COUNTDOWN</div>
-            <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 36, fontWeight: 600, letterSpacing: "-0.035em", color: C.ink }}>Eleven minutes. Six strikes. No release.</div>
+            <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 36, fontWeight: 600, letterSpacing: "-0.035em", color: C.ink }}>Eleven minutes. Six goals. Three turnarounds.</div>
           </div>
           <div style={{ minWidth: 168, borderLeft: `2px solid ${C.red}`, paddingLeft: 16, textAlign: "right" }}>
             <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: "0.22em", color: C.faint }}>LIVE CLOCK</div>
@@ -424,7 +424,7 @@ function FilmStoppageEcho({ frame, sweep }: { frame: number; sweep: number }) {
         </div>
 
         <div style={{ marginTop: 18, textAlign: "center", fontFamily: MONO, fontSize: 13, letterSpacing: "0.2em", color: C.faint }}>
-          THE SAME CLOCK KEEPS FINDING A WAY TO 2–1.
+          THREE CLOCKS. ONE FINAL SCORE: 2–1.
         </div>
       </div>
     </div>
@@ -583,8 +583,8 @@ function FirstXiSignature({ match, progress }: { match: FeaturedMatch; progress:
     <div style={{ position: "absolute", inset: 0 }}>
       <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>NEWTON HEATH · 1886</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 52, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>The first XI.</div>
-        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 22, color: C.dim }}>One match begins the record.</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, fontSize: 52, fontWeight: 600, letterSpacing: "-0.04em", color: C.ink }}>The first recorded XI.</div>
+        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 22, color: C.dim }}>One match opens the archive.</div>
         <div style={{ marginTop: 19 }}><MatchScore match={match} compact /></div>
       </div>
       <div style={{ position: "absolute", right: 0, top: -18, width: 405, height: 360, border: "1px solid rgba(243,237,232,.12)", background: "rgba(12,11,10,.42)", clipPath: "polygon(7% 0,100% 0,100% 100%,0 100%,0 9%)" }}>
@@ -663,7 +663,7 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
       <FilmPortrait player={match.featuredPlayers[0]} side="left" opacity={0.4} />
       <div style={{ position: "absolute", right: 10, top: 0, width: 510 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>MOSCOW · 2008</div>
-        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 48, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Decided from the spot.</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 48, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Won on penalties.</div>
       </div>
       <div style={{ position: "absolute", right: 55, bottom: 0, width: 430, height: 235 }}>
         {Array.from({ length: total }, (_, index) => {
@@ -674,10 +674,10 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
           const united = index < won;
           return <div key={index} style={{ position: "absolute", left: x, top: y, width: united ? 22 : 16, height: united ? 22 : 16, borderRadius: 30, background: united ? C.gold : C.draw, opacity: reveal * (united ? 1 : 0.62), transform: `translate(-50%,-50%) scale(${lerp(0.4, 1, reveal)})`, boxShadow: united ? `0 0 18px rgba(245,197,24,.45)` : "none" }} />;
         })}
-        <div style={{ position: "absolute", inset: "66px 0 auto", textAlign: "center" }}><div style={{ fontFamily: MONO, fontSize: 72, lineHeight: 1, color: C.ink }}>{won}–{lost}</div><div style={{ marginTop: 8, fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", color: C.faint }}>SHOOT-OUT · AGGREGATE RECORD</div></div>
+        <div style={{ position: "absolute", inset: "66px 0 auto", textAlign: "center" }}><div style={{ fontFamily: MONO, fontSize: 72, lineHeight: 1, color: C.ink }}>{won}–{lost}</div><div style={{ marginTop: 8, fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", color: C.faint }}>SHOOT-OUT · ON PENALTIES</div></div>
       </div>
       <div style={{ position: "absolute", left: 18, bottom: 25 }}><MatchScore match={match} compact /></div>
-      <div style={{ position: "absolute", left: 18, top: 20, width: 360, textAlign: "center", fontFamily: MONO, color: C.gold }}><div style={{ fontSize: 17 }}>25′ · RONALDO</div><div style={{ marginTop: 6, fontSize: 11, letterSpacing: "0.18em", color: C.faint }}>THE NUMBER SEVEN RETURNS</div></div>
+      <div style={{ position: "absolute", left: 18, top: 20, width: 360, textAlign: "center", fontFamily: MONO, color: C.gold }}><div style={{ fontSize: 17 }}>25′ · RONALDO</div><div style={{ marginTop: 6, fontSize: 11, letterSpacing: "0.18em", color: C.faint }}>UNITED’S NO. 7 SCORES</div></div>
     </div>
   );
 }
@@ -689,7 +689,7 @@ function ExtraTimeSignature({ match, progress }: { match: FeaturedMatch; progres
       <FilmPortrait player={match.featuredPlayers[0]} opacity={0.43} />
       <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>WEMBLEY · 1968</div>
-        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Level at ninety.<br />Three in seven minutes.</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Level after 90.<br />Three goals in seven minutes.</div>
       </div>
       <div style={{ position: "absolute", left: 10, right: 35, bottom: 22, height: 126 }}>
         <div style={{ position: "absolute", left: 0, right: 0, top: 78, height: 2, background: C.line }} />
@@ -719,7 +719,7 @@ function BenchReversalSignature({ match, progress }: { match: FeaturedMatch; pro
     <div style={{ position: "absolute", inset: 0 }}>
       <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
         <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>CAMP NOU · 1999</div>
-        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>The bench enters history.</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Two substitutes changed the final.</div>
       </div>
       <div style={{ position: "absolute", left: 20, bottom: 12, width: 470, height: 150, opacity: 0.42 }}>
         {starters.map((player, index) => {
@@ -729,7 +729,7 @@ function BenchReversalSignature({ match, progress }: { match: FeaturedMatch; pro
         })}
       </div>
       <div style={{ position: "absolute", right: 12, top: 20, width: 430, height: 330, borderLeft: "1px solid rgba(243,237,232,.14)", paddingLeft: 34 }}>
-        <div style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.2em", color: C.faint }}>USED SUBSTITUTES</div>
+        <div style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.2em", color: C.faint }}>SCORING SUBSTITUTES</div>
         {scorers.map((player, index) => {
           const reveal = smoothstep(0.2 + index * 0.22, 0.48 + index * 0.22, progress);
           const event = match.events.find((candidate) => candidate.playerId === player.id && candidate.side === "united");
@@ -843,10 +843,10 @@ function Portrait({ side, src, opacity, scale = 1 }: { side: "left" | "right"; s
 }
 
 const RHYME_FACTS = [
-  { start: 205, label: "EUROPEAN CUP", left: "1968 · WON", right: "2008 · WON", headline: "Forty years apart." },
-  { start: 292, label: "THE FINAL", left: "BEST · 92′", right: "RONALDO · 25′", headline: "Both No. 7. Both scored." },
+  { start: 205, label: "CHAMPIONS OF EUROPE", left: "1968 · CHAMPIONS", right: "2008 · CHAMPIONS", headline: "Both became champions of Europe." },
+  { start: 292, label: "THE FINAL", left: "BEST · 92′", right: "RONALDO · 25′", headline: "Both scored in the final." },
   { start: 382, label: "BALLON D’OR", left: "BEST · 1968", right: "RONALDO · 2008", headline: "Both won the Ballon d’Or." },
-  { start: 474, label: "CLUB PEAK", left: "32 GOALS · 53 GAMES", right: "42 GOALS · 49 GAMES", headline: "Both peaked in their fifth United season." },
+  { start: 474, label: "SEASON FIVE", left: "32 GOALS · 53 GAMES", right: "42 GOALS · 49 GAMES", headline: "Both peaked in season five." },
 ];
 
 function RhymeLoop({ frame }: { frame: number }) {
@@ -898,7 +898,7 @@ function RhymeLoop({ frame }: { frame: number }) {
 
       <div style={{ position: "absolute", top: 122, insetInline: 0, textAlign: "center", opacity: titleOpacity }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.26em", color: C.dim }}>1968&nbsp;&nbsp;↔&nbsp;&nbsp;2008</div>
-        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.04em" }}>Forty years. The same summit.</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 62, fontWeight: 600, letterSpacing: "-0.04em" }}>Two No. 7s. Forty years apart.</div>
       </div>
 
       {activeFact && (
@@ -933,21 +933,21 @@ function RhymeLedger({ side, frame }: { side: "left" | "right"; frame: number })
 
 const TREBLE_BEATS = [
   {
-    start: 62, end: 190, day: "DAY 1 · 16 MAY", place: "THE LEAGUE", interval: "",
+    start: 62, end: 190, day: "DAY 1 · 16 MAY", place: "PREMIER LEAGUE", interval: "",
     danger: "0–1", dangerLabel: "BEHIND AFTER 26′", player: "COLE", arrival: "ON 46′",
     intervention: "WINNER · 48′", result: "2–1", coda: "FROM BEHIND.",
     image: "media/journey/pl-celebration.webp",
   },
   {
-    start: 178, end: 306, day: "DAY 7 · 22 MAY", place: "THE CUP", interval: "SIX DAYS LATER",
+    start: 178, end: 306, day: "DAY 7 · 22 MAY", place: "FA CUP", interval: "SIX DAYS LATER",
     danger: "0–0", dangerLabel: "NINTH MINUTE", player: "SHERINGHAM", arrival: "ON 9′",
     intervention: "SCORED · 11′", result: "2–0", coda: "FROM THE BENCH. AGAIN.",
     image: "media/journey/fa-cup-lift.webp",
   },
   {
-    start: 294, end: 450, day: "DAY 11 · 26 MAY", place: "EUROPE", interval: "FOUR DAYS LATER",
-    danger: "0–1", dangerLabel: "NINETY MINUTES GONE", player: "SHERINGHAM + SOLSKJÆR", arrival: "BOTH SUBSTITUTES",
-    intervention: "90+1′ · 90+3′", result: "2–1", coda: "FROM BEHIND. AGAIN.",
+    start: 294, end: 450, day: "DAY 11 · 26 MAY", place: "CHAMPIONS LEAGUE", interval: "FOUR DAYS LATER",
+    danger: "0–1", dangerLabel: "90 MINUTES GONE", player: "SHERINGHAM + SOLSKJÆR", arrival: "BOTH SUBSTITUTES",
+    intervention: "90+1′ · 90+3′", result: "2–1", coda: "TWO SUBSTITUTES. TWO GOALS.",
     image: "media/journey/barcelona-climax.webp",
   },
 ] as const;
@@ -1044,7 +1044,7 @@ function TreblePocket({ frame }: { frame: number }) {
       <div style={{ position: "absolute", top: 118, insetInline: 0, textAlign: "center", opacity: intro, transform: `translateY(${lerp(24, 0, intro)}px)` }}>
         <div style={{ fontFamily: MONO, fontSize: 17, letterSpacing: "0.25em", color: C.gold }}>1998–99 · THE TREBLE</div>
         <div style={{ marginTop: 20, fontFamily: SANS, fontSize: 72, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Eleven days. No margin.</div>
-        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 25, color: C.dim }}>Three games. Lose one, and it is gone.</div>
+        <div style={{ marginTop: 18, fontFamily: SANS, fontSize: 25, color: C.dim }}>Three games. Lose one and the treble is gone.</div>
       </div>
 
       {TREBLE_BEATS.map((_, index) => <TrebleNight key={index} frame={frame} index={index} />)}
@@ -1052,9 +1052,9 @@ function TreblePocket({ frame }: { frame: number }) {
 
       <div style={{ position: "absolute", inset: 0, opacity: land, background: "radial-gradient(64% 70% at 50% 48%,#2b0c08,#0c0b0a 76%)" }} />
       <div style={{ position: "absolute", insetInline: 120, top: 184, opacity: land, transform: `translateY(${lerp(30, 0, land)}px)`, textAlign: "center" }}>
-        <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: "0.26em", color: C.gold }}>THE IMPOSSIBLE ELEVEN DAYS</div>
-        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 78, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Three must-wins.<br />Two from behind.</div>
-        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 42, fontWeight: 600, color: C.gold }}>Every match-winner came from the bench.</div>
+        <div style={{ fontFamily: MONO, fontSize: 18, letterSpacing: "0.26em", color: C.gold }}>ELEVEN DAYS FOR THE TREBLE</div>
+        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 78, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Three must-wins.<br />Two comebacks.</div>
+        <div style={{ marginTop: 25, fontFamily: SANS, fontSize: 42, fontWeight: 600, color: C.gold }}>Every winning goal came from the bench.</div>
         <div style={{ marginTop: 24, fontFamily: MONO, fontSize: 18, letterSpacing: "0.22em", color: C.ink }}>11 DAYS&nbsp;&nbsp;·&nbsp;&nbsp;3 WINS&nbsp;&nbsp;·&nbsp;&nbsp;3 TROPHIES</div>
       </div>
     </AbsoluteFill>
@@ -1074,7 +1074,7 @@ function FergieConstellation({ frame }: { frame: number }) {
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", top: 88, insetInline: 0, textAlign: "center", opacity: intro * (1 - constellation) }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.25em", color: C.red }}>FERGIE TIME</div>
-        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 52, fontWeight: 600, letterSpacing: "-0.04em" }}>The same late shape.</div>
+        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 52, fontWeight: 600, letterSpacing: "-0.04em" }}>Three matches. The same late turn.</div>
       </div>
 
       <div style={{ position: "absolute", inset: 0, opacity: (1 - smoothstep(bloomFrom - 8, bloomFrom + 36, frame)), transform: `scale(${lerp(1, 0.94, constellation)})` }}>
@@ -1115,9 +1115,9 @@ function FergieConstellation({ frame }: { frame: number }) {
       </svg>
       <div style={{ position: "absolute", top: 100, insetInline: 0, textAlign: "center", opacity: constellation }}>
         <div style={{ fontFamily: MONO, color: C.gold, fontSize: 18, letterSpacing: "0.23em" }}>{DATA.lateGoals.length} RECORDED GOALS AFTER 85′</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>The same late finish.</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>Now open the full late-goal record.</div>
       </div>
-      <div style={{ position: "absolute", insetInline: 0, bottom: 36, textAlign: "center", opacity: smoothstep(bloomFrom + 90, bloomFrom + 140, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>Three nights. Then every late goal in the record.</div>
+      <div style={{ position: "absolute", insetInline: 0, bottom: 36, textAlign: "center", opacity: smoothstep(bloomFrom + 90, bloomFrom + 140, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>Three matches, set against every late goal in the archive.</div>
     </AbsoluteFill>
   );
 }
@@ -1148,7 +1148,7 @@ function Fortress({ frame }: { frame: number }) {
       <div style={{ position: "absolute", top: 88, insetInline: 0, textAlign: "center", opacity: 1 - dissolve }}>
         <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.24em", color: C.red }}>OLD TRAFFORD · HOME LEAGUE</div>
         <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 56, fontWeight: 600, letterSpacing: "-0.045em" }}>
-          {frame < 90 ? "At Old Trafford, a lead held." : frame < 160 ? `${games.length} times ahead at half-time.` : "Only three needed rescuing."}
+          {frame < 90 ? "At Old Trafford, the half-time lead held." : frame < 160 ? `${games.length} half-time leads.` : "Only three slipped behind—and all three recovered."}
         </div>
       </div>
 
@@ -1196,7 +1196,7 @@ function Fortress({ frame }: { frame: number }) {
           <div key={crack.id} style={{ paddingTop: 14, borderTop: `1px solid rgba(245,197,24,.45)`, textAlign: "center" }}>
             <div style={{ fontFamily: MONO, color: C.gold, fontSize: 16 }}>{crack.date.slice(0, 4)}</div>
             <div style={{ marginTop: 8, fontFamily: SANS, color: C.ink, fontSize: 20, fontWeight: 600 }}>{crack.opponent} · {crack.ft}</div>
-            <div style={{ marginTop: 6, fontFamily: SANS, color: C.faint, fontSize: 15 }}>Fell behind. Rescued.</div>
+            <div style={{ marginTop: 6, fontFamily: SANS, color: C.faint, fontSize: 15 }}>Lead lost. Defeat avoided.</div>
           </div>
         ))}
       </div>
@@ -1219,7 +1219,8 @@ function RecordOpens({ frame }: { frame: number }) {
   const pull = smoothstep(70, 130, frame);
   const receipt = smoothstep(100, 150, frame);
   const cta = smoothstep(140, 180, frame);
-  const knotX = interpolate(pull, [0, 1], [1814, 1032]);
+  const snapshotScroll = smoothstep(150, 205, frame);
+  const knotX = interpolate(pull, [0, 1], [1814, 658]);
   const knotY = interpolate(pull, [0, 1], [888, 548]);
   const fieldScale = lerp(1.18, 0.72, pull);
   const fieldOpacity = field * (1 - receipt * 0.88);
@@ -1232,52 +1233,53 @@ function RecordOpens({ frame }: { frame: number }) {
           <path d={matchPaths.L} fill={C.red} fillOpacity="0.3" />
           <path d="M 105 918 C 520 885, 940 928, 1815 888" fill="none" stroke={C.red} strokeOpacity="0.68" strokeWidth="3" />
         </g>
-        <path d="M 1814 888 C 1640 850, 1410 690, 1032 548" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.13 * pull} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} style={{ filter: "blur(8px)" }} />
-        <path d="M 1814 888 C 1640 850, 1410 690, 1032 548" fill="none" stroke={C.red} strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} />
+        <path d="M 1814 888 C 1510 820, 1070 650, 658 548" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.13 * pull} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} style={{ filter: "blur(8px)" }} />
+        <path d="M 1814 888 C 1510 820, 1070 650, 658 548" fill="none" stroke={C.red} strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} />
         <circle cx={knotX} cy={knotY} r={lerp(8, 16, receipt)} fill={C.gold} opacity={Math.max(field, pull)} />
       </svg>
 
       <div style={{
         position: "absolute",
-        left: 176,
-        top: 202,
-        width: 856,
-        height: 520,
+        left: 250,
+        top: 100,
+        width: 408,
+        height: 872,
         opacity: receipt,
         transform: `translate(${lerp(160, 0, receipt)}px, ${lerp(110, 0, receipt)}px) scale(${lerp(0.22, 1, receipt)})`,
-        transformOrigin: "92% 68%",
+        transformOrigin: "100% 52%",
         border: "1px solid rgba(243,237,232,.2)",
-        background: "rgba(12,11,10,.9)",
+        borderRadius: 38,
+        background: "#080706",
         boxShadow: `0 28px 90px rgba(0,0,0,.42), 0 0 ${48 * receipt}px rgba(245,197,24,.12)`,
-        padding: "42px 48px",
+        padding: 14,
+        overflow: "hidden",
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: MONO, fontSize: 14, letterSpacing: "0.19em", color: C.faint }}>
-          <span>MATCH RECEIPT</span><span>26 MAY 1999</span>
+        <div style={{ height: 28, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+          <span style={{ width: 6, height: 6, borderRadius: 10, background: C.faint }} />
+          <span style={{ width: 42, height: 4, borderRadius: 10, background: C.line }} />
         </div>
-        <div style={{ marginTop: 34, display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "baseline", gap: 22 }}>
-          <div style={{ fontFamily: SANS, fontSize: 35, fontWeight: 600, textAlign: "right", color: C.dim }}>BAYERN</div>
-          <div style={{ fontFamily: MONO, fontSize: 80, lineHeight: 1, letterSpacing: "-0.08em", color: C.ink }}>1–2</div>
-          <div style={{ fontFamily: SANS, fontSize: 35, fontWeight: 600, color: C.ink }}>UNITED</div>
+        <div style={{ position: "relative", height: 816, overflow: "hidden", borderRadius: 25, background: C.pitch }}>
+          <Img
+            src={staticFile("video/stills/chelsea-1954-mobile-match.png")}
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: 380,
+              height: "auto",
+              transform: `translateY(${-390 * snapshotScroll}px)`,
+            }}
+          />
+          <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0 0 0 1px rgba(243,237,232,.08)", pointerEvents: "none" }} />
         </div>
-        <div style={{ marginTop: 16, textAlign: "center", fontFamily: MONO, fontSize: 14, letterSpacing: "0.18em", color: C.gold }}>EUROPEAN CUP FINAL · CAMP NOU</div>
-        <div style={{ marginTop: 34, borderTop: "1px solid rgba(243,237,232,.14)" }}>
-          {[{ clock: "90+1′", player: "SHERINGHAM" }, { clock: "90+3′", player: "SOLSKJÆR" }].map((event) => (
-            <div key={event.clock} style={{ display: "grid", gridTemplateColumns: "112px 1fr auto", alignItems: "center", padding: "17px 0", borderBottom: "1px solid rgba(243,237,232,.1)" }}>
-              <span style={{ fontFamily: MONO, fontSize: 18, color: C.gold }}>{event.clock}</span>
-              <span style={{ fontFamily: SANS, fontSize: 19, fontWeight: 600, color: C.ink }}>{event.player}</span>
-              <span style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.16em", color: C.faint }}>SUBSTITUTE</span>
-            </div>
-          ))}
-        </div>
-        <div style={{ marginTop: 23, fontFamily: MONO, fontSize: 13, letterSpacing: "0.08em", color: C.faint }}>/match/1999-05-26-bayern-munich-n</div>
       </div>
 
-      <div style={{ position: "absolute", left: 1160, right: 120, top: 310, opacity: cta, transform: `translateY(${lerp(26, 0, cta)}px)` }}>
-        <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.24em", color: C.red }}>THE EVIDENCE IS THE DOOR</div>
+      <div style={{ position: "absolute", left: 850, right: 120, top: 310, opacity: cta, transform: `translateY(${lerp(26, 0, cta)}px)` }}>
+        <div style={{ fontFamily: MONO, fontSize: 15, letterSpacing: "0.24em", color: C.red }}>EVERY THREAD LEADS TO A MATCH</div>
         <div style={{ marginTop: 23, fontFamily: SANS, fontSize: 72, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Pull a thread.</div>
         <div style={{ marginTop: 25, width: 342, height: 3, background: `linear-gradient(90deg,${C.red},${C.gold})`, transform: `scaleX(${cta})`, transformOrigin: "left" }} />
-        <div style={{ marginTop: 25, fontFamily: MONO, fontSize: 17, letterSpacing: "0.08em", color: C.gold }}>unitedstats.vercel.app/stories&nbsp;&nbsp;↗</div>
-        <div style={{ marginTop: 18, maxWidth: 520, fontFamily: SANS, fontSize: 21, lineHeight: 1.5, color: C.dim }}>Every claim leads back to its receipt.</div>
+        <div style={{ marginTop: 25, fontFamily: MONO, fontSize: 20, letterSpacing: "0.08em", color: C.gold }}>www.utdstats.com&nbsp;&nbsp;↗</div>
+        <div style={{ marginTop: 18, maxWidth: 520, fontFamily: SANS, fontSize: 21, lineHeight: 1.5, color: C.dim }}>Every claim opens onto the full match record.</div>
       </div>
 
       <div style={{ position: "absolute", left: 74, right: 74, bottom: 46, display: "flex", justifyContent: "space-between", opacity: smoothstep(160, 195, frame), fontFamily: MONO, fontSize: 13, letterSpacing: "0.17em", color: C.faint }}>
@@ -1288,24 +1290,24 @@ function RecordOpens({ frame }: { frame: number }) {
 }
 
 const CAPTIONS: { start: number; end: number; text: string }[] = [
-  { start: 24, end: 130, text: "1886 — the first XI" },
-  { start: 150, end: 265, text: "1968 — level at ninety" },
-  { start: 285, end: 395, text: "1999 — the bench enters history" },
-  { start: 415, end: 500, text: "2008 — decided from the spot" },
-  { start: 530, end: 700, text: "1968 ↔ 2008 — forty years. The same summit." },
-  { start: 715, end: 800, text: "Forty years apart." },
-  { start: 802, end: 890, text: "Both No. 7. Both scored." },
+  { start: 24, end: 130, text: "1886 — the first recorded XI" },
+  { start: 150, end: 265, text: "1968 — level after 90" },
+  { start: 285, end: 395, text: "1999 — two substitutes changed the final" },
+  { start: 415, end: 500, text: "2008 — won on penalties" },
+  { start: 530, end: 700, text: "1968 ↔ 2008 — two No. 7s, forty years apart" },
+  { start: 715, end: 800, text: "Both became champions of Europe." },
+  { start: 802, end: 890, text: "Both scored in the final." },
   { start: 892, end: 980, text: "Both won the Ballon d’Or." },
-  { start: 984, end: 1120, text: "Both peaked in their fifth United season." },
+  { start: 984, end: 1120, text: "Both peaked in season five." },
   { start: 1145, end: 1205, text: "Eleven days. No margin." },
-  { start: 1210, end: 1560, text: "1998–99 — three must-wins from the bench" },
-  { start: 1570, end: 1670, text: "Three must-wins. Every winner from the bench." },
-  { start: 1620, end: 1680, text: "Fergie time — the same late shape" },
-  { start: 1680, end: 2040, text: "Eleven minutes. Six strikes. No release." },
-  { start: 2040, end: 2160, text: "The same late finish." },
-  { start: 2230, end: 2410, text: "Only three needed rescuing" },
-  { start: 2510, end: 2630, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches — pull a thread` },
-  { start: 2630, end: 2700, text: "Every claim leads back to its receipt" },
+  { start: 1210, end: 1560, text: "1998–99 — three must-wins, every winning goal from the bench" },
+  { start: 1570, end: 1620, text: "Three wins. Every winning goal from the bench." },
+  { start: 1620, end: 1680, text: "Fergie time — three matches, the same late turn" },
+  { start: 1680, end: 2040, text: "Eleven minutes. Six goals. Three turnarounds." },
+  { start: 2040, end: 2160, text: "Then the full late-goal record." },
+  { start: 2230, end: 2410, text: "Only three slipped behind—and all three recovered" },
+  { start: 2510, end: 2630, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches. Pull a thread.` },
+  { start: 2630, end: 2700, text: "Every claim opens onto the full match record." },
 ];
 
 function CaptionBurn({ frame, enabled }: { frame: number; enabled: boolean }) {
