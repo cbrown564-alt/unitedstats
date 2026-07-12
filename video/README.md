@@ -2,27 +2,30 @@
 
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
-## Master v6 lean — 68 seconds
+## Master v6 hybrid — 76 seconds
 
-`red-thread-master-v6` is the lean motion and sound master:
+`red-thread-master-v6` combines four opening match cards with the lean second
+half, then restores Fortress before the receipt:
 
-1. opens three data-backed match signatures along the chronological line
-   (1886 first XI, 1954 eleven-goal storm, 2008 penalty constellation),
-   each with readable dwell, passing 1968 and 1999 as year marks only so
-   their proofs are not previewed;
+1. opens four data-backed match signatures along the chronological line
+   (1886 first XI, 1968 extra-time burst, 1999 bench reversal, 2008 penalty
+   constellation) inside the lean 18s window — 1954 Chelsea dropped for dwell;
 2. reaches Ronaldo in 2008, then draws a complete time loop through Best in
    1968 and returns through 1999;
 3. lands two rhyme facts only: European Cup, and both No. 7s scoring in the
    final (Ballon d’Or / fifth-season inventory cut);
 4. enters the Treble as a spin-off pocket around ghost 99 — three gold knots,
    then BenchLatency proof that all three winners came from the bench;
-5. expands three Fergie-time echoes into all recorded post-85′ goals (the one
-   scale bloom — Fortress omitted from this cut);
-6. finishes on the match field resolving into the real 1999 European final
+5. expands three Fergie-time echoes into all recorded post-85′ goals, with the
+   three nights annotated on the scatter;
+6. enters Fortress OT as a dense lead-held wall inside the stadium card
+   (three rescued cracks);
+7. finishes on the match field resolving into the real 1999 European final
    receipt and “Pull a thread.”
 
-The earlier 84-second inventory cut and the 60-second first lean pass remain
-comparable via git history / prior renders under `output/video/`.
+The earlier 84-second inventory cut, the year-mark lean pass, and the 60-second
+first lean pass remain comparable via git history / prior renders under
+`output/video/`.
 
 `generated-master-data.json` is rebuilt from the canonical database by
 `scripts/generate-video-data.ts`; it is not a hand-authored particle field.
@@ -54,8 +57,8 @@ The current master is written to `output/video/red-thread-master-v6.mp4`; use
 
 - `generated-master-data.json` is the frozen master data fixture.
 - `featured-match-manifest.ts` holds editorial visual choices for the opening
-  run; scores, events, lineups and player media remain generated. `year-mark`
-  stops draw timeline knots without match signatures.
+  run; scores, events, lineups and player media remain generated. European Cup
+  finals use dedicated signatures (`extra-time-burst`, `bench-reversal`).
 - `film-data.ts` is the earlier prototype's claim and asset manifest.
 - The Best monument is CC0 (Hans Peters / Anefo).
 - The Ronaldo monument is CC BY 2.0 (Gordon Flood).
@@ -74,5 +77,5 @@ The current master is written to `output/video/red-thread-master-v6.mp4`; use
   the opening and Treble ranges so the other stems keep ownership there.
 - Captions for mute/review playback: `public/video/captions/master-v6.vtt`; the
   silent composition burns the same cue list on-screen.
-- Master: 1920×1080, 30 fps, 2,040 frames / 68 seconds.
+- Master: 1920×1080, 30 fps, 2,280 frames / 76 seconds.
 - Prototype: 1920×1080, 30 fps, 420 frames / 14 seconds.

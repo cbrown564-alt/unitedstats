@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
-/** Lean opening stem: 1886 → 1954 → year-mark passes → 2008 (18s dwell cut). */
+/** Hybrid opening stem: 1886 → 1968 ET → 1999 bench → 2008 (18s; 1954 dropped). */
 const SAMPLE_RATE = 48_000;
 const DURATION = 18;
 const CHANNELS = 2;
@@ -60,9 +60,9 @@ function threadRush(start, duration, fromPan = 0.5, toPan = -0.55, gain = 0.022)
   }
 }
 
-// Travel between signature/year-mark starts: 24→150→270→330→390 (frames / 30).
-const threadTravels = [102 / 30, 222 / 30, 282 / 30, 342 / 30];
-const threadLandings = [136 / 30, 256 / 30, 316 / 30, 376 / 30];
+// Travel between signature starts: 24→150→285→415 (frames / 30).
+const threadTravels = [102 / 30, 237 / 30, 367 / 30];
+const threadLandings = [136 / 30, 271 / 30, 401 / 30];
 for (const start of threadTravels) threadRush(start, 34 / 30);
 for (const landing of threadLandings) impact(landing, -0.08, 0.055, 54);
 
@@ -70,18 +70,22 @@ for (const landing of threadLandings) impact(landing, -0.08, 0.055, 54);
 for (let index = 0; index < 11; index++) tick(0.9 + index * 0.14, -0.72 + index * 0.144, 0.055, 390 + index * 13);
 impact(2.6, 0, 0.11, 66);
 
-// 1954: eleven goals accelerate (start frame 150).
-for (let index = 0; index < 11; index++) tick(5.1 + index * (0.16 - index * 0.003), -0.78 + index * 0.15, 0.06 + index * 0.003, index % 2 ? 520 : 410);
-impact(7.0, 0.2, 0.14, 74);
+// 1968: level at ninety, then the three extra-time strikes (start frame 150).
+addTone({ start: 5.05, duration: 1.45, frequency: 48, gain: 0.07, release: 0.4, glide: 0.08 });
+impact(6.1, -0.48, 0.18, 92);
+impact(6.38, 0.05, 0.2, 84);
+impact(7.0, 0.48, 0.23, 70);
 
-// 1968 / 1999 year marks: one soft tick each — no trailer proof.
-tick(9.05, -0.2, 0.05, 380);
-tick(11.05, 0.2, 0.05, 400);
+// 1999: two substitute releases (start frame 285).
+tick(9.65, -0.35, 0.1, 330);
+tick(10.28, 0.35, 0.1, 360);
+impact(10.72, -0.4, 0.24, 88);
+impact(11.38, 0.4, 0.29, 66);
 
-// 2008: shoot-out marks orbit, then resolve (start frame 390).
-for (let index = 0; index < 11; index++) tick(13.1 + index * 0.18, index % 2 ? 0.55 : -0.55, 0.065 + index * 0.002, index < 6 ? 500 : 350);
-impact(15.3, 0, 0.22, 58);
-addTone({ start: 15.32, duration: 1.2, frequency: 293.66, gain: 0.035, release: 1.15, glide: 0.02 });
+// 2008: shoot-out marks orbit, then resolve (start frame 415).
+for (let index = 0; index < 11; index++) tick(14.0 + index * 0.16, index % 2 ? 0.55 : -0.55, 0.065 + index * 0.002, index < 6 ? 500 : 350);
+impact(15.9, 0, 0.22, 58);
+addTone({ start: 15.92, duration: 1.2, frequency: 293.66, gain: 0.035, release: 1.15, glide: 0.02 });
 
 let peak = 0;
 for (let index = 0; index < samples; index++) {
@@ -120,6 +124,13 @@ writeFileSync(resolve("public/video/audio/master-v6-opening-sfx.json"), `${JSON.
   sampleRate: SAMPLE_RATE,
   durationSeconds: DURATION,
   pictureStartSeconds: 0,
-  cues: { firstXi: 0.9, threadTravels, threadLandings, scoreStorm: 5.1, yearMarks: [9.05, 11.05], shootoutResolve: 15.3 },
+  cues: {
+    firstXi: 0.9,
+    threadTravels,
+    threadLandings,
+    extraTimeBurst: 6.1,
+    benchReversal: 10.72,
+    shootoutResolve: 15.9,
+  },
 }, null, 2)}\n`);
 process.stdout.write(`Generated ${output} (${DURATION}s stereo, normalized peak ${targetPeak.toFixed(2)})\n`);

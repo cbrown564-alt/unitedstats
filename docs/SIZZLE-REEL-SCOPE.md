@@ -5,23 +5,20 @@
 **Parent:** [`docs/JOURNEY.md`](./JOURNEY.md)  
 **Working title:** *The line through time*
 
-**Match-rich master v6 lean — built 12 July 2026:** a 68-second evaluation
-master renders from `video/RedThreadMasterV2.tsx` to
-`output/video/red-thread-master-v6.mp4`. The opening keeps three canonical-data
-match signatures (1886 lineup, 1954 score-state storm, 2008 penalty
-constellation) with readable dwell, and passes 1968/1999 as year marks only.
-The camera then carries 2008 into a full 1968↔2008 loop with two rhyme facts
-(European Cup; both No. 7s scored), exits through 1999 into a Treble spin-off
-pocket (ghost 99, three gold knots, bench-latency proof), expands Fergie-time
-echoes into all recorded post-85′ goals, and resolves into the 1999 final
-receipt before “Pull a thread.” Fortress and rhyme inventory (Ballon d’Or /
-fifth-season peak) are cut from this master. The earlier 84-second inventory
-cut, the first 60-second lean pass, and the 14-second simultaneous-reveal
-prototype remain comparison artifacts.
+**Hybrid master v6 — built 12 July 2026:** a 76-second evaluation master
+renders from `video/RedThreadMasterV2.tsx` to
+`output/video/red-thread-master-v6.mp4`. The opening keeps four canonical-data
+match signatures (1886 lineup, 1968 extra-time burst, 1999 bench reversal,
+2008 penalty constellation) inside the lean 18s window — the 1954 Chelsea
+score-storm is dropped so the European Cup finals keep readable dwell. From
+the Best↔Ronaldo comparison onward: two rhyme facts, Treble spin-off pocket,
+Fergie-time bloom (three annotated nights → full late-goal scatter), Fortress
+OT as a dense lead-held wall with three rescued cracks, and the 1999 final
+receipt before “Pull a thread.”
 
 **Prior match-rich master v6 (84s, 11 July 2026):** five opening signatures,
-four rhyme facts, Fortress act, and closing KPI strip — superseded by the lean
-cut above.
+four rhyme facts, Fortress act, and closing KPI strip — still a comparison
+artifact for inventory density.
 
 The opening signatures are driven by the same match events, lineups and player
 media as `/match/[id]` and `/player/[id]`. An authored manifest selects what each

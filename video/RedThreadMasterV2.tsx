@@ -27,9 +27,9 @@ const C = {
 const SANS = "ArchivoMaster, Arial, sans-serif";
 const MONO = "PlexMaster, Consolas, monospace";
 const FPS = 30;
-/** Lean master: follow → loop → Treble pocket → one scale bloom → receipt. */
-export const MASTER_DURATION_SECONDS = 68;
-/** Opening composition length — three signatures with readable dwell. */
+/** Hybrid spine: four opening cards → loop → Treble → Fergie bloom → Fortress → receipt. */
+export const MASTER_DURATION_SECONDS = 76;
+/** Opening composition length — four signatures in the lean 18s window. */
 export const OPENING_DURATION_FRAMES = 540;
 
 /** Global act windows (frames). Local scene clocks subtract the *LocalOrigin. */
@@ -44,8 +44,11 @@ const ACT = {
   fergieFrom: 1370,
   fergieLocalOrigin: 1370,
   fergieUntil: 1780,
-  recordFrom: 1720,
-  recordLocalOrigin: 1740,
+  fortressFrom: 1720,
+  fortressLocalOrigin: 1740,
+  fortressUntil: 2100,
+  recordFrom: 2040,
+  recordLocalOrigin: 2060,
 } as const;
 
 type MatchPoint = {
@@ -123,7 +126,7 @@ type FeaturedMatch = {
   year: number;
   x: number;
   start: number;
-  visualMode: "first-xi" | "score-storm" | "year-mark" | "penalty-constellation";
+  visualMode: "first-xi" | "score-storm" | "extra-time-burst" | "bench-reversal" | "penalty-constellation";
   eyebrow: string;
   headline: string;
   match: {
@@ -210,14 +213,35 @@ const matchPaths = {
   }), 1.05),
 };
 
-const lateGoalPath = pointPath(DATA.lateGoals, (goal) => ({
-  x: 150 + ((yearOf(goal.date) - 1950) / 76) * 1620,
-  y: 775 - Math.min(14, Math.max(0, goal.clock - 85)) * 38 + (hash(goal.key) % 25),
-}), 2.2);
+const LATE_GOAL_YEAR_FROM = 1950;
+const LATE_GOAL_YEAR_SPAN = Math.max(1, yearOf(DATA.lateGoals.at(-1)?.date ?? "2026") - LATE_GOAL_YEAR_FROM);
+
+function lateGoalXY(goal: Pick<LateGoal, "date" | "clock" | "key">): { x: number; y: number } {
+  return {
+    x: 150 + ((yearOf(goal.date) - LATE_GOAL_YEAR_FROM) / LATE_GOAL_YEAR_SPAN) * 1620,
+    y: 775 - Math.min(14, Math.max(0, goal.clock - 85)) * 38 + (hash(goal.key) % 25),
+  };
+}
+
+const lateGoalPath = pointPath(DATA.lateGoals, (goal) => lateGoalXY(goal), 2.2);
 
 function displayClock(minute: number, added: number | null): string {
   return minute === 90 && added ? `90+${added}′` : `${minute}′`;
 }
+
+const ECHO_ANNOTATIONS = DATA.fergieEchoes.map((echo) => {
+  const goals = DATA.lateGoals.filter((goal) => goal.matchId === echo.id);
+  const marker = goals.at(-1) ?? goals[0];
+  if (!marker) return null;
+  const shortOpponent = echo.opponent.replace(/^FC\s+/i, "").replace(/\s+United$/i, "").replace(/\s+Hotspur$/i, "");
+  return {
+    echo,
+    marker,
+    point: lateGoalXY(marker),
+    clocks: echo.lateGoals.map((goal) => displayClock(goal.minute, goal.added)).join(" · "),
+    label: `${echo.date.slice(0, 4)} · ${shortOpponent}`,
+  };
+}).filter((row): row is NonNullable<typeof row> => row != null);
 
 function sceneOpacity(local: number, duration: number, fade = 34): number {
   return smoothstep(0, fade, local) * (1 - smoothstep(duration - fade, duration, local));
@@ -281,7 +305,8 @@ function masterMusicVolume(frame: number): number {
     musicDuck(frame, 640, 670, 780, 820), // rhyme facts land
     musicDuck(frame, 1240, 1265, 1300, 1330), // Treble Europe 90′
     musicDuck(frame, 1400, 1430, 1580, 1620), // Fergie clock tension
-    musicDuck(frame, 1800, 1830, 1920, 1960), // receipt / CTA
+    musicDuck(frame, 1880, 1910, 1980, 2020), // Fortress cracks
+    musicDuck(frame, 2080, 2110, 2200, 2240), // receipt / CTA
   );
   return lerp(0.82, 0.24, duck);
 }
@@ -320,7 +345,7 @@ function Field({ energy = 0.5 }: { energy?: number }) {
 }
 
 function FilmKicker({ frame }: { frame: number }) {
-  const finalFade = 1 - smoothstep(1920, 1980, frame);
+  const finalFade = 1 - smoothstep(2160, 2220, frame);
   return (
     <div style={{ position: "absolute", left: 74, top: 56, display: "flex", alignItems: "center", gap: 16, opacity: finalFade, fontFamily: MONO, fontSize: 15, letterSpacing: "0.24em", color: C.faint }}>
       <span style={{ width: 8, height: 8, borderRadius: 20, background: C.red, boxShadow: `0 0 16px ${C.red}` }} />
@@ -469,10 +494,77 @@ function PenaltyConstellationSignature({ match, progress }: { match: FeaturedMat
   );
 }
 
+function ExtraTimeSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const extra = goalEvents(match).filter((event) => (event.minute ?? 0) > 90 && event.side === "united");
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <FilmPortrait player={match.featuredPlayers[0]} opacity={0.43} />
+      <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>WEMBLEY · 1968</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>Level at ninety.<br />Three in seven minutes.</div>
+      </div>
+      <div style={{ position: "absolute", left: 10, right: 35, bottom: 22, height: 126 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 78, height: 2, background: C.line }} />
+        <div style={{ position: "absolute", left: 5, top: 55, fontFamily: MONO, fontSize: 54, color: C.faint }}>90′</div>
+        {extra.map((event, index) => {
+          const x = 320 + ((event.minute ?? 90) - 90) / 10 * 510;
+          const reveal = smoothstep(0.28 + index * 0.16, 0.48 + index * 0.16, progress);
+          return (
+            <div key={event.seq} style={{ position: "absolute", left: x, top: lerp(80, 4 + index * 12, reveal), width: 150, opacity: reveal, transform: "translateX(-50%)", textAlign: "center" }}>
+              <div style={{ fontFamily: MONO, fontSize: 30, color: C.gold }}>{event.minute}′</div>
+              <div style={{ marginTop: 5, fontFamily: SANS, fontSize: 16, fontWeight: 600, color: C.ink }}>{familyName(event.player)}</div>
+              <div style={{ width: 3, height: 38 + index * 10, margin: "8px auto 0", background: C.gold, boxShadow: `0 0 20px ${C.gold}` }} />
+            </div>
+          );
+        })}
+        <div style={{ position: "absolute", right: 0, top: 76, fontFamily: MONO, fontSize: 13, color: C.faint }}>100′</div>
+      </div>
+      <div style={{ position: "absolute", right: 18, top: 56 }}><MatchScore match={match} compact /></div>
+    </div>
+  );
+}
+
+function BenchReversalSignature({ match, progress }: { match: FeaturedMatch; progress: number }) {
+  const scorers = match.featuredPlayers;
+  const starters = match.lineup.filter((player) => player.side === "united" && player.started && !player.bench);
+  return (
+    <div style={{ position: "absolute", inset: 0 }}>
+      <div style={{ position: "absolute", left: 18, top: 0, width: 520 }}>
+        <div style={{ fontFamily: MONO, fontSize: 14, letterSpacing: "0.2em", color: C.gold }}>CAMP NOU · 1999</div>
+        <div style={{ marginTop: 13, fontFamily: SANS, fontSize: 52, lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", color: C.ink }}>The bench enters history.</div>
+      </div>
+      <div style={{ position: "absolute", left: 20, bottom: 12, width: 470, height: 150, opacity: 0.42 }}>
+        {starters.map((player, index) => {
+          const x = 20 + (index % 6) * 76;
+          const y = 20 + Math.floor(index / 6) * 68;
+          return <div key={`${player.playerId}-${index}`} style={{ position: "absolute", left: x, top: y, width: 58, textAlign: "center" }}><div style={{ width: 10, height: 10, margin: "0 auto", borderRadius: 20, background: C.faint }} /><div style={{ marginTop: 5, fontFamily: MONO, fontSize: 8.5, color: C.faint }}>{familyName(player.name)}</div></div>;
+        })}
+      </div>
+      <div style={{ position: "absolute", right: 12, top: 20, width: 430, height: 330, borderLeft: "1px solid rgba(243,237,232,.14)", paddingLeft: 34 }}>
+        <div style={{ fontFamily: MONO, fontSize: 12, letterSpacing: "0.2em", color: C.faint }}>USED SUBSTITUTES</div>
+        {scorers.map((player, index) => {
+          const reveal = smoothstep(0.2 + index * 0.22, 0.48 + index * 0.22, progress);
+          const event = match.events.find((candidate) => candidate.playerId === player.id && candidate.side === "united");
+          const lineupPlayer = match.lineup.find((candidate) => candidate.playerId === player.id);
+          return (
+            <div key={player.id} style={{ position: "absolute", left: lerp(34, 4, reveal), top: 58 + index * 116, display: "flex", alignItems: "center", gap: 18, opacity: 0.3 + reveal * 0.7 }}>
+              <div style={{ width: 70, height: 70, display: "grid", placeItems: "center", clipPath: "polygon(20% 5%,38% 0,50% 10%,62% 0,80% 5%,100% 23%,87% 37%,78% 31%,78% 100%,22% 100%,22% 31%,13% 37%,0 23%)", background: "linear-gradient(180deg,#ff3b1f,#8f170b)", boxShadow: `0 0 ${20 * reveal}px rgba(245,197,24,.6)`, fontFamily: MONO, fontSize: 24, color: C.cream }}>
+                {lineupPlayer?.shirt ?? "·"}
+              </div>
+              <div><div style={{ fontFamily: SANS, fontSize: 25, fontWeight: 600, color: C.ink }}>{familyName(player.name)}</div><div style={{ marginTop: 4, fontFamily: MONO, fontSize: 20, color: C.gold }}>{event ? displayClock(event.minute ?? 90, event.added) : "GOAL"}</div></div>
+            </div>
+          );
+        })}
+        <div style={{ position: "absolute", left: 34, right: 0, bottom: 10, height: 3, background: `linear-gradient(90deg,${C.red},${C.gold})`, transform: `scaleX(${smoothstep(0.32, 0.88, progress)})`, transformOrigin: "left" }} />
+      </div>
+      <div style={{ position: "absolute", left: 20, bottom: 165 }}><MatchScore match={match} compact /></div>
+    </div>
+  );
+}
+
 function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; frame: number; end: number }) {
-  if (match.visualMode === "year-mark") return null;
   const { enter, exit, presence } = featuredMatchMotion(frame, match, end);
-  // Finish the signature animation before travel/exit begins so the XI/storm can be read.
+  // Finish the signature animation before travel/exit begins so the card can be read.
   const progressEnd = Math.min(end - 52, match.start + 90);
   const progress = smoothstep(match.start - 8, progressEnd, frame);
   const translateX = lerp(58, 0, enter) + lerp(0, -72, exit);
@@ -484,6 +576,8 @@ function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; f
   const footerDepthX = lerp(8, 0, enter) + lerp(0, -11, exit);
   const body = match.visualMode === "first-xi" ? <FirstXiSignature match={match} progress={progress} />
     : match.visualMode === "score-storm" ? <ScoreStormSignature match={match} progress={progress} />
+    : match.visualMode === "extra-time-burst" ? <ExtraTimeSignature match={match} progress={progress} />
+    : match.visualMode === "bench-reversal" ? <BenchReversalSignature match={match} progress={progress} />
     : <PenaltyConstellationSignature match={match} progress={progress} />;
   return (
     <div style={{ position: "absolute", left: match.x - 480, top: 184, width: 960, height: 430, opacity: presence, filter: `blur(${blur.toFixed(2)}px)`, transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`, transformOrigin: "50% 100%" }}>
@@ -498,17 +592,16 @@ function FeaturedMatchSignature({ match, frame, end }: { match: FeaturedMatch; f
 function HistoricalTimeline({ frame }: { frame: number }) {
   const duration = ACT.openingUntil;
   const opacity = sceneOpacity(frame, duration, 36);
-  // One travelling thread head drives the camera. 1968/1999 are year marks only —
-  // their proofs wait for the loop and Treble.
+  // One travelling thread head drives the camera through four match cards.
   const travel = travelState(frame);
   const cameraX = 960 - travel.x + travel.anticipation * 11 - travel.settle * 5;
   const draw = interpolate(
     frame,
-    [0, 50, 110, 160, 210, 280, 320, 360, 430, 540],
-    [0.025, 0.08, 0.38, 0.42, 0.58, 0.64, 0.74, 0.82, 0.94, 0.97],
+    [0, 50, 110, 160, 210, 280, 340, 400, 460, 540],
+    [0.025, 0.08, 0.22, 0.48, 0.54, 0.68, 0.76, 0.88, 0.94, 0.97],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: THREAD_TRAVEL_EASE },
   );
-  const worldScale = 1 - travel.anticipation * 0.006 + travel.energy * 0.012 + travel.settle * 0.003 + smoothstep(320, 480, frame) * 0.012;
+  const worldScale = 1 - travel.anticipation * 0.006 + travel.energy * 0.012 + travel.settle * 0.003 + smoothstep(300, 460, frame) * 0.012;
   return (
     <AbsoluteFill style={{ opacity }}>
       <div style={{ position: "absolute", inset: 0, transform: `translate3d(${cameraX}px, 0, 0) scale(${worldScale})`, transformOrigin: `${travel.x}px 665px` }}>
@@ -525,16 +618,15 @@ function HistoricalTimeline({ frame }: { frame: number }) {
             const arrived = smoothstep(event.start - 24, event.start + 8, frame);
             const end = DATA.featuredMatches[index + 1]?.start ?? ACT.openingUntil;
             const motion = featuredMatchMotion(frame, event, end);
-            const european = event.match.competition.toLowerCase().includes("europe");
-            const yearOnly = event.visualMode === "year-mark";
+            const european = event.match.competition.toLowerCase().includes("europe") || event.match.competition.toLowerCase().includes("champions");
             return (
               <g key={event.year} opacity={0.22 + arrived * 0.78}>
-                <line x1={event.x} x2={event.x} y1="606" y2="656" stroke={european ? C.gold : C.cream} strokeWidth="1.5" strokeOpacity={(yearOnly ? arrived : motion.presence) * 0.34} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - (yearOnly ? arrived : motion.enter)} />
+                <line x1={event.x} x2={event.x} y1="606" y2="656" stroke={european ? C.gold : C.cream} strokeWidth="1.5" strokeOpacity={motion.presence * 0.34} pathLength="1" strokeDasharray="1" strokeDashoffset={1 - motion.enter} />
                 {european && <circle cx={event.x} cy="665" r="26" fill={C.gold} fillOpacity="0.1" stroke={C.gold} strokeOpacity="0.42" />}
                 <circle cx={event.x} cy="665" r={european ? 8 : 5.5} fill={european ? C.gold : C.cream} />
                 <line x1={event.x} x2={event.x} y1="636" y2="700" stroke={european ? C.gold : C.ink} strokeOpacity="0.32" />
                 <text x={event.x} y="744" textAnchor="middle" fill={european ? C.gold : C.faint} style={{ fontFamily: MONO, fontSize: european ? 23 : 18, letterSpacing: "0.08em" }}>{event.year}</text>
-                {european && !yearOnly && <text x={event.x} y="784" textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 14, fontWeight: 600, letterSpacing: "0.2em" }}>EUROPEAN CUP</text>}
+                {european && <text x={event.x} y="784" textAnchor="middle" fill={C.faint} style={{ fontFamily: SANS, fontSize: 14, fontWeight: 600, letterSpacing: "0.2em" }}>EUROPEAN CUP</text>}
               </g>
             );
           })}
@@ -939,7 +1031,7 @@ function FergieConstellation({ frame }: { frame: number }) {
         height: 520,
         marginLeft: -260,
         marginTop: -260,
-        opacity: clockBuild * (1 - constellation * 0.92),
+        opacity: clockBuild * (1 - constellation),
         transform: `scale(${lerp(0.82, 1, clockBuild) * lerp(1, 1.55, bloom)})`,
       }}>
         <svg width="520" height="520" style={{ position: "absolute", inset: 0 }}>
@@ -996,15 +1088,132 @@ function FergieConstellation({ frame }: { frame: number }) {
       <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, opacity: constellation }}>
         <path d={lateGoalPath} fill="rgba(255,210,120,.54)" />
         <line x1="150" x2="1770" y1="775" y2="775" stroke={C.red} strokeOpacity="0.45" />
-        {[86, 90, 94, 98].map((clock) => <text key={clock} x="105" y={775 - (clock - 85) * 38 + 6} fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }}>{clock === 94 ? "90+4" : clock === 98 ? "90+8" : `${clock}′`}</text>)}
+        {[86, 90, 94, 98].map((clock) => (
+          <text key={clock} x="105" y={775 - (clock - 85) * 38 + 6} fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }}>
+            {clock === 94 ? "90+4" : clock === 98 ? "90+8" : `${clock}′`}
+          </text>
+        ))}
+        {[1950, 1970, 1990, 2010, yearOf(DATA.lateGoals.at(-1)?.date ?? "2026")].map((year) => {
+          const x = 150 + ((year - LATE_GOAL_YEAR_FROM) / LATE_GOAL_YEAR_SPAN) * 1620;
+          return (
+            <g key={year}>
+              <line x1={x} x2={x} y1="775" y2="788" stroke={C.faint} strokeOpacity="0.55" />
+              <text x={x} y="812" textAnchor="middle" fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }}>{year}</text>
+            </g>
+          );
+        })}
+        {ECHO_ANNOTATIONS.map((annotation, index) => {
+          const reveal = smoothstep(210 + index * 18, 245 + index * 18, frame);
+          const labelY = annotation.point.y - 36 - (index % 2) * 18;
+          return (
+            <g key={annotation.echo.id} opacity={reveal}>
+              <circle cx={annotation.point.x} cy={annotation.point.y} r="11" fill={C.gold} fillOpacity="0.18" />
+              <circle cx={annotation.point.x} cy={annotation.point.y} r="5.5" fill={C.gold} stroke={C.cream} strokeWidth="1.5" />
+              <line x1={annotation.point.x} x2={annotation.point.x} y1={annotation.point.y - 8} y2={labelY + 10} stroke={C.gold} strokeOpacity="0.55" strokeWidth="1.2" />
+              <text x={annotation.point.x} y={labelY} textAnchor="middle" fill={C.gold} style={{ fontFamily: MONO, fontSize: 15, fontWeight: 600 }}>{annotation.label}</text>
+              <text x={annotation.point.x} y={labelY + 18} textAnchor="middle" fill={C.ink} style={{ fontFamily: MONO, fontSize: 13 }}>{annotation.clocks}</text>
+            </g>
+          );
+        })}
         <circle cx="960" cy="500" r={lerp(48, 8, smoothstep(210, 280, frame))} fill={C.gold} fillOpacity={0.2 * (1 - smoothstep(250, 300, frame))} />
       </svg>
       <div style={{ position: "absolute", top: 100, insetInline: 0, textAlign: "center", opacity: constellation }}>
         <div style={{ fontFamily: MONO, color: C.gold, fontSize: 18, letterSpacing: "0.23em" }}>{DATA.lateGoals.length} RECORDED GOALS AFTER 85′</div>
-        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>One pressure, across eras.</div>
+        <div style={{ marginTop: 15, fontFamily: SANS, color: C.ink, fontSize: 56, fontWeight: 600, letterSpacing: "-0.04em" }}>The same late finish.</div>
       </div>
-      <div style={{ position: "absolute", insetInline: 0, bottom: 52, textAlign: "center", opacity: smoothstep(280, 330, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>1993 to 2023. The same impossible finish.</div>
+      <div style={{ position: "absolute", insetInline: 0, bottom: 36, textAlign: "center", opacity: smoothstep(280, 330, frame), fontFamily: SANS, color: C.dim, fontSize: 22 }}>Three nights. Then every late goal in the record.</div>
     </AbsoluteFill>
+  );
+}
+
+function Fortress({ frame }: { frame: number }) {
+  const duration = 360;
+  const opacity = sceneOpacity(frame, duration, 34);
+  const wall = smoothstep(18, 90, frame);
+  const numbers = smoothstep(70, 130, frame);
+  const cracks = smoothstep(150, 220, frame);
+  const dissolve = smoothstep(300, 350, frame);
+  const games = DATA.fortress.games;
+  const crackIds = new Set(DATA.fortress.cracks.map((crack) => crack.id));
+  const rows = 10;
+  const cols = Math.ceil(games.length / rows);
+  const card = { left: 380, right: 1540, top: 440, bottom: 680 };
+  const cellW = (card.right - card.left) / cols;
+  const cellH = (card.bottom - card.top) / rows;
+  const yearFrom = yearOf(games[0]?.date ?? "1984");
+  const yearTo = yearOf(games.at(-1)?.date ?? "2026");
+  return (
+    <AbsoluteFill style={{ opacity: opacity * (1 - dissolve * 0.55) }}>
+      <div style={{ position: "absolute", inset: 0, opacity: 0.22 * wall * (1 - dissolve), WebkitMaskImage: "radial-gradient(ellipse 75% 76% at 50% 55%,#000 12%,transparent 78%)" }}>
+        <Img src={staticFile("media/journey/old-trafford.webp")} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(1) contrast(1.22) brightness(.66)" }} />
+        <AbsoluteFill style={{ background: "radial-gradient(ellipse at center,rgba(216,33,13,.6),rgba(216,33,13,.08) 62%,transparent)", mixBlendMode: "color" }} />
+      </div>
+
+      <div style={{ position: "absolute", top: 88, insetInline: 0, textAlign: "center", opacity: 1 - dissolve }}>
+        <div style={{ fontFamily: MONO, fontSize: 16, letterSpacing: "0.24em", color: C.red }}>OLD TRAFFORD · HOME LEAGUE</div>
+        <div style={{ marginTop: 14, fontFamily: SANS, fontSize: 56, fontWeight: 600, letterSpacing: "-0.045em" }}>
+          {frame < 90 ? "At Old Trafford, a lead held." : frame < 160 ? `${games.length} times ahead at half-time.` : "Only three needed rescuing."}
+        </div>
+      </div>
+
+      <div style={{ position: "absolute", left: 380, right: 380, top: 308, display: "grid", gridTemplateColumns: "1.2fr 1fr 1fr 1fr", gap: 18, alignItems: "end", opacity: numbers * (1 - dissolve) }}>
+        <FortressNumber value={String(games.length)} label="MATCHES" />
+        <FortressNumber value={String(DATA.fortress.w)} label="WINS" />
+        <FortressNumber value={String(DATA.fortress.d)} label="DRAWS" />
+        <FortressNumber value="0" label="DEFEATS" accent />
+      </div>
+
+      <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, transform: `scale(${lerp(1, 1.08, dissolve)})`, transformOrigin: "50% 58%" }}>
+        <path d="M 290 770 L 290 475 Q 290 286 480 286 L 1440 286 Q 1630 286 1630 475 L 1630 770" fill="rgba(12,11,10,.38)" fillOpacity={wall * (1 - dissolve)} stroke={C.red} strokeOpacity={0.4 * wall * (1 - dissolve)} strokeWidth="2.5" />
+        <path d="M 474 770 L 474 526 Q 474 394 606 394 L 1314 394 Q 1446 394 1446 526 L 1446 770" fill="none" stroke={C.ink} strokeOpacity={0.1 * wall * (1 - dissolve)} />
+        <g opacity={wall * (1 - dissolve * 0.75)}>
+          {games.map((game, index) => {
+            const col = Math.floor(index / rows);
+            const row = index % rows;
+            const x = card.left + col * cellW + cellW / 2;
+            const y = card.top + row * cellH + cellH / 2;
+            const cracked = crackIds.has(game.id);
+            const reveal = smoothstep(index / games.length * 0.55, index / games.length * 0.55 + 0.2, wall);
+            const isDraw = game.result === "D" || game.worst < 0;
+            return (
+              <g key={game.id} opacity={reveal}>
+                {cracked && <circle cx={x} cy={y} r="7.5" fill="none" stroke={C.gold} strokeOpacity={0.35 + cracks * 0.45} strokeWidth="1.2" />}
+                <circle
+                  cx={x}
+                  cy={y}
+                  r={cracked ? 4.2 : isDraw ? 3.2 : 3.6}
+                  fill={cracked ? C.gold : isDraw ? "#1a1512" : C.ink}
+                  fillOpacity={cracked ? 0.95 : isDraw ? 0.9 : 0.78}
+                  stroke={isDraw && !cracked ? C.gold : "none"}
+                  strokeWidth={isDraw && !cracked ? 1.1 : 0}
+                />
+              </g>
+            );
+          })}
+        </g>
+        <text x={card.left} y={card.bottom + 26} fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }} opacity={wall * (1 - dissolve)}>{yearFrom}</text>
+        <text x={card.right} y={card.bottom + 26} textAnchor="end" fill={C.faint} style={{ fontFamily: MONO, fontSize: 14 }} opacity={wall * (1 - dissolve)}>{yearTo} →</text>
+      </svg>
+
+      <div style={{ position: "absolute", left: 320, right: 320, bottom: 48, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22, opacity: cracks * (1 - dissolve) }}>
+        {DATA.fortress.cracks.map((crack) => (
+          <div key={crack.id} style={{ paddingTop: 14, borderTop: `1px solid rgba(245,197,24,.45)`, textAlign: "center" }}>
+            <div style={{ fontFamily: MONO, color: C.gold, fontSize: 16 }}>{crack.date.slice(0, 4)}</div>
+            <div style={{ marginTop: 8, fontFamily: SANS, color: C.ink, fontSize: 20, fontWeight: 600 }}>{crack.opponent} · {crack.ft}</div>
+            <div style={{ marginTop: 6, fontFamily: SANS, color: C.faint, fontSize: 15 }}>Fell behind. Rescued.</div>
+          </div>
+        ))}
+      </div>
+    </AbsoluteFill>
+  );
+}
+
+function FortressNumber({ value, label, accent = false }: { value: string; label: string; accent?: boolean }) {
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{ fontFamily: MONO, fontSize: accent ? 92 : 64, lineHeight: 0.9, color: accent ? C.gold : C.ink }}>{value}</div>
+      <div style={{ marginTop: 10, fontFamily: SANS, fontSize: 13, fontWeight: 600, letterSpacing: "0.18em", color: C.faint }}>{label}</div>
+    </div>
   );
 }
 
@@ -1084,16 +1293,18 @@ function RecordOpens({ frame }: { frame: number }) {
 
 const CAPTIONS: { start: number; end: number; text: string }[] = [
   { start: 24, end: 130, text: "1886 — the first XI" },
-  { start: 150, end: 250, text: "1954 — eleven goals, one night" },
-  { start: 390, end: 500, text: "2008 — decided from the spot" },
+  { start: 150, end: 265, text: "1968 — level at ninety" },
+  { start: 285, end: 395, text: "1999 — the bench enters history" },
+  { start: 415, end: 500, text: "2008 — decided from the spot" },
   { start: 520, end: 640, text: "1968 ↔ 2008 — some nights return" },
   { start: 650, end: 820, text: "Both No. 7. Both scored." },
   { start: 900, end: 1180, text: "1998–99 — three must-wins" },
   { start: 1190, end: 1370, text: "All three, from the bench." },
   { start: 1400, end: 1600, text: "Fergie time — the same late shape" },
   { start: 1600, end: 1740, text: `${DATA.lateGoals.length} goals after 85′` },
-  { start: 1780, end: 1920, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches — pull a thread` },
-  { start: 1920, end: 2040, text: "Every claim leads back to its receipt" },
+  { start: 1780, end: 1960, text: "Only three needed rescuing" },
+  { start: 2080, end: 2200, text: `${DATA.counts.matches.toLocaleString("en-GB")} matches — pull a thread` },
+  { start: 2200, end: 2280, text: "Every claim leads back to its receipt" },
 ];
 
 function CaptionBurn({ frame, enabled }: { frame: number; enabled: boolean }) {
@@ -1128,7 +1339,8 @@ function ActHandoffFilament({ frame }: { frame: number }) {
     { start: 480, end: 540, d: "M 1490 696 C 1360 640, 1180 560, 980 520" }, // opening → rhyme
     { start: 840, end: 910, d: "M 1490 696 C 1360 660, 1190 674, 980 696" }, // rhyme → 1999
     { start: 1340, end: 1400, d: "M 960 540 C 960 480, 960 420, 960 360" }, // treble → clock
-    { start: 1680, end: 1750, d: "M 960 500 C 1180 640, 1500 800, 1814 888" }, // fergie → archive field
+    { start: 1680, end: 1750, d: "M 960 500 C 960 560, 960 620, 960 680" }, // fergie → fortress
+    { start: 2000, end: 2070, d: "M 960 620 C 1180 700, 1500 820, 1814 888" }, // fortress → archive field
   ];
   return (
     <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
@@ -1158,17 +1370,18 @@ export function RedThreadMasterV2({ withAudio = true, withCaptions = false }: { 
       {frame >= ACT.rhymeFrom && frame < ACT.rhymeUntil && <RhymeLoop frame={frame - ACT.rhymeLocalOrigin} />}
       {frame >= ACT.fergieFrom && frame < ACT.fergieUntil && <FergieConstellation frame={frame - ACT.fergieLocalOrigin} />}
       {frame >= ACT.trebleFrom && frame < ACT.trebleUntil && <TreblePocket frame={frame - ACT.trebleLocalOrigin} />}
+      {frame >= ACT.fortressFrom && frame < ACT.fortressUntil && <Fortress frame={frame - ACT.fortressLocalOrigin} />}
       {frame >= ACT.recordFrom && <RecordOpens frame={frame - ACT.recordLocalOrigin} />}
       <ActHandoffFilament frame={frame} />
       <FilmKicker frame={frame} />
       <CaptionBurn frame={frame} enabled={withCaptions || !withAudio} />
       {withAudio && (
         <>
-          <Sequence from={0} durationInFrames={62 * FPS} layout="none">
+          <Sequence from={0} durationInFrames={70 * FPS} layout="none">
             <Audio src={staticFile("video/audio/master-v3.mp3")} volume={(f) => masterMusicVolume(f)} />
           </Sequence>
-          <Sequence from={62 * FPS} durationInFrames={6 * FPS} layout="none">
-            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={78 * FPS} volume={(f) => masterMusicVolume(62 * FPS + f)} />
+          <Sequence from={70 * FPS} durationInFrames={6 * FPS} layout="none">
+            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={78 * FPS} volume={(f) => masterMusicVolume(70 * FPS + f)} />
           </Sequence>
           <Sequence from={0} durationInFrames={ACT.openingUntil}>
             <Audio src={staticFile("video/audio/master-v6-opening-sfx.wav")} volume={0.48} />
