@@ -93,8 +93,10 @@ should enter the canonical record.
   Wikimedia-first pass over every verified `player_records` row (plus existing
   featured exceptions). Both write `data/canonical/player-media.json`;
   `npm run cache:media` downloads verified local WebP display files into
-  `public/media/**`; `npm run build:db` loads reusable image, local path, and
-  attribution fields into `player_media`.
+  `public/media/**`; builds only reconcile those tracked files by default so
+  Wikimedia rate limits cannot block deploys. Set `UNITEDSTATS_CACHE_MEDIA=1`
+  for an explicit remote refresh. `npm run build:db` loads reusable image, local
+  path, and attribution fields into `player_media`.
 - **Coverage gate:** `npm run check:player-media-roster` checks that every
   verified player appears in either the manifest's `records` or its explicit
   `missing` ledger, so unresolved long-tail players cannot disappear silently.

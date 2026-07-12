@@ -52,6 +52,14 @@ interface ResearchRecord {
   notes: string;
 }
 
+type FoundResearchRecord = ResearchRecord & {
+  status: "found";
+  commonsFile: string;
+  imageUrl: string;
+  pageUrl: string;
+  license: string;
+};
+
 interface ResearchBatch {
   generatedAt?: string;
   records: ResearchRecord[];
@@ -78,12 +86,19 @@ interface ExistingManifest {
   missing?: Record<string, unknown>[];
 }
 
+function isFoundResearchRecord(record: ResearchRecord): record is FoundResearchRecord {
+  return record.status === "found" &&
+    Boolean(record.commonsFile && record.imageUrl && record.pageUrl && record.license);
+}
+
 function main(): void {
   const manifest = readJson<ExistingManifest>(MANIFEST_FILE);
   const batchFiles = fs.readdirSync(RESEARCH_DIR).filter((file) => /^batch-.*\.json$/.test(file)).sort();
   const batches = batchFiles.map((file) => readJson<ResearchBatch>(path.join(RESEARCH_DIR, file)));
   const research = batches.flatMap((batch) => batch.records);
-  const found = research.filter((record) => record.status === "found");
+  const foundCandidates = research.filter(
+    (record): record is ResearchRecord & { status: "found" } => record.status === "found",
+  );
 
   const recordsById = new Map<string, ExistingMediaRecord>();
   for (const record of manifest.records) {
@@ -92,13 +107,15 @@ function main(): void {
   }
 
   const researchIds = new Set<string>();
-  for (const record of found) {
+  for (const record of foundCandidates) {
     if (researchIds.has(record.playerId)) throw new Error(`Duplicate research record: ${record.playerId}`);
     researchIds.add(record.playerId);
     if (!record.commonsFile || !record.imageUrl || !record.pageUrl || !record.license) {
       throw new Error(`Found research record is missing media metadata: ${record.playerId}`);
     }
   }
+
+  const found = foundCandidates.filter(isFoundResearchRecord);
 
   const retrievedAt = new Date().toISOString();
   let added = 0;

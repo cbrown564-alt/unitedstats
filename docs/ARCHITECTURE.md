@@ -30,7 +30,7 @@ pipeline, and a public dataset/API.
 │  └─ …reference files        └─ validate.ts            at runtime)           server-side  │
 │                                                                                          │
 │  public/dataset/  ◄── export:dataset (CSV/JSON flat files for download)                │
-│  public/media/    ◄── cache:media (local WebP portraits)                                 │
+│  public/media/    ◄── cache:media (explicit refresh; builds reconcile tracked WebPs)      │
 └──────────────┬───────────────────────────────────────────────────────────────────────────┘
                │ GitHub Actions cron (post-match windows)
                ▼

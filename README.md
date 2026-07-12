@@ -56,7 +56,7 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 | Command | Does |
 |---|---|
 | `npm run dev` | Next dev server (`predev` builds DB if missing) |
-| `npm run build` | Production build (`prebuild`: DB + media cache + dataset export) |
+| `npm run build` | Production build (`prebuild`: DB + tracked-media reconciliation + dataset export) |
 | `npm run start` | Serve production build |
 | `npm test` | Unit tests (`tests/*.test.ts`) |
 | `npm run lint` | ESLint |
@@ -68,7 +68,7 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 |---|---|
 | `npm run build:db` | Canonical JSON → `data/united.db` + precomputed analytics |
 | `npm run export:dataset` | SQLite → flat CSV/JSON in `public/dataset/` |
-| `npm run cache:media` | Cache Wikidata/Commons images to `public/media/` |
+| `npm run cache:media` | Cache Wikidata/Commons images to `public/media/` (explicit network refresh) |
 | `npm run validate` | Integrity checks on canonical data (CI gate) |
 
 ### Pipeline

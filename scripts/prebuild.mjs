@@ -1,6 +1,9 @@
 /**
- * Conditional prebuild: full deploys rebuild the dataset export; preview deploys
- * skip it because PR builds are for UI iteration, not downloadable releases.
+ * Conditional prebuild: builds reconcile the tracked local media paths;
+ * remote Wikimedia downloads are an explicit ingest operation because rate
+ * limits and unavailable historical images must not block deploys or previews.
+ * Full deploys rebuild the dataset export; preview deploys skip it because PR
+ * builds are for UI iteration, not downloadable releases.
  */
 import { spawnSync } from "node:child_process";
 
@@ -21,7 +24,11 @@ const mode = profile();
 console.log(`prebuild: profile=${mode}`);
 
 run("build:db", ["build:db"]);
-run("cache:media", ["cache:media"]);
+if (process.env.UNITEDSTATS_CACHE_MEDIA === "1") {
+  run("cache:media (remote)", ["cache:media"]);
+} else {
+  run("cache:media (reconcile-only)", ["cache:media", "--", "--reconcile-only"]);
+}
 
 if (mode === "full") {
   run("export:dataset", ["export:dataset"]);
