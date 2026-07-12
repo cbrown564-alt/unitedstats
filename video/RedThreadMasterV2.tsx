@@ -485,19 +485,18 @@ function featuredMatchMotion(frame: number, match: FeaturedMatch, end: number) {
   };
 }
 
-function musicDuck(frame: number, inStart: number, inEnd: number, outStart: number, outEnd: number): number {
-  return smoothstep(inStart, inEnd, frame) * (1 - smoothstep(outStart, outEnd, frame));
+const MUSIC_LEVEL = 0.82;
+const MUSIC_TAIL_FROM = 83.4 * FPS;
+const MUSIC_TAIL_SOURCE = 77.4 * FPS;
+
+function musicHeadVolume(frame: number): number {
+  return MUSIC_LEVEL * (1 - smoothstep(MUSIC_TAIL_FROM, MUSIC_TAIL_FROM + 24, frame));
 }
 
-function masterMusicVolume(frame: number): number {
-  const duck = Math.max(
-    musicDuck(frame, 700, 730, 980, 1020), // rhyme facts land (through fifth season)
-    musicDuck(frame, 1480, 1510, 1570, 1605), // Treble Europe 90′ / payoff
-    musicDuck(frame, 1630, 1660, 1980, 2040), // shared countdown tension
-    musicDuck(frame, 2330, 2360, 2430, 2470), // Fortress cracks
-    musicDuck(frame, 2510, 2540, 2620, 2660), // receipt / CTA
-  );
-  return lerp(0.82, 0.24, duck);
+function musicTailVolume(frame: number): number {
+  const enter = smoothstep(0, 24, frame);
+  const exit = 1 - smoothstep(150, 198, frame);
+  return MUSIC_LEVEL * enter * exit;
 }
 
 function Fonts() {
@@ -1336,32 +1335,6 @@ function CaptionBurn({ frame, enabled }: { frame: number; enabled: boolean }) {
   );
 }
 
-function ActHandoffFilament({ frame }: { frame: number }) {
-  const bridges = [
-    { start: 480, end: 540, d: "M 1490 696 C 1360 640, 1180 560, 980 520" }, // opening → rhyme
-    { start: 1050, end: 1140, d: "M 1490 696 C 1360 660, 1190 674, 980 696" }, // rhyme → Treble
-    { start: 1560, end: 1630, d: "M 960 540 C 960 480, 960 420, 960 360" }, // Treble payoff → Fergie
-    { start: 2100, end: 2190, d: "M 960 500 C 960 560, 960 620, 960 680" }, // Fergie → Fortress
-    { start: 2430, end: 2500, d: "M 960 620 C 1180 700, 1500 820, 1814 888" }, // Fortress → archive field
-  ];
-  return (
-    <svg width="1920" height="1080" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-      <defs>
-        <filter id="handoff-glow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="8" /></filter>
-      </defs>
-      {bridges.map((bridge) => {
-        const draw = windowed(frame, bridge.start, bridge.start + 18, bridge.end - 18, bridge.end);
-        return (
-          <g key={bridge.start} opacity={draw}>
-            <path d={bridge.d} fill="none" stroke={C.red} strokeWidth="22" strokeOpacity={0.14} strokeLinecap="round" filter="url(#handoff-glow)" />
-            <path d={bridge.d} fill="none" stroke={C.gold} strokeWidth="3" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - draw} />
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
 export function RedThreadMasterV2({ withAudio = true, withCaptions = false }: { withAudio?: boolean; withCaptions?: boolean }) {
   const frame = useCurrentFrame();
   return (
@@ -1374,23 +1347,15 @@ export function RedThreadMasterV2({ withAudio = true, withCaptions = false }: { 
       {frame >= ACT.trebleFrom && frame < ACT.trebleUntil && <TreblePocket frame={frame - ACT.trebleLocalOrigin} />}
       {frame >= ACT.fortressFrom && frame < ACT.fortressUntil && <Fortress frame={frame - ACT.fortressLocalOrigin} />}
       {frame >= ACT.recordFrom && <RecordOpens frame={frame - ACT.recordLocalOrigin} />}
-      <ActHandoffFilament frame={frame} />
       <FilmKicker frame={frame} />
       <CaptionBurn frame={frame} enabled={withCaptions || !withAudio} />
       {withAudio && (
         <>
-          <Sequence from={0} durationInFrames={84 * FPS} layout="none">
-            <Audio src={staticFile("video/audio/master-v3.mp3")} volume={(f) => masterMusicVolume(f)} />
+          <Sequence from={0} durationInFrames={MUSIC_TAIL_FROM + 24} layout="none">
+            <Audio src={staticFile("video/audio/master-v3.mp3")} volume={(f) => musicHeadVolume(f)} />
           </Sequence>
-          <Sequence from={84 * FPS} durationInFrames={6 * FPS} layout="none">
-            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={78 * FPS} volume={(f) => masterMusicVolume(84 * FPS + f)} />
-          </Sequence>
-          <Sequence from={0} durationInFrames={ACT.openingUntil}>
-            <Audio src={staticFile("video/audio/master-v6-opening-sfx.wav")} volume={0.48} />
-          </Sequence>
-          <Audio src={staticFile("video/audio/master-v6-body-sfx.wav")} volume={0.52} />
-          <Sequence from={ACT.trebleLocalOrigin} durationInFrames={540}>
-            <Audio src={staticFile("video/audio/master-v5-sfx.wav")} volume={0.7} />
+          <Sequence from={MUSIC_TAIL_FROM} durationInFrames={198} layout="none">
+            <Audio src={staticFile("video/audio/master-v3.mp3")} trimBefore={MUSIC_TAIL_SOURCE} volume={(f) => musicTailVolume(f)} />
           </Sequence>
         </>
       )}
