@@ -81,7 +81,7 @@ export default function Home() {
           <span className="stories-film-knot" aria-hidden />
           <div className="stories-film-heading">
             <h2 id="home-film-title" className="display">Every United match since 1886</h2>
-            <p>A ninety-second tour — then follow the Red Thread to every match, player or moment in United&apos;s history.</p>
+            <p>A ninety-second tour. Then follow the thread to every match, player and moment.</p>
           </div>
           <StoriesFilm />
         </section>
