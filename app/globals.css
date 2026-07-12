@@ -382,6 +382,22 @@ html {
 .stories-film-next:hover,
 .stories-film-youtube:hover { color: var(--color-ink); }
 
+/* Homepage — the film sits flush above the curated match, no action row or dead air. */
+.stories-film--home {
+  min-height: auto;
+  justify-content: flex-start;
+  padding-bottom: 0;
+}
+
+.stories-film--home .stories-film-heading {
+  padding-bottom: 1.75rem;
+}
+
+.stories-film--home::before {
+  bottom: auto;
+  height: calc(100% + 2rem);
+}
+
 .stories-thread {
   position: relative;
   padding: 2rem var(--stories-gutter) 7rem;
@@ -605,6 +621,8 @@ html {
   .stories-index-hero h1, .stories-index-rhyme { font-size: clamp(3.1rem, 16vw, 5.2rem); }
   .stories-index-intro { max-width: 27rem; margin-top: 1.75rem; }
   .stories-film { min-height: 42rem; padding: 7rem var(--stories-gutter) 7rem; }
+  .stories-film--home { min-height: auto; padding-top: 4.5rem; padding-bottom: 0; }
+  .stories-film--home .stories-film-heading { padding-bottom: 1.25rem; }
   .stories-film-knot { top: 3.8rem; }
   .stories-film-heading { padding-bottom: 2.25rem; }
   .stories-film-heading h2 { font-size: clamp(2.9rem, 14vw, 4.5rem); }
