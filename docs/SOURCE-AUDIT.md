@@ -88,12 +88,18 @@ should enter the canonical record.
   file metadata, including license and attribution fields.
 - **Range:** strongest for modern and famous players; early players often have
   no reusable portrait. Use this before considering club-site or agency images.
-- **Importer:** `npm run ingest:player-media` imports the top 100
-  `player_records` rows by appearances plus the Premier League-era cohort and
-  featured surfaces into `data/canonical/player-media.json`; `npm run
-  cache:media` downloads verified local WebP display files into
-  `public/media/**`; `npm run build:db` loads reusable image, local path, and
-  attribution fields into `player_media`.
+- **Importer:** `npm run ingest:player-media` keeps the curated appearance
+  cohort workflow; `npm run ingest:player-media:all` performs the exhaustive
+  Wikimedia-first pass over every verified `player_records` row (plus existing
+  featured exceptions). Both write `data/canonical/player-media.json`;
+  `npm run cache:media` downloads verified local WebP display files into
+  `public/media/**`; builds only reconcile those tracked files by default so
+  Wikimedia rate limits cannot block deploys. Set `UNITEDSTATS_CACHE_MEDIA=1`
+  for an explicit remote refresh. `npm run build:db` loads reusable image, local
+  path, and attribution fields into `player_media`.
+- **Coverage gate:** `npm run check:player-media-roster` checks that every
+  verified player appears in either the manifest's `records` or its explicit
+  `missing` ledger, so unresolved long-tail players cannot disappear silently.
 - **Failure modes:** no image, poor likeness, non-player images, deleted Commons
   files, Wikimedia rate limits during cache refresh, or license metadata
   requiring visible attribution.

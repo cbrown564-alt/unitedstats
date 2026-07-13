@@ -17,7 +17,10 @@ jobs:
       - run: npm run knip
       - run: npm run validate
       - run: npm run build:db
-      - run: npm run cache:media
+      # Media assets are committed; remote Wikimedia refreshes are intentionally
+      # kept out of CI because rate limits and missing historical images are
+      # expected fallback cases.
+      - run: npm run cache:media -- --reconcile-only
       - run: npm run check:media
       - run: npm test
       - run: npm run build

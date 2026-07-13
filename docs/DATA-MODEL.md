@@ -65,10 +65,12 @@ by competition rules, not calendar).
   headline source for all-time apps, starts, substitute appearances, goals, and
   career span; match-derived lineup/event counts remain separate coverage
   fields.
-- **`player-media.json`** — top-player image manifest imported from Wikidata
-  `P18` and Wikimedia Commons `imageinfo`, including original image/thumbnail
-  URL, optional checked `localPath` under `public/media`, Commons description
-  URL, license short name, artist, credit, and retrieval timestamp.
+- **`player-media.json`** — player image manifest imported from Wikidata `P18`
+  and Wikimedia Commons `imageinfo`, including original image/thumbnail URL,
+  optional checked `localPath` under `public/media`, Commons description URL,
+  license short name, artist, credit, and retrieval timestamp. The exhaustive
+  ingest also keeps an explicit `missing` ledger for players with no verified
+  reusable raster candidate yet.
 - **`player-shirts.json`** — top-player shirt-number summary derived from
   MUFCInfo match pages. Rows are grouped by player, shirt number, and decade
   for the appearance-ranked top 500 where numbered lineup rows are available.
