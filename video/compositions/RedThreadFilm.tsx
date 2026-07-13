@@ -1471,14 +1471,42 @@ function FortressNumber({ value, label, accent = false }: { value: string; label
 function RecordOpens({ frame }: { frame: number }) {
   const opacity = smoothstep(0, 32, frame);
   const field = smoothstep(0, 90, frame);
-  const pull = smoothstep(70, 130, frame);
-  const receipt = smoothstep(100, 150, frame);
+  const pull = interpolate(frame, [70, 92, 130], [0, 0.1, 1], {
+    easing: Easing.bezier(0.55, 0.06, 0.18, 1),
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const release = smoothstep(118, 134, frame);
+  const recoilClock = interpolate(frame, [130, 164], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const recoil = frame >= 130 && frame < 164
+    ? Math.sin(recoilClock * Math.PI * 2) * Math.exp(-4.2 * recoilClock)
+    : 0;
+  const bow = Math.sin(pull * Math.PI) * 38;
+  const receipt = smoothstep(112, 154, frame);
   const cta = smoothstep(140, 180, frame);
-  const snapshotScroll = smoothstep(150, 205, frame);
-  const knotX = interpolate(pull, [0, 1], [1814, 658]);
-  const knotY = interpolate(pull, [0, 1], [888, 548]);
+  const knotX = interpolate(pull, [0, 1], [1814, 658]) + recoil * 9;
+  const knotY = interpolate(pull, [0, 1], [888, 548]) - recoil * 6;
   const fieldScale = lerp(1.18, 0.72, pull);
   const fieldOpacity = field * (1 - receipt * 0.88);
+  const pullPath = `M 1814 888 C 1510 ${820 + bow}, 1070 ${650 - bow * 0.72}, 658 548`;
+  // The source is a full-page 780×2822 mobile capture, displayed at 380px wide.
+  // Hold at the page top until the receipt has fully landed (global frame 2644,
+  // about 1.5s into the end-card review), then scroll only until global frame
+  // 2658: the visually matched frame with breadcrumbs, timeline, Starting XI and
+  // coverage all composed in the phone. It freezes while the Threadline finishes.
+  const snapshotHeight = 2822 * (380 / 780);
+  const snapshotViewportHeight = 816;
+  const snapshotMaxScroll = Math.max(0, snapshotHeight - snapshotViewportHeight);
+  const snapshotScrollFrame = Math.min(frame, 168);
+  const snapshotScrollProgress = interpolate(snapshotScrollFrame, [155, 186], [0, 1], {
+    easing: Easing.bezier(0.77, 0, 0.175, 1),
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const snapshotOffset = snapshotMaxScroll * snapshotScrollProgress;
   return (
     <AbsoluteFill style={{ opacity }}>
       <svg width="1920" height="1080" style={{ position: "absolute", inset: 0 }}>
@@ -1488,9 +1516,10 @@ function RecordOpens({ frame }: { frame: number }) {
           <path d={matchPaths.L} fill={C.red} fillOpacity="0.3" />
           <path d="M 105 918 C 520 885, 940 928, 1815 888" fill="none" stroke={C.red} strokeOpacity="0.68" strokeWidth="3" />
         </g>
-        <path d="M 1814 888 C 1510 820, 1070 650, 658 548" fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.13 * pull} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} style={{ filter: "blur(8px)" }} />
-        <path d="M 1814 888 C 1510 820, 1070 650, 658 548" fill="none" stroke={C.red} strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} />
-        <circle cx={knotX} cy={knotY} r={lerp(8, 16, receipt)} fill={C.gold} opacity={Math.max(field, pull)} />
+        <path d={pullPath} fill="none" stroke={C.red} strokeWidth="28" strokeOpacity={0.13 * pull} strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} style={{ filter: "blur(8px)" }} />
+        <path d={pullPath} fill="none" stroke={C.red} strokeWidth="3.5" strokeLinecap="round" pathLength="1" strokeDasharray="1" strokeDashoffset={1 - pull} />
+        <circle cx={knotX} cy={knotY} r={lerp(8, 16, receipt) + recoil * 2} fill={C.gold} opacity={Math.max(field, pull)} />
+        <circle cx="658" cy="548" r={20 + release * 8} fill="none" stroke={C.gold} strokeWidth="1.4" opacity={release * (1 - smoothstep(134, 158, frame)) * 0.52} />
       </svg>
 
       <div style={{
@@ -1515,14 +1544,14 @@ function RecordOpens({ frame }: { frame: number }) {
         </div>
         <div style={{ position: "relative", height: 816, overflow: "hidden", borderRadius: 25, background: C.pitch }}>
           <Img
-            src={staticFile("video/stills/chelsea-1954-mobile-match.png")}
+            src={staticFile("video/stills/chelsea-1954-mobile-match-full.png")}
             style={{
               position: "absolute",
               left: 0,
               top: 0,
               width: 380,
               height: "auto",
-              transform: `translateY(${-390 * snapshotScroll}px)`,
+              transform: `translateY(${-snapshotOffset}px)`,
             }}
           />
           <div style={{ position: "absolute", inset: 0, boxShadow: "inset 0 0 0 1px rgba(243,237,232,.08)", pointerEvents: "none" }} />

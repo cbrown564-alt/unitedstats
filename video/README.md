@@ -55,25 +55,27 @@ the master.
 The current master is written to `output/video/releases/european-master-90/film.mp4`; use
 `npm run video:render:prototype` only to reproduce the earlier 14-second study.
 
-## Selected post-punk soundtrack edition
+## Current post-punk soundtrack edition
 
-The approved vocal soundtrack is **Continuous Take 5**, selected on 12 July
-2026 from six stochastic renders of the same ElevenLabs `music_v2` composition
-plan. The plan uses a continuous 122 BPM electronic post-punk arrangement with
-a cool British spoken-sung vocal, dry motorik drums, mono bass and clipped
-guitar harmonics. The selection decision was based on the generated
-performance—voice, diction, phrasing, instrumental interpretation and mix—not
-on a different prompt.
+The current film soundtrack is the ElevenLabs **Factory machine-funk** treatment.
+It is the film currently used on YouTube and on the site: a continuous 90-second,
+118 BPM Manchester-coded post-punk arrangement with melodic bass, rigid drum
+machine, clipped guitar harmonics, mono-synth pulses, dub space and a low
+spoken-sung British vocal.
 
-`post-punk-song` now resolves to
-`public/video/audio/elevenlabs-post-punk-finals/post-punk-song-continuous-take-5.mp3`
-in `audio/plans.ts`. Render the selected edition with
+`post-punk-song` uses
+`public/video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3`
+as its base asset in `audio/plans.ts`. The published plan overlays the selected
+four-second **Thread through felt** cue from frame 2550. The promoted release
+includes the revised Threadline and phone scroll, ending on a static composed
+timeline-and-lineup frame while the line finishes. See
+`docs/PULL-THE-THREAD-END-CARD.md`. Render the selected edition with
 `npm run video:render:post-punk:song`; its release output is
 `output/video/releases/post-punk-song-90/film.mp4`.
 
-The signed-off 30-second reference and all full-length audition takes remain in
-`public/video/audio/elevenlabs-post-punk-finals/index.html` as decision records.
-They are not mixed into the selected film.
+The earlier Continuous Take 5 files remain in
+`public/video/audio/elevenlabs-post-punk-finals/` as decision records; they are
+not mixed into the current film.
 
 ## Source contract
 
@@ -89,10 +91,13 @@ They are not mixed into the selected film.
 - The master uses an instrumental Lyria 3 Pro score generated from the authored
   structure in `scripts/generate-video-score.mjs`; its prompt and provenance are
   stored alongside the audio in `master-v3.json`.
-- The selected post-punk edition uses ElevenLabs `music_v2` Continuous Take 5.
-  Its shared composition plan and the stochastic bake-off manifest are stored in
-  `scripts/generate-elevenlabs-post-punk-finals.mjs` and
-  `public/video/audio/elevenlabs-post-punk-finals/manifest.json`.
+- The current post-punk edition uses ElevenLabs `music_v2` Factory machine-funk.
+  Its composition plan and bake-off manifest are stored in
+  `scripts/generate-elevenlabs-manchester-bakeoff.mjs` and
+  `public/video/audio/elevenlabs-manchester-bakeoff/manifest.json`.
+- Its promoted end-card mix selects the Thread through felt ElevenLabs
+  sound-design generation from `public/video/audio/pull-the-thread/samples/`;
+  all audition prompts, hashes and review levels are recorded there.
 - Superseded procedural SFX stems and their cue manifests remain under
   `public/video/audio/` for provenance and comparison. They are intentionally
   excluded from the European master after the final sound-design audit found that their tonal

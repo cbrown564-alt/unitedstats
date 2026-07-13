@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const VIDEO_ID = "KGE3OyR1vzs";
+const VIDEO_ID = "BNEzcXI_zXE";
 const WATCH_URL = `https://www.youtube.com/watch?v=${VIDEO_ID}`;
 
 export default function StoriesFilm() {

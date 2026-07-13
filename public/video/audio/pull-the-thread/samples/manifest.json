@@ -1,0 +1,65 @@
+{
+  "purpose": "Textile-first Pull the Thread end-card sound audition; no candidate is mixed into the film.",
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "generatedAt": "2026-07-13T17:40:57.039Z",
+  "candidates": [
+    {
+      "id": "01-wool-draw",
+      "title": "Wool draw",
+      "note": "Warmest and softest — brushed yarn sliding through fingertips, then one damped release.",
+      "prompt": "Four-second close-miked textile gesture. A single continuous, smooth sound of soft wool yarn being drawn steadily through warm fingertips. Friction and pitch rise gradually as the fibre tightens; no separate attacks. At 2.2 seconds the tension releases in one muted, soft fibre tug with a tiny damped rebound, then a faint wool resonance fades. Intimate, organic, warm. No clicks, shells, beads, wood, metal, mechanism, whoosh, percussion or music.",
+      "durationSeconds": 4,
+      "rawFile": "public/video/audio/pull-the-thread/samples/01-wool-draw.mp3",
+      "rawSha256": "20b51c51c9083bd0385d66b3ea4f8acad2e5a5b52070fea25c780f2b380c8223",
+      "reviewFile": "public/video/audio/pull-the-thread/samples/01-wool-draw-review.mp3",
+      "reviewSha256": "b91ef10015ac4d091b88e59f3cd611b41b25bfcdd274acedcf77535a3a978c50",
+      "reviewMastering": {
+        "method": "constant gain to -18 LUFS integrated; no dynamics processing",
+        "gainDb": 6.67,
+        "measuredIntegratedLufs": -18.32,
+        "measuredTruePeakDbtp": -3.94
+      },
+      "requestId": null,
+      "characterCost": "44"
+    },
+    {
+      "id": "02-woven-cloth",
+      "title": "Woven cloth under tension",
+      "note": "Broader and denser — a smooth fabric drag whose weave tightens before one restrained give.",
+      "prompt": "Four-second textile sound, one continuous gesture: dense woven cotton pulled slowly across cloth, a smooth low fabric hush with audible fibres, gradually tightening and rising without pulses or clicks. At 2.2 seconds the weave gives once with a restrained soft stretch and short damped recoil, then settles. Human, dry, close and warm. No shell texture, rattles, beads, wood, metal, machinery, clicks, whoosh, percussion or music.",
+      "durationSeconds": 4,
+      "rawFile": "public/video/audio/pull-the-thread/samples/02-woven-cloth.mp3",
+      "rawSha256": "b4f1478dd06e2fe2d9952d67aa195f1d76f37a24424a84041f9fa07ff6f2f9b8",
+      "reviewFile": "public/video/audio/pull-the-thread/samples/02-woven-cloth-review.mp3",
+      "reviewSha256": "46175356b1b75523e55cc817796dda8f224738d69ab3a39ab048e3e8ca272536",
+      "reviewMastering": {
+        "method": "constant gain to -18 LUFS integrated; no dynamics processing",
+        "gainDb": 2.19,
+        "measuredIntegratedLufs": -18.33,
+        "measuredTruePeakDbtp": -7.24
+      },
+      "requestId": null,
+      "characterCost": "44"
+    },
+    {
+      "id": "03-thread-through-felt",
+      "title": "Thread through felt",
+      "note": "Finest and most filament-like — continuous thread friction with a clear but soft tension point.",
+      "prompt": "Four-second recording of cotton thread pulled continuously through thick felt. Begin with a seamless fibre whisper; friction becomes denser and higher as tension accumulates, with no little clicks or repeated events. At 2.2 seconds one gentle taut-thread release bends into the felt, followed by a fine warm textile resonance. Supple, intimate, unmistakably fabric. No shells, beads, wood, metal, mechanism, instrument, whoosh, percussion or music.",
+      "durationSeconds": 4,
+      "rawFile": "public/video/audio/pull-the-thread/samples/03-thread-through-felt.mp3",
+      "rawSha256": "92ac63224d07f735c2e29033c9b43954c293f1164ef67c6efbf8135b94e0d681",
+      "reviewFile": "public/video/audio/pull-the-thread/samples/03-thread-through-felt-review.mp3",
+      "reviewSha256": "42bc9c7de110b3af282a7e8f484ba6bdb0c852abbb5136256386da0f1075d76e",
+      "reviewMastering": {
+        "method": "constant gain to -18 LUFS integrated; no dynamics processing",
+        "gainDb": 6.46,
+        "measuredIntegratedLufs": -18.36,
+        "measuredTruePeakDbtp": -4.36
+      },
+      "requestId": null,
+      "characterCost": "44"
+    }
+  ]
+}

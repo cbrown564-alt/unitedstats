@@ -1,0 +1,28 @@
+{
+  "purpose": "Pull the Thread end-card cue aligned to the final Threadline motion.",
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "generatedAt": "2026-07-13T17:25:47.833Z",
+  "prompt": "Four-second tactile sonic mark for pulling a red thread. At 0.00 a dry fingertip catch. From 0.45–1.75 a tensioned fibre stretches with rising pitch and subtle friction. At 1.80 a restrained pluck releases with one small elastic recoil. At 2.25 a warm woody, low-reed contact; a fine upper filament resonates to 4.00. Human, intimate, authored. No voice, beat, crowd, anthem, notification, sci-fi whoosh, cartoon boing or triumph.",
+  "promptCharacters": 430,
+  "durationSeconds": 4,
+  "pictureTimeline": {
+    "fromFrame": 2550,
+    "toFrame": 2670,
+    "fps": 30,
+    "fromSeconds": 85,
+    "toSeconds": 89
+  },
+  "file": "public/video/audio/pull-the-thread/pull-the-thread.mp3",
+  "sha256": "24fdcb7522aa5e641e9ff3248454deacc801cc136cd1d3d7c0e7e63d5706bc3c",
+  "reviewFile": "public/video/audio/pull-the-thread/pull-the-thread-review.mp3",
+  "reviewSha256": "cea3c03066cc225303fbbf1a5997f0ba6556944460cc8b3930bda09d8a5832b1",
+  "reviewMastering": {
+    "method": "constant gain to -18 LUFS integrated; no dynamics processing",
+    "gainDb": 2.81,
+    "measuredIntegratedLufs": -18.23,
+    "measuredTruePeakDbtp": 3
+  },
+  "requestId": null,
+  "characterCost": "44"
+}

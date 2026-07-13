@@ -1,0 +1,77 @@
+{
+  "purpose": "Initial matched audition of the Two Marks, One Thread sonic mnemonic grammar.",
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "endpoint": "/v1/sound-generation",
+  "durationSeconds": 3,
+  "outputFormat": "mp3_44100_192",
+  "promptInfluence": 0.72,
+  "generatedAt": "2026-07-13T17:11:34.729Z",
+  "fixedGrammar": "Three-second sonic logo. At 0.00 one dry close mark; at 0.45 a second distant mark; from 0.55–1.75 one narrow pitched filament travels between them; at 1.75 contact reveals a compact warm interval; one fine upper resonance continues to the end. Intimate and restrained. No voice, crowd, drums, beat, anthem, notification, sci-fi whoosh or triumph.",
+  "decision": {
+    "status": "selected for refinement",
+    "candidateId": "a-human-tactile",
+    "selectedAt": "2026-07-13",
+    "basis": "Principal blind listen; Candidate A preferred. No rationale inferred.",
+    "nextTest": "Human/tactile structural refinements holding the material family constant."
+  },
+  "candidates": [
+    {
+      "id": "a-human-tactile",
+      "label": "A · Human / tactile",
+      "hypothesis": "The connection feels made by hand and emotionally warm without becoming nostalgic.",
+      "material": "Muted physical taps, a tensioned-string filament and warm woody, low-reed contact.",
+      "prompt": "Three-second sonic logo. At 0.00 one dry close mark; at 0.45 a second distant mark; from 0.55–1.75 one narrow pitched filament travels between them; at 1.75 contact reveals a compact warm interval; one fine upper resonance continues to the end. Intimate and restrained. No voice, crowd, drums, beat, anthem, notification, sci-fi whoosh or triumph. Muted physical taps, a tensioned-string filament and warm woody, low-reed contact.",
+      "file": "public/video/audio/red-thread-mnemonic/a-human-tactile.mp3",
+      "sha256": "e483060053a4fc9d0db619c8178352312fee5de48d8e5ccfbdac50f48252353f",
+      "reviewFile": "public/video/audio/red-thread-mnemonic/a-human-tactile-review.mp3",
+      "reviewSha256": "1c88bba935af661161d2d6be214c3632ec588d83035f9854bd479e2691002678",
+      "reviewMastering": {
+        "method": "constant gain to -16 LUFS integrated; no dynamics processing",
+        "gainDb": -3.05,
+        "measuredIntegratedLufs": -16.26,
+        "measuredTruePeakDbtp": -3.68
+      },
+      "requestId": null,
+      "characterCost": "33"
+    },
+    {
+      "id": "b-forensic-precise",
+      "label": "B · Forensic / precise",
+      "hypothesis": "The evidence trail is clearest when the materials are dry, exact and nearly abstract.",
+      "material": "Dry archive-index ticks, a pure moving partial and compact tuned proof tone; near-silent background.",
+      "prompt": "Three-second sonic logo. At 0.00 one dry close mark; at 0.45 a second distant mark; from 0.55–1.75 one narrow pitched filament travels between them; at 1.75 contact reveals a compact warm interval; one fine upper resonance continues to the end. Intimate and restrained. No voice, crowd, drums, beat, anthem, notification, sci-fi whoosh or triumph. Dry archive-index ticks, a pure moving partial and compact tuned proof tone; near-silent background.",
+      "file": "public/video/audio/red-thread-mnemonic/b-forensic-precise.mp3",
+      "sha256": "feb34664789092624dac8f7f670b9208f58c9492628d7df859a9bf0256e02060",
+      "reviewFile": "public/video/audio/red-thread-mnemonic/b-forensic-precise-review.mp3",
+      "reviewSha256": "56756fa9f277c153d10cb6f1aad5015096ddfa9f3ec7bc2d9a9e06c338521f4d",
+      "reviewMastering": {
+        "method": "constant gain to -16 LUFS integrated; no dynamics processing",
+        "gainDb": -1.87,
+        "measuredIntegratedLufs": -16.25,
+        "measuredTruePeakDbtp": -5.56
+      },
+      "requestId": null,
+      "characterCost": "33"
+    },
+    {
+      "id": "c-temporal-uncanny",
+      "label": "C · Temporal / uncanny",
+      "hypothesis": "Distance between eras gives the connection more discovery and wonder.",
+      "material": "First mark narrow, aged and far; second immediate. Filament briefly reverses before warm contact.",
+      "prompt": "Three-second sonic logo. At 0.00 one dry close mark; at 0.45 a second distant mark; from 0.55–1.75 one narrow pitched filament travels between them; at 1.75 contact reveals a compact warm interval; one fine upper resonance continues to the end. Intimate and restrained. No voice, crowd, drums, beat, anthem, notification, sci-fi whoosh or triumph. First mark narrow, aged and far; second immediate. Filament briefly reverses before warm contact.",
+      "file": "public/video/audio/red-thread-mnemonic/c-temporal-uncanny.mp3",
+      "sha256": "cf0a21e1f23ecaa973e9d403044b67d46f482b242a07e3afbea030673d9eb75a",
+      "reviewFile": "public/video/audio/red-thread-mnemonic/c-temporal-uncanny-review.mp3",
+      "reviewSha256": "3ed885ae00e73e77dace0f314db3a0de372e7619015c86d4a1dff6e0f2c63b5d",
+      "reviewMastering": {
+        "method": "constant gain to -16 LUFS integrated; no dynamics processing",
+        "gainDb": -2.79,
+        "measuredIntegratedLufs": -16.25,
+        "measuredTruePeakDbtp": -3.16
+      },
+      "requestId": null,
+      "characterCost": "33"
+    }
+  ]
+}

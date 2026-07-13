@@ -49,14 +49,23 @@ export const AUDIO_PLANS = {
   },
   "post-punk-song": {
     id: "post-punk-song",
-    clips: [{
-      asset: "video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3",
-      timelineFrom: 0,
-      duration: 2700,
-      gain: 0.88,
-      fadeIn: 12,
-      fadeOut: 24,
-    }],
+    clips: [
+      {
+        asset: "video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3",
+        timelineFrom: 0,
+        duration: 2700,
+        gain: 0.88,
+        fadeIn: 12,
+        fadeOut: 24,
+      },
+      {
+        asset: "video/audio/pull-the-thread/samples/03-thread-through-felt-review.mp3",
+        timelineFrom: 2550,
+        duration: 120,
+        gain: 0.34,
+        fadeOut: 8,
+      },
+    ],
   },
   silent: { id: "silent", clips: [] },
 } as const satisfies Record<string, AudioPlan>;

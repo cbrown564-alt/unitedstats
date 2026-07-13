@@ -27,16 +27,21 @@ is frozen from the same canonical record used by the five published stories.
   from the timestamped structure in `scripts/generate-video-score.mjs`. The
   generated MP3 carries Google's SynthID watermark; its prompt, model and timing
   normalization are recorded in `public/video/audio/master-v3.json`.
-- The selected `european-post-punk-song-90` edition uses an original
-  ElevenLabs `music_v2` generation: Continuous Take 5. It is one of six
-  stochastic performances produced from the same authored 90-second composition
-  plan; the prompt structure, lyrics, model and generated-file manifest are
-  recorded in `scripts/generate-elevenlabs-post-punk-finals.mjs` and
-  `public/video/audio/elevenlabs-post-punk-finals/manifest.json`. The selected
-  asset is `post-punk-song-continuous-take-5.mp3` (SHA-256
-  `55909658D259E285C48CEA093EC4B9F0ACCEE9FC6F654DE152E9C1A9BC8ECB79`).
+- The current `european-post-punk-song-90` edition uses the original ElevenLabs
+  `music_v2` **Factory machine-funk** generation. The asset is
+  `public/video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3`
+  (SHA-256
+  `E5C26295269F51ED3BB2B840B46E6909FC6287C1CB8726FC751404BAF12CDFD9`). Its
+  prompt structure, fixed lyrics and bake-off manifest are recorded in
+  `scripts/generate-elevenlabs-manchester-bakeoff.mjs` and
+  `public/video/audio/elevenlabs-manchester-bakeoff/manifest.json`.
 - The ElevenLabs generation is synthetic original music created for this film;
   it contains no sampled broadcast commentary, match audio, crowd recording or
   commercial track. C2PA signing was requested at generation time.
+- Three synthetic **Pull the Thread** sound candidates are recorded under
+  `public/video/audio/pull-the-thread/samples/`, with level-matched masters,
+  exact prompts and hashes. The promoted release selects **Thread through felt**
+  (`42BC9C7DE110B3AF282A7E8F484BA6BDB0C852ABBB5136256386DA0F1075D76E`)
+  at 0.34 gain from frame 2550.
 - The superseded prototype sound bed remains deterministic original synthesis.
   No broadcast footage, commentary, match audio or commercial music is present.

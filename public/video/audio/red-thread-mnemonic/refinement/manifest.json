@@ -1,0 +1,77 @@
+{
+  "purpose": "Second-round structural refinement within the selected Human / tactile mnemonic family.",
+  "provider": "ElevenLabs",
+  "model": "eleven_text_to_sound_v2",
+  "endpoint": "/v1/sound-generation",
+  "durationSeconds": 3,
+  "outputFormat": "mp3_44100_192",
+  "promptInfluence": 0.78,
+  "generatedAt": "2026-07-13T17:20:20.212Z",
+  "control": {
+    "id": "a-human-tactile",
+    "reviewFile": "public/video/audio/red-thread-mnemonic/a-human-tactile-review.mp3"
+  },
+  "fixedGrammar": "Three-second tactile sonic logo. Dry close mark at 0.00; second distinct mark at 0.45; a narrow tensioned-string filament travels from 0.55–1.75; contact reveals a compact warm woody, low-reed interval at 1.75; one fine upper resonance continues to 3.00. Intimate, restrained. No voice, beat, anthem, notification, whoosh or triumph.",
+  "candidates": [
+    {
+      "id": "a1-clearer-connection",
+      "label": "A1 · Clearer connection",
+      "variable": "Increase the perceptual separation of the two marks and make the contact at 1.75 seconds unmistakable.",
+      "instruction": "Make both marks clearly separate, the filament audible between them, and the joining contact crisp before it warms.",
+      "prompt": "Three-second tactile sonic logo. Dry close mark at 0.00; second distinct mark at 0.45; a narrow tensioned-string filament travels from 0.55–1.75; contact reveals a compact warm woody, low-reed interval at 1.75; one fine upper resonance continues to 3.00. Intimate, restrained. No voice, beat, anthem, notification, whoosh or triumph. Make both marks clearly separate, the filament audible between them, and the joining contact crisp before it warms.",
+      "promptCharacters": 449,
+      "file": "public/video/audio/red-thread-mnemonic/refinement/a1-clearer-connection.mp3",
+      "sha256": "5854d9453f9595b325a0287708a95707540e3adcad075db2c590d977c143b204",
+      "reviewFile": "public/video/audio/red-thread-mnemonic/refinement/a1-clearer-connection-review.mp3",
+      "reviewSha256": "4730daf8444a6e0b24d6c748dd8e5a98fc91e91ca098a36ab6a51bb8c9d86eb4",
+      "reviewMastering": {
+        "method": "constant gain to -16 LUFS integrated; no dynamics processing",
+        "gainDb": -4.82,
+        "measuredIntegratedLufs": -16.25,
+        "measuredTruePeakDbtp": -5.29
+      },
+      "requestId": null,
+      "characterCost": "33"
+    },
+    {
+      "id": "a2-warmer-recognition",
+      "label": "A2 · Warmer recognition",
+      "variable": "Increase warmth at contact while preserving restraint and the same event timing.",
+      "instruction": "Keep the marks dry; at contact let the woody low-reed interval bloom warmly for recognition, never sentimental.",
+      "prompt": "Three-second tactile sonic logo. Dry close mark at 0.00; second distinct mark at 0.45; a narrow tensioned-string filament travels from 0.55–1.75; contact reveals a compact warm woody, low-reed interval at 1.75; one fine upper resonance continues to 3.00. Intimate, restrained. No voice, beat, anthem, notification, whoosh or triumph. Keep the marks dry; at contact let the woody low-reed interval bloom warmly for recognition, never sentimental.",
+      "promptCharacters": 445,
+      "file": "public/video/audio/red-thread-mnemonic/refinement/a2-warmer-recognition.mp3",
+      "sha256": "f98eaf4fd94e72a4459024c8d511321c280f50f1b8fa135c8f7d8fea301209de",
+      "reviewFile": "public/video/audio/red-thread-mnemonic/refinement/a2-warmer-recognition-review.mp3",
+      "reviewSha256": "1025be6686ca9444258b109f6e5f55f22779071f49897461a98f3b5237d911c8",
+      "reviewMastering": {
+        "method": "constant gain to -16 LUFS integrated; no dynamics processing",
+        "gainDb": -3.1,
+        "measuredIntegratedLufs": -16.26,
+        "measuredTruePeakDbtp": -3.59
+      },
+      "requestId": null,
+      "characterCost": "33"
+    },
+    {
+      "id": "a3-stronger-onward",
+      "label": "A3 · Stronger onward",
+      "variable": "Give the post-contact thread resonance more identity and forward continuation.",
+      "instruction": "After the compact contact, make one fine acoustic overtone continue clearly forward to the end without fading early.",
+      "prompt": "Three-second tactile sonic logo. Dry close mark at 0.00; second distinct mark at 0.45; a narrow tensioned-string filament travels from 0.55–1.75; contact reveals a compact warm woody, low-reed interval at 1.75; one fine upper resonance continues to 3.00. Intimate, restrained. No voice, beat, anthem, notification, whoosh or triumph. After the compact contact, make one fine acoustic overtone continue clearly forward to the end without fading early.",
+      "promptCharacters": 450,
+      "file": "public/video/audio/red-thread-mnemonic/refinement/a3-stronger-onward.mp3",
+      "sha256": "0210962b1a3c19a1fd62777f057ccccdbc62042834569fb17b54ca49d545caed",
+      "reviewFile": "public/video/audio/red-thread-mnemonic/refinement/a3-stronger-onward-review.mp3",
+      "reviewSha256": "6128d4314b723187846a4337e0ecf693fbbf291dfd6635b50b5c6058010552a9",
+      "reviewMastering": {
+        "method": "constant gain to -16 LUFS integrated; no dynamics processing",
+        "gainDb": -3.25,
+        "measuredIntegratedLufs": -16.26,
+        "measuredTruePeakDbtp": -4.24
+      },
+      "requestId": null,
+      "characterCost": "33"
+    }
+  ]
+}

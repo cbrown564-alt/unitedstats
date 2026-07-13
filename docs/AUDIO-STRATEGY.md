@@ -18,7 +18,8 @@ site.
 
 ## Current 90-second film music
 
-There are three relevant soundtrack states in the repository.
+There are three relevant soundtrack states in the repository, plus the three
+named 30-second story-single sources held in the ElevenLabs account.
 
 ### Original authored score
 
@@ -34,37 +35,29 @@ ending should open rather than resolve triumphantly. In practice, the result is
 polished but can feel like a tasteful documentary bed rather than a distinctive
 Red Thread identity.
 
-### Reviewed ElevenLabs release
+### Published Factory machine-funk film
 
-The documented post-punk release uses ElevenLabs `music_v2` **Continuous Take
-5**:
+The current `post-punk-song` plan and the film currently used on YouTube and
+the site use the later ElevenLabs **Factory machine-funk** treatment:
 
-`public/video/audio/elevenlabs-post-punk-finals/post-punk-song-continuous-take-5.mp3`
+`public/video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3`
 
-It was selected from six stochastic performances of one composition plan. The
-plan uses a continuous 122 BPM electronic post-punk arrangement, dry motorik
-drums, mono bass, clipped guitar harmonics and a British spoken-sung vocal. The
-review decision chose the best performance, diction and mix rather than a new
-composition.
+It is a 90-second, 118 BPM Manchester-coded post-punk treatment with melodic
+electric bass, rigid drum machine, clipped guitar harmonics, mono-synth pulses,
+dub space and a low spoken-sung British vocal. This is the current published
+film source, not a pending soundtrack experiment.
 
 The release record, including hashes, is in `video/RELEASES.md`.
 
 ### Current code selection
 
-The current `post-punk-song` audio plan points to the later ElevenLabs
-**Factory machine-funk** treatment:
-
-`public/video/audio/elevenlabs-manchester-bakeoff/01-factory-machine-funk.mp3`
-
-This is a 90-second, 118 BPM Manchester-coded post-punk treatment with melodic
-electric bass, rigid drum machine, clipped guitar harmonics, mono-synth pulses,
-dub space and a low spoken-sung British vocal. It is the current source
-selection for a fresh `video:render:post-punk:song` render.
-
-The code selection and the reviewed release record therefore describe different
-audio assets. That is acceptable during exploration, but the next approved
-render should reconcile `video/audio/plans.ts`, `video/README.md`,
-`video/RELEASES.md`, `video/SOURCES.md` and the published film record.
+The published film overlays **Thread through felt** on Factory machine-funk for
+the final four seconds. It was chosen from three isolated textile-first
+**Pull the Thread** candidates and promoted on 13 July 2026. The cue brief,
+motion correction and review status live in
+`docs/PULL-THE-THREAD-END-CARD.md`. Keep `video/audio/plans.ts`,
+`video/README.md`, `video/RELEASES.md`, `video/SOURCES.md` and this document
+aligned if the experiment is promoted.
 
 ## Experiments conducted
 
@@ -127,6 +120,17 @@ claim. They should become the default format for finding a motif. A winning idea
 can then be extended, rearranged or used as the basis of a family; it should not
 be assumed that a 90-second generation will discover the idea on its own.
 
+The three account-held candidates for the next story-single bake-off are:
+
+- **The impossible clock:** `Mechanical Paranoia`
+- **Bass-clarinet pursuit:** `The Alignment Pattern`
+- **Dangerous minimalism:** `Missing Beat Minimalist Cue`
+
+Their exported source files now live under
+`public/video/audio/story-singles/`. The earlier files under
+`public/video/audio/elevenlabs-convergence-bakeoff/` remain related audition
+records, not substitutes for these named account songs.
+
 ## What audio could add
 
 Audio is most valuable when it does at least one of the following:
@@ -181,17 +185,91 @@ music underneath reading.
 
 ### 3. A Red Thread sonic mnemonic
 
-Test a two-to-four-second brand sound derived from the product idea rather than
-from football culture. The best candidates are:
+The mnemonic must be designed upstream of the existing story music. It is not a
+two-to-four-second extract from Dangerous minimalism, Bass-clarinet pursuit, The
+impossible clock or the current film score. Those are useful story mechanisms;
+they do not define the brand.
 
-- the missing beat from Dangerous minimalism resolving when the thread appears;
-- the three-note Bass-clarinet pursuit motif passed between timbres;
-- a short mechanical acceleration from The impossible clock ending in one warm
-  pitched thread tone.
+The product's smallest audible proposition is:
+
+> Two pieces of evidence become one intelligible thread.
+
+The emotional movement is **disturbance → connection → recognition → onward**.
+The opening should be dry, exact and slightly enigmatic. Warmth arrives when the
+relationship becomes perceptible. The ending should continue beyond the visual
+resolution rather than announce victory or closure.
+
+#### Primary territory: Two Marks, One Thread
+
+Start with the following 2.5-second grammar:
+
+| Time | Event | Meaning |
+| --- | --- | --- |
+| 0.00s | One dry, close evidence mark | A fact enters the record |
+| 0.45s | A second, slightly distant mark | A separate fact answers it |
+| 0.55–1.75s | A narrow tone travels between them | The evidence trail forms |
+| 1.75s | Contact reveals a compact warm interval | The connection becomes intelligible |
+| 1.75–2.50s | One fine resonance continues | The thread remains open |
+
+The fixed identity is the spacing of the two marks, the contour of the travelling
+tone, the interval revealed at contact and the continuing resonance. Material,
+scale and arrangement are variable. This is a sonic behaviour before it is a
+melody or an instrument choice.
+
+The first matched audition should keep that grammar fixed across three executions:
+
+1. **Human / tactile:** muted physical marks, a tensioned-string or breath-like
+   filament and a warm acoustic contact.
+2. **Forensic / precise:** dry archive ticks, a pure moving partial and a compact
+   tuned proof tone.
+3. **Temporal / uncanny:** a distant first mark and immediate second mark, with
+   a travelling line that briefly appears to reverse before connecting them.
+
+The test is whether listeners still perceive the same Red Thread action when the
+material changes. It is not a vote for the most attractive instrumental palette.
+
+**Initial decision, 13 July 2026:** Candidate A, **Human / tactile**, was selected
+as the strongest of the three matched executions in the principal blind listen.
+This selects a material direction for refinement; it does not yet demonstrate
+that listeners consistently perceive the intended two-marks-and-connection
+action. The next test should stay inside this family and compare small structural
+variations rather than reopening the palette bake-off.
+
+The second-round audition keeps Candidate A as its control and changes one
+structural emphasis at a time:
+
+- **A1 · Clearer connection:** make the two marks and the moment the filament
+  joins them more legible.
+- **A2 · Warmer recognition:** give the contact interval more human warmth
+  without turning it into a sentimental cadence.
+- **A3 · Stronger onward:** let the fine final resonance carry more of the
+  identity after contact.
+
+All four review files are loudness-matched. Choose first on whether the action is
+clearer than the control; palette preference is no longer the question.
+
+#### Why this territory
+
+Famous signatures solve different jobs. Intel makes an invisible component
+noticeable with a compact five-note packet; Netflix marks the threshold into a
+world; THX demonstrates its promise through convergence; Mastercard holds a
+melodic identity across many arrangements; and the Champions League anthem turns
+a repeated ceremonial moment into prestige. Red Thread should do something
+different: **reveal a connection**.
+
+Useful references:
+
+- [Intel's three-second, five-note signature](https://timeline.intel.com/1995/the-intel-bong)
+- [Netflix retaining its sound while evolving the ident](https://about.netflix.com/en/news/your-new-netflix-ident-animation-cue-netflix-sound)
+- [THX describing the Deep Note as a link across its history](https://www.thx.com/about/)
+- [Mastercard's adaptable sound architecture](https://newsroom.mastercard.com/news/press/2019/february/sound-on-mastercard-debuts-sonic-brand/)
+- [The Champions League anthem's fixed ceremonial placement](https://www.uefa.com/uefachampionsleague/news/022d-0e1636f1244a-c916aa410dad-1000--uefa-champions-league-anthem/)
+- [Research distinguishing sonic-logo recognition from sung recall](https://www.repository.cam.ac.uk/items/903c50f3-6d66-4721-af94-7c037073b139)
 
 The mnemonic could close films, open story singles and accompany selected motion
-marks. It should survive on phone speakers, remain recognisable at low volume and
-avoid resembling a broadcaster ident, betting product or club anthem.
+marks. It should survive on phone speakers, remain recognisable at restrained
+volume and avoid resembling a broadcaster ident, betting product, club anthem or
+generic premium-tech confirmation sound.
 
 ## Less-obvious opportunities
 
@@ -261,16 +339,18 @@ Avoid faux commentary, terrace voices and copy written merely to rhyme.
 
 ## Recommended experiment sequence
 
-1. Generate several variations of the three promising 30-second mechanisms,
-   keeping each mechanism recognisable across takes.
-2. Choose one story for each mechanism and cut picture to music, rather than
+1. Generate the three matched **Two Marks, One Thread** treatments, record their
+   prompts and hashes, and test the shared action before discussing palette.
+2. Test the candidates blind on phone speakers, then pair each with the Threadline
+   motion to check whether sound and image describe the same event.
+3. Use the three exported account songs as story-mechanism winners and record
+   their source metadata and hashes.
+4. Choose one story for each mechanism and cut picture to music, rather than
    judging audio in isolation.
-3. For each winning instrumental, test three vocal loads: no voice, one line and
+5. For each winning instrumental, test three vocal loads: no voice, one line and
    a short repeated hook.
-4. Extract candidate two-to-four-second mnemonics and test them blind on phone
-   speakers.
-5. Prototype one opt-in `/stories` “Play the pattern” experience.
-6. Only then decide whether the 90-second film needs a newly extended score or
+6. Prototype one opt-in `/stories` “Play the pattern” experience.
+7. Only then decide whether the 90-second film needs a newly extended score or
    should remain its own musical object.
 
 The first three story prototypes should be Fergie time with The impossible
@@ -278,18 +358,28 @@ clock, Ronaldo/Best with Bass-clarinet pursuit, and Eleven days in May with
 Dangerous minimalism. This gives each promising mechanism a subject it can
 actually explain.
 
+The initial vocal-load bake-off is now generated by
+`npm run video:audio:story-singles`. Its nine review files and manifest live in
+`public/video/audio/story-singles/vocal-tests/`, including
+`index.html` for grouped listening and `manifest.json` for source, voice,
+timing and SHA-256 provenance. The voice tests use one dry line or a repeated
+hook; they are not intended as final singing or narration decisions. The current
+decision is to use the instrumental version for all three story singles and
+retain the voice-load mixes only as comparison records.
+
 ## Evaluation rubric
 
 Judge the next tests against these questions:
 
-1. Can the central idea be described in one sentence?
-2. Is there a recognisable moment within the first three seconds?
-3. Does the sound reveal or embody the story rather than just matching its mood?
-4. Does it leave enough room for on-screen evidence?
+1. Without seeing the logo, do listeners describe two things connecting, a trail
+   forming, something clicking into place or a resolution that keeps going?
+2. Does the shared action survive all three material treatments?
+3. Is the signature recognisable rather than merely pleasant or hummable?
+4. Does it feel precise without becoming cold, corporate or technological?
 5. Is it still clearly Red Thread without a football crowd, chant or anthem?
-6. Does it work on phone speakers and at restrained loudness?
-7. Can a useful two-to-four-second mnemonic be extracted from it?
-8. Does the clip remain understandable and complete when muted?
+6. Does it work on phone speakers, in mono and at restrained loudness?
+7. Does it leave enough room for dialogue and on-screen evidence?
+8. Does the paired visual remain understandable and complete when muted?
 9. Are generation prompt, model, rights, source asset and final edit recorded?
 
 ## Guardrails

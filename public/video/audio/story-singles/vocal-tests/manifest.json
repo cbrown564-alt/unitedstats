@@ -1,0 +1,114 @@
+{
+  "purpose": "30-second Red Thread story-single vocal-load bake-off",
+  "decision": "Instrumental version preferred for all three story singles; voice-load mixes retained as comparison records.",
+  "generatedAt": "2026-07-13T16:55:31.866Z",
+  "durationSeconds": 30,
+  "voice": {
+    "id": "onwK4e9ZLuTAKqWW03F9",
+    "name": "Daniel - Steady Broadcaster",
+    "model": "eleven_multilingual_v2",
+    "outputFormat": "mp3_44100_128"
+  },
+  "policy": "The instrumental, one-line and repeated-hook files are explicit user-triggered audition assets; none is site autoplay audio.",
+  "stories": [
+    {
+      "id": "fergie-time",
+      "story": "Fergie time",
+      "mechanism": "The impossible clock",
+      "accountSong": "Mechanical Paranoia",
+      "source": "public/video/audio/story-singles/mechanical-paranoia.mp3",
+      "sourceDurationSeconds": 30.040792,
+      "sourceSha256": "c7df534b1678aecbdff62ca3ae10d0952654633b5ce301a7829e4e5944434392",
+      "voiceText": {
+        "oneLine": "The clock says late. The record says wait.",
+        "repeatedHook": "The record says wait."
+      },
+      "timingsSeconds": {
+        "oneLine": [
+          18
+        ],
+        "repeatedHook": [
+          7,
+          18,
+          25
+        ]
+      },
+      "files": {
+        "instrumental": "public/video/audio/story-singles/vocal-tests/fergie-time-instrumental.mp3",
+        "oneLine": "public/video/audio/story-singles/vocal-tests/fergie-time-one-line.mp3",
+        "repeatedHook": "public/video/audio/story-singles/vocal-tests/fergie-time-repeated-hook.mp3"
+      },
+      "fileSha256": {
+        "instrumental": "7f2586236d7ab63a24f30c3cab1c1db0052a84c358cf3172a11823313181185c",
+        "oneLine": "523f6ac6e22323237accb97f4bb8c894f6635bb056bfc31829ea65424551eb1e",
+        "repeatedHook": "b76ae117a1c63218df3d5422995ee34eaa299ea1f43688766bb56ebd0cb4265d"
+      }
+    },
+    {
+      "id": "ronaldo-best",
+      "story": "Ronaldo / Best",
+      "mechanism": "Bass-clarinet pursuit",
+      "accountSong": "The Alignment Pattern",
+      "source": "public/video/audio/story-singles/the-alignment-pattern.mp3",
+      "sourceDurationSeconds": 30.040792,
+      "sourceSha256": "8daa862fa12fb7e78432b17ecde73f9da5f1d02f07416c4943da5800139a6a9c",
+      "voiceText": {
+        "oneLine": "Same number. Same final. Forty years.",
+        "repeatedHook": "Seven again."
+      },
+      "timingsSeconds": {
+        "oneLine": [
+          18
+        ],
+        "repeatedHook": [
+          7,
+          17,
+          25
+        ]
+      },
+      "files": {
+        "instrumental": "public/video/audio/story-singles/vocal-tests/ronaldo-best-instrumental.mp3",
+        "oneLine": "public/video/audio/story-singles/vocal-tests/ronaldo-best-one-line.mp3",
+        "repeatedHook": "public/video/audio/story-singles/vocal-tests/ronaldo-best-repeated-hook.mp3"
+      },
+      "fileSha256": {
+        "instrumental": "a5dc1a4a80ca1b1a93e35d64b3841230ebcc4e02aecd30115f5a9846e6fc48b4",
+        "oneLine": "69f237ff0690a6cc5dee0169348c05b38ff828185ea4860a72d17be048d21f1d",
+        "repeatedHook": "adee9b393a21885a7777200839b8b7b22a0c0209a22f30499ecdbb047cf1e0cd"
+      }
+    },
+    {
+      "id": "eleven-days-in-may",
+      "story": "Eleven days in May",
+      "mechanism": "Dangerous minimalism",
+      "accountSong": "Missing Beat Minimalist Cue",
+      "source": "public/video/audio/story-singles/missing-beat-minimalist-cue.mp3",
+      "sourceDurationSeconds": 30.040792,
+      "sourceSha256": "46996a59d1e86563feafe1ac520dbcfc946631f5fa8a828bff0b82648045a0eb",
+      "voiceText": {
+        "oneLine": "Eleven days. Three turns. No margin.",
+        "repeatedHook": "No margin."
+      },
+      "timingsSeconds": {
+        "oneLine": [
+          18
+        ],
+        "repeatedHook": [
+          7,
+          17,
+          25
+        ]
+      },
+      "files": {
+        "instrumental": "public/video/audio/story-singles/vocal-tests/eleven-days-in-may-instrumental.mp3",
+        "oneLine": "public/video/audio/story-singles/vocal-tests/eleven-days-in-may-one-line.mp3",
+        "repeatedHook": "public/video/audio/story-singles/vocal-tests/eleven-days-in-may-repeated-hook.mp3"
+      },
+      "fileSha256": {
+        "instrumental": "5e86d6968231ed6e8a582c4ee2658eccf75296a80db334a43dfee41d62e9f188",
+        "oneLine": "99dd617e0697fcd3a832f692597050e2a37b1a6735958c1bd6c7593821a0f87c",
+        "repeatedHook": "ba988ef2960d98f3b4beb4457222197af0514ca7642bf30542e861c69f370755"
+      }
+    }
+  ]
+}

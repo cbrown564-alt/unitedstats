@@ -281,13 +281,14 @@ specialist, sound is the highest-leverage choice after motion direction.
 Deliver stereo at a platform-safe loudness, preserve a dialogue/VO lane even if
 unused, and keep music, effects and atmosphere as separate stems.
 
-### Current implementation decision — 12 July 2026
+### Current implementation decision — 13 July 2026
 
-For the rendered 90-second post-punk edition, **ElevenLabs Continuous Take 5**
-is the approved soundtrack performance. It was selected from six stochastic
-renders of one shared `music_v2` composition plan; the selection therefore
-chooses a performance, not a different lyrical or structural treatment. The
-stable `post-punk-song` audio plan points to that asset, and
+For the rendered 90-second post-punk edition, **ElevenLabs Factory machine-funk**
+is the current soundtrack treatment used on YouTube and the site. The stable
+`post-punk-song` audio plan pairs it with the selected **Thread through felt**
+cue for the final four seconds. The promoted Pull the Thread picture lands the
+Chelsea 5–6 mobile record, scrolls to the timeline-and-lineup composition, then
+holds the phone while the Threadline finishes. Running
 `npm run video:render:post-punk:song` produces the reviewed release at
 `output/video/releases/post-punk-song-90/film.mp4`.
 
