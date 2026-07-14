@@ -16,14 +16,15 @@ const PITCH = "#0c0b0a";
 const PANEL = "#161312";
 const LINE = "#2c2522";
 const DEVIL = "#ff3b1f";
+const GOLD = "#d2aa54";
 
 // The mark's interior (everything but the container square), in the 0..58 space
 // Brand.tsx draws in. The background argument lets the dark under-strokes erase
 // cleanly on both the panel-coloured favicon and the pitch-coloured Apple icon.
 const markBody = (background) => `
   <g stroke="${DEVIL}" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M29 8.6C24.1 11.3 18.1 13.3 11.4 14.5C11.6 25.3 12.7 32.7 17.2 38.7C20.3 42.8 24.4 46.1 29 48.7C33.6 46.1 37.7 42.8 40.8 38.7C45.3 32.7 46.4 25.3 46.6 14.5C39.9 13.3 33.9 11.3 29 8.6Z"/>
-    <path d="M15.2 23.9C20.4 22 25.3 21.9 29.7 23.8C35.2 26.1 38.8 30.9 40.4 36.8" opacity=".58"/>
+    <path d="M29 8.6C24.1 11.3 18.1 13.3 11.4 14.5C11.6 25.3 12.7 32.7 17.2 38.7C20.3 42.8 24.4 46.1 29 48.7C33.6 46.1 37.7 42.8 40.8 38.7C45.3 32.7 46.4 25.3 46.6 14.5C39.9 13.3 33.9 11.3 29 8.6Z" stroke="${GOLD}"/>
+    <path d="M15.2 23.9C20.4 22 25.3 21.9 29.7 23.8C35.2 26.1 38.8 30.9 40.4 36.8" stroke="${GOLD}" opacity=".58"/>
     <path d="M25.6 59.5C25.7 54.3 26.7 50.6 29 47.7C31.1 45 34.3 42.5 36.6 39.3C39.3 35.5 41.2 31.6 41 27.3C40.7 22 37.5 18.6 33 18.3C28.5 18.1 24.9 20.6 24.2 24.2C23.5 27.8 25.6 30.8 29.3 31.5C32.7 32.1 35.6 30 35.9 27.1C36.1 25 35 23.5 33.3 22.9" stroke="${background}" stroke-width="5.9"/>
     <path d="M25.6 59.5C25.7 54.3 26.7 50.6 29 47.7C31.1 45 34.3 42.5 36.6 39.3C39.3 35.5 41.2 31.6 41 27.3C40.7 22 37.5 18.6 33 18.3C28.5 18.1 24.9 20.6 24.2 24.2C23.5 27.8 25.6 30.8 29.3 31.5C32.7 32.1 35.6 30 35.9 27.1C36.1 25 35 23.5 33.3 22.9"/>
     <path d="M27.4 31C29.8 31.9 32.1 31.4 33.8 30" stroke="${background}" stroke-width="5.9"/>
