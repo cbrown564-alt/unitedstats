@@ -333,8 +333,12 @@ function entityMatches(scope: "season" | "opponent" | "player", id: string): Mat
 }
 
 function playerSpecificReason(playerId: string, pick: MatchRow, appearances: MatchRow[]): string | null {
+  const player = getDb()
+    .prepare("SELECT name FROM players WHERE id = ?")
+    .get(playerId) as { name: string } | undefined;
+  const name = player?.name ?? null;
   const first = appearances[0];
-  if (first?.id === pick.id) return "United debut";
+  if (first?.id === pick.id) return name ? `${name}'s United debut` : "United debut";
 
   const contribution = getDb()
     .prepare(
@@ -348,11 +352,30 @@ function playerSpecificReason(playerId: string, pick: MatchRow, appearances: Mat
     )
     .get(playerId, playerId, pick.id) as { goals: number; assists: number };
 
-  if (contribution.goals >= 3) return "A hat-trick";
-  if (contribution.goals > 0 && contribution.assists > 0) return "A goal and an assist";
-  if (contribution.goals > 0) return contribution.goals === 2 ? "Two goals" : "A goal";
-  if (contribution.assists > 0) return contribution.assists === 1 ? "An assist" : `${contribution.assists} assists`;
-  return null;
+  let contributionReason: string | null = null;
+  if (contribution.goals >= 3) contributionReason = name ? `${name} scored a hat-trick` : "A hat-trick";
+  else if (contribution.goals > 0 && contribution.assists > 0) {
+    contributionReason = name ? `${name} scored a goal and made an assist` : "A goal and an assist";
+  } else if (contribution.goals > 0) {
+    contributionReason = name
+      ? contribution.goals === 2 ? `${name} scored twice` : `${name} scored a goal`
+      : contribution.goals === 2 ? "Two goals" : "A goal";
+  } else if (contribution.assists > 0) {
+    contributionReason = name
+      ? contribution.assists === 1 ? `${name} made an assist` : `${name} made ${contribution.assists} assists`
+      : contribution.assists === 1 ? "An assist" : `${contribution.assists} assists`;
+  }
+
+  if (!contributionReason) return null;
+
+  // A contribution alone does not explain why this match was selected. Name the
+  // occasion when the record supplies one, so the rail reads as an authored
+  // invitation rather than a random fixture.
+  const round = fmtRound(pick.round);
+  if (round && isKnockoutRound(pick.round)) {
+    return `${contributionReason} in the ${pick.competition_name} ${round.toLowerCase()}`;
+  }
+  return contributionReason;
 }
 
 /** Highest-charge faded night from an entity's history — the entity-page rail. */

@@ -102,28 +102,27 @@ export default function AnalyticsPage() {
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">How to read it</p>
         <h4 className="display mt-1 text-lg">The rating is broadly honest</h4>
         <p className="mt-2 text-sm leading-6 text-ink-dim">
-          The red points stay close to the diagonal through most of the range. In plain terms, when the
-          rating gave United a certain level of confidence, the results usually returned about that much
-          value. The slight flattening at the top says the strongest forecasts were a little too certain.
+          The red points track the diagonal closely: confidence generally matched results. At the highest
+          expectations, the curve levels off, so the rating was slightly too confident.
         </p>
 
-        <dl className="mt-5 grid gap-4 border-t border-line pt-4 text-sm sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+        <dl className="mt-5 grid gap-4 border-t border-line/70 pt-4 text-xs sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <div>
-            <dt className="flex items-center gap-2 font-semibold text-ink">
-              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-devil-bright" />
+            <dt className="flex items-center gap-2 font-medium text-ink-dim">
+              <span aria-hidden className="h-2 w-2 rounded-full bg-devil-bright" />
               Points share
             </dt>
-            <dd className="mt-1 leading-5 text-ink-dim">
-              Gives full credit for a win and half for a draw. This is the fairest comparison with the forecast.
+            <dd className="mt-1 text-[11px] leading-4 text-ink-faint">
+              A win counts in full; a draw counts half. The closest comparison with the forecast.
             </dd>
           </div>
           <div>
-            <dt className="flex items-center gap-2 font-semibold text-ink">
-              <span aria-hidden className="h-2.5 w-2.5 rounded-full border border-gold bg-pitch" />
+            <dt className="flex items-center gap-2 font-medium text-ink-dim">
+              <span aria-hidden className="h-2 w-2 rounded-full border border-gold bg-pitch" />
               Win rate
             </dt>
-            <dd className="mt-1 leading-5 text-ink-dim">
-              Counts outright wins only. The space below points share represents the value earned from draws.
+            <dd className="mt-1 text-[11px] leading-4 text-ink-faint">
+              Outright wins only. The gap to points share is the value earned from draws.
             </dd>
           </div>
         </dl>

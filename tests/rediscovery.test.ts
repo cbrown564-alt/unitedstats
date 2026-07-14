@@ -89,3 +89,11 @@ test("player rails use a proved appearance or contribution reason when available
   assert.ok(prompt, "Rooney should have a rediscovery prompt");
   assert.match(prompt.reason, /debut|goal|assist|final|semi-final|knockout|against|scoreline|ground/i);
 });
+
+test("player contribution reasons explain the occasion, not only the action", () => {
+  clearQueryCache();
+  const prompt = rediscoveryForEntity("player", "dennis-viollet", { now: new Date("2026-07-03T12:00:00Z") });
+  assert.ok(prompt, "Dennis Viollet should have a rediscovery prompt");
+  assert.equal(prompt.id, "1957-01-16-athletic-bilbao-a");
+  assert.equal(prompt.reason, "Dennis Viollet scored a goal in the European Cup quarter-final");
+});

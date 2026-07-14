@@ -2045,6 +2045,26 @@ input.site-sidebar-search-input:focus {
   }
 }
 
+/* From tablet upward, every headline and supporting stat shares one scan line. */
+@media (min-width: 768px) {
+  .player-plate-summary {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: end;
+    gap: 1rem;
+  }
+
+  .player-plate-secondary {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    align-items: end;
+    gap: 0.75rem;
+    min-width: 0;
+    padding-left: 1.25rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .site-footer {
     padding-bottom: 0;

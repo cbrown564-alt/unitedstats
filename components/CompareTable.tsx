@@ -134,19 +134,19 @@ function ShowDetailToggle({ on, onToggle }: { on: boolean; onToggle: () => void 
 }
 
 /** One metric as a two-sided diverging bar — a tug-of-war, not a table row. The
- *  leader's bar carries win-yellow; an un-judged or coverage-asymmetric metric
- *  renders both halves neutral with a "coverage differs" pill so a figure is
- *  never mistaken for a fair fight. */
+ *  leader keeps their comparison identity colour (A red, B blue); an un-judged
+ *  or coverage-asymmetric metric renders both halves neutral with a "coverage
+ *  differs" pill so a figure is never mistaken for a fair fight. */
 function MeasureRow({ m, rate, showDetail }: { m: CompareMetric; rate: boolean; showDetail: boolean }) {
   const { a, b, fmt, label } = resolveMetric(m, rate);
   const comparable = m.comparable !== false;
   const leader = leaderOf(m, rate);
   const max = Math.max(a ?? 0, b ?? 0, 1e-9);
   const pct = (v: number | null) => (v == null || v <= 0 ? 0 : Math.max(6, (v / max) * 100));
-  const aTone = !comparable ? "bg-ink-dim/40" : leader === "a" ? "bg-win" : "bg-ink-dim/30";
-  const bTone = !comparable ? "bg-ink-dim/40" : leader === "b" ? "bg-win" : "bg-ink-dim/30";
-  const aTextTone = !comparable ? "text-ink-dim" : leader === "a" ? "text-win font-semibold" : "text-ink-dim";
-  const bTextTone = !comparable ? "text-ink-dim" : leader === "b" ? "text-win font-semibold" : "text-ink-dim";
+  const aTone = !comparable ? "bg-ink-dim/40" : leader === "a" ? "bg-devil-bright" : "bg-ink-dim/30";
+  const bTone = !comparable ? "bg-ink-dim/40" : leader === "b" ? "bg-europe" : "bg-ink-dim/30";
+  const aTextTone = !comparable ? "text-ink-dim" : leader === "a" ? "text-devil-bright font-semibold" : "text-ink-dim";
+  const bTextTone = !comparable ? "text-ink-dim" : leader === "b" ? "text-europe font-semibold" : "text-ink-dim";
 
   return (
     <div className="py-2.5">
