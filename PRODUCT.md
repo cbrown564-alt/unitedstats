@@ -179,16 +179,21 @@ Avoid framing like:
 
 ## Homepage Role
 
-Fire the spark in the first five seconds.
+Fire the spark in the first five seconds, then give it somewhere to go.
 
 The front door **is** the gate: its entire purpose is to make a fan feel the nostalgic
-jolt before anything else. The first screen leads with a single served **match-night**
-— a real night, chosen for the reader, rendered to land whether they lived it, forgot
-it, or never saw it — not a question field, not a metric grid, not a portal of routes.
-Beneath the spark sits the *foundation beat* (scope, the record, search) that says why
-the jolt is honest and why you stay; the routes into matches, seasons, players,
-opponents, and managers live below that. Done is depth, not reach: the moment must land
-for one nostalgist, reliably.
+jolt before anything else. The first screen opens with the silent, one-pass 20-second
+Best/Ronaldo thread. That broad invitation connects eras through image, motion, and
+story without asking the visitor to choose or understand a product mode. A single
+served **match-night** follows immediately, turning that broad promise into a real
+night chosen for the reader. It must land whether they lived it, forgot it, or never
+saw it.
+
+The front door does not lead with a question field, metric grid, or portal of routes.
+Beneath the opening thread and served night sits the *foundation beat* (scope, the
+record, search) that says why the jolt is honest and why you stay; routes into matches,
+seasons, players, opponents, and managers live below that. Done is depth, not reach:
+the sequence must land for one nostalgist, reliably.
 
 ## Discovery Surface (Explore)
 
@@ -284,7 +289,8 @@ Craft's Baseball Reference redesign case study identifies discoverability, custo
   record beneath.
 - **Analytics** — `/analytics`: Elo/strength timeline, trends, records,
   attendance, goal timing, data-depth ledger.
-- **The front door** — a served match-night spark on the homepage; `/explore`
+- **The front door** — a silent 20-second cross-era thread followed immediately by a
+  served match-night spark; `/explore`
   (a doorway across authored questions and comparisons), `/questions`, `/compare`,
   `/surprise`, `/on-this-day`. (`/history-changed` and the group-by-anything `/cut`
   builder have been removed — the freshness loop and the loom are out of scope.)
@@ -295,8 +301,8 @@ Craft's Baseball Reference redesign case study identifies discoverability, custo
 
 ## Current direction
 
-The first-contact spark, rediscovery rails, Stories shelf, and live-route copy
-pass are complete. Red Thread is now in a maintenance phase: protect the record,
-keep the product restrained, and take only work that earns a clear user-facing
-place. `STATUS.md` holds the active backlog and the remaining analytics
-assist-partnership decision.
+The opening thread, served-night engine, rediscovery rails, Stories collection,
+and live-route copy pass are complete. The active post-launch pass now connects
+those pieces into a clearer night-to-thread journey, removes remaining open-ended
+creation UI, and strengthens honest fallbacks. `STATUS.md` owns current state;
+`docs/POST-LAUNCH-IMPLEMENTATION-PLAN.md` owns the sequence and exit criteria.

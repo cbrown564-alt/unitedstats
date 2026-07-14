@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Red Thread — full product review, 14 July 2026</title>
+  <style>
+    :root {
+      --pitch: #090807;
+      --panel: #14110f;
+      --panel-2: #1d1815;
+      --line: #332923;
+      --ink: #f5efea;
+      --dim: #b6aaa2;
+      --faint: #8f8178;
+      --red: #ff3b1f;
+      --deep-red: #b72a1b;
+      --gold: #f5c518;
+      --green: #8bcf9c;
+      --page: 76rem;
+      --rail: 15rem;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--pitch);
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 66% 4%, rgb(255 59 31 / 0.1), transparent 25rem),
+        var(--pitch);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { background: var(--gold); color: #14110f; }
+
+    .progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      height: 3px;
+      background: rgb(255 255 255 / 0.05);
+    }
+
+    .progress > i {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      transform-origin: left;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: var(--rail) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .rail {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100vh;
+      padding: 2rem 1.25rem;
+      border-right: 1px solid var(--line);
+      background: rgb(9 8 7 / 0.86);
+      backdrop-filter: blur(16px);
+    }
+
+    .mark {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 2.8rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mark svg { color: var(--red); flex: 0 0 auto; }
+    .mark span:first-of-type { color: var(--red); }
+
+    .rail nav { display: grid; gap: 0.2rem; }
+
+    .rail nav a {
+      display: flex;
+      align-items: center;
+      min-height: 2.45rem;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--faint);
+      font-size: 0.84rem;
+      text-decoration: none;
+      transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .rail nav a:hover,
+    .rail nav a[aria-current="true"] {
+      border-color: var(--line);
+      background: var(--panel);
+      color: var(--ink);
+    }
+
+    .rail nav a[aria-current="true"]::before {
+      content: "";
+      width: 0.42rem;
+      height: 0.42rem;
+      margin-right: 0.55rem;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 12px rgb(255 59 31 / 0.58);
+    }
+
+    .rail-meta {
+      position: absolute;
+      inset: auto 1.25rem 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.7rem;
+      line-height: 1.6;
+    }
+
+    main { min-width: 0; }
+
+    .hero {
+      position: relative;
+      min-height: min(48rem, 92vh);
+      display: grid;
+      align-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -12rem;
+      left: 59%;
+      width: 1px;
+      height: 47rem;
+      background: linear-gradient(transparent, var(--red) 24%, var(--red) 82%, transparent);
+      box-shadow: 0 0 18px rgb(255 59 31 / 0.45);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 11rem;
+      left: calc(59% - 5px);
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      background: var(--pitch);
+      box-shadow: 0 0 20px rgb(245 197 24 / 0.34);
+    }
+
+    .hero-inner,
+    .section-inner,
+    .wide-inner {
+      width: min(100% - 3rem, var(--page));
+      margin-inline: auto;
+    }
+
+    .hero-inner { position: relative; z-index: 1; padding-block: 6rem; }
+
+    .eyebrow {
+      margin: 0 0 1.3rem;
+      color: var(--red);
+      font-size: 0.77rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { text-wrap: pretty; }
+
+    h1 {
+      max-width: 14ch;
+      margin: 0;
+      font-size: clamp(3.4rem, 8vw, 6rem);
+      line-height: 0.94;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .hero-lead {
+      max-width: 52rem;
+      margin: 2rem 0 0;
+      color: var(--dim);
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      line-height: 1.55;
+    }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.55fr);
+      gap: 1px;
+      max-width: 62rem;
+      margin-top: 3rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--line);
+    }
+
+    .verdict > div { padding: 1.25rem 1.4rem; background: rgb(20 17 15 / 0.92); }
+    .verdict strong { display: block; margin-bottom: 0.25rem; color: var(--gold); font-size: 1.03rem; }
+    .verdict p { margin: 0; color: var(--dim); font-size: 0.92rem; }
+    .verdict .score { display: flex; align-items: center; gap: 1rem; }
+    .verdict .score b { color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 2.7rem; line-height: 1; }
+
+    section.content {
+      padding-block: 6rem;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 1rem;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(18rem, 1fr);
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2.35rem, 5vw, 4.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      max-width: 43rem;
+      margin: 0;
+      color: var(--dim);
+      font-size: 1.05rem;
+    }
+
+    .thesis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--line);
+    }
+
+    .thesis article { min-height: 13rem; padding: 1.5rem; background: var(--panel); }
+    .thesis article:nth-child(2) { background: var(--panel-2); }
+    .thesis .tag { color: var(--faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.72rem; }
+    .thesis h3 { margin: 2.5rem 0 0.6rem; font-size: 1.4rem; line-height: 1.15; }
+    .thesis p { margin: 0; color: var(--dim); font-size: 0.9rem; }
+
+    .flow-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .flow {
+      padding: 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .flow h3 { margin: 0 0 1rem; font-size: 0.9rem; }
+    .flow.current h3 { color: var(--faint); }
+    .flow.target h3 { color: var(--gold); }
+
+    .flow ol {
+      display: grid;
+      gap: 0.8rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: flow;
+    }
+
+    .flow li {
+      position: relative;
+      min-height: 3.4rem;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem 0.75rem 3.25rem;
+      border: 1px solid var(--line);
+      background: var(--pitch);
+      color: var(--dim);
+      font-size: 0.9rem;
+      counter-increment: flow;
+    }
+
+    .flow li::before {
+      content: counter(flow);
+      position: absolute;
+      left: 1rem;
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.75rem;
+    }
+
+    .flow li + li::after {
+      content: "↓";
+      position: absolute;
+      top: -1.15rem;
+      left: 1.05rem;
+      color: var(--red);
+    }
+
+    .evidence-pair {
+      display: grid;
+      grid-template-columns: minmax(15rem, 0.55fr) minmax(0, 1fr);
+      gap: 1.25rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    figure {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    figure img { width: 100%; height: auto; background: #050505; }
+    figure figcaption { padding: 0.9rem 1rem 1rem; color: var(--dim); font-size: 0.82rem; }
+    figure figcaption strong { display: block; margin-bottom: 0.18rem; color: var(--ink); font-size: 0.86rem; }
+
+    .finding {
+      margin-top: 2rem;
+      padding: 1.2rem 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(120deg, rgb(255 59 31 / 0.09), transparent 60%), var(--panel);
+    }
+
+    .finding strong { color: var(--gold); }
+    .finding p { margin: 0; max-width: 62rem; }
+
+    .strength-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    .strength-list article { padding-top: 1.2rem; border-top: 1px solid var(--line); }
+    .strength-list h3 { margin: 0 0 0.7rem; font-size: 1.22rem; }
+    .strength-list p { margin: 0; color: var(--dim); font-size: 0.92rem; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 1.25rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+
+    .gallery .stack { display: grid; gap: 1.25rem; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-block: 2rem 3.5rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--line);
+    }
+
+    .metric { padding: 1.25rem; background: var(--panel); }
+    .metric b { display: block; color: var(--gold); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1.8rem; line-height: 1.05; }
+    .metric span { display: block; margin-top: 0.5rem; color: var(--dim); font-size: 0.78rem; }
+
+    .matrix-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      font-size: 0.9rem;
+    }
+
+    th, td { padding: 1rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--faint); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { min-width: 10rem; color: var(--ink); font-weight: 700; }
+    td { color: var(--dim); }
+    td em { color: var(--ink); font-style: normal; }
+
+    .status {
+      display: inline-block;
+      margin-bottom: 0.45rem;
+      padding: 0.18rem 0.45rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--faint);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .status.keep { border-color: rgb(139 207 156 / 0.42); color: var(--green); }
+    .status.move { border-color: rgb(245 197 24 / 0.4); color: var(--gold); }
+    .status.cut { border-color: rgb(255 59 31 / 0.5); color: var(--red); }
+
+    .core-lines { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--line); }
+
+    .core-line {
+      display: grid;
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: 2rem;
+      padding: 1.3rem 1.4rem;
+      background: var(--panel);
+    }
+
+    .core-line strong { font-size: 1.02rem; }
+    .core-line p { margin: 0; max-width: 56rem; color: var(--dim); }
+
+    .hard-designs { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--line); }
+
+    .hard-design {
+      display: grid;
+      grid-template-columns: minmax(11rem, 0.52fr) minmax(0, 1fr) minmax(12rem, 0.65fr);
+      gap: 2rem;
+      padding: 1.35rem;
+      background: var(--panel);
+    }
+
+    .hard-design h3 { margin: 0; font-size: 1.05rem; }
+    .hard-design p { margin: 0; color: var(--dim); font-size: 0.9rem; }
+    .hard-design .done { color: var(--faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.76rem; }
+    .hard-design .done strong { display: block; margin-bottom: 0.35rem; color: var(--gold); font-family: Arial, Helvetica, sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .priority-list { display: grid; gap: 1.25rem; }
+
+    .priority {
+      display: grid;
+      grid-template-columns: 8rem minmax(0, 1fr) minmax(13rem, 0.42fr);
+      gap: 1.5rem;
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .priority .when { color: var(--red); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.78rem; font-weight: 700; }
+    .priority h3 { margin: 0 0 0.45rem; font-size: 1.15rem; }
+    .priority p { margin: 0; color: var(--dim); font-size: 0.9rem; }
+    .priority .proof { color: var(--faint); font-size: 0.8rem; }
+    .priority .proof strong { display: block; margin-bottom: 0.35rem; color: var(--ink); }
+
+    .stop-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      margin-top: 3rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--line);
+    }
+
+    .stop-list div { padding: 1.1rem 1.2rem; background: var(--panel); color: var(--dim); }
+    .stop-list b { color: var(--red); }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--line);
+    }
+
+    .roadmap article { min-height: 17rem; padding: 1.3rem; background: var(--panel); }
+    .roadmap time { color: var(--gold); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
+    .roadmap h3 { margin: 2.2rem 0 0.6rem; font-size: 1.1rem; }
+    .roadmap p { margin: 0; color: var(--dim); font-size: 0.87rem; }
+
+    .definition { margin-top: 2.5rem; padding: 1.4rem; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .definition h3 { margin: 0 0 1rem; }
+    .definition ul { columns: 2; column-gap: 3rem; margin: 0; padding-left: 1.2rem; color: var(--dim); }
+    .definition li { break-inside: avoid; margin-bottom: 0.65rem; }
+
+    details {
+      margin-top: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    summary { cursor: pointer; padding: 1rem 1.2rem; color: var(--ink); font-weight: 700; }
+    details > div { padding: 0 1.2rem 1.2rem; color: var(--dim); font-size: 0.86rem; }
+    details ul { margin-bottom: 0; }
+    code { color: var(--gold); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; }
+
+    .final-call {
+      padding-block: 7rem;
+      background: radial-gradient(circle at 50% 20%, rgb(255 59 31 / 0.12), transparent 26rem);
+      text-align: center;
+    }
+
+    .final-call h2 { max-width: 17ch; margin: 0 auto; font-size: clamp(2.7rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; }
+    .final-call p { max-width: 44rem; margin: 1.5rem auto 0; color: var(--dim); font-size: 1.08rem; }
+
+    .knot {
+      display: grid;
+      place-items: center;
+      width: 1rem;
+      height: 1rem;
+      margin: 2rem auto 0;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgb(245 197 24 / 0.35);
+    }
+
+    footer {
+      padding: 2rem 1.5rem 3rem;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    @media (max-width: 980px) {
+      .shell { grid-template-columns: 1fr; }
+      .rail { position: relative; z-index: 10; width: 100%; min-width: 0; max-width: 100vw; height: auto; overflow: hidden; padding: 1rem 1.25rem; border-right: 0; border-bottom: 1px solid var(--line); }
+      .mark { margin: 0 0 0.8rem; }
+      .rail nav { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.2rem; }
+      .rail nav a { flex: 0 0 auto; min-height: 2.1rem; }
+      .rail-meta { display: none; }
+      .hero { min-height: 42rem; }
+      .hero::before { left: 72%; }
+      .hero::after { left: calc(72% - 5px); }
+      .section-head { grid-template-columns: 1fr; gap: 1.3rem; }
+      .thesis, .strength-list { grid-template-columns: 1fr; }
+      .thesis article { min-height: auto; }
+      .thesis h3 { margin-top: 1.4rem; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .gallery, .evidence-pair { grid-template-columns: 1fr; }
+      .hard-design { grid-template-columns: minmax(10rem, 0.42fr) minmax(0, 1fr); }
+      .hard-design .done { grid-column: 2; }
+      .roadmap { grid-template-columns: repeat(2, 1fr); }
+      .roadmap article { min-height: 13rem; }
+    }
+
+    @media (max-width: 680px) {
+      .hero-inner, .section-inner, .wide-inner { width: min(100% - 2rem, var(--page)); }
+      .hero { min-height: 39rem; }
+      .hero-inner { padding-block: 4rem; }
+      h1 { max-width: 100%; overflow-wrap: anywhere; font-size: clamp(2.8rem, 14vw, 4rem); }
+      .verdict { grid-template-columns: 1fr; }
+      section.content { padding-block: 4.5rem; }
+      .section-head { margin-bottom: 2.5rem; }
+      .flow-compare { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+      .core-line, .hard-design, .priority { grid-template-columns: 1fr; gap: 0.7rem; }
+      .hard-design .done { grid-column: auto; }
+      .stop-list, .roadmap { grid-template-columns: 1fr; }
+      .roadmap article { min-height: auto; }
+      .roadmap h3 { margin-top: 1.4rem; }
+      .definition ul { columns: 1; }
+      .matrix-wrap { margin-inline: -1rem; border-radius: 0; border-inline: 0; }
+      th, td { min-width: 13rem; }
+      td:first-child { min-width: 9rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+  <div class="shell">
+    <aside class="rail">
+      <div class="mark">
+        <svg width="25" height="25" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M4 5.5 14 2l10 3.5v7.2c0 6.2-4 10.6-10 13.3C8 23.3 4 18.9 4 12.7V5.5Z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 9.5c3.4-2.5 7.8-1.2 8.5 2.2.6 2.8-1.8 4.1-3.6 5.1-2.1 1.1-2.8 2.1-2.1 4.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="18.5" cy="7.5" r="1.5" fill="#f5c518"/>
+        </svg>
+        <span>Red</span><span>Thread review</span>
+      </div>
+      <nav aria-label="Report sections">
+        <a href="#verdict">Verdict</a>
+        <a href="#working">What works</a>
+        <a href="#bloat">Where it bloats</a>
+        <a href="#core">What is core</a>
+        <a href="#hard-designs">Hard designs</a>
+        <a href="#priorities">Recommendations</a>
+        <a href="#roadmap">90-day sequence</a>
+      </nav>
+      <p class="rail-meta">Production review<br />utdred.com<br />14 July 2026</p>
+    </aside>
+
+    <main>
+      <header class="hero" id="verdict">
+        <div class="hero-inner">
+          <p class="eyebrow">Full product review · post-launch</p>
+          <h1>The archive is excellent. The product loop is not finished.</h1>
+          <p class="hero-lead">
+            Red Thread has a distinctive visual language, unusually good evidence, and several genuinely moving story surfaces.
+            Its largest opportunity is not another feature. It is making one sequence work everywhere:
+            <strong>feel a night → understand what it meant → inspect the proof → follow the next thread.</strong>
+          </p>
+          <div class="verdict">
+            <div>
+              <strong>The single most important improvement</strong>
+              <p>Put the served night back at the front door, then make the match page carry the emotional context the homepage earned.</p>
+            </div>
+            <div class="score">
+              <b>7.2</b>
+              <p>Strong launched product.<br />Core loop still fragmented.</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="content" aria-labelledby="diagnosis-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="diagnosis-title">The diagnosis in three lines</h2>
+            <p>
+              The launch feedback makes sense: the site looks and feels considered. The review question now is whether its best craft is attached to the right product moments.
+            </p>
+          </div>
+          <div class="thesis">
+            <article>
+              <span class="tag">01 / strongest asset</span>
+              <h3>The record is trustworthy.</h3>
+              <p>Coverage, sources, corrections, match receipts, and dense archives are materially better than most historical sports products.</p>
+            </article>
+            <article>
+              <span class="tag">02 / biggest mismatch</span>
+              <h3>The foundation has more weight than the soul.</h3>
+              <p>Nine visible desktop destinations and six mature record surfaces compete with four promoted questions and one unfinished end-to-end thread.</p>
+            </article>
+            <article>
+              <span class="tag">03 / strategic move</span>
+              <h3>Stop adding. Connect what exists.</h3>
+              <p>The next phase should be subtractive: one night engine, fewer primary choices, stronger authored transitions, and no new top-level route.</p>
+            </article>
+          </div>
+
+          <div class="flow-compare" aria-label="Current and recommended product flows">
+            <div class="flow current">
+              <h3>Current first-contact path</h3>
+              <ol>
+                <li>A film asks for a 90-second commitment</li>
+                <li>The served night begins below the opening viewport</li>
+                <li>The match receipt opens as score, flow, and lineup</li>
+                <li>Meaning is left in another route or in the fan's memory</li>
+              </ol>
+            </div>
+            <div class="flow target">
+              <h3>The product Red Thread promises</h3>
+              <ol>
+                <li>A real night lands in five seconds</li>
+                <li>One authored line explains why it matters</li>
+                <li>The match record proves every part of the line</li>
+                <li>A related moment or lens continues the thread</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="evidence-pair">
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/home-mobile.png" width="780" height="1688" alt="Red Thread mobile homepage with the film occupying the first viewport and the served night beginning below" loading="lazy" />
+              <figcaption><strong>The front door asks before it gives.</strong> On production, the 90-second film fills the first mobile screen; the promised served night starts after it.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/match-1999-desktop.png" width="2560" height="2000" alt="The 1999 Champions League final match page showing score, timeline, and team formation" loading="lazy" />
+              <figcaption><strong>The receipt is precise, but the night is context-free.</strong> The most emotionally loaded match in the archive opens with a score, goal timeline, and XI. It does not say Treble, 6th minute, or two stoppage-time goals before the formation.</figcaption>
+            </figure>
+          </div>
+
+          <div class="finding">
+            <p><strong>The core break:</strong> the homepage knows that Bayern led in the 90th and that two stoppage-time goals won the European Cup; <code>lib/curatedNights.ts</code> contains the line. The canonical match page does not use it. The product's emotion and its evidence live side by side, not in one experience.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="working" aria-labelledby="working-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="working-title">What should not be redesigned</h2>
+            <p>The right response is not a rebrand. The existing system has real character and several surfaces already meet the product bar.</p>
+          </div>
+
+          <div class="strength-list">
+            <article>
+              <h3>Stories create the feeling.</h3>
+              <p><em>Two No. 7s</em> proves the red thread can be structural, not decorative. Portraits, scale, motion, evidence links, and cross-era rhyme produce a genuine jolt.</p>
+            </article>
+            <article>
+              <h3>The evidence is unusually good.</h3>
+              <p>Match flows, formations, coverage notes, cited sources, and correction paths make the archive inspectable without turning the interface into black-box analytics.</p>
+            </article>
+            <article>
+              <h3>The visual register is owned.</h3>
+              <p>Floodlit darkness, warm ink, red and gold semantics, mono numbers, and disciplined club identity feel specific without imitating official United media.</p>
+            </article>
+          </div>
+
+          <div class="gallery">
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/story-two-no7s-desktop.png" width="2560" height="2000" alt="Two No. 7s story opening comparing George Best and Cristiano Ronaldo" loading="lazy" />
+              <figcaption><strong>Keep this ambition.</strong> The story opening makes a cross-era connection legible before asking the reader to interpret a chart.</figcaption>
+            </figure>
+            <div class="stack">
+              <figure>
+                <img src="assets/red-thread-review-2026-07-14/analytics-desktop.png" width="2560" height="2000" alt="Analytics page showing the Elo rating history" loading="lazy" />
+                <figcaption><strong>Keep this proof.</strong> Analytics is strong and honest; its problem is prominence, not quality.</figcaption>
+              </figure>
+              <figure>
+                <img src="assets/red-thread-review-2026-07-14/match-1963-mobile.png" width="780" height="1688" alt="Mobile match page showing the goal flow and starting eleven" loading="lazy" />
+                <figcaption><strong>Keep the match objects.</strong> The flow and XI are excellent evidence objects once an authored context has opened the night.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="bloat" aria-labelledby="bloat-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="bloat-title">Where the product is carrying too much</h2>
+            <p>
+              The code is not full of abandoned files: <code>npm run knip</code> passes. The bloat comes from complete, maintained capabilities that receive more product prominence than their role deserves.
+            </p>
+          </div>
+
+          <div class="metrics" aria-label="Repository and production footprint">
+            <div class="metric"><b>184</b><span>component files across the interface</span></div>
+            <div class="metric"><b>35,054</b><span>TSX lines in app + components</span></div>
+            <div class="metric"><b>71</b><span>client components</span></div>
+            <div class="metric"><b>3.0 GB</b><span>checked <code>.next</code> output vs 2.0 GB budget</span></div>
+          </div>
+
+          <div class="matrix-wrap">
+            <table>
+              <thead>
+                <tr><th>Area</th><th>Decision</th><th>Why</th><th>Concrete move</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Homepage film</td>
+                  <td><span class="status move">Move</span><br /><em>Keep the asset, remove the gate.</em></td>
+                  <td>It asks for attention before the product delivers the promised night. It also duplicates the story shelf's job.</td>
+                  <td>Open on <code>TonightHero</code>. Put the film after the night or make it the trailer on <code>/stories</code>.</td>
+                </tr>
+                <tr>
+                  <td>Custom comparison</td>
+                  <td><span class="status cut">Remove</span><br /><em>This is the last obvious loom.</em></td>
+                  <td>Two blank inputs hand meaning back to the user and contradict the explicit “lens, not loom” product rule.</td>
+                  <td>Keep only authored pairings with role-correct measures and an explicit reason the comparison exists.</td>
+                </tr>
+                <tr>
+                  <td>Curated cuts</td>
+                  <td><span class="status move">Reframe</span><br /><em>A ranking is not yet a lens.</em></td>
+                  <td>“Opponents by win rate” guarantees a number, not a meaningful historical connection.</td>
+                  <td>Promote only cuts framed as an answer: bogey sides, fortress years, cup-run routes. Hide the rest.</td>
+                </tr>
+                <tr>
+                  <td>Analytics / Transfers / Data</td>
+                  <td><span class="status move">Demote</span><br /><em>Excellent foundation, secondary navigation.</em></td>
+                  <td>They are among the most finished surfaces, but equal sidebar weight makes Red Thread read as an archive product first.</td>
+                  <td>Collapse under “The record,” move Data to footer/utility, and let search remain the fast route for experts.</td>
+                </tr>
+                <tr>
+                  <td>Night routes</td>
+                  <td><span class="status move">Merge</span><br /><em>One engine, several entry states.</em></td>
+                  <td>Homepage night, Surprise, On This Day, and story exits behave like separate products and do not share one reliable fallback.</td>
+                  <td>Use a single night renderer with <code>today</code>, <code>curated</code>, and <code>related</code> selection modes.</td>
+                </tr>
+                <tr>
+                  <td>Entity depth</td>
+                  <td><span class="status keep">Keep, shorten</span><br /><em>The ledger earns its place.</em></td>
+                  <td>Player and entity pages are strong references, but the hero and archive can dominate before a fan encounters a memorable night.</td>
+                  <td>Preserve the data; tighten first-screen height and make the rediscovery rail explain why its night matters.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="finding">
+            <p><strong>Runtime symptom:</strong> the production Explore sample loaded 243 resources and 13.4 MB of decoded response data before network idle; the Rooney page exposed 481 links in the DOM. These are directional measurements, not lab Web Vitals, but they show how route and evidence abundance spills into the browser. Dense-link Next prefetching should be audited after the product cuts.</p>
+          </div>
+
+          <div class="evidence-pair">
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/compare-desktop.png" width="2560" height="2000" alt="Compare page with curated debates and a custom comparison form" loading="lazy" />
+              <figcaption><strong>The product contradiction is visible.</strong> Authored debates sit directly above the “build a custom matchup” form the product strategy already rejects.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/explore-desktop.png" width="2560" height="2000" alt="Discover page showing questions and a wide carousel of content" loading="lazy" />
+              <figcaption><strong>Discover is a catalogue again.</strong> Questions, debates, and cuts all receive a full strip; the doorway is becoming a destination with too many equal promises.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="core" aria-labelledby="core-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="core-title">What is core and needs more emphasis</h2>
+            <p>Red Thread is not “Manchester United data, beautifully presented.” It is a guided emotional experience whose claims happen to be provable from a complete record.</p>
+          </div>
+
+          <div class="core-lines">
+            <div class="core-line">
+              <strong>The night is the unit.</strong>
+              <p>Every route should either deliver a night, explain a connection between nights, or help inspect the record behind one. The 6,028 match pages are not terminal receipts; they are the product's largest supply of potential sparks.</p>
+            </div>
+            <div class="core-line">
+              <strong>The thread is navigation.</strong>
+              <p>A red line is brand decoration until it answers “why this next?” The useful thread is a reasoned transition: Rooney → the night that changed his role → that season's pattern → the supporting matches.</p>
+            </div>
+            <div class="core-line">
+              <strong>The lens is scarce.</strong>
+              <p>Four Treble-quality questions are more valuable than forty cuts. A lens earns publication only when it guarantees meaning across the choices it allows and exposes the matches behind the answer.</p>
+            </div>
+            <div class="core-line">
+              <strong>Trust is quiet proof.</strong>
+              <p>Coverage and provenance should stay at interpretation points. They do not need equal brand or navigation weight with Stories, Discover, and the match archive.</p>
+            </div>
+          </div>
+
+          <div class="evidence-pair">
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/player-rooney-desktop.png" width="2560" height="2000" alt="Wayne Rooney desktop player page with statistics, tabs, a remembered match, and a season chart" loading="lazy" />
+              <figcaption><strong>A polished ledger that nearly finds the thread.</strong> “Remember this? 0–1 Chelsea” is a link, not yet a reason. The page needs to say what this night reveals about Rooney.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/stories-index-mobile.png" width="780" height="1688" alt="Mobile Stories index with the phrase History doesn't repeat, it rhymes" loading="lazy" />
+              <figcaption><strong>The core voice is already here.</strong> Stories knows how to turn a record into a connection. That editorial logic should travel into match and entity pages.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="hard-designs" aria-labelledby="hard-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="hard-title">The hard designs still implicit in the end product</h2>
+            <p>These are not missing screens. They are unresolved systems the finished product depends on. Building more routes before settling them would compound the wrong architecture.</p>
+          </div>
+
+          <div class="hard-designs">
+            <article class="hard-design">
+              <h3>A universal match-night renderer</h3>
+              <p>Define three honest tiers: authored nights with bespoke stakes; computed nights with reliable context such as final, comeback, milestone, or late winner; plain receipts when no meaning can be asserted. The same shell should open home, surprise, calendar, match, and entity trails.</p>
+              <p class="done"><strong>Done when</strong>Camp Nou 1999 and an ordinary 1907 league match both feel intentional without pretending to be equally dramatic.</p>
+            </article>
+            <article class="hard-design">
+              <h3>A thread-selection model</h3>
+              <p>Rediscovery rails exist, but the hard part is choosing and explaining the next night. The scorer, final, debut, rivalry, record swing, or season turning point must be visible as the reason for the recommendation.</p>
+              <p class="done"><strong>Done when</strong>No link says only “Remember this?”; every suggested night carries a defensible because.</p>
+            </article>
+            <article class="hard-design">
+              <h3>Lens acceptance and retirement</h3>
+              <p>Create a publication test: one or two knobs maximum; role- and era-correct measures; useful under every allowed choice; coverage visible; answer links to matches. Define when a weak lens is revised, archived, or removed.</p>
+              <p class="done"><strong>Done when</strong>The custom comparison and cold win-rate cuts cannot pass review, while Best/Ronaldo's fifth-season lens can.</p>
+            </article>
+            <article class="hard-design">
+              <h3>One calendar and surprise system</h3>
+              <p>On 14 July, On This Day still ends in an empty card. The finished product needs a fallback hierarchy across matches, transfers, debuts, milestones, and nearest significant nights without inventing history.</p>
+              <p class="done"><strong>Done when</strong>Every date yields something truthful and worth opening, and “another night” never feels like a separate mini-app.</p>
+            </article>
+            <article class="hard-design">
+              <h3>A mobile composition grammar</h3>
+              <p>Desktop objects cannot only stack. Player portraits, statistics, timelines, tabs, and the floating pill currently crowd one another. Define what becomes summary, what swaps format, and what waits until after the first action.</p>
+              <p class="done"><strong>Done when</strong>A player identity, headline stat, and next action fit in one phone viewport without the navigation sitting over a key label or tab.</p>
+            </article>
+            <article class="hard-design">
+              <h3>Period truth without licensed photography</h3>
+              <p>The homepage design diary correctly identifies the imagery problem. Choose a primary answer: data-as-image, typographic monuments, or a tiny licensed-safe period archive. Do not make every night wait for a photograph.</p>
+              <p class="done"><strong>Done when</strong>A 1948, 1968, 1999, and 2024 night each feels of its time without an anachronistic face or synthetic heritage.</p>
+            </article>
+            <article class="hard-design">
+              <h3>Question-aware search</h3>
+              <p>The product promises hybrid command search, but lookup and authored question templates are different outcomes. Decide when search returns an entity, applies a known lens, offers a shaped suggestion, or admits it cannot compute the request.</p>
+              <p class="done"><strong>Done when</strong>“Rooney” and “late goals under Ferguson” both produce honest, predictable next steps without overselling free-form analysis.</p>
+            </article>
+            <article class="hard-design">
+              <h3>An editorial operating model</h3>
+              <p>Five stories and four promoted questions show that quality is expensive. Set a sustainable bar, owner, cadence, and cap. The product needs a small living collection, not a permanently expanding catalogue.</p>
+              <p class="done"><strong>Done when</strong>The collection can reach 8–10 exceptional lenses and then stop without pressure to fill every category.</p>
+            </article>
+          </div>
+
+          <div class="evidence-pair">
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/player-rooney-mobile.png" width="780" height="1688" alt="Wayne Rooney mobile player page with a tall hero and floating bottom navigation near the tabs" loading="lazy" />
+              <figcaption><strong>Mobile needs composition, not compression.</strong> The hero is handsome, but image, attribution, name, five measures, career line, correction link, tabs, and the floating pill all compete before the primary evidence begins.</figcaption>
+            </figure>
+            <figure>
+              <img src="assets/red-thread-review-2026-07-14/on-this-day-mobile.png" width="780" height="1688" alt="On This Day page on 14 July with an empty state saying no official match is recorded" loading="lazy" />
+              <figcaption><strong>A core ritual still dead-ends.</strong> A nostalgia product cannot let its calendar surface be blank during the off-season.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="priorities" aria-labelledby="priority-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="priority-title">Recommendations, in order</h2>
+            <p>This sequence deliberately improves the user loop before refining the already strong foundation.</p>
+          </div>
+
+          <div class="priority-list">
+            <article class="priority">
+              <div class="when">Now · P1</div>
+              <div><h3>Make the served night the first screen.</h3><p>Render <code>TonightHero</code> before the film on both desktop and mobile. Move the film into Stories or immediately below the night as an optional deepening. Use the local 20-second excerpt only after production and source agree on its actual duration.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>A new visitor can name the match and why it matters after five seconds without pressing play.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Now · P1</div>
+              <div><h3>Give important match pages one authored context block.</h3><p>For curated and intrinsically dramatic nights, put the stakes line and one consequence above <code>MatchFlow</code>. Reuse existing curated-night text and question facts; do not create a second story page inside the receipt.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>The 1999 final says “Bayern led from the 6th minute; two stoppage-time goals completed the Treble” before showing the XI.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Now · P1</div>
+              <div><h3>Delete the last loom and coldest cuts.</h3><p>Remove the custom comparison form. Keep the six authored debates. Pause or hide any curated cut that cannot explain why its ranking matters to a fan.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>Every Discover entry has a specific historical question, authored axis, and evidence trail.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Now · P1</div>
+              <div><h3>Make On This Day impossible to empty.</h3><p>Fall through from exact-date matches to transfers, debuts, milestones, or the nearest curated anniversary. Preserve source and date honesty in the copy.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>All 366 dates return a meaningful, traceable object.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Next · P2</div>
+              <div><h3>Turn rediscovery rails into explained recommendations.</h3><p>Replace generic “Remember this?” phrasing with the detected reason: debut, final goal, hat-trick, late winner, biggest Elo swing, final, or rivalry hinge. If there is no strong reason, do not show a rail.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>Every entity-to-match transition answers “why this night?” before the click.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Next · P2</div>
+              <div><h3>Collapse the primary information architecture.</h3><p>Keep Stories, Discover, Matches, Seasons, and People as the visible product. Put Analytics and Transfers under a collapsed “The record” group; move Data, corrections, API, and exports to utility/footer destinations.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>A first-time visitor sees no more than five primary choices and can still reach every archive through search or the record group.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Next · P2</div>
+              <div><h3>Shorten the mobile first screen.</h3><p>Reduce player-image height, promote one headline measure, defer secondary measures behind the first tab, and test the floating pill against tab bars and chart captions at 390×844.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>Player identity, headline, and the primary tab are visible together; key labels never sit under the pill.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Later · P3</div>
+              <div><h3>Reduce browser and build amplification.</h3><p>Audit prefetch on dense rails and registers, split giant modules such as <code>QuestionModules.tsx</code>, and revisit full prerender strategy. The current check reports 3,008.7 MB of build output against a 2,000 MB budget.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong><code>npm run check:perf</code> passes, and Explore no longer pulls hundreds of resources on first load.</div>
+            </article>
+            <article class="priority">
+              <div class="when">Later · P3</div>
+              <div><h3>Fix the quiet readability debt.</h3><p><code>--color-ink-faint</code> measures roughly 3.2–3.4:1 against panel/pitch, below 4.5:1 for the 10–12px captions that use it. Raise the token or reserve it for non-essential large text.</p></div>
+              <div class="proof"><strong>Proof of improvement</strong>All small copy and attributions reach WCAG AA contrast without flattening the dark register.</div>
+            </article>
+          </div>
+
+          <div class="stop-list" aria-label="Things to stop doing">
+            <div><b>Stop</b> adding top-level routes until the night → meaning → proof loop works.</div>
+            <div><b>Stop</b> giving a cold statistic the same shelf space as an authored question.</div>
+            <div><b>Stop</b> improving the foundation ahead of the emotional corridor.</div>
+            <div><b>Do not</b> solve the homepage with more decoration, more metrics, or an imagery dependency you cannot sustain.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="roadmap" aria-labelledby="roadmap-title">
+        <div class="section-inner">
+          <div class="section-head">
+            <h2 id="roadmap-title">A restrained 90-day sequence</h2>
+            <p>One representative loop first. Extract the pattern only after it works on the hardest night in the archive.</p>
+          </div>
+
+          <div class="roadmap">
+            <article><time>Week 1</time><h3>Subtract the contradictions</h3><p>Home order, custom compare removal, cold-cut pause, 14 July fallback, production/local film copy reconciliation.</p></article>
+            <article><time>Weeks 2–4</time><h3>Prove the loop on 1999</h3><p>Served night → contextual match page → Treble lens → match evidence → related night. Test desktop, mobile, and reduced motion.</p></article>
+            <article><time>Weeks 5–8</time><h3>Generalise carefully</h3><p>Define the universal night tiers and explained rediscovery reasons. Apply first to the curated pool and Rooney, 1998–99, and Bayern pages.</p></article>
+            <article><time>Weeks 9–12</time><h3>Demote and harden</h3><p>Simplify navigation, mobile composition, prefetch, build output, and small-text contrast. Do not add a new story type.</p></article>
+          </div>
+
+          <div class="definition">
+            <h3>Definition of a better product, not just a cleaner one</h3>
+            <ul>
+              <li>The first viewport delivers a night, not a trailer.</li>
+              <li>The 1999 final explains its stakes before its formation.</li>
+              <li>Every rediscovery link carries a visible reason.</li>
+              <li>On This Day never dead-ends.</li>
+              <li>Discover contains only authored lenses and debates.</li>
+              <li>Primary navigation exposes no more than five choices.</li>
+              <li>The floating mobile pill never obscures a first-screen action.</li>
+              <li>The performance budget passes again.</li>
+            </ul>
+          </div>
+
+          <details>
+            <summary>Review basis and raw evidence</summary>
+            <div>
+              <ul>
+                <li>Production reviewed at <a href="https://utdred.com/">utdred.com</a> on 14 July 2026.</li>
+                <li>Representative routes: home, Stories, Discover, Matches, Compare, Analytics, Rooney, two match pages, and On This Day.</li>
+                <li>Viewports: desktop 1280×1000 and phone 390×844.</li>
+                <li>Repository read: <code>PRODUCT.md</code>, <code>DESIGN.md</code>, documentation index, homepage, journey, mobile, detail-page, performance, and prior surface-review records.</li>
+                <li><code>npm run knip</code>: passed, no unused-file finding.</li>
+                <li><code>npm run check:perf</code>: failed because checked <code>.next</code> output was 3,008.7 MB against a 2,000 MB budget. Largest sampled HTML remained under its separate 180 KB gzip budget.</li>
+                <li>Production sampling was observational, not a Lighthouse run: home 65 resources / 729 KB transferred; Explore 243 / 1,534 KB; Rooney 89 / 884 KB. Cache, geography, and prefetch affect these values.</li>
+                <li>The production homepage says “A ninety-second tour” while the local page and homepage document describe a 20-second excerpt. Recommendations use production behavior and flag the drift.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="final-call">
+        <div class="wide-inner">
+          <h2>The next version should contain less, and mean more.</h2>
+          <p>Red Thread has already built the difficult raw material: the record, the visual language, the stories, and the evidence. The remaining design work is to make them behave like one product.</p>
+          <span class="knot" aria-hidden="true"></span>
+        </div>
+      </section>
+
+      <footer>Red Thread product review · evidence captured 14 July 2026 · screenshots are local production captures</footer>
+    </main>
+  </div>
+
+  <script>
+    const bar = document.getElementById("progressBar");
+    const links = [...document.querySelectorAll(".rail nav a")];
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    function updateProgress() {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const progress = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+      bar.style.width = `${progress * 100}%`;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      links.forEach((link) => {
+        const active = link.getAttribute("href") === `#${visible.target.id}`;
+        if (active) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+    }, { rootMargin: "-18% 0px -64%", threshold: [0, 0.1, 0.4] });
+
+    sections.forEach((section) => observer.observe(section));
+    addEventListener("scroll", updateProgress, { passive: true });
+    addEventListener("resize", updateProgress);
+    updateProgress();
+  </script>
+</body>
+</html>

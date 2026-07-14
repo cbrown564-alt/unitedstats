@@ -17,10 +17,17 @@ From `CONTEXT.md` §6: *the front door **is** the gate.* Its entire purpose is t
 make a fan feel something in the first five seconds that the live-score apps
 (FotMob, SofaScore) structurally can't — the nostalgic jolt. No spark → no return
 visit, no word of mouth. So the home page does **not** lead with scope, search, or
-a question field (the old answer-first frame, now superseded). It leads with a
-single **served match-night**: a real night, chosen *for* you, rendered to land
-whether you lived it, forgot it, or never saw it (the three modes of the
-nostalgist — return / rediscover / get-close-to).
+a question field (the old answer-first frame, now superseded). It opens with a
+silent 20-second cross-era thread, then immediately serves a single
+**match-night**: a real night, chosen *for* you, rendered to land whether you
+lived it, forgot it, or never saw it (the three modes of the nostalgist — return
+/ rediscover / get-close-to).
+
+The opening thread deliberately broadens the invitation before the page chooses
+one match. User feedback found a match-first entry too narrow and initially
+confusing; the excerpt lets image, motion, and story establish the product without
+asking for an action. The served night remains the first specific historical
+doorway and must follow without an unrelated section between them.
 
 **Done = depth, not reach:** the moment lands for one nostalgist, reliably. Reach
 is a consequence, never the target.

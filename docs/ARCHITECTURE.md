@@ -13,9 +13,10 @@ pipeline, and a public dataset/API.
    opponents, attendance, competitions, transfers.
 2. **A robust, free, low-maintenance update pipeline.** New results flow in
    automatically after each game with no servers to babysit and no paid APIs.
-3. **A web UI that makes history feel alive** — a served match-night spark on
-   the front door, authored discovery lenses on top of the record, auditable
-   entity pages, and coverage grades at every interpretation point.
+3. **A web UI that makes history feel alive** — a silent 20-second cross-era
+   opening followed by a served match-night, authored discovery lenses on top
+   of the record, auditable entity pages, and coverage grades at every
+   interpretation point.
 
 ## System overview
 
@@ -106,7 +107,7 @@ pipeline, and a public dataset/API.
 
 | Route | Role |
 |---|---|
-| `/` | Front door: served match-night spark + record skyline + search |
+| `/` | Front door: 20-second opening thread → served match-night → record skyline + search |
 | `/explore` | Discover hub: questions, curated debates, curated cuts |
 | `/matches` | Filterable full fixture record |
 | `/match/[id]` | Match detail: flow, lineup, events, correction pickables |
@@ -177,7 +178,8 @@ links to corrections and feedback. View transitions are enabled via
 
 **Three product layers** (see `PRODUCT.md`, `CONTEXT.md`):
 
-1. **Spark** — emotional first contact (`TonightHero`, `/surprise`, `/on-this-day`).
+1. **Spark** — emotional first contact (`HomeThreadFilm` → `TonightHero`,
+   `/surprise`, `/on-this-day`).
 2. **Deepening** — authored lenses (`/explore`, `/questions/[slug]`, `/compare`, curated `/cut`).
 3. **Foundation** — the auditable record (`/matches`, entity pages, `/data`).
 

@@ -1,6 +1,6 @@
 # Status
 
-Living project status for Red Thread (repo: **unitedstats**). Updated 2026-07-12.
+Living project status for Red Thread (repo: **unitedstats**). Updated 2026-07-14.
 This document records the state visible in the current codebase and recent
 history. Product principles and surface decisions remain in `PRODUCT.md` and
 `CONTEXT.md`; small defects and polish belong in `BACKLOG.md`.
@@ -18,7 +18,13 @@ record: the Stories collection grew from three chapters to five, its index was
 rebuilt as an editorial thread, and the film now carries those same ideas in a
 data-generated master.
 
-The main active repository work is player-media coverage. The exhaustive roster
+The homepage now opens with a silent, one-pass 20-second Best/Ronaldo excerpt,
+then moves directly into the served match-night. This order is settled: it gives
+the product a broad, low-demand invitation before choosing one specific game.
+The post-launch product pass is now active, beginning with a measured baseline
+and one complete 1999-final journey before the pattern spreads.
+
+The other active repository work is player-media coverage. The exhaustive roster
 ledger is present and merged locally: eight research batches, media
 merging/checking tools, manifest changes, and new cached portraits are now in
 the current codebase. The remaining work is a slower Wikimedia cache retry and
@@ -53,7 +59,7 @@ result would therefore reach that stale step after rebuilding/exporting data.
 
 | Surface | Current state |
 |---|---|
-| `/` | Match-night/on-this-day `TonightHero`, record skyline, search, and rediscovery entry points |
+| `/` | Silent 20-second Best/Ronaldo opening thread, followed by `TonightHero`, record skyline, search, and rediscovery entry points |
 | `/matches` and `/match/[id]` | Filterable archive; evidence-rich match detail with flow, lineups, receipts, sticky hero, and mobile tabs |
 | `/players` and `/player/[id]` | Career register and leaders; player detail includes season record, curated Tableau goals/assists lane, and assist partnerships where covered |
 | `/seasons/[season]`, `/manager/[id]`, `/opponent/[id]` | Entity histories with related-night rediscovery rails |
@@ -173,18 +179,22 @@ The intended end state is:
    `npm run generate:history-digests` call in
    `.github/workflows/update-results.yml`; the freshness-loop script and package
    command were removed during the restraint pass.
-2. **Retry and review player-media caching.** Re-run the cache after the
+2. **Execute the post-launch product plan.** Lock the baseline, then prove the
+   complete night-to-thread loop on the 1999 final before spreading match
+   context or changing navigation. The phase order and gates live in
+   `docs/POST-LAUNCH-IMPLEMENTATION-PLAN.md`.
+3. **Retry and review player-media caching.** Re-run the cache after the
    Wikimedia rate-limit window, then inspect the 14 era mismatches, 15
    non-portrait heuristics, and 8 duplicate Commons files before treating the
    portrait lane as fully polished.
-3. **Reconcile `BACKLOG.md` with the new media model.** Its “~17 missing” and
+4. **Reconcile `BACKLOG.md` with the new media model.** Its “~17 missing” and
    “~850 outside media cohort” language predates the exhaustive `records` +
    `missing` roster ledger and no longer describes the same coverage contract.
-4. **Decide whether to productionize the OG lab.** If continued, test real
+5. **Decide whether to productionize the OG lab.** If continued, test real
    question, match, player, and story payloads before changing `lib/og-card.tsx`.
-5. **Choose a film distribution target before making derivatives.** The 90s
-   master exists; 60/30/15-second and 9:16 cuts, a web embed, and any formal
-   campaign release remain separate decisions.
+6. **Choose a film distribution target before making derivatives.** The 90s
+   master exists; 60/30/15-second and 9:16 cuts, a full-film web embed, and any
+   formal campaign release remain separate decisions.
 
 ### Minor known backlog
 
@@ -199,12 +209,13 @@ The intended end state is:
 
 | Item | Decision |
 |---|---|
-| Expanded questions catalogue | Attempted and declined. Keep the four promoted myths; archived slugs may remain routable and `noindex`. |
-| `/explore` restructure | Approved as-is; no doorway-collapse pass planned. |
+| Expanded questions catalogue | No volume target. Keep the four promoted myths until a new lens passes the publication gate in the post-launch plan; archived slugs may remain routable and `noindex`. |
+| `/explore` restructure | Superseded 2026-07-14. Reduce the promoted doorway to Questions and curated Comparisons; audit and demote the Curated Cuts strip during Phase 5. |
 | Freshness/history-digest surface | Removed as outside the product purpose. The lingering workflow invocation is a bug, not a reason to restore the surface. |
 | Broad chart consolidation | Parked until a concrete user-visible problem or broader chart pass justifies it. |
-| Compare custom picker removal | Deferred; curated debates plus the custom picker are accepted. |
+| Compare custom picker removal | Superseded 2026-07-14. Remove the creation UI in Phase 5; keep valid incoming comparison URLs temporarily so shared links do not break abruptly. |
 | More Stories chapters | No active chapter roadmap. The current collection is five; another chapter must earn a distinct evidence-backed beat sheet. |
+| Homepage opening order | Keep the silent, one-pass 20-second Best/Ronaldo excerpt before the served night. Do not restore sound, looping, or the 90-second embed. |
 
 ---
 
@@ -227,6 +238,7 @@ should not be read as current project status.
 | Document | Role |
 |---|---|
 | `PRODUCT.md` | Product definition and promise |
+| `docs/POST-LAUNCH-IMPLEMENTATION-PLAN.md` | Active phase order, implementation scope, and exit gates |
 | `CONTEXT.md` | Audience, soul + foundation, lens-not-loom, and surface verdicts |
 | `BACKLOG.md` | Small bugs and intentional non-fixes; media entries need reconciliation |
 | `docs/DATA-MODEL.md` | Canonical data and SQLite model |
