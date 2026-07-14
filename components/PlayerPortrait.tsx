@@ -20,10 +20,30 @@ const SIZES = {
   lg: { box: "h-40 w-40 sm:h-44 sm:w-44", pixels: 176, text: "text-3xl" },
 };
 
+/**
+ * Wikimedia occasionally leaves legacy cache-buster queries on otherwise
+ * immutable Commons thumbnails. Strip those before handing the URL to
+ * next/image so the strict query-free remote pattern remains enforceable.
+ */
+export function normalizePortraitSrc(src: string | null | undefined): string | null | undefined {
+  if (!src?.startsWith("https://")) return src;
+  try {
+    const url = new URL(src);
+    if (url.hostname === "upload.wikimedia.org" && url.pathname.startsWith("/wikipedia/commons/")) {
+      url.search = "";
+      return url.toString();
+    }
+  } catch {
+    // Let next/image surface malformed non-Wikimedia URLs as before.
+  }
+  return src;
+}
+
 export function PlayerPortrait({ name, src, size = "sm", priority = false, className = "" }: PlayerPortraitProps) {
   const config = SIZES[size];
+  const imageSrc = normalizePortraitSrc(src);
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
-  const showImage = Boolean(src && src !== failedSrc);
+  const showImage = Boolean(imageSrc && imageSrc !== failedSrc);
 
   return (
     <span
@@ -31,14 +51,14 @@ export function PlayerPortrait({ name, src, size = "sm", priority = false, class
     >
       {showImage ? (
         <Image
-          src={src!}
+          src={imageSrc!}
           alt={`Portrait of ${name}`}
           width={config.pixels}
           height={config.pixels}
           priority={priority}
           sizes={`${config.pixels}px`}
           className="h-full w-full object-cover"
-          onError={() => setFailedSrc(src!)}
+          onError={() => setFailedSrc(imageSrc!)}
         />
       ) : (
         <span className={`stat-num font-semibold ${config.text}`} aria-hidden="true">
