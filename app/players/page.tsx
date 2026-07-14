@@ -2,13 +2,12 @@ import Link from "next/link";
 import { playerCareerSparks, playersIndex, type PlayerCareerSpark, type PlayerTotals } from "@/lib/queries";
 import type { SortDirection } from "@/components/DataTable";
 import { PlayerGreatnessMap } from "@/components/charts/PlayerGreatnessMap";
-import { PlayersLeaders } from "@/components/PlayersLeaders";
+import { PlayersLeaders, type LeaderboardItem } from "@/components/PlayersLeaders";
 import { PlayersRegisterTable } from "@/components/PlayersRegisterTable";
 import { SectionHead } from "@/components/SectionHead";
-import { type LeaderboardItem } from "@/components/Leaderboard";
 import { CoverageNote } from "@/components/CoverageNote";
 import { PageHeader } from "@/components/PageHeader";
-import { fmtNum, pct, fmtYearRange } from "@/lib/format";
+import { fmtNum, fmtYearRange } from "@/lib/format";
 import { listSeo, seoMetadata } from "@/lib/seo";
 
 export const revalidate = 86400;

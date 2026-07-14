@@ -2,8 +2,15 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import type { LeaderboardItem } from "@/components/Leaderboard";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
+
+export interface LeaderboardItem {
+  id: string;
+  name: string;
+  src?: string | null;
+  figure: string;
+  sub?: string;
+}
 
 /** Two ranked bar charts — appearances and goals — with a total vs per-game toggle on goals. */
 export function PlayersLeaders({

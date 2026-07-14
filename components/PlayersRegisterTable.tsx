@@ -169,6 +169,8 @@ export function PlayersRegisterTable({
             key: "shirt",
             numeric: true,
             hideBelow: "hidden sm:table-cell",
+            className: "w-[3.75rem] px-1.5",
+            headerClassName: "w-[3.75rem] px-1.5",
             sortKey: "shirt",
             sortDefaultDirection: PLAYER_SORT_DEFAULTS.shirt,
             sortLabel: "primary shirt number",
