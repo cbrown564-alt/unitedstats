@@ -32,6 +32,7 @@ import {
   lineupPlayerSelector,
   matchFieldPath,
 } from "@/lib/matchCorrectionPaths";
+import { matchContext } from "@/lib/matchContext";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -112,6 +113,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const m = matchById(id);
   if (!m) notFound();
   const events = eventsForMatch(id);
+  const meaning = matchContext(m, events);
   const lineup = lineupForMatch(id);
   const elo = eloForMatch(id);
   const h2h = h2hBefore(m.opponent_id, m.date);
@@ -544,10 +546,16 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   <ShareCite path={`/match/${id}`} title={`Manchester United v ${m.opponent_name} — ${fmtDateLong(m.date)}`} />
                 </div>
                 <header className="space-y-3">
-                  <nav className="flex items-center justify-center gap-2 pr-16 text-sm text-ink-faint sm:pr-20">
-                    <Link href={`/seasons/${m.season}`} className="hover:text-devil-bright focus-ring">{m.season}</Link>
+                  <nav className="flex items-center justify-center gap-2 pr-16 text-sm text-ink-dim sm:pr-20">
+                    <Link href={`/seasons/${m.season}`} className="hover:text-ink focus-ring">{m.season}</Link>
                     <span aria-hidden>·</span>
-                    <CompetitionChip type={m.competition_type} name={m.competition_name} round={m.round} bare />
+                    <CompetitionChip
+                      type={m.competition_type}
+                      name={m.competition_name}
+                      round={m.round}
+                      bare
+                      className="!text-ink-dim"
+                    />
                   </nav>
                   <div className="space-y-1.5 border-t border-line py-3 text-center sm:py-4">
                     <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
@@ -589,6 +597,30 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         {m.aet ? "(a.e.t) " : ""}
                         {m.pen_gf != null ? `${club} ${m.outcome === "W" ? "won" : "lost"} ${m.pen_gf}–${m.pen_ga} on penalties.` : ""}
                       </p>
+                    )}
+                    {meaning && (
+                      <div
+                        aria-label="What this match meant"
+                        className="mx-auto flex max-w-3xl min-w-0 items-baseline justify-center gap-2 overflow-hidden px-3 text-xs leading-4 text-ink-dim"
+                      >
+                        <p
+                          className="min-w-0 truncate"
+                          title={`${meaning.sentence}${meaning.coverageNote ? ` ${meaning.coverageNote}` : ""}`}
+                        >
+                          {meaning.sentence}
+                          {meaning.coverageNote && (
+                            <span className="text-ink-faint"> · {meaning.coverageNote}</span>
+                          )}
+                        </p>
+                        {meaning.related && (
+                          <Link
+                            href={meaning.related.href}
+                            className="shrink-0 whitespace-nowrap font-medium text-devil-bright/90 hover:underline focus-ring"
+                          >
+                            {meaning.related.label} →
+                          </Link>
+                        )}
+                      </div>
                     )}
                   </div>
                 </header>

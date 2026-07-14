@@ -6,45 +6,36 @@ type NavItem = {
   icon: NavIconId;
 };
 
-export type NavGroup = {
-  label: string;
-  items: readonly NavItem[];
-};
-
-/** Primary site sections — grouped for sidebar, flat list for mobile shell. */
-export const NAV_GROUPS: readonly NavGroup[] = [
-  {
-    label: "Explore",
-    items: [
-      { label: "Stories", href: "/stories", icon: "journey" },
-      { label: "Discover", href: "/explore", icon: "discover" },
-      { label: "Matches", href: "/matches", icon: "matches" },
-      { label: "Seasons", href: "/seasons", icon: "seasons" },
-    ],
-  },
-  {
-    label: "People",
-    items: [
-      { label: "Players", href: "/players", icon: "players" },
-      { label: "Managers", href: "/managers", icon: "managers" },
-    ],
-  },
-  {
-    label: "Records",
-    items: [
-      { label: "Analytics", href: "/analytics", icon: "analytics" },
-      { label: "Transfers", href: "/transfers", icon: "transfers" },
-      { label: "Data", href: "/data", icon: "data" },
-    ],
-  },
+/** Five destinations visible before any disclosure. */
+export const PRIMARY_NAV: readonly NavItem[] = [
+  { label: "Stories", href: "/stories", icon: "journey" },
+  { label: "Discover", href: "/explore", icon: "discover" },
+  { label: "Matches", href: "/matches", icon: "matches" },
+  { label: "Seasons", href: "/seasons", icon: "seasons" },
+  { label: "Players", href: "/players", icon: "players" },
 ] as const;
 
-export const NAV_SECTIONS = NAV_GROUPS.flatMap((group) =>
-  group.items.map((item) => [item.label, item.href] as const),
+/** Expert record tools remain one disclosure away and fully searchable. */
+export const SECONDARY_NAV: readonly NavItem[] = [
+  { label: "Managers", href: "/managers", icon: "managers" },
+  { label: "Analytics", href: "/analytics", icon: "analytics" },
+  { label: "Transfers", href: "/transfers", icon: "transfers" },
+  { label: "Data", href: "/data", icon: "data" },
+] as const;
+
+export const NAV_SECTIONS = [...PRIMARY_NAV, ...SECONDARY_NAV].map(
+  (item) => [item.label, item.href] as const,
 );
 
 export function isNavActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
+  const detailOwner: Readonly<Record<string, readonly string[]>> = {
+    "/explore": ["/questions/", "/compare", "/cut"],
+    "/matches": ["/match/", "/on-this-day", "/surprise"],
+    "/players": ["/player/"],
+    "/managers": ["/manager/"],
+  };
+  if (detailOwner[href]?.some((prefix) => pathname === prefix || pathname.startsWith(prefix))) return true;
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 

@@ -263,6 +263,9 @@ export function buildPrompt(night: ScoredNight): RediscoveryPrompt {
     id: m.id,
     href: `/match/${m.id}`,
     prompt: "Do you remember…?",
+    reason: night.reason === "a charged night"
+      ? night.reason
+      : `${night.reason.charAt(0).toUpperCase()}${night.reason.slice(1)}`,
     line,
     year: m.date.slice(0, 4),
     score: scoreline(m.gf, m.ga),
@@ -323,10 +326,33 @@ function entityMatches(scope: "season" | "opponent" | "player", id: string): Mat
        JOIN match_lineups l ON l.match_id = m.id
        LEFT JOIN stadiums s ON s.id = m.stadium_id
        LEFT JOIN managers mg ON mg.id = m.manager_id
-       WHERE l.player_id = ? AND l.player_side = 'united' AND c.type != 'unofficial'
+       WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0 AND c.type != 'unofficial'
        ORDER BY m.date`,
     )
     .all(id) as MatchRow[];
+}
+
+function playerSpecificReason(playerId: string, pick: MatchRow, appearances: MatchRow[]): string | null {
+  const first = appearances[0];
+  if (first?.id === pick.id) return "United debut";
+
+  const contribution = getDb()
+    .prepare(
+      `SELECT
+         SUM(CASE WHEN player_id = ? AND player_side = 'united'
+                       AND type IN ('goal','pen-goal') THEN 1 ELSE 0 END) goals,
+         SUM(CASE WHEN assist_player_id = ? AND assist_side = 'united'
+                       AND type IN ('goal','pen-goal','own-goal-for') THEN 1 ELSE 0 END) assists
+       FROM match_events
+       WHERE match_id = ?`,
+    )
+    .get(playerId, playerId, pick.id) as { goals: number; assists: number };
+
+  if (contribution.goals >= 3) return "A hat-trick";
+  if (contribution.goals > 0 && contribution.assists > 0) return "A goal and an assist";
+  if (contribution.goals > 0) return contribution.goals === 2 ? "Two goals" : "A goal";
+  if (contribution.assists > 0) return contribution.assists === 1 ? "An assist" : `${contribution.assists} assists`;
+  return null;
 }
 
 /** Highest-charge faded night from an entity's history — the entity-page rail. */
@@ -339,7 +365,12 @@ export function rediscoveryForEntity(
   if (matches.length < 3) return null;
   const pool = scorePool(matches, opts);
   const pick = pool[0];
-  return pick ? buildPrompt(pick) : null;
+  if (!pick || pick.reason === "a charged night") return null;
+  const prompt = buildPrompt(pick);
+  if (scope === "player") {
+    prompt.reason = playerSpecificReason(id, pick.match, matches) ?? prompt.reason;
+  }
+  return prompt;
 }
 
 /** Parse "following since" from a URL param — guardrailed to plausible years. */

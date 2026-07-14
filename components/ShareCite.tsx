@@ -52,7 +52,7 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
   };
 
   const btn =
-    "inline-flex items-center gap-1 rounded-md border border-line px-2 py-1 text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring";
+    "inline-flex min-h-11 items-center gap-1 rounded-md border border-line px-2 py-1 text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring sm:min-h-0";
 
   return (
     <div className="flex flex-wrap items-center justify-end gap-2 text-xs" aria-label="Share this page">

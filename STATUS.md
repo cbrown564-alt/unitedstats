@@ -21,8 +21,13 @@ data-generated master.
 The homepage now opens with a silent, one-pass 20-second Best/Ronaldo excerpt,
 then moves directly into the served match-night. This order is settled: it gives
 the product a broad, low-demand invitation before choosing one specific game.
-The post-launch product pass is now active, beginning with a measured baseline
-and one complete 1999-final journey before the pattern spreads.
+The repository-controlled post-launch product pass is implemented. Match pages
+now bridge a served night to its meaning and evidence, recommendations explain
+why a match belongs, calendar routes always resolve honestly, Discover and
+Compare expose authored choices only, the primary navigation is reduced to five
+destinations, and player detail has a proved phone composition. The full build
+is live at `https://utdred.com` and has passed production smoke and interaction
+checks. Representative fan feedback remains the Phase 9 validation gate.
 
 The other active repository work is player-media coverage. The exhaustive roster
 ledger is present and merged locally: eight research batches, media
@@ -60,19 +65,19 @@ result would therefore reach that stale step after rebuilding/exporting data.
 | Surface | Current state |
 |---|---|
 | `/` | Silent 20-second Best/Ronaldo opening thread, followed by `TonightHero`, record skyline, search, and rediscovery entry points |
-| `/matches` and `/match/[id]` | Filterable archive; evidence-rich match detail with flow, lineups, receipts, sticky hero, and mobile tabs |
-| `/players` and `/player/[id]` | Career register and leaders; player detail includes season record, curated Tableau goals/assists lane, and assist partnerships where covered |
-| `/seasons/[season]`, `/manager/[id]`, `/opponent/[id]` | Entity histories with related-night rediscovery rails |
-| `/explore` | Approved three-strip Discover hub: questions, curated debates, and curated cuts |
+| `/matches` and `/match/[id]` | Filterable archive; match detail adds reviewed or bounded computed meaning before flow, lineups, receipts, and mobile tabs, while ordinary matches remain plain receipts |
+| `/players` and `/player/[id]` | Career register and leaders; phone detail uses the identity-band plate and appearance-based Career endpoints, with goals/assists and partnerships where covered |
+| `/seasons/[season]`, `/manager/[id]`, `/opponent/[id]` | Entity histories with reason-first related-night rediscovery rails |
+| `/explore` | Reduced Discover doorway: authored questions and curated debates only |
 | `/questions/[slug]` | Four promoted myths plus retained routable archive questions; archived material is not promoted |
-| `/compare` | Curated debates plus custom player comparison |
+| `/compare` | Curated debates only in the promoted UI; existing valid arbitrary pair URLs remain readable and unlisted for compatibility |
 | `/analytics` | Elo history, reliability, and Monte Carlo season replay |
 | `/transfers` | Season ledger and featured record deals |
-| `/surprise`, `/on-this-day` | Rediscovery and calendar-history routes |
+| `/surprise`, `/on-this-day` | Reviewed match-night rediscovery; exact match/transfer calendar moments with explicitly nearby fallbacks |
 | `/stories` | Editorial thread leading to five standalone, chrome-off, `noindex` chapters |
 
 The retired surface decisions still hold: `/history-changed`, `/collection`, and
-`/embed` are gone; `/cut` forks redirect into curated discovery; `/opponents`
+`/embed` are gone; saved `/cut` receipts are unlisted and `noindex`; `/opponents`
 redirects to search; `/questions` resolves to Explore; and the old `/journey*`
 entry points redirect to canonical Stories URLs.
 
@@ -98,11 +103,15 @@ pinned by `tests/journey.test.ts`.
 
 - Charge × fadedness scoring in `lib/rediscovery.ts`, with optional era bias,
   powers entity rails, homepage suggestions, and `/surprise`.
+- Visible rediscovery prompts lead with a recorded reason; generic “charged
+  night” fallbacks are suppressed and player prompts require an appearance or
+  contribution.
 - Curated nights remain a deliberate editorial layer over the record rather
   than an automated “greatest matches” ranking.
 - Mobile Waves 0–2 remain complete: navigation and sheets, match filters,
   detail tabs, register/season/archive card treatments, analytics pager, and
-  homepage polish. Remaining mobile notes are optional refinement.
+  homepage polish. The post-launch pass adds the five-primary/More navigation
+  hierarchy and the player identity band. Remaining notes are optional refinement.
 
 ### Film and campaign assets
 
@@ -141,6 +150,8 @@ renderer; it is exploration, not a shipped social-card redesign.
 | 2026-07-10 | Fergie-time and ten-night archive chapters added, taking Stories to five |
 | 2026-07-11 | Stories index redesigned as an editorial thread; Remotion film workspace and data fixture established |
 | 2026-07-12 | 90-second master advanced through v8, with final-goal/lineup evidence and the expanded Best/Ronaldo comparison |
+| 2026-07-14 | Post-launch Phases 1–8 implemented and verified locally: connected match loop, explained rediscovery, reliable calendar, reduced discovery/navigation, player mobile composition, and quality cleanup |
+| 2026-07-14 | Phase 9 production release completed at `utdred.com` after a full 7,829-page Vercel build and representative route/interaction smoke checks |
 
 ---
 
@@ -179,10 +190,10 @@ The intended end state is:
    `npm run generate:history-digests` call in
    `.github/workflows/update-results.yml`; the freshness-loop script and package
    command were removed during the restraint pass.
-2. **Execute the post-launch product plan.** Lock the baseline, then prove the
-   complete night-to-thread loop on the 1999 final before spreading match
-   context or changing navigation. The phase order and gates live in
-   `docs/POST-LAUNCH-IMPLEMENTATION-PLAN.md`.
+2. **Collect the Phase 9 validation evidence.** Ask representative fans to use
+   the production night-to-thread loop without prompting and record what they
+   do. The implementation and production release are verified; screenshots and
+   smoke checks alone do not validate the product sequence.
 3. **Retry and review player-media caching.** Re-run the cache after the
    Wikimedia rate-limit window, then inspect the 14 era mismatches, 15
    non-portrait heuristics, and 8 duplicate Commons files before treating the
@@ -210,10 +221,10 @@ The intended end state is:
 | Item | Decision |
 |---|---|
 | Expanded questions catalogue | No volume target. Keep the four promoted myths until a new lens passes the publication gate in the post-launch plan; archived slugs may remain routable and `noindex`. |
-| `/explore` restructure | Superseded 2026-07-14. Reduce the promoted doorway to Questions and curated Comparisons; audit and demote the Curated Cuts strip during Phase 5. |
+| `/explore` restructure | Implemented 2026-07-14. The promoted doorway contains Questions and curated Comparisons; registered cuts remain only for API, machine-answer, and saved-receipt consumers. |
 | Freshness/history-digest surface | Removed as outside the product purpose. The lingering workflow invocation is a bug, not a reason to restore the surface. |
 | Broad chart consolidation | Parked until a concrete user-visible problem or broader chart pass justifies it. |
-| Compare custom picker removal | Superseded 2026-07-14. Remove the creation UI in Phase 5; keep valid incoming comparison URLs temporarily so shared links do not break abruptly. |
+| Compare custom picker removal | Implemented 2026-07-14. The creation UI is gone; valid incoming arbitrary comparison URLs remain temporarily readable and unlisted. |
 | More Stories chapters | No active chapter roadmap. The current collection is five; another chapter must earn a distinct evidence-backed beat sheet. |
 | Homepage opening order | Keep the silent, one-pass 20-second Best/Ronaldo excerpt before the served night. Do not restore sound, looping, or the 90-second embed. |
 

@@ -106,6 +106,7 @@ full Vercel deploy (previous behaviour).
 | CLS | < 0.05 |
 | First Load JS (per route) | < 150 KB; chart-heavy routes < 200 KB |
 | Runtime DB access | none from page routes (build-time only) |
+| Aggregate `.next` output | ≤ 2,000 MB preview; ≤ 3,250 MB full |
 
 ## Route disposition (achieved)
 
@@ -171,6 +172,42 @@ after `npm run build`) reads `.next/prerender-manifest.json` and fails if any
 expected static page or SSG route has regressed to dynamic, or if the
 prerendered-path count collapses. A stray `searchParams`/`cookies()` read or a
 dropped `generateStaticParams` will fail the build instead of silently shipping.
+
+## Post-launch product-pass measurement — 2026-07-14
+
+Both measurements started from a removed `.next` directory and used the preview
+profile, so they describe current output rather than a stale development tree.
+
+| Measurement | Before Phases 1–8 | After Phases 1–8 | Budget |
+| --- | ---: | ---: | ---: |
+| `.next` output | 166.1 MB | 166.3 MB | 2,000 MB |
+| Largest gzipped HTML | 113.5 KB on Explore | 147.1 KB on Alex Ferguson | 180 KB |
+| Rooney HTML | 94.8 KB | 95.2 KB | 180 KB |
+| Largest gzipped RSC | not separately recorded | 88.4 KB | 120 KB |
+| Largest gzipped JS chunk | 101.7 KB | 101.7 KB | 120 KB |
+
+The clean preview recheck generated 204 static pages. The static-render guard
+reported five static pages, five SSG route families, and 189 prerendered paths.
+Removing the comparison creator and Discover cut strip did not justify a new
+prefetch policy: no production request evidence showed dense-link prefetch as a
+problem, so the installed Next.js 16 defaults remain in place.
+
+The clean full-profile build generated 7,829 static pages and 7,814 manifest
+paths. Its `.next` tree is 3,026.0 MB. Investigation found 2.3 GB under the match
+route family: 944 MB of HTML, 431 MB of full RSC, and about 860 MB of Next 16
+segment-prefetch RSC across 6,028 receipts. This is aggregate corpus output, not
+a large-page regression: the same build stays below the 180/120/120 KB
+HTML/RSC/JS route limits. The full-profile aggregate budget is therefore 3,250
+MB, while preview remains capped at 2,000 MB; one shared 3.25 GB limit would
+hide preview amplification.
+
+The Vercel CLI source manifest is a separate concern from `.next` output.
+Without `.vercelignore`, local raw ingest data, rendered films, screenshots, and
+working audio made the upload manifest 1.75 GB and included a local `.env`.
+The deployment ignore list keeps canonical build inputs and the 493 KB homepage
+clip while excluding those working trees. The verified production manifest is
+1,028 files / 67.4 MB; both preview and full builds recreate `data/united.db`
+from canonical JSON in Vercel.
 
 ## Build profiles
 

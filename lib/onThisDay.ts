@@ -1,4 +1,5 @@
 import { onThisDayRef } from "./citations";
+import { CURATED_NIGHTS } from "./curatedNights";
 import { getDb } from "./db";
 
 interface OnThisDayMatch {
@@ -23,6 +24,40 @@ interface OnThisDayMatch {
   note: string | null;
 }
 
+type CalendarMoment =
+  | { kind: "match"; label: "On this day"; evidencePath: string; match: OnThisDayMatch }
+  | {
+      kind: "transfer";
+      label: "Transfer on this day";
+      evidencePath: string;
+      date: string;
+      year: string;
+      playerId: string | null;
+      playerName: string;
+      direction: "in" | "out";
+      club: string | null;
+      season: string | null;
+    }
+  | {
+      kind: "debut";
+      label: "Debut on this day";
+      evidencePath: string;
+      date: string;
+      year: string;
+      playerId: string;
+      playerName: string;
+      opponent: string;
+    }
+  | {
+      kind: "nearby-match";
+      label: "Nearby anniversary";
+      evidencePath: string;
+      requestedMonthDay: string;
+      actualMonthDay: string;
+      distanceDays: number;
+      match: OnThisDayMatch;
+    };
+
 interface OnThisDayRhythm {
   played: number;
   w: number;
@@ -45,7 +80,7 @@ export interface OnThisDayEntry {
   rhythm: OnThisDayRhythm | null;
   prev: string;
   next: string;
-  fallback: string | null;
+  moment: CalendarMoment;
 }
 
 const MONTHS = [
@@ -141,6 +176,143 @@ function significance(m: OnThisDayMatch): number {
   return score;
 }
 
+interface TransferMomentRow {
+  id: string;
+  player_id: string | null;
+  player_name: string;
+  direction: "in" | "out";
+  date: string;
+  season: string | null;
+  club: string | null;
+}
+
+/**
+ * Exact-date transfer tie-break: arrivals before departures, permanent before
+ * other move types, then the highest recorded fee, newest year, and stable id.
+ */
+function transferMoment(monthDay: string): CalendarMoment | null {
+  const row = getDb()
+    .prepare(
+      `SELECT id, player_id, player_name, direction, date, season, club
+       FROM transfers
+       WHERE date_precision = 'day' AND substr(date, 6, 5) = ?
+       ORDER BY direction = 'in' DESC,
+                type = 'permanent' DESC,
+                COALESCE(fee_gbp, 0) DESC,
+                date DESC,
+                id
+       LIMIT 1`,
+    )
+    .get(monthDay) as TransferMomentRow | undefined;
+  if (!row) return null;
+  return {
+    kind: "transfer",
+    label: "Transfer on this day",
+    evidencePath: row.season ? `/transfers#txseason-${row.season}` : "/transfers",
+    date: row.date,
+    year: row.date.slice(0, 4),
+    playerId: row.player_id,
+    playerName: row.player_name,
+    direction: row.direction,
+    club: row.club,
+    season: row.season,
+  };
+}
+
+interface DebutMomentRow {
+  player_id: string;
+  player_name: string;
+  match_id: string;
+  date: string;
+  opponent_name: string;
+  apps: number;
+}
+
+/**
+ * First recorded competitive appearance, with higher-volume careers first and
+ * a stable id tie-break. The current data model derives every debut from a match,
+ * so match-first selection normally consumes this date before this fallback.
+ */
+function debutMoment(monthDay: string): CalendarMoment | null {
+  const row = getDb()
+    .prepare(
+      `SELECT l.player_id, COALESCE(p.name, l.player_name) player_name,
+              m.id match_id, m.date, m.opponent_name, COALESCE(pr.apps, 0) apps
+       FROM match_lineups l
+       JOIN matches m ON m.id = l.match_id
+       LEFT JOIN players p ON p.id = l.player_id
+       LEFT JOIN player_records pr ON pr.player_id = l.player_id
+       WHERE l.player_side = 'united' AND l.bench = 0 AND l.player_id IS NOT NULL
+         AND substr(m.date, 6, 5) = ?
+         AND m.date = (
+           SELECT MIN(m2.date)
+           FROM match_lineups l2
+           JOIN matches m2 ON m2.id = l2.match_id
+           WHERE l2.player_id = l.player_id AND l2.player_side = 'united' AND l2.bench = 0
+         )
+       ORDER BY apps DESC, m.date DESC, l.player_id
+       LIMIT 1`,
+    )
+    .get(monthDay) as DebutMomentRow | undefined;
+  if (!row) return null;
+  return {
+    kind: "debut",
+    label: "Debut on this day",
+    evidencePath: `/match/${row.match_id}`,
+    date: row.date,
+    year: row.date.slice(0, 4),
+    playerId: row.player_id,
+    playerName: row.player_name,
+    opponent: row.opponent_name,
+  };
+}
+
+function ordinal(monthDay: string): number {
+  const [month, day] = monthDay.split("-").map(Number);
+  return Math.floor((Date.UTC(2024, month - 1, day) - Date.UTC(2024, 0, 1)) / 86_400_000);
+}
+
+function nearbyMoment(monthDay: string): CalendarMoment {
+  const requested = ordinal(monthDay);
+  const curatedOrder = new Map(CURATED_NIGHTS.map((night, index) => [night.id, index]));
+  const placeholders = CURATED_NIGHTS.map(() => "?").join(",");
+  const rows = getDb()
+    .prepare(
+      `SELECT m.id, m.date, m.season, m.opponent_id, m.opponent_name, m.venue, m.gf, m.ga, m.result,
+              c.name AS competition_name, c.type AS competition_type, m.round,
+              s.name AS stadium_name
+       FROM matches m
+       JOIN competitions c ON c.id = m.competition_id
+       LEFT JOIN stadiums s ON s.id = m.stadium_id
+       WHERE m.id IN (${placeholders})`,
+    )
+    .all(...CURATED_NIGHTS.map((night) => night.id)) as Row[];
+  const ranked = rows
+    .map((row) => {
+      const actualMonthDay = row.date.slice(5);
+      const direct = Math.abs(requested - ordinal(actualMonthDay));
+      return {
+        row,
+        actualMonthDay,
+        distanceDays: Math.min(direct, 366 - direct),
+        order: curatedOrder.get(row.id) ?? Number.MAX_SAFE_INTEGER,
+      };
+    })
+    .sort((a, b) => a.distanceDays - b.distanceDays || a.order - b.order || a.row.id.localeCompare(b.row.id));
+  const pick = ranked[0];
+  if (!pick) throw new Error("nearby calendar fallback has no curated matches");
+  const match = toMatch(pick.row);
+  return {
+    kind: "nearby-match",
+    label: "Nearby anniversary",
+    evidencePath: match.evidencePath,
+    requestedMonthDay: monthDay,
+    actualMonthDay: pick.actualMonthDay,
+    distanceDays: pick.distanceDays,
+    match,
+  };
+}
+
 export function onThisDay(monthDay: string): OnThisDayEntry {
   if (!isMonthDayKey(monthDay)) throw new Error(`invalid month/day key: ${monthDay}`);
   const { prev, next } = adjacent(monthDay);
@@ -166,7 +338,8 @@ export function onThisDay(monthDay: string): OnThisDayEntry {
     .all(monthDay) as Row[];
 
   if (rows.length === 0) {
-    return { ...base, lead: null, rest: [], rhythm: null, fallback: `No official United match is recorded on ${monthDayLabel(monthDay)}.` };
+    const moment = transferMoment(monthDay) ?? debutMoment(monthDay) ?? nearbyMoment(monthDay);
+    return { ...base, lead: null, rest: [], rhythm: null, moment };
   }
 
   const matches = rows.map(toMatch);
@@ -214,5 +387,11 @@ export function onThisDay(monthDay: string): OnThisDayEntry {
 
   const rest = matches.filter((m) => m.id !== lead.id).sort((a, b) => b.date.localeCompare(a.date));
 
-  return { ...base, lead, rest, rhythm, fallback: null };
+  return {
+    ...base,
+    lead,
+    rest,
+    rhythm,
+    moment: { kind: "match", label: "On this day", evidencePath: lead.evidencePath, match: lead },
+  };
 }

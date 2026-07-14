@@ -8,9 +8,11 @@ function sitemapPaths() {
   return sitemap().map((entry) => new URL(entry.url.replaceAll("&amp;", "&")).pathname);
 }
 
-test("sitemap XML escapes ampersands in query-string URLs", () => {
+test("sitemap lists canonical pages without saved-query receipts", () => {
+  assert.ok(sitemap().every((entry) => !new URL(entry.url.replaceAll("&amp;", "&")).search));
+  assert.ok(sitemapPaths().every((path) => path !== "/cut"));
+
   const xml = resolveSitemap(sitemap());
-  assert.match(xml, /<loc>https:\/\/[^<]*&amp;[^<]*<\/loc>/);
   assert.doesNotMatch(xml, /<loc>[^<]*&(?!amp;)[^<]*<\/loc>/);
 });
 

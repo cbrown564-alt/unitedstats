@@ -3,6 +3,8 @@ export interface RediscoveryPrompt {
   id: string;
   href: string;
   prompt: string;
+  /** Reader-facing explanation for why this match belongs on the rail. */
+  reason: string;
   line: string;
   year: string;
   score: string;

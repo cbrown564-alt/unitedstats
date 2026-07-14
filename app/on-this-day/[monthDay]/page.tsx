@@ -37,9 +37,9 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="On this day" title={entry.label} deferOnMobile>
-        {entry.fallback
-          ? "Nothing in the record fell on this date — step a day either way."
-          : "United’s matches on this date, across the years — the standout first."}
+        {entry.moment.kind === "match"
+          ? "United’s matches on this date, across the years — the standout first."
+          : "An exact, traceable record where one exists; otherwise the nearest reviewed anniversary."}
       </PageHeader>
 
       <nav className="flex items-center justify-between gap-3 text-sm" aria-label="Day navigation">
@@ -57,8 +57,8 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
         </Link>
       </nav>
 
-      {entry.fallback ? (
-        <p className="rounded-xl border border-line bg-panel p-5 text-sm text-ink-dim">{entry.fallback}</p>
+      {entry.moment.kind !== "match" ? (
+        <CalendarFallback moment={entry.moment} requestedLabel={entry.label} />
       ) : (
         <>
           {lead && (
@@ -158,5 +158,62 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
         </>
       )}
     </div>
+  );
+}
+
+function CalendarFallback({
+  moment,
+  requestedLabel,
+}: {
+  moment: Exclude<ReturnType<typeof onThisDay>["moment"], { kind: "match" }>;
+  requestedLabel: string;
+}) {
+  if (moment.kind === "transfer") {
+    const moved = moment.direction === "in" ? "joined United" : "left United";
+    const counterpart = moment.club
+      ? moment.direction === "in" ? `from ${moment.club}` : `for ${moment.club}`
+      : null;
+    return (
+      <section className="relative overflow-hidden rounded-xl border border-line bg-panel p-5 sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-devil-bright">{moment.label}</p>
+        <div className="mt-3 flex flex-wrap items-baseline gap-3">
+          <span className="stat-num text-2xl font-semibold text-gold">{moment.year}</span>
+          <h2 className="display text-2xl leading-tight sm:text-3xl">{moment.playerName} {moved}</h2>
+        </div>
+        {counterpart && <p className="mt-2 text-sm text-ink-dim">{counterpart}.</p>}
+        <Link href={moment.evidencePath} className="mt-4 inline-block text-sm font-semibold text-devil-bright hover:underline focus-ring">
+          Transfer record →
+        </Link>
+      </section>
+    );
+  }
+
+  if (moment.kind === "debut") {
+    return (
+      <section className="rounded-xl border border-line bg-panel p-5 sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-devil-bright">{moment.label}</p>
+        <h2 className="display mt-3 text-2xl leading-tight sm:text-3xl">{moment.playerName}</h2>
+        <p className="mt-2 text-sm text-ink-dim">First recorded United appearance, against {moment.opponent} in {moment.year}.</p>
+        <Link href={moment.evidencePath} className="mt-4 inline-block text-sm font-semibold text-devil-bright hover:underline focus-ring">
+          Match evidence →
+        </Link>
+      </section>
+    );
+  }
+
+  return (
+    <section className="relative overflow-hidden rounded-xl border border-line bg-panel p-5 sm:p-6">
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">{moment.label}</p>
+      <p className="mt-2 text-sm leading-6 text-ink-dim">
+        No exact canonical moment falls on {requestedLabel}. The nearest reviewed anniversary is {monthDayLabel(moment.actualMonthDay)}, {moment.distanceDays} day{moment.distanceDays === 1 ? "" : "s"} away.
+      </p>
+      <div className="mt-4 flex items-start gap-3">
+        <ResultBadge result={moment.match.result} />
+        <h2 className="display text-2xl leading-tight sm:text-3xl">{moment.match.year} · {moment.match.scoreline}</h2>
+      </div>
+      <Link href={moment.evidencePath} className="mt-4 inline-block text-sm font-semibold text-devil-bright hover:underline focus-ring">
+        Match evidence →
+      </Link>
+    </section>
   );
 }

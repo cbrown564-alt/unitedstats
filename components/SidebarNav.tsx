@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { RedThreadWordmark } from "@/components/Brand";
 import { SidebarSearch } from "@/components/HeaderSearch";
 import { NavIcon } from "@/components/nav/NavIcons";
-import { NAV_GROUPS, isNavActive } from "@/lib/navSections";
+import { PRIMARY_NAV, SECONDARY_NAV, isNavActive } from "@/lib/navSections";
 
 const STORAGE_KEY = "rt-sidebar-collapsed";
 
@@ -52,6 +52,29 @@ export function SidebarNav() {
       return next;
     });
   }, []);
+  const secondaryActive = SECONDARY_NAV.some((item) => isNavActive(pathname, item.href));
+
+  const navItem = (item: (typeof PRIMARY_NAV)[number] | (typeof SECONDARY_NAV)[number]) => {
+    const active = isNavActive(pathname, item.href);
+    return (
+      <li key={item.href}>
+        <Link
+          href={item.href}
+          aria-current={active ? "page" : undefined}
+          title={collapsed ? item.label : undefined}
+          data-tooltip={collapsed ? item.label : undefined}
+          className={["site-sidebar-link", active ? "site-sidebar-link--active" : ""]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          <span className="site-sidebar-link-icon">
+            <NavIcon id={item.icon} />
+          </span>
+          <span className="site-sidebar-link-label">{item.label}</span>
+        </Link>
+      </li>
+    );
+  };
 
   return (
     <aside
@@ -79,34 +102,22 @@ export function SidebarNav() {
         </div>
 
         <nav aria-label="Primary navigation" className="site-sidebar-nav">
-          {NAV_GROUPS.map((group) => (
-            <div key={group.label} className="site-sidebar-group">
-              {!collapsed && <p className="site-sidebar-group-label">{group.label}</p>}
-              <ul className="site-sidebar-group-list">
-                {group.items.map((item) => {
-                  const active = isNavActive(pathname, item.href);
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        aria-current={active ? "page" : undefined}
-                        title={collapsed ? item.label : undefined}
-                        data-tooltip={collapsed ? item.label : undefined}
-                        className={["site-sidebar-link", active ? "site-sidebar-link--active" : ""]
-                          .filter(Boolean)
-                          .join(" ")}
-                      >
-                        <span className="site-sidebar-link-icon">
-                          <NavIcon id={item.icon} />
-                        </span>
-                        <span className="site-sidebar-link-label">{item.label}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ))}
+          <div className="site-sidebar-group">
+            {!collapsed && <p className="site-sidebar-group-label">Red Thread</p>}
+            <ul className="site-sidebar-group-list">{PRIMARY_NAV.map(navItem)}</ul>
+          </div>
+          <details className="site-sidebar-secondary" open={secondaryActive || undefined}>
+            <summary
+              className={["site-sidebar-link", secondaryActive ? "site-sidebar-link--active" : ""].filter(Boolean).join(" ")}
+              title={collapsed ? "More sections" : undefined}
+              data-tooltip={collapsed ? "More sections" : undefined}
+            >
+              <span className="site-sidebar-link-icon"><NavIcon id="analytics" /></span>
+              <span className="site-sidebar-link-label">More</span>
+              <span className="site-sidebar-secondary-chevron" aria-hidden>⌄</span>
+            </summary>
+            <ul className="site-sidebar-group-list site-sidebar-secondary-list">{SECONDARY_NAV.map(navItem)}</ul>
+          </details>
         </nav>
 
         <footer className="site-sidebar-rail">

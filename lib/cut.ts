@@ -711,10 +711,8 @@ export interface CuratedCut {
 }
 
 /**
- * The cuts that earn an indexable canonical page — the Exploring strip's curated
- * set and the SEO-safe subset of the infinite fork space. These replace the old
- * "Group the record" launchers with real Cut pages; every other parameter combo a
- * reader forks into is the same engine, just `noindex`.
+ * Stable cut definitions retained for the answer API, citations, and saved
+ * receipts. They are not promoted on Discover and every `/cut` page is noindex.
  */
 export const CURATED_CUTS: CuratedCut[] = [
   {

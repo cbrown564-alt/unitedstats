@@ -32,7 +32,7 @@ export default async function SurprisePage({
   return (
     <div className="space-y-8">
       <PageHeader eyebrow="Surprise" title="Something you didn't know" deferOnMobile>
-        A question, a cut, or a night from the record — follow it to the matches, or roll again.
+        One charged match-night from the record — follow it to the evidence, or roll again.
       </PageHeader>
       <div className="flex justify-end">
         <Suspense fallback={null}>

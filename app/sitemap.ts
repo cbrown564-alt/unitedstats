@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { activeQuestionSlugs } from "@/lib/questions";
-import { CURATED_CUTS, cutHref, curatedCut } from "@/lib/cut";
 import { monthDayKeys } from "@/lib/onThisDay";
 import {
   allMatchIds, allSeasons, getMeta, managersIndex, opponentsIndex, playersIndex,
@@ -50,15 +49,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: built,
   }));
 
-  // Only curated cuts are indexable; forked parameter combinations are noindex
-  // (set per-page in /cut's generateMetadata), so they are deliberately absent here.
-  const cuts: MetadataRoute.Sitemap = CURATED_CUTS.map((c) => ({
-    url: url(cutHref(curatedCut(c))),
-    changeFrequency: "weekly",
-    priority: 0.6,
-    lastModified: lastMatch,
-  }));
-
   const seasons: MetadataRoute.Sitemap = allSeasons().map((season) => ({
     url: url(`/seasons/${season}`),
     changeFrequency: "monthly",
@@ -98,7 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   return [
-    ...staticPages, ...questions, ...cuts, ...seasons,
+    ...staticPages, ...questions, ...seasons,
     ...players, ...managers, ...opponents, ...matches, ...onThisDay,
   ];
 }

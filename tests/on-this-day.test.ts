@@ -36,16 +36,41 @@ test("on-this-day leads with the standout match and computes the date's rhythm",
   assert.match(html, /href="\/match\/1999-05-26-bayern-munich-n"/);
 });
 
-test("on-this-day all keys resolve without crashing and fallback is deterministic", () => {
+test("on-this-day all keys resolve to a traceable calendar moment", () => {
   for (const key of monthDayKeys()) {
     const entry = onThisDay(key);
     assert.equal(entry.monthDay, key);
     assert.equal(entry.ref.id, `us:on-this-day:${key}`);
     if (entry.lead === null) {
       assert.equal(entry.rest.length, 0);
-      assert.ok(entry.fallback?.startsWith("No official United match is recorded on"));
+      assert.ok(entry.moment.evidencePath.startsWith("/"));
+      assert.ok(["transfer", "debut", "nearby-match"].includes(entry.moment.kind));
     } else {
       assert.ok(entry.rhythm && entry.rhythm.played >= 1);
+      assert.equal(entry.moment.kind, "match");
     }
   }
+});
+
+test("calendar fallbacks prefer exact transfers, then label nearby anniversaries honestly", async () => {
+  const transfer = onThisDay("07-14");
+  assert.equal(transfer.lead, null);
+  assert.equal(transfer.moment.kind, "transfer");
+  if (transfer.moment.kind === "transfer") {
+    assert.equal(transfer.moment.playerName, "Joshua Zirkzee");
+    assert.match(transfer.moment.evidencePath, /^\/transfers/);
+  }
+
+  const nearby = onThisDay("06-02");
+  assert.equal(nearby.moment.kind, "nearby-match");
+  if (nearby.moment.kind === "nearby-match") {
+    assert.ok(nearby.moment.distanceDays > 0);
+    assert.notEqual(nearby.moment.actualMonthDay, nearby.monthDay);
+  }
+
+  const html = renderToStaticMarkup(
+    (await OnThisDayPage({ params: Promise.resolve({ monthDay: "06-02" }) })) as React.ReactElement,
+  );
+  assert.match(html, /nearest reviewed anniversary/i);
+  assert.doesNotMatch(html, /occurred on 2 June/i);
 });

@@ -51,6 +51,7 @@ test("the 2015-16 season rail surfaces a Europa exit leg", () => {
     `expected a Europa exit leg, got ${prompt.id}`,
   );
   assert.equal(prompt.prompt, "Do you remember…?");
+  assert.ok(prompt.reason.length > 0);
 });
 
 test("Liverpool head-to-head rail surfaces a charged faded night", () => {
@@ -58,6 +59,7 @@ test("Liverpool head-to-head rail surfaces a charged faded night", () => {
   const prompt = rediscoveryForEntity("opponent", "liverpool", { now: new Date("2026-07-03T12:00:00Z") });
   assert.ok(prompt, "Liverpool fixture history should yield a prompt");
   assert.ok(prompt.total > 0, "prompt should carry a positive score");
+  assert.notEqual(prompt.reason, "a charged night");
 });
 
 test("era bias boosts matches in the reader's living memory", () => {
@@ -77,5 +79,13 @@ test("recognition prompts are match doors, not fixture rows", () => {
   const prompt = buildPrompt(pool[0]);
   assert.ok(prompt.href.startsWith("/match/"), "prompt must link to a match");
   assert.equal(prompt.prompt, "Do you remember…?");
+  assert.notEqual(prompt.reason, "a charged night");
   assert.ok(prompt.line.length > 0, "prompt needs a human line");
+});
+
+test("player rails use a proved appearance or contribution reason when available", () => {
+  clearQueryCache();
+  const prompt = rediscoveryForEntity("player", "wayne-rooney", { now: new Date("2026-07-03T12:00:00Z") });
+  assert.ok(prompt, "Rooney should have a rediscovery prompt");
+  assert.match(prompt.reason, /debut|goal|assist|final|semi-final|knockout|against|scoreline|ground/i);
 });

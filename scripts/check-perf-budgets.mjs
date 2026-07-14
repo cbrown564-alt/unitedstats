@@ -15,12 +15,16 @@ const ignoredRootEntries = new Set(["dev"]);
 
 const KB = 1024;
 const MB = 1024 * KB;
+const profile = buildProfile();
 
 const budgets = {
   htmlGzip: bytesFromEnv("PERF_MAX_HTML_GZIP", 180 * KB),
   rscGzip: bytesFromEnv("PERF_MAX_RSC_GZIP", 120 * KB),
   jsChunkGzip: bytesFromEnv("PERF_MAX_JS_CHUNK_GZIP", 120 * KB),
-  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", 2000 * MB),
+  // Next 16 emits HTML, full RSC, and segment-prefetch RSC for every full-build
+  // path. The 6,028 match receipts make that aggregate deliberately larger
+  // than preview output; per-route budgets above still catch page amplification.
+  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", (profile === "full" ? 3250 : 2000) * MB),
 };
 
 if (!existsSync(nextDir)) {
@@ -41,7 +45,7 @@ if (nextOutput > budgets.nextOutput) {
 printTop("HTML gzip", html);
 printTop("RSC gzip", rsc);
 printTop("JS chunk gzip", js);
-console.log(`.next output: ${fmt(nextOutput)} (budget ${fmt(budgets.nextOutput)})`);
+console.log(`.next output (${profile}): ${fmt(nextOutput)} (budget ${fmt(budgets.nextOutput)})`);
 
 if (failures.length > 0) {
   console.error("\n✗ perf budget failed:");
@@ -64,6 +68,13 @@ function bytesFromEnv(name, fallback) {
   if (unit === "mb") return Math.round(n * MB);
   if (unit === "kb") return Math.round(n * KB);
   return Math.round(n);
+}
+
+function buildProfile() {
+  const explicit = process.env.UNITEDSTATS_BUILD_PROFILE;
+  if (explicit === "full" || explicit === "preview") return explicit;
+  if (process.env.VERCEL_ENV === "preview") return "preview";
+  return "full";
 }
 
 function walk(dir, include, out = []) {

@@ -33,8 +33,8 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
   const title = cutTitle(cut);
   const description = cutDescription(cut);
 
-  // Only curated cuts are real pages now. Any other parameter combination is a
-  // retired fork — the page redirects it to /explore, so it stays noindex.
+  // Cuts are foundation receipts for API/machine consumers and saved links, not
+  // promoted discovery pages. Every variant stays out of the search index.
   if (!cut.curated) {
     return { title, description, robots: { index: false, follow: true } };
   }
@@ -44,6 +44,7 @@ export async function generateMetadata({ searchParams }: { searchParams: Promise
     alternates: { canonical: cutHref(cut) },
     openGraph: { type: "article", title: `${title} · Red Thread`, description, url: cutHref(cut) },
     twitter: { card: "summary_large_image", title, description },
+    robots: { index: false, follow: true },
   };
 }
 
@@ -71,7 +72,7 @@ export default async function CutPage({ searchParams }: { searchParams: Promise<
         <span className="text-ink-dim">Cut</span>
       </nav>
 
-      <PageHeader eyebrow="Curated cut" title={cutTitle(cut)} deferOnMobile>
+      <PageHeader eyebrow="Record receipt" title={cutTitle(cut)} deferOnMobile>
         The record as a ladder — each group links to its matches.
       </PageHeader>
 

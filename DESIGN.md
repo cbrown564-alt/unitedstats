@@ -64,7 +64,7 @@ Current implementation palette:
 --color-line: #2c2522;
 --color-ink: #f3ede8;
 --color-ink-dim: #a89c94;
---color-ink-faint: #6f645d;
+--color-ink-faint: #91857d; /* 4.8:1 or better on pitch, panel, and panel-2 */
 --color-devil: #d8210d;
 --color-devil-bright: #ff3b1f;
 --color-gold: #f5c518;
@@ -368,22 +368,22 @@ Avoid leading with a generic hero-metric block (Matches / Wins / Goals tiles). A
 
 ## Navigation
 
-Top-level navigation should stay predictable:
+The always-visible product hierarchy is fixed to five destinations:
 
-- Matches
-- Seasons
-- Players
-- Managers
-- Opponents
-- Analytics
+1. Stories
+2. Discover
+3. Matches
+4. Seasons
+5. Players
 
-Future additions can include:
+Managers, Analytics, Transfers, and Data remain one disclosure away under
+**More**. Search stays persistent. Data and downloads, API, corrections, and
+feedback remain footer utilities as well as direct routes. A detail page maps
+back to the section that owns it, including Discover for Questions and saved
+comparison receipts.
 
-- Search
-- Questions or Trails
-- Data / Sources
-
-Do not hide canonical sections behind novelty navigation. Exploration depends on users trusting where they are.
+Do not hide canonical sections behind novelty navigation or add a new landing
+route just to group them. Exploration depends on users trusting where they are.
 
 ## Motion
 
@@ -506,6 +506,13 @@ player's goals-led `PlayerPlate`, a record card whose figure is an attendance or
 (`RecordCards`), `ManagerSparkbar` versus `CareerSparkline`. Forcing a shared component to
 almost-fit a different unit of meaning is worse than an honest one-off. The durable thing is
 usually the intent — answer → figure → evidence — not the markup.
+
+On phones, a player page uses the **identity-band** composition: a shallow
+portrait or initials block beside the name, one dominant record figure, and a
+compact supporting-stat band. The first and latest recorded appearances belong
+at the top of the active Career tab, not inside the plate. Desktop keeps the
+full career arc. This is a player-specific pattern until another entity type is
+proved on its own data shapes.
 
 Chart System implementation should keep `components/charts.tsx` as the shared primitive/type layer and static fallback home, add Recharts-based client-side inspection components beside it, and evolve `components/ChartPanel.tsx` as the reusable server-compatible frame for legends, value callouts, coverage, and evidence links. The first inspection target should be the Elo rating chart on `/analytics`, followed by homepage Elo and season trend charts after the API settles. See `docs/adr/0001-use-recharts-for-interactive-chart-inspection.md` for the dependency decision.
 

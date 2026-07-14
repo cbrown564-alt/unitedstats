@@ -1,8 +1,8 @@
 # Mobile Experience — Wishlist & Roadmap
 
-**Status:** Wave 0–2 complete (merged 2026-07-01). Cross-cutting polish and optional
-second-screen modules remain.
-Captured 2026-06-30; revised through Wave 2 ledger review 2026-07-01.
+**Status:** Wave 0–2 and the post-launch player-detail/navigation pass are
+implemented. Cross-cutting polish and optional second-screen modules remain.
+Captured 2026-06-30; revised through the post-launch pass 2026-07-14.
 **Foundation shipped:** app-like mobile shell — floating glass-pill bottom nav
 (home / section picker / search / menu), swipe-to-dismiss nav sheet, search overlay
 sliding from the top, safe-area padding, a first density pass, sticky subnav offsets,
@@ -27,6 +27,8 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 2 — match ledger cards** | 2026-07-01 | `MatchNightCard` below `sm` — thin two-row register rows in `MatchList`: row 1 score (beside result strip) · opponent · date right; row 2 competition (+ cup round). No W/D/L badge; league game numbers hidden; no attendance on `/matches`; season via `MatchGroups` headers only. Desktop rows unchanged at `sm+`. |
 | **Wave 2 — sheet Phase B preview** | tried · cut | `MatchPreviewSheet` built then removed — goals-only peek insufficient vs full match page (lineup, fast load). Lists navigate directly. |
 | **Wave 2 — TonightHero evolution** | 2026-07-01 | Subtle top-right `↻ another night` (curated pool); on-this-day framing polish; hero pin removed for live date selection. |
+| **Post-launch navigation** | 2026-07-14 | Five primary sections in the sheet; Managers, Analytics, Transfers, and Data under a native More disclosure with scroll-safe expansion. |
+| **Post-launch player detail** | 2026-07-14 | Identity-band composition below `sm`; one headline figure, compact supporting measures, and appearance endpoints at the top of the Career tab. |
 
 This doc is the durable home for the mobile redesign: the scene reframe, the full
 wishlist organised by theme, and a sequenced roadmap with rough effort/impact. Read it
@@ -160,6 +162,11 @@ field in the pill with results pulling up above it.
 
 The harder mobile problem is **not getting lost six taps deep**.
 
+The current section order matches desktop: Stories, Discover, Matches, Seasons,
+and Players are primary. Managers, Analytics, Transfers, and Data are under
+**More**. The expanded group scrolls inside the bottom sheet when it exceeds the
+available height; its native summary is excluded from swipe-dismiss capture.
+
 - **Phased sheet strategy** — don't jump straight to intercepting routes:
   - **Phase A:** Reusable bottom-sheet primitive (exit animations, focus trap, swipe
     dismiss) — unblocks filter sheet and quick previews. ✅
@@ -203,6 +210,12 @@ mobile, where the ledger is unscannable.
   Table unchanged at `sm+`. Wire remaining consumers: `LeagueTable`, `/data`, question
   modules. Do **not** use a stat-dashboard card for ranked lists — fans scan the sort
   column, not a profile grid.
+- **Player detail** — below `sm`, use the identity-band composition proved on
+  Rooney: shallow portrait or initials block, name and career line, one dominant
+  figure, then a two-column support band. First/latest appearance evidence sits
+  at the top of the active Career tab. At `sm+`, keep the full portrait and
+  career arc. Do not spread this markup to managers, opponents, or seasons until
+  one of those subjects is proved on its own representative data shapes.
 - **Seasons scroll** — a card-based momentum stream with sticky era/decade headers, not a
   wall of rows.
 - **Analytics chapters** — one question per screen-height chapter (chart + interpretation +

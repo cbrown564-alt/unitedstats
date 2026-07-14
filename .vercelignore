@@ -1,0 +1,26 @@
+# Local credentials and agent/editor state.
+.env*
+.claude
+.codex
+.github
+
+# Local and generated build state.
+.next*
+*.tsbuildinfo
+debug.log
+data/raw
+data/united.db
+output
+
+# Research, review, and test artifacts are not deployment inputs.
+.screenshots
+design-mocks
+docs
+opt
+research
+tests
+sidebar-nav.png
+
+# Audio bake-offs are production inputs for film work, not web assets. Keep
+# public/video/home-thread.{mp4,jpg}, which the homepage actually serves.
+public/video/audio

@@ -1404,6 +1404,16 @@ export function playerGoalMatches(id: string): (MatchRow & { goals: number; minu
     .all(id) as (MatchRow & { goals: number; minutes: string | null })[];
 }
 
+/** First and latest recorded competitive appearances from lineup evidence. */
+export function playerAppearanceEndpoints(id: string): { debut: MatchRow | null; latest: MatchRow | null } {
+  const sql = `${MATCH_SELECT}
+    JOIN match_lineups l ON l.match_id = m.id
+    WHERE l.player_id = ? AND l.player_side = 'united' AND l.bench = 0
+    ORDER BY m.date`;
+  const rows = getDb().prepare(sql).all(id) as MatchRow[];
+  return { debut: rows[0] ?? null, latest: rows.at(-1) ?? null };
+}
+
 export interface PlayerOpponentGoals {
   opponent_id: string;
   opponent_name: string;

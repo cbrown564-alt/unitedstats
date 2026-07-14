@@ -104,7 +104,7 @@ export function PlayerPlate({
     if (stats.multiGoalGames) {
       secondary.push({
         value: fmtNum(stats.multiGoalGames),
-        label: "multi-goal apps",
+        label: "games with 2+ goals",
         detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
         tone: stats.hatTricks ? "text-gold" : undefined,
       });
@@ -122,7 +122,7 @@ export function PlayerPlate({
   const peakForArc = (defensive ? span.peakDefensiveSeason : span.peakSeason) ?? null;
 
   return (
-    <section className="relative overflow-hidden rounded-xl border border-line bg-panel shadow-[0_22px_44px_rgb(0_0_0_/0.22)]">
+    <section className="player-plate relative overflow-hidden rounded-xl border border-line bg-panel">
       {/* pitch-line texture + a single restrained floodlight wash from the stand side */}
       <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
       <div
@@ -136,11 +136,11 @@ export function PlayerPlate({
         </div>
       )}
 
-      <div className="relative grid gap-6 p-5 sm:p-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-8">
+      <div className="player-plate-body">
         {/* Portrait, with the kit number patched onto the corner. */}
-        <div className="flex flex-col items-start gap-2">
+        <div className="player-plate-media flex min-w-0 flex-col items-start gap-2">
           <div className="relative">
-            <PlayerPortrait name={name} src={portrait.src} size="lg" priority />
+            <PlayerPortrait name={name} src={portrait.src} size="lg" priority className="player-plate-portrait" />
             {primaryShirt != null && (
               <span className="absolute -bottom-2.5 -left-2.5 rounded-md bg-pitch p-1 shadow-lg shadow-black/50 ring-1 ring-line">
                 <ShirtBadge number={primaryShirt} decade={primaryDecade} compact />
@@ -148,17 +148,17 @@ export function PlayerPlate({
             )}
           </div>
           {portrait.pageUrl && (
-            <a href={portrait.pageUrl} className="max-w-44 text-[11px] leading-4 text-ink-faint hover:text-devil-bright focus-ring">
+            <a href={portrait.pageUrl} className="player-plate-attribution inline-flex min-h-11 max-w-44 items-center text-[11px] leading-4 text-ink-faint hover:text-devil-bright focus-ring sm:min-h-0">
               Wikimedia Commons{portrait.license ? ` · ${portrait.license}` : ""}
             </a>
           )}
         </div>
 
-        {/* Identity + the headline answer + the career arc. */}
-        <div className="flex min-w-0 flex-col">
+        {/* Identity, followed by one headline answer and a compact support band. */}
+        <div className="player-plate-identity min-w-0">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">Player</p>
-          <h1 className="display mt-1 text-3xl text-balance sm:text-4xl">{name}</h1>
-          <p className="stat-num mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-ink-dim">
+          <h1 className="display mt-1 break-words text-3xl text-balance sm:text-4xl">{name}</h1>
+          <p className="player-plate-meta stat-num mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-ink-dim">
             {careerYears && <span>United {careerYears}</span>}
             {primaryShirt != null && (
               <>
@@ -174,10 +174,12 @@ export function PlayerPlate({
             )}
           </p>
 
-          {/* One dominant figure beside a hairline ribbon of supporting stats. */}
-          <div className="mt-5 flex flex-wrap items-end gap-x-7 gap-y-4 sm:mt-6">
-            <div className="leading-none">
-              <div className="flex items-baseline gap-2">
+        </div>
+
+        {/* One dominant figure beside a hairline ribbon of supporting stats. */}
+        <div className="player-plate-summary">
+            <div className="player-plate-headline leading-none">
+              <div className="player-plate-headline-row">
                 <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{headlineValue}</span>
                 <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{headlineLabel}</span>
               </div>
@@ -187,23 +189,24 @@ export function PlayerPlate({
                 </p>
               )}
             </div>
-            <dl className="grid grid-cols-2 gap-x-7 gap-y-3.5 border-l border-line pl-6 sm:flex sm:flex-wrap sm:items-end">
+            <dl className="player-plate-secondary">
               {secondary.map((s) => (
                 <div key={s.label} className="leading-none">
                   <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
                   <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                    {s.label}
-                    {s.detail && <span className="ml-1 normal-case tracking-normal text-ink-dim">{s.detail}</span>}
+                    <span>{s.label}</span>
+                    {s.detail && <span className="mt-1 block normal-case tracking-normal text-ink-dim">{s.detail}</span>}
                   </dt>
                 </div>
               ))}
             </dl>
-          </div>
-
-          {(span.debut || span.latest) && (
-            <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} />
-          )}
         </div>
+
+        {(span.debut || span.latest) && (
+          <div className="player-plate-career">
+            <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} />
+          </div>
+        )}
       </div>
 
       {/* Footer band: trust note and correction link share one compact row. */}
@@ -215,7 +218,7 @@ export function PlayerPlate({
           {correctionHref && (
             <Link
               href={correctionHref}
-              className="shrink-0 text-[11px] font-medium text-devil-bright hover:underline focus-ring"
+              className="inline-flex min-h-11 shrink-0 items-center text-[11px] font-medium text-devil-bright hover:underline focus-ring sm:min-h-0"
             >
               Suggest correction →
             </Link>
@@ -287,11 +290,11 @@ function CareerArc({
         )}
       </div>
 
-      <div className="mt-2.5 flex items-center justify-between gap-3 text-xs">
+      <div className="mt-2.5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 text-xs">
         {debut ? (
-          <Link href={`/match/${debut.id}`} className="group min-w-0 truncate text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
-            <span className="stat-num text-ink">{debut.season}</span>{" "}
-            <span className="text-ink-faint group-hover:text-devil-bright">v {debut.opponent_name}</span>
+          <Link href={`/match/${debut.id}`} className="group flex min-w-0 flex-col gap-1 text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
+            <span className="stat-num text-ink">{debut.season}</span>
+            <span className="break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {debut.opponent_name}</span>
           </Link>
         ) : <span />}
         {peakSeason && (
@@ -311,9 +314,9 @@ function CareerArc({
           </Link>
         )}
         {latest ? (
-          <Link href={`/match/${latest.id}`} className="group min-w-0 truncate text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
-            <span className="text-ink-faint group-hover:text-devil-bright">v {latest.opponent_name}</span>{" "}
+          <Link href={`/match/${latest.id}`} className="group flex min-w-0 flex-col items-end gap-1 text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
             <span className="stat-num text-ink">{latest.season}</span>
+            <span className="max-w-full break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {latest.opponent_name}</span>
           </Link>
         ) : <span />}
       </div>

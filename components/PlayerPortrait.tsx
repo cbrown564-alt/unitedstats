@@ -10,6 +10,7 @@ interface PlayerPortraitProps {
   size?: "xs" | "sm" | "md" | "lg";
   /** Set on the one above-the-fold portrait per page (the hero plate) for LCP. */
   priority?: boolean;
+  className?: string;
 }
 
 const SIZES = {
@@ -19,14 +20,14 @@ const SIZES = {
   lg: { box: "h-40 w-40 sm:h-44 sm:w-44", pixels: 176, text: "text-3xl" },
 };
 
-export function PlayerPortrait({ name, src, size = "sm", priority = false }: PlayerPortraitProps) {
+export function PlayerPortrait({ name, src, size = "sm", priority = false, className = "" }: PlayerPortraitProps) {
   const config = SIZES[size];
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const showImage = Boolean(src && src !== failedSrc);
 
   return (
     <span
-      className={`${config.box} relative grid shrink-0 place-items-center overflow-hidden rounded-lg border border-line bg-panel-2 text-ink-faint shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]`}
+      className={`${config.box} ${className} relative grid shrink-0 place-items-center overflow-hidden rounded-lg border border-line bg-panel-2 text-ink-faint shadow-[inset_0_0_0_1px_rgba(255,255,255,0.03)]`}
     >
       {showImage ? (
         <Image

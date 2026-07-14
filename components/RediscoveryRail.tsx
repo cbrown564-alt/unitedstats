@@ -14,14 +14,13 @@ const SCORE_TONE: Record<string, string> = {
  * One scoreline, one opponent, one date; the whole row is the door.
  */
 export function RediscoveryRail({ prompt }: { prompt: RediscoveryPrompt }) {
+  if (prompt.reason === "a charged night") return null;
   const scoreTone = SCORE_TONE[prompt.tone] ?? "text-ink";
 
   return (
     <p className="text-sm leading-relaxed text-ink-dim">
-      <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-ink-faint">
-        Remember this?
-      </span>
-      {" · "}
+      <span className="font-medium text-ink">{prompt.reason}</span>
+      {" — "}
       <Link
         href={prompt.href}
         className="group inline text-ink transition-colors hover:text-devil-bright focus-ring"
@@ -32,7 +31,7 @@ export function RediscoveryRail({ prompt }: { prompt: RediscoveryPrompt }) {
         ) : null}
         {" v "}
         <span className="font-medium">{prompt.opponent}</span>
-        <span className="text-ink-faint"> · {prompt.dateLine}</span>
+        <span className="text-ink-faint">, {prompt.dateLine}</span>
         <span className="text-devil-bright" aria-hidden>
           {" "}
           →

@@ -16,7 +16,6 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { QUESTIONS, questionSlugs } from "../lib/questions";
-import { CURATED_CUTS } from "../lib/cut";
 import { surpriseFacts, pickIndex } from "../lib/surprise";
 import { relatedAnswers, relatedSlugs } from "../lib/related";
 
@@ -24,9 +23,7 @@ const slugSet = new Set(questionSlugs());
 
 test("every surprise fact is a complete, curated morsel with a door", () => {
   const facts = surpriseFacts();
-  // The nine questions and three cuts always resolve; records depend on data, so
-  // the floor is the curated minimum, not an exact count.
-  assert.ok(facts.length >= QUESTIONS.length + CURATED_CUTS.length, `thin surprise pool: ${facts.length}`);
+  assert.ok(facts.length >= 20, `thin surprise pool: ${facts.length}`);
   const ids = new Set<string>();
   const validTone = new Set(["devil", "gold", "win"]);
   for (const f of facts) {
@@ -38,6 +35,8 @@ test("every surprise fact is a complete, curated morsel with a door", () => {
     assert.ok(f.cta.length > 0, `${f.id} has no door label`);
     assert.ok(f.href.startsWith("/"), `${f.id} href not site-relative: ${f.href}`);
     assert.ok(validTone.has(f.tone), `${f.id} has an unknown tone: ${f.tone}`);
+    assert.equal(f.kind, "night");
+    assert.ok(f.href.startsWith("/match/"), `${f.id} is not a match receipt`);
   }
 });
 
@@ -54,7 +53,7 @@ test("every answer carries a curated trail of 2–3 valid next steps", () => {
     const links = relatedAnswers(slug);
     assert.ok(links.length >= 2 && links.length <= 3, `${slug} trail has ${links.length} links`);
     const seen = new Set<string>();
-    const validKind = new Set(["question", "cut", "debate"]);
+    const validKind = new Set(["question", "debate"]);
     for (const l of links) {
       assert.ok(l.href.startsWith("/"), `${slug} trail href not site-relative: ${l.href}`);
       assert.ok(validKind.has(l.kind), `${slug} trail step has an unknown kind: ${l.kind}`);

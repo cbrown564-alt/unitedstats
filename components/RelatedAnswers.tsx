@@ -5,7 +5,6 @@ import type { RelatedKind, RelatedLink } from "@/lib/related";
 // the trail is varied moves, not a flat see-also list.
 const KIND_LABEL: Record<RelatedKind, string> = {
   question: "Another question",
-  cut: "A way to slice it",
   debate: "Head to head",
 };
 

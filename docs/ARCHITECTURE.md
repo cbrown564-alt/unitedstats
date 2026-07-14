@@ -108,7 +108,7 @@ pipeline, and a public dataset/API.
 | Route | Role |
 |---|---|
 | `/` | Front door: 20-second opening thread → served match-night → record skyline + search |
-| `/explore` | Discover hub: questions, curated debates, curated cuts |
+| `/explore` | Discover hub: authored questions and curated debates |
 | `/matches` | Filterable full fixture record |
 | `/match/[id]` | Match detail: flow, lineup, events, correction pickables |
 | `/seasons`, `/seasons/[season]` | Season ledger and single-season depth |
@@ -118,11 +118,11 @@ pipeline, and a public dataset/API.
 | `/analytics` | Elo timeline, reliability curve, Monte Carlo season replay |
 | `/transfers` | Transfer ledger and record deals |
 | `/data` | Coverage ledger, sources, gaps queue, dataset downloads |
-| `/compare` | Curated debates and head-to-head comparison |
-| `/cut` | Curated record cuts only (fork URLs redirect to `/explore`) |
+| `/compare` | Curated debates; valid incoming arbitrary pairs remain readable but unlisted |
+| `/cut` | `noindex` saved/API receipt for registered cuts; not promoted or listed in the sitemap |
 | `/questions/[slug]` | Authored myth/answer depth pages (4 active; archived slugs noindex) |
-| `/surprise` | Curated “something you didn't know” with re-roll |
-| `/on-this-day`, `/on-this-day/[monthDay]` | Calendar-date match history |
+| `/surprise` | Reviewed match-night rediscovery with re-roll |
+| `/on-this-day`, `/on-this-day/[monthDay]` | Exact match/transfer calendar moments with an explicitly nearby reviewed fallback |
 | `/search` | Full-text search + entity browse |
 | `/corrections` | Structured correction builder → GitHub issues |
 | `/feedback` | General feedback via embedded Google Form |
@@ -159,29 +159,44 @@ search, which is `no-store`.
   expected static/SSG route regresses to dynamic or the prerendered-path count
   collapses below 5,000 (50 on preview builds).
 - `npm run check:perf` — fails on built-artifact regressions: max gzipped HTML
-  180 KB, max gzipped RSC 120 KB, max gzipped JS chunk 120 KB, max `.next`
-  output 2 GB. Long-tail archives switch to season-summary rows with filtered
-  match-browser links once they cross the long-list threshold.
+  180 KB, max gzipped RSC 120 KB, max gzipped JS chunk 120 KB, and aggregate
+  `.next` output of 2,000 MB for preview or 3,250 MB for full builds. Next 16
+  writes HTML, full RSC, and segment-prefetch RSC for each of the 6,028 match
+  paths; the profile-specific aggregate limit prevents that expected corpus
+  cost from weakening the per-route budgets. Long-tail archives switch to
+  season-summary rows with filtered match-browser links once they cross the
+  long-list threshold.
 - recharts (~348 KB) is route-split and lazy-mounted (`ssr: false` wrappers with
   height-reserved skeletons) everywhere except `/analytics`, whose Elo hero chart
   is above the fold. Fonts self-host via `next/font/google`; portraits use
   `next/image` with `priority` on player-hero LCP, served from cached local WebP
   (`public/media/**`), never hotlinked Wikimedia.
+- `.vercelignore` owns CLI deployment inputs. It excludes local credentials,
+  raw ingest downloads, renders, audio bake-offs, screenshots, tests, and review
+  artifacts while preserving canonical data, build scripts, web assets, and the
+  small `video/` source tree required by TypeScript. Remote prebuild recreates
+  the bundled SQLite floor.
 
 ## UI architecture
 
 **Shell.** `components/SiteShell.tsx` wraps every page: desktop collapsible
 sidebar (`SidebarNav` + `lib/navSections.ts`), mobile floating glass pill nav
 (`components/mobile/MobileBottomNav.tsx`), command-palette search, and footer
-links to corrections and feedback. View transitions are enabled via
+utilities. Stories, Discover, Matches, Seasons, and Players are primary;
+Managers, Analytics, Transfers, and Data live under one More disclosure.
+Data/downloads, API, corrections, and feedback remain in the footer. View transitions are enabled via
 `experimental.viewTransition` in `next.config.ts`.
 
 **Three product layers** (see `PRODUCT.md`, `CONTEXT.md`):
 
 1. **Spark** — emotional first contact (`HomeThreadFilm` → `TonightHero`,
    `/surprise`, `/on-this-day`).
-2. **Deepening** — authored lenses (`/explore`, `/questions/[slug]`, `/compare`, curated `/cut`).
+2. **Deepening** — authored lenses (`/explore`, `/questions/[slug]`, and curated `/compare` debates).
 3. **Foundation** — the auditable record (`/matches`, entity pages, `/data`).
+
+Registered cuts remain foundation capability for API/machine answers and saved
+receipts. They do not appear in Discover, related suggestions, Surprise, or the
+sitemap.
 
 **Mobile.** Phone-first patterns documented in `docs/MOBILE.md`: bottom sheets,
 sticky match heroes with section tabs, chapter pager on `/analytics`, match

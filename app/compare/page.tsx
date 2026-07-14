@@ -3,12 +3,11 @@ import {
   comparePlayers, compareManagers, CURATED_DEBATES,
   type CompareMode, type Comparison, type CuratedDebate,
 } from "@/lib/compare";
-import { managerById, managersIndex, playerById, playersIndex, type ManagerRecord } from "@/lib/queries";
+import { managerById, managersIndex, playerById, type ManagerRecord } from "@/lib/queries";
 import { resolveEntity } from "@/lib/search/resolve";
 import { PageHeader } from "@/components/PageHeader";
 import { CompareTable } from "@/components/CompareTable";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
-import { cutHref } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 import { listSeo, seoMetadata } from "@/lib/seo";
 
@@ -43,15 +42,7 @@ function resolveManagerId(raw: string | undefined, managers: ManagerRecord[]): s
   const lc = raw.toLowerCase();
   return (managers.find((m) => m.name.toLowerCase() === lc) ?? managers.find((m) => m.name.toLowerCase().includes(lc)))?.id;
 }
-const labelClass = "mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint";
 const sectionHead = "text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright";
-
-interface PickerConfig {
-  listId: string;
-  options: string[];
-  noun: string;
-  placeholders: [string, string];
-}
 
 export default async function ComparePage({
   searchParams,
@@ -76,9 +67,6 @@ export default async function ComparePage({
   // Resolve the chosen pair for the active mode and build the comparison.
   let comparison: Comparison | null = null;
   let unresolved: string | null = null;
-  let displayA = "";
-  let displayB = "";
-  let cfg: PickerConfig;
 
   if (mode === "players") {
     const idA = resolvePlayerId(rawA);
@@ -86,34 +74,20 @@ export default async function ComparePage({
     if (rawA && !idA) unresolved = rawA;
     else if (rawB && !idB) unresolved = rawB;
     else if (idA && idB) comparison = comparePlayers(idA, idB);
-    displayA = rawA ? playerById(rawA)?.name ?? rawA : "";
-    displayB = rawB ? playerById(rawB)?.name ?? rawB : "";
-    // Notable record set by appearances — keeps the markup lean; anyone outside it
-    // still resolves by free text.
-    const names = [...playersIndex()]
-      .filter((p) => p.player_id !== "own-goal")
-      .sort((a, b) => b.apps - a.apps)
-      .slice(0, 300)
-      .map((p) => p.name);
-    cfg = { listId: "compare-players", options: names, noun: "player", placeholders: ["Rooney", "Charlton"] };
   } else {
     const idA = resolveManagerId(rawA, managers);
     const idB = resolveManagerId(rawB, managers);
     if (rawA && !idA) unresolved = rawA;
     else if (rawB && !idB) unresolved = rawB;
     else if (idA && idB) comparison = compareManagers(idA, idB);
-    displayA = rawA ? managers.find((m) => m.id === rawA)?.name ?? rawA : "";
-    displayB = rawB ? managers.find((m) => m.id === rawB)?.name ?? rawB : "";
-    cfg = { listId: "compare-managers", options: managers.map((m) => m.name), noun: "manager", placeholders: ["Ferguson", "Busby"] };
   }
 
   const suggestions = CURATED_DEBATES[mode];
-  const picker = <Picker mode={mode} displayA={displayA} displayB={displayB} cfg={cfg} />;
 
   return (
     <div className="space-y-7">
       <PageHeader eyebrow="Side by side" title="Compare" deferOnMobile={!!comparison}>
-        Players, managers, or eras on shared measures. Coverage gaps stay visible.
+        Authored player and manager debates on shared measures. Coverage gaps stay visible.
       </PageHeader>
 
       <ModePills mode={mode} />
@@ -136,10 +110,8 @@ export default async function ComparePage({
               title: `${comparison.a.label} vs ${comparison.b.label} — Compare`,
             }}
           />
-          <CutLinks comparison={comparison} />
           <section>
-            <h2 className={sectionHead}>Compare another</h2>
-            <div className="mt-3">{picker}</div>
+            <h2 className={sectionHead}>Another curated debate</h2>
             <Suggestions mode={mode} suggestions={suggestions} compact />
           </section>
         </>
@@ -148,63 +120,18 @@ export default async function ComparePage({
           <section>
             <h2 className={sectionHead}>Curated debates</h2>
             <p className="mt-1 mb-3 text-sm text-ink-dim">
-              Open a curated head-to-head comparison, or build a custom matchup below — {MODES.find((m) => m.key === mode)?.blurb}.
+              Open a reviewed head-to-head — {MODES.find((m) => m.key === mode)?.blurb}.
             </p>
             <Suggestions mode={mode} suggestions={suggestions} />
           </section>
-
-          <section>
-            <h2 className={sectionHead}>Build a custom matchup</h2>
-            {unresolved && (
-              <p className="mt-2 text-sm text-ink-dim">
-                Couldn’t find a {cfg.noun} matching &ldquo;{unresolved}&rdquo;. Try another name, or pick a curated debate above.
-              </p>
-            )}
-            <div className="mt-3">{picker}</div>
-          </section>
+          {unresolved && (
+            <p className="text-sm text-ink-dim">
+              That saved comparison no longer resolves. Choose one of the curated debates above.
+            </p>
+          )}
         </div>
       )}
     </div>
-  );
-}
-
-/**
- * Downstream of the comparison answer: a fork into the Cut engine, where the
- * comparison maps to a real grouped match-filter. Managers map to a manager-filtered
- * cut (grouped season by season); players have
- * no single grouped cut, so the section is absent for them. This is "a comparison
- * is a Cut" made tangible — the reader leaves the answer and twists it themselves.
- */
-function sideCut(mode: CompareMode, side: { id: string; label: string }): { label: string; href: string } | null {
-  if (mode === "managers") {
-    return { label: side.label, href: cutHref({ dimension: "season", metric: "ppg", filters: { manager: side.id } }) };
-  }
-  return null;
-}
-
-function CutLinks({ comparison }: { comparison: Comparison }) {
-  const links = [sideCut(comparison.mode, comparison.a), sideCut(comparison.mode, comparison.b)].filter(
-    (l): l is { label: string; href: string } => l !== null,
-  );
-  if (links.length === 0) return null;
-  return (
-    <section>
-      <h2 className={sectionHead}>Explore as a cut</h2>
-      <p className="mt-1 mb-3 text-sm text-ink-dim">
-        Group either record season by season, then change the dimension or lens to build a custom cut.
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="rounded-full border border-line bg-panel px-3.5 py-1.5 text-sm text-ink-dim transition-colors hover:border-devil/50 hover:bg-panel-2 hover:text-ink focus-ring"
-          >
-            {l.label}, season by season →
-          </Link>
-        ))}
-      </div>
-    </section>
   );
 }
 
@@ -277,46 +204,5 @@ function Suggestions({
         </Link>
       ))}
     </div>
-  );
-}
-
-/**
- * The build-your-own picker — two text inputs with native `<datalist>`
- * autocomplete, identical across both modes. The submitted value can be a
- * friendly name or a canonical id; the page resolves either.
- */
-function Picker({
-  mode,
-  displayA,
-  displayB,
-  cfg,
-}: {
-  mode: ComparePageMode;
-  displayA: string;
-  displayB: string;
-  cfg: PickerConfig;
-}) {
-  return (
-    <form className="rounded-lg border border-line bg-panel p-3 text-sm" method="get" action="/compare">
-      <input type="hidden" name="mode" value={mode} />
-      <div className="grid items-end gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
-        <label>
-          <span className={labelClass}>First {cfg.noun}</span>
-          <input type="search" name="a" defaultValue={displayA} placeholder={cfg.placeholders[0]} list={cfg.listId} className="control w-full" />
-        </label>
-        <label>
-          <span className={labelClass}>Second {cfg.noun}</span>
-          <input type="search" name="b" defaultValue={displayB} placeholder={cfg.placeholders[1]} list={cfg.listId} className="control w-full" />
-        </label>
-        <datalist id={cfg.listId}>
-          {cfg.options.map((o, i) => (
-            <option key={`${o}-${i}`} value={o} />
-          ))}
-        </datalist>
-        <button className="min-h-[2.375rem] rounded-md bg-devil px-5 py-2 font-semibold text-ink transition-colors hover:bg-devil-bright focus-ring">
-          Compare
-        </button>
-      </div>
-    </form>
   );
 }

@@ -200,7 +200,7 @@ export function MobileBottomNav() {
         </div>
       </nav>
 
-      <MobileNavSheet open={menuOpen} onClose={closeMenu} />
+      <MobileNavSheet key={pathname} open={menuOpen} onClose={closeMenu} />
       {isPhoneShell && (
         <MobileSearchOverlay
           open={searchOpen}

@@ -118,7 +118,13 @@ export function onThisDaySeoDescription(entry: OnThisDayEntry): string {
     const highlight = `${entry.lead.year} — ${club} ${entry.lead.gf}–${entry.lead.ga} ${entry.lead.opponent}`;
     return `Manchester United on ${entry.label}: ${highlight}. ${entry.rhythm?.played ?? 0} matches on this date across the years.`;
   }
-  return `Manchester United on this day — ${entry.label}. No official match is recorded on this date.`;
+  if (entry.moment.kind === "transfer") {
+    return `Manchester United on ${entry.label}: ${entry.moment.playerName} ${entry.moment.direction === "in" ? "joined" : "left"} the club in ${entry.moment.year}.`;
+  }
+  if (entry.moment.kind === "debut") {
+    return `Manchester United on ${entry.label}: ${entry.moment.playerName} made a first recorded appearance in ${entry.moment.year}.`;
+  }
+  return `Manchester United on ${entry.label}: no exact canonical moment is recorded; the page shows the nearby ${entry.moment.match.year} match against ${entry.moment.match.opponent}.`;
 }
 
 /** Fan-search titles and descriptions for list and discovery pages. */
@@ -126,7 +132,7 @@ export const listSeo = {
   explore: {
     title: "Discover Manchester United history",
     description:
-      "Curated questions, player and manager comparisons, and cuts through United's full record — start with an answer backed by every match since 1886.",
+      "Authored questions and curated player and manager comparisons, each backed by Manchester United's match record since 1886.",
   },
   matches: {
     title: "Manchester United match results & fixture record",
@@ -151,7 +157,7 @@ export const listSeo = {
   compare: {
     title: "Compare Manchester United players & managers",
     description:
-      "Compare two Manchester United careers or managerial tenures side by side — appearances, goals, win rates, and trophies.",
+      "Curated Manchester United player and manager debates on role-appropriate measures, with coverage limits and match evidence.",
   },
   transfers: {
     title: "Manchester United transfer history — signings & fees",
@@ -161,6 +167,6 @@ export const listSeo = {
   surprise: {
     title: "Surprise Manchester United facts",
     description:
-      "One curated, genuinely surprising fact from Manchester United's record — then another. Every find links to the matches behind it.",
+      "Rediscover one charged Manchester United match-night, with the reason it matters and a link to the full record.",
   },
 } as const;

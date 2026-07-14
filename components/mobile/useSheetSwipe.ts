@@ -8,7 +8,7 @@ const DRAG_START_PX = 8;
 type DragPhase = "idle" | "dismiss" | "scroll";
 
 function isInteractiveTarget(target: EventTarget | null) {
-  return target instanceof Element && Boolean(target.closest("a, button, input, select, textarea, [role='button']"));
+  return target instanceof Element && Boolean(target.closest("a, button, summary, input, select, textarea, [role='button']"));
 }
 
 function readScrollTop(scrollRef?: RefObject<HTMLElement | null>) {
@@ -35,12 +35,14 @@ export function useSheetSwipe(
     phase: "idle" as DragPhase,
     ignored: false,
   });
+  const pointerActiveRef = useRef(false);
 
   const resetTransform = useCallback(() => {
     if (sheetRef.current) sheetRef.current.style.transform = "";
   }, [sheetRef]);
 
   const resetDrag = useCallback(() => {
+    pointerActiveRef.current = false;
     dragRef.current = { startY: 0, startX: 0, offset: 0, phase: "idle", ignored: false };
     resetTransform();
   }, [resetTransform]);
@@ -146,7 +148,9 @@ export function useSheetSwipe(
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     if (e.pointerType === "touch") return;
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    pointerActiveRef.current = false;
     if (isInteractiveTarget(e.target)) return;
+    pointerActiveRef.current = true;
     dragRef.current = {
       startY: e.clientY,
       startX: e.clientX,
@@ -160,6 +164,7 @@ export function useSheetSwipe(
   const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
       if (e.pointerType === "touch") return;
+      if (!pointerActiveRef.current) return;
       const drag = dragRef.current;
       const dy = e.clientY - drag.startY;
       const dx = e.clientX - drag.startX;
@@ -189,7 +194,11 @@ export function useSheetSwipe(
     [scrollRef, sheetRef],
   );
 
-  const onPointerUp = useCallback(() => finishDrag(), [finishDrag]);
+  const onPointerUp = useCallback(() => {
+    if (!pointerActiveRef.current) return;
+    pointerActiveRef.current = false;
+    finishDrag();
+  }, [finishDrag]);
 
   return {
     resetTransform,

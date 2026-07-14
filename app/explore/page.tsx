@@ -7,7 +7,6 @@ import {
 } from "@/lib/compare";
 
 type ExploreCompareMode = Extract<CompareMode, "players" | "managers">;
-import { CURATED_CUTS, cutHref, curatedCut, runCut, isChronological } from "@/lib/cut";
 import { queryString } from "@/lib/url";
 import { PageHeader } from "@/components/PageHeader";
 import { SectionHead } from "@/components/SectionHead";
@@ -15,7 +14,6 @@ import { QuestionSignature } from "@/components/explore/QuestionSignature";
 import { FeatureCarousel } from "@/components/explore/FeatureCarousel";
 import { FeatureSlide } from "@/components/explore/FeatureSlide";
 import { ComparisonHero } from "@/components/explore/ComparisonHero";
-import { CutHero } from "@/components/explore/CutHero";
 import { RailCard } from "@/components/explore/RailCard";
 import { listSeo, seoMetadata } from "@/lib/seo";
 
@@ -34,7 +32,6 @@ export const metadata: Metadata = seoMetadata(listSeo.explore.title, listSeo.exp
 export default function ExplorePage() {
   const headlines = questionHeadlines();
 
-  const COMPARE_MODES: ExploreCompareMode[] = ["players", "managers"];
   const debateHref = (mode: ExploreCompareMode, d: { a: string; b: string }) =>
     `/compare${queryString({ mode, a: d.a, b: d.b })}`;
 
@@ -55,22 +52,10 @@ export default function ExplorePage() {
     return c ? [{ c, label: d.label, hook: d.hook, href: debateHref(mode, d) }] : [];
   });
 
-  // The Exploring strip previews each curated cut as the same CutChart the /cut
-  // page draws. Categorical ladders cap to a tidy top set; chronological cuts
-  // (decade columns, a season line) keep their whole arc.
-  const cutPreviews = CURATED_CUTS.map((c) => {
-    const spec = curatedCut(c);
-    return {
-      c,
-      href: cutHref(spec),
-      result: runCut(spec, isChronological(spec.dimension) ? 200 : 8),
-    };
-  });
-
   return (
     <div className="space-y-12">
-      <PageHeader eyebrow="Questions · comparisons · cuts" title="Discover" deferOnMobile>
-        Ask a question, compare careers, or cut the record — every answer links to the matches.
+      <PageHeader eyebrow="Questions · comparisons" title="Discover" deferOnMobile>
+        Authored questions and head-to-heads, each with a route back to the matches.
       </PageHeader>
 
       {/* The Answering strip (the most curated of the three). A full-bleed feature
@@ -171,52 +156,9 @@ export default function ExplorePage() {
         </ul>
 
         <p className="text-xs text-ink-faint">
-          Compare players and managers side by side on shared, coverage-aware metrics — or build a custom
-          matchup.
+          Compare players and managers on shared, coverage-aware measures chosen for the role and era.
         </p>
       </section>
-
-      {/* The Exploring strip (Strip 3). The curated cuts reorder the whole record
-          by a dimension, ranked by a lens — each slide previews a cut with the very
-          chart the /cut page draws, then links through to its full standings ladder. */}
-      <section className="space-y-4">
-        <SectionHead
-          title="Curated cuts"
-          aside={<span className="text-ink-faint">Reordered by dimension and lens</span>}
-        />
-
-        <FeatureCarousel label="Curated cuts — group and rank the record">
-          {cutPreviews.map(({ c, result, href }) => (
-            <CutHero key={c.slug} cut={c} result={result} href={href} />
-          ))}
-        </FeatureCarousel>
-
-        <ul aria-label="All curated cuts" className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {cutPreviews.map(({ c, result, href }) => (
-            <li key={c.slug}>
-              <RailCard
-                href={href}
-                lead={c.title}
-                stat={result.headline?.figure}
-                statTone="text-gold"
-                detail={
-                  result.headline && (
-                    <>
-                      <span className="font-medium text-ink-dim">{result.headline.subject}</span> — {result.headline.gloss}
-                    </>
-                  )
-                }
-              />
-            </li>
-          ))}
-        </ul>
-
-        <p className="text-xs text-ink-faint">
-          Each cut reorders the whole record as a standings ladder — every group links to its matches, with a
-          coverage grade showing the completeness of the source records.
-        </p>
-      </section>
-
     </div>
   );
 }

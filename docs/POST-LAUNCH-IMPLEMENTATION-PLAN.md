@@ -1,6 +1,6 @@
 # Post-launch product implementation plan
 
-**Status:** Active  
+**Status:** Phases 1–9 implemented and verified in production; representative-fan validation pending
 **Approved:** 14 July 2026  
 **Owner:** Product implementation  
 **Review evidence:** [`reviews/red-thread-product-review-2026-07-14.html`](reviews/red-thread-product-review-2026-07-14.html)
@@ -125,6 +125,33 @@ API answer, or archive tool.
   “Validated” requires representative fan feedback or observed use.
 - If a phase changes a durable product or design rule, update its owner document
   in the same change.
+
+## Execution record — 14 July 2026
+
+The repository-controlled work is implemented. The words below follow the
+project completion vocabulary: screenshots and automated checks are verification,
+not fan validation.
+
+| Phase | State | Evidence and remaining gate |
+| --- | --- | --- |
+| 0 — Baseline | Verified locally | A clean preview-profile build produced 204 static pages and a 166.1 MB `.next` tree. Desktop and 390×844 screenshots cover `/`, the 1999 final, Rooney, Explore, Compare, and 14 July. The five transitions remain observable by route/manual session, so no speculative event framework was added. |
+| 1 — 1999 loop | Implemented and verified | The approved sentence is rendered in server HTML between the score and evidence, with one link to `/questions/treble`; tests pin copy, order, and destination. The representative-fan checkpoint remains open. |
+| 2 — Match context | Implemented and verified | All 21 curated nights have reviewed authored context. Deterministic computed rules cover finals, semi-finals, penalty outcomes, recorded half-time comebacks, and decisive stoppage-time goals; an ordinary match renders no context block. |
+| 3 — Rediscovery | Implemented and verified | Visible rails lead with a defensible reason. Player rails require an appearance or recorded contribution, and the generic fallback is suppressed. |
+| 4 — Calendar and Surprise | Implemented and verified | All 366 dates resolve to an exact match, exact transfer, or explicitly nearby reviewed anniversary. A separate debut fallback is not reachable in the current contract because every canonical debut date already resolves at the higher-priority official-match step; no synthetic fixture was added to satisfy the example. Surprise now serves match nights only. |
+| 5 — Discover and Compare | Implemented and verified | Explore contains Questions and curated Comparisons only. The unrestricted creator is gone, while valid incoming arbitrary comparison URLs remain readable and unlisted for the compatibility release. Saved cut receipts are `noindex` and absent from the sitemap and user-facing suggestions. |
+| 6 — Navigation | Implemented and verified | Stories, Discover, Matches, Seasons, and Players are primary. Managers, Analytics, Transfers, and Data sit under More on desktop and mobile. Footer utilities preserve Data, API, corrections, and feedback access. |
+| 7 — Player mobile | Implemented and verified | The identity-band direction was selected after a two-direction Rooney study. Appearance endpoints moved into the Career tab on phones; Rooney, no-portrait, one-season, 15+ season, 390×844, 430×932, and tablet cases were inspected. |
+| 8 — Quality cleanup | Implemented and verified | Essential faint text now clears 4.5:1 on pitch and panel, affected phone actions meet 44 px, the unused cut hero was deleted, and no prefetch override was added without production evidence. The clean preview recheck is 166.3 MB. The clean full build is 3,026.0 MB against the evidence-backed 3,250 MB full-profile limit; maximum HTML/RSC/JS remain 147.1/88.4/101.7 KB. |
+| 9 — Release and learn | Released and verified; validation open | Preview `dpl_C3Hxt4xVLzBSkwTi8UQCoxvV9Cbe` passed the representative server loop. Production `dpl_H2iWS1ZW3bku1JZSxSUH6dduPhRx` completed the full 7,829-page build and is live at `https://utdred.com`. Production HTTP, database health, phone overflow, nav focus/Escape/disclosure, and reduced-motion checks pass. Unprompted representative-fan feedback remains required before calling the sequence validated. |
+
+### Cut publication audit
+
+| Cut | Lens-gate result | Disposition |
+| --- | --- | --- |
+| `opponents-by-win-rate` | Fails role/era interpretation as a cold universal ranking. | Retain for API, machine-answer, and saved-receipt consumers; do not promote. |
+| `managers-by-points` | Raw points compare unequal tenures and contexts. | Retain for API, machine-answer, and saved-receipt consumers; do not promote. |
+| `seasons-by-points` | League formats and season lengths make the unrestricted frame misleading. | Retain for API, machine-answer, and saved-receipt consumers; do not promote. |
 
 ---
 
@@ -678,8 +705,9 @@ decide whether another lens or entity rollout is justified.
 | How many new lenses ship? | No quota; each must pass the gate. | Quality and authored meaning matter more than shelf size. | Current four may remain the full promoted set until a candidate earns a place. | `PRODUCT.md` |
 | Is the build-size warning confirmed? | Not until reproduced by a clean, named build profile. | The review measured an existing `.next` tree. | Baseline before architecture work. | `docs/PERF.md` |
 
-## Start here
+## Next step
 
-The next implementation task is **Phase 0**, followed immediately by the bounded
-1999 final slice in **Phase 1**. Do not begin navigation, mobile spreading, or
-performance restructuring before the representative loop clears its exit gate.
+The implementation and release work is complete. The remaining **Phase 9** gate
+is unprompted feedback from representative fans using the production loop. That
+evidence decides whether the pass is validated; it is not a reason to add
+another lens or spread the player composition to other entity types now.

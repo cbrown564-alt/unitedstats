@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import {
   playerAssistPartnerships, playerById, playerClubRanks,
   playerCuratedGoalTypes, playerCuratedTotals,
+  playerAppearanceEndpoints,
   playerDefensiveBySeason, playerDefensiveTotals,
   playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
   playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
@@ -30,7 +31,6 @@ import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { PlayerTransferRecord } from "@/components/player/PlayerTransferRecord";
 import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
-import { queryString } from "@/lib/url";
 import { entityRef } from "@/lib/citations";
 import { jsonLdHtml, playerJsonLd } from "@/lib/structuredData";
 import { correctionPrefillHref } from "@/lib/corrections";
@@ -132,13 +132,7 @@ export default async function PlayerPage({
   const topOpponent = opponentGoals[0];
   const goalsPerApp = p.apps > 0 ? p.goals / p.apps : null;
 
-  // Earliest and latest match we can place this player in from recorded scorer data.
-  const debut = matches.length
-    ? matches.reduce((a, b) => (b.date < a.date ? b : a))
-    : null;
-  const latest = matches.length
-    ? matches.reduce((a, b) => (b.date > a.date ? b : a))
-    : null;
+  const { debut, latest } = playerAppearanceEndpoints(id);
 
   const careerYears = playerCareerSpan(p);
   const jsonLd = playerJsonLd(p);
@@ -259,6 +253,25 @@ export default async function PlayerPage({
             shortLabel: "Career",
             content: bySeason.length > 0 ? (
               <section id="seasons" className="space-y-6">
+                {(debut || latest) && (
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 border-b border-line pb-4 text-sm sm:hidden">
+                    {debut ? (
+                      <Link href={`/match/${debut.id}`} className="inline-flex min-h-11 min-w-0 flex-col justify-center hover:text-devil-bright focus-ring">
+                        <span className="block text-[10px] uppercase tracking-[0.13em] text-ink-faint">First appearance</span>
+                        <span className="stat-num text-xs text-ink">{debut.season}</span>
+                        <span className="block truncate text-xs text-ink-dim">v {debut.opponent_name}</span>
+                      </Link>
+                    ) : <span />}
+                    <span aria-hidden className="text-ink-faint">→</span>
+                    {latest ? (
+                      <Link href={`/match/${latest.id}`} className="inline-flex min-h-11 min-w-0 flex-col justify-center text-right hover:text-devil-bright focus-ring">
+                        <span className="block text-[10px] uppercase tracking-[0.13em] text-ink-faint">Latest appearance</span>
+                        <span className="stat-num text-xs text-ink">{latest.season}</span>
+                        <span className="block truncate text-xs text-ink-dim">v {latest.opponent_name}</span>
+                      </Link>
+                    ) : <span />}
+                  </div>
+                )}
                 {forgotten && (
                   <div className="rounded-lg border border-line bg-panel px-4 py-3 sm:px-5">
                     <Suspense fallback={<RediscoveryRail prompt={forgotten} />}>
@@ -461,7 +474,7 @@ export default async function PlayerPage({
                             <div>
                               <h3 className="mb-2 text-sm font-medium text-ink-dim">
                                 The big nights{hauls.length > topHauls.length && (
-                                  <span className="ml-2 font-normal text-ink-faint">top {topHauls.length} of {fmtNum(hauls.length)} multi-goal games</span>
+                                  <span className="ml-2 font-normal text-ink-faint">top {topHauls.length} of {fmtNum(hauls.length)} games with 2+ goals</span>
                                 )}
                               </h3>
                               <HaulCards hauls={topHauls} />

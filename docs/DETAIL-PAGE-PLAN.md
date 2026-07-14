@@ -130,7 +130,7 @@ Tabs **cut** after refinement (absorbed elsewhere or not worth a slot):
 ### Hero plate (`PlayerPlate`)
 
 - Dominant goals figure + club rank among goalscorers
-- Secondary ribbon: apps (with sub count), goals/app, multi-goal apps, assists
+- Secondary ribbon: apps (with sub count), goals/app, games with 2+ goals, assists
 - Career arc with linked debut, peak season, latest match
 - Footer band: one-line trust note + suggest correction; share/cite top-right
 

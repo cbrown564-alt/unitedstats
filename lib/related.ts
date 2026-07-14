@@ -1,4 +1,3 @@
-import { CURATED_CUTS, cutHref, curatedCut } from "./cut";
 import { CURATED_DEBATES, type CompareMode } from "./compare";
 import { questionBySlug, QUESTIONS } from "./questions";
 import { queryString } from "./url";
@@ -17,7 +16,7 @@ import { queryString } from "./url";
  */
 /** What form the next step takes — surfaced as the station's eyebrow so the trail
  *  reads as varied moves (another answer, a data slice, a head-to-head). */
-export type RelatedKind = "question" | "cut" | "debate";
+export type RelatedKind = "question" | "debate";
 
 export interface RelatedLink {
   kind: RelatedKind;
@@ -32,13 +31,6 @@ function toQuestion(slug: string, hook: string): RelatedLink {
   const q = questionBySlug(slug);
   if (!q) throw new Error(`related: unknown question slug "${slug}"`);
   return { kind: "question", href: `/questions/${slug}`, label: q.question, hook };
-}
-
-/** A link to a curated Cut, labelled with its title. */
-function toCut(slug: string, hook: string): RelatedLink {
-  const c = CURATED_CUTS.find((x) => x.slug === slug);
-  if (!c) throw new Error(`related: unknown cut slug "${slug}"`);
-  return { kind: "cut", href: cutHref(curatedCut(c)), label: c.title, hook };
 }
 
 /** A link to a flagship debate, labelled with its head-to-head. */
@@ -57,51 +49,51 @@ const RELATED: Record<string, RelatedLink[]> = {
   treble: [
     toQuestion("late-goals", "Barcelona was decided after the 90th."),
     toQuestion("ferguson-era", "Where that season sits in the post-1986 ladder."),
-    toCut("seasons-by-points", "1998-99 against every other season, by points per game."),
+    toDebate("players", 0, "Two record-breaking careers on the measures that fit them."),
   ],
   europe: [
     toQuestion("treble", "The European Cup night that completed the Treble."),
     toQuestion("ferguson-era", "League finishes while Europe returned."),
-    toCut("opponents-by-win-rate", "Continental opponents by win rate."),
+    toDebate("players", 1, "Two European Cup-winning goalkeepers, season by season."),
   ],
   "late-goals": [
     toQuestion("fortress", "Once ahead late at home — how often does the lead hold?"),
     toQuestion("treble", "Two goals after the 90th in Barcelona."),
-    toCut("seasons-by-points", "Seasons ranked by points — where late goals mattered."),
+    toQuestion("comebacks", "Which of those late goals completed a recovery?"),
   ],
   fortress: [
     toQuestion("late-goals", "Scoring late and holding a lead late — same edge, both sides."),
     toQuestion("ferguson-era", "Home half-time leads across the Ferguson years."),
-    toCut("seasons-by-points", "Which seasons turned home form into league points?"),
+    toQuestion("runs", "How long did the strongest home sequences last?"),
   ],
   comebacks: [
     toQuestion("late-goals", "Most recoveries arrive late — how late?"),
     toQuestion("treble", "Barcelona: two down, two scored after 90."),
-    toCut("managers-by-points", "Managers by points per game."),
+    toDebate("managers", 0, "Ferguson and Busby on trophies, tenure and win rate."),
   ],
   runs: [
     toQuestion("treble", "The longest unbeaten run overlapped 1998-99."),
     toQuestion("fortress", "Home form builds and breaks most long runs."),
-    toCut("seasons-by-points", "Those runs against season points per game."),
+    toQuestion("comebacks", "The recoveries that kept longer sequences alive."),
   ],
   "manager-bounce": [
     toQuestion("ferguson-era", "Successors measured against the Ferguson floor."),
-    toCut("managers-by-points", "Every reign on one points-per-game scale."),
+    toQuestion("comebacks", "Whether the first ten matches contained a recovery."),
     toDebate("managers", 1, "Ferguson to Mourinho — the sharpest succession."),
   ],
   "cup-specialists": [
     toQuestion("europe", "Cup lean in European competition."),
     toQuestion("own-goals", "Own goals on the scorers list."),
-    toCut("opponents-by-win-rate", "Opponents those cup nights were won against."),
+    toQuestion("away-days", "How far those cup and European ties carried United."),
   ],
   "own-goals": [
     toQuestion("cup-specialists", "Cup lean among named scorers."),
-    toCut("opponents-by-win-rate", "Head-to-heads where own goals tilt the ledger."),
+    toQuestion("europe", "Where own goals sit inside the continental record."),
   ],
   "away-days": [
     toQuestion("fortress", "Home record against the miles travelled."),
     toQuestion("europe", "European away days in the continental record."),
-    toCut("opponents-by-win-rate", "Every opponent travelled to, by win rate."),
+    toDebate("managers", 0, "How two long reigns travelled across competitions."),
   ],
 };
 
