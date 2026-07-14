@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TrophyIcon } from "@/components/CampaignIcons";
 
 /**
  * The club's entire life as one object: every season a vertical bar whose height
@@ -7,7 +8,7 @@ import Link from "next/link";
  * Victorian league, the post-war swell, the modern era thick with European nights —
  * and its total inked area is, literally, every match United have played. The red
  * lower band rising and falling traces the eras; a relegation year wears a heavy slate
- * roofline. Championship seasons carry a gold marker, the one sparing accent.
+ * roofline. Championship seasons carry a gold trophy, the one sparing accent.
  *
  * Pure CSS/flex, server-rendered: each season is a flex column growing from the
  * baseline, so the bars stay crisp at any width with no SVG scaling. Every bar is a
@@ -88,10 +89,12 @@ export function HistorySkyline({
                 </div>
                 {champ && (
                   <span
-                    className="absolute left-1/2 z-10 mb-[3px] h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-gold shadow-[0_0_0_1.5px_var(--color-panel)]"
-                    style={{ bottom: `${barH}%` }}
+                    className="absolute left-1/2 z-10 -translate-x-1/2 text-gold drop-shadow-[0_1px_1px_var(--color-panel)]"
+                    style={{ bottom: `calc(${barH}% + 2px)` }}
                     aria-hidden
-                  />
+                  >
+                    <TrophyIcon className="h-3 w-3" />
+                  </span>
                 )}
               </Link>
             );
@@ -129,7 +132,7 @@ export function HistorySkyline({
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-win/75" />Won</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-draw/45" />Drawn</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-loss/70" />Lost</span>
-        <span className="inline-flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-gold" />League champions</span>
+        <span className="inline-flex items-center gap-1.5"><TrophyIcon className="h-3 w-3 text-gold" />League champions</span>
         <span className="text-ink-dim">
           Bar height is matches played that season ·{" "}
           <span className="sm:hidden">tap to open the seasons index</span>
