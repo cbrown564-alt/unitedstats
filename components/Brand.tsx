@@ -26,6 +26,7 @@ function ThreadlineMark({ size = 34 }: { size?: number }) {
              C 33.6 46.1 37.7 42.8 40.8 38.7
              C 45.3 32.7 46.4 25.3 46.6 14.5
              C 39.9 13.3 33.9 11.3 29 8.6 Z"
+          stroke="#d2aa54"
         />
 
         {/* A quieter inner strand gives the shield the layered construction
@@ -34,6 +35,7 @@ function ThreadlineMark({ size = 34 }: { size?: number }) {
           d="M 15.2 23.9
              C 20.4 22.0 25.3 21.9 29.7 23.8
              C 35.2 26.1 38.8 30.9 40.4 36.8"
+          stroke="#d2aa54"
           opacity="0.58"
         />
 
