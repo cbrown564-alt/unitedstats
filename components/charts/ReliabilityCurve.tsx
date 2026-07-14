@@ -106,11 +106,11 @@ export function ReliabilityCurve({ buckets }: { buckets: CalibrationBucket[] }) 
       <figcaption className="mt-2 space-y-1 text-[11px] leading-4 text-ink-dim sm:space-y-0">
         <p className="flex items-center gap-1.5">
           <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-devil-bright" />
-          <span>Points share — on the diagonal means the ratings land where they aim</span>
+          <span>Points share</span>
         </p>
         <p className="flex items-center gap-1.5">
           <span aria-hidden className="h-2 w-2 shrink-0 rounded-full border border-gold bg-pitch" />
-          <span>Win rate — the gap up to the line is where draws live</span>
+          <span>Win rate</span>
         </p>
       </figcaption>
     </figure>

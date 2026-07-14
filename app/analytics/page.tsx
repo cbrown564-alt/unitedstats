@@ -89,12 +89,49 @@ export default function AnalyticsPage() {
   );
 
   const reliabilityPanel = (
-    <div className="min-w-0 overflow-x-auto rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
-      <ReliabilityCurve buckets={buckets} />
-      <CoverageNote
-        collapsible
-        slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by pre-match win expectancy.`}
-      />
+    <div className="grid items-stretch gap-3 lg:grid-cols-[minmax(20rem,0.85fr)_minmax(24rem,1.15fr)]">
+      <div className="min-w-0 overflow-x-auto rounded-lg border border-line bg-panel p-4 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+        <ReliabilityCurve buckets={buckets} />
+        <CoverageNote
+          collapsible
+          slice={`all ${fmtNum(buckets.reduce((a, b) => a + b.p, 0))} rated matches since 1886, grouped into deciles by pre-match win expectancy.`}
+        />
+      </div>
+
+      <aside className="rounded-lg border border-line bg-panel p-5 shadow-[0_1px_0_rgb(255_255_255_/_0.025)_inset]">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">How to read it</p>
+        <h4 className="display mt-1 text-lg">The rating is broadly honest</h4>
+        <p className="mt-2 text-sm leading-6 text-ink-dim">
+          The red points stay close to the diagonal through most of the range. In plain terms, when the
+          rating gave United a certain level of confidence, the results usually returned about that much
+          value. The slight flattening at the top says the strongest forecasts were a little too certain.
+        </p>
+
+        <dl className="mt-5 grid gap-4 border-t border-line pt-4 text-sm sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <div>
+            <dt className="flex items-center gap-2 font-semibold text-ink">
+              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-devil-bright" />
+              Points share
+            </dt>
+            <dd className="mt-1 leading-5 text-ink-dim">
+              Gives full credit for a win and half for a draw. This is the fairest comparison with the forecast.
+            </dd>
+          </div>
+          <div>
+            <dt className="flex items-center gap-2 font-semibold text-ink">
+              <span aria-hidden className="h-2.5 w-2.5 rounded-full border border-gold bg-pitch" />
+              Win rate
+            </dt>
+            <dd className="mt-1 leading-5 text-ink-dim">
+              Counts outright wins only. The space below points share represents the value earned from draws.
+            </dd>
+          </div>
+        </dl>
+
+        <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-ink-faint">
+          Larger red dots contain more matches, so the middle of the curve carries more evidence than its edges.
+        </p>
+      </aside>
     </div>
   );
 
@@ -195,7 +232,7 @@ export default function AnalyticsPage() {
             Expected results against what actually happened — season by season.
           </Act>
 
-          <section className="max-w-3xl">
+          <section>
             <div className="mb-3">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">The proof</p>
               <h3 className="display text-xl">Does the expectancy come true?</h3>
