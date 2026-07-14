@@ -14,7 +14,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { PageHeader } from "@/components/PageHeader";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
-import StoriesFilm from "@/components/stories/StoriesFilm";
+import { HomeThreadFilm } from "@/components/HomeThreadFilm";
 import { greatNights } from "@/lib/greatNights";
 
 // The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
@@ -72,7 +72,7 @@ export default function Home() {
           and the foundation they belong to. The film runs straight into the served
           match-night; the record plate pulls up over the thread's foot. */}
       <div>
-        {/* 1. THE FILM — ninety seconds of the record in motion. */}
+        {/* 1. THE THREAD — one authored connection from the full film, played once. */}
         <section
           id="red-thread-film"
           className="full-bleed-viewport stories-film stories-film--home -mt-8 sm:-mt-10"
@@ -81,9 +81,9 @@ export default function Home() {
           <span className="stories-film-knot" aria-hidden />
           <div className="stories-film-heading">
             <h2 id="home-film-title" className="display">Every United match since 1886</h2>
-            <p>A ninety-second tour. Then follow the thread to every match, player and moment.</p>
+            <p>Twenty seconds. One connection across forty years. Then follow the thread to every match, player and moment.</p>
           </div>
-          <StoriesFilm />
+          <HomeThreadFilm />
         </section>
 
         {/* 2. THE SPARK — a single served match-night, chosen for you, the Red Thread

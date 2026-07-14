@@ -29,6 +29,15 @@ is a consequence, never the target.
 
 ## 2. What's built, and why
 
+### The opening thread — `components/HomeThreadFilm.tsx`
+
+The homepage opens with a silent 20-second excerpt from the Red Thread film:
+George Best and Cristiano Ronaldo connected across forty years, ending on the
+season-five peak they shared. It plays once, holds on the completed comparison,
+and offers a deliberate replay instead of looping continuously. Reduced-motion
+visitors receive the static poster. The full YouTube player is no longer embedded
+on the homepage; the served match-night follows immediately beneath this opening.
+
 ### The engine — `lib/greatNights.ts`
 
 Picks the night and guarantees a spark on every load. Two tiers:
