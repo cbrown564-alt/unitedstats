@@ -2337,7 +2337,14 @@ input.site-sidebar-search-input:focus {
   position: absolute;
   inset-inline: 0;
   bottom: 0;
+  /* svh = viewport with browser chrome shown; vh on iOS is the chrome-hidden
+     height, which lets a tall sheet run under the Safari toolbar. */
   max-height: min(88vh, 42rem);
+  max-height: min(88svh, 42rem);
+  /* Cap for the scrolling body. Set here (and overridden per variant) so the
+     body's own height is bounded rather than depending on flex shrink inside an
+     auto-height panel. 5rem covers the grab handle, header, and bottom padding. */
+  --sheet-body-max: min(calc(88svh - 5rem), 37rem);
   display: flex;
   flex-direction: column;
   border-top: 1px solid color-mix(in oklab, var(--color-line), var(--color-ink) 6%);
@@ -2351,21 +2358,18 @@ input.site-sidebar-search-input:focus {
   will-change: transform;
 }
 
-/* Content-hugging sheets (nav menu) — only as tall as their items, not full viewport. */
-.mobile-sheet-panel--fit {
-  height: max-content;
-}
-
-.mobile-sheet-panel--fit .mobile-sheet-body {
-  flex: none;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
+/* Content-hugging sheets (nav menu) — only as tall as their items, not full viewport.
+   Height stays auto: bottom-anchored + top:auto already shrink-to-fits. Do NOT set
+   an intrinsic height (max-content) here — combined with a flex-basis:0 child it
+   collapses the body to zero height in WebKit. */
+.mobile-sheet-panel--fit .mobile-sheet-body,
 .mobile-sheet-panel--nav .mobile-sheet-body {
-  flex: 1;
+  /* basis auto, not 0: WebKit sizes flex-basis:0 items to nothing inside an
+     intrinsically-sized flex container. shrink 1 + min-height 0 lets the body
+     give way to the panel's max-height and scroll instead of overflowing. */
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: var(--sheet-body-max);
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -2386,6 +2390,8 @@ input.site-sidebar-search-input:focus {
 
 .mobile-sheet-panel--filters {
   max-height: min(92vh, 44rem);
+  max-height: min(92svh, 44rem);
+  --sheet-body-max: min(calc(92svh - 5rem), 39rem);
 }
 
 .mobile-sheet-panel--filters .mobile-sheet-grab {
@@ -2592,16 +2598,16 @@ input.site-sidebar-search-input:focus {
 }
 
 .mobile-sheet-body {
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
 }
 
+/* The body is the single scroll container — a nested scroller here would also
+   hide real scroll position from useSheetSwipe's scrollRef, so a swipe mid-list
+   would read as scrollTop 0 and dismiss the sheet. */
 .mobile-sheet-nav {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   padding: 0 0.75rem;
   display: grid;
   gap: 0.35rem;
