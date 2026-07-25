@@ -41,8 +41,8 @@ pipeline, and a public dataset/API.
    optional: football-data.org (keyed backup)
                │
                ▼
-   Vercel: bundled united.db in every function + optional Blob freshness upgrade
-           path revalidation (~25 paths) can skip full redeploy on data-only commits
+   Vercel: bundled united.db in every function; every data commit produces a
+           complete production build and deployment
 ```
 
 ### Key decisions
@@ -67,23 +67,22 @@ pipeline, and a public dataset/API.
   and overwhelmingly read. A serverful DB adds cost and ops burden for zero
   benefit. Git gives us versioning, review, and rollback of the *data itself*.
 
-**Runtime freshness without a full redeploy.**
+**Deploy-time database freshness.**
 
-- Every deploy bundles `data/united.db` as the **floor** — the site never 500s
-  on a missing blob (`lib/db.ts`).
-- When configured (`UNITEDSTATS_DB_BLOB_URL`), `instrumentation.ts` prewarms
-  a fresh copy from Vercel Blob into `/tmp` on cold start; `resetDb()` does the
-  same after ingest revalidation.
-- After each data commit the pipeline can call `npm run upload:db` and
-  `npm run revalidate` to refresh ~25 cached paths without rebuilding the app
-  (`scripts/vercel-should-build.mjs` skips git deploys when blob revalidation
-  is configured). See `docs/PIPELINE.md` and `docs/INCIDENT-2026-06-30-runtime-db.md`.
+- Every deploy bundles `data/united.db`, so runtime functions read the exact
+  canonical state that produced the deployment.
+- Data commits trigger ordinary production deployments. The previous Blob
+  freshness path is dormant because downloading the complete database on
+  function cold starts consumed more Blob transfer than the update latency
+  justified. The retained Blob scripts are manual recovery tools, not part of
+  the normal pipeline. See `docs/PIPELINE.md` and
+  `docs/VERCEL-HOBBY-ASSESSMENT.md`.
 
 **Update pipeline = GitHub Actions, not a server.**
 
 - A scheduled workflow runs after typical match windows, pulls the latest
   results from openfootball, appends to season JSON, validates, rebuilds the DB,
-  exports flat files, optionally uploads the blob, commits, and revalidates.
+  exports flat files, and commits. Vercel deploys that commit normally.
 - `transfermarkt-datasets` is the preferred modern enrichment source for events,
   cards, substitutions, and lineups. Historical depth comes from MUFCInfo match
   pages, Wikipedia season and match articles, and Wikidata/Commons media.
@@ -94,12 +93,12 @@ pipeline, and a public dataset/API.
   build, serve static HTML from the CDN** for entity pages and catalogue routes.
   ~7,400 paths prerender on full builds; the render-mode disposition is enforced
   by CI (`npm run check:static`).
-- A handful of routes are **dynamic by design** — the homepage spark
-  (`TonightHero`) must reflect the real calendar date; search and facet tools
-  are query-shaped. These use `revalidate = 86400` or `force-dynamic` as
-  appropriate.
-- Data freshness between deploys is handled by the blob + revalidation path
-  above, not by ad-hoc ISR on every page.
+- The homepage is prerendered with a one-day revalidation interval so its
+  calendar-based served night stays current without a SQLite query on every
+  request. Search and facet tools remain query-shaped and use
+  `revalidate = 86400` or `force-dynamic` as appropriate.
+- Data freshness follows deployments; there is no runtime data-store dependency
+  in the normal production path.
 
 ## Route map
 
@@ -142,9 +141,8 @@ here fails CI.
 
 | Mode | Routes | Notes |
 |---|---|---|
-| **Static `○`** | `/analytics`, `/data`, `/explore`, `/managers`, `/transfers` | Prerendered at build |
+| **Static / daily ISR** | `/`, `/analytics`, `/data`, `/explore`, `/managers`, `/transfers` | Prerendered; `/` revalidates at most daily |
 | **SSG `●`** | `/match/[id]`, `/player/[id]`, `/manager/[id]`, `/opponent/[id]`, `/seasons/[season]`, `/questions/[slug]`, `/on-this-day/[monthDay]` | `generateStaticParams`; full builds prerender all ids; preview builds sample (~24 per heavy route) |
-| **Dynamic `ƒ` by design** | `/` | `TonightHero` serves the real calendar date per request |
 | **Dynamic + ISR** | `/matches`, `/players`, `/seasons`, `/search`, `/compare`, `/cut` | `revalidate = 86400`; URL-state tools over deploy-immutable data |
 | **Dynamic `ƒ`** | `/surprise`, `/on-this-day` (index redirect) | Per-request curation / redirect |
 | **API `ƒ`** | `/api/v1/*`, `/api/search`, `/api/revalidate`, `/api/health` | Read-only public API; search uses `no-store` |
@@ -168,9 +166,9 @@ search, which is `no-store`.
   long-list threshold.
 - recharts (~348 KB) is route-split and lazy-mounted (`ssr: false` wrappers with
   height-reserved skeletons) everywhere except `/analytics`, whose Elo hero chart
-  is above the fold. Fonts self-host via `next/font/google`; portraits use
-  `next/image` with `priority` on player-hero LCP, served from cached local WebP
-  (`public/media/**`), never hotlinked Wikimedia.
+  is above the fold. Fonts self-host via `next/font/google`; fixed-size portraits
+  are served directly from cached local WebP files (`public/media/**`) with
+  `next/image` transformation disabled, avoiding paid variants.
 - `.vercelignore` owns CLI deployment inputs. It excludes local credentials,
   raw ingest downloads, renders, audio bake-offs, screenshots, tests, and review
   artifacts while preserving canonical data, build scripts, web assets, and the
@@ -206,7 +204,7 @@ ledger cards on list views.
 
 ```
 app/                    Next.js App Router pages
-  page.tsx              homepage (dynamic spark)
+  page.tsx              homepage (daily-prerendered spark)
   explore/              discover hub
   matches/              filterable archive
   match/[id]/           match detail
@@ -321,7 +319,7 @@ return the shared immutable dataset cache headers via `apiJson`.
 | Doc | Purpose |
 |---|---|
 | `docs/DATA-MODEL.md` | Schema of record |
-| `docs/PIPELINE.md` | Auto-update, blob upload, revalidation |
+| `docs/PIPELINE.md` | Auto-update, validation, build, and deployment |
 | `docs/SOURCE-AUDIT.md` | Coverage limits and provenance |
 | `docs/CORRECTIONS.md` | Public correction workflow |
 | `docs/MOBILE.md` | Mobile shell patterns |

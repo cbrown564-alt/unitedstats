@@ -43,6 +43,7 @@ export function SeasonLedgerCard({
     <li className={`register-card-item ${eraClass}`}>
       <Link
         href={href}
+        prefetch={false}
         className={`season-card block rounded-xl border px-4 py-3.5 transition-colors focus-ring ${
           glory ? "border-gold/35 bg-gold/[0.04] hover:border-gold/50" : "border-line/80 hover:border-devil/35 hover:bg-panel-2/40"
         }`}

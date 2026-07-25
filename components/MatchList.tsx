@@ -55,7 +55,11 @@ export function MatchList<T extends MatchRow>({
       <ul className="register-card-list overflow-hidden rounded-lg border border-line sm:hidden">
         {matches.map((m) => (
           <li key={m.id} className="register-card-item match-list-item">
-            <Link href={`/match/${m.id}`} className="block transition-colors focus-ring hover:bg-panel/40">
+            <Link
+              href={`/match/${m.id}`}
+              prefetch={false}
+              className="block transition-colors focus-ring hover:bg-panel/40"
+            >
               <MatchNightCard
                 match={m}
                 accentResult={accentResult}
@@ -76,6 +80,7 @@ export function MatchList<T extends MatchRow>({
             <li key={m.id} className="match-list-item">
               <Link
                 href={`/match/${m.id}`}
+                prefetch={false}
                 className={`grid min-h-14 ${renderExtra ? "grid-cols-[auto_auto_1fr_auto] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto_auto]" : "grid-cols-[auto_auto_1fr] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto]"} items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}
               >
                 <span className="stat-num hidden text-xs text-ink-dim sm:block">{fmtDate(m.date)}</span>

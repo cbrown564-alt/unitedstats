@@ -55,6 +55,10 @@ export function PlayerPortrait({ name, src, size = "sm", priority = false, class
           alt={`Portrait of ${name}`}
           width={config.pixels}
           height={config.pixels}
+          // Portraits are already cached, compact WebPs rendered at fixed sizes.
+          // Serving them directly avoids creating paid Vercel variants for every
+          // portrait/size combination with negligible visual benefit.
+          unoptimized
           priority={priority}
           sizes={`${config.pixels}px`}
           className="h-full w-full object-cover"

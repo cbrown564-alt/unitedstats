@@ -56,24 +56,3 @@ jobs:
           git add data/canonical data/history-digests public/dataset
           git commit -m "data: ${{ steps.fetch.outputs.new }} new result(s) through $(date -u +%F)"
           git push
-
-      - name: Upload database and revalidate changed paths
-        if: steps.fetch.outputs.new != '0'
-        env:
-          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
-          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
-          UNITEDSTATS_SITE_URL: ${{ secrets.UNITEDSTATS_SITE_URL }}
-        run: |
-          if [ -z "$BLOB_READ_WRITE_TOKEN" ] || [ -z "$REVALIDATE_SECRET" ] || [ -z "$UNITEDSTATS_SITE_URL" ]; then
-            echo "Skipping blob upload + revalidate (secrets not configured — Vercel will full-deploy instead)"
-            exit 0
-          fi
-          npm run upload:db | tee upload.log
-          blob_url=$(grep -oP 'UNITEDSTATS_DB_BLOB_URL=\K.*' upload.log)
-          # Fail fast if the blob we just wrote isn't a reachable SQLite file —
-          # otherwise prod silently serves stale, deploy-time data via the fallback.
-          node scripts/check-blob.mjs --url "$blob_url"
-          ids=$(grep -oP 'NEW_MATCH_IDS=\K.*' update.log)
-          npm run revalidate -- --site "$UNITEDSTATS_SITE_URL" --ids "$ids"
-          # Informational: confirm the live site can read the DB after revalidation.
-          node scripts/smoke-check.mjs --site "$UNITEDSTATS_SITE_URL" || echo "smoke-check non-fatal failure (site may be protected); inspect manually"

@@ -22,14 +22,11 @@ pipeline/update.ts
    5. enrich the current season from its Wikipedia article (scorers,
       attendance, cup rounds) and recompute the league position
    6. npm run validate  &&  npm run build:db  &&  npm run export:dataset
-   7. npm run upload:db  (when BLOB_READ_WRITE_TOKEN is set)
-   8. commit "data: results through <date>" and push
-   9. npm run revalidate  (when REVALIDATE_SECRET + UNITEDSTATS_SITE_URL are set)
+   7. commit "data: results through <date>" and push
    │
    ▼
-Production picks up the new blob + refreshes only the blast radius (~25 paths).
-Vercel skips the git deploy when the commit is data-only and blob revalidation
-is configured (`scripts/vercel-should-build.mjs`).
+Vercel builds and deploys the commit, including a fresh bundled `united.db` and
+the complete production prerender set.
 ```
 
 If nothing new: the workflow exits cleanly with no commit (idempotent — the
@@ -83,9 +80,9 @@ summary when an unknown competition file appears upstream.
 | Name | Required | Purpose |
 |---|---|---|
 | (none) | — | core pipeline works with zero secrets |
-| `BLOB_READ_WRITE_TOKEN` | optional | upload `united.db` to Vercel Blob after each ingest |
-| `UNITEDSTATS_DB_BLOB_URL` | optional | public blob URL set on the Vercel project (see `npm run upload:db`) |
-| `REVALIDATE_SECRET` | optional | bearer token for `POST /api/revalidate` |
-| `UNITEDSTATS_SITE_URL` | optional | production origin used by `npm run revalidate` in CI |
 | `FOOTBALL_DATA_TOKEN` | optional | football-data.org scorer, assist, lineup, substitution, booking, and attendance enrichment |
 | `FOOTBALL_DATA_TEAM_ID` | optional | override the football-data.org Manchester United team id; defaults to `66` |
+
+The Blob upload and on-demand revalidation scripts remain available as manual
+recovery tools. They are not called by the scheduled workflow, and production
+must not set `UNITEDSTATS_DB_BLOB_URL` during the current cost-assessment period.

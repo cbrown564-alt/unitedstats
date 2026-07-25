@@ -69,6 +69,7 @@ export function SeasonLedgerGrid({
               {renderBeforeRow?.(r, prev)}
               <Link
                 href={r.href}
+                prefetch={false}
                 className={`grid items-start gap-x-3 px-4 py-2.5 transition-colors hover:bg-panel-2/60 ${r.eraClass ?? ""}`}
                 style={{ gridTemplateColumns: template }}
               >

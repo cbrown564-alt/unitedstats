@@ -77,6 +77,7 @@ export function TransferList({
                     (t.player_id ? (
                       <Link
                         href={`/player/${t.player_id}`}
+                        prefetch={false}
                         className="text-sm font-medium text-ink hover:text-devil-bright"
                       >
                         {t.player_name}

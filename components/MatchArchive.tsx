@@ -85,6 +85,7 @@ function SeasonSummaries({
               <WdlBar w={w} d={d} l={l} size="xs" tooltip={false} className="ml-auto max-w-[7rem] sm:max-w-[10rem]" />
               <Link
                 href={hrefForSeason?.(g.season) ?? `/matches?season=${encodeURIComponent(g.season)}`}
+                prefetch={false}
                 className="hidden shrink-0 rounded-md border border-line bg-panel-2 px-2.5 py-1 text-xs text-devil-bright transition-colors hover:border-devil/60 hover:bg-devil/10 sm:inline-block"
               >
                 Open

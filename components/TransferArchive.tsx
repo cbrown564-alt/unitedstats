@@ -275,7 +275,7 @@ function OffGroup({
           <span key={r.id}>
             {i > 0 && <span className="text-ink-faint">, </span>}
             {r.player_id ? (
-              <Link href={`/player/${r.player_id}`} className="text-ink-dim hover:text-ink">
+              <Link href={`/player/${r.player_id}`} prefetch={false} className="text-ink-dim hover:text-ink">
                 {r.player_name}
               </Link>
             ) : (

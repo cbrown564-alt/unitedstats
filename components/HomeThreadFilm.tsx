@@ -51,7 +51,7 @@ export function HomeThreadFilm() {
 
       {playbackState === "playing" && (
         <span className="home-thread-film__status" aria-hidden>
-          <i /> One pass · muted
+          <i /> Muted
         </span>
       )}
       {playbackState === "ended" && (

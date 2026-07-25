@@ -358,7 +358,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
         card: "identity",
         render: (s) => (
           <span className="inline-flex items-center gap-1.5">
-            <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
+            <Link href={`/seasons/${s.season}`} prefetch={false} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
               {fmtSeasonShort(s.season)}
             </Link>
             {medalSet.has(s.season) && (
@@ -508,7 +508,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
       card: "identity",
       render: (s) => (
         <span className="inline-flex items-center gap-1.5">
-          <Link href={`/seasons/${s.season}`} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
+          <Link href={`/seasons/${s.season}`} prefetch={false} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
             {fmtSeasonShort(s.season)}
           </Link>
           {medalSet.has(s.season) && (

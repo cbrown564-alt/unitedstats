@@ -42,8 +42,9 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
    reference files for players, transfers, media, positions, and more), compiled
    to SQLite. See `docs/DATA-MODEL.md`.
 2. **Update pipeline** — GitHub Actions cron pulls new results from openfootball,
-   validates, rebuilds, exports, and optionally uploads the DB to Vercel Blob
-   with path revalidation — no paid APIs, no servers. See `docs/PIPELINE.md`.
+   validates, rebuilds, exports, and triggers a normal Vercel deployment
+   containing the refreshed database — no paid APIs, no servers. See
+   `docs/PIPELINE.md`.
 3. **Web UI** — Next.js 16 App Router + Tailwind 4, server components querying
    SQLite read-only. Elo and aggregates are precomputed at build time; discovery
    surfaces (questions, compare, cuts) sit on top of the same record. See

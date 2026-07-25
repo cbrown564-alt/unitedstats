@@ -8,18 +8,18 @@ SQLite only at build, ship static HTML from the CDN.
 ## Update strategy (decided)
 
 Post-launch the dataset grows by **one match at a time**, a few times a week.
-Rebuilding and prerendering all ~7,800 entity pages on every ingest made sense
-while the static-rendering campaign was landing; it does not make sense at
-steady state.
 
-**Decision: Option 2 — on-demand revalidation after data ingests.**
+**Decision, revised 2026-07-25: ordinary deploys after data ingests.** The
+previous Blob plus on-demand-revalidation path saved build time, but repeated
+64 MB database downloads on function cold starts consumed 18.28 GB of Blob
+transfer in the observed period. Predictable transfer matters more than the
+roughly 15-minute deployment latency while the project assesses Hobby viability.
 
 | Phase | What runs | Build time |
 | --- | --- | --- |
 | Code deploy (PR / UI) | Preview build profile — sample SSG | ~2 min |
 | Code deploy (production merge) | Full build — all SSG | ~15 min |
-| Data ingest (2–3×/week) | Blob upload + `revalidatePath` blast radius | seconds |
-| Safety net | Scheduled or manual full production build | ~15 min |
+| Data ingest (2–3×/week) | Full production build and deploy | ~15 min |
 
 ### How a data ingest works
 
@@ -27,63 +27,17 @@ steady state.
 GitHub Actions (update-results.yml)
   1. append new match to data/canonical/
   2. npm run validate && npm run build:db && npm run export:dataset
-  3. npm run upload:db  →  overwrites dataset/united.db on Vercel Blob
-  4. git commit + push  →  Vercel ignored-build step skips deploy (data-only)
-  5. npm run revalidate  →  POST /api/revalidate with affected paths
-       ├─ resetDb() pulls fresh blob into /tmp
-       └─ revalidatePath() for ~25 surfaces (match, season, opponent, …)
+  3. git commit + push
+  4. Vercel runs a full production build and deploys the new bundled database
 ```
-
-Historical entity pages that did not change are **not** rebuilt. Their existing
-CDN HTML is still correct. Only the blast radius refreshes.
-
-### Blast radius (per new match)
-
-Always invalidated: `/`, `/analytics`, `/data`, list indexes (`/matches`,
-`/players`, `/seasons`), `/managers`, `/opponents`, `/explore`, `/transfers`,
-and the read-only `/api/v1/*` handlers.
-
-Per match: `/match/[id]`, `/seasons/[season]`, `/opponent/[id]`,
-`/on-this-day/[MM-DD]`. After enrichment: affected `/player/[id]` and
-`/manager/[id]`.
-
-Implemented in `lib/revalidation.ts`; the live path list is computed in CI by
-`scripts/compute-revalidate-paths.ts` after `build:db`.
 
 ### Runtime database
 
-**Bundled-first, blob-as-upgrade** (rev. 2026-06-30 after an outage — see
-[INCIDENT-2026-06-30-runtime-db.md](./INCIDENT-2026-06-30-runtime-db.md)).
-
-The deploy-time `data/united.db` (built from canonical JSON in prebuild, not
-tracked in git) is the runtime floor: it is bundled into every server function
-(`outputFileTracingIncludes` in `next.config.ts`) and is always present at
-deploy, so the site cannot 500 on a missing blob. When `UNITEDSTATS_DB_BLOB_URL`
-is set, a fresher copy is downloaded from **Vercel Blob** into `/tmp` — on cold
-start (`instrumentation.ts`) and on each revalidation (`resetDb()`) — and
-`getDb()` prefers it **only when it exists**, otherwise it falls back to the
-bundled copy (`lib/db.ts`). The blob is a freshness upgrade, never a hard
-dependency. Local dev and CI run `npm run build:db` to produce `data/united.db`.
-
-> ⚠️ The blob/`/tmp`/instrumentation path runs **only when `UNITEDSTATS_DB_BLOB_URL`
-> is set** — which previews and CI do not set. Validate it the way production
-> runs it: `GET /api/health` reports `source` (`blob`|`bundled`) and DB
-> readability, `scripts/check-blob.mjs` verifies the blob object, and
-> `scripts/smoke-check.mjs` checks a live deploy end-to-end. Consider setting
-> `UNITEDSTATS_DB_BLOB_URL` on the **Preview** environment too so PR deploys
-> exercise the download (the fallback keeps them safe if the blob is stale).
-
-### Required secrets (production)
-
-| Name | Purpose |
-| --- | --- |
-| `BLOB_READ_WRITE_TOKEN` | Upload `united.db` from the update workflow |
-| `UNITEDSTATS_DB_BLOB_URL` | Public blob URL wired into the Vercel project env |
-| `REVALIDATE_SECRET` | Bearer token for `POST /api/revalidate` |
-| `UNITEDSTATS_SITE_URL` | Production origin for the revalidate script |
-
-Until blob + revalidate secrets are configured, data commits still trigger a
-full Vercel deploy (previous behaviour).
+The deploy-time `data/united.db` is built from canonical JSON in `prebuild` and
+bundled into every server function through `outputFileTracingIncludes`. The
+normal production path has no runtime data-store dependency. The retained Blob
+code is dormant rollback machinery; production must not define
+`UNITEDSTATS_DB_BLOB_URL` during the current assessment.
 
 ## Baseline (2026-06-21, before the static-rendering campaign)
 
@@ -159,11 +113,9 @@ Elo hero chart is above the fold.
   fixed-size container, and club crests are pure CSS — no layout shift.
 - **LCP:** the hero portrait on `/player/[id]` now sets `priority` (+ `sizes`),
   so the page's largest image isn't lazy-loaded.
-- **Wikimedia 429s:** portraits are immutable, so the optimizer holds each
-  variant for a year (`images.minimumCacheTTL`). Wikimedia is hit at most once
-  per image rather than on every cache expiry. (A build-time download into
-  `public/` would remove the runtime dependency entirely — noted as optional
-  further hardening; not needed for the perf budget.)
+- **Transformations:** fixed-size player and manager portraits are already
+  compact, locally cached WebPs. `PlayerPortrait` serves them unoptimized to
+  avoid paid width/format variants. Large editorial images retain optimization.
 
 ## M6 — regression guard
 
@@ -188,9 +140,12 @@ profile, so they describe current output rather than a stale development tree.
 
 The clean preview recheck generated 204 static pages. The static-render guard
 reported five static pages, five SSG route families, and 189 prerendered paths.
-Removing the comparison creator and Discover cut strip did not justify a new
-prefetch policy: no production request evidence showed dense-link prefetch as a
-problem, so the installed Next.js 16 defaults remain in place.
+
+The 2026-07-25 Vercel usage review overturned the earlier dense-link prefetch
+assumption: 1.2M Edge Requests and 4.1M ISR read units were disproportionate to
+recorded browser traffic. Repeated archive and search-result links now set
+`prefetch={false}`; primary navigation and authored editorial doors retain
+Next.js prefetching.
 
 The clean full-profile build generated 7,829 static pages and 7,814 manifest
 paths. Its `.next` tree is 3,026.0 MB. Investigation found 2.3 GB under the match

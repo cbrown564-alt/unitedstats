@@ -18,9 +18,9 @@ import { HomeThreadFilm } from "@/components/HomeThreadFilm";
 import { greatNights } from "@/lib/greatNights";
 
 // The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
-// The served night is resolved per request so on-this-day reflects the real date
-// and the latest record — like /surprise and /on-this-day.
-export const dynamic = "force-dynamic";
+// The served night changes at most daily, so prerender it and refresh once a day
+// instead of querying SQLite for every visitor and crawler request.
+export const revalidate = 86400;
 
 const HOME_DESCRIPTION =
   "Evidence-backed Manchester United history: every match, every competition, every goal — from Newton Heath to today.";

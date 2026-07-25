@@ -54,6 +54,7 @@ export function SearchResults({
         <li key={s.title} id={optionId(i)} role="option" aria-selected={active === i}>
           <Link
             href={s.href}
+            prefetch={false}
             onMouseDown={keepComboboxFocus}
             onClick={(e) => {
               e.preventDefault();
@@ -99,6 +100,7 @@ export function SearchResults({
           <li key={`question-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
             <Link
               href={r.href}
+              prefetch={false}
               onMouseDown={keepComboboxFocus}
               onClick={(e) => {
                 e.preventDefault();
@@ -140,6 +142,7 @@ export function SearchResults({
           <li key={`${r.kind}-${r.href}`} id={optionId(idx)} role="option" aria-selected={active === idx}>
             <Link
               href={r.href}
+              prefetch={false}
               onMouseDown={keepComboboxFocus}
               onClick={(e) => {
                 e.preventDefault();

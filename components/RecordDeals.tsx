@@ -44,7 +44,7 @@ function FeaturedDeal({
 
   if (href) {
     return (
-      <Link href={href} className={`${cls} focus-ring`}>
+      <Link href={href} prefetch={false} className={`${cls} focus-ring`}>
         {inner}
       </Link>
     );
@@ -86,7 +86,7 @@ function CompactDeal({
 
   if (href) {
     return (
-      <Link href={href} className={cls}>
+      <Link href={href} prefetch={false} className={cls}>
         {inner}
       </Link>
     );

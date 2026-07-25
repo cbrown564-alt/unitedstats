@@ -23,6 +23,9 @@ Read `PRODUCT.md` and `DESIGN.md` at the repository root before changing the exp
 - [`MOBILE.md`](MOBILE.md) owns mobile behavior.
 - [`COPY-RUBRIC.md`](COPY-RUBRIC.md) owns editorial copy review.
 - [`PERF.md`](PERF.md) owns performance budgets and checks.
+- [`VERCEL-HOBBY-ASSESSMENT.md`](VERCEL-HOBBY-ASSESSMENT.md) records the
+  deferred crawler-discovery and static-export options for a possible return to
+  Vercel Hobby.
 - Dated reviews and incidents are evidence records. They do not replace the canonical owner documents.
 
 When documents conflict, current code and tests own implemented behavior; the canonical document for the concern owns intended behavior. Resolve the conflict explicitly rather than keeping both claims active.
