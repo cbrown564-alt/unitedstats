@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TransferHistoryLink } from "@/components/transfers/TransferHistoryLink";
 import { fmtDate, fmtEur, fmtMonthYear, feeLabel } from "@/lib/format";
 import type { InflationIndices, MoneyMode } from "@/lib/inflation";
 import { displayFeeGbp } from "@/lib/transferAggregates";
@@ -49,6 +50,7 @@ export function TransferList({
   showDirection = true,
   moneyMode = "nominal",
   indices,
+  trackingSource,
 }: {
   transfers: TransferRow[];
   showPlayer?: boolean;
@@ -56,6 +58,7 @@ export function TransferList({
   showDirection?: boolean;
   moneyMode?: MoneyMode;
   indices?: InflationIndices;
+  trackingSource?: string;
 }) {
   return (
     <ul className="divide-y divide-line/60 rounded-xl border border-line bg-panel">
@@ -75,13 +78,25 @@ export function TransferList({
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                   {showPlayer &&
                     (t.player_id ? (
-                      <Link
-                        href={`/player/${t.player_id}`}
-                        prefetch={false}
-                        className="text-sm font-medium text-ink hover:text-devil-bright"
-                      >
-                        {t.player_name}
-                      </Link>
+                      trackingSource ? (
+                        <TransferHistoryLink
+                          href={`/player/${t.player_id}`}
+                          prefetch={false}
+                          className="text-sm font-medium text-ink hover:text-devil-bright"
+                          destination="player"
+                          source={trackingSource}
+                        >
+                          {t.player_name}
+                        </TransferHistoryLink>
+                      ) : (
+                        <Link
+                          href={`/player/${t.player_id}`}
+                          prefetch={false}
+                          className="text-sm font-medium text-ink hover:text-devil-bright"
+                        >
+                          {t.player_name}
+                        </Link>
+                      )
                     ) : (
                       <span className="text-sm font-medium text-ink-dim">{t.player_name}</span>
                     ))}

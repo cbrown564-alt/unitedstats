@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { TransferHistoryLink } from "@/components/transfers/TransferHistoryLink";
 import { fmtFee, fmtNum } from "@/lib/format";
 import type { NetSpendBucket } from "@/lib/queries";
 
@@ -13,12 +14,15 @@ export function SpendBars({
   buckets,
   hrefFor,
   portraitFor,
+  trackingSource,
 }: {
   buckets: NetSpendBucket[];
   /** Optional link target per bucket (managers link to their page; decades don't). */
   hrefFor?: (b: NetSpendBucket) => string;
   /** Optional portrait per bucket (manager avatars on the transfers page). */
   portraitFor?: (b: NetSpendBucket) => { name: string; src?: string | null } | null;
+  /** Optional transfer-history event source for linked manager rows. */
+  trackingSource?: string;
 }) {
   const scale = Math.max(1, ...buckets.map((b) => Math.max(b.spend, b.received)));
   const width = (value: number) => `${Math.max(value > 0 ? 1.5 : 0, (value / scale) * 100)}%`;
@@ -29,9 +33,20 @@ export function SpendBars({
         const href = hrefFor?.(b);
         const portrait = portraitFor?.(b);
         const label = href ? (
-          <Link href={href} className="font-medium text-ink hover:text-devil-bright">
-            {b.bucket}
-          </Link>
+          trackingSource ? (
+            <TransferHistoryLink
+              href={href}
+              className="font-medium text-ink hover:text-devil-bright"
+              destination="manager"
+              source={trackingSource}
+            >
+              {b.bucket}
+            </TransferHistoryLink>
+          ) : (
+            <Link href={href} className="font-medium text-ink hover:text-devil-bright">
+              {b.bucket}
+            </Link>
+          )
         ) : (
           <span className="font-medium text-ink">{b.bucket}</span>
         );

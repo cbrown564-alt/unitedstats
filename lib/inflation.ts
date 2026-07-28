@@ -7,6 +7,7 @@ export interface CpiIndex {
 }
 
 export interface PlFootballIndex {
+  source: string;
   baseSeason: string;
   earliestSeason: string;
   plEraStart: string;

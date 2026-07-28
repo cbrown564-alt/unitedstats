@@ -2428,10 +2428,10 @@ export function playerTransfers(playerId: string): TransferRow[] {
     .all(playerId) as TransferRow[];
 }
 
-/** Every dated transfer, newest first — the source for the season-by-season archive. */
-export function datedTransfers(): TransferRow[] {
+/** Every transfer, including undated archival rows, newest first. */
+export function allTransfers(): TransferRow[] {
   return getDb()
-    .prepare(`${TRANSFER_SELECT} WHERE t.date IS NOT NULL ORDER BY t.date DESC, t.direction`)
+    .prepare(`${TRANSFER_SELECT} ORDER BY t.date IS NULL, t.date DESC, t.direction`)
     .all() as TransferRow[];
 }
 

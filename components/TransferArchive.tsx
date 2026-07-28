@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TransferHistoryLink } from "@/components/transfers/TransferHistoryLink";
 import type { TransferRow } from "@/lib/queries";
 import type { InflationIndices, MoneyMode } from "@/lib/inflation";
 import { displayFeeGbp } from "@/lib/transferAggregates";
@@ -24,15 +25,18 @@ export function TransferArchive({
   since = 1980,
   moneyMode = "nominal",
   indices,
+  trackingSource,
 }: {
   transfers: TransferRow[];
   since?: number;
   moneyMode?: MoneyMode;
   indices?: InflationIndices;
+  trackingSource?: string;
 }) {
   const groups = groupBySeason(transfers, moneyMode, indices);
   const modern = groups.filter((g) => g.startYear >= since);
   const legacy = groups.filter((g) => g.startYear > 0 && g.startYear < since);
+  const undated = groups.find((g) => g.startYear === 0);
   const offmarketTotal = groups.reduce((s, g) => s + g.offmarketCount, 0);
 
   return (
@@ -42,9 +46,17 @@ export function TransferArchive({
       <OffMarketToggle total={offmarketTotal} />
       <div className="space-y-2">
         {modern.map((g, i) => (
-          <SeasonRow key={g.season} group={g} open={i === 0} moneyMode={moneyMode} indices={indices} />
+          <SeasonRow
+            key={g.season}
+            group={g}
+            open={i === 0}
+            moneyMode={moneyMode}
+            indices={indices}
+            trackingSource={trackingSource}
+          />
         ))}
         {legacy.length > 0 && <LegacySummary groups={legacy} since={since} />}
+        {undated && <UndatedSummary group={undated} trackingSource={trackingSource} />}
       </div>
     </div>
   );
@@ -195,11 +207,13 @@ function DirectionSection({
   rows,
   moneyMode = "nominal",
   indices,
+  trackingSource,
 }: {
   kind: "in" | "out";
   rows: TransferRow[];
   moneyMode?: MoneyMode;
   indices?: InflationIndices;
+  trackingSource?: string;
 }) {
   const isIn = kind === "in";
   const fees = rows.reduce((s, r) => {
@@ -219,7 +233,14 @@ function DirectionSection({
           {fees > 0 && <span className="text-ink-dim"> · {fmtFee(fees)}</span>}
         </span>
       </div>
-      <TransferList transfers={byValue(rows, moneyMode, indices)} showPlayer showDirection={false} moneyMode={moneyMode} indices={indices} />
+      <TransferList
+        transfers={byValue(rows, moneyMode, indices)}
+        showPlayer
+        showDirection={false}
+        moneyMode={moneyMode}
+        indices={indices}
+        trackingSource={trackingSource}
+      />
     </div>
   );
 }
@@ -258,10 +279,12 @@ function OffGroup({
   label,
   Glyph,
   rows,
+  trackingSource,
 }: {
   label: string;
   Glyph: () => React.ReactElement;
   rows: TransferRow[];
+  trackingSource?: string;
 }) {
   return (
     <div className="min-w-0">
@@ -275,9 +298,21 @@ function OffGroup({
           <span key={r.id}>
             {i > 0 && <span className="text-ink-faint">, </span>}
             {r.player_id ? (
-              <Link href={`/player/${r.player_id}`} prefetch={false} className="text-ink-dim hover:text-ink">
-                {r.player_name}
-              </Link>
+              trackingSource ? (
+                <TransferHistoryLink
+                  href={`/player/${r.player_id}`}
+                  prefetch={false}
+                  className="text-ink-dim hover:text-ink"
+                  destination="player"
+                  source={trackingSource}
+                >
+                  {r.player_name}
+                </TransferHistoryLink>
+              ) : (
+                <Link href={`/player/${r.player_id}`} prefetch={false} className="text-ink-dim hover:text-ink">
+                  {r.player_name}
+                </Link>
+              )
             ) : (
               <span className="text-ink-faint">{r.player_name}</span>
             )}
@@ -293,7 +328,7 @@ function OffGroup({
  * checked; reveals as a dashed-topped band grouping the season's promotions,
  * releases and retirements — the roster moves with no fee and no market.
  */
-function OffMarketLane({ group: g }: { group: SeasonGroup }) {
+function OffMarketLane({ group: g, trackingSource }: { group: SeasonGroup; trackingSource?: string }) {
   if (g.offmarketCount === 0) return null;
   const kinds = [
     { label: "Academy", Glyph: AcademyGlyph, rows: g.academy },
@@ -308,7 +343,13 @@ function OffMarketLane({ group: g }: { group: SeasonGroup }) {
       </p>
       <div className="grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
         {kinds.map((k) => (
-          <OffGroup key={k.label} label={k.label} Glyph={k.Glyph} rows={k.rows} />
+          <OffGroup
+            key={k.label}
+            label={k.label}
+            Glyph={k.Glyph}
+            rows={k.rows}
+            trackingSource={trackingSource}
+          />
         ))}
       </div>
     </div>
@@ -320,11 +361,13 @@ function SeasonRow({
   open = false,
   moneyMode = "nominal",
   indices,
+  trackingSource,
 }: {
   group: SeasonGroup;
   open?: boolean;
   moneyMode?: MoneyMode;
   indices?: InflationIndices;
+  trackingSource?: string;
 }) {
   const hasFee = g.spend > 0 || g.received > 0;
   return (
@@ -353,17 +396,80 @@ function SeasonRow({
         <div className="grid items-start gap-x-6 gap-y-3 lg:grid-cols-2">
           {g.marketIn.length > 0 && (
             <div className="lg:col-start-1 lg:row-start-1">
-              <DirectionSection kind="in" rows={g.marketIn} moneyMode={moneyMode} indices={indices} />
+              <DirectionSection
+                kind="in"
+                rows={g.marketIn}
+                moneyMode={moneyMode}
+                indices={indices}
+                trackingSource={trackingSource}
+              />
             </div>
           )}
           {g.marketIn.length > 0 && g.marketOut.length > 0 && <div className="border-t border-line/60 lg:hidden" />}
           {g.marketOut.length > 0 && (
             <div className="lg:col-start-2 lg:row-start-1">
-              <DirectionSection kind="out" rows={g.marketOut} moneyMode={moneyMode} indices={indices} />
+              <DirectionSection
+                kind="out"
+                rows={g.marketOut}
+                moneyMode={moneyMode}
+                indices={indices}
+                trackingSource={trackingSource}
+              />
             </div>
           )}
         </div>
-        <OffMarketLane group={g} />
+        <OffMarketLane group={g} trackingSource={trackingSource} />
+      </div>
+    </details>
+  );
+}
+
+function UndatedSummary({
+  group,
+  trackingSource,
+}: {
+  group: SeasonGroup;
+  trackingSource?: string;
+}) {
+  const rows = [...group.marketIn, ...group.marketOut, ...group.academy, ...group.released, ...group.retired];
+  return (
+    <details className="group overflow-hidden rounded-lg border border-line bg-panel">
+      <summary className={summaryCls}>
+        <Chevron />
+        <h3 className="display shrink-0 text-base leading-none">Undated records</h3>
+        <span className="stat-num text-xs text-ink-faint">{fmtNum(rows.length)} moves</span>
+        <span className="ml-auto text-[10px] uppercase tracking-[0.1em] text-ink-faint">
+          date not recorded
+        </span>
+      </summary>
+      <div className="border-t border-line p-3 sm:p-4">
+        <p className="mb-3 max-w-2xl text-xs leading-5 text-ink-dim">
+          These transfers remain part of the canonical archive, but the source does not give a date precise enough
+          to place them in a season.
+        </p>
+        <ul className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+          {rows.map((row) => (
+            <li key={row.id} className="flex items-baseline justify-between gap-3 border-b border-line/40 pb-1.5">
+              {row.player_id && trackingSource ? (
+                <TransferHistoryLink
+                  href={`/player/${row.player_id}`}
+                  destination="player"
+                  source={trackingSource}
+                  className="min-w-0 truncate text-sm text-ink-dim hover:text-ink"
+                >
+                  {row.player_name}
+                </TransferHistoryLink>
+              ) : row.player_id ? (
+                <Link href={`/player/${row.player_id}`} className="min-w-0 truncate text-sm text-ink-dim hover:text-ink">
+                  {row.player_name}
+                </Link>
+              ) : (
+                <span className="min-w-0 truncate text-sm text-ink-faint">{row.player_name}</span>
+              )}
+              <span className="shrink-0 text-[11px] text-ink-faint">{row.direction === "in" ? "Arrived" : "Left"}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </details>
   );

@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-28T14:00:40.759Z",
+  "databaseBuiltAt": "2026-07-12T16:23:51.483Z",
+  "latestMatchDate": "2026-05-24",
+  "latestMatchSeason": "2025-26",
+  "cohortDefinition": "All recorded permanent incoming transfers; academy promotions and loans are excluded.",
+  "summary": {
+    "candidateSignings": 747,
+    "knownFeeSignings": 239,
+    "knownFeeWithSpellAppearances": 227,
+    "knownFeeWithPosition": 224,
+    "activeCandidates": 19,
+    "repeatedPlayers": 28,
+    "repeatedSigningRows": 58
+  },
+  "feeByEra": [
+    {
+      "era": "Unknown date",
+      "candidateSignings": 14,
+      "knownFeeSignings": 1,
+      "knownFeeWithAppearances": 0,
+      "knownFeeWithPosition": 1
+    },
+    {
+      "era": "Pre-1945",
+      "candidateSignings": 448,
+      "knownFeeSignings": 56,
+      "knownFeeWithAppearances": 55,
+      "knownFeeWithPosition": 54
+    },
+    {
+      "era": "1945–91",
+      "candidateSignings": 121,
+      "knownFeeSignings": 82,
+      "knownFeeWithAppearances": 79,
+      "knownFeeWithPosition": 79
+    },
+    {
+      "era": "1992–present",
+      "candidateSignings": 164,
+      "knownFeeSignings": 100,
+      "knownFeeWithAppearances": 93,
+      "knownFeeWithPosition": 90
+    }
+  ],
+  "plComparisonCorpus": {
+    "source": "Sky Sports-style PL mean fee index (transfermarkt.co.uk scrape + tim-hy seed fallback)",
+    "seasons": 33,
+    "corpusSize": 4471,
+    "earliestSeason": "1992-93",
+    "baseSeason": "2024-25",
+    "supportsMeanRelativeCost": true,
+    "supportsPercentiles": false,
+    "decision": "Use the index for descriptive mean-relative cost only. Do not publish percentile bands until a licensed row-level comparison corpus is retained and audited."
+  },
+  "coverage": [
+    {
+      "field": "signing_date",
+      "covered": 733,
+      "denominator": 747,
+      "source": "MUFCInfo transfer archive",
+      "missingMeaning": "Unknown, not zero",
+      "activeCensoring": "No",
+      "precision": "Day/month/year precision is retained",
+      "redistribution": "Internal derived use is permitted by the project source policy; review source terms before redistributing a frozen row-level research dataset."
+    },
+    {
+      "field": "manager_id",
+      "covered": 681,
+      "denominator": 747,
+      "source": "Transfer date × canonical manager tenures",
+      "missingMeaning": "Unknown when the signing date or tenure boundary is unavailable",
+      "activeCensoring": "No",
+      "precision": "Inherits transfer-date precision",
+      "redistribution": "Derived from the project fixture record and CC BY-SA/CC0-attributed enrichments; retain source attribution."
+    },
+    {
+      "field": "age_at_signing",
+      "covered": 0,
+      "denominator": 747,
+      "source": "No canonical birth-date field",
+      "missingMeaning": "Unavailable",
+      "activeCensoring": "No",
+      "precision": "Not calculated",
+      "redistribution": "No source selected"
+    },
+    {
+      "field": "position_group",
+      "covered": 619,
+      "denominator": 747,
+      "source": "Wikidata P413",
+      "missingMeaning": "Unknown; never inferred",
+      "activeCensoring": "No",
+      "precision": "Broad primary-position bucket",
+      "redistribution": "Wikidata attribution required"
+    },
+    {
+      "field": "prior_pl_experience",
+      "covered": 0,
+      "denominator": 747,
+      "source": "No licensed prior-club appearance history",
+      "missingMeaning": "Unavailable",
+      "activeCensoring": "No",
+      "precision": "Not calculated",
+      "redistribution": "No source selected"
+    },
+    {
+      "field": "fee_gbp",
+      "covered": 239,
+      "denominator": 747,
+      "source": "MUFCInfo transfer archive",
+      "missingMeaning": "Unknown, free, or undisclosed is distinct from zero",
+      "activeCensoring": "No",
+      "precision": "Published nominal GBP amount",
+      "redistribution": "Internal derived use is permitted by the project source policy; review source terms before redistributing a frozen row-level research dataset."
+    },
+    {
+      "field": "fee_pl_mean_multiple",
+      "covered": 96,
+      "denominator": 747,
+      "source": "PL season mean index",
+      "missingMeaning": "Unavailable before 1992 or without a published fee",
+      "activeCensoring": "No",
+      "precision": "Relative to season mean, not a percentile",
+      "redistribution": "Aggregated comparison corpus; do not redistribute raw scraped rows"
+    },
+    {
+      "field": "fee_pl_percentile",
+      "covered": 0,
+      "denominator": 747,
+      "source": "Row-level PL comparison corpus not retained",
+      "missingMeaning": "Unavailable",
+      "activeCensoring": "No",
+      "precision": "Cannot reconstruct from season means",
+      "redistribution": "Requires a licensed/reusable row-level corpus"
+    },
+    {
+      "field": "market_value_eur",
+      "covered": 79,
+      "denominator": 747,
+      "source": "transfermarkt-datasets",
+      "missingMeaning": "Unknown, not zero",
+      "activeCensoring": "No",
+      "precision": "Nearest recorded estimate at transfer time",
+      "redistribution": "CC0 dataset attribution retained"
+    },
+    {
+      "field": "spell_appearances",
+      "covered": 651,
+      "denominator": 747,
+      "source": "Canonical match lineups",
+      "missingMeaning": "Unavailable without player/date linkage",
+      "activeCensoring": "Ongoing spells accumulate",
+      "precision": "Bounded by recorded signing/exit dates; imprecise dates remain flagged",
+      "redistribution": "Derived from the project fixture record and CC BY-SA/CC0-attributed enrichments; retain source attribution."
+    },
+    {
+      "field": "honour_seasons_involved",
+      "covered": 651,
+      "denominator": 747,
+      "source": "Canonical match participation and trophy rules",
+      "missingMeaning": "Empty means no qualifying involvement only when spell stats are covered",
+      "activeCensoring": "Ongoing spells accumulate",
+      "precision": "Five league appearances or one cup appearance in a winning campaign",
+      "redistribution": "Derived from the project fixture record and CC BY-SA/CC0-attributed enrichments; retain source attribution."
+    },
+    {
+      "field": "exit_event",
+      "covered": 555,
+      "denominator": 747,
+      "source": "MUFCInfo transfer archive",
+      "missingMeaning": "No recorded exit is not proof of an active spell",
+      "activeCensoring": "Yes",
+      "precision": "First non-loan departure before a repeat signing",
+      "redistribution": "Internal derived use is permitted by the project source policy; review source terms before redistributing a frozen row-level research dataset."
+    },
+    {
+      "field": "known_exit_fee_gbp",
+      "covered": 105,
+      "denominator": 555,
+      "source": "MUFCInfo transfer archive",
+      "missingMeaning": "Unknown/free/undisclosed is distinct from zero",
+      "activeCensoring": "Active candidates excluded from denominator",
+      "precision": "Published nominal GBP amount",
+      "redistribution": "Internal derived use is permitted by the project source policy; review source terms before redistributing a frozen row-level research dataset."
+    }
+  ],
+  "conclusion": {
+    "descriptiveStudy": "supported_with_limits",
+    "probabilityModel": "closed",
+    "bestValueRanking": "closed",
+    "reason": "The 239 known-fee signings support descriptive cost-versus-career views, but signing age and prior league experience are absent, active/completed status is partly inferred, and PL fee percentiles cannot be reconstructed."
+  }
+}

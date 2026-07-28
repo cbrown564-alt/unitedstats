@@ -160,9 +160,9 @@ export const listSeo = {
       "Curated Manchester United player and manager debates on role-appropriate measures, with coverage limits and match evidence.",
   },
   transfers: {
-    title: "Manchester United transfer history — signings & fees",
+    title: "Manchester United Transfer History — Every Signing and Sale",
     description:
-      "Manchester United transfer record since 1883 — record fees, signings, sales, and net spend by manager.",
+      "Manchester United transfer history from 1883 to 2026 — every recorded signing and sale, with published fees separated from free, undisclosed, and unknown deals.",
   },
   surprise: {
     title: "Surprise Manchester United facts",

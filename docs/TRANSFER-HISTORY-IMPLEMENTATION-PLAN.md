@@ -1,12 +1,31 @@
 # Transfer history — implementation plan
 
-**Status:** proposed
+**Status:** in progress
 
 **Date:** 2026-07-28
 
 **Owner:** transfer-history experience and analysis
 
 **Product role:** strong supporting feature, not Red Thread's flagship
+
+## Live status — 2026-07-28
+
+- **Order 1 — baseline and instrumentation:** implemented locally. The route
+  retains page-view analytics and now records transfer follow-link and money-mode
+  events. Live Search Console query metrics were not independently retrieved
+  because this session did not have authenticated Search Console access. That
+  baseline remains a deployment and observation task.
+- **A0 — feasibility audit:** implemented and verified. The generated
+  [audit](../research/transfer-history/a0-feasibility-audit.md) keeps a bounded
+  descriptive study open, with coverage limits. It closes the proposed
+  probability model and best-value ranking until stronger age, prior-league,
+  fee, and outcome coverage exists.
+- **Recommendation 1 — canonical history hub:** implemented and verified
+  locally at `/transfers`, including desktop and phone checks. It has not been
+  deployed or promoted.
+- **Next representative slice:** build the three exemplar season pages:
+  1998–99, 2013–14, and the current confirmed window. Prove those pages before
+  spreading the route pattern across seasons.
 
 ## Decision
 

@@ -1,6 +1,24 @@
 import { adjustFeeGbp, type InflationIndices, type MoneyMode } from "./inflation";
 import type { NetSpendBucket, SpendYear, TransferRow, TransferTotals } from "./queries";
 
+export interface TransferRecordSummary {
+  total: number;
+  knownFees: number;
+  knownFeePercent: number;
+  firstYear: number;
+  lastYear: number;
+}
+
+export interface TransferSeasonSummary {
+  season: string;
+  arrivals: number;
+  departures: number;
+  knownFees: number;
+  spend: number;
+  received: number;
+  lastVerifiedDate: string | null;
+}
+
 function effectiveFee(
   t: Pick<TransferRow, "fee_gbp" | "fee_kind" | "date" | "season">,
   mode: MoneyMode,
@@ -11,6 +29,46 @@ function effectiveFee(
 
 function isFeeRow(t: Pick<TransferRow, "fee_kind" | "fee_gbp">): boolean {
   return t.fee_kind === "fee" && t.fee_gbp != null;
+}
+
+export function transferRecordSummary(transfers: TransferRow[]): TransferRecordSummary {
+  const years = transfers
+    .map((transfer) => Number.parseInt((transfer.date ?? transfer.season ?? "").slice(0, 4), 10))
+    .filter(Number.isFinite);
+  const knownFees = transfers.filter(isFeeRow).length;
+  return {
+    total: transfers.length,
+    knownFees,
+    knownFeePercent: transfers.length === 0 ? 0 : Math.round((knownFees / transfers.length) * 100),
+    firstYear: years.length > 0 ? Math.min(...years) : 0,
+    lastYear: years.length > 0 ? Math.max(...years) : 0,
+  };
+}
+
+export function latestTransferSeasonSummary(transfers: TransferRow[]): TransferSeasonSummary | null {
+  const season = transfers.reduce<string | null>((latest, transfer) => {
+    if (!transfer.season) return latest;
+    return latest == null || transfer.season > latest ? transfer.season : latest;
+  }, null);
+  if (!season) return null;
+
+  const rows = transfers.filter((transfer) => transfer.season === season);
+  return {
+    season,
+    arrivals: rows.filter((transfer) => transfer.direction === "in").length,
+    departures: rows.filter((transfer) => transfer.direction === "out").length,
+    knownFees: rows.filter(isFeeRow).length,
+    spend: rows
+      .filter((transfer) => transfer.direction === "in" && isFeeRow(transfer))
+      .reduce((sum, transfer) => sum + transfer.fee_gbp!, 0),
+    received: rows
+      .filter((transfer) => transfer.direction === "out" && isFeeRow(transfer))
+      .reduce((sum, transfer) => sum + transfer.fee_gbp!, 0),
+    lastVerifiedDate: rows.reduce<string | null>(
+      (latest, transfer) => (!transfer.date || (latest && transfer.date <= latest) ? latest : transfer.date),
+      null,
+    ),
+  };
 }
 
 export function transferTotalsForMode(

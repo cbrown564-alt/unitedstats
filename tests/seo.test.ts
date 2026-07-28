@@ -71,4 +71,7 @@ test("listSeo uses fan-search phrases with Manchester United", () => {
   assert.match(listSeo.matches.title, /Manchester United/);
   assert.match(listSeo.players.description, /appearances/);
   assert.match(listSeo.seasons.description, /treble seasons/);
+  assert.equal(listSeo.transfers.title, "Manchester United Transfer History — Every Signing and Sale");
+  assert.match(listSeo.transfers.description, /1883 to 2026/);
+  assert.match(listSeo.transfers.description, /undisclosed/);
 });

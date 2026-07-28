@@ -39,6 +39,7 @@
     "check:player-media-roster": "tsx scripts/check-media.ts --strict-roster",
     "check:player-media-research": "tsx scripts/check-player-media-research.ts",
     "audit:media": "tsx scripts/audit-media.ts",
+    "audit:transfer-history": "tsx scripts/audit-transfer-history.ts",
     "check:perf": "node scripts/check-perf-budgets.mjs",
     "build:db": "tsx scripts/build-db.ts",
     "export:dataset": "tsx scripts/export-dataset.ts",

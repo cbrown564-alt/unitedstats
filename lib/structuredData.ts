@@ -200,6 +200,50 @@ export function websiteJsonLd(): JsonLd {
   };
 }
 
+export function transferHistoryJsonLd(latestSeason?: string): JsonLd {
+  const pageUrl = `${SITE_URL}/transfers`;
+  const items = [
+    ...(latestSeason
+      ? [{ name: `Current confirmed window · ${latestSeason}`, url: `${pageUrl}#current-window` }]
+      : []),
+    { name: "The 1998–99 Treble window", url: `${pageUrl}#txseason-1998-99` },
+    { name: "Manchester United record transfer deals", url: `${pageUrl}#record-deals` },
+    { name: "Manchester United transfer spending by manager", url: `${pageUrl}#manager-view` },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Red Thread",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Manchester United transfer history",
+            item: pageUrl,
+          },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        name: "Ways into the Manchester United transfer record",
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          url: item.url,
+        })),
+      },
+    ],
+  };
+}
+
 export function matchJsonLd(match: MatchRow, sources: MatchSourceRecord[]): JsonLd {
   const ref = matchRef(match.id);
   const provenance = sources.map((source) => matchSourceProvenance(source, match.id));

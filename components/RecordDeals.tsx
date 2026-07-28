@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { TransferHistoryLink } from "@/components/transfers/TransferHistoryLink";
 import { transferEditorialLine } from "@/lib/transferEditorial";
 import { fmtFee } from "@/lib/format";
 import type { InflationIndices, MoneyMode } from "@/lib/inflation";
@@ -44,9 +44,15 @@ function FeaturedDeal({
 
   if (href) {
     return (
-      <Link href={href} prefetch={false} className={`${cls} focus-ring`}>
+      <TransferHistoryLink
+        href={href}
+        prefetch={false}
+        className={`${cls} focus-ring`}
+        destination="player"
+        source="record_deals"
+      >
         {inner}
-      </Link>
+      </TransferHistoryLink>
     );
   }
 
@@ -86,9 +92,15 @@ function CompactDeal({
 
   if (href) {
     return (
-      <Link href={href} prefetch={false} className={cls}>
+      <TransferHistoryLink
+        href={href}
+        prefetch={false}
+        className={cls}
+        destination="player"
+        source="record_deals"
+      >
         {inner}
-      </Link>
+      </TransferHistoryLink>
     );
   }
 

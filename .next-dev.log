@@ -1,6 +1,23 @@
+
+> unitedstats@0.1.0 predev
+> node -e "require('node:fs').existsSync('data/united.db')||require('node:child_process').execSync('npm run build:db',{stdio:'inherit'})"
+
+
+> unitedstats@0.1.0 dev
+> next dev --port 3002
+
 ▲ Next.js 16.2.9 (Turbopack)
-- Local:         http://localhost:3990
-- Network:       http://10.5.0.2:3990
+- Local:         http://localhost:3002
+- Network:       http://10.5.0.2:3002
 - Environments: .env.local, .env
-✓ Ready in 616ms
-[?25h
+✓ Ready in 1385ms
+- Experiments (use with caution):
+  ✓ viewTransition
+
+○ Compiling /transfers ...
+ GET /transfers 200 in 6.6s (next.js: 5.6s, application-code: 1019ms)
+ GET /transfers 200 in 437ms (next.js: 9ms, application-code: 429ms)
+ GET /transfers 200 in 433ms (next.js: 9ms, application-code: 424ms)
+ GET /transfers 200 in 28ms (next.js: 12ms, application-code: 16ms)
+ GET /transfers 200 in 380ms (next.js: 9ms, application-code: 371ms)
+ GET /transfers 200 in 443ms (next.js: 9ms, application-code: 434ms)

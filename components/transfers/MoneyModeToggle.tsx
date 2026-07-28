@@ -3,7 +3,7 @@
 import type { MoneyMode } from "@/lib/inflation";
 import { moneyModeShort } from "@/lib/inflation";
 
-const MODES: MoneyMode[] = ["nominal", "football"];
+const MODES: MoneyMode[] = ["nominal", "cpi", "football"];
 
 /**
  * Inline money-mode switch — small text, active option underlined.

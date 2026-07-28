@@ -55,3 +55,5 @@
  GET /stories 200 in 385ms (next.js: 79ms, application-code: 306ms)
  GET /stories 200 in 70ms (next.js: 5ms, application-code: 65ms)
  GET /stories 200 in 70ms (next.js: 5ms, application-code: 65ms)
+ GET /questions/fortress 200 in 4.6s (next.js: 1264ms, generate-params: 1004ms, application-code: 3.4s)
+ GET /exectv2-sf-inspection 404 in 330ms (next.js: 130ms, application-code: 200ms)
