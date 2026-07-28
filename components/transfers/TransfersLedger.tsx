@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ChangeEvent } from "react";
 import { track } from "@vercel/analytics";
 import { RecordDeals } from "@/components/RecordDeals";
 import { SpendBars } from "@/components/SpendBars";
@@ -58,6 +58,13 @@ export function TransfersLedger({
   );
   const record = useMemo(() => transferRecordSummary(transfers), [transfers]);
   const latestSeason = useMemo(() => latestTransferSeasonSummary(transfers), [transfers]);
+  const seasonOptions = useMemo(
+    () =>
+      [...new Set(transfers.map((transfer) => transfer.season).filter((season): season is string => !!season))]
+        .filter((season) => Number.parseInt(season.slice(0, 4), 10) >= 1980)
+        .sort((a, b) => b.localeCompare(a)),
+    [transfers],
+  );
 
   const net = totals.gross_spend - totals.gross_received;
   const setMode = (nextMode: MoneyMode) => {
@@ -65,46 +72,54 @@ export function TransfersLedger({
     track("transfer_history_money_mode", { mode: nextMode });
     setMoneyMode(nextMode);
   };
+  const revealSeason = (season: string) => {
+    const target = document.getElementById(`txseason-${season}`);
+    if (target instanceof HTMLDetailsElement) target.open = true;
+  };
+  const jumpToSeason = (event: ChangeEvent<HTMLSelectElement>) => {
+    const season = event.currentTarget.value;
+    if (!season) return;
+    revealSeason(season);
+    document.getElementById(`txseason-${season}`)?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "start",
+    });
+    event.currentTarget.value = "";
+  };
 
   return (
-    <>
-      <section className="relative overflow-hidden rounded-xl border border-line bg-panel">
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top_right,rgb(218_41_28_/_0.13),transparent_68%)]"
-          aria-hidden
-        />
-        <div className="relative grid gap-6 p-4 sm:p-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(17rem,0.65fr)] lg:gap-10 lg:p-7">
+    <div className="space-y-10 sm:space-y-14">
+      <section
+        id="money-tide"
+        aria-labelledby="transfer-history-title"
+        className="-mx-4 scroll-mt-28 overflow-hidden border-y border-line bg-panel sm:mx-0 sm:rounded-xl sm:border"
+      >
+        <header className="grid gap-6 border-b border-line/70 px-4 py-5 sm:px-6 sm:py-7 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,0.48fr)] lg:items-end lg:gap-12">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">The recorded business</p>
-            <h2 className="display mt-2 max-w-2xl text-2xl text-balance sm:text-3xl">
-              {fmtNum(record.total)} arrivals and departures, from {record.firstYear} to {record.lastYear}
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-dim">
-              Follow a deal into the player, the manager who sanctioned it, and the season that followed. Only{" "}
-              <span className="stat-num text-ink">{fmtNum(record.knownFees)}</span> records carry a published fee, so
-              every money total is a floor and the early years sit flat on the line.
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">
+              Transfer history <span className="text-ink-faint">·</span>{" "}
+              <span className="stat-num tracking-normal text-ink-dim">{record.firstYear}–{record.lastYear}</span>
+            </p>
+            <h1
+              id="transfer-history-title"
+              className="mt-2 text-3xl font-semibold tracking-[-0.025em] text-balance text-ink sm:text-4xl"
+            >
+              The money tide
+            </h1>
+            <p className="mt-3 max-w-2xl text-base leading-7 text-ink-dim">
+              For most of the first century, fees barely register in the surviving record. Then the modern market
+              rises from the line — spending above it, receipts below.
+            </p>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-faint">
+              This is every recorded arrival and departure.{" "}
+              <span className="stat-num text-ink">{fmtNum(record.knownFees)}</span> of{" "}
+              <span className="stat-num text-ink">{fmtNum(record.total)}</span> moves carry a published fee, so every
+              money total remains a floor.
             </p>
           </div>
 
-          <dl className="divide-y divide-line/70 border-y border-line/70 text-sm">
-            <div className="flex items-baseline justify-between gap-4 py-2.5">
-              <dt className="text-ink-faint">Record span</dt>
-              <dd className="stat-num font-medium text-ink">{record.firstYear}–{record.lastYear}</dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-4 py-2.5">
-              <dt className="text-ink-faint">Published fees</dt>
-              <dd className="stat-num font-medium text-ink">{fmtNum(record.knownFees)} · {record.knownFeePercent}%</dd>
-            </div>
-            <div className="flex items-baseline justify-between gap-4 py-2.5">
-              <dt className="text-ink-faint">Recorded moves</dt>
-              <dd className="stat-num font-medium text-ink">{fmtNum(record.total)}</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="relative border-t border-line/70 px-4 py-3 sm:px-5 lg:px-7">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-2xl text-[11px] leading-5 text-ink-faint">
+          <div className="min-w-0">
+            <p className="mb-2 text-sm leading-5 text-ink-dim" aria-live="polite">
               {moneyMode === "nominal" && <>Fees as published when each deal completed.</>}
               {moneyMode === "cpi" && <>Published fees restated in today&apos;s UK consumer prices.</>}
               {moneyMode === "football" && (
@@ -115,118 +130,108 @@ export function TransfersLedger({
             </p>
             <MoneyModeToggle mode={moneyMode} onChange={setMode} />
           </div>
-          <dl className="mt-3 grid grid-cols-3 divide-x divide-line/70 border-t border-line/70 pt-3">
-            <div className="pr-3">
-              <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Spent</dt>
-              <dd className="stat-num mt-1 text-base font-semibold text-devil-bright sm:text-xl">{fmtFee(totals.gross_spend)}</dd>
-            </div>
-            <div className="px-3">
-              <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Received</dt>
-              <dd className="stat-num mt-1 text-base font-semibold text-gold sm:text-xl">{fmtFee(totals.gross_received)}</dd>
-            </div>
-            <div className="pl-3">
-              <dt className="text-[10px] uppercase tracking-[0.12em] text-ink-faint">Net floor</dt>
-              <dd className="stat-num mt-1 text-base font-semibold text-ink sm:text-xl">{fmtFee(net)}</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
+        </header>
 
-      {latestSeason && (
-        <section
-          id="current-window"
-          className="scroll-mt-28 border-y border-line/70 py-4 sm:flex sm:items-center sm:justify-between sm:gap-8"
-        >
-          <div>
-            <p className="text-xs font-semibold text-devil-bright">Current confirmed window · {latestSeason.season}</p>
-            <p className="mt-1 text-sm leading-6 text-ink-dim">
-              <span className="stat-num text-ink">{latestSeason.arrivals}</span> arrivals and{" "}
-              <span className="stat-num text-ink">{latestSeason.departures}</span> departures are recorded
-              {latestSeason.lastVerifiedDate ? ` through ${fmtDate(latestSeason.lastVerifiedDate)}` : ""}. No rumours
-              enter this record.
-            </p>
-          </div>
-          <TransferHistoryLink
-            href={`#txseason-${latestSeason.season}`}
-            destination="season"
-            source="current_window"
-            className="mt-3 inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-ink hover:text-devil-bright sm:mt-0"
-          >
-            Open the window <span aria-hidden>↓</span>
-          </TransferHistoryLink>
-        </section>
-      )}
-
-      <section id="money-tide" className="scroll-mt-28 space-y-3">
-        <SectionHead title="The historical money tide" aside={`${record.firstYear}–${record.lastYear}`} />
-        <div className="rounded-xl border border-line bg-panel p-3 sm:p-4">
+        <div className="px-3 py-5 sm:p-6">
           <SpendTide years={tide} />
         </div>
-      </section>
 
-      <section className="space-y-3">
-        <SectionHead title="Ways into the record" aside="four authored paths" />
-        <div className="grid overflow-hidden rounded-xl border border-line bg-panel sm:grid-cols-2">
-          {latestSeason && (
-            <TransferHistoryLink
-              href={`#txseason-${latestSeason.season}`}
-              destination="season"
-              source="ways_into_record"
-              className="group flex min-h-24 items-end justify-between gap-4 border-b border-line/70 p-4 hover:bg-panel-2 sm:border-r"
-            >
-              <span>
-                <span className="block text-sm font-semibold text-ink">Latest window</span>
-                <span className="mt-1 block text-xs leading-5 text-ink-faint">{latestSeason.season} confirmed business</span>
-              </span>
-              <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
-            </TransferHistoryLink>
-          )}
+        <dl className="grid grid-cols-3 divide-x divide-line/70 border-t border-line/70">
+          <div className="px-3 py-3 sm:px-6 sm:py-4">
+            <dt className="text-xs text-ink-faint">Known spend</dt>
+            <dd className="stat-num mt-1 text-sm font-semibold text-devil-bright sm:text-xl">
+              {fmtFee(totals.gross_spend)}
+            </dd>
+          </div>
+          <div className="px-3 py-3 sm:px-6 sm:py-4">
+            <dt className="text-xs text-ink-faint">Known receipts</dt>
+            <dd className="stat-num mt-1 text-sm font-semibold text-gold sm:text-xl">
+              {fmtFee(totals.gross_received)}
+            </dd>
+          </div>
+          <div className="px-3 py-3 sm:px-6 sm:py-4">
+            <dt className="text-xs text-ink-faint">Net floor</dt>
+            <dd className="stat-num mt-1 text-sm font-semibold text-ink sm:text-xl">{fmtFee(net)}</dd>
+          </div>
+        </dl>
+
+        <div className="grid border-t border-line/70 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)]">
           <TransferHistoryLink
             href="#txseason-1998-99"
             destination="season"
-            source="ways_into_record"
-            className="group flex min-h-24 items-end justify-between gap-4 border-b border-line/70 p-4 hover:bg-panel-2"
+            source="opening_thread"
+            onClick={() => revealSeason("1998-99")}
+            className="group block px-4 py-5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-6 sm:py-6 lg:border-r lg:border-line/70"
           >
-            <span>
-              <span className="block text-sm font-semibold text-ink">The Treble window</span>
-              <span className="mt-1 block text-xs leading-5 text-ink-faint">1998–99 arrivals and departures</span>
+            <span className="stat-num text-xs font-medium text-devil-bright">1998–99</span>
+            <h2 className="mt-1.5 max-w-xl text-xl font-semibold tracking-[-0.015em] text-ink group-hover:text-devil-bright sm:text-2xl">
+              Yorke, Stam, Blomqvist — and the window before the Treble
+            </h2>
+            <p className="mt-2 max-w-xl text-sm leading-6 text-ink-dim">
+              Follow three arrivals from the ledger into the season that ended in Barcelona.
+            </p>
+            <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink">
+              Open the Treble window <span aria-hidden>↓</span>
             </span>
-            <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
           </TransferHistoryLink>
-          <TransferHistoryLink
-            href="#record-deals"
-            destination="player"
-            source="ways_into_record"
-            className="group flex min-h-24 items-end justify-between gap-4 border-b border-line/70 p-4 hover:bg-panel-2 sm:border-b-0 sm:border-r"
-          >
-            <span>
-              <span className="block text-sm font-semibold text-ink">Record deals</span>
-              <span className="mt-1 block text-xs leading-5 text-ink-faint">The biggest recorded fees in and out</span>
-            </span>
-            <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
-          </TransferHistoryLink>
-          <TransferHistoryLink
-            href="#manager-view"
-            destination="manager"
-            source="ways_into_record"
-            className="group flex min-h-24 items-end justify-between gap-4 p-4 hover:bg-panel-2"
-          >
-            <span>
-              <span className="block text-sm font-semibold text-ink">Manager eras</span>
-              <span className="mt-1 block text-xs leading-5 text-ink-faint">Who sanctioned the recorded business</span>
-            </span>
-            <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
-          </TransferHistoryLink>
+
+          <nav aria-label="Explore the transfer record" className="border-t border-line/70 lg:border-t-0">
+            {latestSeason && (
+              <TransferHistoryLink
+                id="current-window"
+                href={`#txseason-${latestSeason.season}`}
+                destination="season"
+                source="opening_routes"
+                onClick={() => revealSeason(latestSeason.season)}
+                className="group flex min-h-14 items-center justify-between gap-4 border-b border-line/70 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+              >
+                <span>
+                  <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">
+                    Latest confirmed window
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-5 text-ink-faint">
+                    {latestSeason.season} · {latestSeason.arrivals} in, {latestSeason.departures} out
+                    {latestSeason.lastVerifiedDate ? ` · checked ${fmtDate(latestSeason.lastVerifiedDate)}` : ""}
+                  </span>
+                </span>
+                <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
+              </TransferHistoryLink>
+            )}
+            <TransferHistoryLink
+              href="#record-deals"
+              destination="player"
+              source="opening_routes"
+              className="group flex min-h-14 items-center justify-between gap-4 border-b border-line/70 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+            >
+              <span>
+                <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">Record deals</span>
+                <span className="mt-0.5 block text-xs leading-5 text-ink-faint">The biggest published fees in and out</span>
+              </span>
+              <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
+            </TransferHistoryLink>
+            <TransferHistoryLink
+              href="#manager-view"
+              destination="manager"
+              source="opening_routes"
+              className="group flex min-h-14 items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+            >
+              <span>
+                <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">Manager eras</span>
+                <span className="mt-0.5 block text-xs leading-5 text-ink-faint">Who sanctioned the known-fee business</span>
+              </span>
+              <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
+            </TransferHistoryLink>
+          </nav>
         </div>
       </section>
 
       <section id="record-deals" className="scroll-mt-28 space-y-3">
-        <SectionHead title="The record deals" aside="by published fee" />
+        <SectionHead title="The record deals" aside="by published fee" variant="sentence" />
         <RecordDeals signings={topIn} sales={topOut} moneyMode={moneyMode} indices={indices} />
       </section>
 
       <section id="manager-view" className="scroll-mt-28 space-y-3">
-        <SectionHead title="The manager view" aside="top 10 by recorded net spend" />
+        <SectionHead title="The manager view" aside="known fees · top 10 net spend" variant="sentence" />
         <SpendBars
           buckets={byManager}
           hrefFor={(b) => `/manager/${b.bucket_id}`}
@@ -236,7 +241,30 @@ export function TransfersLedger({
       </section>
 
       <section id="full-ledger" className="scroll-mt-28 space-y-3">
-        <SectionHead title="The full season ledger" aside="every dated window, newest first" />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <SectionHead
+            title="The full season ledger"
+            aside="every dated window, newest first"
+            variant="sentence"
+            className="mb-0"
+          />
+          <label className="flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-line bg-panel px-3 text-sm text-ink-dim has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-devil-bright">
+            <span className="font-medium text-ink">Jump to season</span>
+            <select
+              defaultValue=""
+              onChange={jumpToSeason}
+              className="min-h-9 bg-transparent text-sm text-ink outline-none"
+              aria-label="Jump to a season from 1980 onwards"
+            >
+              <option value="" disabled className="bg-panel text-ink">Choose</option>
+              {seasonOptions.map((season) => (
+                <option key={season} value={season} className="bg-panel text-ink">
+                  {season}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
         <TransferArchive
           transfers={transfers}
           since={1980}
@@ -244,9 +272,7 @@ export function TransfersLedger({
           indices={indices}
           trackingSource="season_ledger"
         />
-        <CoverageNote
-          slice="all recorded transfers, 1883–present"
-        >
+        <CoverageNote slice="all recorded transfers, 1883–present">
           Each season opens to its recorded transfers; the undated lane preserves moves that cannot be placed safely.
           Net spend counts only deals with a published fee.
           {moneyMode !== "nominal" && (
@@ -254,8 +280,7 @@ export function TransfersLedger({
               {" "}
               Figures are inflation-adjusted ({moneyModeLabel(moneyMode)}).
             </>
-          )}
-          {" "}
+          )}{" "}
           <TransferHistoryLink
             href="/data"
             destination="evidence"
@@ -266,6 +291,6 @@ export function TransfersLedger({
           </TransferHistoryLink>
         </CoverageNote>
       </section>
-    </>
+    </div>
   );
 }

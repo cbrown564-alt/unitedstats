@@ -92,11 +92,11 @@ export function moneyModeLabel(mode: MoneyMode): string {
 export function moneyModeShort(mode: MoneyMode): string {
   switch (mode) {
     case "nominal":
-      return "at the time";
+      return "At the time";
     case "cpi":
-      return "today (CPI)";
+      return "Today’s prices";
     case "football":
-      return "in today's money (PL index)";
+      return "Football market";
     default: {
       const _exhaustive: never = mode;
       return _exhaustive;

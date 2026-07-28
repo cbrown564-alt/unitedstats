@@ -8,11 +8,13 @@ export function SectionHead({
   title,
   aside,
   id,
+  variant = "display",
   className = "",
 }: {
   title: React.ReactNode;
   aside?: React.ReactNode;
   id?: string;
+  variant?: "display" | "sentence";
   className?: string;
 }) {
   return (
@@ -20,7 +22,15 @@ export function SectionHead({
       id={id}
       className={`mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 ${className}`}
     >
-      <h2 className="display text-xl">{title}</h2>
+      <h2
+        className={
+          variant === "display"
+            ? "display text-xl"
+            : "text-xl font-semibold tracking-[-0.015em] text-ink sm:text-2xl"
+        }
+      >
+        {title}
+      </h2>
       {aside != null && <span className="stat-num text-xs text-ink-faint">{aside}</span>}
     </div>
   );

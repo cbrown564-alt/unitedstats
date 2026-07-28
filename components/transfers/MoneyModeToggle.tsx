@@ -5,10 +5,7 @@ import { moneyModeShort } from "@/lib/inflation";
 
 const MODES: MoneyMode[] = ["nominal", "cpi", "football"];
 
-/**
- * Inline money-mode switch — small text, active option underlined.
- * Nominal fees at the time, UK CPI-adjusted, or Sky-style PL football inflation.
- */
+/** Native radio group with full-size targets for the three historical fee views. */
 export function MoneyModeToggle({
   mode,
   onChange,
@@ -17,37 +14,31 @@ export function MoneyModeToggle({
   onChange: (mode: MoneyMode) => void;
 }) {
   return (
-    <div
-      className="shrink-0 text-[11px] leading-none text-ink-faint"
-      role="radiogroup"
-      aria-label="Show fees"
-    >
-      {MODES.map((m, i) => {
-        const active = mode === m;
-        const isFootball = m === "football";
-        return (
-          <span key={m}>
-            {i > 0 && <span className="px-1 text-ink-faint/60">·</span>}
-            <button
-              type="button"
-              role="radio"
-              aria-checked={active}
-              onClick={() => onChange(m)}
-              className={`transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
-                isFootball
-                  ? active
-                    ? "text-ink underline decoration-devil-bright underline-offset-[3px]"
-                    : "text-ink-dim underline decoration-devil-bright/70 underline-offset-[3px] hover:text-ink hover:decoration-devil-bright"
-                  : active
-                    ? "text-ink underline decoration-ink/40 underline-offset-[3px]"
-                    : "text-ink-dim hover:text-ink"
+    <fieldset className="min-w-0">
+      <legend className="sr-only">Show transfer fees</legend>
+      <div className="grid grid-cols-3 overflow-hidden rounded-lg border border-line bg-pitch/40">
+        {MODES.map((m) => {
+          const active = mode === m;
+          return (
+            <label
+              key={m}
+              className={`flex min-h-11 cursor-pointer items-center justify-center border-r border-line px-2 text-center text-xs font-medium leading-tight transition-colors last:border-r-0 has-[:focus-visible]:relative has-[:focus-visible]:z-10 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-[-2px] has-[:focus-visible]:outline-devil-bright sm:px-3 ${
+                active ? "bg-panel-2 text-ink" : "text-ink-dim hover:bg-panel-2/70 hover:text-ink"
               }`}
             >
-              {moneyModeShort(m)}
-            </button>
-          </span>
-        );
-      })}
-    </div>
+              <input
+                type="radio"
+                name="transfer-money-mode"
+                value={m}
+                checked={active}
+                onChange={() => onChange(m)}
+                className="sr-only"
+              />
+              <span>{moneyModeShort(m)}</span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
   );
 }

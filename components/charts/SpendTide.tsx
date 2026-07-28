@@ -64,23 +64,23 @@ export function SpendTide({ years }: { years: SpendYear[] }) {
   const ticks: { year: number; left: number; label: string }[] = [];
   for (let y = Math.ceil(minY / 20) * 20; y <= maxY; y += 20) {
     const left = x(y);
-    if (left < 8 || left > 92) continue;
+    if (left < 14 || left > 92) continue;
     ticks.push({ year: y, left, label: y % 100 === 0 ? String(y) : `’${String(y).slice(2)}` });
   }
 
   return (
     <figure className="m-0">
       {/* the money tide */}
-      <div className="relative h-48 w-full sm:h-60">
+      <div className="relative h-44 w-full sm:h-56 lg:h-64" aria-hidden>
         {/* pre-fee era: shaded across to the fee era + labelled, so the flat early
             line reads as "no published fees", not "no business" */}
         <div
-          className="absolute inset-y-0 left-0 flex items-start justify-center bg-[repeating-linear-gradient(135deg,rgb(255_255_255/0.03)_0,rgb(255_255_255/0.03)_2px,transparent_2px,transparent_7px)]"
+          className="absolute inset-y-0 left-0 flex items-start justify-center border-r border-line/40 bg-ink/[0.025]"
           style={{ width: `${x(feeEraStart)}%` }}
-          aria-hidden
         >
-          <span className="mt-2 max-w-[14rem] text-center text-[9px] font-medium uppercase leading-tight tracking-[0.12em] text-ink-faint">
-            Fees largely undisclosed before the 1970s
+          <span className="mt-2 max-w-[14rem] px-2 text-center text-xs leading-4 text-ink-faint">
+            <span className="sm:hidden">Fees mostly undisclosed</span>
+            <span className="hidden sm:inline">Fees largely undisclosed before the 1970s</span>
           </span>
         </div>
 
@@ -91,7 +91,7 @@ export function SpendTide({ years }: { years: SpendYear[] }) {
 
         {/* the £0 line the tide diverges from */}
         <div className="absolute inset-x-0 border-t border-line/70" style={{ top: `${C}%` }} aria-hidden />
-        <span className="stat-num absolute right-0 -translate-y-1/2 text-[10px] text-ink-faint" style={{ top: `${C}%` }}>
+        <span className="stat-num absolute right-0 -translate-y-1/2 text-xs text-ink-faint" style={{ top: `${C}%` }}>
           £0
         </span>
 
@@ -144,11 +144,11 @@ export function SpendTide({ years }: { years: SpendYear[] }) {
 
       {/* the people-flow strip — every year's business by count, the whole timeline.
           Title sits above its own band so it never collides with the bars. */}
-      <div className="mt-3 w-full">
+      <div className="mt-3 w-full" aria-hidden>
         <div className="mb-1 flex justify-end">
-          <span className="text-[9px] uppercase tracking-[0.12em] text-ink-faint">players moved / year</span>
+          <span className="text-xs text-ink-faint">Players moved each year</span>
         </div>
-        <div className="relative h-12 border-t border-line/40">
+        <div className="relative h-9 border-t border-line/40 sm:h-10 lg:h-12">
           {rows.map((r) => (
             <div
               key={r.year}
@@ -161,22 +161,68 @@ export function SpendTide({ years }: { years: SpendYear[] }) {
       </div>
 
       {/* decade axis */}
-      <div className="relative mt-1 h-3.5">
+      <div
+        className="relative mt-1 h-4 mb-[var(--mobile-nav-clearance)] sm:mb-0"
+        aria-hidden
+      >
         {ticks.map((t) => (
-          <span key={t.year} className="stat-num absolute -translate-x-1/2 text-[10px] text-ink-faint" style={{ left: `${t.left}%` }}>
+          <span key={t.year} className="stat-num absolute -translate-x-1/2 text-xs text-ink-faint" style={{ left: `${t.left}%` }}>
             {t.label}
           </span>
         ))}
-        <span className="stat-num absolute left-0 text-[10px] text-ink-faint">{minY}</span>
-        <span className="stat-num absolute right-0 text-[10px] text-ink-faint">{maxY}</span>
+        <span className="stat-num absolute left-0 text-xs text-ink-faint">{minY}</span>
+        <span className="stat-num absolute right-0 text-xs text-ink-faint">{maxY}</span>
       </div>
 
       {/* legend — encoding stated once, where colour carries meaning */}
-      <figcaption className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-line/70 pt-3 text-[11px] text-ink-faint">
+      <figcaption className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line/70 pt-3 text-sm text-ink-faint">
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-devil" />Spent</span>
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm bg-gold" />Received</span>
-        <span className="text-ink-dim">Bar height is the year’s known fees on one shared scale · spend up, receipts down · pips mark the peak years</span>
+        <span className="text-ink-dim">
+          Known fees share one scale: spend rises, receipts fall, and the dots mark the peak years.
+        </span>
       </figcaption>
+
+      <details className="group mt-3 border-t border-line/70 sm:mb-[calc(var(--mobile-nav-clearance)+4rem)] lg:mb-0">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 py-2 text-sm font-medium text-ink-dim hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright [&::-webkit-details-marker]:hidden">
+          Read the chart as a table
+          <span className="text-ink-faint transition-transform duration-200 group-open:rotate-90" aria-hidden>›</span>
+        </summary>
+        <div className="max-h-80 overflow-auto border-t border-line/70">
+          <table className="w-full min-w-[34rem] border-collapse text-sm">
+            <caption className="sr-only">
+              Transfer fees and recorded player movement by year from {minY} to {maxY}
+            </caption>
+            <thead className="sticky top-0 bg-panel text-left text-xs text-ink-faint">
+              <tr>
+                <th scope="col" className="px-2 py-2 font-medium">Year</th>
+                <th scope="col" className="px-2 py-2 text-right font-medium">Spent</th>
+                <th scope="col" className="px-2 py-2 text-right font-medium">Received</th>
+                <th scope="col" className="px-2 py-2 text-right font-medium">Net</th>
+                <th scope="col" className="px-2 py-2 text-right font-medium">Moves</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-line/50">
+              {rows.map((row) => {
+                const rowNet = row.spend - row.received;
+                return (
+                  <tr key={row.year}>
+                    <th scope="row" className="stat-num px-2 py-2 text-left font-medium text-ink">{row.year}</th>
+                    <td className="stat-num px-2 py-2 text-right text-devil-bright">{fmtFee(row.spend)}</td>
+                    <td className="stat-num px-2 py-2 text-right text-gold">{fmtFee(row.received)}</td>
+                    <td className="stat-num px-2 py-2 text-right text-ink-dim">
+                      {rowNet >= 0 ? fmtFee(rowNet) : `−${fmtFee(-rowNet)}`}
+                    </td>
+                    <td className="stat-num px-2 py-2 text-right text-ink-dim">
+                      {row.signings + row.departures}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </details>
     </figure>
   );
 }
@@ -221,10 +267,10 @@ function PeakPip({
         }}
         title={`${label}: ${figure}`}
       >
-        <span className={`text-[11px] font-semibold tracking-tight ${figureCls}`}>
+        <span className={`text-xs font-semibold tracking-tight ${figureCls}`}>
           {isSpend ? "▲" : "▼"} {figure}
         </span>
-        <span className="text-[10px] text-ink-dim">{label}</span>
+        <span className="hidden text-xs text-ink-dim sm:inline">{label}</span>
       </div>
     </>
   );
