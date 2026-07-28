@@ -1,8 +1,11 @@
 # Transfer history — implementation plan
 
-**Status:** proposed  
-**Date:** 2026-07-28  
-**Owner:** transfer-history experience and analysis  
+**Status:** proposed
+
+**Date:** 2026-07-28
+
+**Owner:** transfer-history experience and analysis
+
 **Product role:** strong supporting feature, not Red Thread's flagship
 
 ## Decision
@@ -1198,3 +1201,15 @@ The transfer-history supporting feature is complete when:
 4. The bounded squad-build timeline makes at least one era transition easier to
    understand than a ledger does.
 5. Manager, club, and current-window lenses exist only where they offer genuine
+   context.
+6. Share cards faithfully summarise approved receipts or findings.
+7. Search arrivals can reach the wider Red Thread record without the transfer
+   feature displacing the main product.
+8. The cost-versus-success study either:
+   - publishes a validated, reproducible, uncertainty-aware lens; or
+   - records that the evidence does not support a reliable ranking and ships the
+     multi-dimensional scorecard instead.
+
+The eighth outcome is not a failure. Refusing to manufacture a confident
+"best-value transfer" table from inadequate evidence is part of the product's
+trust model.
