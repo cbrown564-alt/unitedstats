@@ -35,8 +35,9 @@ import { ManagerCompetitionsPanel } from "@/components/manager/ManagerCompetitio
 import { ManagerHonoursPanel } from "@/components/ManagerHonoursPanel";
 import { ManagerSeasonHighlights } from "@/components/manager/ManagerSeasonHighlights";
 import { ManagerSeasonLedger } from "@/components/manager/ManagerSeasonLedger";
-import { TransferArchive } from "@/components/TransferArchive";
-import { StatTile } from "@/components/PageHeader";
+import { ManagerTransferLensPanel } from "@/components/manager/ManagerTransferLens";
+import { loadInflationIndices } from "@/lib/inflationIndices";
+import { buildManagerTransferLensStatic } from "@/lib/transferManagerLens.server";
 import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
 import { managerTrophyHaul, managerBestSeason, majorHonoursCaption, splitManagerTrophyHaul } from "@/lib/compare";
 import {
@@ -45,7 +46,7 @@ import {
   peakWinRateSeasons,
   seasonSpanAnchor,
 } from "@/lib/managerSeasonHighlights";
-import { fmtDate, fmtFee, fmtNum, pct } from "@/lib/format";
+import { fmtDate, fmtNum, pct } from "@/lib/format";
 import { getDb } from "@/lib/db";
 import { queryString } from "@/lib/url";
 import { jsonLdHtml, managerJsonLd } from "@/lib/structuredData";
@@ -90,6 +91,8 @@ export default async function ManagerPage({
   const allMatches = managerMatches(id);
   const market = managerTransferSummary(id);
   const transfers = managerTransfers(id);
+  const inflationIndices = loadInflationIndices();
+  const transferLensStatic = buildManagerTransferLensStatic(id, transfers, inflationIndices);
   const haul = managerTrophyHaul(id);
   const { major: majorHaul, majorTotal, minorTotal } = splitManagerTrophyHaul(haul);
   const bySeason = enrichManagerSeasons(managerSeasonRecords(id));
@@ -376,45 +379,14 @@ export default async function ManagerPage({
             label: "Transfers",
             shortLabel: "Market",
             content: (
-              <section className="space-y-6">
-                {market && (market.signings > 0 || market.departures > 0) && (
-                  <div>
-                    <SectionHead title="In the market" aside="known fees, during the tenure" />
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                      <StatTile
-                        label="Net spend"
-                        value={market.net >= 0 ? fmtFee(market.net) : `+${fmtFee(-market.net)}`}
-                        detail={market.net >= 0 ? undefined : "net gain"}
-                        tone={market.net >= 0 ? "red" : "default"}
-                      />
-                      <StatTile label="Spent" value={fmtFee(market.spend)} detail={`${fmtNum(market.signings)} signings`} tone="red" />
-                      <StatTile label="Received" value={fmtFee(market.received)} detail={`${fmtNum(market.departures)} departures`} tone="gold" />
-                      <StatTile label="Transfers" value={fmtNum(market.signings + market.departures)} detail="signings and departures" />
-                    </div>
-                    <p className="mt-2 text-xs text-ink-faint">
-                      Fees for arrivals and departures dated within the tenure, known fees only.{" "}
-                      <Link href="/transfers" className="text-devil-bright hover:underline">
-                        All transfers →
-                      </Link>
-                    </p>
-                  </div>
-                )}
-                <div>
-                  <SectionHead title="Season by season" aside="every window, newest first" />
-                  {transfers.length > 0 ? (
-                    <TransferArchive transfers={transfers} />
-                  ) : (
-                    <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-dim">
-                      No dated transfers during this tenure.
-                    </p>
-                  )}
-                  {transfers.length > 0 && (
-                    <p className="mt-3 text-xs text-ink-faint">
-                      Latest window open by default. Net spend counts known fees only — use the toggle for academy,
-                      releases and retirements.
-                    </p>
-                  )}
-                </div>
+              <section>
+                <ManagerTransferLensPanel
+                  managerId={id}
+                  managerName={m.name}
+                  transfers={transfers}
+                  indices={inflationIndices}
+                  staticLens={transferLensStatic}
+                />
               </section>
             ),
           },

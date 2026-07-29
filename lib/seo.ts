@@ -99,6 +99,23 @@ export function managerSeoDescription(m: ManagerRecord): string {
   return `${m.name} — Manchester United managerial record. ${fmtNum(m.p)} matches managed with a ${pct(m.w, m.p)} win rate.`;
 }
 
+export function clubTransferSeoTitle(clubName: string): string {
+  return `Manchester United and ${clubName} — transfer relationship`;
+}
+
+export function clubTransferSeoDescription(
+  clubName: string,
+  transfers: import("./queries").TransferRow[],
+  clubId: string,
+): string {
+  const rows = transfers.filter(
+    (t) => t.club_id === clubId && !["youth", "released", "retired"].includes(t.type),
+  );
+  const arrivals = rows.filter((t) => t.direction === "in").length;
+  const departures = rows.filter((t) => t.direction === "out").length;
+  return `Every recorded market transfer between Manchester United and ${clubName}: ${fmtNum(arrivals)} arrivals, ${fmtNum(departures)} departures, and known fees where published.`;
+}
+
 export function opponentSeoTitle(o: OpponentRecord): string {
   return `Manchester United vs ${o.name} — head to head record`;
 }
