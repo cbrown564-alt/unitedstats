@@ -1,6 +1,6 @@
 import { TransferReceiptCard } from "@/components/transfers/TransferReceipt";
 import type { InflationIndices, MoneyMode } from "@/lib/inflation";
-import type { TransferReceipt } from "@/lib/transferReceipt";
+import type { TransferReceipt } from "@/lib/transferReceiptTypes";
 import type { TransferRow } from "@/lib/queries";
 
 function DealBoard({

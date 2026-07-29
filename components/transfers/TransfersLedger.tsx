@@ -25,7 +25,7 @@ import type { CurrentTransferWindowModel } from "@/lib/currentTransferWindow";
 import { fmtDate, fmtFee, fmtNum } from "@/lib/format";
 import { SquadBuildTimeline } from "@/components/transfers/SquadBuildTimeline";
 import type { SquadBuildDataset } from "@/lib/squadBuild";
-import type { TransferReceipt } from "@/lib/transferReceipt";
+import type { TransferReceipt } from "@/lib/transferReceiptTypes";
 import type { ManagerTransferTenure, TransferRow } from "@/lib/queries";
 
 export function TransfersLedger({

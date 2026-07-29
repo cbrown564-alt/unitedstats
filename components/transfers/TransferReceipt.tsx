@@ -11,7 +11,7 @@ import {
   type TransferReceiptDeal,
   type TransferReceiptExit,
   type TransferReceiptSpell,
-} from "@/lib/transferReceipt";
+} from "@/lib/transferReceiptTypes";
 
 function transferWhen(date: string | null, precision: TransferReceiptDeal["datePrecision"]): string {
   if (!date) return "—";
