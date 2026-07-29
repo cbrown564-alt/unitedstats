@@ -574,6 +574,101 @@ export function playerCard(
   );
 }
 
+/** In/out lane tally for window and manager-era transfer cards. */
+function transferLanes({ in: arrivals, out: departures }: { in: number; out: number }) {
+  const W = Q_WIDTH;
+  const total = Math.max(arrivals + departures, 1);
+  const inW = Math.max(8, Math.round((arrivals / total) * W));
+  const outW = Math.max(8, W - inW);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", width: W }}>
+      <div style={{ display: "flex", width: W, height: 46, borderRadius: 8, overflow: "hidden" }}>
+        <div style={{ width: inW, height: 46, background: DEVIL }} />
+        <div style={{ width: outW, height: 46, background: GOLD }} />
+      </div>
+      <div style={{ display: "flex", marginTop: 14, fontSize: 24 }}>
+        <span style={{ color: DEVIL, fontWeight: 700 }}>{arrivals.toLocaleString("en-GB")} in</span>
+        <span style={{ color: INK_FAINT, margin: "0 14px" }}>·</span>
+        <span style={{ color: GOLD, fontWeight: 700 }}>{departures.toLocaleString("en-GB")} out</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Transfer share card: one headline, three supporting facts, and a coverage cue.
+ * Used for deal receipts, window summaries, and manager-era lenses — not hot takes.
+ */
+export function transferShareCard(
+  {
+    eyebrow,
+    headline,
+    facts,
+    coverageCue,
+    marker,
+    lanes,
+    strip,
+    media,
+  }: {
+    eyebrow: string;
+    headline: string;
+    facts: readonly [string, string, string];
+    coverageCue: string;
+    marker?: string;
+    lanes?: { in: number; out: number };
+    strip: TrustItem[];
+    media?: OgMedia;
+  },
+  headers?: Record<string, string>,
+) {
+  const factRows = facts.map((fact, index) => (
+    <div key={index} style={{ display: "flex", alignItems: "baseline", marginTop: index === 0 ? 22 : 12 }}>
+      <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 20, width: 28 }}>{index + 1}.</span>
+      <span style={{ fontSize: 26, color: INK_DIM, lineHeight: 1.35, maxWidth: media ? 680 : Q_WIDTH }}>{fact}</span>
+    </div>
+  ));
+
+  return new ImageResponse(
+    (
+      <div style={{ width: "100%", height: "100%", display: "flex", background: PITCH, color: INK, fontFamily: "Archivo" }}>
+        <div style={{ width: 16, height: "100%", background: DEVIL }} />
+        {media && (
+          <div style={{ position: "absolute", right: 0, top: 0, width: 460, height: 630, display: "flex", overflow: "hidden" }}>
+            {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
+            <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 35%" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.72) 20%, rgba(12,11,10,.08) 66%, rgba(12,11,10,.28) 100%)" }} />
+          </div>
+        )}
+        <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
+          <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
+            <OgBrand />
+            <span style={{ color: INK_DIM, marginLeft: 18 }}>{eyebrow}</span>
+            {marker && (
+              <span style={{ color: GOLD, marginLeft: "auto", fontFamily: MONO, fontSize: 22, letterSpacing: 2 }}>{marker}</span>
+            )}
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", width: media ? 690 : Q_WIDTH, overflow: "hidden" }}>
+              <span style={{ fontSize: media ? 54 : 58, fontWeight: 800, letterSpacing: -1.5, color: INK, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {headline}
+              </span>
+            </div>
+            {factRows}
+            {lanes && <div style={{ display: "flex", marginTop: 34 }}>{transferLanes(lanes)}</div>}
+            <div style={{ display: "flex", marginTop: lanes ? 18 : 28, fontSize: 21, color: INK_FAINT, maxWidth: Q_WIDTH }}>
+              {coverageCue}
+            </div>
+          </div>
+
+          <OgTrustStrip items={strip} dark={!!media} />
+        </div>
+      </div>
+    ),
+    ogOptions(headers),
+  );
+}
+
 // --- Question cards: a tested question, its verdict, and the answer drawn -----
 // The content width inside the spine + 72px padding.
 const Q_WIDTH = 1040;

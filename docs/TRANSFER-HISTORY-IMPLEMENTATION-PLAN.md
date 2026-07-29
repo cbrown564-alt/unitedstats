@@ -31,24 +31,24 @@
   1992–present prototype on `/transfers`. Three authored era datasets (Ferguson
   1992–2002, Ferguson 2003–2013, post-Ferguson) ship with a desktop season-axis
   view, phone era chapters, ordered ledger, keyboard chronological selection,
-  and a compact deal panel wired to the shared transfer receipt. Verified with
-  focused unit tests; not deployed.
-- **Recommendation 7 — transfer share cards:** implemented locally. Deal,
-  window, and manager-era cards render through the shared OG renderer; analytical
-  cards remain a dev-lab stub while A0 keeps modelling closed. Payload tests and
-  `npm run og:review` fixtures cover signing, sale, free, undisclosed, and
-  ongoing exemplars.
+  and a compact deal panel with a seam for the shared transfer receipt. Verified
+  with focused unit tests; not deployed.
+- **Recommendation 5 — manager and club relationship lenses:** implemented and
+  verified locally. Manager Transfers tabs expose season spend, cost bands,
+  position mix, squad churn, completed-spell outcomes, and rediscovery links.
+  Club routes at `/transfers/club/[club-id]` generate only when the three-deal or
+  two-plus-authored gate passes; thin clubs return 404 and are not indexed.
 - **Recommendation 6 — current confirmed window:** implemented and verified
   locally. `/transfers#current-window` renders confirmed lanes, known-fee totals,
   prior-window comparisons, historical fee rank, mean-relative cost bands where
   the PL index supports them, same-position context when covered, and a dataset
   verified-at timestamp. Quiet windows compose intentionally when the latest season
   is sparse.
-- **Recommendation 5 — manager and club relationship lenses:** implemented and
-  verified locally. Manager Transfers tabs expose season spend, cost bands,
-  position mix, squad churn, completed-spell outcomes, and rediscovery links.
-  Club routes at `/transfers/club/[club-id]` generate only when the three-deal or
-  two-plus-authored gate passes; thin clubs return 404 and are not indexed.
+- **Recommendation 7 — transfer share cards:** implemented locally. Deal,
+  window, and manager-era cards render through the shared OG renderer; analytical
+  cards remain a dev-lab stub while A0 keeps modelling closed. Payload tests and
+  `npm run og:review` fixtures cover signing, sale, free, undisclosed, and
+  ongoing exemplars.
 - **Next representative slice:** build the two remaining exemplar season pages:
   1998–99 and 2013–14. Prove those pages before spreading the route pattern
   across seasons.

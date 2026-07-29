@@ -3,13 +3,12 @@ import { test } from "node:test";
 import { allTransfers, managerTransferTenures } from "@/lib/queries";
 import {
   SQUAD_BUILD_ERAS,
-  buildAllSquadBuildDatasets,
-  buildSquadBuildDataset,
   compareSquadBuildThreads,
   filterSquadBuildThreads,
   seasonStartYear,
   squadBuildSeasonLabel,
 } from "@/lib/squadBuild";
+import { buildAllSquadBuildDatasets, buildSquadBuildDataset } from "@/lib/squadBuild.server";
 
 test("squad-build prototype ships three bounded era datasets", () => {
   const transfers = allTransfers();

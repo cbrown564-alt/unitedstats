@@ -21,7 +21,7 @@ import {
   featuredWindowResolves,
 } from "@/lib/transferFeature";
 import { buildRecordDealReceiptMap } from "@/lib/transferReceipt";
-import { buildAllSquadBuildDatasets } from "@/lib/squadBuild";
+import { buildAllSquadBuildDatasets } from "@/lib/squadBuild.server";
 import { jsonLdHtml, transferHistoryJsonLd } from "@/lib/structuredData";
 
 export const metadata = seoMetadata(listSeo.transfers.title, listSeo.transfers.description);
