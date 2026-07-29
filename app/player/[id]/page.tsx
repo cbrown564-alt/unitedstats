@@ -29,7 +29,7 @@ import { OwnGoalProfile } from "@/components/OwnGoalProfile";
 import { SectionHead } from "@/components/SectionHead";
 import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { RediscoveryRail } from "@/components/RediscoveryRail";
-import { PlayerTransferRecord } from "@/components/player/PlayerTransferRecord";
+import { PlayerTransferReceipts } from "@/components/player/PlayerTransferReceipts";
 import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format";
 import { entityRef } from "@/lib/citations";
 import { jsonLdHtml, playerJsonLd } from "@/lib/structuredData";
@@ -501,7 +501,7 @@ export default async function PlayerPage({
               <section>
                 <SectionHead title="Transfer record" aside={transfers.length > 0 ? `${fmtNum(transfers.length)} recorded` : undefined} />
                 {transfers.length > 0 ? (
-                  <PlayerTransferRecord transfers={transfers} careerYears={careerYears} />
+                  <PlayerTransferReceipts playerId={id} transfers={transfers} careerYears={careerYears} />
                 ) : (
                   <p className="rounded-lg border border-line bg-panel px-4 py-6 text-center text-sm text-ink-dim">
                     No recorded transfers yet.

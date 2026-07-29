@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { allTransfers } from "@/lib/queries";
+import { managerTransfers } from "@/lib/queries";
 import { getDb } from "@/lib/db";
 import {
   AUTHORED_RECEIPT_TRANSFER_IDS,
@@ -31,6 +32,12 @@ import {
   featuredWindowResolves,
   seasonAnchorId,
 } from "@/lib/transferFeature";
+import {
+  AUTHORED_CLUB_CONNECTIONS,
+  gatedClubIds,
+  passesClubEvidenceGate,
+} from "@/lib/transferClubs";
+import { buildManagerTransferLens, costBandForMeanMultiple } from "@/lib/transferManagerLens";
 import { transferHistoryJsonLd } from "@/lib/structuredData";
 
 test("transfer history summary includes dated and undated canonical rows", () => {
@@ -182,6 +189,32 @@ test("structured data drops the featured window when the page will not render it
     items.every((item) => !String(item.url).includes("txseason-")),
     "no season anchor may be claimed without a featured window",
   );
+});
+
+test("club evidence gate requires three market moves or two plus authored connection", () => {
+  const transfers = allTransfers();
+  assert.ok(passesClubEvidenceGate("leeds-united", transfers));
+  assert.ok(passesClubEvidenceGate("real-madrid-cf", transfers));
+  assert.equal(passesClubEvidenceGate("real-madrid-cf", transfers, {}), false);
+  assert.ok(passesClubEvidenceGate("borussia-dortmund", transfers));
+  assert.equal(passesClubEvidenceGate("napoli", transfers), false);
+  assert.ok(gatedClubIds(transfers).includes("leeds-united"));
+  assert.ok(gatedClubIds(transfers).includes("real-madrid-cf"));
+  assert.ok(!gatedClubIds(transfers).includes("napoli"));
+  assert.ok(AUTHORED_CLUB_CONNECTIONS["real-madrid-cf"]);
+});
+
+test("manager transfer lens exposes season, band, and spell evidence for Ferguson", () => {
+  const indices = loadInflationIndices();
+  const transfers = managerTransfers("alex-ferguson");
+  const lens = buildManagerTransferLens("alex-ferguson", transfers, "nominal", indices);
+  assert.ok(lens.seasons.length > 5);
+  assert.ok(lens.costBands.some((band) => band.count > 0));
+  assert.ok(lens.positionMix.length > 0);
+  assert.ok(lens.completedSpells.length > 20);
+  assert.ok(lens.definingLinks.some((link) => link.href.includes("/seasons/1998-99")));
+  assert.equal(costBandForMeanMultiple(0.3), "low");
+  assert.equal(costBandForMeanMultiple(5), "extreme");
 });
 
 test("transfer receipts keep signing spells separate for repeat players", () => {

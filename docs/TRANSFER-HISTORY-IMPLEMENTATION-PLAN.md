@@ -44,6 +44,11 @@
   the PL index supports them, same-position context when covered, and a dataset
   verified-at timestamp. Quiet windows compose intentionally when the latest season
   is sparse.
+- **Recommendation 5 — manager and club relationship lenses:** implemented and
+  verified locally. Manager Transfers tabs expose season spend, cost bands,
+  position mix, squad churn, completed-spell outcomes, and rediscovery links.
+  Club routes at `/transfers/club/[club-id]` generate only when the three-deal or
+  two-plus-authored gate passes; thin clubs return 404 and are not indexed.
 - **Next representative slice:** build the two remaining exemplar season pages:
   1998–99 and 2013–14. Prove those pages before spreading the route pattern
   across seasons.
