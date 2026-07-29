@@ -19,6 +19,7 @@ import type {
   PlayerTotals,
 } from "./queries";
 import { playerDefensiveTotals } from "./queries";
+import { seasonAnchorId, type FeaturedTransferWindow } from "./transferFeature";
 
 export type JsonLd = Record<string, unknown>;
 
@@ -200,13 +201,18 @@ export function websiteJsonLd(): JsonLd {
   };
 }
 
-export function transferHistoryJsonLd(latestSeason?: string): JsonLd {
+export function transferHistoryJsonLd(
+  latestSeason?: string,
+  featured?: FeaturedTransferWindow,
+): JsonLd {
   const pageUrl = `${SITE_URL}/transfers`;
   const items = [
     ...(latestSeason
       ? [{ name: `Current confirmed window · ${latestSeason}`, url: `${pageUrl}#current-window` }]
       : []),
-    { name: "The 1998–99 Treble window", url: `${pageUrl}#txseason-1998-99` },
+    ...(featured
+      ? [{ name: featured.structuredDataName, url: `${pageUrl}#${seasonAnchorId(featured.season)}` }]
+      : []),
     { name: "Manchester United record transfer deals", url: `${pageUrl}#record-deals` },
     { name: "Manchester United transfer spending by manager", url: `${pageUrl}#manager-view` },
   ];
