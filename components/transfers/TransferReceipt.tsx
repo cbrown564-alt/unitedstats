@@ -99,6 +99,11 @@ function DealSection({
         {deal.feeBandLabel && <ReceiptField label="Relative cost" value={deal.feeBandLabel} muted />}
         <ReceiptField label="Manager" value={deal.managerName ?? "—"} muted />
       </dl>
+      {deal.editorialNote && (
+        <p className="mt-3 border-l-2 border-devil-bright/50 pl-3 text-sm leading-6 text-ink-dim">
+          {deal.editorialNote}
+        </p>
+      )}
       {deal.sources.length > 0 && (
         <p className="mt-3 text-xs text-ink-faint">
           Sources: {deal.sources.join(", ")}

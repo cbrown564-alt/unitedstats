@@ -1,13 +1,16 @@
-import { adjustFeeGbp, transferSeason, type InflationIndices, type MoneyMode } from "./inflation";
+import { adjustFeeGbp, type InflationIndices, type MoneyMode } from "./inflation";
+import {
+  costBandForMeanMultiple,
+  feePlMeanMultiple,
+  isKnownFee,
+  transferLaneKind,
+  type CostBandId,
+  type TransferLaneKind,
+} from "./transferTaxonomy";
 import type { TransferRow } from "./queries";
 
 /** Broad position bucket from Wikidata P413 — never inferred when absent. */
 export type PositionGroup = "GK" | "DEF" | "MID" | "FWD";
-
-export type TransferLaneKind = "permanent" | "loan" | "academy" | "released" | "retired";
-
-/** Relative cost band from PL season-mean multiple — percentiles remain closed per A0. */
-export type RelativeCostBand = "low" | "lower-middle" | "upper-middle" | "high" | "extreme";
 
 export interface FeeRank {
   rank: number;
@@ -20,10 +23,10 @@ export interface CurrentWindowDeal {
   positionGroup: PositionGroup | null;
   feeRank: FeeRank | null;
   feePlMeanMultiple: number | null;
-  relativeCostBand: RelativeCostBand | null;
+  relativeCostBand: CostBandId | null;
 }
 
-export interface CurrentWindowLane {
+interface CurrentWindowLane {
   id: string;
   kind: TransferLaneKind;
   direction: "in" | "out";
@@ -31,7 +34,7 @@ export interface CurrentWindowLane {
   deals: CurrentWindowDeal[];
 }
 
-export interface CurrentWindowComparison {
+interface CurrentWindowComparison {
   season: string;
   seasonLabel: string;
   arrivals: number;
@@ -42,7 +45,7 @@ export interface CurrentWindowComparison {
   knownNet: number;
 }
 
-export interface CurrentWindowPositionNote {
+interface CurrentWindowPositionNote {
   transferId: string;
   playerName: string;
   positionGroup: PositionGroup;
@@ -70,7 +73,6 @@ export interface CurrentTransferWindowModel {
   feeCoverage: { known: number; total: number };
 }
 
-const OFFMARKET_TYPES = new Set(["youth", "released", "retired"]);
 const POSITION_LABELS: Record<PositionGroup, string> = {
   GK: "goalkeepers",
   DEF: "defenders",
@@ -96,17 +98,8 @@ const LANE_TITLES: Record<TransferLaneKind, { in: string; out: string }> = {
   retired: { in: "Retired", out: "Retirements" },
 };
 
-function isFeeRow(t: Pick<TransferRow, "fee_kind" | "fee_gbp">): boolean {
-  return t.fee_kind === "fee" && t.fee_gbp != null;
-}
-
 function seasonLabel(season: string): string {
   return season.replace("-", "–");
-}
-
-function seasonStartIso(season: string): string {
-  const startYear = Number.parseInt(season.slice(0, 4), 10);
-  return `${startYear}-08-01`;
 }
 
 function ordinal(n: number): string {
@@ -124,39 +117,8 @@ function ordinal(n: number): string {
   }
 }
 
-export function transferLaneKind(row: TransferRow): TransferLaneKind {
-  if (row.type === "youth") return "academy";
-  if (row.type === "released") return "released";
-  if (row.type === "retired") return "retired";
-  if (row.type === "loan") return "loan";
-  return "permanent";
-}
-
-export function positionGroupLabel(group: PositionGroup): string {
+function positionGroupLabel(group: PositionGroup): string {
   return POSITION_LABELS[group];
-}
-
-export function relativeCostBandFromMeanMultiple(multiple: number): RelativeCostBand {
-  if (multiple >= 4) return "extreme";
-  if (multiple >= 2) return "high";
-  if (multiple >= 1) return "upper-middle";
-  if (multiple >= 0.5) return "lower-middle";
-  return "low";
-}
-
-export function relativeCostBandLabel(band: RelativeCostBand): string {
-  switch (band) {
-    case "low":
-      return "Below typical PL fee";
-    case "lower-middle":
-      return "Lower-middle PL fee";
-    case "upper-middle":
-      return "Upper-middle PL fee";
-    case "high":
-      return "High PL fee";
-    case "extreme":
-      return "Extreme PL fee";
-  }
 }
 
 export function feeRankLabel(rank: FeeRank): string {
@@ -166,21 +128,11 @@ export function feeRankLabel(rank: FeeRank): string {
     : `${label} highest sale receipt in the record`;
 }
 
-export function feePlMeanMultiple(
-  feeGbp: number,
-  season: string | null,
-  indices: InflationIndices,
-): number | null {
-  const resolved = season ? indices.football.seasons[season] : undefined;
-  if (!resolved?.meanGbp) return null;
-  return feeGbp / resolved.meanGbp;
-}
-
 function buildFeeRankIndex(transfers: TransferRow[]): Map<string, FeeRank> {
   const index = new Map<string, FeeRank>();
   for (const direction of ["in", "out"] as const) {
     const feeRows = transfers
-      .filter((row) => row.direction === direction && isFeeRow(row))
+      .filter((row) => row.direction === direction && isKnownFee(row))
       .sort((a, b) => b.fee_gbp! - a.fee_gbp!);
     feeRows.forEach((row, i) => {
       index.set(row.id, { rank: i + 1, total: feeRows.length, direction });
@@ -208,17 +160,19 @@ function enrichDeal(
 ): CurrentWindowDeal {
   const positionGroup = transfer.player_id ? (positionMap[transfer.player_id] ?? null) : null;
   const feeRank = feeRanks.get(transfer.id) ?? null;
-  const resolvedSeason = transferSeason(transfer.date, transfer.season);
-  const feePlMean =
-    isFeeRow(transfer) && resolvedSeason
-      ? feePlMeanMultiple(transfer.fee_gbp!, resolvedSeason, indices)
-      : null;
+  const feePlMean = feePlMeanMultiple(
+    transfer.fee_gbp,
+    transfer.fee_kind,
+    transfer.date,
+    transfer.season,
+    indices,
+  );
   return {
     transfer,
     positionGroup,
     feeRank,
     feePlMeanMultiple: feePlMean,
-    relativeCostBand: feePlMean != null ? relativeCostBandFromMeanMultiple(feePlMean) : null,
+    relativeCostBand: costBandForMeanMultiple(feePlMean),
   };
 }
 
@@ -256,7 +210,7 @@ function seasonComparison(
   let knownSpend = 0;
   let knownReceived = 0;
   for (const row of rows) {
-    if (!isFeeRow(row)) continue;
+    if (!isKnownFee(row)) continue;
     const fee = adjustFeeGbp(row.fee_gbp, row.fee_kind, row.date, row.season, mode, indices)!;
     if (row.direction === "in") knownSpend += fee;
     else knownReceived += fee;
@@ -348,7 +302,7 @@ export function currentWindowMoneyForMode(
   let knownSpend = 0;
   let knownReceived = 0;
   for (const row of rows) {
-    if (!isFeeRow(row)) continue;
+    if (!isKnownFee(row)) continue;
     const fee = adjustFeeGbp(row.fee_gbp, row.fee_kind, row.date, row.season, mode, indices)!;
     if (row.direction === "in") knownSpend += fee;
     else knownReceived += fee;
@@ -388,7 +342,7 @@ export function buildCurrentTransferWindow({
   const positionNotes = buildPositionNotes(rows, positionMap, peersByPosition);
   const { verifiedAt, verifiedAtSource } = verifiedTimestamp(rows, datasetBuiltAt ?? null);
   const feeCoverage = {
-    known: rows.filter(isFeeRow).length,
+    known: rows.filter(isKnownFee).length,
     total: rows.length,
   };
   const quiet = rows.every((row) => transferLaneKind(row) !== "permanent" || row.direction === "out");
@@ -415,4 +369,3 @@ export function currentWindowPeerCutoff(season: string): string {
   return `${startYear - 1}-07-01`;
 }
 
-export { seasonStartIso, OFFMARKET_TYPES };

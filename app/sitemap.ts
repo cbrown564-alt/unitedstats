@@ -3,8 +3,9 @@ import { SITE_URL } from "@/lib/site";
 import { activeQuestionSlugs } from "@/lib/questions";
 import { monthDayKeys } from "@/lib/onThisDay";
 import {
-  allMatchIds, allSeasons, getMeta, managersIndex, opponentsIndex, playersIndex,
+  allMatchIds, allSeasons, allTransfers, getMeta, managersIndex, opponentsIndex, playersIndex,
 } from "@/lib/queries";
+import { gatedClubIds } from "@/lib/transferClubs";
 
 /** Next.js writes sitemap <loc> values verbatim — ampersands must be XML-escaped. */
 function sitemapLoc(path: string): string {
@@ -80,6 +81,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
+  // Only gated clubs — a thin counterparty 404s, so it must never be listed.
+  const transferClubs: MetadataRoute.Sitemap = gatedClubIds(allTransfers()).map((clubId) => ({
+    url: url(`/transfers/club/${clubId}`),
+    changeFrequency: "monthly",
+    priority: 0.3,
+    lastModified: built,
+  }));
+
   const onThisDay: MetadataRoute.Sitemap = monthDayKeys().map((monthDay) => ({
     url: url(`/on-this-day/${monthDay}`),
     changeFrequency: "yearly",
@@ -89,6 +98,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages, ...questions, ...seasons,
-    ...players, ...managers, ...opponents, ...matches, ...onThisDay,
+    ...players, ...managers, ...opponents, ...matches, ...transferClubs, ...onThisDay,
   ];
 }

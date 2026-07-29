@@ -5,37 +5,26 @@ import { TransferList } from "@/components/TransferList";
 import { TransferHistoryLink } from "@/components/transfers/TransferHistoryLink";
 import {
   currentWindowMoneyForMode,
-  feePlMeanMultiple,
   feeRankLabel,
-  relativeCostBandLabel,
   type CurrentTransferWindowModel,
   type CurrentWindowDeal,
 } from "@/lib/currentTransferWindow";
+import { costBandLabel, isKnownFee } from "@/lib/transferTaxonomy";
 import { fmtDate, fmtFee, fmtNum } from "@/lib/format";
 import type { InflationIndices, MoneyMode } from "@/lib/inflation";
 import { moneyModeLabel } from "@/lib/inflation";
 import { seasonAnchorId } from "@/lib/transferFeature";
 
-function DealContext({
-  deal,
-  season,
-  indices,
-}: {
-  deal: CurrentWindowDeal;
-  season: string;
-  indices: InflationIndices;
-}) {
+function DealContext({ deal }: { deal: CurrentWindowDeal }) {
   const notes: string[] = [];
   if (deal.feeRank) notes.push(feeRankLabel(deal.feeRank));
   if (deal.relativeCostBand && deal.feePlMeanMultiple != null) {
     notes.push(
-      `${relativeCostBandLabel(deal.relativeCostBand)} (${deal.feePlMeanMultiple.toFixed(1)}× PL season mean)`,
+      `${costBandLabel(deal.relativeCostBand)} (${deal.feePlMeanMultiple.toFixed(1)}× PL season mean)`,
     );
-  } else if (
-    deal.transfer.fee_kind === "fee" &&
-    deal.transfer.fee_gbp != null &&
-    feePlMeanMultiple(deal.transfer.fee_gbp, season, indices) == null
-  ) {
+  } else if (isKnownFee(deal.transfer)) {
+    // A published fee with no band means the season benchmark is missing, not
+    // that the deal was cheap.
     notes.push("PL season-mean benchmark unavailable for this window");
   }
   if (notes.length === 0) return null;
@@ -218,7 +207,7 @@ export function CurrentTransferWindow({
                     .map((deal) => (
                     <div key={`${deal.transfer.id}-context`}>
                       <span className="text-xs font-medium text-ink">{deal.transfer.player_name}</span>
-                      <DealContext deal={deal} season={window.season} indices={indices} />
+                      <DealContext deal={deal} />
                     </div>
                   ))}
                 </div>

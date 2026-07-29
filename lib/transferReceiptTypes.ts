@@ -1,13 +1,14 @@
 import { adjustFeeGbp, type InflationIndices, type MoneyMode } from "./inflation";
+import type { CostBandId } from "./transferTaxonomy";
 
 /** Relative cost band when a season mean benchmark exists (1992+ known fees). */
-export type TransferFeeBand = "low" | "lower-middle" | "upper-middle" | "high" | "extreme";
+type TransferFeeBand = CostBandId;
 
 export type TransferSpellState = "completed" | "ongoing" | "unclosed" | "unresolved";
 
 export type AssistCoverage = "match-attributed" | "curated-lane" | "partial" | "unavailable";
 
-export type TransferDatePrecision = "day" | "month" | "year" | null;
+type TransferDatePrecision = "day" | "month" | "year" | null;
 
 export interface TransferReceiptDeal {
   transferId: string;
@@ -26,6 +27,8 @@ export interface TransferReceiptDeal {
   feeFootballGbp: number | null;
   feeBand: TransferFeeBand | null;
   feeBandLabel: string | null;
+  /** Reviewed authored line, when this deal has one. Never generated. */
+  editorialNote: string | null;
   managerId: string | null;
   managerName: string | null;
   sources: string[];

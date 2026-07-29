@@ -19,7 +19,7 @@ import {
   transferTotalsForMode,
 } from "@/lib/transferAggregates";
 
-export type TransferShareCardKind = "deal" | "window" | "manager-era" | "analytical";
+type TransferShareCardKind = "deal" | "window" | "manager-era" | "analytical";
 
 /** Payload contract for transfer share cards — one headline, three facts, one coverage cue. */
 export interface TransferShareCardPayload {
@@ -149,9 +149,14 @@ export function buildDealReceiptPayload(transferId: string): TransferShareCardPa
   const ongoing = signingIsOngoing(t);
   const club = t.club ?? "—";
   const directionLabel = t.direction === "in" ? "Signed from" : "Sold to";
-  const headline = `${t.player_name} — ${directionLabel} ${club}`;
+  // The headline is a title — the player name alone, like every other OG entity
+  // card. The renderer forces titles to a single nowrap line, so the "Signed
+  // from / Sold to" relationship lives in the fee fact (row 1) instead of the
+  // headline, where it would be truncated and drop the club.
+  const headline = `${t.player_name}`;
 
-  const feeFact = `${t.direction === "in" ? "Fee" : "Receipt"} · ${feeLabel(t.fee_kind, t.fee_gbp)}`;
+  const relationship = `${directionLabel} ${club}`;
+  const feeFact = `${relationship} · ${feeLabel(t.fee_kind, t.fee_gbp)}`;
   const adjusted = adjustedFeeLine(t, "football", indices);
   const feeWithAdjusted = adjusted ? `${feeFact} · ${adjusted}` : feeFact;
 

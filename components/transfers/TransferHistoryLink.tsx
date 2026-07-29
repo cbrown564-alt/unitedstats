@@ -3,7 +3,14 @@
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 
-type TransferDestination = "season" | "player" | "manager" | "match" | "opponent" | "evidence";
+type TransferDestination =
+  | "season"
+  | "player"
+  | "manager"
+  | "match"
+  | "opponent"
+  | "club"
+  | "evidence";
 
 export function TransferHistoryLink({
   destination,

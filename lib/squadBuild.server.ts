@@ -15,8 +15,7 @@ import {
   type SquadBuildSeasonMarker,
   type SquadBuildThread,
 } from "./squadBuild";
-
-const OFFMARKET_TYPES = new Set(["released", "retired"]);
+import { isSquadBuildMove } from "./transferTaxonomy";
 
 function resolvePosition(bucket: string | null | undefined): PitchBand | "UNK" {
   if (!bucket) return "UNK";
@@ -120,7 +119,7 @@ export function buildSquadBuildDataset(
   const eraTransfers = transfers.filter((transfer) => {
     const seasonStart = seasonStartYear(transfer.season);
     if (!inEra(seasonStart, era) || !transfer.date || !transfer.season) return false;
-    if (OFFMARKET_TYPES.has(transfer.type)) return false;
+    if (!isSquadBuildMove(transfer)) return false;
     return true;
   });
 

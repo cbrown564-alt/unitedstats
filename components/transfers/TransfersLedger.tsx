@@ -24,6 +24,8 @@ import { seasonAnchorId, type FeaturedTransferWindow } from "@/lib/transferFeatu
 import type { CurrentTransferWindowModel } from "@/lib/currentTransferWindow";
 import { fmtDate, fmtFee, fmtNum } from "@/lib/format";
 import { SquadBuildTimeline } from "@/components/transfers/SquadBuildTimeline";
+import { ClubRelationships } from "@/components/transfers/ClubRelationships";
+import type { GatedClub } from "@/lib/transferClubs";
 import type { SquadBuildDataset } from "@/lib/squadBuild";
 import type { TransferReceipt } from "@/lib/transferReceiptTypes";
 import type { ManagerTransferTenure, TransferRow } from "@/lib/queries";
@@ -38,6 +40,7 @@ export function TransfersLedger({
   squadBuildDatasets,
   currentWindow,
   recordDealReceipts,
+  clubRelationships,
 }: {
   transfers: TransferRow[];
   indices: InflationIndices;
@@ -51,6 +54,8 @@ export function TransfersLedger({
   currentWindow?: CurrentTransferWindowModel | null;
   /** Server-built receipts for record deals — keyed by transfer id. */
   recordDealReceipts: Record<string, TransferReceipt>;
+  /** Gated counterparty clubs, most-traded first. */
+  clubRelationships: GatedClub[];
 }) {
   const [moneyMode, setMoneyMode] = useState<MoneyMode>("nominal");
 
@@ -244,7 +249,7 @@ export function TransfersLedger({
               href="#squad-build"
               destination="season"
               source="opening_routes"
-              className="group flex min-h-14 items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+              className="group flex min-h-14 items-center justify-between gap-4 border-b border-line/70 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
             >
               <span>
                 <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">Squad-build timeline</span>
@@ -252,6 +257,20 @@ export function TransfersLedger({
               </span>
               <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
             </TransferHistoryLink>
+            {clubRelationships.length > 0 && (
+              <TransferHistoryLink
+                href="#club-relationships"
+                destination="club"
+                source="opening_routes"
+                className="group flex min-h-14 items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+              >
+                <span>
+                  <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">Club relationships</span>
+                  <span className="mt-0.5 block text-xs leading-5 text-ink-faint">The counterparties United trades with most</span>
+                </span>
+                <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
+              </TransferHistoryLink>
+            )}
           </nav>
         </div>
       </section>
@@ -287,6 +306,8 @@ export function TransfersLedger({
       </section>
 
       {squadBuildDatasets.length > 0 && <SquadBuildTimeline datasets={squadBuildDatasets} />}
+
+      <ClubRelationships clubs={clubRelationships} />
 
       <section id="full-ledger" className="scroll-mt-28 space-y-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">

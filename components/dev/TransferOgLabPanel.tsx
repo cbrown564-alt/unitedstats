@@ -39,12 +39,18 @@ export function TransferOgLabPanel() {
   const manager = buildManagerEraPayload(TRANSFER_OG_EXEMPLARS.fergusonEra);
   const analytical = buildAnalyticalStubPayload();
 
+  // Deal and window cards have no live OG route yet: the plan holds per-deal
+  // routes back until search evidence justifies them, and the window card
+  // attaches to `/transfers/[season]` when Rec 2 ships. Proving the payloads
+  // here keeps the card families reviewable without shipping a share link that
+  // resolves to a 404.
+  const pending = "lab only · awaits Rec 2 season route";
   const cards = [
-    dealSigning && { payload: dealSigning, route: `/transfers/deal/${TRANSFER_OG_EXEMPLARS.recordSigning}/opengraph-image` },
-    dealSale && { payload: dealSale, route: `/transfers/deal/${TRANSFER_OG_EXEMPLARS.recordSale}/opengraph-image` },
-    dealFree && { payload: dealFree, route: `/transfers/deal/${TRANSFER_OG_EXEMPLARS.freeTransfer}/opengraph-image` },
-    dealActive && { payload: dealActive, route: `/transfers/deal/${TRANSFER_OG_EXEMPLARS.activeSigning}/opengraph-image` },
-    window && { payload: window, route: "/transfers/opengraph-image" },
+    dealSigning && { payload: dealSigning, route: pending },
+    dealSale && { payload: dealSale, route: pending },
+    dealFree && { payload: dealFree, route: pending },
+    dealActive && { payload: dealActive, route: pending },
+    window && { payload: window, route: pending },
     manager && { payload: manager, route: "lab only · manager career OG unchanged" },
     { payload: analytical, route: "lab stub · not production metadata" },
   ].filter(Boolean) as { payload: TransferShareCardPayload; route: string }[];

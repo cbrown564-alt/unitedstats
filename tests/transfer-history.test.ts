@@ -9,12 +9,14 @@ import {
   buildTransferReceiptsForPlayer,
   shouldRenderTransferReceipt,
 } from "@/lib/transferReceipt";
+import { buildCurrentTransferWindow, feeRankLabel } from "@/lib/currentTransferWindow";
 import {
-  buildCurrentTransferWindow,
-  feeRankLabel,
-  relativeCostBandFromMeanMultiple,
+  costBandForMeanMultiple,
+  costBandLabel,
+  isMarketTransfer,
+  isSquadBuildMove,
   transferLaneKind,
-} from "@/lib/currentTransferWindow";
+} from "@/lib/transferTaxonomy";
 import { loadInflationIndices } from "@/lib/inflationIndices";
 import {
   activePlayerPeersByPosition,
@@ -38,7 +40,6 @@ import {
   passesClubEvidenceGate,
 } from "@/lib/transferClubs";
 import { buildManagerTransferLens } from "@/lib/transferManagerLens.server";
-import { costBandForMeanMultiple } from "@/lib/transferManagerLens";
 import { transferHistoryJsonLd } from "@/lib/structuredData";
 
 test("transfer history summary includes dated and undated canonical rows", () => {
@@ -113,11 +114,36 @@ test("current window enriches known fees with historical rank and position peers
 });
 
 test("relative cost bands use PL season-mean multiples, not percentiles", () => {
-  assert.equal(relativeCostBandFromMeanMultiple(0.4), "low");
-  assert.equal(relativeCostBandFromMeanMultiple(0.8), "lower-middle");
-  assert.equal(relativeCostBandFromMeanMultiple(1.5), "upper-middle");
-  assert.equal(relativeCostBandFromMeanMultiple(3), "high");
-  assert.equal(relativeCostBandFromMeanMultiple(4.2), "extreme");
+  assert.equal(costBandForMeanMultiple(0.4), "low");
+  assert.equal(costBandForMeanMultiple(0.8), "lower-middle");
+  assert.equal(costBandForMeanMultiple(1.5), "upper-middle");
+  assert.equal(costBandForMeanMultiple(3), "high");
+  assert.equal(costBandForMeanMultiple(4.2), "extreme");
+  // Boundaries land in the higher band, and a missing benchmark never becomes
+  // a "low" fee.
+  assert.equal(costBandForMeanMultiple(0.5), "lower-middle");
+  assert.equal(costBandForMeanMultiple(4), "extreme");
+  assert.equal(costBandForMeanMultiple(null), null);
+  assert.equal(costBandForMeanMultiple(Number.POSITIVE_INFINITY), null);
+});
+
+test("every transfer surface shares one band vocabulary and market predicate", () => {
+  // The manager lens, current window and receipt all render the same label for
+  // the same band — they previously carried three different wordings.
+  assert.equal(costBandLabel("low"), "Below typical PL fee");
+  assert.equal(costBandLabel("extreme"), "Record-level PL fee");
+
+  // Squad-build keeps academy promotions; market aggregates do not.
+  assert.equal(isMarketTransfer({ type: "youth" }), false);
+  assert.equal(isSquadBuildMove({ type: "youth" }), true);
+  for (const type of ["released", "retired"]) {
+    assert.equal(isMarketTransfer({ type }), false);
+    assert.equal(isSquadBuildMove({ type }), false);
+  }
+  for (const type of ["permanent", "loan"]) {
+    assert.equal(isMarketTransfer({ type }), true);
+    assert.equal(isSquadBuildMove({ type }), true);
+  }
 });
 
 test("A0 keeps descriptive research open and modelling closed", () => {
@@ -214,8 +240,11 @@ test("manager transfer lens exposes season, band, and spell evidence for Ferguso
   assert.ok(lens.positionMix.length > 0);
   assert.ok(lens.completedSpells.length > 20);
   assert.ok(lens.definingLinks.some((link) => link.href.includes("/seasons/1998-99")));
-  assert.equal(costBandForMeanMultiple(0.3), "low");
-  assert.equal(costBandForMeanMultiple(5), "extreme");
+  // Unknown-fee signings stay visible as their own bucket rather than being
+  // dropped or counted as cheap.
+  assert.ok(lens.costBands.some((band) => band.id === "unknown"));
+  // A manager with signings always has a finite turnover ratio.
+  assert.ok(lens.churn.turnover != null && Number.isFinite(lens.churn.turnover));
 });
 
 test("transfer receipts keep signing spells separate for repeat players", () => {

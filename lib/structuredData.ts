@@ -204,6 +204,7 @@ export function websiteJsonLd(): JsonLd {
 export function transferHistoryJsonLd(
   latestSeason?: string,
   featured?: FeaturedTransferWindow,
+  hasClubRelationships = false,
 ): JsonLd {
   const pageUrl = `${SITE_URL}/transfers`;
   const items = [
@@ -215,6 +216,9 @@ export function transferHistoryJsonLd(
       : []),
     { name: "Manchester United record transfer deals", url: `${pageUrl}#record-deals` },
     { name: "Manchester United transfer spending by manager", url: `${pageUrl}#manager-view` },
+    ...(hasClubRelationships
+      ? [{ name: "Clubs Manchester United trades with", url: `${pageUrl}#club-relationships` }]
+      : []),
   ];
   return {
     "@context": "https://schema.org",

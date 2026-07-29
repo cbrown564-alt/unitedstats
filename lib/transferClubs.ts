@@ -1,13 +1,7 @@
 import type { TransferRow } from "./queries";
 import { transferTotalsForMode, displayFeeGbp } from "./transferAggregates";
+import { isMarketTransfer } from "./transferTaxonomy";
 import type { InflationIndices, MoneyMode } from "./inflation";
-
-const OFF_MARKET_TYPES = new Set(["youth", "released", "retired"]);
-
-/** Permanent and loan business with a counterparty club. */
-export function isMarketTransfer(t: Pick<TransferRow, "type">): boolean {
-  return !OFF_MARKET_TYPES.has(t.type);
-}
 
 export interface AuthoredClubConnection {
   title: string;
@@ -41,12 +35,27 @@ export const AUTHORED_CLUB_CONNECTIONS: Record<string, AuthoredClubConnection> =
   },
 };
 
-export function clubMarketTransfers(transfers: TransferRow[], clubId: string): TransferRow[] {
+function clubMarketTransfers(transfers: TransferRow[], clubId: string): TransferRow[] {
   return transfers.filter((t) => t.club_id === clubId && isMarketTransfer(t));
 }
 
-export function clubMarketTransferCount(transfers: TransferRow[], clubId: string): number {
-  return clubMarketTransfers(transfers, clubId).length;
+/** Market-move count per counterparty in one pass — the gate's shared input. */
+function marketCountsByClub(transfers: TransferRow[]): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const t of transfers) {
+    if (!t.club_id || !isMarketTransfer(t)) continue;
+    counts.set(t.club_id, (counts.get(t.club_id) ?? 0) + 1);
+  }
+  return counts;
+}
+
+function passesGate(
+  marketCount: number,
+  clubId: string,
+  authored: Record<string, AuthoredClubConnection>,
+): boolean {
+  if (marketCount >= 3) return true;
+  return marketCount >= 2 && Boolean(authored[clubId]);
 }
 
 /** Public route gate from Rec 5 — thin clubs stay off the index. */
@@ -55,25 +64,50 @@ export function passesClubEvidenceGate(
   transfers: TransferRow[],
   authored: Record<string, AuthoredClubConnection> = AUTHORED_CLUB_CONNECTIONS,
 ): boolean {
-  const marketCount = clubMarketTransferCount(transfers, clubId);
-  if (marketCount >= 3) return true;
-  if (marketCount >= 2 && authored[clubId]) return true;
-  return false;
+  return passesGate(clubMarketTransfers(transfers, clubId).length, clubId, authored);
+}
+
+/**
+ * Gated counterparties, most-traded first. Counts are tallied once rather than
+ * re-scanning the full transfer list per row, which kept this quadratic when it
+ * ran inside `generateStaticParams`.
+ */
+export interface GatedClub {
+  clubId: string;
+  clubName: string;
+  marketCount: number;
+  authored: boolean;
+}
+
+export function gatedClubsByVolume(
+  transfers: TransferRow[],
+  authored: Record<string, AuthoredClubConnection> = AUTHORED_CLUB_CONNECTIONS,
+): GatedClub[] {
+  const names = new Map<string, string>();
+  for (const t of transfers) {
+    if (t.club_id && t.club && !names.has(t.club_id)) names.set(t.club_id, t.club);
+  }
+  return [...marketCountsByClub(transfers).entries()]
+    .filter(([clubId, count]) => passesGate(count, clubId, authored))
+    .map(([clubId, marketCount]) => ({
+      clubId,
+      clubName: names.get(clubId) ?? clubId,
+      marketCount,
+      authored: Boolean(authored[clubId]),
+    }))
+    .sort((a, b) => b.marketCount - a.marketCount || a.clubName.localeCompare(b.clubName));
 }
 
 export function gatedClubIds(
   transfers: TransferRow[],
   authored: Record<string, AuthoredClubConnection> = AUTHORED_CLUB_CONNECTIONS,
 ): string[] {
-  const ids = new Set<string>();
-  for (const t of transfers) {
-    if (!t.club_id || !isMarketTransfer(t)) continue;
-    if (passesClubEvidenceGate(t.club_id, transfers, authored)) ids.add(t.club_id);
-  }
-  return [...ids].sort();
+  return gatedClubsByVolume(transfers, authored)
+    .map((club) => club.clubId)
+    .sort();
 }
 
-export interface ClubBidirectionalPlayer {
+interface ClubBidirectionalPlayer {
   playerId: string;
   playerName: string;
   inCount: number;

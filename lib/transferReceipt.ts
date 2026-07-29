@@ -4,10 +4,10 @@ import { loadInflationIndices } from "./inflationIndices";
 import { CURATED_NIGHTS } from "./curatedNights";
 import { allTransfers, type TransferRow } from "./queries";
 import { topTransfersForMode } from "./transferAggregates";
-import { relativeCostBandFromMeanMultiple } from "./currentTransferWindow";
+import { costBandForMeanMultiple, costBandLabel, feePlMeanMultiple } from "./transferTaxonomy";
+import { curatedTransferNote } from "./transferEditorial";
 import type {
   AssistCoverage,
-  TransferFeeBand,
   TransferReceipt,
   TransferReceiptDeal,
   TransferReceiptDefiningNight,
@@ -84,30 +84,6 @@ function parseSourceIds(raw: string | null): string[] {
   } catch {
     return [];
   }
-}
-
-/**
- * Receipt-relative cost band. Delegates to the canonical mean-multiple banding so
- * the 0.5/1/2/4 thresholds (declared before outcome inspection) live in one place
- * — see `relativeCostBandFromMeanMultiple`. The wrapper preserves the receipt's
- * nullable contract: a missing or non-finite multiple yields `null` rather than an
- * "unknown" band.
- */
-function feeBandFromMultiple(multiple: number | null): TransferFeeBand | null {
-  if (multiple == null || !Number.isFinite(multiple)) return null;
-  return relativeCostBandFromMeanMultiple(multiple);
-}
-
-function feeBandLabel(band: TransferFeeBand | null): string | null {
-  if (!band) return null;
-  const labels: Record<TransferFeeBand, string> = {
-    low: "Low relative cost",
-    "lower-middle": "Lower-middle relative cost",
-    "upper-middle": "Upper-middle relative cost",
-    high: "High relative cost",
-    extreme: "Record-level relative cost",
-  };
-  return labels[band];
 }
 
 function managerAtDate(date: string | null): { managerId: string | null; managerName: string | null } {
@@ -437,12 +413,9 @@ function buildDealSection(deal: TransferRow, indices: InflationIndices): Transfe
     .prepare("SELECT sources FROM transfers WHERE id = ?")
     .get(deal.id) as { sources: string | null } | undefined;
   const resolvedSeason = transferSeason(deal.date, deal.season);
-  const footballSeason = resolvedSeason ? indices.football.seasons[resolvedSeason] : undefined;
-  const feePlMeanMultiple =
-    deal.fee_kind === "fee" && deal.fee_gbp != null && footballSeason
-      ? deal.fee_gbp / footballSeason.meanGbp
-      : null;
-  const feeBand = feeBandFromMultiple(feePlMeanMultiple);
+  const feeBand = costBandForMeanMultiple(
+    feePlMeanMultiple(deal.fee_gbp, deal.fee_kind, deal.date, deal.season, indices),
+  );
   const manager = managerAtDate(deal.date);
 
   return {
@@ -461,7 +434,8 @@ function buildDealSection(deal: TransferRow, indices: InflationIndices): Transfe
     feeCpiGbp: adjustFeeGbp(deal.fee_gbp, deal.fee_kind, deal.date, deal.season, "cpi", indices),
     feeFootballGbp: adjustFeeGbp(deal.fee_gbp, deal.fee_kind, deal.date, deal.season, "football", indices),
     feeBand,
-    feeBandLabel: feeBandLabel(feeBand),
+    feeBandLabel: feeBand ? costBandLabel(feeBand) : null,
+    editorialNote: curatedTransferNote(deal.id),
     managerId: manager.managerId,
     managerName: manager.managerName,
     sources: parseSourceIds(sourcesRow?.sources ?? null),

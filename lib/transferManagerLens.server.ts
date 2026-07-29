@@ -2,10 +2,9 @@ import type Database from "better-sqlite3";
 import { getDb } from "./db";
 import { rediscoveryForEntity } from "./rediscovery";
 import type { InflationIndices } from "./inflation";
+import { costBucketForMeanMultiple, feePlMeanMultiple } from "./transferTaxonomy";
 import {
   buildManagerTransferLensView,
-  costBandForMeanMultiple,
-  feePlMeanMultiple,
   type ManagerAggregateBucket,
   type ManagerDefiningLink,
   type ManagerSpellOutcome,
@@ -147,7 +146,7 @@ function managerSigningOutcomes(db: Database.Database, managerId: string, indice
       season: signing.season,
       feeGbp: signing.fee_gbp,
       feeKind: signing.fee_kind,
-      costBand: costBandForMeanMultiple(
+      costBand: costBucketForMeanMultiple(
         feePlMeanMultiple(signing.fee_gbp, signing.fee_kind, signing.signing_date, signing.season, indices),
       ),
       spellState,

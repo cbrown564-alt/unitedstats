@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import { useCallback, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { SectionHead } from "@/components/SectionHead";
 import { SquadBuildDealPanel } from "@/components/transfers/SquadBuildDealPanel";
 import { familyName } from "@/lib/names";
@@ -50,6 +50,71 @@ function threadButtonLabel(thread: SquadBuildThread): string {
   return `${thread.playerName}, ${direction}, ${thread.season}, ${thread.feeDisplay}`;
 }
 
+function trophyLabel(count: number): string {
+  return `${count} ${count === 1 ? "trophy" : "trophies"}`;
+}
+
+/**
+ * Roving tabindex scoped to a single list. Focus only ever moves in response to
+ * a key press, never on mount — the timeline sits far down the transfer hub, so
+ * a mount-time focus call would scroll the reader past the answer plate and
+ * override any in-page anchor they arrived on.
+ */
+function useRovingList<T extends HTMLElement>(count: number, onFocusChange: (index: number) => void) {
+  const containerRef = useRef<T>(null);
+  const [storedIndex, setStoredIndex] = useState(0);
+  // Clamp during render so a narrowed era or lane cannot strand the tab stop
+  // past the end of the list.
+  const focusIndex = count > 0 ? Math.min(storedIndex, count - 1) : 0;
+
+  const moveTo = useCallback(
+    (next: number) => {
+      setStoredIndex(next);
+      onFocusChange(next);
+      containerRef.current?.querySelectorAll<HTMLButtonElement>("[data-roving-item]")[next]?.focus();
+    },
+    [onFocusChange],
+  );
+
+  const onKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+      if (count === 0) return;
+      const last = count - 1;
+      let next: number | null = null;
+      if (event.key === "ArrowDown" || event.key === "ArrowRight") next = Math.min(index + 1, last);
+      else if (event.key === "ArrowUp" || event.key === "ArrowLeft") next = Math.max(index - 1, 0);
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = last;
+      if (next == null) return;
+      event.preventDefault();
+      moveTo(next);
+    },
+    [count, moveTo],
+  );
+
+  return { containerRef, focusIndex, onKeyDown, setFocusIndex: setStoredIndex };
+}
+
+/** Wire a list's roving focus to selection, keeping the tab stop on what was clicked. */
+function useThreadList<T extends HTMLElement>(threads: SquadBuildThread[], onSelect: (id: string) => void) {
+  const onFocusChange = useCallback(
+    (index: number) => {
+      const thread = threads[index];
+      if (thread) onSelect(thread.id);
+    },
+    [threads, onSelect],
+  );
+  const roving = useRovingList<T>(threads.length, onFocusChange);
+  const selectAt = useCallback(
+    (index: number) => {
+      roving.setFocusIndex(index);
+      onFocusChange(index);
+    },
+    [roving, onFocusChange],
+  );
+  return { ...roving, selectAt };
+}
+
 function ThreadMark({
   thread,
   selected,
@@ -63,38 +128,53 @@ function ThreadMark({
   tabIndex: number;
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }) {
-  const minWidth = thread.feeScale != null ? `${Math.max(18, Math.round(thread.feeScale * 100))}%` : "2.5rem";
   const tone =
     thread.direction === "in"
-      ? "border-devil-bright/70 bg-devil-bright/15 text-devil-bright"
-      : "border-gold/70 bg-gold/10 text-gold";
+      ? "border-devil-bright/70 bg-devil-bright/15"
+      : "border-gold/70 bg-gold/10";
+  // Fee is encoded by bar length as a labelled secondary mark rather than by
+  // chip width, so the player name stays readable at every fee size.
+  const feeWidth = thread.feeScale != null ? `${Math.max(6, Math.round(thread.feeScale * 100))}%` : null;
 
   return (
     <button
       type="button"
-      role="option"
-      aria-selected={selected}
+      data-roving-item
+      aria-pressed={selected}
       aria-label={threadButtonLabel(thread)}
       tabIndex={tabIndex}
       onClick={onSelect}
       onKeyDown={onKeyDown}
-      className={`group/thread relative flex min-h-9 w-full items-center gap-1.5 rounded border px-1.5 py-1 text-left transition-[background-color,box-shadow] motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${tone} ${
+      className={`group/thread relative block w-full rounded border px-1.5 py-1 text-left transition-[background-color,box-shadow] motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${tone} ${
         selected ? "ring-2 ring-ink/30" : "hover:brightness-110"
       }`}
-      style={{ maxWidth: minWidth }}
     >
-      <span
-        className={`inline-block h-0 w-0 shrink-0 border-y-[4px] border-y-transparent ${
-          thread.direction === "in"
-            ? "border-l-[5px] border-l-devil-bright"
-            : "order-last border-r-[5px] border-r-gold"
-        }`}
-        aria-hidden
-      />
-      <span className="min-w-0 flex-1 truncate text-[11px] font-medium leading-tight text-ink">
-        {familyName(thread.playerName)}
+      <span className="flex items-center gap-1">
+        <span
+          className={`inline-block h-0 w-0 shrink-0 border-y-[4px] border-y-transparent ${
+            thread.direction === "in"
+              ? "border-l-[5px] border-l-devil-bright"
+              : "order-last border-r-[5px] border-r-gold"
+          }`}
+          aria-hidden
+        />
+        <span className="min-w-0 flex-1 truncate text-[11px] font-medium leading-tight text-ink">
+          {familyName(thread.playerName)}
+        </span>
       </span>
-      <span className="stat-num shrink-0 text-[10px] leading-none text-ink-faint">{thread.feeDisplay}</span>
+      <span className="mt-1 flex items-center gap-1" aria-hidden>
+        <span className="h-1 min-w-px flex-1 overflow-hidden rounded-full bg-ink/10">
+          {feeWidth && (
+            <span
+              className={`block h-full rounded-full ${
+                thread.direction === "in" ? "bg-devil-bright" : "bg-gold"
+              }`}
+              style={{ width: feeWidth }}
+            />
+          )}
+        </span>
+        <span className="stat-num shrink-0 text-[9px] leading-none text-ink-faint">{thread.feeDisplay}</span>
+      </span>
     </button>
   );
 }
@@ -103,97 +183,91 @@ function DesktopTimeline({
   seasons,
   threads,
   managerBands,
+  eraLabel,
   selectedId,
   onSelect,
-  onKeyDown,
-  focusIndex,
 }: {
   seasons: SquadBuildSeasonMarker[];
   threads: SquadBuildThread[];
   managerBands: SquadBuildDataset["managerBands"];
+  eraLabel: string;
   selectedId: string | null;
   onSelect: (id: string) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void;
-  focusIndex: number;
 }) {
+  const { containerRef, focusIndex, onKeyDown, selectAt } = useThreadList<HTMLDivElement>(threads, onSelect);
   const lanes = LANE_ORDER.filter((lane) => laneHasThreads(threads, lane));
   const seasonIndex = new Map(seasons.map((season, index) => [season.season, index]));
-  const colTemplate = seasons.length > 0 ? `repeat(${seasons.length}, minmax(4.5rem, 1fr))` : "1fr";
+  const threadIndex = new Map(threads.map((thread, index) => [thread.id, index]));
+  const colTemplate = seasons.length > 0 ? `repeat(${seasons.length}, minmax(6rem, 1fr))` : "1fr";
 
   return (
     <div className="hidden md:block">
       <div className="overflow-x-auto rounded-lg border border-line bg-panel">
-        <div className="min-w-[42rem] p-4">
-          <div className="relative">
-            <div
-              className="pointer-events-none absolute inset-x-0 top-8 grid gap-px"
-              style={{ gridTemplateColumns: colTemplate, height: "calc(100% - 2rem)" }}
-              aria-hidden
-            >
-              {managerBands.map((band) => {
-                const from = seasonIndex.get(band.fromSeason);
-                const to = seasonIndex.get(band.toSeason);
-                if (from == null || to == null) return null;
-                return (
-                  <div
-                    key={`${band.managerId}-${band.fromSeason}`}
-                    className="rounded-sm bg-panel-2/80"
-                    style={{ gridColumn: `${from + 1} / ${to + 2}` }}
-                  >
-                    <span className="block px-1 py-1 text-[10px] font-medium uppercase tracking-wide text-ink-faint">
-                      {band.managerName}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+        <div className="min-w-[52rem] p-4">
+          <div className="grid gap-px border-b border-line/70 pb-2" style={{ gridTemplateColumns: colTemplate }}>
+            {seasons.map((season) => (
+              <div key={season.season} className="px-1 text-center">
+                <span className="stat-num block text-[11px] font-semibold text-ink">{season.label}</span>
+                <span className="stat-num mt-0.5 block text-[10px] text-ink-faint">{finishLabel(season.leagueFinish)}</span>
+                {season.honourCount > 0 && (
+                  <span className="mt-0.5 inline-flex items-center gap-1 text-[10px] text-gold">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
+                    {trophyLabel(season.honourCount)}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
 
-            <div className="relative grid gap-px border-b border-line/70 pb-2" style={{ gridTemplateColumns: colTemplate }}>
-              {seasons.map((season) => (
-                <div key={season.season} className="px-1 text-center">
-                  <span className="stat-num block text-[11px] font-semibold text-ink">{season.label}</span>
-                  <span className="stat-num mt-0.5 block text-[10px] text-ink-faint">{finishLabel(season.leagueFinish)}</span>
-                  {season.honourCount > 0 && (
-                    <span className="mt-0.5 inline-flex items-center gap-1 text-[10px] text-gold">
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
-                      {season.honourCount} trophy{season.honourCount === 1 ? "" : "ies"}
-                    </span>
-                  )}
+          {/* Era bands sit in their own row rather than as an overlay, so a long
+              manager name can never collide with the honour markers above. */}
+          <div className="mt-2 grid gap-px" style={{ gridTemplateColumns: colTemplate }}>
+            {managerBands.map((band) => {
+              const from = seasonIndex.get(band.fromSeason);
+              const to = seasonIndex.get(band.toSeason);
+              if (from == null || to == null) return null;
+              return (
+                <div
+                  key={`${band.managerId}-${band.fromSeason}`}
+                  className="truncate rounded-sm bg-panel-2 px-1.5 py-1 text-[10px] font-medium uppercase tracking-wide text-ink-faint"
+                  style={{ gridColumn: `${from + 1} / ${to + 2}` }}
+                >
+                  {band.managerName}
                 </div>
-              ))}
-            </div>
+              );
+            })}
+          </div>
 
-            <div className="relative space-y-2 pt-3">
-              {lanes.map((lane) => (
-                <div key={lane} className="grid items-start gap-2" style={{ gridTemplateColumns: "3.5rem 1fr" }}>
-                  <span className="pt-2 text-[10px] font-semibold uppercase tracking-wide text-ink-faint">{lane}</span>
-                  <div className="grid gap-2" style={{ gridTemplateColumns: colTemplate }}>
-                    {seasons.map((season) => {
-                      const cellThreads = threads.filter(
-                        (thread) => thread.season === season.season && thread.position === lane,
-                      );
-                      return (
-                        <div key={`${lane}-${season.season}`} className="space-y-1 px-0.5">
-                          {cellThreads.map((thread) => {
-                            const index = threads.findIndex((entry) => entry.id === thread.id);
-                            return (
-                              <ThreadMark
-                                key={thread.id}
-                                thread={thread}
-                                selected={selectedId === thread.id}
-                                onSelect={() => onSelect(thread.id)}
-                                tabIndex={index === focusIndex ? 0 : -1}
-                                onKeyDown={(event) => onKeyDown(event, index)}
-                              />
-                            );
-                          })}
-                        </div>
-                      );
-                    })}
-                  </div>
+          <div ref={containerRef} role="group" aria-label={`Squad-build moves, ${eraLabel}`} className="space-y-2 pt-3">
+            {lanes.map((lane) => (
+              <div key={lane} className="grid items-start gap-2" style={{ gridTemplateColumns: "3.5rem 1fr" }}>
+                <span className="pt-2 text-[10px] font-semibold uppercase tracking-wide text-ink-faint">{lane}</span>
+                <div className="grid gap-2" style={{ gridTemplateColumns: colTemplate }}>
+                  {seasons.map((season) => {
+                    const cellThreads = threads.filter(
+                      (thread) => thread.season === season.season && thread.position === lane,
+                    );
+                    return (
+                      <div key={`${lane}-${season.season}`} className="space-y-1 px-0.5">
+                        {cellThreads.map((thread) => {
+                          const index = threadIndex.get(thread.id)!;
+                          return (
+                            <ThreadMark
+                              key={thread.id}
+                              thread={thread}
+                              selected={selectedId === thread.id}
+                              onSelect={() => selectAt(index)}
+                              tabIndex={index === focusIndex ? 0 : -1}
+                              onKeyDown={(event) => onKeyDown(event, index)}
+                            />
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -210,15 +284,11 @@ function MobileChapters({
   threads,
   selectedId,
   onSelect,
-  onKeyDown,
-  focusIndex,
 }: {
   seasons: SquadBuildSeasonMarker[];
   threads: SquadBuildThread[];
   selectedId: string | null;
   onSelect: (id: string) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void;
-  focusIndex: number;
 }) {
   return (
     <div className="space-y-3 md:hidden">
@@ -235,7 +305,7 @@ function MobileChapters({
               <h3 className="display text-lg leading-tight text-ink">{season.managerName}</h3>
               <p className="stat-num mt-1 text-xs text-ink-faint">
                 {finishLabel(season.leagueFinish)} · {arrivals.length} in · {departures.length} out
-                {season.honourCount > 0 ? ` · ${season.honourCount} trophy${season.honourCount === 1 ? "" : "ies"}` : ""}
+                {season.honourCount > 0 ? ` · ${trophyLabel(season.honourCount)}` : ""}
               </p>
             </header>
             <div className="grid gap-4 px-4 py-4 sm:grid-cols-2">
@@ -246,26 +316,21 @@ function MobileChapters({
                 <div key={title}>
                   <h4 className={`text-xs font-semibold uppercase tracking-[0.14em] ${tone}`}>{title}</h4>
                   <ul className="mt-2 space-y-1">
-                    {rows.map((thread) => {
-                      const index = threads.findIndex((entry) => entry.id === thread.id);
-                      return (
-                        <li key={thread.id}>
-                          <button
-                            type="button"
-                            aria-pressed={selectedId === thread.id}
-                            tabIndex={index === focusIndex ? 0 : -1}
-                            onClick={() => onSelect(thread.id)}
-                            onKeyDown={(event) => onKeyDown(event, index)}
-                            className={`flex w-full min-h-11 items-center justify-between gap-3 rounded border px-3 py-2 text-left text-sm transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
-                              selectedId === thread.id ? "border-ink/30 bg-panel-2" : "border-line/70 hover:bg-panel-2"
-                            }`}
-                          >
-                            <span className="min-w-0 truncate font-medium text-ink">{thread.playerName}</span>
-                            <span className="stat-num shrink-0 text-xs text-ink-faint">{thread.feeDisplay}</span>
-                          </button>
-                        </li>
-                      );
-                    })}
+                    {rows.map((thread) => (
+                      <li key={thread.id}>
+                        <button
+                          type="button"
+                          aria-pressed={selectedId === thread.id}
+                          onClick={() => onSelect(thread.id)}
+                          className={`flex w-full min-h-11 items-center justify-between gap-3 rounded border px-3 py-2 text-left text-sm transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-devil-bright ${
+                            selectedId === thread.id ? "border-ink/30 bg-panel-2" : "border-line/70 hover:bg-panel-2"
+                          }`}
+                        >
+                          <span className="min-w-0 truncate font-medium text-ink">{thread.playerName}</span>
+                          <span className="stat-num shrink-0 text-xs text-ink-faint">{thread.feeDisplay}</span>
+                        </button>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               ))}
@@ -281,31 +346,30 @@ function OrderedLedger({
   threads,
   selectedId,
   onSelect,
-  onKeyDown,
-  focusIndex,
 }: {
   threads: SquadBuildThread[];
   selectedId: string | null;
   onSelect: (id: string) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>, index: number) => void;
-  focusIndex: number;
 }) {
+  const { containerRef, focusIndex, onKeyDown, selectAt } = useThreadList<HTMLOListElement>(threads, onSelect);
+
   return (
     <div className="rounded-lg border border-line bg-panel">
       <header className="border-b border-line/70 px-4 py-3">
         <h3 className="text-sm font-semibold text-ink">Ordered ledger</h3>
         <p className="mt-1 text-xs leading-5 text-ink-faint">
-          The same moves in chronological order — keyboard selection follows this list.
+          The same moves in chronological order — arrow keys step through them.
         </p>
       </header>
-      <ol className="max-h-80 divide-y divide-line/60 overflow-y-auto">
+      <ol ref={containerRef} className="max-h-80 divide-y divide-line/60 overflow-y-auto">
         {threads.map((thread, index) => (
           <li key={thread.id}>
             <button
               type="button"
+              data-roving-item
               aria-pressed={selectedId === thread.id}
               tabIndex={index === focusIndex ? 0 : -1}
-              onClick={() => onSelect(thread.id)}
+              onClick={() => selectAt(index)}
               onKeyDown={(event) => onKeyDown(event, index)}
               className={`flex w-full min-h-11 items-center gap-3 px-4 py-2 text-left text-sm transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright ${
                 selectedId === thread.id ? "bg-panel-2" : "hover:bg-panel-2/70"
@@ -335,8 +399,6 @@ export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[]
     datasets[0]?.defaultPositionLens ? "MID" : "all",
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [focusIndex, setFocusIndex] = useState(0);
-  const listRef = useRef<HTMLDivElement>(null);
 
   const dataset = useMemo(
     () => datasets.find((entry) => entry.era.id === eraId) ?? datasets[0]!,
@@ -355,64 +417,24 @@ export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[]
 
   // Selection resets belong in the change handlers, not effects — see
   // react-hooks/set-state-in-effect. Both era and position change only via
-  // these handlers, so the reset is co-located with the trigger.
-  const selectEra = useCallback((nextEra: SquadBuildEraId) => {
-    setEraId(nextEra);
-    setSelectedId(null);
-    setFocusIndex(0);
-  }, []);
+  // these handlers, so the reset is co-located with the trigger. Each list
+  // owns its own roving focus index and clamps it, so nothing resets here.
+  const selectEra = useCallback(
+    (nextEra: SquadBuildEraId) => {
+      setEraId(nextEra);
+      // Each era carries its own density, so the default lane follows the era.
+      setPosition(datasets.find((entry) => entry.era.id === nextEra)?.defaultPositionLens ? "MID" : "all");
+      setSelectedId(null);
+    },
+    [datasets],
+  );
 
   const selectPosition = useCallback((nextPosition: PositionFilter) => {
     setPosition(nextPosition);
     setSelectedId(null);
-    setFocusIndex(0);
   }, []);
 
-  const selectThread = useCallback(
-    (id: string) => {
-      setSelectedId(id);
-      const index = visibleThreads.findIndex((thread) => thread.id === id);
-      if (index >= 0) setFocusIndex(index);
-    },
-    [visibleThreads],
-  );
-
-  const handleListKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-      if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-        event.preventDefault();
-        const next = Math.min(index + 1, visibleThreads.length - 1);
-        setFocusIndex(next);
-        setSelectedId(visibleThreads[next]?.id ?? null);
-        return;
-      }
-      if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-        event.preventDefault();
-        const prev = Math.max(index - 1, 0);
-        setFocusIndex(prev);
-        setSelectedId(visibleThreads[prev]?.id ?? null);
-        return;
-      }
-      if (event.key === "Home") {
-        event.preventDefault();
-        setFocusIndex(0);
-        setSelectedId(visibleThreads[0]?.id ?? null);
-        return;
-      }
-      if (event.key === "End") {
-        event.preventDefault();
-        const last = visibleThreads.length - 1;
-        setFocusIndex(last);
-        setSelectedId(visibleThreads[last]?.id ?? null);
-      }
-    },
-    [visibleThreads],
-  );
-
-  useEffect(() => {
-    const node = listRef.current?.querySelector<HTMLButtonElement>(`button[tabindex="0"]`);
-    node?.focus();
-  }, [focusIndex, eraId, position]);
+  const selectThread = useCallback((id: string) => setSelectedId(id), []);
 
   if (!dataset || dataset.threads.length === 0) return null;
 
@@ -470,40 +492,33 @@ export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[]
         </label>
       </div>
 
-      {dataset.defaultPositionLens && position === "all" && (
+      {dataset.defaultPositionLens && (
         <p className="text-xs leading-5 text-ink-faint">
-          This era is dense — the timeline defaults to one position lane so the threads stay legible.
+          {position === "all"
+            ? "This era is dense — pick a position lane if the threads become hard to follow."
+            : "This era is dense, so the timeline opens on one position lane. Switch to all lanes to see every move."}
         </p>
       )}
 
-      <div ref={listRef} role="listbox" aria-label={`Squad-build moves, ${dataset.era.label}`}>
+      <div>
         <DesktopTimeline
           seasons={dataset.seasons}
           threads={visibleThreads}
           managerBands={dataset.managerBands}
+          eraLabel={dataset.era.label}
           selectedId={selectedId}
           onSelect={selectThread}
-          onKeyDown={handleListKeyDown}
-          focusIndex={focusIndex}
         />
         <MobileChapters
           seasons={dataset.seasons}
           threads={visibleThreads}
           selectedId={selectedId}
           onSelect={selectThread}
-          onKeyDown={handleListKeyDown}
-          focusIndex={focusIndex}
         />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.75fr)]">
-        <OrderedLedger
-          threads={visibleThreads}
-          selectedId={selectedId}
-          onSelect={selectThread}
-          onKeyDown={handleListKeyDown}
-          focusIndex={focusIndex}
-        />
+        <OrderedLedger threads={visibleThreads} selectedId={selectedId} onSelect={selectThread} />
         <SquadBuildDealPanel thread={selectedThread} />
       </div>
     </section>

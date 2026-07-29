@@ -1,45 +1,16 @@
-import { transferSeason, type InflationIndices, type MoneyMode } from "./inflation";
+import { type InflationIndices, type MoneyMode } from "./inflation";
 import { displayFeeGbp, transferTotalsForMode } from "./transferAggregates";
+import {
+  COST_BUCKET_ORDER,
+  costBucketForMeanMultiple,
+  feePlMeanMultiple,
+  isMarketTransfer,
+  transferLaneKind,
+  type CostBucketId,
+} from "./transferTaxonomy";
 import type { TransferRow } from "./queries";
 
-const OFF_MARKET_TYPES = new Set(["youth", "released", "retired"]);
-
-export type CostBandId = "low" | "lower-middle" | "upper-middle" | "high" | "extreme" | "unknown";
-
-export const COST_BAND_ORDER: Array<{ id: CostBandId; label: string }> = [
-  { id: "low", label: "Low" },
-  { id: "lower-middle", label: "Lower-middle" },
-  { id: "upper-middle", label: "Upper-middle" },
-  { id: "high", label: "High" },
-  { id: "extreme", label: "Extreme" },
-  { id: "unknown", label: "Unknown fee" },
-];
-
-/** Mean-relative band thresholds — chosen before inspecting outcomes (A0 index). */
-export function costBandForMeanMultiple(multiple: number | null): CostBandId {
-  if (multiple == null || !Number.isFinite(multiple)) return "unknown";
-  if (multiple < 0.5) return "low";
-  if (multiple < 1) return "lower-middle";
-  if (multiple < 2) return "upper-middle";
-  if (multiple < 4) return "high";
-  return "extreme";
-}
-
-export function feePlMeanMultiple(
-  feeGbp: number | null,
-  feeKind: string,
-  date: string | null,
-  season: string | null,
-  indices: InflationIndices,
-): number | null {
-  if (feeKind !== "fee" || feeGbp == null) return null;
-  const resolvedSeason = transferSeason(date, season);
-  const footballSeason = resolvedSeason ? indices.football.seasons[resolvedSeason] : undefined;
-  if (!footballSeason?.meanGbp) return null;
-  return feeGbp / footballSeason.meanGbp;
-}
-
-export interface ManagerTransferSeasonRow {
+interface ManagerTransferSeasonRow {
   season: string;
   signings: number;
   departures: number;
@@ -56,7 +27,7 @@ export interface ManagerAggregateBucket {
   transferIds: string[];
 }
 
-export interface ManagerSquadChurn {
+interface ManagerSquadChurn {
   signings: number;
   departures: number;
   netHeadcount: number;
@@ -72,7 +43,7 @@ export interface ManagerSpellOutcome {
   season: string | null;
   feeGbp: number | null;
   feeKind: string;
-  costBand: CostBandId;
+  costBand: CostBucketId;
   spellState: ManagerSpellState;
   apps: number | null;
   starts: number | null;
@@ -103,10 +74,6 @@ export interface ManagerTransferLens {
   completedSpells: ManagerSpellOutcome[];
   ongoingSpells: ManagerSpellOutcome[];
   definingLinks: ManagerDefiningLink[];
-}
-
-function isMarketTransfer(t: Pick<TransferRow, "type">): boolean {
-  return !OFF_MARKET_TYPES.has(t.type);
 }
 
 function managerSeasonRows(
@@ -145,30 +112,31 @@ function managerSeasonRows(
 }
 
 function managerCostBands(signings: TransferRow[], indices: InflationIndices): ManagerAggregateBucket[] {
-  const buckets = new Map<CostBandId, ManagerAggregateBucket>();
-  for (const { id, label } of COST_BAND_ORDER) {
+  const buckets = new Map<CostBucketId, ManagerAggregateBucket>();
+  for (const { id, label } of COST_BUCKET_ORDER) {
     buckets.set(id, { id, label, count: 0, transferIds: [] });
   }
   for (const t of signings) {
-    if (t.direction !== "in" || t.type !== "permanent") continue;
-    const band = costBandForMeanMultiple(feePlMeanMultiple(t.fee_gbp, t.fee_kind, t.date, t.season, indices));
-    const bucket = buckets.get(band)!;
+    if (t.direction !== "in" || transferLaneKind(t) !== "permanent") continue;
+    const bucket = buckets.get(
+      costBucketForMeanMultiple(feePlMeanMultiple(t.fee_gbp, t.fee_kind, t.date, t.season, indices)),
+    )!;
     bucket.count++;
     bucket.transferIds.push(t.id);
   }
-  return COST_BAND_ORDER.map(({ id }) => buckets.get(id)!);
+  return COST_BUCKET_ORDER.map(({ id }) => buckets.get(id)!);
 }
 
-function managerSquadChurn(transfers: TransferRow[]): ManagerSquadChurn {
-  const market = transfers.filter(isMarketTransfer);
+function managerSquadChurn(market: TransferRow[]): ManagerSquadChurn {
   const signings = market.filter((t) => t.direction === "in").length;
   const departures = market.filter((t) => t.direction === "out").length;
-  const turnover = signings + departures > 0 ? departures / signings : null;
   return {
     signings,
     departures,
     netHeadcount: signings - departures,
-    turnover,
+    // Guard the divisor, not the sum: a manager who only sold would otherwise
+    // report an infinite turnover ratio.
+    turnover: signings > 0 ? departures / signings : null,
   };
 }
 
@@ -179,13 +147,16 @@ export function buildManagerTransferLensView(
   indices: InflationIndices,
   staticParts: ManagerTransferLensStatic,
 ): ManagerTransferLens {
+  // Every aggregate on the panel counts the same rows: market business only.
+  // Season counts previously included academy, release and retirement rows,
+  // which made "signings" mean two different things on one screen.
   const market = transfers.filter(isMarketTransfer);
   const signings = market.filter((t) => t.direction === "in");
   return {
     totals: transferTotalsForMode(market, mode, indices),
-    seasons: managerSeasonRows(transfers, mode, indices),
+    seasons: managerSeasonRows(market, mode, indices),
     costBands: managerCostBands(signings, indices),
-    churn: managerSquadChurn(transfers),
+    churn: managerSquadChurn(market),
     ...staticParts,
   };
 }

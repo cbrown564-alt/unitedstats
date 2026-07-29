@@ -21,6 +21,7 @@ import {
   featuredWindowResolves,
 } from "@/lib/transferFeature";
 import { buildRecordDealReceiptMap } from "@/lib/transferReceipt";
+import { gatedClubsByVolume } from "@/lib/transferClubs";
 import { buildAllSquadBuildDatasets } from "@/lib/squadBuild.server";
 import { jsonLdHtml, transferHistoryJsonLd } from "@/lib/structuredData";
 
@@ -54,13 +55,18 @@ export default async function TransfersPage() {
     datasetBuiltAt: databaseBuiltAt(),
   });
   const recordDealReceipts = buildRecordDealReceiptMap(transfers, indices);
+  // A bounded way into the counterparty lenses — the gate decides which clubs
+  // have a page at all, and the hub shows only the most-traded of those.
+  const clubRelationships = gatedClubsByVolume(transfers).slice(0, 9);
 
   return (
     <div>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: jsonLdHtml(transferHistoryJsonLd(latestSeason?.season, featured)),
+          __html: jsonLdHtml(
+            transferHistoryJsonLd(latestSeason?.season, featured, clubRelationships.length > 0),
+          ),
         }}
       />
       <TransfersLedger
@@ -73,6 +79,7 @@ export default async function TransfersPage() {
         squadBuildDatasets={squadBuildDatasets}
         currentWindow={currentWindow}
         recordDealReceipts={recordDealReceipts}
+        clubRelationships={clubRelationships}
       />
     </div>
   );

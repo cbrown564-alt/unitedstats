@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { clubNames, opponentNames } from "./clubNames";
+import { isMarketTransfer } from "./transferTaxonomy";
 import {
   clubName,
   fmtDate,
@@ -108,9 +109,9 @@ export function clubTransferSeoDescription(
   transfers: import("./queries").TransferRow[],
   clubId: string,
 ): string {
-  const rows = transfers.filter(
-    (t) => t.club_id === clubId && !["youth", "released", "retired"].includes(t.type),
-  );
+  // Same market predicate the route gate uses, so the description can never
+  // describe a different set of deals than the page generated from.
+  const rows = transfers.filter((t) => t.club_id === clubId && isMarketTransfer(t));
   const arrivals = rows.filter((t) => t.direction === "in").length;
   const departures = rows.filter((t) => t.direction === "out").length;
   return `Every recorded market transfer between Manchester United and ${clubName}: ${fmtNum(arrivals)} arrivals, ${fmtNum(departures)} departures, and known fees where published.`;
