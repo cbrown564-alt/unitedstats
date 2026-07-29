@@ -15,23 +15,7 @@ import {
 } from "./transferManagerLens";
 import type { TransferRow } from "./queries";
 
-export type {
-  CostBandId,
-  ManagerAggregateBucket,
-  ManagerDefiningLink,
-  ManagerSpellOutcome,
-  ManagerTransferLens,
-  ManagerTransferLensStatic,
-} from "./transferManagerLens";
-export {
-  COST_BAND_ORDER,
-  buildManagerTransferLensView,
-  costBandForMeanMultiple,
-  feePlMeanMultiple,
-  managerSquadChurn,
-} from "./transferManagerLens";
-
-export const MANAGER_DEFINING_LINKS: Record<
+const MANAGER_DEFINING_LINKS: Record<
   string,
   Array<{ kind: "season" | "player"; id: string; label: string; blurb: string }>
 > = {

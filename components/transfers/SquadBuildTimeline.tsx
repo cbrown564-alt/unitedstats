@@ -331,7 +331,9 @@ function OrderedLedger({
 
 export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[] }) {
   const [eraId, setEraId] = useState<SquadBuildEraId>(datasets[0]?.era.id ?? "ferguson-early");
-  const [position, setPosition] = useState<PositionFilter>("all");
+  const [position, setPosition] = useState<PositionFilter>(
+    datasets[0]?.defaultPositionLens ? "MID" : "all",
+  );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [focusIndex, setFocusIndex] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
@@ -351,16 +353,20 @@ export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[]
     [visibleThreads, selectedId],
   );
 
-  useEffect(() => {
-    setPosition(dataset.defaultPositionLens ? "MID" : "all");
+  // Selection resets belong in the change handlers, not effects — see
+  // react-hooks/set-state-in-effect. Both era and position change only via
+  // these handlers, so the reset is co-located with the trigger.
+  const selectEra = useCallback((nextEra: SquadBuildEraId) => {
+    setEraId(nextEra);
     setSelectedId(null);
     setFocusIndex(0);
-  }, [dataset.era.id, dataset.defaultPositionLens]);
+  }, []);
 
-  useEffect(() => {
+  const selectPosition = useCallback((nextPosition: PositionFilter) => {
+    setPosition(nextPosition);
     setSelectedId(null);
     setFocusIndex(0);
-  }, [position]);
+  }, []);
 
   const selectThread = useCallback(
     (id: string) => {
@@ -438,7 +444,7 @@ export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[]
                   name="squad-build-era"
                   value={entry.era.id}
                   checked={eraId === entry.era.id}
-                  onChange={() => setEraId(entry.era.id)}
+                  onChange={() => selectEra(entry.era.id)}
                   className="sr-only"
                 />
                 {entry.era.label}
@@ -451,7 +457,7 @@ export function SquadBuildTimeline({ datasets }: { datasets: SquadBuildDataset[]
           <span className="font-medium text-ink">Position lane</span>
           <select
             value={position}
-            onChange={(event) => setPosition(event.currentTarget.value as PositionFilter)}
+            onChange={(event) => selectPosition(event.currentTarget.value as PositionFilter)}
             className="min-h-9 bg-transparent text-sm text-ink outline-none"
             aria-label="Filter by position lane"
           >

@@ -37,7 +37,8 @@ import {
   gatedClubIds,
   passesClubEvidenceGate,
 } from "@/lib/transferClubs";
-import { buildManagerTransferLens, costBandForMeanMultiple } from "@/lib/transferManagerLens.server";
+import { buildManagerTransferLens } from "@/lib/transferManagerLens.server";
+import { costBandForMeanMultiple } from "@/lib/transferManagerLens";
 import { transferHistoryJsonLd } from "@/lib/structuredData";
 
 test("transfer history summary includes dated and undated canonical rows", () => {

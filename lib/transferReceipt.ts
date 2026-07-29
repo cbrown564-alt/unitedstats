@@ -4,6 +4,7 @@ import { loadInflationIndices } from "./inflationIndices";
 import { CURATED_NIGHTS } from "./curatedNights";
 import { allTransfers, type TransferRow } from "./queries";
 import { topTransfersForMode } from "./transferAggregates";
+import { relativeCostBandFromMeanMultiple } from "./currentTransferWindow";
 import type {
   AssistCoverage,
   TransferFeeBand,
@@ -16,20 +17,6 @@ import type {
   TransferReceiptTeamContext,
   TransferSpellState,
 } from "./transferReceiptTypes";
-
-export type {
-  AssistCoverage,
-  TransferFeeBand,
-  TransferReceipt,
-  TransferReceiptDeal,
-  TransferReceiptDefiningNight,
-  TransferReceiptExit,
-  TransferReceiptLeagueFinish,
-  TransferReceiptSpell,
-  TransferReceiptTeamContext,
-  TransferSpellState,
-} from "./transferReceiptTypes";
-export { displayReceiptFee } from "./transferReceiptTypes";
 
 const CURATED_ASSISTS_LAST_SEASON = "2014-15";
 const RECEIPT_MIN_YEAR = 1900;
@@ -99,13 +86,16 @@ function parseSourceIds(raw: string | null): string[] {
   }
 }
 
+/**
+ * Receipt-relative cost band. Delegates to the canonical mean-multiple banding so
+ * the 0.5/1/2/4 thresholds (declared before outcome inspection) live in one place
+ * — see `relativeCostBandFromMeanMultiple`. The wrapper preserves the receipt's
+ * nullable contract: a missing or non-finite multiple yields `null` rather than an
+ * "unknown" band.
+ */
 function feeBandFromMultiple(multiple: number | null): TransferFeeBand | null {
   if (multiple == null || !Number.isFinite(multiple)) return null;
-  if (multiple >= 4) return "extreme";
-  if (multiple >= 2) return "high";
-  if (multiple >= 1) return "upper-middle";
-  if (multiple >= 0.5) return "lower-middle";
-  return "low";
+  return relativeCostBandFromMeanMultiple(multiple);
 }
 
 function feeBandLabel(band: TransferFeeBand | null): string | null {
@@ -520,7 +510,7 @@ function roleNote(stats: SpellStats | null): string | null {
   return null;
 }
 
-export function transferById(transferId: string, transfers?: TransferRow[]): TransferRow | undefined {
+function transferById(transferId: string, transfers?: TransferRow[]): TransferRow | undefined {
   const rows = transfers ?? allTransfers();
   return rows.find((row) => row.id === transferId);
 }

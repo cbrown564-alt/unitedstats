@@ -18,7 +18,6 @@ import type { ManagerTransferLens } from "@/lib/transferManagerLens";
 import type { TransferRow } from "@/lib/queries";
 
 export function ManagerTransferLensPanel({
-  managerId,
   managerName,
   transfers,
   indices,

@@ -159,7 +159,7 @@ function managerCostBands(signings: TransferRow[], indices: InflationIndices): M
   return COST_BAND_ORDER.map(({ id }) => buckets.get(id)!);
 }
 
-export function managerSquadChurn(transfers: TransferRow[]): ManagerSquadChurn {
+function managerSquadChurn(transfers: TransferRow[]): ManagerSquadChurn {
   const market = transfers.filter(isMarketTransfer);
   const signings = market.filter((t) => t.direction === "in").length;
   const departures = market.filter((t) => t.direction === "out").length;
