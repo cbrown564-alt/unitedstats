@@ -8,19 +8,24 @@ import { SpendTide } from "@/components/charts/SpendTide";
 import { TransferArchive } from "@/components/TransferArchive";
 import { CoverageNote } from "@/components/CoverageNote";
 import { SectionHead } from "@/components/SectionHead";
+import { CurrentTransferWindow } from "@/components/transfers/CurrentTransferWindow";
 import { MoneyModeToggle } from "@/components/transfers/MoneyModeToggle";
 import { TransferHistoryLink } from "@/components/transfers/TransferHistoryLink";
 import type { InflationIndices, MoneyMode } from "@/lib/inflation";
 import { moneyModeLabel } from "@/lib/inflation";
 import {
   netSpendByManagerForMode,
-  latestTransferSeasonSummary,
   spendTideForMode,
   topTransfersForMode,
   transferRecordSummary,
   transferTotalsForMode,
 } from "@/lib/transferAggregates";
+import { seasonAnchorId, type FeaturedTransferWindow } from "@/lib/transferFeature";
+import type { CurrentTransferWindowModel } from "@/lib/currentTransferWindow";
 import { fmtDate, fmtFee, fmtNum } from "@/lib/format";
+import { SquadBuildTimeline } from "@/components/transfers/SquadBuildTimeline";
+import type { SquadBuildDataset } from "@/lib/squadBuild";
+import type { TransferReceipt } from "@/lib/transferReceipt";
 import type { ManagerTransferTenure, TransferRow } from "@/lib/queries";
 
 export function TransfersLedger({
@@ -28,11 +33,24 @@ export function TransfersLedger({
   indices,
   managerTenures,
   managerPortrait,
+  featured,
+  since,
+  squadBuildDatasets,
+  currentWindow,
+  recordDealReceipts,
 }: {
   transfers: TransferRow[];
   indices: InflationIndices;
   managerTenures: ManagerTransferTenure[];
   managerPortrait: Map<string, { name: string; src?: string | null }>;
+  /** Authored window to lead with. Omitted when it has no anchor to point at. */
+  featured?: FeaturedTransferWindow;
+  since: number;
+  squadBuildDatasets: SquadBuildDataset[];
+  /** Rich confirmed-window surface for the latest season. */
+  currentWindow?: CurrentTransferWindowModel | null;
+  /** Server-built receipts for record deals — keyed by transfer id. */
+  recordDealReceipts: Record<string, TransferReceipt>;
 }) {
   const [moneyMode, setMoneyMode] = useState<MoneyMode>("nominal");
 
@@ -57,13 +75,12 @@ export function TransfersLedger({
     [transfers, managerTenures, moneyMode, indices],
   );
   const record = useMemo(() => transferRecordSummary(transfers), [transfers]);
-  const latestSeason = useMemo(() => latestTransferSeasonSummary(transfers), [transfers]);
   const seasonOptions = useMemo(
     () =>
       [...new Set(transfers.map((transfer) => transfer.season).filter((season): season is string => !!season))]
-        .filter((season) => Number.parseInt(season.slice(0, 4), 10) >= 1980)
+        .filter((season) => Number.parseInt(season.slice(0, 4), 10) >= since)
         .sort((a, b) => b.localeCompare(a)),
-    [transfers],
+    [transfers, since],
   );
 
   const net = totals.gross_spend - totals.gross_received;
@@ -73,14 +90,14 @@ export function TransfersLedger({
     setMoneyMode(nextMode);
   };
   const revealSeason = (season: string) => {
-    const target = document.getElementById(`txseason-${season}`);
+    const target = document.getElementById(seasonAnchorId(season));
     if (target instanceof HTMLDetailsElement) target.open = true;
   };
   const jumpToSeason = (event: ChangeEvent<HTMLSelectElement>) => {
     const season = event.currentTarget.value;
     if (!season) return;
     revealSeason(season);
-    document.getElementById(`txseason-${season}`)?.scrollIntoView({
+    document.getElementById(seasonAnchorId(season))?.scrollIntoView({
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
       block: "start",
     });
@@ -100,10 +117,7 @@ export function TransfersLedger({
               Transfer history <span className="text-ink-faint">·</span>{" "}
               <span className="stat-num tracking-normal text-ink-dim">{record.firstYear}–{record.lastYear}</span>
             </p>
-            <h1
-              id="transfer-history-title"
-              className="mt-2 text-3xl font-semibold tracking-[-0.025em] text-balance text-ink sm:text-4xl"
-            >
+            <h1 id="transfer-history-title" className="display mt-2 text-3xl text-balance sm:text-4xl">
               The money tide
             </h1>
             <p className="mt-3 max-w-2xl text-base leading-7 text-ink-dim">
@@ -155,34 +169,39 @@ export function TransfersLedger({
           </div>
         </dl>
 
-        <div className="grid border-t border-line/70 lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)]">
-          <TransferHistoryLink
-            href="#txseason-1998-99"
-            destination="season"
-            source="opening_thread"
-            onClick={() => revealSeason("1998-99")}
-            className="group block px-4 py-5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-6 sm:py-6 lg:border-r lg:border-line/70"
-          >
-            <span className="stat-num text-xs font-medium text-devil-bright">1998–99</span>
-            <h2 className="mt-1.5 max-w-xl text-xl font-semibold tracking-[-0.015em] text-ink group-hover:text-devil-bright sm:text-2xl">
-              Yorke, Stam, Blomqvist — and the window before the Treble
-            </h2>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-ink-dim">
-              Follow three arrivals from the ledger into the season that ended in Barcelona.
-            </p>
-            <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink">
-              Open the Treble window <span aria-hidden>↓</span>
-            </span>
-          </TransferHistoryLink>
+        <div
+          className={`grid border-t border-line/70 ${
+            featured ? "lg:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)]" : ""
+          }`}
+        >
+          {featured && (
+            <TransferHistoryLink
+              href={`#${seasonAnchorId(featured.season)}`}
+              destination="season"
+              source="opening_thread"
+              onClick={() => revealSeason(featured.season)}
+              className="group block px-4 py-5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-6 sm:py-6 lg:border-r lg:border-line/70"
+            >
+              <span className="stat-num text-xs font-medium text-devil-bright">{featured.label}</span>
+              <h2 className="display mt-1.5 max-w-xl text-balance text-xl leading-tight text-ink group-hover:text-devil-bright sm:text-2xl">
+                {featured.title}
+              </h2>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-ink-dim">{featured.blurb}</p>
+              <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink">
+                {featured.cta} <span aria-hidden>↓</span>
+              </span>
+            </TransferHistoryLink>
+          )}
 
-          <nav aria-label="Explore the transfer record" className="border-t border-line/70 lg:border-t-0">
-            {latestSeason && (
+          <nav
+            aria-label="Explore the transfer record"
+            className={featured ? "border-t border-line/70 lg:border-t-0" : ""}
+          >
+            {currentWindow && (
               <TransferHistoryLink
-                id="current-window"
-                href={`#txseason-${latestSeason.season}`}
+                href="#current-window"
                 destination="season"
                 source="opening_routes"
-                onClick={() => revealSeason(latestSeason.season)}
                 className="group flex min-h-14 items-center justify-between gap-4 border-b border-line/70 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
               >
                 <span>
@@ -190,8 +209,8 @@ export function TransfersLedger({
                     Latest confirmed window
                   </span>
                   <span className="mt-0.5 block text-xs leading-5 text-ink-faint">
-                    {latestSeason.season} · {latestSeason.arrivals} in, {latestSeason.departures} out
-                    {latestSeason.lastVerifiedDate ? ` · checked ${fmtDate(latestSeason.lastVerifiedDate)}` : ""}
+                    {currentWindow.seasonLabel} · {currentWindow.dealCount} confirmed
+                    {currentWindow.verifiedAt ? ` · verified ${fmtDate(currentWindow.verifiedAt)}` : ""}
                   </span>
                 </span>
                 <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
@@ -213,7 +232,7 @@ export function TransfersLedger({
               href="#manager-view"
               destination="manager"
               source="opening_routes"
-              className="group flex min-h-14 items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+              className="group flex min-h-14 items-center justify-between gap-4 border-b border-line/70 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
             >
               <span>
                 <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">Manager eras</span>
@@ -221,17 +240,44 @@ export function TransfersLedger({
               </span>
               <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
             </TransferHistoryLink>
+            <TransferHistoryLink
+              href="#squad-build"
+              destination="season"
+              source="opening_routes"
+              className="group flex min-h-14 items-center justify-between gap-4 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+            >
+              <span>
+                <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">Squad-build timeline</span>
+                <span className="mt-0.5 block text-xs leading-5 text-ink-faint">How arrivals and departures threaded through each era</span>
+              </span>
+              <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
+            </TransferHistoryLink>
           </nav>
         </div>
       </section>
 
+      {currentWindow && (
+        <CurrentTransferWindow
+          window={currentWindow}
+          moneyMode={moneyMode}
+          indices={indices}
+          onOpenSeason={revealSeason}
+        />
+      )}
+
       <section id="record-deals" className="scroll-mt-28 space-y-3">
-        <SectionHead title="The record deals" aside="by published fee" variant="sentence" />
-        <RecordDeals signings={topIn} sales={topOut} moneyMode={moneyMode} indices={indices} />
+        <SectionHead title="The record deals" aside="by published fee" />
+        <RecordDeals
+          signings={topIn}
+          sales={topOut}
+          receipts={recordDealReceipts}
+          moneyMode={moneyMode}
+          indices={indices}
+        />
       </section>
 
       <section id="manager-view" className="scroll-mt-28 space-y-3">
-        <SectionHead title="The manager view" aside="known fees · top 10 net spend" variant="sentence" />
+        <SectionHead title="The manager view" aside="known fees · top 10 net spend" />
         <SpendBars
           buckets={byManager}
           hrefFor={(b) => `/manager/${b.bucket_id}`}
@@ -240,12 +286,13 @@ export function TransfersLedger({
         />
       </section>
 
+      {squadBuildDatasets.length > 0 && <SquadBuildTimeline datasets={squadBuildDatasets} />}
+
       <section id="full-ledger" className="scroll-mt-28 space-y-3">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <SectionHead
             title="The full season ledger"
             aside="every dated window, newest first"
-            variant="sentence"
             className="mb-0"
           />
           <label className="flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-line bg-panel px-3 text-sm text-ink-dim has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-devil-bright">
@@ -254,7 +301,7 @@ export function TransfersLedger({
               defaultValue=""
               onChange={jumpToSeason}
               className="min-h-9 bg-transparent text-sm text-ink outline-none"
-              aria-label="Jump to a season from 1980 onwards"
+              aria-label={`Jump to a season from ${since} onwards`}
             >
               <option value="" disabled className="bg-panel text-ink">Choose</option>
               {seasonOptions.map((season) => (
@@ -267,7 +314,7 @@ export function TransfersLedger({
         </div>
         <TransferArchive
           transfers={transfers}
-          since={1980}
+          since={since}
           moneyMode={moneyMode}
           indices={indices}
           trackingSource="season_ledger"

@@ -2435,6 +2435,50 @@ export function allTransfers(): TransferRow[] {
     .all() as TransferRow[];
 }
 
+/** Canonical dataset build timestamp — used for transfer-window verified-at display. */
+export function databaseBuiltAt(): string | null {
+  return (
+    getDb().prepare("SELECT value FROM meta WHERE key = 'built_at'").get() as { value: string } | undefined
+  )?.value ?? null;
+}
+
+/** Primary position bucket keyed by player id (Wikidata P413). */
+export function playerPositionMap(): Record<string, string> {
+  const rows = getDb()
+    .prepare("SELECT player_id, bucket FROM player_positions")
+    .all() as Array<{ player_id: string; bucket: string }>;
+  return Object.fromEntries(rows.map((row) => [row.player_id, row.bucket]));
+}
+
+/** United players with recent appearances, grouped by broad position for window context. */
+export function activePlayerPeersByPosition(minLastDate: string): Record<string, Array<{ playerId: string; playerName: string }>> {
+  const rows = getDb()
+    .prepare(
+      `SELECT p.id player_id, p.name player_name, pp.bucket
+       FROM players p
+       JOIN player_positions pp ON pp.player_id = p.id
+       JOIN player_totals pt ON pt.player_id = p.id AND pt.scope = 'all'
+       WHERE pt.last_date >= ?
+       ORDER BY pp.bucket, pt.apps DESC`,
+    )
+    .all(minLastDate) as Array<{ player_id: string; player_name: string; bucket: string }>;
+
+  const grouped: Record<string, Array<{ playerId: string; playerName: string }>> = {};
+  for (const row of rows) {
+    const bucket = grouped[row.bucket] ?? [];
+    bucket.push({ playerId: row.player_id, playerName: row.player_name });
+    grouped[row.bucket] = bucket;
+  }
+  return grouped;
+}
+
+/** One canonical transfer row by id — used by share-card payloads and receipts. */
+export function transferById(id: string): TransferRow | undefined {
+  return getDb()
+    .prepare(`${TRANSFER_SELECT} WHERE t.id = ?`)
+    .get(id) as TransferRow | undefined;
+}
+
 export interface TransferTotals {
   signings: number;
   departures: number;
