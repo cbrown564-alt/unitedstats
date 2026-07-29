@@ -23,6 +23,16 @@
 - **Recommendation 1 — canonical history hub:** implemented and verified
   locally at `/transfers`, including desktop and phone checks. It has not been
   deployed or promoted.
+- **Recommendation 2 — season and transfer-window pages:** implemented and
+  verified locally at `/transfers/[season]`. The route generates only for the
+  three authored exemplars — 1998–99, 2013–14, and the live window — so no thin
+  season page ships; `dynamicParams` is off, and the sitemap lists the same
+  three. Each page renders separated lanes, known money in the selected mode,
+  position balance either side of the window, the campaign that followed with
+  its honours and defining nights, receipts for the biggest published fees, and
+  the full window ledger. The live window degrades correctly: no campaign, no
+  position balance, lanes and money intact. Build cost is three additional
+  routes. Not deployed.
 - **Recommendation 3 — transfer receipts:** implemented and verified locally.
   Reusable scorecards bridge record deals and player pages to spell outcomes,
   with explicit fee and coverage degradation. No success badge ships in this
@@ -49,9 +59,10 @@
   cards remain a dev-lab stub while A0 keeps modelling closed. Payload tests and
   `npm run og:review` fixtures cover signing, sale, free, undisclosed, and
   ongoing exemplars.
-- **Next representative slice:** build the two remaining exemplar season pages:
-  1998–99 and 2013–14. Prove those pages before spreading the route pattern
-  across seasons.
+- **Next representative slice:** review the three window exemplars in use before
+  spreading the route pattern across seasons. The spread is a Rec 12 decision and
+  should wait for query-level Search Console evidence that readers want a window
+  the ledger cannot already satisfy.
 
 ## Decision
 

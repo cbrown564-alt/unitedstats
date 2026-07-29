@@ -20,7 +20,9 @@ import {
   transferRecordSummary,
   transferTotalsForMode,
 } from "@/lib/transferAggregates";
-import { seasonAnchorId, type FeaturedTransferWindow } from "@/lib/transferFeature";
+import { WindowExemplars } from "@/components/transfers/WindowExemplars";
+import type { FeaturedTransferWindow, TransferWindowExemplar } from "@/lib/transferFeature";
+import { seasonAnchorId } from "@/lib/transferFeature";
 import type { CurrentTransferWindowModel } from "@/lib/currentTransferWindow";
 import { fmtDate, fmtFee, fmtNum } from "@/lib/format";
 import { SquadBuildTimeline } from "@/components/transfers/SquadBuildTimeline";
@@ -41,6 +43,7 @@ export function TransfersLedger({
   currentWindow,
   recordDealReceipts,
   clubRelationships,
+  windowExemplars,
 }: {
   transfers: TransferRow[];
   indices: InflationIndices;
@@ -56,6 +59,8 @@ export function TransfersLedger({
   recordDealReceipts: Record<string, TransferReceipt>;
   /** Gated counterparty clubs, most-traded first. */
   clubRelationships: GatedClub[];
+  /** Authored windows that have their own page, newest first. */
+  windowExemplars: TransferWindowExemplar[];
 }) {
   const [moneyMode, setMoneyMode] = useState<MoneyMode>("nominal");
 
@@ -89,6 +94,8 @@ export function TransfersLedger({
   );
 
   const net = totals.gross_spend - totals.gross_received;
+  const featuredHasPage =
+    featured != null && windowExemplars.some((window) => window.season === featured.season);
   const setMode = (nextMode: MoneyMode) => {
     if (nextMode === moneyMode) return;
     track("transfer_history_money_mode", { mode: nextMode });
@@ -180,11 +187,13 @@ export function TransfersLedger({
           }`}
         >
           {featured && (
+            // The featured window leads to its own page once one exists; without
+            // it the card falls back to opening the season in the ledger.
             <TransferHistoryLink
-              href={`#${seasonAnchorId(featured.season)}`}
-              destination="season"
+              href={featuredHasPage ? `/transfers/${featured.season}` : `#${seasonAnchorId(featured.season)}`}
+              destination={featuredHasPage ? "window" : "season"}
               source="opening_thread"
-              onClick={() => revealSeason(featured.season)}
+              onClick={featuredHasPage ? undefined : () => revealSeason(featured.season)}
               className="group block px-4 py-5 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-6 sm:py-6 lg:border-r lg:border-line/70"
             >
               <span className="stat-num text-xs font-medium text-devil-bright">{featured.label}</span>
@@ -193,7 +202,7 @@ export function TransfersLedger({
               </h2>
               <p className="mt-2 max-w-xl text-sm leading-6 text-ink-dim">{featured.blurb}</p>
               <span className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ink">
-                {featured.cta} <span aria-hidden>↓</span>
+                {featured.cta} <span aria-hidden>{featuredHasPage ? "→" : "↓"}</span>
               </span>
             </TransferHistoryLink>
           )}
@@ -216,6 +225,24 @@ export function TransfersLedger({
                   <span className="mt-0.5 block text-xs leading-5 text-ink-faint">
                     {currentWindow.seasonLabel} · {currentWindow.dealCount} confirmed
                     {currentWindow.verifiedAt ? ` · verified ${fmtDate(currentWindow.verifiedAt)}` : ""}
+                  </span>
+                </span>
+                <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
+              </TransferHistoryLink>
+            )}
+            {windowExemplars.length > 0 && (
+              <TransferHistoryLink
+                href="#window-pages"
+                destination="window"
+                source="opening_routes"
+                className="group flex min-h-14 items-center justify-between gap-4 border-b border-line/70 px-4 py-3 transition-colors hover:bg-panel-2 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-devil-bright sm:px-5"
+              >
+                <span>
+                  <span className="block text-sm font-semibold text-ink group-hover:text-devil-bright">
+                    Windows in context
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-5 text-ink-faint">
+                    A window&apos;s business set against the season that followed
                   </span>
                 </span>
                 <span className="text-ink-faint group-hover:text-devil-bright" aria-hidden>↓</span>
@@ -283,6 +310,8 @@ export function TransfersLedger({
           onOpenSeason={revealSeason}
         />
       )}
+
+      <WindowExemplars windows={windowExemplars} />
 
       <section id="record-deals" className="scroll-mt-28 space-y-3">
         <SectionHead title="The record deals" aside="by published fee" />

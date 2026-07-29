@@ -13,10 +13,15 @@ import { buildCurrentTransferWindow, feeRankLabel } from "@/lib/currentTransferW
 import {
   costBandForMeanMultiple,
   costBandLabel,
+  isKnownFee,
   isMarketTransfer,
   isSquadBuildMove,
   transferLaneKind,
+  transferMoveLabel,
 } from "@/lib/transferTaxonomy";
+import { buildTransferWindow } from "@/lib/transferWindow.server";
+import { windowMoneyForMode } from "@/lib/transferWindow";
+import { SITE_URL } from "@/lib/site";
 import { loadInflationIndices } from "@/lib/inflationIndices";
 import {
   activePlayerPeersByPosition,
@@ -33,6 +38,7 @@ import {
   TRANSFER_LEDGER_SINCE,
   featuredWindowResolves,
   seasonAnchorId,
+  transferWindowExemplars,
 } from "@/lib/transferFeature";
 import {
   AUTHORED_CLUB_CONNECTIONS,
@@ -40,7 +46,7 @@ import {
   passesClubEvidenceGate,
 } from "@/lib/transferClubs";
 import { buildManagerTransferLens } from "@/lib/transferManagerLens.server";
-import { transferHistoryJsonLd } from "@/lib/structuredData";
+import { transferHistoryJsonLd, transferWindowJsonLd } from "@/lib/structuredData";
 
 test("transfer history summary includes dated and undated canonical rows", () => {
   const transfers = allTransfers();
@@ -144,6 +150,14 @@ test("every transfer surface shares one band vocabulary and market predicate", (
     assert.equal(isMarketTransfer({ type }), true);
     assert.equal(isSquadBuildMove({ type }), true);
   }
+
+  // A move's label reads the type, not just the direction: a loan out that
+  // carries a fee is not a sale, and a promotion is not a signing.
+  assert.equal(transferMoveLabel({ type: "permanent" }, "in"), "Signing");
+  assert.equal(transferMoveLabel({ type: "permanent" }, "out"), "Sale");
+  assert.equal(transferMoveLabel({ type: "loan" }, "out"), "Loan out");
+  assert.equal(transferMoveLabel({ type: "youth" }, "in"), "Academy promotion");
+  assert.equal(transferMoveLabel({ type: "retired" }, "out"), "Retirement");
 });
 
 test("A0 keeps descriptive research open and modelling closed", () => {
@@ -216,6 +230,112 @@ test("structured data drops the featured window when the page will not render it
     items.every((item) => !String(item.url).includes("txseason-")),
     "no season anchor may be claimed without a featured window",
   );
+});
+
+test("window pages generate only for authored exemplars plus the live window", () => {
+  const transfers = allTransfers();
+  const exemplars = transferWindowExemplars(transfers);
+  const seasons = exemplars.map((exemplar) => exemplar.season);
+
+  // Rec 2's three proving shapes: a settled addition, a managerial transition,
+  // and the open window whose season is unplayed.
+  assert.ok(seasons.includes("1998-99"));
+  assert.ok(seasons.includes("2013-14"));
+  const latest = [...new Set(transfers.map((row) => row.season).filter(Boolean) as string[])].sort().at(-1)!;
+  assert.ok(seasons.includes(latest), "the latest recorded window must always have a page");
+  assert.deepEqual(seasons, [...seasons].sort((a, b) => b.localeCompare(a)), "exemplars are newest first");
+
+  // The gate is what keeps the route off every other season in the record.
+  const allSeasons = new Set(transfers.map((row) => row.season).filter(Boolean) as string[]);
+  assert.ok(allSeasons.size > seasons.length * 10, "the record holds far more seasons than window pages");
+  assert.ok(!seasons.includes("1968-69"));
+
+  // An authored season missing from canonical data drops out instead of 404ing.
+  const orphan = [{ season: "1823-24", label: "1823–24", frame: "f", title: "t", blurb: "b" }];
+  assert.ok(!transferWindowExemplars(transfers, orphan).some((e) => e.season === "1823-24"));
+});
+
+test("a transfer window places its business against the campaign that followed", () => {
+  const transfers = allTransfers();
+  const indices = loadInflationIndices();
+  const positionMap = playerPositionMap();
+
+  const treble = buildTransferWindow("1998-99", transfers, indices, positionMap)!;
+  assert.ok(treble);
+  assert.equal(treble.seasonLabel, "1998–99");
+  assert.ok(treble.lanes.some((lane) => lane.kind === "permanent" && lane.direction === "in"));
+  assert.ok(treble.managers.some((spell) => spell.managerId === "alex-ferguson"));
+  // The campaign is context, and its honours come from won finals — not inferred.
+  assert.equal(treble.campaign?.leaguePosition, 1);
+  assert.equal(treble.campaign?.honours.length, 3);
+  assert.ok(treble.definingNights.length > 0);
+  assert.ok(treble.definingNights.some((night) => night.authored));
+  assert.ok(treble.receipts.length > 0);
+  // Money coverage is a floor: known fees can never exceed the recorded moves.
+  assert.ok(treble.feeCoverage.known <= treble.feeCoverage.total);
+
+  // A window whose season is unplayed keeps its lanes but shows no campaign and
+  // no position balance — there is no "after" squad to compare against.
+  const live = buildTransferWindow(
+    transferWindowExemplars(transfers)[0].season,
+    transfers,
+    indices,
+    positionMap,
+  )!;
+  if (live.campaign == null) assert.equal(live.positionBalance, null);
+
+  // Non-exemplar seasons have no model at all, so the route 404s.
+  assert.equal(buildTransferWindow("1968-69", transfers, indices, positionMap), null);
+});
+
+test("window money counts published fees only and lanes stay separated by kind", () => {
+  const transfers = allTransfers();
+  const indices = loadInflationIndices();
+  const rebuild = buildTransferWindow("2013-14", transfers, indices, playerPositionMap())!;
+
+  const money = windowMoneyForMode(rebuild.transfers, "nominal", indices);
+  const knownRows = rebuild.transfers.filter(isKnownFee);
+  assert.equal(money.feeRows, knownRows.length);
+  assert.equal(
+    money.knownSpend,
+    knownRows.filter((row) => row.direction === "in").reduce((sum, row) => sum + row.fee_gbp!, 0),
+  );
+  assert.equal(money.knownNet, money.knownSpend - money.knownReceived);
+
+  // Academy promotions never join a market lane, and carry no fee into the totals.
+  const academy = rebuild.lanes.find((lane) => lane.kind === "academy");
+  if (academy) {
+    assert.ok(academy.transfers.every((row) => row.type === "youth"));
+    assert.ok(academy.transfers.every((row) => !isKnownFee(row)));
+  }
+  assert.equal(
+    rebuild.lanes.reduce((sum, lane) => sum + lane.transfers.length, 0),
+    rebuild.transfers.length,
+    "every recorded move belongs to exactly one lane",
+  );
+});
+
+test("window structured data claims only the sections the page renders", () => {
+  const full = transferWindowJsonLd("1998-99", "1998–99", {
+    receipts: true,
+    campaign: true,
+    positionBalance: true,
+  });
+  const fullItems = (full["@graph"] as Array<Record<string, unknown>>)[1].itemListElement as unknown[];
+  assert.equal(fullItems.length, 5);
+
+  const bare = transferWindowJsonLd("2026-27", "2026–27", {
+    receipts: false,
+    campaign: false,
+    positionBalance: false,
+  });
+  const graph = bare["@graph"] as Array<Record<string, unknown>>;
+  const crumbs = graph[0].itemListElement as Array<Record<string, unknown>>;
+  assert.equal(crumbs.length, 3);
+  assert.equal(crumbs[2].item, `${SITE_URL}/transfers/2026-27`);
+  const bareItems = graph[1].itemListElement as Array<Record<string, unknown>>;
+  assert.equal(bareItems.length, 2);
+  assert.ok(bareItems.every((item) => !String(item.url).includes("#window-receipts")));
 });
 
 test("club evidence gate requires three market moves or two plus authored connection", () => {

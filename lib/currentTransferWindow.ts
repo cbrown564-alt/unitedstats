@@ -3,6 +3,7 @@ import {
   costBandForMeanMultiple,
   feePlMeanMultiple,
   isKnownFee,
+  seasonDashLabel,
   transferLaneKind,
   type CostBandId,
   type TransferLaneKind,
@@ -97,10 +98,6 @@ const LANE_TITLES: Record<TransferLaneKind, { in: string; out: string }> = {
   released: { in: "Released", out: "Contract releases" },
   retired: { in: "Retired", out: "Retirements" },
 };
-
-function seasonLabel(season: string): string {
-  return season.replace("-", "–");
-}
 
 function ordinal(n: number): string {
   const mod100 = n % 100;
@@ -217,7 +214,7 @@ function seasonComparison(
   }
   return {
     season,
-    seasonLabel: seasonLabel(season),
+    seasonLabel: seasonDashLabel(season),
     arrivals: rows.filter((row) => row.direction === "in").length,
     departures: rows.filter((row) => row.direction === "out").length,
     permanentArrivals: rows.filter((row) => row.direction === "in" && transferLaneKind(row) === "permanent").length,
@@ -346,7 +343,7 @@ export function buildCurrentTransferWindow({
     total: rows.length,
   };
   const quiet = rows.every((row) => transferLaneKind(row) !== "permanent" || row.direction === "out");
-  const label = seasonLabel(season);
+  const label = seasonDashLabel(season);
 
   return {
     season,

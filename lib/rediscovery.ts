@@ -237,6 +237,28 @@ function scoreMatch(m: MatchRow, stoppageMap: Map<string, StoppageIndex>, opts: 
   return { match: m, charge, fadedness, era, total, reason };
 }
 
+/**
+ * Charge-ranked nights inside a fixed set of matches.
+ *
+ * Unlike {@link scorePool} this applies no fadedness or era weighting: those
+ * exist to keep the rediscovery roll away from last season and from pre-1960
+ * folklore, which is exactly wrong when a page is asking "what defined *this*
+ * season". Ranking on charge alone also makes the result stable — the same
+ * season yields the same nights whenever the page is built.
+ */
+export function chargeRankedNights(
+  matches: MatchRow[],
+  limit = 3,
+): Array<{ match: MatchRow; charge: number; reason: string }> {
+  const stoppageMap = stoppageIndex();
+  return matches
+    .filter((m) => !EXCLUDED.has(m.id))
+    .map((m) => ({ match: m, ...matchCharge(m, stoppageMap.get(m.id)) }))
+    .filter((night) => night.charge >= MIN_CHARGE)
+    .sort((a, b) => b.charge - a.charge || a.match.date.localeCompare(b.match.date))
+    .slice(0, limit);
+}
+
 export function scorePool(matches: MatchRow[], opts: RediscoveryOpts = {}): ScoredNight[] {
   const stoppageMap = stoppageIndex();
   const scored: ScoredNight[] = [];

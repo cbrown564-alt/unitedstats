@@ -18,6 +18,7 @@ import {
   transferRecordSummary,
   transferTotalsForMode,
 } from "@/lib/transferAggregates";
+import { seasonDashLabel } from "@/lib/transferTaxonomy";
 
 type TransferShareCardKind = "deal" | "window" | "manager-era" | "analytical";
 
@@ -55,10 +56,7 @@ export function assertTransferCardCopy(text: string): void {
   }
 }
 
-function seasonLabel(season: string): string {
-  const [start, end] = season.split("-");
-  return `${start}–${end}`;
-}
+const seasonLabel = seasonDashLabel;
 
 function transferWhen(t: TransferRow): string {
   if (!t.date) return "—";

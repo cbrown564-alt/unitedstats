@@ -205,6 +205,7 @@ export function transferHistoryJsonLd(
   latestSeason?: string,
   featured?: FeaturedTransferWindow,
   hasClubRelationships = false,
+  hasWindowPages = false,
 ): JsonLd {
   const pageUrl = `${SITE_URL}/transfers`;
   const items = [
@@ -213,6 +214,9 @@ export function transferHistoryJsonLd(
       : []),
     ...(featured
       ? [{ name: featured.structuredDataName, url: `${pageUrl}#${seasonAnchorId(featured.season)}` }]
+      : []),
+    ...(hasWindowPages
+      ? [{ name: "Manchester United transfer windows in context", url: `${pageUrl}#window-pages` }]
       : []),
     { name: "Manchester United record transfer deals", url: `${pageUrl}#record-deals` },
     { name: "Manchester United transfer spending by manager", url: `${pageUrl}#manager-view` },
@@ -243,6 +247,60 @@ export function transferHistoryJsonLd(
       {
         "@type": "ItemList",
         name: "Ways into the Manchester United transfer record",
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          url: item.url,
+        })),
+      },
+    ],
+  };
+}
+
+/**
+ * A single transfer window. The `ItemList` names only the sections the page
+ * actually renders, so a window with no receipts or no campaign never advertises
+ * one — the same discipline `transferHistoryJsonLd` applies to the hub.
+ */
+export function transferWindowJsonLd(
+  season: string,
+  seasonLabel: string,
+  rendered: { receipts: boolean; campaign: boolean; positionBalance: boolean },
+): JsonLd {
+  const pageUrl = `${SITE_URL}/transfers/${season}`;
+  const items = [
+    { name: `${seasonLabel} transfers, lane by lane`, url: `${pageUrl}#window-lanes` },
+    ...(rendered.positionBalance
+      ? [{ name: `${seasonLabel} squad position balance`, url: `${pageUrl}#position-balance` }]
+      : []),
+    ...(rendered.campaign
+      ? [{ name: `The ${seasonLabel} campaign that followed`, url: `${pageUrl}#what-followed` }]
+      : []),
+    ...(rendered.receipts
+      ? [{ name: `${seasonLabel} transfer receipts`, url: `${pageUrl}#window-receipts` }]
+      : []),
+    { name: `Every recorded ${seasonLabel} move`, url: `${pageUrl}#window-ledger` },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Red Thread", item: SITE_URL },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Manchester United transfer history",
+            item: `${SITE_URL}/transfers`,
+          },
+          { "@type": "ListItem", position: 3, name: `${seasonLabel} transfer window`, item: pageUrl },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        name: `Manchester United ${seasonLabel} transfer window`,
         itemListElement: items.map((item, index) => ({
           "@type": "ListItem",
           position: index + 1,

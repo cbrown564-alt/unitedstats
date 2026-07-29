@@ -1,4 +1,5 @@
 import type { TransferRow } from "./queries";
+import { seasonDashLabel } from "./transferTaxonomy";
 
 /**
  * The authored entry points into the transfer record.
@@ -34,6 +35,74 @@ export const FEATURED_TRANSFER_WINDOW: FeaturedTransferWindow = {
   cta: "Open the Treble window",
   structuredDataName: "The 1998–99 Treble window",
 };
+
+/**
+ * A window page proves that the season grammar survives a particular data shape.
+ * Rec 2 asks for three deliberately different cases before the route spreads
+ * across every season, so `/transfers/[season]` generates for these and nothing
+ * else: a season with one recorded deal has no contextual job to do, and a
+ * thousand thin windows is exactly the SEO failure the plan rules out.
+ */
+export interface TransferWindowExemplar {
+  season: string;
+  label: string;
+  /** Why this window is one of the proving cases. */
+  frame: string;
+  title: string;
+  blurb: string;
+}
+
+const AUTHORED_WINDOW_EXEMPLARS: readonly TransferWindowExemplar[] = [
+  {
+    season: FEATURED_TRANSFER_WINDOW.season,
+    label: FEATURED_TRANSFER_WINDOW.label,
+    frame: "A coherent squad addition",
+    title: FEATURED_TRANSFER_WINDOW.title,
+    blurb:
+      "Permanent arrivals into a settled side, and the campaign that followed them — the window where the record is at its most complete.",
+  },
+  {
+    season: "2013-14",
+    label: "2013–14",
+    frame: "A managerial transition",
+    title: "Fellaini, Mata, and the first window after Ferguson",
+    blurb:
+      "The first window of a new manager's reign, followed by the hardest post-title campaign in the Premier League record.",
+  },
+] as const;
+
+/** The active window as its own exemplar: confirmed business, campaign unwritten. */
+function liveWindowExemplar(season: string): TransferWindowExemplar {
+  const label = seasonDashLabel(season);
+  return {
+    season,
+    label,
+    frame: "An open window",
+    title: `The ${label} window as it stands`,
+    blurb:
+      "Confirmed business only, with the season it precedes still unplayed — the right-censored case the grammar has to survive.",
+  };
+}
+
+/**
+ * Exemplars that canonical data actually supports, newest first. An authored
+ * season that no longer appears in the record drops out rather than generating
+ * an empty page.
+ */
+export function transferWindowExemplars(
+  transfers: Pick<TransferRow, "season">[],
+  authored: readonly TransferWindowExemplar[] = AUTHORED_WINDOW_EXEMPLARS,
+): TransferWindowExemplar[] {
+  const seasons = new Set(
+    transfers.map((transfer) => transfer.season).filter((season): season is string => !!season),
+  );
+  const exemplars = authored.filter((exemplar) => seasons.has(exemplar.season));
+  const latest = [...seasons].sort().at(-1);
+  if (latest && !exemplars.some((exemplar) => exemplar.season === latest)) {
+    exemplars.push(liveWindowExemplar(latest));
+  }
+  return exemplars.sort((a, b) => b.season.localeCompare(a.season));
+}
 
 /** The archive's per-season anchor. One helper so links and targets cannot drift. */
 export function seasonAnchorId(season: string): string {

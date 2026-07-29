@@ -100,6 +100,21 @@ export function managerSeoDescription(m: ManagerRecord): string {
   return `${m.name} — Manchester United managerial record. ${fmtNum(m.p)} matches managed with a ${pct(m.w, m.p)} win rate.`;
 }
 
+export function transferWindowSeoTitle(seasonLabel: string): string {
+  return `Manchester United ${seasonLabel} transfers — every signing and sale`;
+}
+
+export function transferWindowSeoDescription(
+  seasonLabel: string,
+  counts: { arrivals: number; departures: number; knownFees: number; total: number },
+): string {
+  const fees =
+    counts.knownFees === 0
+      ? "no fee was published for any of them"
+      : `${fmtNum(counts.knownFees)} of ${fmtNum(counts.total)} carry a published fee`;
+  return `Manchester United's ${seasonLabel} transfer window: ${fmtNum(counts.arrivals)} arrivals and ${fmtNum(counts.departures)} departures, ${fees}, set against the campaign that followed.`;
+}
+
 export function clubTransferSeoTitle(clubName: string): string {
   return `Manchester United and ${clubName} — transfer relationship`;
 }

@@ -12,6 +12,7 @@ import {
   type TransferReceiptExit,
   type TransferReceiptSpell,
 } from "@/lib/transferReceiptTypes";
+import { transferMoveLabel } from "@/lib/transferTaxonomy";
 
 function transferWhen(date: string | null, precision: TransferReceiptDeal["datePrecision"]): string {
   if (!date) return "—";
@@ -376,7 +377,7 @@ export function TransferReceiptCard({
             <h2 className="display text-xl leading-tight">{deal.playerName}</h2>
           )}
           <p className="mt-1 text-sm text-ink-dim">
-            {deal.direction === "in" ? "Signing" : "Sale"}
+            {transferMoveLabel(deal, deal.direction)}
             {deal.club ? ` · ${deal.direction === "in" ? "from" : "to"} ${deal.club}` : ""}
             {deal.date ? ` · ${transferWhen(deal.date, deal.datePrecision)}` : ""}
           </p>

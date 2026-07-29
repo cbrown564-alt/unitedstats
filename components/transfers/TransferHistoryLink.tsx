@@ -5,6 +5,7 @@ import { track } from "@vercel/analytics";
 
 type TransferDestination =
   | "season"
+  | "window"
   | "player"
   | "manager"
   | "match"

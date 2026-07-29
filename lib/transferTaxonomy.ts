@@ -29,6 +29,11 @@ export function isSquadBuildMove(t: Pick<TransferRow, "type">): boolean {
   return !EXIT_ONLY_TYPES.has(t.type);
 }
 
+/** Canonical season key rendered for a reader — en dash, never a hyphen. */
+export function seasonDashLabel(season: string): string {
+  return season.replace("-", "–");
+}
+
 export type TransferLaneKind = "permanent" | "loan" | "academy" | "released" | "retired";
 
 export function transferLaneKind(row: Pick<TransferRow, "type">): TransferLaneKind {
@@ -37,6 +42,23 @@ export function transferLaneKind(row: Pick<TransferRow, "type">): TransferLaneKi
   if (row.type === "retired") return "retired";
   if (row.type === "loan") return "loan";
   return "permanent";
+}
+
+const MOVE_LABELS: Record<TransferLaneKind, { in: string; out: string }> = {
+  permanent: { in: "Signing", out: "Sale" },
+  loan: { in: "Loan in", out: "Loan out" },
+  academy: { in: "Academy promotion", out: "Academy departure" },
+  released: { in: "Released", out: "Release" },
+  retired: { in: "Retired", out: "Retirement" },
+};
+
+/**
+ * What a single move is called. Direction alone is not enough: a loan out is not
+ * a sale, and an academy promotion is not a signing, so any surface that labels
+ * a deal has to read the type as well.
+ */
+export function transferMoveLabel(row: Pick<TransferRow, "type">, direction: "in" | "out"): string {
+  return MOVE_LABELS[transferLaneKind(row)][direction];
 }
 
 /** A published fee we can put a number on — not free, undisclosed, or unknown. */

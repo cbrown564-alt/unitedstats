@@ -19,6 +19,7 @@ import {
   FEATURED_TRANSFER_WINDOW,
   TRANSFER_LEDGER_SINCE,
   featuredWindowResolves,
+  transferWindowExemplars,
 } from "@/lib/transferFeature";
 import { buildRecordDealReceiptMap } from "@/lib/transferReceipt";
 import { gatedClubsByVolume } from "@/lib/transferClubs";
@@ -58,6 +59,8 @@ export default async function TransfersPage() {
   // A bounded way into the counterparty lenses — the gate decides which clubs
   // have a page at all, and the hub shows only the most-traded of those.
   const clubRelationships = gatedClubsByVolume(transfers).slice(0, 9);
+  // Windows with their own page. The hub only advertises the ones that generate.
+  const windowExemplars = transferWindowExemplars(transfers);
 
   return (
     <div>
@@ -65,7 +68,12 @@ export default async function TransfersPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdHtml(
-            transferHistoryJsonLd(latestSeason?.season, featured, clubRelationships.length > 0),
+            transferHistoryJsonLd(
+              latestSeason?.season,
+              featured,
+              clubRelationships.length > 0,
+              windowExemplars.length > 0,
+            ),
           ),
         }}
       />
@@ -80,6 +88,7 @@ export default async function TransfersPage() {
         currentWindow={currentWindow}
         recordDealReceipts={recordDealReceipts}
         clubRelationships={clubRelationships}
+        windowExemplars={windowExemplars}
       />
     </div>
   );

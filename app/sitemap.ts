@@ -6,6 +6,7 @@ import {
   allMatchIds, allSeasons, allTransfers, getMeta, managersIndex, opponentsIndex, playersIndex,
 } from "@/lib/queries";
 import { gatedClubIds } from "@/lib/transferClubs";
+import { transferWindowExemplars } from "@/lib/transferFeature";
 
 /** Next.js writes sitemap <loc> values verbatim — ampersands must be XML-escaped. */
 function sitemapLoc(path: string): string {
@@ -89,6 +90,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: built,
   }));
 
+  // Only the authored exemplar windows — every other season 404s by design.
+  const transferWindows: MetadataRoute.Sitemap = transferWindowExemplars(allTransfers()).map((exemplar) => ({
+    url: url(`/transfers/${exemplar.season}`),
+    changeFrequency: "monthly",
+    priority: 0.4,
+    lastModified: built,
+  }));
+
   const onThisDay: MetadataRoute.Sitemap = monthDayKeys().map((monthDay) => ({
     url: url(`/on-this-day/${monthDay}`),
     changeFrequency: "yearly",
@@ -98,6 +107,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages, ...questions, ...seasons,
-    ...players, ...managers, ...opponents, ...matches, ...transferClubs, ...onThisDay,
+    ...players, ...managers, ...opponents, ...matches,
+    ...transferWindows, ...transferClubs, ...onThisDay,
   ];
 }
