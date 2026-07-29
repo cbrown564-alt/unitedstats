@@ -1,7 +1,35 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import sharp from "sharp";
-import { collectionCard, localOgMedia, matchCard, playerCard, questionCard, seasonPosterCard, storyCard, trustStrip } from "../lib/og-card";
+import { collectionCard, localOgMedia, matchCard, playerCard, questionCard, seasonPosterCard, storyCard, transferShareCard, trustStrip } from "../lib/og-card";
+import {
+  buildAnalyticalStubPayload,
+  buildDealReceiptPayload,
+  buildManagerEraPayload,
+  buildTransfersHubPayload,
+  buildWindowReceiptPayload,
+  TRANSFER_OG_EXEMPLARS,
+} from "../lib/transferCardData";
+
+async function transferCardFromPayload(
+  payload: ReturnType<typeof buildDealReceiptPayload>,
+  label: string,
+) {
+  if (!payload) throw new Error(`missing transfer card payload: ${label}`);
+  const media = payload.mediaPlayerId
+    ? await localOgMedia(`/media/players/${payload.mediaPlayerId}.webp`, { treatment: "panel", position: "50% 25%" })
+    : undefined;
+  return transferShareCard({
+    eyebrow: payload.eyebrow,
+    headline: payload.headline,
+    facts: payload.facts,
+    coverageCue: payload.coverageCue,
+    marker: payload.marker,
+    lanes: payload.lanes,
+    strip: trustStrip(),
+    media,
+  });
+}
 
 async function main() {
   const outDir = join(process.cwd(), "output", "og-review");
@@ -27,7 +55,34 @@ async function main() {
   const longQuestion = questionCard({ question: "Which opponents have remained unusually difficult across the longest stretches of United history?", figure: "31.4%", gloss: "won across the full record", visual: { kind: "rows", bars: [{ label: "A very long opponent name", value: 11, valueText: "31.4%", highlight: true }, { label: "Liverpool", value: 9, valueText: "38.2%" }] }, strip: trustStrip() });
   const dense = questionCard({ question: "When do United score?", figure: "90+", gloss: "the decisive late window", visual: { kind: "columns", bars: Array.from({ length: 18 }, (_, i) => ({ label: `${i * 5}`, value: (i * 7) % 23 + 1, highlight: i === 17 })) }, strip: trustStrip() });
   const season = seasonPosterCard({ season: "1998–99", claim: "Champions. FA Cup winners. European champions.", marker: "THE TREBLE · 3 TROPHIES", results: Array.from({ length: 63 }, (_, i) => i % 9 === 0 ? "L" : i % 4 === 0 ? "D" : "W") as ("W" | "D" | "L")[], media: campNou, strip: trustStrip() });
-  const cards = { "player-media": player, "player-missing": playerFallback, "match-unusual-score": match, "story-light-media": story, "collection": collection, "question-long": longQuestion, "chart-dense": dense, "season-1998-99": season };
+
+  const hub = await transferCardFromPayload(buildTransfersHubPayload(), "hub");
+  const dealSigning = await transferCardFromPayload(buildDealReceiptPayload(TRANSFER_OG_EXEMPLARS.recordSigning), "deal-signing");
+  const dealSale = await transferCardFromPayload(buildDealReceiptPayload(TRANSFER_OG_EXEMPLARS.recordSale), "deal-sale");
+  const dealFree = await transferCardFromPayload(buildDealReceiptPayload(TRANSFER_OG_EXEMPLARS.freeTransfer), "deal-free");
+  const dealActive = await transferCardFromPayload(buildDealReceiptPayload(TRANSFER_OG_EXEMPLARS.activeSigning), "deal-active");
+  const window = await transferCardFromPayload(buildWindowReceiptPayload(TRANSFER_OG_EXEMPLARS.trebleWindow), "window-1998-99");
+  const managerEra = await transferCardFromPayload(buildManagerEraPayload(TRANSFER_OG_EXEMPLARS.fergusonEra), "manager-era");
+  const analyticalStub = await transferCardFromPayload(buildAnalyticalStubPayload(), "analytical-stub");
+
+  const cards = {
+    "player-media": player,
+    "player-missing": playerFallback,
+    "match-unusual-score": match,
+    "story-light-media": story,
+    "collection": collection,
+    "question-long": longQuestion,
+    "chart-dense": dense,
+    "season-1998-99": season,
+    "transfer-hub": hub,
+    "transfer-deal-signing": dealSigning,
+    "transfer-deal-sale": dealSale,
+    "transfer-deal-free": dealFree,
+    "transfer-deal-active": dealActive,
+    "transfer-window-1998-99": window,
+    "transfer-manager-era": managerEra,
+    "transfer-analytical-stub": analyticalStub,
+  };
   await Promise.all(Object.entries(cards).map(async ([name, response]) => {
     const buffer = Buffer.from(await response.arrayBuffer());
     await writeFile(join(outDir, `${name}.png`), buffer);

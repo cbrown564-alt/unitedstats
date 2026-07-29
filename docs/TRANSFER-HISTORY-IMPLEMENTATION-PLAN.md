@@ -23,6 +23,17 @@
 - **Recommendation 1 — canonical history hub:** implemented and verified
   locally at `/transfers`, including desktop and phone checks. It has not been
   deployed or promoted.
+- **Recommendation 4 — squad-build timeline:** implemented locally as a bounded
+  1992–present prototype on `/transfers`. Three authored era datasets (Ferguson
+  1992–2002, Ferguson 2003–2013, post-Ferguson) ship with a desktop season-axis
+  view, phone era chapters, ordered ledger, keyboard chronological selection,
+  and a compact deal panel pending the shared transfer receipt. Verified with
+  focused unit tests; not deployed.
+- **Recommendation 7 — transfer share cards:** implemented locally. Deal,
+  window, and manager-era cards render through the shared OG renderer; analytical
+  cards remain a dev-lab stub while A0 keeps modelling closed. Payload tests and
+  `npm run og:review` fixtures cover signing, sale, free, undisclosed, and
+  ongoing exemplars.
 - **Next representative slice:** build the three exemplar season pages:
   1998–99, 2013–14, and the current confirmed window. Prove those pages before
   spreading the route pattern across seasons.

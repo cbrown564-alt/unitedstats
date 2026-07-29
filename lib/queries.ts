@@ -2435,6 +2435,13 @@ export function allTransfers(): TransferRow[] {
     .all() as TransferRow[];
 }
 
+/** One canonical transfer row by id — used by share-card payloads and receipts. */
+export function transferById(id: string): TransferRow | undefined {
+  return getDb()
+    .prepare(`${TRANSFER_SELECT} WHERE t.id = ?`)
+    .get(id) as TransferRow | undefined;
+}
+
 export interface TransferTotals {
   signings: number;
   departures: number;
