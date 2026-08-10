@@ -3038,6 +3038,54 @@ body.mobile-sheet-open {
   cursor: pointer;
 }
 
+.red-thread-bridge {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  aspect-ratio: 16 / 5;
+  overflow: hidden;
+  background: #080808;
+}
+
+.red-thread-bridge::after {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(8 8 8 / 0.5), transparent 22% 78%, rgb(8 8 8 / 0.5));
+}
+
+.red-thread-bridge__poster,
+.red-thread-bridge__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.red-thread-bridge__video {
+  z-index: 1;
+}
+
+.journey-transition-bridge {
+  border-block: 1px solid rgb(255 255 255 / 0.06);
+  box-shadow: 0 0 4rem rgb(216 33 13 / 0.08);
+}
+
+@media (max-width: 640px) {
+  .red-thread-bridge {
+    aspect-ratio: 16 / 7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .red-thread-bridge__video {
+    display: none;
+  }
+}
+
 body.match-correction-pick-mode .correction-pickable {
   position: relative;
   cursor: pointer;

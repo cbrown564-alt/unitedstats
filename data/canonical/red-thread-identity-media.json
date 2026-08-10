@@ -1,0 +1,46 @@
+{
+  "updatedAt": "2026-08-10",
+  "boundary": "Decorative, synthetic and non-documentary. These assets make no historical claim and never replace cited evidence.",
+  "assets": [
+    {
+      "id": "GVID-01",
+      "label": "Follow to evidence handoff",
+      "provider": "Gemini web Video",
+      "reviewStatus": "rejected-by-user-reserve",
+      "sourcePath": "output/media-sprint/handoff/manual-browser-video/completed/gvid-01-follow-evidence-handoff-gemini-10s.mp4",
+      "sourceSha256": "77fb1578525aa2b431b16fbccc3bbddb8002d43d618be5502598811ff8012d1e",
+      "shippingPath": "public/media/red-thread/evidence-handoff.mp4",
+      "shippingSha256": "8d4100e1f05e614729ee14cc91eecc2f90fbc07541717658fc56bf978849e040",
+      "posterPath": "public/media/red-thread/evidence-handoff.jpg",
+      "audioRemoved": true,
+      "intendedUse": "No current product placement. Removed from the Stories collection threshold after user review on 2026-08-10."
+    },
+    {
+      "id": "GVID-02-FALLBACK",
+      "label": "Loop fold and onward return",
+      "provider": "Deterministic project render",
+      "reviewStatus": "integrated-fallback",
+      "sourcePath": "output/media-sprint/transitions/transition-loop-fold.mp4",
+      "sourceSha256": "44dd74771bb9bb7a42d57296486a1dc419e813f3627c0a6ea4f379814cb9ddb5",
+      "shippingPath": "public/media/red-thread/loop-fold.mp4",
+      "shippingSha256": "30b4aa0062607439e500da0f2be1c5949fb0a2d9605020e2a2290b64aa713515",
+      "posterPath": "public/media/red-thread/loop-fold.jpg",
+      "audioRemoved": true,
+      "replaces": "GVID-02, reserved because its overlapping loops do not match the approved component language",
+      "intendedUse": "Two No. 7s story: fold the opening historical rhyme into the exact comparison."
+    },
+    {
+      "id": "GVID-03",
+      "label": "Receipt pass-through",
+      "provider": "Gemini web Video",
+      "reviewStatus": "rejected-by-user-reserve",
+      "sourcePath": "output/media-sprint/handoff/manual-browser-video/completed/gvid-03-receipt-pass-through-gemini-10s.mp4",
+      "sourceSha256": "5b876572d574b28fa1c35c30874e0acf325abc96be9e51721a363a9c763ec433",
+      "shippingPath": "public/media/red-thread/receipt-pass.mp4",
+      "shippingSha256": "632a7a30d5ea588509b114ea31fb15c85a3dfe3fdff2834d74318c2ba88c0ca6",
+      "posterPath": "public/media/red-thread/receipt-pass.jpg",
+      "audioRemoved": true,
+      "intendedUse": "No current product placement. Removed from the Treble journey after user review on 2026-08-10."
+    }
+  ]
+}

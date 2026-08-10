@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-08-09T20:41:05.463Z",
+  "status": "review-proof-not-shipping",
+  "facts": {
+    "bestRonaldo": {
+      "owner": "docs/JOURNEY.md §4",
+      "frozenFixture": "video/generated-master-data.json",
+      "matchIds": [
+        "1968-05-29-benfica-n",
+        "2008-05-21-chelsea-n"
+      ]
+    },
+    "treble": {
+      "owner": "docs/JOURNEY.md §4b",
+      "frozenFixture": "video/generated-master-data.json",
+      "matchIds": [
+        "1999-05-16-tottenham-hotspur-h",
+        "1999-05-22-newcastle-united-n",
+        "1999-05-26-bayern-munich-n"
+      ]
+    }
+  },
+  "media": [
+    {
+      "path": "public/media/journey/george-best.webp",
+      "status": "licensed local",
+      "source": "video/generated-master-data.json featured player media"
+    },
+    {
+      "path": "public/media/journey/cristiano-ronaldo.webp",
+      "status": "licensed local",
+      "source": "video/generated-master-data.json featured player media"
+    },
+    {
+      "path": "public/media/journey/pl-celebration.webp",
+      "status": "CC BY-SA 2.0",
+      "owner": "data/canonical/journey-place-media.json"
+    },
+    {
+      "path": "public/media/journey/fa-cup-lift.webp",
+      "status": "CC BY 2.0",
+      "owner": "data/canonical/journey-place-media.json"
+    },
+    {
+      "path": "public/media/journey/treble-parade.webp",
+      "status": "CC BY-SA 2.0",
+      "owner": "data/canonical/journey-place-media.json"
+    }
+  ],
+  "audio": {
+    "source": "phase-two identity-action review proxies",
+    "newElevenLabsSpend": 0,
+    "promotionStatus": "reserve pending listening"
+  }
+}

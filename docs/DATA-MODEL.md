@@ -85,6 +85,9 @@ by competition rules, not calendar).
 - **`opponents.json`** — id, canonical display name, aliases (e.g. "Small Heath" → Birmingham City lineage kept distinct), country, lat/lng of home city (spatial layer).
 - **`sources.json`** — source catalog with id, label, kind, URL, coverage note, and usage notes. Match
   records still reference sources by id; the database expands those ids into source facets.
+- **`red-thread-identity-media.json`** — reviewed non-documentary transition media used by
+  story pages, with stable job ids, source and shipping hashes, review state, and intended placement.
+  Generated media remains decorative and never serves as evidence for a historical claim.
 
 ## SQLite schema (built artifact)
 

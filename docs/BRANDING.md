@@ -88,6 +88,25 @@ Do not use an "RT" monogram as the default. The thread is more distinctive and l
 
 The thread is the identity system, not only the logo.
 
+### Recurring story identity
+
+The Red Thread must be recognizable across many factual football stories. It is
+the recurring connective presence that tells the reader these separate nights,
+people, places and patterns belong to one traceable history. Treat it as a
+repeatable visual, motion and sound motif—not merely as background texture or a
+one-off film device.
+
+Its form may change with the fact it carries: a line through chronology, a loop
+between distant moments, a path into evidence, a restrained material gesture, or
+a short sonic filament. Each use must still communicate connection, proof, route
+or continuity, and the underlying football fact must remain the subject.
+
+The motif is non-documentary. It may stage, connect and give rhythm to verified
+history, but it must never fabricate a player, match, kit, crowd, ground, sound
+recording or historical event. Generated material stays abstract and must not be
+presented as archive evidence. Licensed documentary media and canonical data keep
+their own provenance; the thread may connect them but never impersonate them.
+
 Use the red thread motif for:
 
 - selected navigation underline;

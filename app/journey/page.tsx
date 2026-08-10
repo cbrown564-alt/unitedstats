@@ -8,6 +8,7 @@ import { CareerDuelChartLazy } from "@/components/charts/lazy";
 import { EuropeFinalsTimeline, type EuropeFinal } from "@/components/charts/EuropeFinalsTimeline";
 import { MatchFlow } from "@/components/MatchFlow";
 import { FormationPitch } from "@/components/FormationPitch";
+import { RedThreadBridge } from "@/components/RedThreadBridge";
 import { comparePlayers, type CareerSeason } from "@/lib/compare";
 import { europeanFinals } from "@/lib/trails";
 import { matchReceipt, type MatchReceipt } from "@/lib/journey";
@@ -159,6 +160,8 @@ export default function JourneyPage() {
     <>
       {/* Beat 0 — the opening morph (its own sticky runway). */}
       <RhymeMorph a={morphA} b={morphB} />
+
+      <RedThreadBridge variant="loop-fold" className="journey-transition-bridge full-bleed-viewport" />
 
       {/* Beats 1–4 — the thread runs on down the floodlit field. */}
       <div className="journey-floodlit full-bleed-viewport relative overflow-hidden">
