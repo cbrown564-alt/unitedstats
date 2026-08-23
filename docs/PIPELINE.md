@@ -21,8 +21,10 @@ pipeline/update.ts
       United rows (schedule overlay, overwrite-only — not the match record)
    4. diff results against data/canonical/matches/<season>.json
    5. append new matches (result-level: date, comp, opponent, venue, score)
-   6. enrich the current season from its Wikipedia article (scorers,
-      attendance, cup rounds) and recompute the league position
+   6. `npm run enrich -- --write` fills the current-season match sheet from
+      Wikipedia (United scorers, attendance), Transfermarkt (XI, bench,
+      shirts, cards, subs, assists, opposition scorers), and MUFCInfo
+      (lineups, stadiums, assists). Each source is best-effort.
    7. npm run validate  &&  npm run build:db  &&  npm run export:dataset
    8. commit new results and/or the rewritten upcoming overlay, then push
    │
@@ -38,10 +40,12 @@ result diff and the upcoming overlay are unchanged.
 
 - **No servers, no databases, no webhooks.** Two free, durable services
   (GitHub Actions, Vercel deploy-on-push) and one community dataset.
-- **Result-level first.** The pipeline's contract is the *result*; richer
-  detail (scorers, lineups) is best-effort enrichment that can also be added
-  later by hand or by re-running enrichment, because canonical data is JSON
-  in git — a human can always fix anything with a normal PR.
+- **Result first, sheet on the same run and again on Monday evening.** The
+  contract is still the *result*; scorers and lineups are best-effort and
+  may arrive hours later from Transfermarkt and MUFCInfo. `enrich-results.yml`
+  reruns those lanes every Monday at 18:00 UTC and fails the job if the
+  latest matches are still incomplete, so a missing XI is visible. A human
+  can still fix anything with a normal PR.
 - **Validation gate.** A malformed upstream change can't corrupt the site:
   `validate.ts` must pass before the commit happens; CI runs it on every push.
 - **Source failure mode.** If openfootball stops updating (it has been
@@ -59,8 +63,10 @@ summary when an unknown competition file appears upstream.
 
 ## Manual levers (all optional)
 
-- `npm run update` — run the same pipeline locally.
-- `workflow_dispatch` — trigger the Action from the GitHub UI.
+- `npm run update` — fetch new results from openfootball.
+- `npm run enrich -- --write` — current-season sheet enrichment (same as CI).
+- `npm run enrich -- --report-only` — assess the latest match sheets only.
+- `workflow_dispatch` — trigger Update results or Enrich match sheets from GitHub.
 - Edit any season JSON by hand → CI validates → merge → deploy.
 - `npm run ingest:lineups` — enrich historical knockout/final matches from
   dedicated Wikipedia match articles when expanding lineup coverage.

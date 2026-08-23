@@ -78,7 +78,8 @@
     "video:render:prototype": "npm run video:audio && remotion render video/index.ts red-thread-loop-prototype output/video/red-thread-loop-prototype.mp4",
     "upload:db": "tsx scripts/upload-db.ts",
     "revalidate": "tsx scripts/revalidate.ts",
-    "update": "tsx pipeline/update.ts"
+    "update": "tsx pipeline/update.ts",
+    "enrich": "tsx pipeline/enrichCurrent.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

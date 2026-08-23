@@ -16,7 +16,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { CANONICAL, RAW, parseCsv, seasonKey, writeJson } from "../lib";
+import { CANONICAL, RAW, parseCsv, parseSeasonArgs, seasonKey, writeJson } from "../lib";
 
 interface TeamRow { p: number; w: number; d: number; l: number; gf: number; ga: number }
 
@@ -160,7 +160,9 @@ async function fromOpenfootball(
 async function main() {
   const { positions: entries, tables } = fromEngsoccerdata();
   const have = new Set(entries.map((e) => e.season));
-  for (const season of ["2022-23", "2025-26"]) {
+  const extraSeasons = new Set(["2022-23", "2025-26", parseSeasonArgs(["current"])?.[0] ?? ""]);
+  extraSeasons.delete("");
+  for (const season of extraSeasons) {
     if (have.has(season)) continue;
     const e = await fromOpenfootball(season);
     if (e) {

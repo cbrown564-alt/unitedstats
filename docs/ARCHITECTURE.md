@@ -38,7 +38,7 @@ pipeline, and a public dataset/API.
    openfootball/england (free, maintained, no key)
    transfermarkt-datasets (modern enrichment)
    MUFCInfo / Wikipedia / Wikidata (historical depth)
-   optional: football-data.org (keyed backup)
+   Transfermarkt + MUFCInfo (free match-sheet enrichment)
                │
                ▼
    Vercel: static export (`out/`); every data commit produces a complete
@@ -232,7 +232,7 @@ public/
   media/                cached WebP portraits (gitignored; rebuilt in prebuild)
 scripts/                build-db.ts, validate.ts, ingest/*, check-*, export-*
 pipeline/               update.ts — the recurring fetch-and-append job
-.github/workflows/      update-results.yml (cron), ci.yml
+.github/workflows/      update-results.yml (cron), enrich-results.yml (Monday sheet check), ci.yml
 docs/                   this folder
 ```
 

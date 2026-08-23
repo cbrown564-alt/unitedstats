@@ -11,7 +11,7 @@ should enter the canonical record.
 | 0 | Wikipedia Manchester United player lists | Verified all-time player starts, substitute appearances, total appearances, and goals | CC BY-SA attribution required; page scope excludes wartime and abandoned 1939-40 matches |
 | 1 | Wikidata and Wikimedia Commons | Licensed image candidates and attribution metadata for top players | Verify likeness and license metadata before widening display |
 | 2 | MUFCInfo match lineups | Historical match-page United lineups, substituted-on players, and shirt numbers | Best available broad historical lineup lane; use attribution and deterministic validation because pages are a maintained reference compilation |
-| 2 | football-data.org | Modern goals, assists, bookings, lineups, benches, substitutions, attendance | Token required; free tier is rate-limited and historical depth varies |
+| 2 | football-data.org | Legacy modern match-sheet enrichment on some historical rows | Paid API; not used by the live update or Monday sheet jobs |
 | 3 | Wikipedia season and match articles | Scorers, attendance, rounds, final/late-round lineups | Wikitext tables vary; deterministic parser plus validation required |
 | 4 | RSSSF | Historical competition results and scorer cross-checks | Citation granularity varies by page |
 | 5 | Official competition sites | Modern match centres, disciplinary records, lineups | Terms, URL stability, and historical range vary by competition |
@@ -43,8 +43,8 @@ should enter the canonical record.
 - **Range:** modern coverage depends on competition and plan. Use the API itself
   as the contract for a season rather than assuming all historical matches are
   detailed.
-- **Importer:** `npm run ingest:football-data -- <season>` dry-runs by default;
-  add `-- --write` to persist canonical JSON changes.
+- **Importer:** leftover `npm run ingest:football-data` script only. The live
+  update and Monday sheet jobs do not call it.
 - **Failure modes:** rate limits, missing folded detail, unmatched opponent
   names, partial historical lineups, null attendance, and provider ids changing
   for players.
