@@ -4,6 +4,14 @@ import { clubRecords } from "./trails";
 import { getDb } from "./db";
 import { scoreline, scoreNote, fmtRound, resultTone } from "./format";
 import { CURATED_NIGHTS } from "./curatedNights";
+import {
+  dayOfYear,
+  monthDayOfDate,
+  type GreatNight,
+  type HomepageNightCatalog,
+} from "./greatNightSelect";
+
+export type { GreatNight, HomepageNightCatalog } from "./greatNightSelect";
 
 // TEMP (front-door design iteration): pin one night so the hero treatment can be
 // judged on the flagship rather than whatever falls today. Set to null to ship —
@@ -39,55 +47,6 @@ const USE_WINNER_PORTRAIT = false;
  *     deficit) for an on-this-day night that has no authored line. Instrument
  *     voice; fires only where goal-minute / half-time data exists.
  */
-export interface GreatNight {
-  id: string;
-  href: string;
-  framing: "on-this-day" | "great-night";
-  /** True only when the night is literally today's date — drives the live pulse. */
-  live: boolean;
-  eyebrow: string;
-  year: string;
-  /** Base score only — "2–1". Extra-time / pens ride after the opponent in the hero. */
-  score: string;
-  opponent: string;
-  /** "(a.e.t)" / pens footnote when the tie went beyond 90 minutes. */
-  scoreSuffix: string;
-  /** Result-coloured class from the *outcome* (a shootout win reads as a win). */
-  tone: string;
-  /** competition · round? · stadium? — the orienting meta line. */
-  meta: string;
-  /** The emotional lead: an authored stake, else derived texture, else null (then
-   *  the scoreline leads instead). */
-  line: string | null;
-  /** United's goals as name + minute — who scored, when. The soul of the match. */
-  scorers: { name: string; minute: string }[];
-  /** The night's own shape for the thread-as-timeline monument: each United goal
-   *  placed on the match clock (minute incl. stoppage), the last flagged as the
-   *  knot. Empty when goal minutes aren't on record — the hero then falls back to
-   *  the ghosted-year monument rather than fake a position. */
-  timeline: { clock: number; label: string; name: string; winner: boolean }[];
-  /** A face to carry the night: the match-winner's (last United scorer's) portrait,
-   *  used as a faded monument. Null when no scorer image is on file. */
-  image: { src: string; name: string } | null;
-  cta: string;
-}
-
-/**
- * The curated pool — the authorship (CONTEXT.md §3, lens-not-loom). Each entry is
- * a real match id plus one earned line in the Floodlit-Guide voice. Bootstrapped
- * from `scripts/bootstrap-great-nights.ts` (significance + late-drama + comebacks)
- * and hand-trimmed. DRAFT — trim the list and sharpen the lines freely; an
- * unknown id is skipped, never fatal.
- */
-
-/** Zero-based day index within the UTC year — the deterministic rotation seed,
- *  matching `lib/now.ts` so the served surfaces turn in step. */
-function dayOfYear(d: Date): number {
-  const start = Date.UTC(d.getUTCFullYear(), 0, 0);
-  const today = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-  return Math.floor((today - start) / 86_400_000);
-}
-
 function isFinal(round: string | null): boolean {
   return !!round && /final/i.test(round) && !/semi|quarter/i.test(round);
 }
@@ -220,10 +179,6 @@ function build(m: MatchRow, framing: GreatNight["framing"], stakes: string | nul
 function monthDayOf(iso: string): string {
   return iso.slice(5, 10);
 }
-function monthDayOfDate(d: Date): string {
-  return `${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
-}
-
 /**
  * The day's served night and the pool the re-roll walks. `seed` indexes the night
  * to open on; `nights[seed]` is the on-this-day lead when one qualifies, otherwise
@@ -291,4 +246,35 @@ export function greatNights(
     if (m) return { nights: [build(m, "great-night", null, false)], seed: 0 };
   }
   return { nights: [], seed: 0 };
+}
+
+let homepageCatalogCache: HomepageNightCatalog | null = null;
+
+/** Build-time catalog so the homepage can re-pick today's night in the browser. */
+export function homepageNightCatalog(): HomepageNightCatalog {
+  if (homepageCatalogCache) return homepageCatalogCache;
+  const pool: GreatNight[] = CURATED_NIGHTS.map((curated) => {
+    const match = matchById(curated.id);
+    return match ? build(match, "great-night", curated.stakes, false) : null;
+  }).filter((night): night is GreatNight => night !== null);
+
+  const leadByMonthDay: Record<string, GreatNight> = {};
+  for (let month = 1; month <= 12; month++) {
+    for (let day = 1; day <= 31; day++) {
+      const probe = new Date(Date.UTC(2001, month - 1, day));
+      if (probe.getUTCMonth() !== month - 1 || probe.getUTCDate() !== day) continue;
+      const key = `${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      const curated = CURATED_NIGHTS.find((entry) => monthDayOf(entry.id) === key);
+      if (curated) {
+        const row = matchById(curated.id);
+        if (row) leadByMonthDay[key] = build(row, "on-this-day", curated.stakes, true);
+        continue;
+      }
+      const onThisDayId = onThisDay(key).lead?.id;
+      const row = onThisDayId ? matchById(onThisDayId) : undefined;
+      if (row && qualifiesAsLead(row)) leadByMonthDay[key] = build(row, "on-this-day", null, true);
+    }
+  }
+  homepageCatalogCache = { pool, leadByMonthDay };
+  return homepageCatalogCache;
 }

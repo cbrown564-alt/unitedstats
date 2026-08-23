@@ -11,7 +11,6 @@ import { THREAD_OF_NIGHTS, matchReceipt, type MatchReceipt } from "@/lib/journey
 import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
 
-export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — a thread of nights",
   description: "Ten surprising Manchester United matches, from the first FA Cup to Amad at 120 minutes.",

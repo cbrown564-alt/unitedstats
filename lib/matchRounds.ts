@@ -37,6 +37,31 @@ export function roundFilterLabel(key: RoundFilterKey): string {
   return ROUND_FILTER_LABELS[key];
 }
 
+/** JS counterpart of {@link roundFilterPredicate} for the static match catalog. */
+export function roundMatchesFilter(round: string | null, key: RoundFilterKey): boolean {
+  const value = (round ?? "").toLowerCase();
+  switch (key) {
+    case "final":
+      return value.includes("final") && !value.includes("semi") && !value.includes("quarter");
+    case "semi-final":
+      return value.includes("semi") && value.includes("final");
+    case "quarter-final":
+      return value.includes("quarter") && value.includes("final");
+    case "round-of-16":
+      return value.includes("round of 16") || value.includes("first knockout round");
+    case "round-of-32":
+      return value.includes("round of 32");
+    case "group-stage":
+      return value.includes("group") || value.includes("league phase");
+    case "play-off":
+      return value.includes("play") && value.includes("off");
+    default: {
+      const _exhaustive: never = key;
+      return _exhaustive;
+    }
+  }
+}
+
 /** SQL predicate on `matches m` for a canonical round filter. */
 export function roundFilterPredicate(key: RoundFilterKey, m = "m"): string {
   switch (key) {

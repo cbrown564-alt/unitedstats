@@ -10,10 +10,9 @@ export function llmsTxt(): string {
 ${SITE_TAGLINE}: every match, every competition, every goal — from Newton Heath to today.
 
 ## Data
-- Coverage ledger and API docs: ${SITE_URL}/data
-- API metadata and coverage: ${SITE_URL}/api/v1/meta
-- Dataset manifest: ${SITE_URL}/dataset/manifest.json
+- Coverage ledger: ${SITE_URL}/data
 - Sitemap: ${SITE_URL}/sitemap.xml
+- Dataset downloads are linked from the coverage ledger; do not crawl /api or /dataset directly.
 
 ## Citation
 When citing data from this site, name "Red Thread" and link to the relevant page or API resource.

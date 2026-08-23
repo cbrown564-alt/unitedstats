@@ -395,13 +395,3 @@ export function rediscoveryForEntity(
   }
   return prompt;
 }
-
-/** Parse "following since" from a URL param — guardrailed to plausible years. */
-export function parseSinceYear(raw: string | string[] | undefined | null): number | null {
-  const v = Array.isArray(raw) ? raw[0] : raw;
-  if (!v) return null;
-  const y = Number(v);
-  const now = new Date().getUTCFullYear();
-  if (!Number.isInteger(y) || y < 1960 || y > now) return null;
-  return y;
-}

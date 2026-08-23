@@ -12,10 +12,9 @@ export const API_ATTRIBUTION = {
   note: "Read-only. Result data: engsoccerdata, openfootball, Wikipedia. Coverage varies by facet; see /api/v1/meta.",
 };
 
-// The dataset is immutable between deploys, and every deploy is a fresh build
-// (a new cache key), so the CDN can hold responses hard: 5 min in the browser,
-// a day at the edge, served stale for a week while it revalidates. This keeps
-// runtime SQLite hits rare even though the search/list endpoints stay dynamic.
+// Static-export JSON dumps. CORS stays open so the dataset can be reused;
+// cache headers are a no-op on most static hosts but stay honest for CDNs
+// that honor them on /api/*.
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -30,9 +29,3 @@ export function apiError(status: number, message: string): Response {
   return Response.json({ error: message, attribution: API_ATTRIBUTION }, { status, headers: CORS_HEADERS });
 }
 
-/** Clamp user-supplied pagination to sane bounds. */
-export function pagination(url: URL, defaultLimit = 50, maxLimit = 200): { limit: number; offset: number } {
-  const limit = Math.min(maxLimit, Math.max(1, parseInt(url.searchParams.get("limit") ?? "", 10) || defaultLimit));
-  const offset = Math.max(0, parseInt(url.searchParams.get("offset") ?? "", 10) || 0);
-  return { limit, offset };
-}

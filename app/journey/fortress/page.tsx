@@ -19,7 +19,6 @@ import { leadHeldAtHome } from "@/lib/trails";
 import { familyName } from "@/lib/names";
 import { scoreline } from "@/lib/format";
 
-export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — Fortress OT",
   description:

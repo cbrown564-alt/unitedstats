@@ -3,7 +3,7 @@ import test from "node:test";
 import type React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { GET as AnswersIndexRoute } from "../app/api/v1/answers/route";
+import { GET as AnswersIndexRoute } from "../app/api/v1/answers.json/route";
 import { GET as CutAnswerRoute } from "../app/api/v1/answers/cuts/[slug]/route";
 import MatchPage from "../app/match/[id]/page";
 import PlayerPage from "../app/player/[id]/page";
@@ -61,7 +61,7 @@ test("match JSON-LD uses SportsEvent, Phase 0 IDs, and canonical match-source pr
   assert.ok(performers.every((p) => p["@type"] === "SportsTeam" && p.name));
 
   const images = jsonLd.image as string[];
-  assert.deepEqual(images, [`${matchRef(MATCH_ID).url}/opengraph-image`]);
+  assert.deepEqual(images, [`${SITE_URL}/opengraph-image`]);
 
   const basedOn = jsonLd.isBasedOn as { identifier: string; name: string; about: string }[];
   assert.ok(basedOn.some((s) => s.identifier === "wikipedia" && s.about === "attendance"));
@@ -227,12 +227,18 @@ test("the answer index and sitemap agree on the machine and human surfaces", asy
   assert.ok(humanUrls.has("/data"));
 });
 
-test("robots allows read-only API routes and dataset exports while disallowing side-effect click logging", () => {
+test("robots keeps the public site crawlable and shuts APIs and utility routes", () => {
   const policy = robots();
-  assert.deepEqual(policy.rules, {
-    userAgent: "*",
-    allow: ["/", "/api/v1/", "/dataset/"],
-    disallow: ["/api/search/click", "/dev/", "/api/dev/"],
-  });
+  const rules = Array.isArray(policy.rules) ? policy.rules[0] : policy.rules;
+  assert.ok(rules);
+  assert.equal(rules.userAgent, "*");
+  const allow = [rules.allow].flat().filter(Boolean);
+  const disallow = [rules.disallow].flat().filter(Boolean);
+  assert.ok(allow.includes("/"));
+  assert.ok(!allow.includes("/api/v1/"));
+  assert.ok(!allow.includes("/dataset/"));
+  for (const path of ["/api/", "/dataset/", "/search", "/matches", "/surprise", "/compare", "/cut", "/on-this-day", "/dev/"]) {
+    assert.ok(disallow.includes(path), path);
+  }
   assert.equal(policy.sitemap, `${SITE_URL}/sitemap.xml`);
 });

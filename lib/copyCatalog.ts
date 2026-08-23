@@ -20,10 +20,7 @@ export type {
   CopyQueueStatus,
   CopyTier,
 } from "./copyTypes";
-export {
-  countByStatus,
-  isCopyQueueStatus,
-} from "./copyTypes";
+export { countByStatus } from "./copyTypes";
 
 export const COPY_CONTENT_DIR = path.join(process.cwd(), "content");
 export const COPY_CATALOG_PATH = path.join(COPY_CONTENT_DIR, "copy-catalog.json");

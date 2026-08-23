@@ -8,8 +8,6 @@ import {
   matchesPageNeedsClientFetch,
 } from "../lib/matchPageView";
 
-const SITE = "https://unitedstats.vercel.app";
-
 test("matchesPageNeedsClientFetch is false for the default archive view", () => {
   assert.equal(matchesPageNeedsClientFetch({}), false);
   assert.equal(matchesPageNeedsClientFetch({ sort: "date-desc" }), false);
@@ -22,14 +20,14 @@ test("matchesPageNeedsClientFetch is true when filters or pagination apply", () 
   assert.equal(hasActiveMatchFilters({ venue: "H" }), true);
 });
 
-test("GET /api/v1/matches/view returns the same shape as buildMatchesPageView", async () => {
-  const res = await GET(new Request(`${SITE}/api/v1/matches/view?venue=H`));
+test("GET /api/v1/matches/view returns the default archive snapshot", async () => {
+  const res = await GET();
   assert.equal(res.status, 200);
   const body = (await res.json()) as { data: ReturnType<typeof buildMatchesPageView> };
-  const expected = buildMatchesPageView({ venue: "H" });
+  const expected = buildMatchesPageView({});
   assert.equal(body.data.total, expected.total);
   assert.equal(body.data.rows.length, expected.rows.length);
-  assert.equal(body.data.hasFilters, true);
+  assert.equal(body.data.hasFilters, false);
 });
 
 test("season-only slice renders on one page without pagination", () => {

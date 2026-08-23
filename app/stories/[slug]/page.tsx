@@ -8,7 +8,6 @@ import FergieTimeStory from "@/app/journey/fergie-time/page";
 import ThreadOfNightsStory from "@/app/journey/forgotten-night/page";
 import { JOURNEY_CHAPTERS, journeyChapterBySlug, type JourneyChapterSlug } from "@/lib/journey";
 
-export const revalidate = 86400;
 
 const STORY_COMPONENTS: Record<JourneyChapterSlug, ComponentType> = {
   "two-no-7s": TwoNoSevensStory,
@@ -17,6 +16,8 @@ const STORY_COMPONENTS: Record<JourneyChapterSlug, ComponentType> = {
   "fergie-time": FergieTimeStory,
   "a-thread-of-nights": ThreadOfNightsStory,
 };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return JOURNEY_CHAPTERS.map(({ slug }) => ({ slug }));

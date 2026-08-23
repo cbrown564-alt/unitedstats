@@ -15,7 +15,7 @@ export const DATA_PAGE_DOWNLOADS_ANCHOR = `${DATA_PAGE_PATH}#downloads`;
 export const DATA_PAGE_CITATION_ANCHOR = `${DATA_PAGE_PATH}#citation`;
 
 export const LLMS_TXT_PATH = "/llms.txt";
-export const API_INDEX_PATH = "/api/v1";
+export const API_INDEX_PATH = "/api/v1.json";
 export const DATASET_MANIFEST_PATH = "/dataset/manifest.json";
 
 export const CITABLE_ID_PREFIX = "us";
@@ -62,21 +62,21 @@ const CUT_EXAMPLE_SLUG = "opponents-by-win-rate";
 /** Public read-only API under /api/v1. Featured endpoints surface on /data first. */
 export const API_ENDPOINTS: ApiEndpoint[] = [
   { path: "/api/v1/meta", label: "Dataset metadata and coverage counts", featured: true },
-  { path: "/api/v1/matches", label: "Paginated matches — filter by date, season, venue, opponent", featured: true },
+  { path: "/api/v1/matches.json", label: "Match archive snapshot — first 50 rows", featured: true },
   {
     path: "/api/v1/matches/{id}",
     examplePath: `/api/v1/matches/${MATCH_EXAMPLE_ID}`,
     label: "One match with events, lineups, Elo, and sources",
     featured: true,
   },
-  { path: "/api/v1/seasons", label: "Season summaries by competition", featured: true },
+  { path: "/api/v1/seasons.json", label: "Season summaries by competition", featured: true },
   {
     path: "/api/v1/seasons/{season}",
     examplePath: `/api/v1/seasons/${SEASON_EXAMPLE}`,
     label: "One season with every match (e.g. 1998-99)",
     featured: true,
   },
-  { path: "/api/v1/players", label: "Player totals with pagination", featured: true },
+  { path: "/api/v1/players.json", label: "Player totals snapshot", featured: true },
   {
     path: "/api/v1/players/{id}",
     examplePath: `/api/v1/players/${PLAYER_EXAMPLE_ID}`,
@@ -86,7 +86,7 @@ export const API_ENDPOINTS: ApiEndpoint[] = [
   { path: "/api/v1/opponents", label: "Opponent head-to-head records", featured: true },
   { path: "/api/v1/managers", label: "Managers with overall records and tenures" },
   { path: "/api/v1/competitions", label: "Competitions with type and match counts" },
-  { path: "/api/v1/answers", label: "Machine-facing answer index with stable citable IDs" },
+  { path: "/api/v1/answers.json", label: "Machine-facing answer index with stable citable IDs" },
   {
     path: "/api/v1/answers/cuts/{slug}",
     examplePath: `/api/v1/answers/cuts/${CUT_EXAMPLE_SLUG}`,

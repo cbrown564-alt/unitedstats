@@ -9,6 +9,8 @@ import {
   type MatchPageChip,
   type MatchPageView,
 } from "@/lib/matchPageView";
+import { buildMatchesPageViewFromCatalog } from "@/lib/matches/buildCatalogView";
+import type { MatchesCatalog } from "@/lib/matches/catalog";
 import {
   allSeasons,
   competitionNameById,
@@ -22,7 +24,6 @@ import {
   seasonAggregates,
   stadiumById,
 } from "@/lib/queries";
-import { matchesSequence } from "@/lib/trails";
 
 const GOAL_WINDOW_LABELS: Record<string, string> = {
   firstHalf: "First half",
@@ -49,7 +50,7 @@ function buildMatchChips(sp: Record<string, string | undefined>): MatchPageChip[
   if (sp.result) chips.push({ key: "result", label: resultLabel(sp.result) });
   if (sp.type) chips.push({ key: "type", label: COMPETITION_TYPE_LABELS[sp.type] ?? sp.type });
   if (round) chips.push({ key: "round", label: roundFilterLabel(round) });
-  if (sp.stadium) chips.push({ key: "stadium", label: stadium?.name ?? "Ground" });
+  if (sp.stadium) chips.push({ key: "stadium", label: stadiumName(stadium) });
   if (sp.city) chips.push({ key: "city", label: sp.city });
   if (sp.scorer) chips.push({ key: "scorer", label: `Goalscorer: ${playerById(sp.scorer)?.name ?? sp.scorer}` });
   if (sp.assister) chips.push({ key: "assister", label: `Assister: ${playerById(sp.assister)?.name ?? sp.assister}` });
@@ -75,7 +76,16 @@ function buildMatchChips(sp: Record<string, string | undefined>): MatchPageChip[
   return chips;
 }
 
-export function buildMatchesPageView(sp: Record<string, string | undefined>): MatchPageView {
+function stadiumName(stadium: { name: string } | undefined): string {
+  return stadium?.name ?? "Ground";
+}
+
+export function buildMatchesPageView(
+  sp: Record<string, string | undefined>,
+  catalog?: MatchesCatalog,
+): MatchPageView {
+  if (catalog) return buildMatchesPageViewFromCatalog(sp, catalog);
+
   const page = Math.max(1, parseInt(sp.page ?? "1", 10) || 1);
   const sort = parseMatchSort(sp);
   const chronological = sort === "date-desc" || sort === "date-asc";
@@ -87,7 +97,9 @@ export function buildMatchesPageView(sp: Record<string, string | undefined>): Ma
   const filter = matchFilterFromSearchParams(sp, { limit: pageLimit, offset });
   const { rows, total } = findMatches(filter);
   const summary = matchesSummary(filter);
-  const sequence = !hasActiveMatchFilters(sp) && summary.p >= 24 ? matchesSequence(filter) : [];
+  // The unfiltered archive spine is ~6,000 matches — too large for the static
+  // export. The client rebuilds it from the catalog after hydration.
+  const sequence: MatchPageView["sequence"] = [];
   const hasFilters = hasActiveMatchFilters(sp);
   const pinnedResult = sp.result && RESULT_NOUN[sp.result] ? sp.result : undefined;
   const heroValue = pinnedResult ? fmtNum(summary.p) : pct(summary.w, summary.p);
@@ -95,7 +107,7 @@ export function buildMatchesPageView(sp: Record<string, string | undefined>): Ma
   const heroTone = pinnedResult ? resultTone(pinnedResult) : "text-win";
   const heroSub = pinnedResult ? null : `from ${fmtNum(summary.p)} ${summary.p === 1 ? "match" : "matches"}`;
   const badgeMap = matchEventBadges(
-    rows.map((m) => m.id),
+    rows.map((match) => match.id),
     filter,
   );
 
@@ -125,6 +137,6 @@ export function buildMatchesPageView(sp: Record<string, string | undefined>): Ma
     heroTone,
     heroSub,
     matchHref: total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined,
-    seasonTotals: Object.fromEntries(seasonAggregates().map((s) => [s.season, s.p])),
+    seasonTotals: Object.fromEntries(seasonAggregates().map((season) => [season.season, season.p])),
   };
 }

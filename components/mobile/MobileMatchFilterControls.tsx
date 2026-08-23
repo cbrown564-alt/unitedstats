@@ -1,9 +1,10 @@
 "use client";
 
-import { Suspense, useEffect, useId, useMemo, useState } from "react";
+import { Suspense, useId, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { MatchFilterSheet } from "@/components/matches/MatchFilterSheet";
-import type { MatchPageView } from "@/lib/matchPageView";
+import { useMatchesCatalog } from "@/components/matches/MatchesCatalogContext";
+import { buildMatchesPageViewFromCatalog } from "@/lib/matches/buildCatalogView";
 
 const IGNORE_PARAMS = new Set(["page", "sort"]);
 
@@ -37,38 +38,8 @@ function MobileMatchFilterControlsInner({ open, onOpen, onClose }: MobileMatchFi
     [searchParams],
   );
   const filterCount = countFilterParams(searchParams);
-  const [view, setView] = useState<MatchPageView | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (!open) return;
-    const ac = new AbortController();
-    const frame = window.requestAnimationFrame(() => setLoading(true));
-    const qs = searchParams.toString();
-    fetch(`/api/v1/matches/view${qs ? `?${qs}` : ""}`, { signal: ac.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error(`matches view ${res.status}`);
-        return res.json() as Promise<{ data: MatchPageView }>;
-      })
-      .then((json) => {
-        if (!ac.signal.aborted) {
-          window.cancelAnimationFrame(frame);
-          setView(json.data);
-          setLoading(false);
-        }
-      })
-      .catch((err: unknown) => {
-        if (err instanceof DOMException && err.name === "AbortError") return;
-        if (!ac.signal.aborted) {
-          window.cancelAnimationFrame(frame);
-          setLoading(false);
-        }
-      });
-    return () => {
-      window.cancelAnimationFrame(frame);
-      ac.abort();
-    };
-  }, [open, searchParams]);
+  const catalog = useMatchesCatalog();
+  const view = catalog ? buildMatchesPageViewFromCatalog(params, catalog) : null;
 
   return (
     <>
@@ -104,7 +75,7 @@ function MobileMatchFilterControlsInner({ open, onOpen, onClose }: MobileMatchFi
         matchHref={view?.matchHref}
         seasons={view?.seasons ?? []}
         decadeBuckets={view?.decades}
-        loading={open && loading && !view}
+        loading={open && !view}
       />
     </>
   );

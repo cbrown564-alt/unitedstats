@@ -41,13 +41,13 @@ pipeline, and a public dataset/API.
    optional: football-data.org (keyed backup)
                │
                ▼
-   Vercel: bundled united.db in every function; every data commit produces a
-           complete production build and deployment
+   Vercel: static export (`out/`); every data commit produces a complete
+           production build and deployment
 ```
 
 ### Key decisions
 
-**The database is a build artifact; canonical data lives as JSON in git.**
+**The database is a build artifact; the live site is a static export.**
 
 - `data/canonical/matches/<season>.json` — one file per season (126 seasons),
   human-readable, diff-friendly. Every match with its events, lineup, and metadata.
@@ -56,10 +56,10 @@ pipeline, and a public dataset/API.
 - `scripts/build-db.ts` compiles canonical JSON → `data/united.db` (SQLite)
   and precomputes analytics tables (Elo, aggregates, search index). Runs in
   `prebuild`.
-- The app queries SQLite read-only via `better-sqlite3`. The whole dataset is
-  ~60 MB — comfortably bundled with the deployment via
-  `outputFileTracingIncludes` in `next.config.ts`. No database server, no
-  connection strings, no cost.
+- `next build` with `output: "export"` queries SQLite read-only via
+  `better-sqlite3` and writes HTML, RSC, JSON, and media into `out/`. There is
+  no runtime database, no Vercel Functions, and no ISR. No connection strings,
+  no cost.
 
 **Why SQLite-in-repo instead of Postgres?**
 
@@ -69,14 +69,12 @@ pipeline, and a public dataset/API.
 
 **Deploy-time database freshness.**
 
-- Every deploy bundles `data/united.db`, so runtime functions read the exact
-  canonical state that produced the deployment.
+- `prebuild` compiles `data/united.db` from canonical JSON; `next build`
+  reads that file once and writes the static export. The live site never
+  opens SQLite.
 - Data commits trigger ordinary production deployments. The previous Blob
-  freshness path is dormant because downloading the complete database on
-  function cold starts consumed more Blob transfer than the update latency
-  justified. The retained Blob scripts are manual recovery tools, not part of
-  the normal pipeline. See `docs/PIPELINE.md` and
-  `docs/VERCEL-HOBBY-ASSESSMENT.md`.
+  freshness path is gone: do not reintroduce `UNITEDSTATS_DB_BLOB_URL`. See
+  `docs/PIPELINE.md` and `docs/VERCEL-HOBBY-ASSESSMENT.md`.
 
 **Update pipeline = GitHub Actions, not a server.**
 
@@ -89,16 +87,18 @@ pipeline, and a public dataset/API.
 
 **Rendering strategy.**
 
-- Historical data is immutable between ingests, so the default is **prerender at
-  build, serve static HTML from the CDN** for entity pages and catalogue routes.
-  ~7,400 paths prerender on full builds; the render-mode disposition is enforced
-  by CI (`npm run check:static`).
-- The homepage is prerendered with a one-day revalidation interval so its
-  calendar-based served night stays current without a SQLite query on every
-  request. Search and facet tools remain query-shaped and use
-  `revalidate = 86400` or `force-dynamic` as appropriate.
-- Data freshness follows deployments; there is no runtime data-store dependency
-  in the normal production path.
+- Historical data is immutable between ingests, so the site is a real
+  `output: "export"` build: HTML, RSC, JavaScript, JSON, and pre-sized media
+  with no Vercel Functions, ISR, or runtime SQLite. ~7,400 entity paths
+  prerender on full builds; CI enforces that with `npm run check:static`.
+- Date-based homepage spark selection and Surprise re-rolls run in the browser
+  over build-generated catalogs. Search, match filters, and curated compares
+  read exported JSON (`public/data/search-index.json`,
+  `public/data/matches-catalog.json`) instead of request-shaped APIs. The
+  unfiltered `/matches` result spine is rebuilt from that catalog after
+  hydration so the static HTML stays inside the gzip budget.
+- Data freshness follows deployments. Do not reintroduce
+  `UNITEDSTATS_DB_BLOB_URL` or a hosted SQL database.
 
 ## Route map
 
@@ -117,8 +117,8 @@ pipeline, and a public dataset/API.
 | `/analytics` | Elo timeline, reliability curve, Monte Carlo season replay |
 | `/transfers` | Transfer ledger and record deals |
 | `/data` | Coverage ledger, sources, gaps queue, dataset downloads |
-| `/compare` | Curated debates; valid incoming arbitrary pairs remain readable but unlisted |
-| `/cut` | `noindex` saved/API receipt for registered cuts; not promoted or listed in the sitemap |
+| `/compare` | Curated debates (query-string pairs resolve from build-time payloads) |
+| `/cut`, `/cut/[slug]` | `noindex` saved/API receipts for registered cuts |
 | `/questions/[slug]` | Authored myth/answer depth pages (4 active; archived slugs noindex) |
 | `/surprise` | Reviewed match-night rediscovery with re-roll |
 | `/on-this-day`, `/on-this-day/[monthDay]` | Exact match/transfer calendar moments with an explicitly nearby reviewed fallback |
@@ -126,30 +126,27 @@ pipeline, and a public dataset/API.
 | `/corrections` | Structured correction builder → GitHub issues |
 | `/feedback` | General feedback via embedded Google Form |
 
-### Redirects (`next.config.ts`)
+### Redirects (`vercel.json`)
 
-- `/questions` → `/explore`
+Static export cannot use `next.config` redirects. Legacy paths are host
+redirects:
+
 - `/questions/ferguson`, `/questions/decline` → `/questions/ferguson-era`
 - `/opponents` → `/search`
 - `/analytics/odds` → `/analytics`
 - `/analytics/travel` → `/questions/away-days`
+- `/journey` and `/journey/*` → the published `/stories/*` homes
 
 ### Route render-mode disposition
 
-Enforced by `scripts/check-static-render.mjs` after `npm run build`. A regression
-here fails CI.
+Every App Router page is statically generated. Enforced by
+`scripts/check-static-render.mjs` after `npm run build`.
 
 | Mode | Routes | Notes |
 |---|---|---|
-| **Static / daily ISR** | `/`, `/analytics`, `/data`, `/explore`, `/managers`, `/transfers` | Prerendered; `/` revalidates at most daily |
-| **SSG `●`** | `/match/[id]`, `/player/[id]`, `/manager/[id]`, `/opponent/[id]`, `/seasons/[season]`, `/questions/[slug]`, `/on-this-day/[monthDay]` | `generateStaticParams`; full builds prerender all ids; preview builds sample (~24 per heavy route) |
-| **Dynamic + ISR** | `/matches`, `/players`, `/seasons`, `/search`, `/compare`, `/cut` | `revalidate = 86400`; URL-state tools over deploy-immutable data |
-| **Dynamic `ƒ`** | `/surprise`, `/on-this-day` (index redirect) | Per-request curation / redirect |
-| **API `ƒ`** | `/api/v1/*`, `/api/search`, `/api/revalidate`, `/api/health` | Read-only public API; search uses `no-store` |
-
-Dynamic page routes and API handlers share the immutable dataset cache policy
-(`public, max-age=300, s-maxage=86400, stale-while-revalidate=604800`) except
-search, which is `no-store`.
+| **Static** | `/`, `/analytics`, `/data`, `/explore`, `/managers`, `/transfers`, `/matches`, `/players`, `/seasons`, `/search`, `/compare`, `/cut`, `/surprise` | Prerendered HTML; URL state is applied on the client |
+| **SSG `●`** | `/match/[id]`, `/player/[id]`, `/manager/[id]`, `/opponent/[id]`, `/seasons/[season]`, `/questions/[slug]`, `/on-this-day/[monthDay]`, `/cut/[slug]` | `generateStaticParams` + `dynamicParams = false`; preview builds sample heavy routes |
+| **API** | `/api/v1/*`, `/api/health` | Build-generated JSON files; query-shaped match/search APIs were replaced by client catalogs |
 
 ### Regression guards (CI)
 
@@ -204,7 +201,7 @@ ledger cards on list views.
 
 ```
 app/                    Next.js App Router pages
-  page.tsx              homepage (daily-prerendered spark)
+  page.tsx              homepage (static spark; client re-picks today's night)
   explore/              discover hub
   matches/              filterable archive
   match/[id]/           match detail
@@ -223,9 +220,9 @@ app/                    Next.js App Router pages
   search/               full-text search
   corrections/          correction builder
   feedback/             feedback form
-  api/                  health, search, revalidate, v1 REST API
+  api/                  static GET dumps (health, v1 REST); no search/revalidate
 components/             UI components (charts, match archive, mobile shell, …)
-lib/                    db access (db.ts), queries, format, questions, cut, compare, …
+lib/                    db access (db.ts, build-time only), queries, format, questions, cut, compare, …
 data/
   canonical/            source of truth (JSON, in git)
   raw/                  downloaded open datasets (gitignored, reproducible)
@@ -267,20 +264,23 @@ Provenance and honest limits: `docs/SOURCE-AUDIT.md`. Schema: `docs/DATA-MODEL.m
 
 ## Public API and exports
 
-**REST API** at `/api/v1/*`:
+**REST API** at `/api/v1/*` (build-generated JSON; query filters are not applied):
 
 - `GET /api/v1/meta` — build timestamp, match count, coverage summary
-- `GET /api/v1/matches`, `/matches/[id]`, facet/chip-count/view helpers
-- `GET /api/v1/players`, `/players/[id]`
-- `GET /api/v1/seasons`, `/seasons/[season]`
+- `GET /api/v1.json` — endpoint index (list dumps use a `.json` suffix so they
+  do not collide with nested entity files on a static host)
+- `GET /api/v1/matches.json` — first page of the archive; `/matches/[id]` for entities
+- `GET /api/v1/players.json`, `/players/[id]`
+- `GET /api/v1/seasons.json`, `/seasons/[season]`
 - `GET /api/v1/managers`, `/opponents`, `/competitions`
-- `GET /api/v1/answers`, `/answers/cuts/[slug]` — machine-readable curated answers
+- `GET /api/v1/answers.json`, `/answers/cuts/[slug]` — machine-readable curated answers
+- Facet/chip-count/view helpers return the unfiltered default snapshot
 
 **Flat exports** at `/dataset/*` — CSV/JSON files rebuilt by `npm run export:dataset`
 on full-profile builds. Manifest at `/dataset/manifest.json`.
 
-**Search** at `/api/search` (typeahead) and `/search` (full results page). Click
-tracking at `/api/search/click` (robots-disallowed).
+**Search** is client-side over `/data/search-index.json`. There is no `/api/search`
+or click-tracking endpoint.
 
 ## Structured data and machine answers
 
@@ -297,19 +297,21 @@ without turning generated facts into unattributed snippets:
 `claimVersion()` hashes of the stable answer payload — no wall-clock timestamps,
 change only when canonical inputs or generated claim content changes.
 
-**Crawl policy.** `/api/v1` is read-only public data, so robots allows `/api/v1/`
-and the answer routes beneath it; side-effect endpoints (`/api/search/click`)
-are disallowed. `/llms.txt`, `/sitemap.xml`, JSON-LD source names, and `apiJson`
-attribution all share one source name: *Red Thread, the open Manchester United
-match history*. Answer routes stay dynamic (handlers read SQLite on demand) and
-return the shared immutable dataset cache headers via `apiJson`.
+**Crawl policy.** `robots.txt` disallows `/api/`, `/dataset/`, `/search`,
+`/matches`, `/surprise`, `/compare`, `/cut`, `/on-this-day`, and `/dev/`.
+The sitemap is a curated discovery set (`lib/discovery.ts`): authored pages,
+all seasons and managers, major players, and selected match nights — not the
+full 6,028-match dump. `/llms.txt`, `/sitemap.xml`, JSON-LD source names, and
+`apiJson` attribution all share one source name: *Red Thread, the open
+Manchester United match history*.
 
 ## Corrections and trust
 
 - **`/data`** — coverage matrix, source register, gaps queue with per-row
   explanations, developer appendix with API/file references.
-- **`/corrections`** — structured builder that prefills GitHub issues from
-  match-page pickables or manual entry. Contract: `docs/CORRECTIONS.md`.
+- **`/corrections`** — structured builder that opens a GitHub issue. Deep-link
+  prefill from match pickables is not available on the static export.
+  Contract: `docs/CORRECTIONS.md`.
 - **`/feedback`** — general product feedback via embedded Google Form.
 - Every aggregate in the UI carries a coverage grade where interpretation
   depends on data completeness.

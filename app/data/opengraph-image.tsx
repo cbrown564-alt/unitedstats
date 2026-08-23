@@ -1,5 +1,7 @@
 import { collectionCard, OG_CONTENT_TYPE, OG_SIZE, trustStrip } from "@/lib/og-card";
 
+export const dynamic = "force-static";
+
 export const alt = "Red Thread open dataset and coverage ledger";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;

@@ -1,6 +1,8 @@
 import { SITE_TAGLINE } from "@/lib/site";
 import { collectionCard, OG_CONTENT_TYPE, OG_SIZE, trustStrip } from "@/lib/og-card";
 
+export const dynamic = "force-static";
+
 export const alt = "Red Thread — the open evidence engine for Manchester United history";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;

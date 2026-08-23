@@ -15,12 +15,11 @@ import { PageHeader } from "@/components/PageHeader";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
 import { HomeThreadFilm } from "@/components/HomeThreadFilm";
-import { greatNights } from "@/lib/greatNights";
+import { greatNights, homepageNightCatalog } from "@/lib/greatNights";
 
 // The front door is the gate (CONTEXT.md §6): its whole job is to fire the spark.
-// The served night changes at most daily, so prerender it and refresh once a day
-// instead of querying SQLite for every visitor and crawler request.
-export const revalidate = 86400;
+// The export prerenders today's night; the hero re-selects on the client after
+// hydration so the spark stays current without ISR.
 
 const HOME_DESCRIPTION =
   "Evidence-backed Manchester United history: every match, every competition, every goal — from Newton Heath to today.";
@@ -48,6 +47,7 @@ export default function Home() {
   const byType = recordByCompetitionType();
   const recent = recentMatches(8);
   const { nights, seed } = greatNights();
+  const nightCatalog = homepageNightCatalog();
   const featured = featuredLaunchQuestion();
   const firstYear = meta.first_match?.slice(0, 4) ?? "1886";
   const years = new Date().getFullYear() - Number(firstYear);
@@ -89,7 +89,12 @@ export default function Home() {
         {/* 2. THE SPARK — a single served match-night, chosen for you, the Red Thread
             its spine. */}
         <section id="the-spark" aria-label="Tonight's match">
-          <TonightHero nights={nights} seed={seed} />
+          <TonightHero
+            nights={nights}
+            seed={seed}
+            catalog={nightCatalog}
+            servedDay={new Date().toISOString().slice(0, 10)}
+          />
         </section>
 
         {/* 2. THE FOUNDATION (CONTEXT.md §2) — the whole record the night belongs to:

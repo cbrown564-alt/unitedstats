@@ -14,7 +14,6 @@ import { europeanFinals } from "@/lib/trails";
 import { matchReceipt, type MatchReceipt } from "@/lib/journey";
 import { familyName } from "@/lib/names";
 
-export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — Ronaldo vs Best",
   description: "Two No. 7s, forty years apart. Same fifth season, same European Cup, each scoring in the final.",

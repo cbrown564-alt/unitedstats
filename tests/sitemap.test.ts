@@ -16,12 +16,12 @@ test("sitemap lists canonical pages without saved-query receipts", () => {
   assert.doesNotMatch(xml, /<loc>[^<]*&(?!amp;)[^<]*<\/loc>/);
 });
 
-test("sitemap includes /surprise", () => {
+test("sitemap excludes surprise, search, and the calendar corpus", () => {
   const paths = sitemapPaths();
-  assert.ok(paths.includes("/surprise"));
-  const entry = sitemap().find((e) => e.url.endsWith("/surprise"));
-  assert.equal(entry?.changeFrequency, "weekly");
-  assert.equal(entry?.priority, 0.7);
+  assert.ok(!paths.includes("/surprise"));
+  assert.ok(!paths.includes("/search"));
+  assert.ok(!paths.includes("/matches"));
+  assert.ok(!paths.some((path) => path.startsWith("/on-this-day")));
 });
 
 test("llms.txt returns plain text with key links and license", async () => {
@@ -31,8 +31,6 @@ test("llms.txt returns plain text with key links and license", async () => {
   const body = await res.text();
   assert.match(body, /Red Thread/);
   assert.match(body, /\/data/);
-  assert.match(body, /\/api\/v1\/meta/);
-  assert.match(body, /\/dataset\/manifest\.json/);
   assert.match(body, /\/sitemap\.xml/);
   assert.match(body, /CC BY-SA 4\.0/);
 });

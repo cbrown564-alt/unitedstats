@@ -1,7 +1,13 @@
 import { apiError, apiJson } from "@/lib/api";
-import { seasonMatches, seasonsIndex } from "@/lib/queries";
+import { allSeasons, seasonMatches, seasonsIndex } from "@/lib/queries";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return allSeasons().map((season) => ({ season }));
+}
 
 export async function GET(_request: Request, { params }: { params: Promise<{ season: string }> }) {
   const { season } = await params;

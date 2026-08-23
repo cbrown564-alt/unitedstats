@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { CorrectionBuilder } from "./CorrectionBuilder";
-import { CORRECTION_STATUS_URL, correctionPayloadFromSearchParams } from "@/lib/corrections";
-import { matchCorrectionInventory } from "@/lib/correctionInventory";
+import { CORRECTION_STATUS_URL } from "@/lib/corrections";
 
 const CORRECTIONS_DESCRIPTION =
   "Found a wrong score, date, or goalscorer? Pick the fact, attach your source, and it becomes a structured issue for review.";
@@ -20,27 +19,15 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "Suggest a correction", description: CORRECTIONS_DESCRIPTION },
 };
 
-type SP = Record<string, string | string[] | undefined>;
-
-export default async function CorrectionsPage({ searchParams }: { searchParams: Promise<SP> }) {
-  const sp = await searchParams;
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(sp)) if (typeof value === "string") params.set(key, value);
-
-  // A direct ?field= deep-link skips straight to the claim flow; otherwise a
-  // ?match= id opens the "what's wrong?" picker over that match's facts.
-  const initialPayload = params.get("field") && params.get("id") ? correctionPayloadFromSearchParams(params) : null;
-  const matchId = params.get("match");
-  const inventory = !initialPayload && matchId ? matchCorrectionInventory(matchId) : null;
-
+export default function CorrectionsPage() {
   return (
     <div className="space-y-8">
       <PageHeader eyebrow="Corrections" title="Suggest a correction">
-        Found a wrong score, date, or goalscorer? Pick the fact, attach your source, and it becomes a
-        structured issue for review.
+        Found a wrong score, date, or goalscorer? Pick the fact, attach your source, and it becomes a structured issue
+        for review.
       </PageHeader>
 
-      <CorrectionBuilder initialPayload={initialPayload} inventory={inventory} />
+      <CorrectionBuilder initialPayload={null} inventory={null} />
 
       <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-line/70 pt-4 text-sm text-ink-dim">
         <span>Every suggested correction is tracked in the open issue queue.</span>

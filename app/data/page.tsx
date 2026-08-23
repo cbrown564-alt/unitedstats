@@ -324,8 +324,8 @@ export default function DataPage() {
             <section id="api" className="scroll-mt-24">
               <h3 className="display mb-3 text-lg">Public read-only API</h3>
               <p className="mb-4 max-w-2xl text-sm text-ink-dim">
-                JSON responses with permissive CORS, pagination on large lists, and an attribution block on every payload.
-                The index at{" "}
+                JSON dumps generated at build, with permissive CORS and an attribution block on every payload.
+                List endpoints are unfiltered snapshots. The index at{" "}
                 <a href={DATA_PAGE_API_ANCHOR} className="font-mono text-xs text-devil-bright hover:underline">
                   {API_INDEX_PATH}
                 </a>{" "}

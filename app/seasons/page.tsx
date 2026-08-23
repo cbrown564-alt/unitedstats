@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { seasonsIndex, seasonCupLastResults } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
 import { PageHeader } from "@/components/PageHeader";
-import { WdlBar } from "@/components/WdlBar";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { HonoursChip } from "@/components/HonoursBadge";
 import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
@@ -12,10 +10,8 @@ import { SeasonLedgerGrid, type SeasonLedgerRow } from "@/components/seasons/Sea
 import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
 import { cupOutcomesForSeason, lanesForComps } from "@/components/seasons/seasonLedgerLanes";
 import { fmtNum } from "@/lib/format";
-import { queryString } from "@/lib/url";
 import { listSeo, seoMetadata } from "@/lib/seo";
 
-export const revalidate = 86400;
 export const metadata = seoMetadata(listSeo.seasons.title, listSeo.seasons.description);
 
 function ordinal(n: number): string {
@@ -63,15 +59,9 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
   );
 }
 
-export default async function SeasonsPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | undefined>>;
-}) {
-  const sp = await searchParams;
-  // Newest first by default — the ledger opens on the latest decades. Ascending
-  // flips both the decades and the seasons within each one as a unit.
-  const order = sp.order === "asc" ? "asc" : "desc";
+export default function SeasonsPage() {
+  // Newest first — the ledger opens on the latest decades.
+  const order = "desc" as const;
   const summaries = seasonsIndex();
   const bySeason = new Map<string, typeof summaries>();
   for (const s of summaries) {
@@ -204,31 +194,7 @@ export default async function SeasonsPage({
       <div className="space-y-3">
         <JumpRail chips={decadeChips} label="Jump to a decade" idPrefix="decade" sticky />
 
-        {/* Order toggle: newest first by default; flip to read from 1892 forward. */}
-        <div className="flex items-center justify-end gap-2 text-xs">
-          <span className="uppercase tracking-[0.12em] text-ink-faint">Order</span>
-          <div className="inline-flex rounded-md border border-line bg-panel p-0.5">
-            {([
-              { key: "desc", label: "Newest first" },
-              { key: "asc", label: "Oldest first" },
-            ] as const).map((o) => {
-              const active = order === o.key;
-              return (
-                <Link
-                  key={o.key}
-                  href={`/seasons${queryString({ ...sp, order: o.key === "desc" ? undefined : o.key })}`}
-                  aria-current={active ? "true" : undefined}
-                  scroll={false}
-                  className={`rounded px-2.5 py-1 transition-colors focus-ring ${
-                    active ? "bg-devil/15 font-semibold text-devil-bright" : "text-ink-dim hover:bg-panel-2 hover:text-ink"
-                  }`}
-                >
-                  {o.label}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+        <p className="text-right text-xs uppercase tracking-[0.12em] text-ink-faint">Newest first</p>
 
         {/* The ledger, paced into eras: title-winning decades carry a gold-edged
             header and extra air above; barren decades stay compressed and quiet, so

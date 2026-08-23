@@ -1,9 +1,15 @@
 import { immutableDataHeaders } from "@/lib/cache";
-import { journeyChapterBySlug } from "@/lib/journey";
+import { JOURNEY_CHAPTERS, journeyChapterBySlug } from "@/lib/journey";
 import { entityCard, localOgMedia, OG_CONTENT_TYPE, OG_SIZE, storyCard, trustStrip } from "@/lib/og-card";
 import { OG_MEDIA, type CuratedOgMedia } from "@/lib/og-media";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return JOURNEY_CHAPTERS.map(({ slug }) => ({ slug }));
+}
+
 export const alt = "Red Thread story — Manchester United history, evidenced";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;

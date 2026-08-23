@@ -47,7 +47,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             </p>
             <nav aria-label="Utility links" className="flex max-w-xl flex-wrap gap-x-3 gap-y-1 pt-1">
               <a href="/data" className="hover:text-devil-bright hover:underline focus-ring">Data &amp; downloads</a>
-              <a href="/api/v1" className="hover:text-devil-bright hover:underline focus-ring">API</a>
+              <a href="/api/v1.json" className="hover:text-devil-bright hover:underline focus-ring">API</a>
               <a href="/corrections" className="hover:text-devil-bright hover:underline focus-ring">Corrections</a>
               <a href="/feedback" className="hover:text-devil-bright hover:underline focus-ring">Feedback</a>
             </nav>

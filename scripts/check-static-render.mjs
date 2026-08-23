@@ -14,19 +14,30 @@ import path from "node:path";
 const EXPECTED_STATIC = [
   "/",
   "/analytics",
+  "/compare",
+  "/cut",
   "/data",
   "/explore",
   "/managers",
+  "/matches",
+  "/players",
+  "/search",
+  "/seasons",
+  "/surprise",
   "/transfers",
 ];
 
 // Route patterns that must be statically generated via generateStaticParams (●).
 const EXPECTED_SSG = [
+  "/cut/[slug]",
   "/manager/[id]",
   "/match/[id]",
+  "/on-this-day/[monthDay]",
   "/opponent/[id]",
   "/player/[id]",
+  "/questions/[slug]",
   "/seasons/[season]",
+  "/stories/[slug]",
 ];
 
 // A floor on total prerendered paths so a wholesale collapse to dynamic is

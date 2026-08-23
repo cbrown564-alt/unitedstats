@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { CopyStudio } from "@/components/dev/CopyStudio";
 import { copyStudioEnabled, loadCopyCatalog, loadCopyQueue } from "@/lib/copyCatalog";
 
-export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Copy Studio",
   robots: { index: false, follow: false },

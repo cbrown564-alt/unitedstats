@@ -60,10 +60,6 @@ export interface CopyQueueFile {
 
 export const COPY_QUEUE_STATUSES: CopyQueueStatus[] = ["todo", "rewritten", "keep", "skip"];
 
-export function isCopyQueueStatus(value: string): value is CopyQueueStatus {
-  return (COPY_QUEUE_STATUSES as string[]).includes(value);
-}
-
 export function countByStatus(queue: CopyQueueFile): Record<CopyQueueStatus, number> {
   const counts: Record<CopyQueueStatus, number> = {
     todo: 0,

@@ -30,6 +30,7 @@ if (process.env.UNITEDSTATS_CACHE_MEDIA === "1") {
   run("cache:media (reconcile-only)", ["cache:media", "--", "--reconcile-only"]);
 }
 
+run("export:client-data", ["export:client-data"]);
 if (mode === "full") {
   run("export:dataset", ["export:dataset"]);
 } else {

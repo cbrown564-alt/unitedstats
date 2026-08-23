@@ -675,6 +675,8 @@ export function cutHref(cut: {
   metric: CutMetric;
   filters?: CutFilters;
 }): string {
+  const curated = CURATED_BY_KEY.get(canonicalKey(cut));
+  if (curated) return `/cut/${curated.slug}`;
   return `/cut${queryString({
     subject: cut.subject === "player" ? "player" : undefined,
     by: cut.dimension,

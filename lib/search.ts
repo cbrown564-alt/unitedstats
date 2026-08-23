@@ -69,7 +69,7 @@ const toEntity = (r: Pick<IndexRow, "kind" | "label" | "detail" | "href">): Sear
  * to a folded substring/trigram scan when FTS finds nothing, so partials/typos
  * still land. Returns the capped slice plus the full match count.
  */
-export function entityResults(
+function entityResults(
   q: string,
   opts: { kind?: string; limit?: number; offset?: number } = {},
 ): { entities: SearchEntity[]; total: number } {
@@ -89,11 +89,7 @@ export function entityResults(
 
   const folded = fold(q);
   if (!folded) return { entities: out, total: out.length };
-  const matchExpr = folded
-    .split(" ")
-    .filter(Boolean)
-    .map((t) => `${t}*`)
-    .join(" ");
+  const matchExpr = ftsExpr(q);
 
   const kindCond = kind ? "AND s.kind = ?" : "";
 
@@ -194,20 +190,6 @@ function ftsExpr(q: string): string {
     .join(" ");
 }
 
-/** Per-kind match counts for a query — the facet tallies on the results page. */
-function searchKindCounts(q: string): { kind: string; n: number }[] {
-  const expr = ftsExpr(q);
-  if (!expr) return [];
-  return getDb()
-    .prepare(
-      `SELECT s.kind, COUNT(*) n
-       FROM search_fts JOIN search_index s ON s.rowid = search_fts.rowid
-       WHERE search_fts MATCH ?
-       GROUP BY s.kind`,
-    )
-    .all(expr) as { kind: string; n: number }[];
-}
-
 export interface SearchPage {
   shaped: ShapedAnswer[];
   questions: SearchEntity[];
@@ -217,36 +199,4 @@ export interface SearchPage {
   total: number;
   page: number;
   pages: number;
-}
-
-/** Results-page model: shaped answers, faceted entity groups, and pagination. */
-export function searchPage(
-  q: string,
-  opts: { kind?: string; page?: number; pageSize?: number; perGroup?: number } = {},
-): SearchPage {
-  const { kind, pageSize = 25, perGroup = 6 } = opts;
-  const page = Math.max(1, opts.page ?? 1);
-  const counts = searchKindCounts(q).sort((a, b) => b.n - a.n);
-  const total = counts.reduce((acc, c) => acc + c.n, 0);
-  const shaped = kind ? [] : shapedAnswers(q);
-  const questions = kind ? [] : matchQuestionPages(q);
-
-  if (kind) {
-    const n = counts.find((c) => c.kind === kind)?.n ?? 0;
-    const { entities } = entityResults(q, { kind, limit: pageSize, offset: (page - 1) * pageSize });
-    return {
-      shaped,
-      questions,
-      groups: entities.length ? [{ kind, entities, total: n }] : [],
-      counts,
-      total,
-      page,
-      pages: Math.max(1, Math.ceil(n / pageSize)),
-    };
-  }
-
-  const groups = counts
-    .map((c) => ({ kind: c.kind, total: c.n, entities: entityResults(q, { kind: c.kind, limit: perGroup }).entities }))
-    .filter((g) => g.entities.length > 0);
-  return { shaped, questions, groups, counts, total, page: 1, pages: 1 };
 }

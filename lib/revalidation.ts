@@ -27,15 +27,15 @@ const STATIC_SURFACES = [
 /** Read-only API handlers that cache immutable-data responses. */
 const API_SURFACES = [
   "/api/v1/meta",
-  "/api/v1/matches",
+  "/api/v1/matches.json",
   "/api/v1/matches/view",
   "/api/v1/matches/facets",
   "/api/v1/matches/facet-options",
   "/api/v1/matches/chip-counts",
-  "/api/v1/players",
+  "/api/v1/players.json",
   "/api/v1/opponents",
   "/api/v1/managers",
-  "/api/v1/seasons",
+  "/api/v1/seasons.json",
 ] as const;
 
 function monthDay(date: string): string {

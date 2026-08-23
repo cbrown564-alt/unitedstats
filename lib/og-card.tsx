@@ -34,7 +34,7 @@ export async function localOgMedia(src?: string | null, options: Omit<OgMedia, "
 // The site's own faces, bundled as static TTFs (Satori can't read the woff2 that
 // next/font caches). Archivo is the default; Plex Mono carries the numerals, so a
 // shared card's scores match the on-page `.stat-num` mono exactly. Read once per
-// server process; the OG routes are `force-dynamic`, so they run in Node.
+// build process; OG routes prerender into the static export.
 const FONT_DIR = join(process.cwd(), "assets", "og-fonts");
 const font = (file: string) => readFileSync(join(FONT_DIR, file));
 const OG_FONTS = [
@@ -474,66 +474,6 @@ function renderStatCard(
       </div>
     ),
     ogOptions(headers),
-  );
-}
-
-const winPct = (w: number, p: number) => `${Math.round((100 * w) / (p || 1))}%`;
-
-/** A manager's card: their record drawn as a W-D-L conviction bar, win % as the figure. */
-export function managerCard(
-  { name, role, p, w, d, l, era, strip, media }: { name: string; role: string; p: number; w: number; d: number; l: number; era?: string; strip: TrustItem[]; media?: OgMedia },
-  headers?: Record<string, string>,
-) {
-  return renderStatCard(
-    {
-      eyebrow: role.toUpperCase(),
-      title: name,
-      contextRight: era,
-      figure: winPct(w, p),
-      figureLabel: `won · ${p.toLocaleString("en-GB")} matches in charge`,
-      shape: vizWdl(w, d, l),
-      strip,
-      media,
-    },
-    headers,
-  );
-}
-
-/** A head-to-head card: the all-time record as a conviction bar, win % as the figure. */
-export function opponentCard(
-  { name, p, w, d, l, since, strip }: { name: string; p: number; w: number; d: number; l: number; since?: string; strip: TrustItem[] },
-  headers?: Record<string, string>,
-) {
-  return renderStatCard(
-    {
-      eyebrow: "HEAD TO HEAD",
-      title: `United v ${name}`,
-      contextRight: since,
-      figure: winPct(w, p),
-      figureLabel: `United wins · ${p.toLocaleString("en-GB")} meetings`,
-      accent: w >= l ? "gold" : "devil",
-      shape: vizWdl(w, d, l),
-      strip,
-    },
-    headers,
-  );
-}
-
-/** A season's card: the season drawn as a diverging result spine, win % as the figure. */
-export function seasonCard(
-  { season, results, w, d, l, strip }: { season: string; results: ("W" | "D" | "L")[]; w: number; d: number; l: number; strip: TrustItem[] },
-  headers?: Record<string, string>,
-) {
-  return renderStatCard(
-    {
-      eyebrow: "SEASON",
-      title: `United ${season}`,
-      figure: winPct(w, results.length),
-      figureLabel: `won · ${w}W ${d}D ${l}L across ${results.length} matches`,
-      shape: seasonSpine(results),
-      strip,
-    },
-    headers,
   );
 }
 

@@ -218,7 +218,7 @@ export function matchJsonLd(match: MatchRow, sources: MatchSourceRecord[]): Json
     eventStatus: "https://schema.org/EventCompleted",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: matchLocation(match),
-    image: [`${ref.url}/opengraph-image`],
+    image: [`${SITE_URL}/opengraph-image`],
     organizer: {
       "@type": "SportsOrganization",
       name: match.competition_name,

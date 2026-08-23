@@ -2,16 +2,11 @@ import { NextResponse } from "next/server";
 import { getDb, dbSource } from "@/lib/db";
 import { usesRuntimeDbBlob } from "@/lib/runtime-db-path";
 
-export const runtime = "nodejs";
-// Always reflect live runtime state — never a cached/prerendered snapshot.
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 /**
- * Liveness probe for the runtime database. Proves the serving function can open
- * united.db and run a query, and reports which copy it's reading (the fresh
- * blob-backed `/tmp` copy or the bundled deploy copy). Use it as the post-deploy
- * smoke gate — see scripts/smoke-check.mjs — so the prod-only DB path can never
- * silently regress the way it did on 2026-06-30 (see docs/INCIDENT-2026-06-30-runtime-db.md).
+ * Build-time snapshot of the bundled database. The live export does not open
+ * SQLite; this JSON is generated during `next build`.
  */
 export async function GET() {
   try {

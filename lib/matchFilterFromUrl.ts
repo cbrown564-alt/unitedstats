@@ -2,7 +2,6 @@ import { isRoundFilterKey } from "@/lib/matchRounds";
 import type { MatchFilter } from "@/lib/queries";
 
 const GOAL_WINDOWS = ["firstHalf", "secondHalf", "late", "stoppage", "extraTime"] as const;
-const ISO_DATE = /^\d{4}(-\d{2}(-\d{2})?)?$/;
 
 export type MatchSort = "date-desc" | "date-asc" | "gd-desc" | "gd-asc";
 
@@ -56,13 +55,4 @@ export function matchFilterFromSearchParams(
     sort,
     ...(paging ? { limit: paging.limit, offset: paging.offset } : {}),
   };
-}
-
-export function validateMatchFilterDates(sp: Record<string, string | undefined>): string | null {
-  const from = sp.from;
-  const to = sp.to;
-  if ((from && !ISO_DATE.test(from)) || (to && !ISO_DATE.test(to))) {
-    return "from/to must be ISO dates (YYYY, YYYY-MM, or YYYY-MM-DD)";
-  }
-  return null;
 }

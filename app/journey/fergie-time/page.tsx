@@ -11,7 +11,6 @@ import { annotatedLateGoals, lateGoalManagerEras, lateGoalScatter } from "@/lib/
 import { fergieTimeEchoes, matchReceipt, trailingBoard } from "@/lib/journey";
 import { familyName } from "@/lib/names";
 
-export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — Fergie time",
   description: "Three 2–1 comebacks, thirty years apart: the last one came a decade after Ferguson left.",

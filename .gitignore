@@ -49,3 +49,7 @@ next-env.d.ts
 # compiled SQLite db (reproducible via `npm run build:db` from data/canonical)
 /data/united.db
 
+# generated client dumps for the static export (reproducible via prebuild)
+/public/data/search-index.json
+/public/data/matches-catalog.json
+

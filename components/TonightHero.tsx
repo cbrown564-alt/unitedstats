@@ -2,8 +2,20 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { GreatNight } from "@/lib/greatNights";
+import { useRef, useState, useSyncExternalStore } from "react";
+import type { GreatNight, HomepageNightCatalog } from "@/lib/greatNightSelect";
+import { selectGreatNights } from "@/lib/greatNightSelect";
+
+function utcDayKey(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
+function subscribeUtcDay(onStoreChange: () => void): () => void {
+  const now = new Date();
+  const next = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
+  const id = window.setTimeout(onStoreChange, Math.max(1, next - now.getTime()));
+  return () => window.clearTimeout(id);
+}
 
 function LivePulse() {
   return (
@@ -378,43 +390,50 @@ function ThreadTimeline({
  * goalscorers with their minutes, the line a fan recites from memory. No card, no
  * grid, no metric tiles.
  *
- * The server picks `nights[seed]`, so a shared link or a no-JS visit shows the
- * same real night with a working door; the only client layer is the thread's
- * hover interplay, which respects the global reduced-motion rule.
+ * The export picks `nights[seed]` for no-JS and first paint. After hydration the
+ * browser re-selects from `catalog` for the visitor's UTC day so the spark stays
+ * current without ISR. Hover interplay respects reduced-motion.
  */
 export function TonightHero({
   nights,
   seed,
+  catalog,
+  servedDay,
 }: {
   nights: GreatNight[];
   seed: number;
+  catalog?: HomepageNightCatalog;
+  servedDay: string;
 }) {
   const [hoveredGoalIndex, setHoveredGoalIndex] = useState<number | null>(null);
-  const [activeIndex, setActiveIndex] = useState(seed);
-  const bag = useRef<string[]>([]);
+  const dayKey = useSyncExternalStore(subscribeUtcDay, () => utcDayKey(new Date()), () => servedDay);
+  const selected = catalog
+    ? selectGreatNights(catalog, new Date(`${dayKey}T12:00:00.000Z`))
+    : { nights, seed };
+  const liveNights = selected.nights;
+  const bag = useRef<{ day: string; ids: string[] }>({ day: servedDay, ids: [] });
+  const [roll, setRoll] = useState<{ day: string; index: number | null }>({ day: servedDay, index: null });
+  if (roll.day !== dayKey) {
+    setRoll({ day: dayKey, index: null });
+  }
+  const activeIndex = roll.index ?? selected.seed;
 
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setActiveIndex(seed);
-      bag.current = [];
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, [seed, nights]);
-
-  const night = nights[activeIndex];
-  const rollPool = nights.filter((n) => n.framing === "great-night");
+  const night = liveNights[activeIndex];
+  const rollPool = liveNights.filter((n) => n.framing === "great-night");
   const canReroll = rollPool.length > 1;
 
-  const again = useCallback(() => {
+  const again = () => {
     if (!canReroll) return;
+    if (bag.current.day !== dayKey) bag.current = { day: dayKey, ids: [] };
     const ids = rollPool.map((n) => n.id);
-    setActiveIndex((cur) => {
-      const curId = nights[cur]?.id ?? ids[0];
-      const nextId = drawNextId(bag.current, ids, curId);
-      const nextIndex = nights.findIndex((n) => n.id === nextId);
-      return nextIndex >= 0 ? nextIndex : cur;
+    setRoll((cur) => {
+      const curIndex = cur.index ?? selected.seed;
+      const curId = liveNights[curIndex]?.id ?? ids[0];
+      const nextId = drawNextId(bag.current.ids, ids, curId);
+      const nextIndex = liveNights.findIndex((n) => n.id === nextId);
+      return { day: dayKey, index: nextIndex >= 0 ? nextIndex : curIndex };
     });
-  }, [canReroll, nights, rollPool]);
+  };
 
   if (!night) return null;
 

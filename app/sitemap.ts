@@ -1,10 +1,16 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
-import { activeQuestionSlugs } from "@/lib/questions";
-import { monthDayKeys } from "@/lib/onThisDay";
 import {
-  allMatchIds, allSeasons, getMeta, managersIndex, opponentsIndex, playersIndex,
-} from "@/lib/queries";
+  sitemapManagerIds,
+  sitemapMatchIds,
+  sitemapPlayerIds,
+  sitemapSeasonIds,
+  sitemapStaticPaths,
+} from "@/lib/discovery";
+import { getMeta } from "@/lib/queries";
+import { activeQuestionSlugs } from "@/lib/questions";
+import { SITE_URL } from "@/lib/site";
+
+export const dynamic = "force-static";
 
 /** Next.js writes sitemap <loc> values verbatim — ampersands must be XML-escaped. */
 function sitemapLoc(path: string): string {
@@ -12,12 +18,9 @@ function sitemapLoc(path: string): string {
 }
 
 /**
- * The whole corpus as one crawlable set. Detail pages are statically generated
- * and individually addressable, but without a sitemap a crawler only reaches
- * them by following internal links; this lists every canonical URL directly.
- *
- * Well under Google's 50,000-URL ceiling (~13k), so a single sitemap suffices —
- * split with `generateSitemaps` if the record ever outgrows it.
+ * Authored and spine URLs only. The full archive stays routable through
+ * internal links; crawlers are not invited to enumerate every receipt.
+ * See `lib/discovery.ts` and `docs/VERCEL-HOBBY-ASSESSMENT.md` Move 6.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const meta = getMeta();
@@ -25,22 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastMatch = meta.last_match ? new Date(meta.last_match) : built;
   const url = sitemapLoc;
 
-  const staticPages: MetadataRoute.Sitemap = [
-    { url: url("/"), changeFrequency: "daily", priority: 1, lastModified: lastMatch },
-    { url: url("/explore"), changeFrequency: "weekly", priority: 0.9, lastModified: built },
-    { url: url("/surprise"), changeFrequency: "weekly", priority: 0.7, lastModified: built },
-    { url: url("/matches"), changeFrequency: "weekly", priority: 0.5, lastModified: lastMatch },
-    { url: url("/seasons"), changeFrequency: "weekly", priority: 0.6, lastModified: lastMatch },
-    { url: url("/players"), changeFrequency: "weekly", priority: 0.6, lastModified: built },
-    { url: url("/managers"), changeFrequency: "monthly", priority: 0.5, lastModified: built },
-    { url: url("/analytics"), changeFrequency: "weekly", priority: 0.5, lastModified: built },
-    { url: url("/compare"), changeFrequency: "monthly", priority: 0.5, lastModified: built },
-    { url: url("/transfers"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
-    { url: url("/search"), changeFrequency: "monthly", priority: 0.3, lastModified: built },
-    { url: url("/data"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
-    { url: url("/corrections"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
-    { url: url("/feedback"), changeFrequency: "monthly", priority: 0.4, lastModified: built },
-  ];
+  const staticPages: MetadataRoute.Sitemap = sitemapStaticPaths().map((path) => ({
+    url: url(path),
+    changeFrequency: path === "/" ? "daily" : "weekly",
+    priority: path === "/" ? 1 : path === "/explore" ? 0.9 : 0.5,
+    lastModified: path === "/" || path === "/seasons" ? lastMatch : built,
+  }));
 
   const questions: MetadataRoute.Sitemap = activeQuestionSlugs().map((slug) => ({
     url: url(`/questions/${slug}`),
@@ -49,46 +42,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: built,
   }));
 
-  const seasons: MetadataRoute.Sitemap = allSeasons().map((season) => ({
+  const seasons: MetadataRoute.Sitemap = sitemapSeasonIds().map((season) => ({
     url: url(`/seasons/${season}`),
     changeFrequency: "monthly",
     priority: 0.5,
     lastModified: lastMatch,
   }));
 
-  const players: MetadataRoute.Sitemap = playersIndex().map((p) => ({
-    url: url(`/player/${p.player_id}`),
+  const players: MetadataRoute.Sitemap = sitemapPlayerIds().map((id) => ({
+    url: url(`/player/${id}`),
     changeFrequency: "monthly",
     priority: 0.5,
   }));
 
-  const managers: MetadataRoute.Sitemap = managersIndex().map((m) => ({
-    url: url(`/manager/${m.id}`),
+  const managers: MetadataRoute.Sitemap = sitemapManagerIds().map((id) => ({
+    url: url(`/manager/${id}`),
     changeFrequency: "monthly",
     priority: 0.4,
   }));
 
-  const opponents: MetadataRoute.Sitemap = opponentsIndex().map((o) => ({
-    url: url(`/opponent/${o.id}`),
-    changeFrequency: "monthly",
-    priority: 0.4,
-  }));
-
-  const matches: MetadataRoute.Sitemap = allMatchIds().map((id) => ({
+  const matches: MetadataRoute.Sitemap = sitemapMatchIds().map((id) => ({
     url: url(`/match/${id}`),
     changeFrequency: "yearly",
-    priority: 0.3,
+    priority: 0.4,
   }));
 
-  const onThisDay: MetadataRoute.Sitemap = monthDayKeys().map((monthDay) => ({
-    url: url(`/on-this-day/${monthDay}`),
-    changeFrequency: "yearly",
-    priority: 0.3,
-    lastModified: lastMatch,
-  }));
-
-  return [
-    ...staticPages, ...questions, ...seasons,
-    ...players, ...managers, ...opponents, ...matches, ...onThisDay,
-  ];
+  return [...staticPages, ...questions, ...seasons, ...players, ...managers, ...matches];
 }

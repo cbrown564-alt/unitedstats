@@ -10,7 +10,6 @@ import { PageHeader } from "@/components/PageHeader";
 import { fmtNum, fmtYearRange } from "@/lib/format";
 import { listSeo, seoMetadata } from "@/lib/seo";
 
-export const revalidate = 86400;
 export const metadata = seoMetadata(listSeo.players.title, listSeo.players.description);
 
 type PlayerSortKey = "name" | "shirt" | "apps" | "starts" | "goals" | "assists" | "span";
@@ -73,12 +72,8 @@ function spanForPlayer(p: PlayerTotals) {
   return fmtYearRange(first, last);
 }
 
-export default async function PlayersPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | undefined>>;
-}) {
-  const sp = await searchParams;
+export default function PlayersPage() {
+  const sp: Record<string, string | undefined> = {};
   const rawQuery = (sp.q ?? "").trim();
   const q = rawQuery.toLowerCase();
   const sortKey = parsePlayerSort(sp.sort);

@@ -12,7 +12,6 @@ import { matchReceipt, subGoals, unbeatenTail, trailingBoard, type MatchReceipt,
 import { familyName } from "@/lib/names";
 import placeMedia from "@/data/canonical/journey-place-media.json";
 
-export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Journey — the Treble",
   description:

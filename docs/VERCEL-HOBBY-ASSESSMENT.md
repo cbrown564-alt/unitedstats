@@ -1,85 +1,70 @@
 # Vercel Hobby assessment
 
-Status: deferred options recorded on 2026-07-25. The project remains on Vercel
-Pro while usage is measured after the first cost-reduction pass.
-
-`PERF.md` owns the active performance strategy. This document records two larger
-moves to consider only if removing runtime Blob downloads, dense-link
-prefetching, per-request homepage rendering, and unnecessary portrait transforms
-does not create enough headroom for Hobby.
+Status: Moves 6 and 7 landed on 2026-08-22. The sitemap is a curated discovery
+set (`lib/discovery.ts`) and the app is a real `output: "export"` static site.
+`PERF.md` owns ongoing performance budgets; this document is the decision
+record for those two moves.
 
 ## Measurement period
 
-Allow at least one representative rolling usage window after deploying the
-first pass. Compare project-level totals and daily rates for:
+After deploying the static export, compare project-level totals and daily rates
+for:
 
 - Fast Origin Transfer
-- ISR reads and writes
-- Blob Data Transfer
-- Fluid Active CPU
-- Image Optimization transformations
+- ISR reads and writes (should be unused)
+- Blob Data Transfer (should stay near zero)
+- Fluid Active CPU and function invocations (should be unused)
+- Image Optimization transformations (disabled; `images.unoptimized`)
 - Edge Requests
 
-Record the deployment date when interpreting the charts. Blob transfer should
-fall close to zero after production no longer defines
-`UNITEDSTATS_DB_BLOB_URL`; older usage remains visible until it ages out of
-Vercel's rolling window.
+Record the deployment date when interpreting the charts. Older ISR, Blob, and
+function usage remains visible until it ages out of Vercel's rolling window.
 
-## Move 6 — reduce crawler discovery
+## Move 6 — reduce crawler discovery (landed)
 
-The current sitemap publishes the complete 7,787-URL corpus, including 6,028
-matches, 985 players, and 366 on-this-day pages. `robots.txt` also explicitly
-allows the public API and dataset paths. This is good for exhaustive discovery
-but makes every archive receipt cheap for a crawler to enumerate and expensive
-for the current ISR-backed deployment to serve.
+`lib/discovery.ts` owns the sitemap and robots policy:
 
-Consider this move if Edge Requests or ISR reads remain above Hobby limits after
-the first pass:
+1. Homepage, stories, questions, seasons, managers, major players (≥150
+   appearances or curated debate IDs), and selected match nights stay in the
+   sitemap.
+2. Utility pages, the 366 calendar receipts, opponents, and the full match
+   dump are out of the sitemap.
+3. `robots.txt` disallows `/api/`, `/dataset/`, `/search`, `/matches`,
+   `/surprise`, `/compare`, `/cut`, `/on-this-day`, and `/dev/`.
+4. Vercel managed AI-bot deny and general bot challenge remain a platform
+   follow-up: stage as log first; do not publish from this repo until measured.
+5. Measure search impressions and indexed pages after the first export deploy.
 
-1. Keep the homepage, stories, questions, seasons, managers, major players, and
-   selected matches in the sitemap.
-2. Remove utility pages, all 366 calendar receipts, and low-value archive
-   receipts from direct sitemap discovery.
-3. Stop explicitly allowing `/api/v1/` and `/dataset/` in `robots.txt`; disallow
-   crawler access to search, filtered utility routes, and APIs.
-4. Enable Vercel's managed AI-bot deny rule and general bot challenge before
-   relying on `robots.txt`, which cooperative crawlers may ignore.
-5. Measure search impressions and indexed pages before and after the change.
+Tradeoff: lower crawler load in exchange for reduced long-tail search
+coverage. Entity pages still exist; they are just not advertised.
 
-Tradeoff: lower infrastructure usage in exchange for reduced long-tail search
-coverage. This should be a measured product decision, not an automatic cleanup.
+## Move 7 — true static export (landed)
 
-## Move 7 — true static export
+The live architecture is a real `output: "export"` build: HTML, RSC,
+JavaScript, JSON, and pre-sized media with no Vercel Functions, ISR, runtime
+SQLite, or Blob dependency.
 
-The durable Hobby-oriented architecture is a real `output: "export"` build:
-plain HTML, RSC, JavaScript, JSON, and pre-sized media with no Vercel Functions,
-ISR, runtime SQLite, or Blob dependency.
+What changed:
 
-The representative slice should prove one complete path before converting the
-whole archive:
+1. `next.config.ts` sets `output: "export"` and `images.unoptimized`.
+2. Date-based homepage spark and Surprise re-rolls run in the browser over
+   build-generated catalogs.
+3. Search and match filters read `/data/search-index.json` and
+   `/data/matches-catalog.json`. Request-shaped APIs return unfiltered
+   snapshots or were removed (`/api/search`, `/api/search/click`,
+   `/api/revalidate`).
+4. Middleware is gone. Legacy redirects and `/data/*` cache headers live in
+   `vercel.json`.
+5. Portraits are cached local WebPs served without the image optimizer.
+6. Compare is curated debates only. Corrections no longer prefill from query
+   strings. Preview entity IDs outside the sample 404. Copy Studio cannot POST.
+7. Every data update requires a complete build and deployment.
 
-1. Export the homepage, one season, one player, one opponent, and a set of match
-   pages with `dynamicParams = false`.
-2. Move date-based homepage and Surprise selection to client code over generated
-   static data.
-3. Replace request-shaped API handlers with build-generated JSON files.
-4. Replace middleware, server redirects, and custom response headers with static
-   host equivalents or direct canonical links.
-5. Serve local WebPs directly or introduce a build-time responsive-image step.
-6. Verify navigation, no-JavaScript pages, search discovery, corrections, and
-   data downloads on the exported slice.
-7. Compare output size, build duration, Edge Requests, data transfer, and loss of
-   server-only behavior before spreading the pattern.
-
-Expected effect: Blob transfer, Fluid Active CPU, function invocations, and ISR
-usage should approach zero; Edge Requests and ordinary data transfer remain.
-
-Tradeoff: the public API and query-shaped experiences need static or client-side
-replacements, and every data update requires a complete build and deployment.
+Expected effect: Blob transfer, Fluid Active CPU, function invocations, and
+ISR usage approach zero; Edge Requests and ordinary data transfer remain.
 
 ## Decision rule
 
-Remain on Pro if the first pass produces stable daily usage with comfortable
-headroom and the operating cost is acceptable. Consider Move 6 when crawler
-traffic is the remaining driver. Prototype Move 7 when ISR, function, or origin
-usage remains structural even after crawler and prefetch reductions.
+Stay on Hobby if Edge Requests and Fast Origin Transfer stay inside the plan
+after the first export deploy and crawler follow-up. Return to Pro only if
+host limits, not architecture, become the constraint.

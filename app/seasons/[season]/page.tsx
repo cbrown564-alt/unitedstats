@@ -28,7 +28,7 @@ import { seasonSeoDescription, seasonSeoTitle, seoMetadata } from "@/lib/seo";
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
 // missing ids to fall through to notFound(). Must be a static literal for Next.
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ season: string }> }): Promise<Metadata> {
   const { season } = await params;

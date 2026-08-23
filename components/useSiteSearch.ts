@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import type { SearchEntity, ShapedAnswer } from "@/lib/search";
+import type { SearchIndex } from "@/lib/search/clientIndex";
+import { runClientSearch } from "@/lib/search/clientSearch";
 import { typeaheadTotal } from "@/lib/search/typeaheadTotal";
 
 export interface SiteSearchState {
@@ -14,11 +16,20 @@ export interface SiteSearchState {
 
 const EMPTY: SiteSearchState = { shaped: [], questions: [], entities: [], total: 0, displayTotal: 0 };
 
+let indexPromise: Promise<SearchIndex> | null = null;
+
+function loadSearchIndex(): Promise<SearchIndex> {
+  indexPromise ??= fetch("/data/search-index.json").then((res) => {
+    if (!res.ok) throw new Error(`search index ${res.status}`);
+    return res.json() as Promise<SearchIndex>;
+  });
+  return indexPromise;
+}
+
 /**
- * Debounced query → /api/search fetch, shared by the header dropdown and the ⌘K
- * palette so both speak to the same engine with the same 150ms cadence and
- * abort-on-keystroke behaviour. Returns EMPTY below the 2-char floor and the last
- * good results while a new query is in flight.
+ * Debounced query over the exported search index, shared by the header dropdown
+ * and the ⌘K palette. Returns EMPTY below the 2-char floor and the last good
+ * results while a new query is in flight.
  */
 export function useSiteSearch(q: string): SiteSearchState {
   const [state, setState] = useState<SiteSearchState>(EMPTY);
@@ -27,24 +38,17 @@ export function useSiteSearch(q: string): SiteSearchState {
   useEffect(() => {
     if (!ready) return;
     const ctrl = new AbortController();
-    const t = setTimeout(async () => {
+    const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`, { signal: ctrl.signal });
-        const data = (await res.json()) as {
-          shaped: ShapedAnswer[];
-          questions?: SearchEntity[];
-          entities: SearchEntity[];
-          total?: number;
-          displayTotal?: number;
-        };
-        const total = data.total ?? data.entities.length;
-        const questions = data.questions ?? [];
+        const index = await loadSearchIndex();
+        if (ctrl.signal.aborted) return;
+        const data = runClientSearch(q, index);
         setState({
           shaped: data.shaped,
-          questions,
+          questions: data.questions,
           entities: data.entities,
-          total,
-          displayTotal: data.displayTotal ?? typeaheadTotal(data.shaped, questions, data.entities, total),
+          total: data.total,
+          displayTotal: data.displayTotal ?? typeaheadTotal(data.shaped, data.questions, data.entities, data.total),
         });
       } catch {
         // aborted or offline — keep the previous results
@@ -52,7 +56,7 @@ export function useSiteSearch(q: string): SiteSearchState {
     }, 150);
     return () => {
       ctrl.abort();
-      clearTimeout(t);
+      clearTimeout(timer);
     };
   }, [q, ready]);
 

@@ -1,7 +1,14 @@
 import { apiError, apiJson } from "@/lib/api";
-import { eloForMatch, eventsForMatch, lineupForMatch, matchById, sourcesForMatch } from "@/lib/queries";
+import { allMatchIds, eloForMatch, eventsForMatch, lineupForMatch, matchById, sourcesForMatch } from "@/lib/queries";
+import { sampleStaticIds } from "@/lib/static-build";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return sampleStaticIds(allMatchIds()).map((id) => ({ id }));
+}
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
