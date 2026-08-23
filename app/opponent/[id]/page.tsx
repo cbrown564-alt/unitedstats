@@ -42,6 +42,7 @@ import { jsonLdHtml, opponentJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
 import { opponentSeoDescription, opponentSeoTitle, seoMetadata } from "@/lib/seo";
+import { UpcomingMeetingNote } from "@/components/UpcomingMeetingNote";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -129,7 +130,7 @@ export default async function OpponentPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }} />
       <DetailBreadcrumb
         segments={[
-          { label: "Opponents", href: "/search?kind=opponent" },
+          { label: "Head to head" },
           { label: o.name },
         ]}
       />
@@ -160,6 +161,7 @@ export default async function OpponentPage({
                 : undefined,
           }}
         />
+        <UpcomingMeetingNote opponentId={id} />
 
         <DetailSectionTabs
           defaultTab="overview"
@@ -179,38 +181,38 @@ export default async function OpponentPage({
                     </div>
                   )}
 
-                  <section className="grid gap-6 lg:grid-cols-2">
-                    <div>
-                      <SectionHead title="Home and away" aside="all competitions" />
-                      <div className="space-y-3 rounded-xl border border-line bg-panel p-4 sm:p-5">
-                        {venues.map((v) => (
-                          <div key={v.venue}>
-                            <div className="mb-1.5 flex justify-between text-sm">
-                              <span className="text-ink-dim">{homeAwayLabel(v.venue)}</span>
-                              <span className="stat-num text-xs text-ink-faint">
-                                <span className="text-ink">{pct(v.w, v.p)}</span> W
-                              </span>
+                  <section className="space-y-6">
+                    <div className="grid gap-6 lg:grid-cols-2">
+                      <div>
+                        <SectionHead title="Home and away" aside="all competitions" />
+                        <div className="space-y-3 rounded-xl border border-line bg-panel p-4 sm:p-5">
+                          {venues.map((v) => (
+                            <div key={v.venue}>
+                              <div className="mb-1.5 flex justify-between text-sm">
+                                <span className="text-ink-dim">{homeAwayLabel(v.venue)}</span>
+                                <span className="stat-num text-xs text-ink-faint">
+                                  <span className="text-ink">{pct(v.w, v.p)}</span> W
+                                </span>
+                              </div>
+                              <WdlBar
+                                w={v.w}
+                                d={v.d}
+                                l={v.l}
+                                size="md"
+                                showLabels
+                                volume={{ fraction: Math.sqrt(v.p / venuePMax), games: v.p }}
+                              />
                             </div>
-                            <WdlBar
-                              w={v.w}
-                              d={v.d}
-                              l={v.l}
-                              size="md"
-                              showLabels
-                              volume={{ fraction: Math.sqrt(v.p / venuePMax), games: v.p }}
-                            />
-                          </div>
-                        ))}
-                        <CoverageNote
-                          className="!mt-0"
-                          slice="every meeting in this fixture, split by home/away; all competitions."
-                          evidenceHref={`/matches?opponent=${id}&venue=A`}
-                          evidenceLabel="Away meetings only →"
-                        />
+                          ))}
+                          <CoverageNote
+                            className="!mt-0"
+                            slice="every meeting in this fixture, split by home/away; all competitions."
+                            evidenceHref={`/matches?opponent=${id}&venue=A`}
+                            evidenceLabel="Away meetings only →"
+                          />
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="space-y-6">
                       <div>
                         <SectionHead title="Cup meetings" aside="knockouts only" />
                         {cup.p > 0 ? (
@@ -246,15 +248,15 @@ export default async function OpponentPage({
                           </p>
                         )}
                       </div>
-
-                      {runs.length > 0 && (
-                        <div>
-                          <SectionHead title="Longest runs" aside="this fixture" />
-                          <RunCallouts runs={runs} empty="" />
-                          <CoverageNote className="!mt-0" slice="consecutive meetings in this fixture, all competitions." />
-                        </div>
-                      )}
                     </div>
+
+                    {runs.length > 0 && (
+                      <div>
+                        <SectionHead title="Longest runs" aside="this fixture" />
+                        <RunCallouts runs={runs} empty="" />
+                        <CoverageNote className="!mt-0" slice="consecutive meetings in this fixture, all competitions." />
+                      </div>
+                    )}
                   </section>
                 </div>
               ),

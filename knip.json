@@ -2,6 +2,7 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
     "scripts/**/*.{ts,mjs}",
+    "pipeline/**/*.ts",
     "remotion.config.ts",
     "video/index.ts",
     "components/mobile/DetailSectionTabs.tsx"

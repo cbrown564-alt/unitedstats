@@ -1,17 +1,20 @@
 /**
  * The recurring update job: fetch latest Manchester United results and append
- * any new ones to the canonical season file. Idempotent — re-runs are no-ops
- * until a new result appears upstream.
+ * any new ones to the canonical season file. Also rewrites the upcoming
+ * schedule overlay from the same openfootball files. Result ingest is
+ * idempotent; the overlay is overwrite-only.
  *
  * Primary source: openfootball/england (community-maintained plain text,
- * no API key). Exits 0 with "no new matches" when there is nothing to do.
- * Prints `::set-output`-style marker NEW_MATCHES=<n> for the GitHub workflow.
+ * no API key). Prints NEW_MATCHES=<n> and SCHEDULE_WRITTEN=1 for the workflow.
  */
 import {
   AliasFile, CANONICAL, Match, Venue,
-  loadSeasonFile, matchId, opponentIdFor, readJson, saveSeasonFile,
+  loadSeasonFile, matchId, opponentIdFor, readJson, saveSeasonFile, writeJson,
 } from "../scripts/lib";
 import path from "node:path";
+import { buildUpcomingOverlay, parseOpenfootball, type UpcomingSource } from "./upcoming";
+
+export { parseOpenfootball };
 
 const MU_NAMES = ["Manchester United FC", "Manchester United"];
 
@@ -37,118 +40,6 @@ const SOURCES: SourceSpec[] = [
   { file: "leaguecup.txt", competition: "league-cup" },
 ];
 
-const MONTHS: Record<string, number> = {
-  Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6,
-  Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12,
-};
-
-interface ParsedScore {
-  ft: [number, number];
-  ht: [number, number] | null;
-  aet: boolean;
-  pens: [number, number] | null;
-}
-
-interface ParsedFixture extends ParsedScore {
-  date: string;
-  home: string;
-  away: string;
-  round: string | null;
-}
-
-/**
- * Score grammar (home-team-first):
- *   "2-1 (1-0)"                          ft + ht
- *   "2-1"                                ft
- *   "1-1 a.e.t. (1-1, 0-0)"              aet; ft is the 120' score
- *   "6-7 pen. 0-0 a.e.t. (0-0)"          shootout; ft is the 120' score
- */
-function parseScore(s: string): ParsedScore | null {
-  const pens = s.match(/^(\d+)-(\d+)\s+pen\.\s+(\d+)-(\d+)\s+a\.e\.t\.(?:\s+\((\d+)-(\d+)[^)]*\))?$/);
-  if (pens) {
-    return {
-      ft: [+pens[3], +pens[4]],
-      ht: pens[5] ? [+pens[5], +pens[6]] : null,
-      aet: true,
-      pens: [+pens[1], +pens[2]],
-    };
-  }
-  const aet = s.match(/^(\d+)-(\d+)\s+a\.e\.t\.(?:\s+\((\d+)-(\d+)[^)]*\))?$/);
-  if (aet) {
-    return { ft: [+aet[1], +aet[2]], ht: aet[3] ? [+aet[3], +aet[4]] : null, aet: true, pens: null };
-  }
-  const ft = s.match(/^(\d+)-(\d+)(?:\s+\((\d+)-(\d+)\))?$/);
-  if (ft) {
-    return { ft: [+ft[1], +ft[2]], ht: ft[3] ? [+ft[3], +ft[4]] : null, aet: false, pens: null };
-  }
-  return null;
-}
-
-function normalizeRound(header: string): string | null {
-  const h = header.trim();
-  if (/^Matchday/i.test(h)) return null;
-  if (/^Quarter-?finals?$/i.test(h)) return "Quarter-final";
-  if (/^Semi-?finals?$/i.test(h)) return "Semi-final";
-  if (/^Final$/i.test(h)) return "Final";
-  if (/^Round of 16$/i.test(h)) return "Round of 16";
-  const r = h.match(/^Round (\d+)$/i);
-  if (r) return `Round ${r[1]}`;
-  return h;
-}
-
-/**
- * Parse openfootball fixture text. Two result-line layouts exist across
- * seasons, both indentation-based under round/date headers:
- *   15:00  Home FC  v  Away FC   <score>
- *   15:00  Home FC   <score>   Away FC
- */
-export function parseOpenfootball(text: string, seasonStartYear: number): ParsedFixture[] {
-  const fixtures: ParsedFixture[] = [];
-  let curDate: string | null = null;
-  let curRound: string | null = null;
-  const SCORE = String.raw`\d+-\d+(?:\s+pen\.\s+\d+-\d+\s+a\.e\.t\.|\s+a\.e\.t\.)?(?:\s+\(\d+-\d+[^)]*\))?`;
-  const vLine = new RegExp(String.raw`^\s+(?:\d{1,2}[:.]\d{2}\s+)?(.+?)\s+v\s+(.+?)\s{2,}(${SCORE})\s*$`);
-  const midLine = new RegExp(String.raw`^\s+(?:\d{1,2}[:.]\d{2}\s+)?(\S.*?)\s{2,}(${SCORE})\s{2,}(\S.*?)\s*$`);
-
-  for (const rawLine of text.split("\n")) {
-    const line = rawLine.replace(/\r$/, "");
-    const header = line.match(/^[▪»]\s*(.+)$/);
-    if (header) {
-      curRound = normalizeRound(header[1]);
-      continue;
-    }
-    const dateMatch = line.match(
-      /^\s*(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+([A-Z][a-z]{2})\s+(\d{1,2})(?:\s+(\d{4}))?\s*$/,
-    );
-    if (dateMatch) {
-      const mon = MONTHS[dateMatch[1]];
-      const day = parseInt(dateMatch[2], 10);
-      // No explicit year: Aug-Dec = season start year, Jan-Jul = the year
-      // after (July covers COVID-extended 2019-20 style run-ins).
-      const year = dateMatch[3]
-        ? parseInt(dateMatch[3], 10)
-        : mon >= 8 ? seasonStartYear : seasonStartYear + 1;
-      curDate = `${year}-${String(mon).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-      continue;
-    }
-    if (!curDate) continue;
-    let home: string | null = null;
-    let away: string | null = null;
-    let scoreText: string | null = null;
-    const v = line.match(vLine);
-    if (v) { home = v[1]; away = v[2]; scoreText = v[3]; }
-    else {
-      const mid = line.match(midLine);
-      if (mid) { home = mid[1]; away = mid[3]; scoreText = mid[2]; }
-    }
-    if (!home || !away || !scoreText) continue;
-    const score = parseScore(scoreText.trim());
-    if (!score) continue;
-    fixtures.push({ date: curDate, home: home.trim(), away: away.trim(), round: curRound, ...score });
-  }
-  return fixtures;
-}
-
 async function fetchText(url: string): Promise<string | null> {
   const res = await fetch(url, { headers: { "user-agent": "unitedstats-pipeline" } });
   if (res.status === 404) return null;
@@ -171,6 +62,7 @@ async function run() {
   );
   let added = 0;
   const addedIds: string[] = [];
+  const upcomingSources: UpcomingSource[] = [];
 
   for (const src of SOURCES) {
     const url = `https://raw.githubusercontent.com/openfootball/england/master/${season}/${src.file}`;
@@ -182,6 +74,7 @@ async function run() {
       continue;
     }
     if (text === null) continue; // file doesn't exist (yet) for this season
+    upcomingSources.push({ competition: src.competition, text });
 
     const isCup = src.competition !== "premier-league";
     for (const f of parseOpenfootball(text, startYear)) {
@@ -230,8 +123,26 @@ async function run() {
   }
 
   if (added > 0) saveSeasonFile(sf);
+  const overlay = buildUpcomingOverlay({
+    season,
+    updatedAt: new Date().toISOString().slice(0, 10),
+    sources: upcomingSources,
+    aliases,
+    known: sf.matches.map((m) => ({
+      competition: m.competition,
+      opponentId: m.opponentId,
+      venue: m.venue,
+    })),
+  });
+  writeJson(path.join(CANONICAL, "upcoming.json"), overlay);
+  console.log(
+    overlay.fixtures.length > 0
+      ? `schedule: ${overlay.fixtures.length} upcoming (${overlay.competitions.join(", ")})`
+      : "schedule: no upcoming fixtures",
+  );
   console.log(added > 0 ? `${added} new match(es) added to ${season}` : "no new matches");
   console.log(`NEW_MATCHES=${added}`);
+  console.log("SCHEDULE_WRITTEN=1");
   if (addedIds.length > 0) console.log(`NEW_MATCH_IDS=${addedIds.join(",")}`);
 }
 

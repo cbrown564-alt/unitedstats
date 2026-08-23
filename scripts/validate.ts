@@ -324,6 +324,30 @@ if (fs.existsSync(transfersFile)) {
   }
 }
 
+const upcomingFile = path.join(CANONICAL, "upcoming.json");
+if (fs.existsSync(upcomingFile)) {
+  const upcoming = readJson<{
+    season: string;
+    source: string;
+    fixtures: {
+      date: string;
+      competition: string;
+      opponentId: string;
+      venue: string;
+    }[];
+  }>(upcomingFile);
+  if (upcoming.source !== "openfootball") {
+    errors.push("upcoming.json: source must be openfootball");
+  }
+  for (const [i, f] of upcoming.fixtures.entries()) {
+    const ctx = `upcoming.json[${i}]`;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(f.date)) errors.push(`${ctx}: bad date`);
+    if (!competitions.has(f.competition)) errors.push(`${ctx}: unknown competition ${f.competition}`);
+    if (!f.opponentId) errors.push(`${ctx}: missing opponentId`);
+    if (f.venue !== "H" && f.venue !== "A" && f.venue !== "N") errors.push(`${ctx}: bad venue`);
+  }
+}
+
 if (warnings.length) {
   console.warn(`${warnings.length} warning(s):`);
   for (const w of warnings.slice(0, 20)) console.warn("  ~ " + w);

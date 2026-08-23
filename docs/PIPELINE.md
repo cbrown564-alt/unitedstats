@@ -16,21 +16,23 @@ GitHub Actions cron  (.github/workflows/update-results.yml)
 pipeline/update.ts
    1. fetch openfootball raw text for the current season
       (premier league; FA Cup / League Cup / Europe files when present)
-   2. parse fixtures, filter to Manchester United, keep only FT results
-   3. diff against data/canonical/matches/<season>.json
-   4. append new matches (result-level: date, comp, opponent, venue, score)
-   5. enrich the current season from its Wikipedia article (scorers,
+   2. parse fixtures, filter to Manchester United
+   3. keep FT results; rewrite `data/canonical/upcoming.json` from unscored
+      United rows (schedule overlay, overwrite-only — not the match record)
+   4. diff results against data/canonical/matches/<season>.json
+   5. append new matches (result-level: date, comp, opponent, venue, score)
+   6. enrich the current season from its Wikipedia article (scorers,
       attendance, cup rounds) and recompute the league position
-   6. npm run validate  &&  npm run build:db  &&  npm run export:dataset
-   7. commit "data: results through <date>" and push
+   7. npm run validate  &&  npm run build:db  &&  npm run export:dataset
+   8. commit new results and/or the rewritten upcoming overlay, then push
    │
    ▼
 Vercel builds and deploys the commit, including a fresh bundled `united.db` and
 the complete production prerender set.
 ```
 
-If nothing new: the workflow exits cleanly with no commit (idempotent — the
-diff in step 3 makes reruns harmless).
+If nothing new: the workflow exits cleanly with no commit when both the
+result diff and the upcoming overlay are unchanged.
 
 ## Why this is low-maintenance
 

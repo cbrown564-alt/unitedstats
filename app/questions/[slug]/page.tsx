@@ -59,7 +59,6 @@ export default async function QuestionPage({
       <DetailBreadcrumb
         segments={[
           { label: "Discover", href: "/explore" },
-          { label: "Questions", href: "/explore" },
           { label: q.label },
         ]}
       />

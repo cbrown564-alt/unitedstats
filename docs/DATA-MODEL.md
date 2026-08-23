@@ -56,6 +56,10 @@ by competition rules, not calendar).
 
 ### Reference files
 
+- **`upcoming.json`** — overwrite-only schedule overlay from openfootball
+  (United rows with no score yet). Not part of the match record; dates can
+  move, and cup files appear only after draws. The update job drops a row
+  once the matching result is in `matches/<season>.json`.
 - **`competitions.json`** — id, name, type (`league|domestic-cup|league-cup|european|super-cup|other`), tier, era notes. E.g. `first-division`, `premier-league`, `fa-cup`, `league-cup`, `european-cup`, `champions-league`, `europa-league`, `cup-winners-cup`, `fifa-club-world-cup`, `charity-shield`.
 - **`managers.json`** — id, name, nationality, tenures `[{from, to, note}]` (handles caretakers and second spells). Match → manager is resolved by date during DB build; explicit `manager` on a match overrides.
 - **`stadiums.json`** — id, name, city, lat/lng (spatial analytics), home `[{from,to}]` ranges: North Road (1878–1893), Bank Street (1893–1910), Old Trafford (1910–), Maine Road (1941–49, wartime borrow), plus major neutral venues.
