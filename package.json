@@ -20,6 +20,7 @@
     "ingest:mufcinfo-lineups": "tsx scripts/ingest/mufcinfo-lineups.ts",
     "ingest:mufcinfo-stadiums": "tsx scripts/ingest/mufcinfo-stadiums.ts",
     "ingest:mufcinfo-assists": "tsx scripts/ingest/mufcinfo-events.ts",
+    "ingest:mufcinfo-opposition-goals": "tsx scripts/ingest/mufcinfo-opposition-goals.ts",
     "ingest:transfermarkt": "tsx scripts/ingest/transfermarkt-datasets.ts",
     "ingest:transfers": "tsx scripts/ingest/mufcinfo-transfers.ts",
     "ingest:pl-transfer-index": "tsx scripts/ingest/pl-transfer-index.ts --write --scrape",

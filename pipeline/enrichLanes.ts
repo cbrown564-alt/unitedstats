@@ -37,6 +37,11 @@ export function enrichLanes(opts: {
       args: ["run", "ingest:mufcinfo-assists", "--", "current", ...write, ...refresh],
     },
     {
+      id: "mufcinfo-opposition-goals",
+      command: "npm",
+      args: ["run", "ingest:mufcinfo-opposition-goals", "--", "current", ...write, ...refresh],
+    },
+    {
       id: "positions",
       command: "npm",
       args: ["run", "ingest:positions"],

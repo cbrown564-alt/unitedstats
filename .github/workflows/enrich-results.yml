@@ -37,6 +37,7 @@ jobs:
       - name: Enrich and assess latest sheets
         id: enrich
         run: |
+          mkdir -p data/raw
           curl -sL -o data/raw/england.csv https://raw.githubusercontent.com/jalapic/engsoccerdata/master/data-raw/england.csv || true
           set +e
           npm run enrich -- --write --refresh --strict --latest 3 | tee enrich.log
