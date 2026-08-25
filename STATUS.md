@@ -35,9 +35,8 @@ merging/checking tools, manifest changes, and new cached portraits are now in
 the current codebase. The remaining work is a slower Wikimedia cache retry and
 portrait-quality review, so it is tracked below as **in progress**.
 
-One operational defect was found during this review: the scheduled results
-workflow still invokes the removed `generate:history-digests` command. A new
-result would therefore reach that stale step after rebuilding/exporting data.
+The scheduled results workflow no longer calls the removed
+`generate:history-digests` command.
 
 ---
 
@@ -56,9 +55,7 @@ result would therefore reach that stale step after rebuilding/exporting data.
   a human-facing coverage ledger at `/data`, and `/llms.txt` for machine readers.
 - Structured corrections and feedback flows at `/corrections` and `/feedback`.
 - Scheduled result ingest from openfootball, enrichment, validation, database
-  rebuild, export, optional Vercel Blob upload, and path revalidation. The stale
-  history-digest call noted under **Open now** must be removed before this lane
-  can be considered fully healthy.
+  rebuild, export, optional Vercel Blob upload, and path revalidation.
 
 ### Live surfaces
 
@@ -186,24 +183,20 @@ The intended end state is:
 
 ## Open now
 
-1. **Repair the scheduled update workflow.** Remove or replace the stale
-   `npm run generate:history-digests` call in
-   `.github/workflows/update-results.yml`; the freshness-loop script and package
-   command were removed during the restraint pass.
-2. **Collect the Phase 9 validation evidence.** Ask representative fans to use
+1. **Collect the Phase 9 validation evidence.** Ask representative fans to use
    the production night-to-thread loop without prompting and record what they
    do. The implementation and production release are verified; screenshots and
    smoke checks alone do not validate the product sequence.
-3. **Retry and review player-media caching.** Re-run the cache after the
+2. **Retry and review player-media caching.** Re-run the cache after the
    Wikimedia rate-limit window, then inspect the 14 era mismatches, 15
    non-portrait heuristics, and 8 duplicate Commons files before treating the
    portrait lane as fully polished.
-4. **Reconcile `BACKLOG.md` with the new media model.** Its “~17 missing” and
+3. **Reconcile `BACKLOG.md` with the new media model.** Its “~17 missing” and
    “~850 outside media cohort” language predates the exhaustive `records` +
    `missing` roster ledger and no longer describes the same coverage contract.
-5. **Decide whether to productionize the OG lab.** If continued, test real
+4. **Decide whether to productionize the OG lab.** If continued, test real
    question, match, player, and story payloads before changing `lib/og-card.tsx`.
-6. **Choose a film distribution target before making derivatives.** The 90s
+5. **Choose a film distribution target before making derivatives.** The 90s
    master exists; 60/30/15-second and 9:16 cuts, a full-film web embed, and any
    formal campaign release remain separate decisions.
 

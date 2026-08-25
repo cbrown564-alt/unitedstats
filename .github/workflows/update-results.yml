@@ -41,6 +41,7 @@ jobs:
       - name: Enrich current-season match sheets
         if: steps.fetch.outputs.new != '0'
         run: |
+          mkdir -p data/raw
           curl -sL -o data/raw/england.csv https://raw.githubusercontent.com/jalapic/engsoccerdata/master/data-raw/england.csv || true
           npm run enrich -- --write || echo "enrichment incomplete, results still committed"
 
@@ -50,16 +51,13 @@ jobs:
           npm run validate
           npm run build:db
           npm run export:dataset
-          if [ "${{ steps.fetch.outputs.new }}" != "0" ]; then
-            npm run generate:history-digests -- --latest ${{ steps.fetch.outputs.new }}
-          fi
 
       - name: Commit and push
         if: steps.fetch.outputs.new != '0' || steps.fetch.outputs.schedule != '0'
         run: |
           git config user.name "unitedstats-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/canonical data/history-digests public/dataset
+          git add data/canonical public/dataset
           if [ "${{ steps.fetch.outputs.new }}" != "0" ]; then
             git commit -m "data: ${{ steps.fetch.outputs.new }} new result(s) through $(date -u +%F)"
           else

@@ -24,7 +24,11 @@ pipeline/update.ts
    6. `npm run enrich -- --write` fills the current-season match sheet from
       Wikipedia (United scorers, attendance), Transfermarkt (XI, bench,
       shirts, cards, subs, assists, opposition scorers), and MUFCInfo
-      (lineups, stadiums, assists). Each source is best-effort.
+      (lineups, stadiums, assists, opposition scorers). Each source is
+      best-effort. Transfermarkt's published snapshot often lags the newest
+      match; MUFCInfo is the current-season fallback for XI and opposition
+      goals. The positions lane downloads `data/raw/england.csv` when the
+      cache is missing (`data/raw/` is gitignored).
    7. npm run validate  &&  npm run build:db  &&  npm run export:dataset
    8. commit new results and/or the rewritten upcoming overlay, then push
    │
@@ -79,6 +83,10 @@ summary when an unknown competition file appears upstream.
   MUFCInfo historical lineup enrichment. Add `-- --write` to persist matched
   United starting lineups, substituted-on players, shirt numbers, and source
   facets. Pages are cached in `data/raw/mufcinfo/matches/`.
+- `npm run ingest:mufcinfo-opposition-goals -- <season> [<endSeason>]` —
+  dry-run MUFCInfo opposition-scorer enrichment from the match-page
+  scoreboard. Add `-- --write` to persist `opp-goal` / `own-goal-against`
+  events when the opponent tally reconciles with goals against.
 - Add source ids in `data/canonical/sources.json` before using them in match
   files. The build expands match source ids into result/scorer/assist/lineup/
   attendance facets for the UI.
