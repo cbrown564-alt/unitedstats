@@ -243,6 +243,277 @@
           "sourceConfidence": "supporting"
         }
       ]
+    },
+    {
+      "id": "2026-08-30-ipswich-town-h",
+      "date": "2026-08-30",
+      "competition": "premier-league",
+      "round": null,
+      "opponent": "Ipswich Town",
+      "opponentId": "ipswich-town",
+      "venue": "H",
+      "stadium": "old-trafford",
+      "attendance": 74148,
+      "score": {
+        "ft": [
+          5,
+          2
+        ],
+        "ht": [
+          1,
+          1
+        ],
+        "pens": null
+      },
+      "sources": [
+        "openfootball",
+        "wikipedia",
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums",
+        "mufcinfo-goal-minutes"
+      ],
+      "events": [
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 40
+        },
+        {
+          "type": "pen-goal",
+          "player": "bruno-fernandes",
+          "minute": 61
+        },
+        {
+          "type": "goal",
+          "player": "bruno-fernandes",
+          "minute": 68
+        },
+        {
+          "type": "own-goal-for",
+          "player": null,
+          "minute": 56,
+          "detail": "Jacob Greaves (og)"
+        },
+        {
+          "type": "goal",
+          "player": "bryan-mbeumo",
+          "minute": 82
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Leif Davis",
+          "playerSide": "opponent",
+          "minute": 29,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Chuba Akpom",
+          "playerSide": "opponent",
+          "minute": 90,
+          "detail": null,
+          "sourceConfidence": "supporting",
+          "addedTime": 1
+        }
+      ],
+      "eventsComplete": true,
+      "lineup": [
+        {
+          "player": "senne-lammens",
+          "playerName": "Senne Lammens",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lammens_senne",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 74
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "lisandro-martinez",
+          "playerName": "Lisandro Martínez",
+          "playerSide": "united",
+          "providerId": "mufcinfo:martinez_lisandro",
+          "shirt": 6,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "luke-shaw",
+          "playerName": "Luke Shaw",
+          "playerSide": "united",
+          "providerId": "mufcinfo:shaw_luke",
+          "shirt": 23,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "youri-tielemans",
+          "playerName": "Youri Tielemans",
+          "playerSide": "united",
+          "providerId": "mufcinfo:tielemans_youri",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "kobbie-mainoo",
+          "playerName": "Kobbie Mainoo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mainoo_kobbie",
+          "shirt": 37,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "bryan-mbeumo",
+          "playerName": "Bryan Mbeumo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mbeumo_bryan",
+          "shirt": 19,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "matheus-cunha",
+          "playerName": "Matheus Cunha",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cunha_matheus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "noussair-mazraoui",
+          "playerName": "Noussair Mazraoui",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mazraoui_noussair",
+          "shirt": 3,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 73,
+          "off": null
+        },
+        {
+          "player": "leny-yoro",
+          "playerName": "Leny Yoro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:yoro_leny",
+          "shirt": 15,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 74,
+          "off": null
+        },
+        {
+          "player": "patrick-dorgu",
+          "playerName": "Patrick Dorgu",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dorgu_patrick",
+          "shirt": 13,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        },
+        {
+          "player": "andrey-santos",
+          "playerName": "Andrey Santos",
+          "playerSide": "united",
+          "providerId": "mufcinfo:santos_andrey",
+          "shirt": 17,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        },
+        {
+          "player": "benjamin-sesko",
+          "playerName": "Benjamin Šeško",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sesko_benjamin",
+          "shirt": 30,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        }
+      ]
     }
   ]
 }
