@@ -197,8 +197,17 @@ agency images, or search-result images.
 MUFCInfo is the preferred broad historical lane for United lineup and shirt
 number enrichment. `npm run ingest:mufcinfo-lineups` writes match-level
 lineups only when all 11 starters and any used substitutes resolve to United
-player ids. Shirt numbers are also a coverage field: for top appearance
-players, the preferred lane is `player_shirts`, a MUFCInfo match-page summary
+player ids. Unknown starters and used substitutes can be discovered from their
+linked MUFCInfo profile only when its structured identity, visible name, United
+membership, and appearance link agree with the match row. A discovered player
+stores only the name and optional `mufcinfo` evidence (`key`, `profileUrl`,
+`matchDate`) in `players.json`; biography fields remain unknown. The source key
+is reused on later imports. Conflicting identities require review. New records
+are staged until the whole lineup passes validation, then persisted before the
+season file so saved lineups never reference an unsaved player. Unused bench
+players are not discovered from an appearance claim.
+
+Shirt numbers are also a coverage field: for top appearance players, the preferred lane is `player_shirts`, a MUFCInfo match-page summary
 by player/shirt/decade. For everyone else, the app falls back to the non-bench
 United shirt number with the most locally covered lineup appearances. The badge
 shade uses the dominant decade for that selected shirt. Players with no
