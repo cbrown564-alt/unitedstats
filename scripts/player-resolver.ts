@@ -19,7 +19,14 @@ export interface PlayerRecord {
 }
 
 export interface PlayersFile {
-  players: { id: string; name: string; positions?: string[] | null; nationality?: string | null; born?: string | null }[];
+  players: {
+    id: string;
+    name: string;
+    positions?: string[] | null;
+    nationality?: string | null;
+    born?: string | null;
+    mufcinfo?: { key: string; profileUrl: string; matchDate: string };
+  }[];
 }
 
 export interface ResolvedPlayer {

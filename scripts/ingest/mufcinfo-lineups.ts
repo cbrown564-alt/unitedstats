@@ -16,6 +16,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import {
   CANONICAL, LineupEntry, Match, RAW, SeasonFile,
   loadSeasonFile, parseSeasonArgs, readJson, saveSeasonFile, seasonOfDate, userAgent, writeJson,
@@ -24,6 +25,8 @@ import {
   cleanPersonName, createPlayerResolver, displayName, htmlDecode, normalizedSlug,
   type PlayerRecord, type PlayersFile, type ResolvedPlayer,
 } from "../player-resolver";
+
+import { discoverPlayer, profileUrl } from "../mufcinfo-player-discovery";
 
 const SOURCE_ID = "mufcinfo-match-lineups";
 const BASE_URL = "https://www.mufcinfo.com/manupag/match_data/match_sql.php";
@@ -58,6 +61,7 @@ interface MufcInfoRow {
   on: number | null;
   offName: string | null;
   resolved?: ResolvedPlayer | null;
+  discovered?: PlayersFile["players"][number];
 }
 
 interface MatchJob {
@@ -227,13 +231,15 @@ function subOffName(text: string): { name: string; minute: number } | null {
   return { name: cleanPersonName(match[1]), minute: Number(match[2]) };
 }
 
-function parseRows(date: string, html: string): MufcInfoRow[] {
+export function parseRows(date: string, html: string): MufcInfoRow[] {
   const rows: MufcInfoRow[] = [];
   const rowPattern =
-    /<tr>\s*<td[^>]*>[\s\S]*?alt="(?:Manchester United|Newton Heath) squad number\s+(\d+)"[\s\S]*?<\/tr>/gi;
+    /<tr\b[^>]*>(?:(?!<tr\b)[\s\S])*?<\/tr>/gi;
   let match: RegExpExecArray | null;
   while ((match = rowPattern.exec(html)) !== null) {
     const rawRow = match[0];
+    const shirt = rawRow.match(/alt="(?:Manchester United|Newton Heath) squad number\s+(\d+)"/i);
+    if (!shirt) continue;
     const link = rawRow.match(/<td class="articles_main_text"[^>]*>\s*<a href="([^"]+)"[^>]*>\s*([\s\S]*?)\s*<\/a>/i);
     if (!link) continue;
     const display = displayName(link[2]);
@@ -242,7 +248,7 @@ function parseRows(date: string, html: string): MufcInfoRow[] {
     const index = rows.length;
     rows.push({
       date,
-      shirt: Number(match[1]),
+      shirt: Number(shirt[1]),
       displayName: display,
       displaySlug: normalizedSlug(display),
       hrefKey: path.basename(link[1], ".html"),
@@ -286,9 +292,22 @@ async function matchHtml(date: string): Promise<string> {
   return html;
 }
 
-function buildResolver(playersFile: PlayersFile, records: PlayerRecord[]): (row: MufcInfoRow) => ResolvedPlayer | null {
-  const { directFor, resolve } = createPlayerResolver(playersFile, records);
+export function buildResolver(playersFile: PlayersFile, records: PlayerRecord[]): (row: MufcInfoRow) => ResolvedPlayer | null {
+  let resolver = createPlayerResolver(playersFile, records);
+  let playerCount = playersFile.players.length;
   return (row: MufcInfoRow): ResolvedPlayer | null => {
+    if (playerCount !== playersFile.players.length) {
+      resolver = createPlayerResolver(playersFile, records);
+      playerCount = playersFile.players.length;
+    }
+    const mapped = playersFile.players.filter((p) => p.mufcinfo?.key === row.hrefKey);
+    if (mapped.length > 1) throw new Error(`Duplicate MUFCInfo identity: ${row.hrefKey}`);
+    if (mapped.length === 1) return { playerId: mapped[0].id, name: mapped[0].name, inPlayers: true };
+    const ids = new Set([
+      ...playersFile.players.filter((p) => normalizedSlug(p.name) === row.displaySlug).map((p) => p.id),
+      ...records.filter((p) => normalizedSlug(p.name) === row.displaySlug).map((p) => p.playerId),
+    ]);
+    const { directFor, resolve } = resolver;
     const explicitAlias = HREF_ALIASES[row.hrefKey] ?? NAME_ALIASES[row.displaySlug];
     if (explicitAlias) {
       return directFor(explicitAlias) ?? {
@@ -297,11 +316,17 @@ function buildResolver(playersFile: PlayersFile, records: PlayerRecord[]): (row:
         inPlayers: false,
       };
     }
-    return resolve(row.displayName, row.hrefKey, Number(row.date.slice(0, 4)));
+    if (ids.size > 1) throw new Error(`Ambiguous player name: ${row.displayName} (${row.hrefKey})`);
+    const resolved = resolve(row.displayName, row.hrefKey, Number(row.date.slice(0, 4)));
+    const existing = playersFile.players.find((p) => p.id === resolved?.playerId);
+    if (existing?.mufcinfo && existing.mufcinfo.key !== row.hrefKey) {
+      throw new Error(`Conflicting MUFCInfo identity for ${row.displayName}: ${row.hrefKey}`);
+    }
+    return resolved;
   };
 }
 
-function lineupFromRows(rows: MufcInfoRow[]): { lineup: LineupEntry[]; reason: keyof ImportStats | null } {
+export function lineupFromRows(rows: MufcInfoRow[]): { lineup: LineupEntry[]; reason: keyof ImportStats | null } {
   const starters = rows.filter((row) => row.start);
   const usedSubs = rows.filter((row) => !row.start && !row.bench);
   if (starters.length !== 11) return { lineup: [], reason: "badStarterCount" };
@@ -340,13 +365,22 @@ function lineupFromRows(rows: MufcInfoRow[]): { lineup: LineupEntry[]; reason: k
   return { lineup, reason: null };
 }
 
-function addMissingPlayers(playersFile: PlayersFile, rows: MufcInfoRow[]): number {
+export function addMissingPlayers(playersFile: PlayersFile, rows: MufcInfoRow[]): number {
+  // Recheck staged discoveries after asynchronous profile fetches; another match
+  // may have committed a player with the same slug in the meantime.
+  for (const row of rows) {
+    if (!row.discovered) continue;
+    const existing = playersFile.players.find((p) => p.id === row.discovered?.id);
+    if (existing && existing.mufcinfo?.key !== row.hrefKey) {
+      throw new Error(`Conflicting staged player identity: ${row.displayName} (${row.hrefKey})`);
+    }
+  }
   const known = new Set(playersFile.players.map((p) => p.id));
   let added = 0;
   for (const row of rows) {
     const resolved = row.resolved;
     if (!resolved || known.has(resolved.playerId)) continue;
-    playersFile.players.push({ id: resolved.playerId, name: resolved.name });
+    playersFile.players.push(row.discovered ?? { id: resolved.playerId, name: resolved.name });
     known.add(resolved.playerId);
     added++;
   }
@@ -404,7 +438,19 @@ async function main() {
           stats.noRows++;
           continue;
         }
-        for (const row of rows) row.resolved = resolvePlayer(row);
+        for (const row of rows) {
+          row.resolved = resolvePlayer(row);
+          if (row.resolved || row.bench) continue;
+          try {
+            const url = profileUrl(row.hrefKey);
+            const response = await fetch(url, { headers: { "user-agent": USER_AGENT }, signal: AbortSignal.timeout(15000) });
+            if (!response.ok) throw new Error(`Profile HTTP ${response.status}: ${url}`);
+            row.discovered = discoverPlayer(row.displayName, row.hrefKey, row.date, await response.text(), playersFile, playerRecords);
+            row.resolved = { playerId: row.discovered.id, name: row.discovered.name, inPlayers: false };
+          } catch (error) {
+            console.warn(`${match.id}: ${row.displayName} (${row.hrefKey}): ${error instanceof Error ? error.message : error}`);
+          }
+        }
         const result = lineupFromRows(rows);
         if (result.reason) {
           stats[result.reason]++;
@@ -456,7 +502,7 @@ async function main() {
   );
 }
 
-main().catch((error) => {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main().catch((error) => {
   console.error(error instanceof Error ? error.message : error);
   process.exit(1);
 });
