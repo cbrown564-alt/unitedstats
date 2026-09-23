@@ -1169,7 +1169,7 @@ for (const p of playerRows) {
   seeds.push({
     kind: "player", entity_id: p.id, label: p.name,
     detail: `${p.goals} goals${p.apps ? ` · ${p.apps} apps` : ""}`,
-    href: `/player/${p.id}`, raw: p.goals + p.apps / 3,
+    href: `/record?kind=player&id=${encodeURIComponent(p.id)}`, raw: p.goals + p.apps / 3,
   });
 }
 
@@ -1192,7 +1192,7 @@ const opponentRows = db.prepare(`
 for (const o of opponentRows) {
   seeds.push({
     kind: "opponent", entity_id: o.id, label: o.name,
-    detail: `${o.p} meetings`, href: `/opponent/${o.id}`, raw: o.p,
+    detail: `${o.p} meetings`, href: `/record?kind=opponent&id=${encodeURIComponent(o.id)}`, raw: o.p,
   });
 }
 
@@ -1223,7 +1223,7 @@ for (const s of seasonRows) {
   }
   seeds.push({
     kind: "season", entity_id: s.season, label: s.season,
-    detail: "season", href: `/seasons/${s.season}`, raw: Number(s.season.slice(0, 4)) || 0,
+    detail: "season", href: `/matches?season=${encodeURIComponent(s.season)}`, raw: Number(s.season.slice(0, 4)) || 0,
   });
 }
 

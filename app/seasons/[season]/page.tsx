@@ -23,6 +23,7 @@ import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
 import { jsonLdHtml, seasonJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
+import { sitemapSeasonIds } from "@/lib/discovery";
 import { seasonSeoDescription, seasonSeoTitle, seoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ season: s
 }
 
 export async function generateStaticParams() {
-  return sampleStaticIds(allSeasons()).map((season) => ({ season }));
+  return sampleStaticIds(sitemapSeasonIds()).map((season) => ({ season }));
 }
 
 function ordinal(n: number): string {

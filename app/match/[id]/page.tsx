@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,
-  sourcesForMatch, allMatchIds,
+  sourcesForMatch,
 } from "@/lib/queries";
 import { similarMatches } from "@/lib/trails";
 import { fmtDateLong, fmtNum, homeAwayLabel, stadiumLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
@@ -22,7 +22,7 @@ import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { MatchSectionTabs } from "@/components/match/MatchSectionTabs";
 import { UntimedGoalsList } from "@/components/match/UntimedGoalsList";
 import { jsonLdHtml, matchJsonLd } from "@/lib/structuredData";
-import { sampleStaticIds } from "@/lib/static-build";
+import { sitemapMatchIds } from "@/lib/discovery";
 import { matchCorrectionInventory, correctionPrefillMap } from "@/lib/correctionInventory";
 import { MatchCorrectionProvider, MatchCorrectionTrustBand, Pickable } from "@/components/match/MatchCorrection";
 import { MatchDetailCard, MatchLineupPick } from "@/components/match/MatchCorrectionPickables";
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export function generateStaticParams() {
-  return sampleStaticIds(allMatchIds()).map((id) => ({ id }));
+  return sitemapMatchIds().map((id) => ({ id }));
 }
 
 /**

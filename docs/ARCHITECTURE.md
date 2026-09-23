@@ -78,7 +78,7 @@ pipeline, and a public dataset/API.
 
 **Update pipeline = GitHub Actions, not a server.**
 
-- A scheduled workflow runs after typical match windows, pulls the latest
+- A weekly Monday workflow pulls the latest
   results from openfootball, appends to season JSON, validates, rebuilds the DB,
   exports flat files, and commits. Vercel deploys that commit normally.
 - `transfermarkt-datasets` is the preferred modern enrichment source for events,
@@ -154,13 +154,10 @@ Every App Router page is statically generated. Enforced by
   expected static/SSG route regresses to dynamic or the prerendered-path count
   collapses below 5,000 (50 on preview builds).
 - `npm run check:perf` — fails on built-artifact regressions: max gzipped HTML
-  180 KB, max gzipped RSC 120 KB, max gzipped JS chunk 120 KB, and aggregate
-  `.next` output of 2,000 MB for preview or 3,250 MB for full builds. Next 16
-  writes HTML, full RSC, and segment-prefetch RSC for each of the 6,028 match
-  paths; the profile-specific aggregate limit prevents that expected corpus
-  cost from weakening the per-route budgets. Long-tail archives switch to
-  season-summary rows with filtered match-browser links once they cross the
-  long-list threshold.
+  180 KB, max gzipped RSC 120 KB, max gzipped JS chunk 120 KB, and a 500 MB
+  deployable export ceiling. Selected match, player, opponent, and season pages
+  hold down the aggregate output; the complete records remain in build-generated
+  JSON, the match browser, and downloadable files.
 - recharts (~348 KB) is route-split and lazy-mounted (`ssr: false` wrappers with
   height-reserved skeletons) everywhere except `/analytics`, whose Elo hero chart
   is above the fold. Fonts self-host via `next/font/google`; fixed-size portraits

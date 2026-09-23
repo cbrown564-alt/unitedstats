@@ -2,7 +2,7 @@ import { CURATED_DEBATES } from "./curatedDebates";
 import { CURATED_NIGHTS } from "./curatedNights";
 import { getDb } from "./db";
 import { THREAD_OF_NIGHTS } from "./journey";
-import { CUP_WON_PREDICATE, allSeasons, managersIndex, playersIndex } from "./queries";
+import { CUP_WON_PREDICATE, allSeasons, managersIndex, opponentsIndex, playersIndex } from "./queries";
 import { europeanFinals } from "./trails";
 
 /**
@@ -11,7 +11,12 @@ import { europeanFinals } from "./trails";
  * archive stays linkable; it is no longer cheap to enumerate from the sitemap.
  */
 
-export const MAJOR_PLAYER_APPS_FLOOR = 150;
+export const MAJOR_PLAYER_APPS_FLOOR = 500;
+const MAJOR_OPPONENT_MEETINGS_FLOOR = 150;
+
+const FEATURED_OPPONENT_IDS = new Set([
+  "bayern-munich", "barcelona", "real-madrid", "ac-milan", "juventus",
+]);
 
 export const DISCOVERY_UTILITY_PATHS = [
   "/surprise",
@@ -58,7 +63,9 @@ export function robotsDisallowPaths(): string[] {
 }
 
 export function sitemapSeasonIds(): string[] {
-  return allSeasons();
+  const seasons = allSeasons();
+  const authored = new Set(["1967-68", "1998-99", "2007-08", "2012-13"]);
+  return seasons.filter((season, index) => index < 12 || authored.has(season));
 }
 
 export function sitemapManagerIds(): string[] {
@@ -69,6 +76,12 @@ export function sitemapPlayerIds(): string[] {
   return playersIndex()
     .filter((player) => FEATURED_PLAYER_IDS.has(player.player_id) || player.apps >= MAJOR_PLAYER_APPS_FLOOR)
     .map((player) => player.player_id);
+}
+
+export function publishedOpponentIds(): string[] {
+  return opponentsIndex()
+    .filter((opponent) => opponent.p >= MAJOR_OPPONENT_MEETINGS_FLOOR || FEATURED_OPPONENT_IDS.has(opponent.id))
+    .map((opponent) => opponent.id);
 }
 
 function authoredMatchIds(): string[] {

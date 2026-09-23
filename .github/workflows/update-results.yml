@@ -1,9 +1,7 @@
 name: Update results
 
 on:
-  schedule:
-    # After the usual match windows: Sun/Mon (weekend games), Thu (midweek).
-    - cron: "0 6 * * 0,1,4"
+  # Urgent result corrections can still be published between weekly releases.
   workflow_dispatch:
 
 permissions:

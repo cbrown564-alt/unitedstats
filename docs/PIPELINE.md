@@ -9,8 +9,8 @@ for free, with effectively zero maintenance.
 match ends
    │   (openfootball volunteers update results, usually within hours)
    ▼
-GitHub Actions cron  (.github/workflows/update-results.yml)
-   runs Mon+Thu+Sun 06:00 UTC — covers weekend + midweek match windows
+GitHub Actions cron  (.github/workflows/enrich-results.yml)
+   runs Monday 18:00 UTC; manual dispatch handles urgent corrections
    │
    ▼
 pipeline/update.ts
@@ -21,7 +21,8 @@ pipeline/update.ts
       United rows (schedule overlay, overwrite-only — not the match record)
    4. diff results against data/canonical/matches/<season>.json
    5. append new matches (result-level: date, comp, opponent, venue, score)
-   6. `npm run enrich -- --write` fills the current-season match sheet from
+   6. `npm run enrich -- --write --refresh --strict --latest 3` fills and checks
+      recent current-season match sheets from
       Wikipedia (United scorers, attendance), Transfermarkt (XI, bench,
       shirts, cards, subs, assists, opposition scorers), and MUFCInfo
       (lineups, stadiums, assists, opposition scorers). Each source is
@@ -29,25 +30,46 @@ pipeline/update.ts
       match; MUFCInfo is the current-season fallback for XI and opposition
       goals. The positions lane downloads `data/raw/england.csv` when the
       cache is missing (`data/raw/` is gitignored).
-   7. npm run validate  &&  npm run build:db  &&  npm run export:dataset
-   8. commit new results and/or the rewritten upcoming overlay, then push
+   7. if canonical data changed: validate, rebuild database, export dataset
+   8. commit the changed data and push once
    │
    ▼
-Vercel builds and deploys the commit, including a fresh bundled `united.db` and
-the complete production prerender set.
+Vercel rebuilds `united.db` as a build input and publishes the complete static
+export. SQLite is not a production runtime dependency.
 ```
 
-If nothing new: the workflow exits cleanly with no commit when both the
-result diff and the upcoming overlay are unchanged.
+If nothing changed, the weekly workflow exits with no commit or deployment.
+`update-results.yml` remains available by manual dispatch for an urgent result
+or schedule correction between weekly releases.
+
+## Deployment retention
+
+The unitedstats Vercel project uses 30-day production retention and 7-day
+retention for previews, cancelled builds and errored builds (saved and verified
+on 2026-09-10). This replaces the inherited 365-day production and 180-day
+preview settings. Vercel's protected-deployment exceptions still apply; a
+retention setting is not a strict cap on retained releases.
+
+For manual cleanup, inventory deployments, production/custom-domain aliases,
+open pull requests and remaining branches first. Preserve current production,
+two ready rollback releases, and the latest ready preview for each active
+branch. Record the exact keep/delete list and verify the remaining deployment
+IDs and production alias after deletion. Old review links and instant rollback
+to deleted releases are the trade-off; source history remains in Git.
+
+`public/video/audio` is excluded by `.vercelignore` and removed from the local
+`out/` copy after each build. Preserve those film-production sources; the
+homepage uses `home-thread.mp4` and `home-thread-poster.jpg`. The export budget
+checks the resulting deployable `out/` tree.
 
 ## Why this is low-maintenance
 
 - **No servers, no databases, no webhooks.** Two free, durable services
   (GitHub Actions, Vercel deploy-on-push) and one community dataset.
-- **Result first, sheet on the same run and again on Monday evening.** The
+- **Weekly result and sheet release.** The
   contract is still the *result*; scorers and lineups are best-effort and
-  may arrive hours later from Transfermarkt and MUFCInfo. `enrich-results.yml`
-  reruns those lanes every Monday at 18:00 UTC and fails the job if the
+  may arrive later from Transfermarkt and MUFCInfo. `enrich-results.yml`
+  runs those lanes every Monday at 18:00 UTC and fails the job if the
   latest matches are still incomplete, so a missing XI is visible. A human
   can still fix anything with a normal PR.
 - **Validation gate.** A malformed upstream change can't corrupt the site:

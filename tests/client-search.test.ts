@@ -8,14 +8,14 @@ test("client search finds a prominent player from the exported index", () => {
   const index = buildSearchIndex();
   const result = runClientSearch("rooney", index);
   assert.equal(result.shaped.length, 0);
-  assert.ok(result.entities.some((e) => e.href === "/player/wayne-rooney"));
+  assert.ok(result.entities.some((e) => e.href === "/record?kind=player&id=wayne-rooney"));
   assert.ok(result.total >= 1);
 });
 
 test("client search is typo-tolerant for a well-known name", () => {
   const index = buildSearchIndex();
   const result = runClientSearch("roony", index);
-  assert.ok(result.entities.some((e) => e.href === "/player/wayne-rooney"));
+  assert.ok(result.entities.some((e) => e.href === "/record?kind=player&id=wayne-rooney"));
 });
 
 test("client search surfaces curated question pages", () => {
@@ -27,7 +27,7 @@ test("client search surfaces curated question pages", () => {
 test("client search resolves an exact match date", () => {
   const index = buildSearchIndex();
   const result = runClientSearch("1999-05-26", index);
-  assert.ok(result.entities.some((e) => e.kind === "match" && e.href === "/match/1999-05-26-bayern-munich-n"));
+  assert.ok(result.entities.some((e) => e.kind === "match" && e.href === "/record?kind=match&id=1999-05-26-bayern-munich-n"));
 });
 
 test("client search page groups entities by kind", () => {

@@ -13,6 +13,12 @@
     { "source": "/stories/rome-before-the-seven", "destination": "/stories/a-thread-of-nights", "permanent": true },
     { "source": "/api/v1", "destination": "/api/v1.json", "permanent": true }
   ],
+  "rewrites": [
+    { "source": "/match/:id", "destination": "/record?kind=match&id=:id" },
+    { "source": "/player/:id", "destination": "/record?kind=player&id=:id" },
+    { "source": "/opponent/:id", "destination": "/record?kind=opponent&id=:id" },
+    { "source": "/seasons/:season", "destination": "/matches?season=:season" }
+  ],
   "headers": [
     {
       "source": "/data/(.*)",

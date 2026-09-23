@@ -2,8 +2,7 @@ name: Enrich match sheets
 
 on:
   schedule:
-    # Monday evening UK (19:00 BST / 18:00 GMT). Backfills sheets after
-    # weekend results once Transfermarkt / MUFCInfo catch up.
+    # One weekly data release. GitHub Actions cron runs in UTC.
     - cron: "0 18 * * 1"
   workflow_dispatch:
 

@@ -62,9 +62,12 @@ test("sitemap player ids are major careers and authored debates, not the registe
   }
 });
 
-test("sitemap still lists every season and manager", () => {
+test("sitemap keeps selected seasons and every manager", () => {
   assert.deepEqual(sitemapManagerIds().sort(), managersIndex().map((manager) => manager.id).sort());
-  assert.deepEqual(sitemapSeasonIds().sort(), [...allSeasons()].sort());
+  assert.ok(sitemapSeasonIds().length < allSeasons().length / 4);
+  for (const season of ["1967-68", "1998-99", "2007-08", "2012-13", allSeasons()[0]!]) {
+    assert.ok(sitemapSeasonIds().includes(season));
+  }
 });
 
 test("robots disallows APIs, datasets, and utility crawls", () => {

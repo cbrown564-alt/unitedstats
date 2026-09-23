@@ -275,7 +275,7 @@ export function LeagueTable({
                   <td className="px-2 py-1.5">
                     {!meta.united && r.opponent_id ? (
                       <Link
-                        href={`/opponent/${r.opponent_id}`}
+                        href={`/record?kind=opponent&id=${encodeURIComponent(r.opponent_id)}`}
                         prefetch={false}
                         className="flex min-w-0 items-center gap-1.5 truncate text-ink transition-colors hover:text-devil-bright hover:underline focus-ring"
                       >

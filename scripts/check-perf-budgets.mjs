@@ -9,6 +9,7 @@ import { gzipSync } from "node:zlib";
 
 const root = process.cwd();
 const nextDir = path.join(root, ".next");
+const exportDir = path.join(root, "out");
 const appDir = path.join(nextDir, "server", "app");
 const chunksDir = path.join(nextDir, "static", "chunks");
 const ignoredRootEntries = new Set(["dev"]);
@@ -21,10 +22,8 @@ const budgets = {
   htmlGzip: bytesFromEnv("PERF_MAX_HTML_GZIP", 180 * KB),
   rscGzip: bytesFromEnv("PERF_MAX_RSC_GZIP", 120 * KB),
   jsChunkGzip: bytesFromEnv("PERF_MAX_JS_CHUNK_GZIP", 120 * KB),
-  // Next 16 emits HTML, full RSC, and segment-prefetch RSC for every full-build
-  // path. The 6,028 match receipts make that aggregate deliberately larger
-  // than preview output; per-route budgets above still catch page amplification.
-  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", (profile === "full" ? 3250 : 2000) * MB),
+  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", (profile === "full" ? 500 : 300) * MB),
+  exportOutput: bytesFromEnv("PERF_MAX_EXPORT_OUTPUT", (profile === "full" ? 500 : 500) * MB),
 };
 
 if (!existsSync(nextDir)) {
@@ -37,15 +36,19 @@ const html = checkGzipBudget(walk(appDir, (file) => file.endsWith(".html")), bud
 const rsc = checkGzipBudget(walk(appDir, (file) => file.endsWith(".rsc")), budgets.rscGzip, "RSC");
 const js = checkGzipBudget(walk(chunksDir, (file) => file.endsWith(".js")), budgets.jsChunkGzip, "JS chunk");
 const nextOutput = sumBytes(nextDir);
+const exportOutput = existsSync(exportDir) ? sumBytes(exportDir) : 0;
 
 if (nextOutput > budgets.nextOutput) {
   failures.push(`.next output ${fmt(nextOutput)} exceeds budget ${fmt(budgets.nextOutput)}`);
 }
+if (!existsSync(exportDir)) failures.push("out/ is missing. Run `npm run build` first.");
+else if (exportOutput > budgets.exportOutput) failures.push(`export output ${fmt(exportOutput)} exceeds budget ${fmt(budgets.exportOutput)}`);
 
 printTop("HTML gzip", html);
 printTop("RSC gzip", rsc);
 printTop("JS chunk gzip", js);
 console.log(`.next output (${profile}): ${fmt(nextOutput)} (budget ${fmt(budgets.nextOutput)})`);
+console.log(`export output (${profile}): ${fmt(exportOutput)} (budget ${fmt(budgets.exportOutput)})`);
 
 if (failures.length > 0) {
   console.error("\n✗ perf budget failed:");
@@ -55,7 +58,7 @@ if (failures.length > 0) {
 
 console.log(
   `✓ perf budgets: HTML ≤ ${fmt(budgets.htmlGzip)}, RSC ≤ ${fmt(budgets.rscGzip)}, ` +
-    `JS chunks ≤ ${fmt(budgets.jsChunkGzip)}, .next ≤ ${fmt(budgets.nextOutput)}.`,
+    `JS chunks ≤ ${fmt(budgets.jsChunkGzip)}, .next ≤ ${fmt(budgets.nextOutput)}, out ≤ ${fmt(budgets.exportOutput)}.`,
 );
 
 function bytesFromEnv(name, fallback) {

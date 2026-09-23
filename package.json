@@ -9,6 +9,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/prebuild.mjs",
     "build": "next build",
+    "postbuild": "node scripts/prune-export.mjs && node scripts/check-perf-budgets.mjs",
     "start": "npx --yes serve out",
     "lint": "eslint",
     "knip": "knip",

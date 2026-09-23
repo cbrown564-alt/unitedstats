@@ -137,7 +137,7 @@ export function buildMatchesPageViewFromCatalog(
     heroLabel: pinnedResult ? RESULT_NOUN[pinnedResult] : "won",
     heroTone: pinnedResult ? resultTone(pinnedResult) : "text-win",
     heroSub: pinnedResult ? null : `from ${fmtNum(summary.p)} ${summary.p === 1 ? "match" : "matches"}`,
-    matchHref: total === 1 && pageRows[0] ? `/match/${pageRows[0].id}` : undefined,
+    matchHref: total === 1 && pageRows[0] ? `/record?kind=match&id=${encodeURIComponent(pageRows[0].id)}` : undefined,
     seasonTotals: catalog.seasonTotals,
   };
 }

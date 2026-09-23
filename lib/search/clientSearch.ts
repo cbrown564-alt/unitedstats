@@ -52,7 +52,7 @@ function dateEntities(q: string, index: SearchIndex): SearchEntity[] {
     kind: "match" as const,
     label: `v ${match.opponent_name} ${match.gf}–${match.ga}`,
     detail: q.trim(),
-    href: `/match/${match.id}`,
+    href: `/record?kind=match&id=${encodeURIComponent(match.id)}`,
   }));
 }
 

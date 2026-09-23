@@ -8,7 +8,7 @@ import {
   playerAppearanceEndpoints,
   playerDefensiveBySeason, playerDefensiveTotals,
   playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
-  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
+  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers,
   type CuratedTotals,
 } from "@/lib/queries";
 import { playerBestScoringRun } from "@/lib/trails";
@@ -40,7 +40,7 @@ import {
   DEFENSIVE_CLEAN_SHEET_NOTE,
   DEFENSIVE_CONCEDED_NOTE,
 } from "@/lib/playerProfile";
-import { sampleStaticIds } from "@/lib/static-build";
+import { sitemapPlayerIds } from "@/lib/discovery";
 import {
   fewestConcededSeason,
   mergeSeasonDefense,
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 const SCORING_ARCHIVE_INLINE_MAX = 25;
 
 export async function generateStaticParams() {
-  return sampleStaticIds(playersIndex().map((p) => p.player_id)).map((id) => ({ id }));
+  return sitemapPlayerIds().map((id) => ({ id }));
 }
 
 export default async function PlayerPage({
