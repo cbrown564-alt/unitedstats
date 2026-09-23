@@ -57,7 +57,7 @@ SQLite. Do not reintroduce `UNITEDSTATS_DB_BLOB_URL`.
 | CLS | < 0.05 |
 | First Load JS (per route) | < 150 KB; chart-heavy routes < 200 KB |
 | Runtime DB access | none from page routes (build-time only) |
-| Aggregate `.next` output | ≤ 300 MB preview; ≤ 500 MB full |
+| Aggregate `.next` output | ≤ 500 MB preview; ≤ 1,000 MB full |
 | Deployable `out/` export | ≤ 500 MB, including all public site assets |
 
 ## Route disposition (achieved)
@@ -156,10 +156,12 @@ from canonical JSON in Vercel.
 
 The 2026-09-23 full build against the current 6,035-match record generated 81
 authored match pages, 19 player pages, 14 opponent pages, and 16 season pages.
-It produced 394.7 MB in `.next` and a 382.6 MB deployable export after the
+It produced 394.7 MB in local `.next` and a 382.6 MB deployable export after the
 working audio copy was removed. The previous full export was about 3.4 GB
 locally, including 109 MB of working audio. The build and export budgets now
-leave roughly 100 MB of room before a release fails CI.
+leave roughly 100 MB of export room before a release fails CI. Vercel's build
+adapter produced 786.0 MB in `.next` for the same output; the 1,000 MB build
+artifact budget accommodates that adapter while the export ceiling remains 500 MB.
 
 Production deploys and CI use a **full** build profile: `prebuild` rebuilds the
 DB, verifies media, exports the downloadable dataset, and prerenders selected

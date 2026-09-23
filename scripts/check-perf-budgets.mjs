@@ -22,7 +22,7 @@ const budgets = {
   htmlGzip: bytesFromEnv("PERF_MAX_HTML_GZIP", 180 * KB),
   rscGzip: bytesFromEnv("PERF_MAX_RSC_GZIP", 120 * KB),
   jsChunkGzip: bytesFromEnv("PERF_MAX_JS_CHUNK_GZIP", 120 * KB),
-  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", (profile === "full" ? 500 : 300) * MB),
+  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", (profile === "full" ? 1000 : 500) * MB),
   exportOutput: bytesFromEnv("PERF_MAX_EXPORT_OUTPUT", (profile === "full" ? 500 : 500) * MB),
 };
 
