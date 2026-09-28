@@ -1269,7 +1269,202 @@
       "sources": [
         "wikipedia",
         "mufcinfo-match-stadiums",
-        "mufcinfo-goal-minutes"
+        "mufcinfo-goal-minutes",
+        "mufcinfo-match-lineups"
+      ],
+      "lineup": [
+        {
+          "player": "karl-darlow",
+          "playerName": "Karl Darlow",
+          "playerSide": "united",
+          "providerId": "mufcinfo:darlow_karl",
+          "shirt": 12,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "leny-yoro",
+          "playerName": "Leny Yoro",
+          "playerSide": "united",
+          "providerId": "mufcinfo:yoro_leny",
+          "shirt": 15,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "ayden-heaven",
+          "playerName": "Ayden Heaven",
+          "playerSide": "united",
+          "providerId": "mufcinfo:heaven_ayden",
+          "shirt": 26,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "noussair-mazraoui",
+          "playerName": "Noussair Mazraoui",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mazraoui_noussair",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "youri-tielemans",
+          "playerName": "Youri Tielemans",
+          "playerSide": "united",
+          "providerId": "mufcinfo:tielemans_youri",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andrey-santos",
+          "playerName": "Andrey Santos",
+          "playerSide": "united",
+          "providerId": "mufcinfo:santos_andrey",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 66
+        },
+        {
+          "player": "shea-lacey",
+          "playerName": "Shea Lacey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lacey_shea",
+          "shirt": 31,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 66
+        },
+        {
+          "player": "mason-mount",
+          "playerName": "Mason Mount",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mount_mason",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 73
+        },
+        {
+          "player": "marcus-rashford",
+          "playerName": "Marcus Rashford",
+          "playerSide": "united",
+          "providerId": "mufcinfo:rashford_marcus",
+          "shirt": 9,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 80
+        },
+        {
+          "player": "benjamin-sesko",
+          "playerName": "Benjamin Šeško",
+          "playerSide": "united",
+          "providerId": "mufcinfo:sesko_benjamin",
+          "shirt": 30,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 66
+        },
+        {
+          "player": "kobbie-mainoo",
+          "playerName": "Kobbie Mainoo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mainoo_kobbie",
+          "shirt": 37,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 66,
+          "off": null
+        },
+        {
+          "player": "bryan-mbeumo",
+          "playerName": "Bryan Mbeumo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mbeumo_bryan",
+          "shirt": 19,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 66,
+          "off": null
+        },
+        {
+          "player": "joshua-zirkzee",
+          "playerName": "Joshua Zirkzee",
+          "playerSide": "united",
+          "providerId": "mufcinfo:zirkzee_joshua",
+          "shirt": 11,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 66,
+          "off": null
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 73,
+          "off": null
+        },
+        {
+          "player": "matheus-cunha",
+          "playerName": "Matheus Cunha",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cunha_matheus",
+          "shirt": 10,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 80,
+          "off": null
+        }
       ]
     },
     {
