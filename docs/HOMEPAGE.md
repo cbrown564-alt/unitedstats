@@ -1,49 +1,12 @@
 # HOMEPAGE — the front door
 
-The home page has one job, and it is the whole job: **fire the first-contact
-spark.** This doc is the working record of what we've built toward that, why,
-what's still wanted, and the open problems we need to figure out. It is a design
-diary, not a spec — when decisions settle they graduate into `DESIGN.md` /
-`PRODUCT.md`.
+## Current experience — 29 September 2026
 
-Read alongside: `CONTEXT.md` §6 (the spark is the gate), `DESIGN.md` (visual
-language, copy voice), and the memory note `first-contact-spark-built`.
+The first screen offers a readable invitation and search, followed immediately by a real match-night. Readers may choose an era or request another curated night. This supersedes the earlier film-first, autoplay opening and the rule that lookup must wait until after the emotional introduction.
 
----
+The Best/Ronaldo film is optional, appears after the night and record overview, and uses native playback controls with no autoplay or eager video download. Adjacent text names the evidence (highest-scoring United seasons) and links directly to the full story. The still and written invitation carry the meaning on mobile without playing the film.
 
-## 1. The job
-
-From `CONTEXT.md` §6: *the front door **is** the gate.* Its entire purpose is to
-make a fan feel something in the first five seconds that the live-score apps
-(FotMob, SofaScore) structurally can't — the nostalgic jolt. No spark → no return
-visit, no word of mouth. So the home page does **not** lead with scope, search, or
-a question field (the old answer-first frame, now superseded). It opens with a
-silent 20-second cross-era thread, then immediately serves a single
-**match-night**: a real night, chosen *for* you, rendered to land whether you
-lived it, forgot it, or never saw it (the three modes of the nostalgist — return
-/ rediscover / get-close-to).
-
-The opening thread deliberately broadens the invitation before the page chooses
-one match. User feedback found a match-first entry too narrow and initially
-confusing; the excerpt lets image, motion, and story establish the product without
-asking for an action. The served night remains the first specific historical
-doorway and must follow without an unrelated section between them.
-
-**Done = depth, not reach:** the moment lands for one nostalgist, reliably. Reach
-is a consequence, never the target.
-
----
-
-## 2. What's built, and why
-
-### The opening thread — `components/HomeThreadFilm.tsx`
-
-The homepage opens with a silent 20-second excerpt from the Red Thread film:
-George Best and Cristiano Ronaldo connected across forty years, ending on the
-season-five peak they shared. It plays once, holds on the completed comparison,
-and offers a deliberate replay instead of looping continuously. Reduced-motion
-visitors receive the static poster. The full YouTube player is no longer embedded
-on the homepage; the served match-night follows immediately beneath this opening.
+The sections below retain the selection engine's rationale; they do not reinstate the former opening order.
 
 ### The engine — `lib/greatNights.ts`
 

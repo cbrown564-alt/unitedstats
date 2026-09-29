@@ -628,19 +628,19 @@ test("compare builders reproduce the official record across the three modes", ()
   // Scoring depth: hat-tricks and best single-season return, both match-attributed
   // and complete across these careers (Rooney 8 hat-tricks to Charlton's 7).
   assert.deepEqual([byLabel(players, "Hat-tricks").a, byLabel(players, "Hat-tricks").b], [8, 7]);
-  const best = byLabel(players, "Best season");
+  const best = byLabel(players, "Most goals / season");
   assert.deepEqual([best.a, best.b], [34, 29]);
   assert.match(best.note ?? "", /Charlton: 29 in/, "best-season note names the season");
   assert.equal(byLabel(players, "Hat-tricks").comparable, undefined, "hat-tricks need no coverage gate");
 
   // Trophies: medals by the real rules (5+ league apps in a title season, one
-  // in a cup won) — Rooney 17, Charlton 5 (3 league, FA Cup, European Cup).
-  assert.deepEqual([byLabel(players, "Trophies").a, byLabel(players, "Trophies").b], [17, 5]);
+  // in a cup won) — Rooney 17, Charlton 7 (3 league, FA Cup, European Cup, 2 shared Shields).
+  assert.deepEqual([byLabel(players, "Trophies").a, byLabel(players, "Trophies").b], [17, 7]);
 
   // Managers: Ferguson's trophy count is the canonical 38; Busby's reign is closed.
   const mgrs = compareManagers("alex-ferguson", "matt-busby");
   assert.ok(mgrs, "expected a manager comparison");
-  assert.deepEqual([byLabel(mgrs, "Trophies").a, byLabel(mgrs, "Trophies").b], [38, 11]);
+  assert.deepEqual([byLabel(mgrs, "Trophies").a, byLabel(mgrs, "Trophies").b], [38, 13]);
   assert.deepEqual([byLabel(mgrs, "Matches").a, byLabel(mgrs, "Matches").b], [1497, 1141]);
   // Per-game toggle: Points total carries a Points-per-game rate form.
   assert.ok(byLabel(mgrs, "Points").rate, "Points metric should expose a per-game rate");

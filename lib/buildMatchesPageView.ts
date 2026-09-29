@@ -136,7 +136,7 @@ export function buildMatchesPageView(
     heroLabel,
     heroTone,
     heroSub,
-    matchHref: total === 1 && rows[0] ? `/match/${rows[0].id}` : undefined,
+    matchHref: total === 1 && rows[0] ? `/record?kind=match&id=${encodeURIComponent(rows[0].id)}` : undefined,
     seasonTotals: Object.fromEntries(seasonAggregates().map((season) => [season.season, season.p])),
   };
 }

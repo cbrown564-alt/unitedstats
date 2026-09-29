@@ -49,18 +49,9 @@ Secondary, served only as a consequence:
 Make a fan feel their United history — then deepen the feeling — on a record they
 can trust.
 
-**The spark is the front door; the deepening is the follow-on.** First contact must
-make a fan feel something the live-score apps (FotMob, SofaScore) structurally
-can't — the nostalgic jolt of a real match-night, chosen for them and rendered to
-land whether they lived it, forgot it, or never saw it. That spark is the necessary
-condition for everything downstream: no spark, no return visit, no word of mouth.
-From the spark the trail opens into the *deepening* — an authored lens that turns the
-memory into curiosity and brings the fan closer (Best and Ronaldo both peaking in
-their fifth season, on one normalized scale) — all of it resting on the complete,
-traceable record that makes the nostalgia honest.
+Visitors can arrive through a remembered night, a name, a search result or a shared record. Each is a valid start. Offer an emotional invitation and immediate lookup together; connect the resulting record to a relevant authored story. The film is optional. Neither an emotional response nor a prescribed sequence is a prerequisite for using the archive.
 
-This supersedes the earlier "the answer is the front door" model: the front door is
-not a question field or a finding, it is the spark.
+Claims about a player's peak must name the measure: Best and Ronaldo's highest-scoring United seasons were their fifth, which is not a claim about their overall best season.
 
 ## Product Model
 
@@ -179,25 +170,13 @@ Avoid framing like:
 
 ## Homepage Role
 
-Fire the spark in the first five seconds, then give it somewhere to go.
+Show a readable invitation, a working search and a real match-night immediately on desktop and mobile. Let the reader choose an era or request another curated night. The optional film follows the night and has playback controls and a direct link to its story. It must not autoplay or delay lookup.
 
-The front door **is** the gate: its entire purpose is to make a fan feel the nostalgic
-jolt before anything else. The first screen opens with the silent, one-pass 20-second
-Best/Ronaldo thread. That broad invitation connects eras through image, motion, and
-story without asking the visitor to choose or understand a product mode. A single
-served **match-night** follows immediately, turning that broad promise into a real
-night chosen for the reader. It must land whether they lived it, forgot it, or never
-saw it.
-
-The front door does not lead with a question field, metric grid, or portal of routes.
-Beneath the opening thread and served night sits the *foundation beat* (scope, the
-record, search) that says why the jolt is honest and why you stay; routes into matches,
-seasons, players, opponents, and managers live below that. Done is depth, not reach:
-the sequence must land for one nostalgist, reliably.
+The archive, players and shared records are also front doors. They need identity, context, useful links, honest coverage and a relevant next step. A record page should feel like the same product regardless of its URL or hosting strategy.
 
 ## Discovery Surface (Explore)
 
-`/explore` is a **doorway**, not a catalogue — a small set of authored lenses, each of
+`/explore` groups Stories, Questions and Comparisons in one browsable collection — a small set of authored lenses, each of
 which guarantees meaning whatever the reader brings to it. It is no longer a "curation
 gradient" that ends in a blank canvas; that blank canvas (the group-by-anything Cut)
 was a **loom** and has been removed.

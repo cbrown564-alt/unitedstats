@@ -1,5 +1,10 @@
 # Journey — the looping thread
 
+## Current navigation and measurement — 29 September 2026
+
+Published stories retain a persistent Discover / Match archive exit while reading. Discover includes all five stories alongside questions and comparisons; the story collection remains directly addressable. Completion instrumentation means the story end marker was visible for one second, not that the visitor read or understood the story. Highest-scoring season language replaces unsupported overall-peak claims.
+
+
 Working design diary for a major soul surface: a **journey through United's
 history** that also **showcases what Red Thread can do** — unexpected results,
 rich illustrations, cross-era comparisons fans rarely see. Not a replacement for

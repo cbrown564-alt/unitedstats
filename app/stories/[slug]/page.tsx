@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { StoryProgress } from "@/components/journey/StoryProgress";
 import type { ComponentType } from "react";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -52,5 +54,5 @@ export default async function StoryPage({
   if (!chapter) notFound();
 
   const Story = STORY_COMPONENTS[chapter.slug];
-  return <Story />;
+  return <><nav aria-label="Leave story" className="fixed left-3 top-3 z-[100] flex gap-4 rounded-full border border-line bg-pitch/95 px-4 py-3 text-sm text-ink shadow-lg"><Link href="/explore" className="focus-ring">← Discover</Link><Link href="/matches" className="focus-ring">Match archive</Link></nav><div className="pt-16"><Story /></div><StoryProgress slug={chapter.slug} /></>;
 }

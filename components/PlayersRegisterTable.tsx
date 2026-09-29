@@ -195,7 +195,7 @@ export function PlayersRegisterTable({
               <div className="flex items-center gap-2.5">
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
                 <Link
-                  href={`/player/${p.player_id}`}
+                  href={`/record?kind=player&id=${encodeURIComponent(p.player_id)}`}
                   prefetch={false}
                   className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright"
                 >
@@ -313,15 +313,16 @@ function AssistsSwitch({
       >
         Assists
       </span>
-      <span
-        className={`relative h-2.5 w-[1.125rem] shrink-0 rounded-full transition-colors duration-200 ${
-          checked ? "bg-devil/45" : "bg-line"
-        }`}
-        aria-hidden
-      >
+      {/* A bead slid along a thread: the thread reddens when the column is on. */}
+      <span className="relative h-2.5 w-[1.125rem] shrink-0" aria-hidden>
         <span
-          className={`absolute top-0.5 left-0.5 h-1.5 w-1.5 rounded-full bg-ink-faint shadow-[0_0_0_0.5px_rgb(0_0_0_/0.25)] transition-transform duration-200 ${
-            checked ? "translate-x-[0.375rem] bg-ink" : ""
+          className={`absolute inset-x-0 top-1/2 h-[1.5px] -translate-y-1/2 rounded-full transition-colors duration-200 ${
+            checked ? "bg-devil-bright" : "bg-line"
+          }`}
+        />
+        <span
+          className={`absolute top-1/2 left-0 h-2 w-2 -translate-y-1/2 rounded-full transition-[transform,background-color] duration-200 ${
+            checked ? "translate-x-[0.625rem] bg-devil-bright" : "bg-ink-faint"
           }`}
         />
       </span>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { EraFinish, TrophyEntry, TrophyHaul } from "@/lib/compare";
+import type { TrophyEntry, TrophyHaul } from "@/lib/compare";
 import { TROPHY_CAT_TONE, TrophyGlyphFilled } from "@/components/CampaignIcons";
 
 // The two sides carry identity colours across every signature: A is United red,
@@ -140,90 +140,6 @@ export function TrophyCabinet({
           Hover a trophy for the season; click to open how it was won
         </p>
       )}
-    </div>
-  );
-}
-
-// ----------------------------------------------------------- era skyline (eras)
-
-function Skyline({ label, finishes, color }: { label: string; finishes: EraFinish[]; color: string }) {
-  const topPositions = finishes.filter((f) => f.topFlight && f.position != null).map((f) => f.position as number);
-  const maxPos = Math.max(20, ...topPositions);
-  const titles = finishes.filter((f) => f.champion).length;
-  const inTop = finishes.length || 1;
-
-  const W = 640;
-  const H = 120;
-  const padT = 8;
-  const padB = 16;
-  const plotH = H - padT - padB;
-  const baseY = padT + plotH;
-  const slot = W / inTop;
-  const barW = Math.max(1.5, Math.min(14, slot * 0.7));
-
-  return (
-    <figure className="rounded-lg border border-line bg-pitch/40 p-3 sm:p-4">
-      <figcaption className="mb-1.5 flex items-baseline justify-between gap-2 text-xs">
-        <Swatch color={color} label={label} />
-        <span className="text-ink-faint">
-          <span className="stat-num text-gold">{titles}</span> {titles === 1 ? "title" : "titles"} ·{" "}
-          <span className="stat-num text-ink-dim">{finishes.length}</span> seasons
-        </span>
-      </figcaption>
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={`League finishes, ${label}: ${titles} titles`}>
-        {/* champions line (top) and relegation baseline */}
-        <line x1="0" y1={padT} x2={W} y2={padT} stroke="var(--color-line)" strokeDasharray="2 4" />
-        <line x1="0" y1={baseY} x2={W} y2={baseY} stroke="var(--color-line)" />
-        {finishes.map((f, i) => {
-          const cx = slot * (i + 0.5);
-          const x = cx - barW / 2;
-          if (!f.topFlight) {
-            // Dropped out of the top flight: a short stub below the line.
-            return <rect key={f.season} x={x} y={baseY} width={barW} height="6" rx="1" fill="var(--color-loss)" opacity="0.8" />;
-          }
-          if (f.position == null) return null;
-          const h = Math.max(2, ((maxPos - f.position + 1) / maxPos) * plotH);
-          // Height carries the finish; colour only flags the extremes — gold for a
-          // title (the one gold on the chart, kept clear of win-yellow), deep red
-          // for a bottom-three scrape, neutral for everything between.
-          const fill = f.champion
-            ? "var(--color-gold)"
-            : f.position >= maxPos - 2
-              ? "var(--color-loss)"
-              : "var(--color-ink-dim)";
-          return (
-            <g key={f.season}>
-              <rect x={x} y={baseY - h} width={barW} height={h} rx="1" fill={fill} />
-              {f.champion && <circle cx={cx} cy={baseY - h - 4} r="2.4" fill="var(--color-gold)" />}
-            </g>
-          );
-        })}
-      </svg>
-    </figure>
-  );
-}
-
-/**
- * Two eras as league-finish skylines on a shared scale: titles in gold at the top,
- * top-four bright, mid-table dim, lower finishes deep red, and seasons outside the
- * top flight as stubs below the line. Sustained dominance vs jagged struggle is
- * immediate.
- */
-export function EraSkyline({
-  a,
-  b,
-  labelA,
-  labelB,
-}: {
-  a: EraFinish[];
-  b: EraFinish[];
-  labelA: string;
-  labelB: string;
-}) {
-  return (
-    <div className="space-y-3">
-      <Skyline label={labelA} finishes={a} color={A_COLOR} />
-      <Skyline label={labelB} finishes={b} color={B_COLOR} />
     </div>
   );
 }

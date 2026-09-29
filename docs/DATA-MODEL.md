@@ -1,5 +1,12 @@
 # Data Model
 
+## Honours semantics — 29 September 2026
+
+`data/canonical/cup-honour-exceptions.json` owns the sourced awards whose drawn result or missing round cannot establish a trophy. `CUP_WON_PREDICATE` combines those awards with deciding final wins, known single-match super cups and the 1999 Intercontinental Cup. A missing round is not evidence of a world title: the South Melbourne win on 11 January 2000 was a group match and must be excluded. The four shared Charity Shields (1965, 1967, 1977 and 1990) count as honours without changing their drawn match outcomes. Trophy entries label them shared. This yields Ferguson 38 and Busby 13; player eligibility still uses the existing appearance rules.
+
+Source: [Manchester United trophy room](https://www.manutd.com/en/club/history/trophy-room). Regression checks cover trophy identities as well as totals so one false positive cannot cancel an omission.
+
+
 Canonical data is JSON in `data/canonical/`; the SQLite database is compiled
 from it. The model is designed so that *every* level of detail the project will
 ever hold — down to per-minute goal events and full lineups — fits without

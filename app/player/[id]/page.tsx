@@ -1,3 +1,4 @@
+import { RecordNext } from "@/components/record/RecordNext";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -8,7 +9,7 @@ import {
   playerAppearanceEndpoints,
   playerDefensiveBySeason, playerDefensiveTotals,
   playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
-  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, playersIndex,
+  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers,
   type CuratedTotals,
 } from "@/lib/queries";
 import { playerBestScoringRun } from "@/lib/trails";
@@ -40,7 +41,7 @@ import {
   DEFENSIVE_CLEAN_SHEET_NOTE,
   DEFENSIVE_CONCEDED_NOTE,
 } from "@/lib/playerProfile";
-import { sampleStaticIds } from "@/lib/static-build";
+import { sitemapPlayerIds } from "@/lib/discovery";
 import {
   fewestConcededSeason,
   mergeSeasonDefense,
@@ -74,7 +75,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 const SCORING_ARCHIVE_INLINE_MAX = 25;
 
 export async function generateStaticParams() {
-  return sampleStaticIds(playersIndex().map((p) => p.player_id)).map((id) => ({ id }));
+  return sitemapPlayerIds().map((id) => ({ id }));
 }
 
 export default async function PlayerPage({
@@ -525,6 +526,7 @@ export default async function PlayerPage({
       <p className="text-sm">
         <Link href="/players" className="text-devil-bright hover:underline focus-ring">← All players</Link>
       </p>
+      <RecordNext kind="player" id={id} />
     </div>
   );
 }
@@ -597,7 +599,7 @@ function PlayerDataCoverage({
             coverage="goals where both scorer and assister are recorded; curated season assists are not pairwise and are excluded here."
           />
         )}
-      </div>
+    </div>
     </details>
   );
 }

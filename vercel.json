@@ -13,6 +13,13 @@
     { "source": "/stories/rome-before-the-seven", "destination": "/stories/a-thread-of-nights", "permanent": true },
     { "source": "/api/v1", "destination": "/api/v1.json", "permanent": true }
   ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/match/([^/]+)", "status": 307, "headers": { "Location": "/record?kind=match&id=$1" } },
+    { "src": "/player/([^/]+)", "status": 307, "headers": { "Location": "/record?kind=player&id=$1" } },
+    { "src": "/opponent/([^/]+)", "status": 307, "headers": { "Location": "/record?kind=opponent&id=$1" } },
+    { "src": "/seasons/([^/]+)", "status": 307, "headers": { "Location": "/matches?season=$1" } }
+  ],
   "headers": [
     {
       "source": "/data/(.*)",

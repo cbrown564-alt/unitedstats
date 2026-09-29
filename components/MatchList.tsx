@@ -16,6 +16,7 @@ import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionDot } from "@/components/CompetitionChip";
 import { RoundMark } from "@/components/RoundMark";
 import { MatchNightCard } from "@/components/matches/MatchNightCard";
+import { recordHref } from "@/lib/recordHref";
 
 const ACCENT: Record<string, string> = {
   W: "border-l-2 border-win/50",
@@ -56,7 +57,7 @@ export function MatchList<T extends MatchRow>({
         {matches.map((m) => (
           <li key={m.id} className="register-card-item match-list-item">
             <Link
-              href={`/match/${m.id}`}
+              href={recordHref("match", m.id)}
               prefetch={false}
               className="block transition-colors focus-ring hover:bg-panel/40"
             >
@@ -79,7 +80,7 @@ export function MatchList<T extends MatchRow>({
           return (
             <li key={m.id} className="match-list-item">
               <Link
-                href={`/match/${m.id}`}
+                href={recordHref("match", m.id)}
                 prefetch={false}
                 className={`grid min-h-14 ${renderExtra ? "grid-cols-[auto_auto_1fr_auto] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto_auto]" : "grid-cols-[auto_auto_1fr] sm:grid-cols-[7rem_auto_auto_minmax(7.5rem,1fr)_auto]"} items-center gap-3 px-3 py-2.5 transition-colors hover:bg-panel focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-devil-bright sm:px-4 ${accentResult ? accentClass(m.result) : ""}`}
               >

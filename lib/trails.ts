@@ -1471,7 +1471,7 @@ export interface SeasonRun {
  * Cup, Champions League — each with its record and the match that decided it.
  * Drawn from the complete result-level record for that season.
  */
-export function trebleRuns(season = "1998-99"): SeasonRun[] {
+function trebleRuns(season = "1998-99"): SeasonRun[] {
   const db = getDb();
   const comps = db
     .prepare(

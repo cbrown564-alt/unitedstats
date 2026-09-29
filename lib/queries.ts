@@ -1,3 +1,4 @@
+import cupHonourExceptions from "@/data/canonical/cup-honour-exceptions.json";
 import { getDb } from "./db";
 import { cachedQuery } from "./queryCache";
 import { roundFilterPredicate, type RoundFilterKey } from "./matchRounds";
@@ -1303,23 +1304,20 @@ export function managerCareerSparks(): ManagerCareerSpark[] {
     .all() as ManagerCareerSpark[];
 }
 
-/**
- * SQL predicate (on `matches m` joined to `competitions c`) selecting the
- * trophy-deciding match of every cup United *won*: the latest-dated final won.
- * Extends the old round-name-only rule to also catch single-match finals stored
- * with a null round — the Charity/Community Shield, UEFA Super Cup, and the
- * world-club finals — while still excluding group/knockout exits (so a final-day
- * group win can't pose as a trophy), league, and wartime/friendly. Shared by
- * {@link managerHonours} and the seasons decade tally so the two can't drift.
+/** Shared Shields are honours, not match wins. Source: Manchester United trophy room.
+ * Null rounds alone are never evidence of a world title (2000 ended in a group win).
+ * The 1999 Intercontinental Cup was a single-match final; 1968 was two-legged.
  */
+const explicitCupAwards = cupHonourExceptions.awards.map(award => `'${award.matchId.replaceAll("'", "''")}'`).join(",");
 export const CUP_WON_PREDICATE = `c.type IN ('domestic-cup','league-cup','european','super-cup','world')
-  AND m.outcome = 'W'
-  AND m.date = (
-    SELECT MAX(m2.date) FROM matches m2
-    WHERE m2.season = m.season AND m2.competition_id = m.competition_id
-  )
-  AND ( (m.round LIKE '%final%' AND m.round NOT LIKE '%semi%' AND m.round NOT LIKE '%quarter%')
-        OR (c.type IN ('super-cup','world') AND m.round IS NULL) )`;
+  AND (
+    m.id IN (${explicitCupAwards})
+    OR (m.outcome = 'W'
+      AND m.date = (SELECT MAX(m2.date) FROM matches m2
+                    WHERE m2.season = m.season AND m2.competition_id = m.competition_id)
+      AND ((lower(m.round) LIKE '%final%' AND lower(m.round) NOT LIKE '%semi%' AND lower(m.round) NOT LIKE '%quarter%')
+        OR (c.id IN ('charity-shield','uefa-super-cup') AND m.round IS NULL)))
+  )`;
 
 export interface ManagerHonourSeason {
   manager_id: string;

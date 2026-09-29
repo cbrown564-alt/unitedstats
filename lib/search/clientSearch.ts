@@ -29,9 +29,10 @@ function scoreRow(row: IndexRow, folded: string, queryGrams: Set<string>): numbe
   return 0;
 }
 
-function toEntity(row: Pick<IndexRow, "kind" | "label" | "detail" | "href">): SearchEntity {
+function toEntity(row: Pick<IndexRow, "kind" | "entity_id" | "label" | "detail" | "href">): SearchEntity {
   return {
     kind: row.kind as SearchEntity["kind"],
+    id: row.entity_id,
     label: row.label,
     detail: row.detail,
     href: row.href,
@@ -52,7 +53,7 @@ function dateEntities(q: string, index: SearchIndex): SearchEntity[] {
     kind: "match" as const,
     label: `v ${match.opponent_name} ${match.gf}–${match.ga}`,
     detail: q.trim(),
-    href: `/match/${match.id}`,
+    href: `/record?kind=match&id=${encodeURIComponent(match.id)}`,
   }));
 }
 

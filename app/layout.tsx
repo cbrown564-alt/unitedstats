@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
+import { ProductAnalytics } from "@/components/ProductAnalytics";
 import { SiteShell } from "@/components/SiteShell";
 import { SITE_URL } from "@/lib/site";
 import { jsonLdHtml, websiteJsonLd } from "@/lib/structuredData";
@@ -52,9 +52,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Script id="journey-chrome-off" strategy="beforeInteractive">
           {`if(location.pathname.startsWith("/stories/"))document.documentElement.dataset.chrome="off"`}
         </Script>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="d08bc90f-d7b2-4ed8-b3a8-4e334b54b18b"
+          data-domains="utdred.com,www.utdred.com"
+          data-exclude-search="true"
+          data-exclude-hash="true"
+          strategy="afterInteractive"
+        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(websiteJsonLd()) }} />
         <SiteShell>{children}</SiteShell>
-        <Analytics />
+        <ProductAnalytics />
       </body>
     </html>
   );

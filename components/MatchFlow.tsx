@@ -357,11 +357,12 @@ export function MatchFlow({
       </div>
 
       {/* Screen-reader ordered list — visual labels are spatial, this preserves sequence. */}
-      <ol className="sr-only">
+      <details className="mt-5 rounded-lg border border-line p-3"><summary className="cursor-pointer text-sm font-medium text-ink-dim">Read goals in chronological order</summary>
+      <ol className="mt-3 space-y-2 text-sm text-ink">
         {sorted.map((g) => (
           <li key={g.key}>{g.title}</li>
         ))}
-      </ol>
+      </ol></details>
     </div>
   );
 }

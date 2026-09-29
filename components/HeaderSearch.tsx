@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
 import { ACTIVATE_SIDEBAR_SEARCH_EVENT } from "@/lib/search/slashShortcut";
+import { StitchLoader } from "@/components/glyphs/StitchLoader";
 import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 type SearchCommandProps = {
@@ -130,6 +131,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
               <SearchGlyph />
             </span>
             <span className="site-sidebar-search-trigger-text">{SIDEBAR_SEARCH_LABEL}</span>
+            <StitchLoader className="ml-auto" />
           </div>
         )
       ) : (

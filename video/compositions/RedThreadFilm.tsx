@@ -1094,7 +1094,7 @@ const RHYME_FACTS = [
   { start: 205, label: "CHAMPIONS OF EUROPE", left: "1968 · CHAMPIONS", right: "2008 · CHAMPIONS", headline: "Both became champions of Europe." },
   { start: 292, label: "THE FINAL", left: "BEST · 92′", right: "RONALDO · 25′", headline: "Both scored in the final." },
   { start: 382, label: "BALLON D’OR", left: "BEST · 1968", right: "RONALDO · 2008", headline: "Both won the Ballon d’Or." },
-  { start: 474, label: "SEASON FIVE", left: "32 GOALS · 53 GAMES", right: "42 GOALS · 49 GAMES", headline: "Both peaked in season five." },
+  { start: 474, label: "SEASON FIVE", left: "32 GOALS · 53 GAMES", right: "42 GOALS · 49 GAMES", headline: "Most United goals: season five." },
 ];
 
 function RhymeLoop({ frame }: { frame: number }) {
@@ -1582,7 +1582,7 @@ const CAPTIONS: { start: number; end: number; text: string }[] = [
   { start: 715, end: 800, text: "Both became champions of Europe." },
   { start: 802, end: 890, text: "Both scored in the final." },
   { start: 892, end: 980, text: "Both won the Ballon d’Or." },
-  { start: 984, end: 1120, text: "Both peaked in season five." },
+  { start: 984, end: 1120, text: "Most United goals: season five." },
   { start: 1145, end: 1205, text: "Eleven days. No margin." },
   { start: 1210, end: 1560, text: "1998–99 — three must-wins, every winning goal from the bench" },
   { start: 1570, end: 1620, text: "Three wins. Every winning goal from the bench." },

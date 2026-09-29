@@ -27,7 +27,7 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
   const listId = `${baseId}-list`;
   const optionId = (i: number) => `${baseId}-opt-${i}`;
 
-  const { shaped, questions, entities, total, displayTotal } = useSiteSearch(q);
+  const { shaped, questions, entities, total, displayTotal, status, retry } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
   const rows: { href: string }[] = [...shaped, ...questions, ...entities];
   const seeAllHref = `/search?q=${encodeURIComponent(q.trim())}`;
@@ -75,6 +75,7 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
       e.preventDefault();
       setActive((a) => Math.max(a - 1, -1));
     } else if (e.key === "Enter") {
+      if (status === "loading" || status === "error") { e.preventDefault(); return; }
       if (active >= 0 && rows[active]) select(rows[active].href);
       else if (ready) select(seeAllHref);
     } else if (e.key === "Escape") {
@@ -112,7 +113,7 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
           aria-label="Search"
           className="w-full border-b border-line bg-transparent px-4 py-3.5 text-base placeholder:text-ink-faint focus:outline-none"
         />
-        {ready && rows.length > 0 ? (
+        {ready && status === "loading" ? <p role="status" className="p-4 text-sm text-ink-dim">Searching the record…</p> : ready && status === "error" ? <div role="alert" className="p-4 text-sm"><p>Search could not load. Check your connection and try again.</p><button type="button" className="mt-2 min-h-11 text-devil-bright underline" onClick={retry}>Retry search</button></div> : ready && rows.length > 0 ? (
           <SearchResults
             shaped={shaped}
             questions={questions}

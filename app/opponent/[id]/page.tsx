@@ -5,7 +5,6 @@ import {
   opponentById,
   opponentMatches,
   opponentSeasonRecords,
-  opponentsIndex,
 } from "@/lib/queries";
 import {
   longestStreak,
@@ -39,7 +38,7 @@ import {
 import { fmtNum, pct, homeAwayLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { jsonLdHtml, opponentJsonLd } from "@/lib/structuredData";
-import { sampleStaticIds } from "@/lib/static-build";
+import { publishedOpponentIds } from "@/lib/discovery";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
 import { opponentSeoDescription, opponentSeoTitle, seoMetadata } from "@/lib/seo";
 import { UpcomingMeetingNote } from "@/components/UpcomingMeetingNote";
@@ -57,7 +56,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export function generateStaticParams() {
-  return sampleStaticIds(opponentsIndex().map((o) => o.id)).map((id) => ({ id }));
+  return publishedOpponentIds().map((id) => ({ id }));
 }
 
 export default async function OpponentPage({

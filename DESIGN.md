@@ -1,5 +1,15 @@
 # UnitedStats Design Context
 
+## September 2026 experience rules
+
+- Put archive search and filters before results; keep summaries and charts expandable.
+- On record pages, put identity, result and useful context before secondary metadata. Link named United players, provide sharing and show a relevant continuation.
+- Keep a visible exit in immersive stories. Discover is the shared entry for stories, questions and comparisons; avoid duplicate carousel and grid listings.
+- Secondary text uses `#aa9f97`; essential reading and controls should use at least the small body size. Goal timelines also provide a readable chronological list.
+- Compare individual measures. Do not add correlated metrics into an overall win score.
+- Film playback is optional and controlled. The static invitation must work on phones and with reduced motion.
+
+
 ## Design Thesis
 
 UnitedStats should feel like a floodlit match-night ledger: dark, precise, atmospheric, and built for exploration.

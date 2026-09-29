@@ -1,5 +1,12 @@
 # Red Thread film compositions
 
+## Homepage excerpt — September 2026
+
+The optional homepage clip uses the European master frames 480–1042 at 1280×720, muted and without duplicate captions, then holds the completed scoring chart to reach 20 seconds. The corrected caption is “Most United goals: season five.” The complete narrative is linked beside the film. Working renders stay under `output/video/work/`; only the inspected web encode and poster go in `public/video/home-thread.mp4` and `public/video/home-thread-poster.jpg`.
+
+Reproduce with `npx remotion render video/index.ts red-thread-european-master-90 output/video/work/home-thread-scoring-clean.mp4 --frames=480-1042 --scale=0.6666666667 --concurrency=4 --muted`, then encode H.264 CRF 28 with `tpad=stop_mode=clone:stop_duration=1.234`, a 20-second limit, no audio, and faststart. The poster is the held frame at 19 seconds. Existing full-length release exports are historical and have not been regenerated in this UX pass.
+
+
 The render workspace for `docs/SIZZLE-REEL-SCOPE.md`.
 
 ## European master — 90 seconds

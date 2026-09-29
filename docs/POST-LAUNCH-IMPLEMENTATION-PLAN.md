@@ -1,5 +1,22 @@
 # Post-launch product implementation plan
 
+## September review implementation — 29 September 2026
+
+The accepted September review supersedes the July film-first opening and score-style comparisons below. Implementation order:
+
+1. Repair entity search/filter IDs and reset behavior, with regression checks.
+2. Correct trophy identities/shared Shields and qualify scoring-peak claims; remove aggregate comparison scores.
+3. Restore identity, context, sharing, navigation and recovery to shared record pages.
+4. Connect records to authored stories; make Discover the shared browse entry and keep a persistent story exit. Offer bounded era choices.
+5. Put a readable invitation and lookup on the first homepage screen; make film playback optional.
+6. Bring archive controls/results forward, add chronological goal reading and improve secondary-text contrast.
+7. Instrument the meaningful journey and install Speed Insights, excluding raw query text.
+
+Status: implemented and verified locally. All 293 tests pass; lint has no errors (15 existing warnings), knip is clean, validation has no errors (37 existing coverage warnings), and the full build passes its size budgets. Browser checks cover desktop/mobile search/reset, record-to-player navigation, recovery, story entry/exit, event emission and controlled film playback. Deployment and representative-fan validation are separate. The next evidence gate is to observe a fan finding a remembered match, following its story and explaining the coverage limitations; automated tests cannot validate that outcome.
+
+The remaining July phase record is historical where it conflicts with the above decisions.
+
+
 **Status:** Phases 1–9 implemented and verified in production; representative-fan validation pending
 **Approved:** 14 July 2026  
 **Owner:** Product implementation  

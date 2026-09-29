@@ -9,6 +9,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/prebuild.mjs",
     "build": "next build",
+    "postbuild": "node scripts/prune-export.mjs && node scripts/check-perf-budgets.mjs",
     "start": "npx --yes serve out",
     "lint": "eslint",
     "knip": "knip",
@@ -84,6 +85,7 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.5.0",
+    "@vercel/speed-insights": "^2.0.0",
     "better-sqlite3": "^12.10.0",
     "next": "16.2.9",
     "react": "19.2.4",

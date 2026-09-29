@@ -1,6 +1,8 @@
 "use client";
 
+import { analyticsDestination, trackProductEvent } from "@/lib/analytics";
 import { useState, useSyncExternalStore } from "react";
+import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 const NOOP = () => () => {};
 const hasNativeShare = () => typeof navigator !== "undefined" && typeof navigator.share === "function";
@@ -24,6 +26,7 @@ const hasNativeShare = () => typeof navigator !== "undefined" && typeof navigato
  */
 export function ShareCite({ path, title }: { path: string; title: string }) {
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(false);
 
   // The server can't know the client's share capability, so the server snapshot
   // is `false`: first paint is the Copy-link markup, then Share swaps in after
@@ -35,10 +38,12 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(absolute());
+      setError(false);
       setCopied(true);
+      trackProductEvent("share", { method: "copy", ...analyticsDestination(path) });
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
-      /* clipboard unavailable — nothing to recover */
+      setError(true);
     }
   };
 
@@ -46,6 +51,7 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
   const share = async () => {
     try {
       await navigator.share({ title, url: absolute() });
+      trackProductEvent("share", { method: "native", ...analyticsDestination(path) });
     } catch {
       /* sheet dismissed or share rejected — nothing to recover */
     }
@@ -56,12 +62,15 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
 
   return (
     <div className="flex flex-wrap items-center justify-end gap-2 text-xs" aria-label="Share this page">
+      {error && <span role="status">Could not copy. Copy this page’s address from your browser.</span>}
       {canShare ? (
-        <button type="button" onClick={share} className={btn}>
+        <button type="button" onClick={share} className={`${btn} tg-host`}>
+          <UtilGlyph id="share" size={14} />
           Share
         </button>
       ) : (
         <button type="button" onClick={copyLink} className={btn}>
+          {copied && <UtilGlyph id="sewn" size={14} className="tg-lit tg-sew-now" />}
           {copied ? "Link copied" : "Copy link"}
         </button>
       )}

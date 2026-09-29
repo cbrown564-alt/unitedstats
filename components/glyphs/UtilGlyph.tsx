@@ -1,8 +1,8 @@
 import { B, GlyphSvg, P, T, Under } from "@/components/glyphs/primitives";
 
-export type UtilGlyphId = "search" | "home" | "filter" | "close";
+export type UtilGlyphId = "search" | "home" | "filter" | "close" | "share" | "sewn";
 
-/** Chrome glyphs (search, home, filter, close) in the thread grammar. */
+/** Chrome glyphs (search, home, filter, close, share, sewn) in the thread grammar. */
 export function UtilGlyph({ id, size = 18, className }: { id: UtilGlyphId; size?: number; className?: string }) {
   return (
     <GlyphSvg size={size} className={className}>
@@ -50,6 +50,24 @@ function UtilPaths({ id }: { id: UtilGlyphId }) {
             <P d="M6 18L18 6" />
           </Under>
           <T d={CLOSE_OVER} />
+        </>
+      );
+    // The familiar share mark drawn as one continuous thread.
+    case "share":
+      return (
+        <>
+          <T d="M18 5C12 5 10 9 6 12C10 15 12 19 18 19" />
+          <B kind="bp" cx={18} cy={5} r={2.1} />
+          <B kind="br" cx={6} cy={12} r={2.3} />
+          <B kind="bp" cx={18} cy={19} r={2.1} />
+        </>
+      );
+    // Done: a tick sewn in thread, fastened with a knot bead.
+    case "sewn":
+      return (
+        <>
+          <T d="M4.5 12.5L9.5 17.5L19.5 6.5" />
+          <B kind="br" cx={19.5} cy={6.5} r={1.8} />
         </>
       );
     default: {

@@ -1,5 +1,10 @@
 # Detail page restraint plan
 
+## Current shared-record requirement — 29 September 2026
+
+The `/record?kind=…&id=…` renderer must preserve product identity despite the export footprint reduction: clear title and navigation, match context, linked players, portrait and career identity, record links, share controls, source coverage and an authored continuation. Client navigation must refresh the selected record, including browser back/forward. A failed request offers retry. Data provenance is described as support, not an automatic verification claim based on a source-row count.
+
+
 **Status:** `/player/[id]` is the reference implementation. Phases 1–4 shipped; a
 follow-up refinement pass (2026-07-01/02) cut two tabs, enriched the survivors, and
 relaxed the blanket “collapse all analytics” rule. Use this doc as the template for

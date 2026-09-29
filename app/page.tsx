@@ -9,9 +9,7 @@ import { featuredLaunchQuestion } from "@/lib/questions";
 import { MatchList } from "@/components/MatchList";
 import { WdlBar } from "@/components/WdlBar";
 import { SearchCommand } from "@/components/SearchCommand";
-import { MobileSearchPrompt } from "@/components/mobile/MobileSearchPrompt";
 import { SectionHead } from "@/components/SectionHead";
-import { PageHeader } from "@/components/PageHeader";
 import { HistorySkyline } from "@/components/charts/HistorySkyline";
 import { TonightHero } from "@/components/TonightHero";
 import { HomeThreadFilm } from "@/components/HomeThreadFilm";
@@ -72,19 +70,13 @@ export default function Home() {
           and the foundation they belong to. The film runs straight into the served
           match-night; the record plate pulls up over the thread's foot. */}
       <div>
-        {/* 1. THE THREAD — one authored connection from the full film, played once. */}
-        <section
-          id="red-thread-film"
-          className="full-bleed-viewport stories-film stories-film--home -mt-8 sm:-mt-10"
-          aria-labelledby="home-film-title"
-        >
-          <span className="stories-film-knot" aria-hidden />
-          <div className="stories-film-heading">
-            <h2 id="home-film-title" className="display">Every United match since 1886</h2>
-            <p>Twenty seconds. One connection across forty years. Then follow the thread to every match, player and moment.</p>
-          </div>
-          <HomeThreadFilm />
-        </section>
+        <header className="mb-6 space-y-4 sm:mb-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-devil-bright">Every United match since 1886</p>
+          <h1 className="display max-w-3xl text-3xl sm:text-5xl">Remember the night.<br />Find the story behind it.</h1>
+          <p className="max-w-xl text-ink-dim">Revisit a match below, or find a player, opponent or season in the record.</p>
+          <SearchCommand fullWidth autoFocusKey={false} />
+          <Link href="/explore" className="inline-flex min-h-11 items-center text-sm text-devil-bright">Browse stories and questions →</Link>
+        </header>
 
         {/* 2. THE SPARK — a single served match-night, chosen for you, the Red Thread
             its spine. */}
@@ -110,24 +102,22 @@ export default function Home() {
             aria-hidden
           />
           <div className="relative p-4 sm:p-5 lg:p-7">
-            <PageHeader eyebrow="From Newton Heath to today" title="Manchester United, match by match">
+            <h2 className="display text-xl sm:text-2xl">Manchester United, match by match</h2><p className="mt-2 text-sm text-ink-dim">
               {fmtNum(rec.p)} matches across {years} years of league, cup, and European football.
-            </PageHeader>
-            <div className="mt-6 max-w-2xl hidden lg:block">
-              <SearchCommand />
-              <p className="text-xs text-ink-faint mt-1.5">
-                Press <kbd className="stat-num border border-line rounded px-1">/</kbd> to search
-                {" "}— players, matches, seasons; anything.
-              </p>
-            </div>
-            <MobileSearchPrompt />
-
+            </p>
             <div className="mt-8">
               <HistorySkyline seasons={skyline} champions={champs} />
             </div>
           </div>
         </section>
       </div>
+
+      <section id="red-thread-film" className="rounded-xl border border-line bg-panel p-5 sm:p-7" aria-labelledby="home-film-title">
+        <h2 id="home-film-title" className="display text-2xl">Best. Ronaldo. Two No. 7s.</h2>
+        <p className="my-3 text-sm text-ink-dim">Their highest-scoring United seasons came forty years apart. A twenty-second introduction.</p>
+        <HomeThreadFilm />
+        <Link href="/stories/two-no-7s" data-analytics-event="related_content_click" className="mt-4 inline-flex min-h-11 items-center text-devil-bright">Read the story and inspect the seasons →</Link>
+      </section>
 
       {/* ── Movement: start a trail. One featured myth, day-rotated through the
           launch set — a single deepening door into the record. ── */}

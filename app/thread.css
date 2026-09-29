@@ -103,3 +103,83 @@
   margin-inline-end: 0.375rem;
   vertical-align: -0.2em;
 }
+
+/*
+ * Sewn link: the underline is a thread drawn left to right on hover, then
+ * fastened with a gold bead because the link leads to the proof. Single-line
+ * links only (inline-block), so the thread never breaks across a wrap.
+ */
+.sewn-link {
+  position: relative;
+  padding-bottom: 3px;
+  text-decoration: none;
+}
+.sewn-link::before,
+.sewn-link::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+.sewn-link::before {
+  inset-inline: 0;
+  bottom: 0;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.sewn-link::after {
+  right: -5px;
+  bottom: -1.75px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 160ms ease-out, opacity 160ms ease-out;
+}
+.sewn-link:is(:hover, :focus-visible)::before { transform: scaleX(1); }
+.sewn-link:is(:hover, :focus-visible)::after {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 180ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sewn-link::before,
+  .sewn-link::after { transition: none; }
+}
+
+/* Running stitch: stitches travel along the thread while something loads. */
+.tg-stitch-loader {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  overflow: visible;
+}
+.tg-stitch-loader path {
+  fill: none;
+  stroke-width: 1.6;
+}
+.tg-stitch-loader__ground {
+  stroke: var(--color-line);
+}
+.tg-stitch-loader__thread {
+  stroke: var(--color-devil-bright);
+  stroke-dasharray: 3 2.5;
+  stroke-linecap: butt;
+}
+@keyframes tg-running-stitch {
+  to { stroke-dashoffset: -11; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tg-stitch-loader__thread { animation: tg-running-stitch 700ms linear infinite; }
+}
+
+/* Sewn in once, on the state change that shows it (a confirmation). */
+@media (prefers-reduced-motion: no-preference) {
+  .tg-sew-now .tg-t[pathLength] { animation: tg-sew 320ms cubic-bezier(0.3, 0.7, 0.2, 1) both; }
+  .tg-sew-now .tg-br { animation: tg-pop 160ms 260ms ease-out both; }
+}

@@ -1,5 +1,10 @@
 # Mobile Experience — Wishlist & Roadmap
 
+## Current archive and homepage behavior — 29 September 2026
+
+Search is visible directly in the homepage and Matches page at phone widths. The floating controls remain shortcuts. Archive summaries default closed so controls and fixtures appear earlier. Shared records collapse secondary match details, link players and show onward stories. Stories have a persistent exit. Reduced motion never requires video playback.
+
+
 **Status:** Wave 0–2 and the post-launch player-detail/navigation pass are
 implemented. Cross-cutting polish and optional second-screen modules remain.
 Captured 2026-06-30; revised through the post-launch pass 2026-07-14.

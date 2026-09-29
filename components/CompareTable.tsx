@@ -38,18 +38,13 @@ function leaderOf(m: CompareMetric, rate: boolean): "a" | "b" | null {
 
 function ScoreSide({
   side,
-  score,
-  state,
   align,
   withThumb,
 }: {
   side: CompareSide;
-  score: number;
-  state: "win" | "lose" | "level";
   align: "left" | "right";
   withThumb: boolean;
 }) {
-  const scoreTone = state === "win" ? "text-win" : state === "lose" ? "text-ink-faint" : "text-ink-dim";
   const toCentre = align === "right" ? "flex-row-reverse" : "flex-row";
   const ident = (
     <span className={`flex min-w-0 items-center gap-2.5 ${toCentre}`}>
@@ -71,7 +66,6 @@ function ScoreSide({
   );
   return (
     <div className={`flex flex-col gap-2 ${align === "right" ? "items-end" : "items-start"}`}>
-      <span className={`stat-num text-4xl font-semibold leading-none sm:text-6xl ${scoreTone}`}>{score}</span>
       {side.href ? (
         <Link href={side.href} className="group block max-w-full focus-ring">
           {ident}
@@ -310,10 +304,10 @@ function CompareEvidence({ evidence }: { evidence?: { label: string; href: strin
 }
 
 /**
- * A versus comparison rendered as a match scoreboard, then the one artifact that
+ * A comparison led by the identities and a scoped finding, then the artifact that
  * carries the story for its mode (career-arc duel / trophy cabinet / finish
- * skyline), with the shared measures kept as diverging bars beneath. A Total /
- * Per-game toggle rescales every rate-able metric — and the scoreline with it.
+ * skyline), with the shared measures kept as diverging bars beneath.
+ * The per-game toggle rescales each supported metric; there is no aggregate score.
  */
 export function CompareTable({
   comparison,
@@ -339,25 +333,8 @@ export function CompareTable({
     ? playerPerGame ? "per game" : "per 90"
     : "per game";
 
-  const judged = comparison.metrics.filter((m) => leaderOf(m, rate) !== null);
-  const leadsA = judged.filter((m) => leaderOf(m, rate) === "a").length;
-  const leadsB = judged.filter((m) => leaderOf(m, rate) === "b").length;
-  const winner: "a" | "b" | null = leadsA > leadsB ? "a" : leadsB > leadsA ? "b" : null;
-  const stateOf = (side: "a" | "b"): "win" | "lose" | "level" =>
-    winner === side ? "win" : winner ? "lose" : "level";
-
-  // The crafted headline is a total-mode story (e.g. "out-scored 253–249"); under
-  // per-game/per-90 use a rate headline when the comparison supplies one.
-  const verdict =
-    !rate && comparison.headline
-      ? comparison.headline
-      : rate && comparison.headlineRate
-        ? comparison.headlineRate
-        : judged.length === 0
-          ? "These records are too close to separate on these measures."
-          : winner
-            ? `Leads ${Math.max(leadsA, leadsB)}–${Math.min(leadsA, leadsB)} across ${judged.length} measures.`
-            : `Level at ${leadsA}–${leadsB} across ${judged.length} measures.`;
+  const verdict = (!rate ? comparison.headline : comparison.headlineRate)
+    ?? "Compare the measures individually. They describe different careers, not an overall winner.";
 
   return (
     <div className="relative overflow-hidden rounded-lg border border-line bg-panel">
@@ -379,15 +356,15 @@ export function CompareTable({
 
       <div className="border-b border-line bg-panel-2/40 px-4 py-5 sm:px-6 sm:py-6">
         <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 sm:gap-6">
-          <ScoreSide side={comparison.a} score={leadsA} state={stateOf("a")} align="right" withThumb={withThumb} />
+          <ScoreSide side={comparison.a} align="right" withThumb={withThumb} />
           <div className="flex flex-col items-center gap-1 pt-3">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">leads</span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">and</span>
             <span className="h-8 w-px bg-line sm:h-10" aria-hidden />
             <span className="text-[10px] font-medium uppercase tracking-[0.12em] text-ink-faint">
               {rate ? rateTag : "total"}
             </span>
           </div>
-          <ScoreSide side={comparison.b} score={leadsB} state={stateOf("b")} align="left" withThumb={withThumb} />
+          <ScoreSide side={comparison.b} align="left" withThumb={withThumb} />
         </div>
         <p className="mx-auto mt-5 max-w-xl text-center text-sm text-ink">{verdict}</p>
       </div>

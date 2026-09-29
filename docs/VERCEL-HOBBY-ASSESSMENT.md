@@ -5,6 +5,73 @@ set (`lib/discovery.ts`) and the app is a real `output: "export"` static site.
 `PERF.md` owns ongoing performance budgets; this document is the decision
 record for those two moves.
 
+## Account audit — 2026-09-10
+
+Vercel reports a team soft block for `FAIR_USE_LIMITS_EXCEEDED`, specifically
+`edgeRequest`, applied on 2026-09-01 at 08:18:30 UTC. `https://utdred.com/`
+returns HTTP 402 with `x-vercel-error: DEPLOYMENT_DISABLED`. Storage cleanup
+does not establish that this request-limit block has been lifted.
+
+The current production deployment is `dpl_DqVW3o9xTREUs4AeqjAAhHcV5FUc`,
+created on 2026-08-31, commit `34af896a9fec773991c02c6da65695e988957a4e`.
+Its build log lists static/SSG routes. The local checkout is older than that
+production commit; do not redeploy it as a recovery shortcut.
+
+Dashboard evidence during the audit:
+
+- Last-30-days Edge Requests: unitedstats 349,830 (10.9%); clinical-extraction
+  2,834,257 (88.6%). The primary request-overage contributor is therefore
+  clinical-extraction, not unitedstats. Diagnose that project before making
+  further Red Thread feature or crawler-discovery cuts.
+- In the normal-service window Aug 24, 12:00–Aug 31, 12:00 (dashboard local
+  time), unitedstats recorded 77,735 Edge Requests, no listed ISR Reads, and
+  220.45 kB Fast Origin Transfer. That is approximately 333,000 requests per
+  30 days if the rate holds. This supports the static-export decision, but
+  does not guarantee future usage or account-wide headroom.
+- Last-30-days ISR Reads still attribute 1,205,946 units (99.8%) to unitedstats;
+  the post-export window above distinguishes that historical total from the
+  current architecture.
+- The last-30-days Deployment Storage view attributes 410.78 GB to
+  unitedstats out of approximately 500.4 GB for the team. Other projects
+  account for approximately 89.6 GB, including 75.98 GB for `local`.
+  These are dashboard period figures, not a verified post-cleanup inventory.
+- Functions Storage attributes 81.78 GB of the approximately 84.9 GB team
+  total to unitedstats in that same 30-day view.
+- Fast Origin Transfer attributes 11.27 GB (99.8%) to unitedstats in the
+  30-day view; only 220.45 kB appears in the post-export week above.
+- For Sep 3–10, Edge Requests shows 56,905 for the team and 46,296 for
+  unitedstats. ISR Reads and Fast Origin Transfer show **No Data**.
+- That entire seven-day window follows the team pause. Do not use its low
+  traffic or missing runtime data to claim the running site fits Hobby.
+- The accessible 12-hour request view shows 4xx responses and crawler traffic,
+  including Semrush and Googlebot. It does not establish which sources caused
+  the pre-pause overage. Historical detailed queries require Observability Plus.
+
+Deployment retention was reduced and verified through the project API;
+[`PIPELINE.md`](PIPELINE.md#deployment-retention) owns the ongoing policy.
+Cleanup manifests and command receipts are kept locally under
+`output/vercel-cleanup/2026-09-10/`. Successful deleted deployments appear in
+Vercel's Recently Deleted view with a recovery period; storage reclamation
+and already-recorded usage may lag deletion.
+
+Cleanup completed: 401 of the initial 412 deployments were deleted. A fresh
+API inventory contains exactly the 11 selected keep IDs: current production,
+two previous ready production releases and eight active-branch previews.
+The production deployment ID and all five production aliases are unchanged.
+`verification.json` in the receipt directory records the final inventory and
+retention settings. A post-cleanup HTTP check still returns
+`DEPLOYMENT_DISABLED`; service has not been restored. No application source,
+canonical data, media, plan subscription or other project's deployments were
+changed. Documentation passed `git diff --check`; application tests and builds
+were not run because there was no application-code change or new deployment.
+
+The immediate remaining service issue is the team request-limit pause, with
+clinical-extraction responsible for most reported requests. Review
+Vercel's recovery options after cleanup; do not upgrade the plan or migrate
+production without agreement on the destination and cost. Measure normal
+traffic after service resumes before further crawler restrictions or feature
+cuts. Other projects' retained storage requires a separate scoped cleanup.
+
 ## Measurement period
 
 After deploying the static export, compare project-level totals and daily rates

@@ -465,7 +465,7 @@ function buildAttackingMetrics(
     },
     ...(pa || pb
       ? [{
-          label: "Best season",
+          label: "Most goals / season",
           a: pa?.goals ?? 0,
           b: pb?.goals ?? 0,
           fmt: "int" as const,
@@ -626,8 +626,8 @@ function playerRhymes(
     const pb = peakCleanSheetSeason(bArc);
     if (pa && pb && pa.n === pb.n) {
       out.push({
-        label: `Both peaked in season ${pa.n}`,
-        detail: `${a.name}'s best was ${pa.season} (${pa.cleanSheets} clean sheets); ${b.name}'s, ${pb.season} (${pb.cleanSheets}).`,
+        label: `Most clean sheets for both in season ${pa.n}`,
+        detail: `${a.name}'s highest return was ${pa.season} (${pa.cleanSheets} clean sheets); ${b.name}'s, ${pb.season} (${pb.cleanSheets}).`,
       });
     }
   } else {
@@ -635,7 +635,7 @@ function playerRhymes(
     const pb = peakSeason(bArc);
     if (pa && pb && pa.n === pb.n) {
       out.push({
-        label: `Both peaked in season ${pa.n}`,
+        label: `Both scored most in season ${pa.n}`,
         detail: `${a.name}'s best was ${pa.season} (${pa.goals} goals); ${b.name}'s, ${pb.season} (${pb.goals}).`,
       });
     }
@@ -845,16 +845,16 @@ export function managerTrophyHaul(id: string): TrophyHaul {
          FROM matches m JOIN competitions c ON c.id = m.competition_id
          WHERE ${CUP_WON_PREDICATE}
        )
-       SELECT h.cat cat, h.season season, h.competition competition, m.id match_id
+       SELECT h.cat cat, h.season season, h.competition competition, m.id match_id, m.outcome outcome
        FROM honours h JOIN matches m ON m.id = h.match_id
        WHERE m.manager_id = ?
        ORDER BY m.date`,
     )
-    .all(id) as { cat: string; season: string; competition: string; match_id: string }[];
+    .all(id) as { cat: string; season: string; competition: string; match_id: string; outcome: string }[];
   const entries: TrophyEntry[] = rows.map((r) => ({
     cat: r.cat,
     season: r.season,
-    competition: r.competition,
+    competition: r.competition + (r.cat === "super-cup" && r.outcome === "D" ? " (shared)" : ""),
     // A league title is a season-long achievement — open the season page (with its
     // league table). A cup is won in one match — open the deciding final.
     href: r.cat === "league" ? `/seasons/${r.season}` : `/match/${r.match_id}`,

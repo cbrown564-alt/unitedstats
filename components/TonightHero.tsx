@@ -405,6 +405,7 @@ export function TonightHero({
   catalog?: HomepageNightCatalog;
   servedDay: string;
 }) {
+  const [era, setEra] = useState("all");
   const [hoveredGoalIndex, setHoveredGoalIndex] = useState<number | null>(null);
   const dayKey = useSyncExternalStore(subscribeUtcDay, () => utcDayKey(new Date()), () => servedDay);
   const selected = catalog
@@ -419,7 +420,7 @@ export function TonightHero({
   const activeIndex = roll.index ?? selected.seed;
 
   const night = liveNights[activeIndex];
-  const rollPool = liveNights.filter((n) => n.framing === "great-night");
+  const rollPool = liveNights.filter((n) => n.framing === "great-night" && (era === "all" || (era === "before-1990" ? Number(n.year) < 1990 : Number(n.year) >= 1990)));
   const canReroll = rollPool.length > 1;
 
   const again = () => {
@@ -441,10 +442,18 @@ export function TonightHero({
 
   return (
     <div className="full-bleed-viewport relative">
+      <div className="flex items-center justify-end gap-3 border-y border-line bg-panel px-5 py-3 text-sm"><label htmlFor="night-era" className="text-ink-dim">Choose your era</label><select id="night-era" value={era} className="min-h-11 rounded border border-line bg-pitch px-3 text-ink" onChange={e => {
+        const value = e.target.value;
+        setEra(value);
+        bag.current.ids = [];
+        const next = liveNights.findIndex(n => n.framing === "great-night" && (value === "all" || (value === "before-1990" ? Number(n.year) < 1990 : Number(n.year) >= 1990)));
+        if (next >= 0) setRoll({ day: dayKey, index: next });
+      }}><option value="all">Across the years</option><option value="before-1990">Before 1990</option><option value="since-1990">1990 onwards</option></select></div>
       {/* The stage. Bleeds past the column to the page edges and pulls flush under
           the header so it reads as a floodlit field, not a card on a page. */}
       <Link
         href={night.href}
+        data-analytics-event="night_click"
         aria-label={`${night.line ?? `Manchester United ${night.score} ${night.opponent}${night.scoreSuffix ? ` ${night.scoreSuffix}` : ""}`} — see the match`}
         className={`group relative block bg-pitch focus-ring ${onThisDay ? "ring-1 ring-inset ring-gold/25" : ""}`}
       >
@@ -491,7 +500,7 @@ export function TonightHero({
 
         {/* The Red Thread, made the monument: the spine read as the match clock,
             every United goal a bead at its minute, the winner the gold knot. */}
-        <div className="full-bleed-thread pointer-events-none absolute inset-y-0 left-0 z-10 w-[7rem] sm:w-[8.5rem]">
+        <div className="full-bleed-thread pointer-events-none absolute inset-y-0 left-0 z-10 w-[4rem] sm:w-[7rem]">
           <ThreadTimeline
             key={`thread-${night.id}`}
             timeline={night.timeline}
@@ -503,7 +512,7 @@ export function TonightHero({
         {/* The night, hung off the thread. */}
         <div
           key={night.id}
-          className="full-bleed-foreground surprise-in relative flex min-h-[31rem] flex-col justify-center py-16 pl-28 pr-6 sm:min-h-[42rem] sm:pl-40 sm:pr-12"
+          className="full-bleed-foreground surprise-in relative flex min-h-[24rem] flex-col justify-center py-12 pl-16 pr-5 sm:min-h-[32rem] sm:pl-32 sm:pr-10"
         >
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">
             <span className="stat-num text-sm font-bold tracking-normal text-gold">{night.year}</span>
@@ -512,7 +521,7 @@ export function TonightHero({
           </p>
 
           {night.line && (
-            <p className="mt-6 max-w-2xl text-balance text-[2rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl sm:leading-[1.05] lg:text-6xl">
+            <p className="mt-6 max-w-2xl text-balance text-[1.5rem] font-semibold leading-[1.08] tracking-tight text-ink sm:text-4xl sm:leading-[1.1] lg:text-5xl">
               {night.line}
             </p>
           )}
@@ -563,7 +572,7 @@ export function TonightHero({
       </Link>
 
       {canReroll && (
-        <div className="pointer-events-none absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
+        <div className="pointer-events-none absolute top-24 right-4 z-20 sm:right-6">
           <button
             type="button"
             onClick={again}

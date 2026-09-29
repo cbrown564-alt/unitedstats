@@ -60,6 +60,16 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
 
   return (
     <>
+      <MatchControlDeck
+        params={sp}
+        chips={chips}
+        total={total}
+        matchHref={matchHref}
+        seasons={seasons}
+        decadeBuckets={decades}
+      />
+
+      <details className="rounded-lg border border-line bg-panel p-4"><summary className="cursor-pointer text-sm font-semibold">Summary and trends for these {fmtNum(total)} matches</summary><div className="mt-4">
       <MatchSliceHero
         summary={summary}
         sequence={sequence}
@@ -71,14 +81,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
         heroSub={heroSub}
       />
 
-      <MatchControlDeck
-        params={sp}
-        chips={chips}
-        total={total}
-        matchHref={matchHref}
-        seasons={seasons}
-        decadeBuckets={decades}
-      />
+      </div></details>
 
       <MatchListToolbar
         total={total}

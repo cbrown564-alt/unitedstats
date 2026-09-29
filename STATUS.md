@@ -1,5 +1,14 @@
 # Status
 
+## September 2026 UX review implementation
+
+Implemented locally in the existing working tree, preserving the prior static-export work. Search uses stable entity IDs and clears on navigation/reset. Trophy accounting excludes the 2000 group win and includes sourced shared Shields (Ferguson 38, Busby 13). Comparisons show individual measures without an overall metric score. Shared records now carry context, linked players, portraits, sharing, recovery and relevant onward links. Discover includes stories; stories retain an exit. The homepage offers lookup and a chosen night immediately, bounded era choices and an optional corrected film. Archive summaries collapse, timelines have chronological reading, and secondary text contrast is improved.
+
+Verified: 293 tests; lint (0 errors, 15 existing warnings); knip; canonical validation (0 errors, 37 existing coverage warnings); full export/build and size budgets (380.2 MB export). Desktop/mobile browser checks cover the core lookup-to-story loop. Custom events emit in local debug mode; Vercel reporting requires Pro/Enterprise. Speed Insights is installed. No billing change or deployment was made. Representative-fan validation and field-performance evidence remain pending.
+
+The July status below is historical where superseded. Product behavior is owned by `PRODUCT.md`; execution details are in `docs/POST-LAUNCH-IMPLEMENTATION-PLAN.md`.
+
+
 Living project status for Red Thread (repo: **unitedstats**). Updated 2026-07-14.
 This document records the state visible in the current codebase and recent
 history. Product principles and surface decisions remain in `PRODUCT.md` and

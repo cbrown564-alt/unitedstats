@@ -172,7 +172,7 @@ export default function JourneyPage() {
           {/* Beat 1 — the peak (CareerDuelChart, both peaks on season 5). */}
           <JourneyBeat
             step={1}
-            headline={<>Each man&apos;s best season was <JourneyThreadAnchor>his fifth.</JourneyThreadAnchor></>}
+            headline={<>Each man&apos;s highest-scoring United season was <JourneyThreadAnchor>his fifth.</JourneyThreadAnchor></>}
             sub={`${bestName}, ${bestPeak.goals} in ${bestPeak.apps} games. ${ronaldoName}, ${ronaldoPeak.goals} in ${ronaldoPeak.apps}.`}
             source={<JourneySourceLink href={compareHref} label="Player comparison" />}
             align="left"

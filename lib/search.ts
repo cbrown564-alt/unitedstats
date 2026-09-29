@@ -6,6 +6,7 @@ import { matchQuestionPages } from "./search/questionPages";
 import { typeaheadTotal } from "./search/typeaheadTotal";
 
 export interface SearchEntity {
+  id?: string;
   kind: "player" | "manager" | "opponent" | "season" | "competition" | "stadium" | "city" | "match" | "question";
   label: string;
   detail: string;
@@ -55,8 +56,9 @@ function jaccard(qg: Set<string>, field: string): number {
   return inter / (qg.size + fg.size - inter);
 }
 
-const toEntity = (r: Pick<IndexRow, "kind" | "label" | "detail" | "href">): SearchEntity => ({
+const toEntity = (r: Pick<IndexRow, "kind" | "entity_id" | "label" | "detail" | "href">): SearchEntity => ({
   kind: r.kind as SearchEntity["kind"],
+  id: r.entity_id,
   label: r.label,
   detail: r.detail,
   href: r.href,
@@ -104,7 +106,7 @@ function entityResults(
 
   let rows = db
     .prepare(
-      `SELECT s.kind, s.label, s.detail, s.href
+      `SELECT s.kind, s.entity_id, s.label, s.detail, s.href
        FROM search_fts JOIN search_index s ON s.rowid = search_fts.rowid
        WHERE search_fts MATCH ? ${kindCond}
        ORDER BY (
@@ -115,7 +117,7 @@ function entityResults(
     )
     .all(matchExpr, ...(kind ? [kind] : []), `${folded}%`, limit, offset) as Pick<
     IndexRow,
-    "kind" | "label" | "detail" | "href"
+    "kind" | "entity_id" | "label" | "detail" | "href"
   >[];
 
   // Typo-tolerant fallback (trigram similarity) when prefix-FTS is empty.

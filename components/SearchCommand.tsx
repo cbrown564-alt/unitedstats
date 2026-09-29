@@ -70,7 +70,7 @@ export function SearchCommand({
     onDismissRef.current = onDismiss;
   }, [onDismiss]);
 
-  const { shaped, questions, entities, total, displayTotal } = useSiteSearch(q);
+  const { shaped, questions, entities, total, displayTotal, status, retry } = useSiteSearch(q);
   const ready = q.trim().length >= 2;
   const rows: { href: string; entity?: SearchEntity }[] = [
     ...shaped.map((s) => ({ href: s.href })),
@@ -112,7 +112,7 @@ export function SearchCommand({
     pushRecent(q);
     logSearchClick(q, destination, total);
     setOpen(false);
-    if (pillSearch || mobileOverlay) setQ("");
+    setQ("");
     router.push(destination);
     onNavigate?.();
   };
@@ -142,6 +142,7 @@ export function SearchCommand({
       e.preventDefault();
       setActive((a) => Math.max(a - 1, -1));
     } else if (e.key === "Enter") {
+      if (status === "loading" || status === "error") { e.preventDefault(); return; }
       // a highlighted row wins; otherwise Enter opens the full results page
       if (active >= 0 && rows[active]) select(rows[active].href, rows[active].entity);
       else if (ready) select(forMatches ? defaultMatchesHref() : seeAllHref);
@@ -228,7 +229,7 @@ export function SearchCommand({
       />
       {open && (
         <div className={panelClass} onMouseDown={keepComboboxFocus}>
-          {ready && hasResults ? (
+          {ready && status === "loading" ? <p role="status" className="p-4 text-sm text-ink-dim">Searching the record…</p> : ready && status === "error" ? <div role="alert" className="p-4 text-sm"><p>Search could not load. Check your connection and try again.</p><button type="button" className="mt-2 min-h-11 text-devil-bright underline" onClick={retry}>Retry search</button></div> : ready && hasResults ? (
             <SearchResults
               shaped={shaped}
               questions={questions}

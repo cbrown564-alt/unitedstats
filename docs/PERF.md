@@ -1,5 +1,12 @@
 # Performance
 
+## Product measurement — 29 September 2026
+
+Umami records `search_selection`, `search_empty` (settled empty search), `record_view` (loaded kind and ID), `night_click`, `related_content_click`, `story_start`, `story_complete` (end visible for one second), and successful `share`. Search selection is a navigation proxy, not proof the user found their answer. URL query strings and fragments are removed from analytics payloads; raw search text is never sent. Only record kind/ID and fixed page paths identify content. The Umami tracker is configured to omit query strings and fragments from automatic page views and to collect only on `utdred.com` and `www.utdred.com`.
+
+Vercel Web Analytics still supplies the existing page-view baseline; its custom-event reporting requires Pro or Enterprise ([provider documentation](https://vercel.com/docs/analytics/custom-events)). Named product events now go to the Umami Cloud EU site for `utdred.com`. Speed Insights, available on all Vercel plans, remains in the root layout. Production deployment and successful Umami collection must be checked before field metrics can be assessed. No field performance improvement is claimed from local checks. Compare completion and onward navigation by entry page/device after collecting a baseline; inspect suspected automated traffic separately. July/September usage counts alone do not validate the experience.
+
+
 The site serves data that is **immutable between ingests** (`data/united.db` is a
 pure build artifact of `data/canonical/*.json`, rebuilt in `prebuild`). The
 performance strategy follows from that: prerender everything at build, touch
@@ -9,21 +16,21 @@ SQLite only at build, ship static HTML from the CDN.
 
 Post-launch the dataset grows by **one match at a time**, a few times a week.
 
-**Decision, revised 2026-08-22: static export, ordinary deploys after data
-ingests.** The live site is `output: "export"`. There are no Functions, ISR, or
-runtime SQLite. Predictable transfer matters more than the roughly 15-minute
-full-build latency.
+**Decision, revised 2026-09-23: static export with a selected set of profile
+pages and one scheduled data release per week.** The live site is
+`output: "export"`. There are no Functions, ISR, or runtime SQLite. The full
+fixture record stays in the match browser, build-generated JSON, and dataset.
 
 | Phase | What runs | Build time |
 | --- | --- | --- |
 | Code deploy (PR / UI) | Preview build profile — sample SSG | ~2 min |
-| Code deploy (production merge) | Full build — all SSG | ~15 min |
-| Data ingest (2–3×/week) | Full production build and deploy | ~15 min |
+| Code deploy (production merge) | Full build — selected SSG pages | Measure after rollout |
+| Data ingest (weekly, with manual corrections) | Full production build and deploy | Measure after rollout |
 
 ### How a data ingest works
 
 ```
-GitHub Actions (update-results.yml)
+GitHub Actions (enrich-results.yml, Mondays at 18:00 UTC)
   1. append new match to data/canonical/
   2. npm run validate && npm run build:db && npm run export:dataset
   3. git commit + push
@@ -57,7 +64,8 @@ SQLite. Do not reintroduce `UNITEDSTATS_DB_BLOB_URL`.
 | CLS | < 0.05 |
 | First Load JS (per route) | < 150 KB; chart-heavy routes < 200 KB |
 | Runtime DB access | none from page routes (build-time only) |
-| Aggregate `.next` output | ≤ 2,000 MB preview; ≤ 3,250 MB full |
+| Aggregate `.next` output | ≤ 500 MB preview; ≤ 1,000 MB full |
+| Deployable `out/` export | ≤ 500 MB, including all public site assets |
 
 ## Route disposition (achieved)
 
@@ -69,8 +77,9 @@ SQLite. Do not reintroduce `UNITEDSTATS_DB_BLOB_URL`.
 - **SSG `●` (`generateStaticParams` + `dynamicParams=false`):** `/match/[id]`,
   `/player/[id]`, `/seasons/[season]`, `/opponent/[id]`, `/manager/[id]`,
   `/questions/[slug]`, `/on-this-day/[monthDay]`, `/cut/[slug]`,
-  `/stories/[slug]`. Full builds prerender every id; preview builds sample
-  heavy routes and 404 the rest.
+  `/stories/[slug]`. Full builds prerender selected match, player, opponent,
+  and season ids; preview builds sample heavy routes. Other valid records open
+  through `/record` or the filtered match browser.
 - **API:** `/api/v1/*` and `/api/health` are build-generated JSON. Query-shaped
   match and search APIs were replaced by `/data/matches-catalog.json` and
   `/data/search-index.json`. The unfiltered `/matches` spine is omitted from
@@ -152,9 +161,20 @@ from canonical JSON in Vercel.
 
 ## Build profiles
 
+The 2026-09-23 full build against the current 6,035-match record generated 81
+authored match pages, 19 player pages, 14 opponent pages, and 16 season pages.
+It produced 394.7 MB in local `.next` and a 382.6 MB deployable export after the
+working audio copy was removed. The previous full export was about 3.4 GB
+locally, including 109 MB of working audio. The build and export budgets now
+leave roughly 100 MB of export room before a release fails CI. Vercel's build
+adapter produced 786.0 MB in `.next` for the same output; the 1,000 MB build
+artifact budget accommodates that adapter while the export ceiling remains 500 MB.
+
 Production deploys and CI use a **full** build profile: `prebuild` rebuilds the
-DB, verifies media, exports the downloadable dataset, and prerenders all ~7,400
-entity pages for CDN-fast UX.
+DB, verifies media, exports the downloadable dataset, and prerenders selected
+entity pages. `postbuild` removes film working audio copied into local `out/`;
+`.vercelignore` already excludes it from remote build uploads. CI checks the
+500 MB export ceiling after the build.
 
 **Preview** deploys (Vercel `VERCEL_ENV=preview`, i.e. PR branches) default to
 a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy

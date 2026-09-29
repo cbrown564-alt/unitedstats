@@ -6,7 +6,8 @@ export function entityMatchesHref(entity: SearchEntity): string {
   if (entity.kind === "match" || entity.kind === "question") return entity.href;
   if (entity.href.startsWith("/matches")) return entity.href;
 
-  const id = decodeURIComponent(entity.href.split("/").pop() ?? "");
+  const url = new URL(entity.href, "https://utdred.com");
+  const id = entity.id ?? url.searchParams.get("id") ?? decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() ?? "");
   switch (entity.kind) {
     case "opponent":
       return `/matches${queryString({ opponent: id })}`;

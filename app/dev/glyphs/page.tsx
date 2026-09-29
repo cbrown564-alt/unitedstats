@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CoverageWeave, RecordGlyph, type RecordGlyphId } from "@/components/glyphs/RecordGlyph";
+import { StitchLoader } from "@/components/glyphs/StitchLoader";
 import { UtilGlyph, type UtilGlyphId } from "@/components/glyphs/UtilGlyph";
+import { EvidenceLink } from "@/components/EvidenceLink";
 import { NavIcon, type NavIconId } from "@/components/nav/NavIcons";
 
 export const metadata: Metadata = {
@@ -12,7 +14,7 @@ export const metadata: Metadata = {
 const NAV: NavIconId[] = [
   "journey", "discover", "matches", "seasons", "players", "managers", "opponents", "analytics", "transfers", "data", "more",
 ];
-const UTIL: UtilGlyphId[] = ["search", "home", "filter", "close"];
+const UTIL: UtilGlyphId[] = ["search", "home", "filter", "close", "share", "sewn"];
 const RECORD: RecordGlyphId[] = ["darn", "spiral", "tangle", "stitch"];
 const FRACTIONS = [0, 0.1, 0.35, 0.5, 0.8, 0.999, 1];
 
@@ -67,6 +69,17 @@ export default function GlyphSpecimenPage() {
             <RecordGlyph id={id} size={20} className="tg-lit" />
           </Cell>
         ))}
+      </Row>
+      <Row title="Motion">
+        <Cell label="running stitch">
+          <StitchLoader />
+        </Cell>
+        <Cell label="sewn (on show)">
+          <UtilGlyph id="sewn" className="tg-lit tg-sew-now" />
+        </Cell>
+        <div className="flex items-center px-3">
+          <EvidenceLink href="/dev/glyphs" label="Sewn link: hover me →" />
+        </div>
       </Row>
       <Row title="Coverage weave">
         {FRACTIONS.map((f) => (

@@ -92,6 +92,7 @@ export default function StoriesPage() {
         <p className="stories-index-intro">
           Five patterns hiding in the record. Follow the line from one unlikely echo to the next.
         </p>
+        <Link href="/explore" className="mt-6 inline-flex min-h-11 items-center text-devil-bright">Browse stories, questions and comparisons →</Link>
         <a className="stories-index-cue focus-ring" href="#story-01">
           Pull the thread <span aria-hidden>↓</span>
         </a>
