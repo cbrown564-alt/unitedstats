@@ -14,6 +14,8 @@ import {
 import { correctionPayloadFromPrefill, type CorrectionPayload, type CorrectionPrefill } from "@/lib/corrections";
 import { CorrectionClaimForm } from "@/components/corrections/CorrectionClaimForm";
 import { BottomSheet, BottomSheetBody, BottomSheetHeader } from "@/components/mobile/BottomSheet";
+import { RecordGlyph } from "@/components/glyphs/RecordGlyph";
+import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 type MatchCorrectionContextValue = {
   pickMode: boolean;
@@ -41,8 +43,9 @@ export function MatchCorrectionTrustBand({ trustNote }: { trustNote: string }) {
         <button
           type="button"
           onClick={ctx.startPickMode}
-          className="shrink-0 text-[11px] font-semibold text-devil-bright hover:underline focus-ring"
+          className="tg-host inline-flex shrink-0 items-center gap-1.5 text-[11px] font-semibold text-devil-bright hover:underline focus-ring"
         >
+          <RecordGlyph id="darn" size={14} className="tg-lit" />
           Spot an error? →
         </button>
       )}
@@ -153,7 +156,7 @@ export function MatchCorrectionProvider({
           <button type="button" aria-label="Close" className="correction-drawer-backdrop" onClick={closeDrawer} />
           <aside className="correction-drawer-panel" role="dialog" aria-modal="true" aria-labelledby={titleId}>
             <button type="button" className="correction-drawer-close focus-ring" onClick={closeDrawer} aria-label="Close">
-              ×
+              <UtilGlyph id="close" size={16} />
             </button>
             <h2 id={titleId} className="display pr-8 text-lg">
               Suggest a correction

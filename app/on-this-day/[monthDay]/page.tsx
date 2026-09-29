@@ -9,6 +9,7 @@ import { stadiumLabel, homeAwayLabel } from "@/lib/format";
 import { monthDayKeys, monthDayLabel, onThisDay } from "@/lib/onThisDay";
 import { sampleStaticIds } from "@/lib/static-build";
 import { onThisDaySeoDescription, onThisDaySeoTitle, seoMetadata } from "@/lib/seo";
+import { RecordGlyph } from "@/components/glyphs/RecordGlyph";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -48,8 +49,9 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
         </Link>
         <Link
           href="/on-this-day"
-          className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint hover:text-devil-bright focus-ring"
+          className="tg-host inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint hover:text-devil-bright focus-ring"
         >
+          <RecordGlyph id="spiral" size={16} />
           Today
         </Link>
         <Link href={`/on-this-day/${entry.next}`} className="text-ink-dim hover:text-devil-bright focus-ring">

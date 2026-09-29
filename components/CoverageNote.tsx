@@ -1,5 +1,6 @@
 import { EvidenceLink } from "./EvidenceLink";
 import { fmtNum } from "@/lib/format";
+import { CoverageWeave } from "@/components/glyphs/RecordGlyph";
 
 /**
  * Consistent slice/coverage footer for charts, tables, and modules.
@@ -60,8 +61,16 @@ export function CoverageNote({
     );
   }
   if (coverageText) {
+    // A graded count is drawn as a weave filled to the real fraction. Prose
+    // coverage gets no mark: it may describe a complete facet, and a partial
+    // glyph there would claim a gap that is not in the record.
+    const mark =
+      !coverage && count ? (
+        <CoverageWeave fraction={count.covered / count.total} className="tg-lit coverage-mark" />
+      ) : null;
     lines.push(
       <>
+        {mark}
         <span className="font-medium text-ink">Coverage:</span> {coverageText}
       </>,
     );

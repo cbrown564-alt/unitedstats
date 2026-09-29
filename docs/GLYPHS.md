@@ -34,10 +34,18 @@ three, so they sit quietly in chrome.
 | --- | --- | --- |
 | Sections | `NavIcon` (`components/nav/NavIcons.tsx`) | Stories (loop-fold), Discover (needle), Matches (ticket stub), Seasons (bracketed run), Players (laced collar), Managers (spool), Opponents (twisted pair), Analytics (Elo over baseline), Transfers (splice), Data (weave), More (slack middle thread) |
 | Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X) |
+| Record | `RecordGlyph` (`components/glyphs/RecordGlyph.tsx`) | Darn (report a correction), Spiral (on this day), Tangle (pull a random night), Stitch (partial coverage) |
+| Coverage | `CoverageWeave` | Rows woven in proportion to covered / total; the last row stitched part-way. Used by `CoverageNote` for graded counts only |
+
+`/dev/glyphs` (development only) shows every shipped glyph idle and lit, with
+coverage weaves at several fractions.
 
 ## Rules
 
 - A bead is gold only when it stands for something proven. Decoration uses `br` or `bp`.
+- Never draw a coverage grade that the record does not state. `CoverageWeave`
+  takes real counts; prose coverage gets no mark, because it may describe a
+  complete facet.
 - Stitched threads (`st`) never carry `pathLength`, so their dash pattern stays in user units.
 - Motion follows DESIGN.md: state-based, never on load, and nothing is required
   to finish before the control can be used.

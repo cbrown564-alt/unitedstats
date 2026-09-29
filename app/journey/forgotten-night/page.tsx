@@ -10,6 +10,7 @@ import { ThreadOfNights } from "@/components/journey/ThreadOfNights";
 import { THREAD_OF_NIGHTS, matchReceipt, type MatchReceipt } from "@/lib/journey";
 import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
+import { RecordGlyph } from "@/components/glyphs/RecordGlyph";
 
 export const metadata: Metadata = {
   title: "Journey — a thread of nights",
@@ -375,7 +376,7 @@ export default function ThreadOfNightsJourneyPage() {
             Start with another night you might have forgotten, or trace every match from the beginning.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link href="/surprise" className="inline-flex items-center gap-2 rounded-full border border-devil-bright/60 bg-devil/15 px-6 py-3 text-sm font-semibold text-ink shadow-[0_0_30px_-6px_rgba(255,59,31,0.6)] transition hover:border-devil-bright hover:bg-devil/25 focus-ring">Pull another night →</Link>
+            <Link href="/surprise" className="inline-flex items-center gap-2 rounded-full border border-devil-bright/60 bg-devil/15 px-6 py-3 text-sm font-semibold text-ink shadow-[0_0_30px_-6px_rgba(255,59,31,0.6)] transition hover:border-devil-bright hover:bg-devil/25 focus-ring tg-host"><RecordGlyph id="tangle" size={18} className="tg-lit" />Pull another night →</Link>
             <Link href="/matches" className="inline-flex items-center gap-2 rounded-full border border-line bg-panel/60 px-6 py-3 text-sm font-semibold text-ink-dim transition hover:border-gold/70 hover:text-gold focus-ring">Every match →</Link>
           </div>
           <JourneyChapterNav current="/stories/a-thread-of-nights" />
