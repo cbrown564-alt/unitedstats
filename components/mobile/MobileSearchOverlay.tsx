@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { MOBILE_SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { useAnimatedOverlay } from "@/components/mobile/useAnimatedOverlay";
 import { useBodyScrollLock } from "@/components/mobile/useBodyScrollLock";
+import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 type SearchCommandComponent = typeof import("@/components/SearchCommand").SearchCommand;
 
@@ -54,10 +55,7 @@ export function MobileSearchOverlay({
             className="mobile-search-close tap-target focus-ring"
             aria-label="Close"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <line x1="6" y1="6" x2="18" y2="18" />
-              <line x1="18" y1="6" x2="6" y2="18" />
-            </svg>
+            <UtilGlyph id="close" />
           </button>
         </div>
 

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useId, useState } from "react";
 import { PRIMARY_NAV, SECONDARY_NAV, isNavActive } from "@/lib/navSections";
+import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
+import { NavIcon } from "@/components/nav/NavIcons";
 import { BottomSheet, BottomSheetBody, BottomSheetHeader } from "@/components/mobile/BottomSheet";
 
 type MobileNavSheetProps = {
@@ -38,12 +40,13 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
             href="/"
             onClick={onClose}
             aria-current={pathname === "/" ? "page" : undefined}
-            className={["mobile-sheet-link", pathname === "/" ? "mobile-sheet-link--active" : ""].join(" ")}
+            className={["mobile-sheet-link mobile-sheet-link--glyph", pathname === "/" ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}
           >
+            <UtilGlyph id="home" size={20} />
             <span className="mobile-sheet-link-label">Home</span>
           </Link>
 
-          {PRIMARY_NAV.map(({ label, href }) => {
+          {PRIMARY_NAV.map(({ label, href, icon }) => {
             const active = isNavActive(pathname, href);
             return (
               <Link
@@ -51,8 +54,9 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
                 href={href}
                 onClick={onClose}
                 aria-current={active ? "page" : undefined}
-                className={["mobile-sheet-link", active ? "mobile-sheet-link--active" : ""].join(" ")}
+                className={["mobile-sheet-link mobile-sheet-link--glyph", active ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}
               >
+                <NavIcon id={icon} className="mobile-sheet-link-glyph" />
                 <span className="mobile-sheet-link-label">{label}</span>
               </Link>
             );
@@ -63,12 +67,13 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
             open={secondaryOpen}
             onToggle={(event) => setSecondaryOpen(event.currentTarget.open)}
           >
-            <summary className={["mobile-sheet-link", secondaryActive ? "mobile-sheet-link--active" : ""].join(" ")}>
+            <summary className={["mobile-sheet-link mobile-sheet-link--glyph", secondaryActive ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}>
+              <NavIcon id="more" className="mobile-sheet-link-glyph" />
               <span className="mobile-sheet-link-label">More</span>
               <span aria-hidden>⌄</span>
             </summary>
             <div className="mobile-sheet-secondary-links">
-              {SECONDARY_NAV.map(({ label, href }) => {
+              {SECONDARY_NAV.map(({ label, href, icon }) => {
                 const active = isNavActive(pathname, href);
                 return (
                   <Link
@@ -76,8 +81,9 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
                     href={href}
                     onClick={onClose}
                     aria-current={active ? "page" : undefined}
-                    className={["mobile-sheet-link", active ? "mobile-sheet-link--active" : ""].join(" ")}
+                    className={["mobile-sheet-link mobile-sheet-link--glyph", active ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}
                   >
+                    <NavIcon id={icon} className="mobile-sheet-link-glyph" />
                     <span className="mobile-sheet-link-label">{label}</span>
                   </Link>
                 );

@@ -5,16 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { MatchFilterSheet } from "@/components/matches/MatchFilterSheet";
 import { useMatchesCatalog } from "@/components/matches/MatchesCatalogContext";
 import { buildMatchesPageViewFromCatalog } from "@/lib/matches/buildCatalogView";
+import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 const IGNORE_PARAMS = new Set(["page", "sort"]);
-
-function FilterIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>
-      <path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function countFilterParams(searchParams: URLSearchParams): number {
   let count = 0;
@@ -56,7 +49,7 @@ function MobileMatchFilterControlsInner({ open, onOpen, onClose }: MobileMatchFi
           .filter(Boolean)
           .join(" ")}
       >
-        <FilterIcon />
+        <UtilGlyph id="filter" />
         {filterCount > 0 && (
           <span className="mobile-pill-badge stat-num" aria-hidden>
             {filterCount}
@@ -91,7 +84,7 @@ export function MobileMatchFilterControls(props: MobileMatchFilterControlsProps)
           className="mobile-pill-btn mobile-pill-btn--filters tap-target focus-ring"
           disabled
         >
-          <FilterIcon />
+          <UtilGlyph id="filter" />
         </button>
       }
     >

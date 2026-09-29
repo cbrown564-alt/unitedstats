@@ -12,6 +12,7 @@ Read `PRODUCT.md` and `DESIGN.md` at the repository root before changing the exp
 | Canonical data and semantics | [`DATA-MODEL.md`](DATA-MODEL.md) | A schema, identity, or aggregate rule changes |
 | Sources, coverage, and limitations | [`SOURCE-AUDIT.md`](SOURCE-AUDIT.md) | Evidence or coverage changes |
 | Update and release pipeline | [`PIPELINE.md`](PIPELINE.md) | Ingest, validation, build, or deployment changes |
+| Glyph and thread-motion grammar | [`GLYPHS.md`](GLYPHS.md) | A glyph, primitive, or thread motion is added or retired |
 | Brand name and voice | [`BRANDING.md`](BRANDING.md) | Durable naming or voice guidance changes |
 | Corrections | [`CORRECTIONS.md`](CORRECTIONS.md) | The correction contract changes |
 | Video production | [`../video/README.md`](../video/README.md) | The video workflow or canonical release changes |

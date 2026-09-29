@@ -1,0 +1,95 @@
+/*
+ * Thread glyphs and motion: the shared vocabulary from docs/GLYPHS.md.
+ * Glyph markup lives in components/glyphs/; this file owns colour, weight and
+ * the small motions (sew-in, bead pop) that hosts opt into.
+ */
+
+.tg {
+  --tg-sw: 1.6;
+  --tg-thread: currentColor;
+  --tg-pale: currentColor;
+  --tg-bead: currentColor;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.tg .tg-t,
+.tg .tg-p {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: var(--tg-sw);
+}
+
+.tg .tg-t { stroke: var(--tg-thread); }
+.tg .tg-p { stroke: var(--tg-pale); opacity: var(--tg-pale-opacity, 1); }
+.tg .tg-st { stroke-dasharray: 1.3 1.7; stroke-linecap: butt; }
+.tg .tg-pd { stroke-dasharray: 1.2 2; }
+.tg .tg-pb { stroke-linecap: butt; }
+.tg .tg-fb { stroke-width: calc(var(--tg-sw) * 0.6); }
+
+/* Over-under crossings are cut out with masks, so they read on any ground. */
+.tg .tg-cut {
+  fill: none;
+  stroke: #000;
+  stroke-width: calc(var(--tg-sw) * 2.7);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tg .tg-cut-b { stroke-linecap: butt; }
+
+.tg .tg-b { fill: var(--tg-bead); }
+.tg .tg-br { fill: var(--tg-thread); }
+.tg .tg-bp { fill: var(--tg-pale); }
+.tg .tg-bo { fill: none; stroke: var(--tg-bead); stroke-width: calc(var(--tg-sw) * 0.8); }
+.tg .tg-fw { fill: var(--color-win); }
+.tg .tg-fd { fill: var(--color-draw); }
+.tg .tg-fl { fill: var(--color-loss); }
+
+.tg circle { transform-box: fill-box; transform-origin: center; }
+
+/*
+ * Hosts. Idle glyphs are one quiet colour; a hovered host lights the thread
+ * red and its proof beads gold, sewing the thread in as it does. A lit host
+ * (the current section, the primary search) stays coloured.
+ */
+.tg-host:is(:hover, :focus-visible) .tg,
+.tg-lit .tg,
+.tg.tg-lit {
+  --tg-thread: var(--color-devil-bright);
+  --tg-bead: var(--color-gold);
+}
+
+.tg-lit .tg,
+.tg.tg-lit {
+  --tg-pale: var(--color-ink-dim);
+}
+
+@keyframes tg-sew {
+  from { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+  to { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
+}
+
+@keyframes tg-pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .tg-host:hover .tg .tg-t[pathLength] {
+    animation: tg-sew 420ms cubic-bezier(0.3, 0.7, 0.2, 1) both;
+  }
+  .tg-host:hover .tg .tg-b {
+    animation: tg-pop 200ms 280ms ease-out both;
+  }
+}
+
+/* Mobile section sheet: glyph beside each label. */
+.mobile-sheet-link--glyph {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+.mobile-sheet-link--glyph .tg { color: var(--color-ink-faint); }
+.mobile-sheet-secondary > summary.mobile-sheet-link--glyph { justify-content: flex-start; }
+.mobile-sheet-secondary > summary.mobile-sheet-link--glyph > span[aria-hidden] { margin-inline-start: auto; }

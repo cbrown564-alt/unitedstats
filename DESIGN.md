@@ -394,6 +394,9 @@ Use:
 - 150-250 ms transitions.
 - Color, opacity, and transform transitions for hover/reveal.
 - Chart highlight or row focus when a user interacts.
+- Thread motion from [`docs/GLYPHS.md`](docs/GLYPHS.md): a glyph's thread may sew
+  in over ~400 ms on hover, because the control is usable before it finishes.
+  It never runs on load and stops under reduced motion.
 
 Avoid:
 

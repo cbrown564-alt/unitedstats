@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
 import { ACTIVATE_SIDEBAR_SEARCH_EVENT } from "@/lib/search/slashShortcut";
+import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 type SearchCommandProps = {
   autoFocusKey?: boolean;
@@ -25,12 +26,7 @@ type SidebarSearchProps = {
 const SIDEBAR_SEARCH_LABEL = "Search…";
 
 function SearchGlyph() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <circle cx="11" cy="11" r="7" />
-      <line x1="16.5" y1="16.5" x2="21" y2="21" />
-    </svg>
-  );
+  return <UtilGlyph id="search" size={16} />;
 }
 
 /**
@@ -104,7 +100,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
         title="Search (press /)"
         data-tooltip="Search"
         onClick={activateDesktop}
-        className="site-sidebar-search-trigger site-sidebar-search-trigger--icon"
+        className="site-sidebar-search-trigger site-sidebar-search-trigger--icon tg-host"
         onPointerEnter={() => preloadSearchCommand()}
       >
         <span className="site-sidebar-search-trigger-icon">
@@ -142,7 +138,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
           aria-label="Search"
           aria-busy={desktopActivating}
           onClick={activateDesktop}
-          className="site-sidebar-search-trigger"
+          className="site-sidebar-search-trigger tg-host"
           onPointerEnter={() => preloadSearchCommand()}
         >
           <span className="site-sidebar-search-trigger-icon">

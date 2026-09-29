@@ -1,10 +1,4 @@
-const stroke = {
-  fill: "none" as const,
-  stroke: "currentColor",
-  strokeWidth: 1.75,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
+import { B, GlyphSvg, P, T, Under } from "@/components/glyphs/primitives";
 
 export type NavIconId =
   | "journey"
@@ -16,97 +10,137 @@ export type NavIconId =
   | "opponents"
   | "analytics"
   | "transfers"
-  | "data";
+  | "data"
+  | "more";
 
+const WEAVE_X = [4, 8, 12, 16, 20];
+const WEAVE_Y = [4.5, 8.25, 12, 15.75, 19.5];
+const WARPS = WEAVE_X.map((x) => `M${x} 2.5V21.5`).join("");
+const WEFTS = WEAVE_Y.map((y) => `M2.5 ${y}H21.5`).join("");
+const WARP_OVER = WEAVE_Y.flatMap((y, i) =>
+  WEAVE_X.filter((_, j) => (i + j) % 2).map((x) => `M${x} ${y - 1.9}V${y + 1.9}`),
+).join("");
+
+const OPP_OVER = "M2 8C7 8 9 16 12 16C15 16 17 8 22 8";
+const OPP_TOP = "M12 8C15 8 17 16 22 16";
+
+/** Section glyphs, drawn in the Red Thread grammar (docs/GLYPHS.md). */
 export function NavIcon({ id, className }: { id: NavIconId; className?: string }) {
-  const props = { ...stroke, className, "aria-hidden": true as const };
+  return (
+    <GlyphSvg className={className}>
+      <NavGlyph id={id} />
+    </GlyphSvg>
+  );
+}
 
+function NavGlyph({ id }: { id: NavIconId }) {
   switch (id) {
+    // The loop-fold: a story connects a night to its echo.
     case "journey":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <path d="M3 12h4c2.5 0 2.5-6 5-6s2.5 12 5 12h4" />
-          <circle cx="3" cy="12" r="1.25" />
-          <circle cx="12" cy="6" r="1.25" />
-          <circle cx="21" cy="18" r="1.25" />
-        </svg>
+        <>
+          <T d="M1.5 12H22.5" />
+          <P d="M4 10.5v3" />
+          <T d="M8 12C10.2 12 11 6.5 15 6.5C18.4 6.5 20.5 9 20.5 12C20.5 15 18.4 17.5 15 17.5C11 17.5 10.2 12 8 12" />
+          <B cx={8} cy={12} r={2} />
+        </>
       );
+    // The needle's eye: a lens you pull the thread through.
     case "discover":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <circle cx="12" cy="12" r="10" />
-          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-        </svg>
+        <>
+          <P d="M3.5 20.5L15.9 6.3C16.9 5.1 18.7 4.8 19.3 5.5C19.9 6.2 19.4 7.8 18.2 8.5Z" />
+          <T d="M17.4 6.8C21.5 8.5 22 12.5 18.5 14C15 15.5 11 13.8 9.5 17C8.7 18.7 9.6 20.4 11.5 21M17.4 6.8C16.6 6 15.8 5.2 14.6 4.4" />
+        </>
       );
+    // A ticket stub, its perforation sewn in thread.
     case "matches":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <rect x="4" y="3" width="16" height="18" rx="2" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <circle cx="12" cy="12" r="3" />
-          <path d="M8 3v3h8V3" />
-          <path d="M8 21v-3h8v3" />
-        </svg>
+        <>
+          <P d="M3 6H14A2 2 0 0 0 18 6H21V18H18A2 2 0 0 0 14 18H3Z" />
+          <T st d="M16 8.6V15.4" />
+          <P d="M6 10.5H11M6 13.5H9.5" />
+        </>
       );
+    // A bracketed run of fixtures with one proven moment in it.
     case "seasons":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="6" y1="8" x2="6" y2="12" />
-          <circle cx="6" cy="6" r="2" />
-          <line x1="12" y1="12" x2="12" y2="16" />
-          <circle cx="12" cy="18" r="2" />
-          <line x1="18" y1="8" x2="18" y2="12" />
-          <circle cx="18" cy="6" r="2" />
-        </svg>
+        <>
+          <P d="M4.5 7V5.5H19.5V7" />
+          <T d="M2 13H22" />
+          <P d="M4.5 10.5v5M8.25 11.5v3M12 10.5v5M19.5 10.5v5" />
+          <B cx={15.75} cy={13} r={2} />
+        </>
       );
+    // A laced collar, the way shirts were once tied at the neck.
     case "players":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <path d="M 5,3 C 8,2 9,3.5 12,3.5 C 15,3.5 16,2 19,3 L 23,7 C 22,8.5 20,9.5 19,9.5 L 19,21 C 19,21.5 18.5,22 18,22 L 6,22 C 5.5,22 5,21.5 5,21 L 5,9.5 C 4,9.5 2,8.5 1,7 Z" />
-          <path d="M 9,3.5 C 9,5.5 15,5.5 15,3.5" />
-          <path d="M 5,9.5 L 7,6.5" opacity="0.6" />
-          <path d="M 19,9.5 L 17,6.5" opacity="0.6" />
-        </svg>
+        <>
+          <P d="M8 3.5L3 6.5L4.8 10.5L7 9.6V20.5H17V9.6L19.2 10.5L21 6.5L16 3.5C15 5 13.6 5.8 12 5.8C10.4 5.8 9 5 8 3.5Z" />
+          <P d="M12 5.8V10" />
+          <T d="M10.7 6.2L13.3 7.3L10.8 8.4L13.2 9.5M12 10C11.4 11.2 10.8 12 10 12.8M12 10C12.6 11.2 13.2 12 14 12.8" />
+        </>
       );
+    // A spool: each manager holds the thread for an era.
     case "managers":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <circle cx="12" cy="7" r="4" />
-          <path d="M20 21v-2a4 4 0 0 0-4-4h-2l-2 3-2-3H8a4 4 0 0 0-4 4v2" />
-          <path d="M12 18L11 22L12 23.5L13 22Z" />
-        </svg>
+        <>
+          <rect className="tg-p" x="5" y="3" width="14" height="2.6" rx="1.1" />
+          <rect className="tg-p" x="5" y="18.4" width="14" height="2.6" rx="1.1" />
+          <T d="M7.5 7.6L16.5 8.4M7.5 10L16.5 10.8M7.5 12.4L16.5 13.2M7.5 14.8L16.5 15.6C19.4 15.9 21 13.6 21.8 10.4" />
+        </>
       );
+    // A twisted pair: a rivalry is two threads wound together.
     case "opponents":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <path d="M12 3 4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-4z" />
-          <line x1="12" y1="3" x2="12" y2="22" />
-        </svg>
+        <>
+          <Under over={OPP_OVER}>
+            <P d="M2 16C7 16 9 8 12 8" />
+          </Under>
+          <Under over={OPP_TOP} butt>
+            <T d={OPP_OVER} />
+          </Under>
+          <P d={OPP_TOP} />
+        </>
       );
+    // Elo over its 1500 baseline, the peak beaded.
     case "analytics":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <path d="M3 3v18h18" />
-          <path d="m19 9-5 5-4-4-3 3" />
-        </svg>
+        <>
+          <P dashed d="M2 14H22" />
+          <T d="M2 17C5 17 6 11 9 12C12 13 12 6 15 5.5C18 5 18 13 22 11" />
+          <B cx={15.2} cy={5.5} r={1.9} />
+        </>
       );
+    // A splice: one club's thread bound into another's.
     case "transfers":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <path d="m17 2 4 4-4 4" />
-          <path d="M21 6H3" />
-          <path d="m7 22-4-4 4-4" />
-          <path d="M3 18h18" />
-        </svg>
+        <>
+          <P d="M2 14.5C6 14.5 8 12 15 12" />
+          <T d="M22 9.5C18 9.5 16 12 9 12" />
+          <T d="M10.5 9.8v4.4M12.3 9.8v4.4M14.1 9.8v4.4" />
+        </>
       );
+    // Warp and weft: the record as woven fabric.
     case "data":
       return (
-        <svg width="20" height="20" viewBox="0 0 24 24" {...props}>
-          <ellipse cx="12" cy="5" rx="9" ry="3" />
-          <path d="M3 5v14a9 3 0 0 0 18 0V5" />
-          <path d="M3 12a9 3 0 0 0 18 0" />
-        </svg>
+        <>
+          <Under over={WEFTS}>
+            <P d={WARPS} />
+          </Under>
+          <Under over={WARP_OVER} butt>
+            <T d={WEFTS} />
+          </Under>
+          <P butt d={WARP_OVER} />
+        </>
+      );
+    // Three threads, the middle one left slack: more to pull on.
+    case "more":
+      return (
+        <>
+          <P d="M4 7H20M4 17H20" />
+          <T d="M4 12C7 12 8 10.5 10 10.5S12.5 13.5 14.5 13.5S17 12 20 12" />
+        </>
       );
     default: {
       const _exhaustive: never = id;

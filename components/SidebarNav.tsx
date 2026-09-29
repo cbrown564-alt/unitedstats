@@ -63,7 +63,7 @@ export function SidebarNav() {
           aria-current={active ? "page" : undefined}
           title={collapsed ? item.label : undefined}
           data-tooltip={collapsed ? item.label : undefined}
-          className={["site-sidebar-link", active ? "site-sidebar-link--active" : ""]
+          className={["site-sidebar-link tg-host", active ? "site-sidebar-link--active tg-lit" : ""]
             .filter(Boolean)
             .join(" ")}
         >
@@ -108,11 +108,11 @@ export function SidebarNav() {
           </div>
           <details className="site-sidebar-secondary" open={secondaryActive || undefined}>
             <summary
-              className={["site-sidebar-link", secondaryActive ? "site-sidebar-link--active" : ""].filter(Boolean).join(" ")}
+              className={["site-sidebar-link tg-host", secondaryActive ? "site-sidebar-link--active tg-lit" : ""].filter(Boolean).join(" ")}
               title={collapsed ? "More sections" : undefined}
               data-tooltip={collapsed ? "More sections" : undefined}
             >
-              <span className="site-sidebar-link-icon"><NavIcon id="analytics" /></span>
+              <span className="site-sidebar-link-icon"><NavIcon id="more" /></span>
               <span className="site-sidebar-link-label">More</span>
               <span className="site-sidebar-secondary-chevron" aria-hidden>⌄</span>
             </summary>

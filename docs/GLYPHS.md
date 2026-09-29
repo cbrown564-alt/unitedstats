@@ -1,0 +1,43 @@
+# Thread glyphs
+
+Red Thread's icons, event marks and small motions share one grammar: a red
+thread running through a pale record, with gold beads only where something is
+proven. The exploratory lab is [`mockups/glyph-lab.html`](mockups/glyph-lab.html);
+this document owns what has shipped.
+
+## Primitives
+
+All glyphs sit on a 24 × 24 grid and are built from `components/glyphs/primitives.tsx`:
+
+| Primitive | Mark | Means |
+| --- | --- | --- |
+| `T` | Red thread (solid, or stitched with `st`) | Continuity; the part that lights up |
+| `P` | Pale stroke (optionally dashed or fine) | The record, frames, ticks and other strands |
+| `B` | Bead: `b` gold, `br` thread, `bp` pale, `bo` hollow, `fw`/`fd`/`fl` result | A fact. Gold is reserved for proof |
+| `Under` | Mask-cut crossing | Over-under without a halo colour, so it reads on glass |
+
+Colour and weight come from `--tg-thread`, `--tg-pale`, `--tg-bead` and
+`--tg-sw` in `app/thread.css`. Idle glyphs default to `currentColor` for all
+three, so they sit quietly in chrome.
+
+## Hosts and states
+
+- `tg-host` on a link or button: hovering or focusing it lights the thread red
+  and the beads gold, and sews the thread in (≈420 ms dash draw, then a 200 ms
+  bead fade-scale). It only runs on hover-capable devices without reduced motion.
+- `tg-lit` on a host or the glyph itself: always coloured. Use it for the current
+  section and for the primary search entry.
+
+## Shipped glyphs
+
+| Family | Component | Glyphs |
+| --- | --- | --- |
+| Sections | `NavIcon` (`components/nav/NavIcons.tsx`) | Stories (loop-fold), Discover (needle), Matches (ticket stub), Seasons (bracketed run), Players (laced collar), Managers (spool), Opponents (twisted pair), Analytics (Elo over baseline), Transfers (splice), Data (weave), More (slack middle thread) |
+| Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X) |
+
+## Rules
+
+- A bead is gold only when it stands for something proven. Decoration uses `br` or `bp`.
+- Stitched threads (`st`) never carry `pathLength`, so their dash pattern stays in user units.
+- Motion follows DESIGN.md: state-based, never on load, and nothing is required
+  to finish before the control can be used.
