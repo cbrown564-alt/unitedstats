@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { loadMatchesCatalog, peekMatchesCatalog } from "@/lib/matches/loadCatalog";
 import type { MatchesCatalog } from "@/lib/matches/catalogTypes";
 
@@ -31,8 +31,17 @@ export function MatchesCatalogProvider({ children }: { children: ReactNode }) {
   return <MatchesCatalogContext.Provider value={catalog}>{children}</MatchesCatalogContext.Provider>;
 }
 
+const subscribeNever = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export function useMatchesCatalog(): MatchesCatalog | null {
   const fromContext = useContext(MatchesCatalogContext);
   const local = useCatalogState();
+  // The server renders without the catalog, but a lazily-hydrating Suspense boundary
+  // can reach its hydration render after the provider has already loaded it. Withhold
+  // the catalog until hydration is done so the first client render matches the HTML.
+  const hydrated = useSyncExternalStore(subscribeNever, clientSnapshot, serverSnapshot);
+  if (!hydrated) return null;
   return fromContext === undefined ? local : fromContext;
 }
