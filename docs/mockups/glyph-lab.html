@@ -1,0 +1,1228 @@
+<title>Thread Glyph Lab</title>
+<meta name="description" content="Red Thread icon, glyph and motion prototypes built from one thread grammar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,600;62..125,800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a floodlit specimen book — sticky control rail, then numbered chapters of
+   glyph trays and motion benches, each tray on the same stage ground. */
+:root {
+  color-scheme: dark;
+  --pitch: #0c0b0a;
+  --panel: #161312;
+  --panel-2: #1f1a18;
+  --line: #2c2522;
+  --ink: #f3ede8;
+  --dim: #aa9f97;
+  --red: #ff3b1f;
+  --devil: #d8210d;
+  --gold: #f5c518;
+  --win: #ffd94a;
+  --draw: #9a8d83;
+  --loss: #a52218;
+
+  /* glyph controls (driven by the rail) */
+  --thread: var(--red);
+  --bead: var(--gold);
+  --pale: #b9ada5;
+  --ground: var(--panel);
+  --sw: 1.6;
+  --gs: 40px;
+
+  --f-display: "Archivo", system-ui, sans-serif;
+  --f-body: "Archivo", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+body[data-ground="pitch"] { --ground: var(--pitch); }
+body[data-ground="panel2"] { --ground: var(--panel-2); }
+body[data-ground="paper"] { --ground: #efe7dc; --pale: #6b5f58; }
+body[data-thread="devil"] { --thread: var(--devil); }
+body[data-thread="ink"] { --thread: var(--ink); }
+body[data-ground="paper"][data-thread="ink"] { --thread: #1b1614; }
+body[data-bead="red"] { --bead: var(--thread); }
+
+* { box-sizing: border-box; }
+html { background: var(--pitch); }
+body {
+  margin: 0;
+  background:
+    radial-gradient(90% 38rem at 50% -10rem, rgb(255 59 31 / 0.13), transparent 70%),
+    var(--pitch);
+  color: var(--ink);
+  font: 400 15px/1.55 var(--f-body);
+  padding-inline: 16px;
+  padding-block: 0 96px;
+}
+.wrap { max-width: 76rem; margin: 0 auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- masthead ---------- */
+.mast { padding-block: 56px 28px; display: grid; gap: 18px; }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); display: flex; gap: 10px; align-items: center; }
+.eyebrow b { color: var(--red); font-weight: 500; }
+h1 {
+  margin: 0;
+  font: 800 clamp(2.4rem, 7vw, 5rem)/0.9 var(--f-display);
+  font-stretch: 72%;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+h1 em { font-style: normal; color: var(--red); }
+.lede { max-width: 42rem; color: var(--dim); font-size: 17px; margin: 0; }
+.lede strong { color: var(--ink); font-weight: 600; }
+.mast-thread { height: 44px; width: 100%; display: block; }
+
+/* ---------- control rail ---------- */
+.rail {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  margin-inline: -16px; padding: 10px 16px;
+  background: rgb(12 11 10 / 0.88);
+  backdrop-filter: blur(10px);
+  border-block: 1px solid var(--line);
+}
+.rail-in { max-width: 76rem; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.ctl { display: flex; align-items: center; gap: 8px; font: 500 11px/1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 2px; background: var(--panel); }
+.seg button { border: 0; background: transparent; padding: 5px 9px; border-radius: 999px; cursor: pointer; font: 500 11px/1 var(--f-mono); color: var(--dim); letter-spacing: 0.04em; }
+.seg button[aria-pressed="true"] { background: var(--panel-2); color: var(--ink); box-shadow: inset 0 -2px 0 var(--red); }
+input[type="range"] { accent-color: var(--red); width: 96px; }
+.btn {
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+  border-radius: 999px; padding: 6px 12px; cursor: pointer;
+  font: 500 12px/1 var(--f-mono); letter-spacing: 0.04em;
+  transition: border-color 160ms, background 160ms;
+}
+.btn:hover { border-color: var(--red); }
+.btn.primary { background: var(--red); border-color: var(--red); color: #1a0703; }
+
+/* ---------- chapters ---------- */
+section.ch { padding-block: 56px 8px; }
+.ch-head { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-items: baseline; margin-bottom: 22px; }
+.ch-num { font: 500 13px/1 var(--f-mono); color: var(--red); }
+h2 { margin: 0; font: 800 clamp(1.5rem, 3.4vw, 2.2rem)/1 var(--f-display); font-stretch: 78%; text-transform: uppercase; letter-spacing: -0.01em; text-wrap: balance; }
+.ch-dek { grid-column: 2; max-width: 44rem; margin: 4px 0 0; color: var(--dim); }
+h3 { font: 600 13px/1.2 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin: 30px 0 12px; }
+
+/* ---------- glyph trays ---------- */
+.tray { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 10px; }
+.tray.wide { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.card {
+  margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; min-width: 0;
+}
+.stage {
+  background: var(--ground);
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  min-height: max(104px, calc(var(--gs) + 44px));
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.stage svg.gl { width: var(--gs); height: var(--gs); overflow: visible; }
+.stage.big svg.gl { width: 104px; height: 104px; }
+.stage.big { min-height: 150px; }
+.stage .vs { font: 500 10px/1 var(--f-mono); letter-spacing: 0.1em; color: var(--pale); text-transform: uppercase; position: absolute; bottom: 7px; }
+.stage .vs.l { left: 10px; } .stage .vs.r { right: 10px; color: var(--thread); }
+.stage svg.old { width: var(--gs); height: var(--gs); opacity: 0.8; }
+.card figcaption { padding: 11px 12px 4px; display: grid; gap: 3px; min-width: 0; align-content: start; }
+.card figcaption b { font: 600 14px/1.25 var(--f-body); }
+.card figcaption span { color: var(--dim); font-size: 13px; line-height: 1.4; }
+.acts { display: flex; gap: 6px; padding: 8px 12px 12px; }
+.chip {
+  border: 1px solid var(--line); background: transparent; border-radius: 999px; cursor: pointer;
+  font: 500 11px/1 var(--f-mono); color: var(--dim); padding: 5px 9px; display: inline-flex; gap: 5px; align-items: center;
+}
+.chip:hover { color: var(--ink); border-color: #4a3f3a; }
+.chip[aria-pressed="true"] { color: var(--gold); border-color: rgb(245 197 24 / 0.5); }
+.chip svg { width: 12px; height: 12px; }
+
+/* glyph vocabulary */
+.gl .t, .gl .p, .gl .h, .gl .hb { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: var(--sw); }
+.gl .t { stroke: var(--thread); }
+.gl .p { stroke: var(--pale); }
+.gl .h { stroke: var(--ground); stroke-width: calc(var(--sw) * 2.7); }
+.gl .hb { stroke: var(--ground); stroke-width: calc(var(--sw) * 2.7); stroke-linecap: butt; }
+.gl .pb { stroke-linecap: butt; }
+.gl .st { stroke-dasharray: 1.3 1.7; stroke-linecap: butt; }
+.gl .pd { stroke-dasharray: 1.2 2; opacity: 0.8; }
+.gl .fb { stroke-width: calc(var(--sw) * 0.6); opacity: 0.85; }
+.gl .dimmed { opacity: 0.55; }
+.gl .b { fill: var(--bead); }
+.gl .br { fill: var(--thread); }
+.gl .bp { fill: var(--pale); }
+.gl .bo { fill: var(--ground); stroke: var(--bead); stroke-width: calc(var(--sw) * 0.8); }
+.gl .fw { fill: var(--win); } .gl .fl { fill: var(--loss); } .gl .fd { fill: var(--draw); }
+.gl .tw { stroke: var(--win); } .gl .tl { stroke: var(--loss); } .gl .td { stroke: var(--draw); }
+.gl text { font-family: var(--f-mono); fill: var(--pale); }
+svg.old * { fill: none; stroke: var(--dim); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+/* every glyph is sewn in on hover */
+@keyframes sew { from { stroke-dasharray: 1 1; stroke-dashoffset: 1; } to { stroke-dasharray: 1 1; stroke-dashoffset: 0; } }
+@keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.gl circle.b, .gl circle.br, .gl circle.bo { transform-box: fill-box; transform-origin: center; }
+.stage:hover .gl .t[pathLength], .stage.sewing .gl .t[pathLength] { animation: sew 760ms cubic-bezier(.3,.7,.2,1) both; }
+.stage:hover .gl circle.b, .stage.sewing .gl circle.b { animation: pop 420ms 520ms cubic-bezier(.3,.7,.3,1) both; }
+
+/* ---------- grammar strip ---------- */
+.grammar { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.gram { background: var(--panel); padding: 14px 14px 16px; display: grid; gap: 8px; align-content: start; }
+.gram .stage { border: 0; min-height: 88px; border-radius: 8px; }
+.gram .stage svg.gl { width: 64px; height: 64px; }
+.gram b { font: 800 18px/1 var(--f-display); font-stretch: 80%; text-transform: uppercase; letter-spacing: 0.01em; }
+.gram span { color: var(--dim); font-size: 13px; line-height: 1.4; }
+
+/* ---------- motion benches ---------- */
+.bench { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.demo {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  display: grid; grid-template-rows: auto auto 1fr; min-width: 0; overflow: hidden;
+}
+.demo .floor {
+  background: var(--ground); min-height: 180px; display: grid; place-items: center;
+  padding: 18px 16px; border-bottom: 1px solid var(--line); position: relative; overflow: hidden;
+}
+.demo .floor > svg { width: 100%; height: auto; display: block; overflow: visible; }
+.demo .meta { padding: 12px 14px 6px; display: grid; gap: 4px; }
+.demo .meta b { font: 600 15px/1.25 var(--f-body); }
+.demo .meta span { color: var(--dim); font-size: 13px; line-height: 1.45; }
+.demo .meta .where { font: 500 11px/1.4 var(--f-mono); color: var(--pale); letter-spacing: 0.04em; }
+.demo .acts { align-self: end; flex-wrap: wrap; }
+.demo .meta .flag, .flag { font: 500 10px/1.2 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); border: 1px solid rgb(245 197 24 / 0.35); border-radius: 4px; padding: 3px 5px; justify-self: start; }
+.mono { font-family: var(--f-mono); }
+.cap { font: 500 11px/1.3 var(--f-mono); color: var(--pale); letter-spacing: 0.03em; }
+
+/* 1 sewn links */
+.links { display: grid; gap: 18px; justify-items: start; font-size: 17px; }
+.sew { position: relative; text-decoration: none; padding-bottom: 7px; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
+body[data-ground="paper"] .sew { color: #1b1614; }
+.sew svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 7px; overflow: visible; }
+.sew.a1 path { fill: none; stroke: var(--thread); stroke-width: 1.8; vector-effect: non-scaling-stroke; stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 420ms cubic-bezier(.3,.7,.2,1); stroke-linecap: round; }
+.sew.a1::after { content: ""; position: absolute; right: -7px; bottom: -0.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--bead); transform: scale(0); transition: transform 220ms 0ms; }
+.sew.a1:hover path, .sew.a1:focus-visible path { stroke-dashoffset: 0; }
+.sew.a1:hover::after, .sew.a1:focus-visible::after { transform: scale(1); transition-delay: 360ms; }
+.sew.a2 { background: repeating-linear-gradient(90deg, var(--thread) 0 6px, transparent 6px 10px) left bottom / 0% 2px no-repeat; transition: background-size 520ms steps(14, end); }
+.sew.a2:hover, .sew.a2:focus-visible { background-size: 100% 2px; }
+.sew.a3 path.sag { fill: none; stroke: var(--pale); stroke-width: 1.5; vector-effect: non-scaling-stroke; opacity: 0.6; transition: opacity 200ms; }
+.sew.a3 path.taut { fill: none; stroke: var(--thread); stroke-width: 1.8; vector-effect: non-scaling-stroke; stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 300ms cubic-bezier(.2,.8,.2,1); }
+.sew.a3 .lbl { transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
+.sew.a3:hover path.sag, .sew.a3:focus-visible path.sag { opacity: 0; }
+.sew.a3:hover path.taut, .sew.a3:focus-visible path.taut { stroke-dashoffset: 0; }
+.sew.a3:hover .lbl, .sew.a3:focus-visible .lbl { transform: translateX(3px); }
+
+/* loop fold */
+#loopfold .ln, #loopfold .lp { fill: none; stroke: var(--thread); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+#loopfold .tk { stroke: var(--pale); stroke-width: 1.4; opacity: 0; }
+#loopfold .bd { fill: var(--bead); transform-box: fill-box; transform-origin: center; transform: scale(0); }
+#loopfold .gw { fill: var(--gold); opacity: 0; filter: blur(5px); }
+#loopfold text { font: 500 10px var(--f-mono); fill: var(--pale); opacity: 0; }
+#loopfold.run .ln { stroke-dashoffset: 0; transition: stroke-dashoffset 700ms cubic-bezier(.4,.1,.2,1); }
+#loopfold.run .tk, #loopfold.run text { opacity: 1; transition: opacity 300ms 500ms; }
+#loopfold.run .bd { transform: scale(1); transition: transform 300ms 800ms cubic-bezier(.3,.7,.3,1.2); }
+#loopfold.run .lp { stroke-dashoffset: 0; transition: stroke-dashoffset 1300ms 1000ms cubic-bezier(.5,0,.2,1); }
+#loopfold.run .gw { opacity: 0.8; transition: opacity 500ms 2200ms; }
+#loopfold.run text.late { transition-delay: 2300ms; }
+
+/* bow */
+.bowbtn { display: inline-flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px 6px 10px; cursor: pointer; font: 600 14px/1 var(--f-body); }
+.bowbtn svg { width: 44px; height: 26px; overflow: visible; }
+.bowbtn .straight { fill: none; stroke: var(--pale); stroke-width: 1.6; stroke-linecap: round; transition: opacity 200ms; }
+.bowbtn .bow { fill: none; stroke: var(--thread); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 600ms cubic-bezier(.4,.1,.2,1); }
+.bowbtn .knot { fill: var(--bead); transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform 240ms; }
+.bowbtn[aria-pressed="true"] .straight { opacity: 0; }
+.bowbtn[aria-pressed="true"] .bow { stroke-dashoffset: 0; }
+.bowbtn[aria-pressed="true"] .knot { transform: scale(1); transition-delay: 520ms; }
+
+/* tag */
+#tag .swing { transform-box: view-box; transform-origin: 80px 10px; }
+#tag.go .swing { animation: swing 1700ms cubic-bezier(.25,.6,.3,1); }
+@keyframes swing { 0% { transform: rotate(0); } 12% { transform: rotate(17deg); } 32% { transform: rotate(-11deg); } 52% { transform: rotate(6deg); } 70% { transform: rotate(-3deg); } 86% { transform: rotate(1.2deg); } 100% { transform: rotate(0); } }
+
+/* spine */
+.spine-demo { display: grid; grid-template-columns: 26px 1fr; gap: 12px; width: 100%; height: 220px; }
+.spine { position: relative; }
+.spine .trk, .spine .fill { position: absolute; left: 12px; width: 2px; top: 6px; border-radius: 2px; }
+.spine .trk { bottom: 6px; background: var(--line); }
+body[data-ground="paper"] .spine .trk { background: #cfc4b8; }
+.spine .fill { background: var(--thread); height: 0; box-shadow: 0 0 10px rgb(255 59 31 / 0.5); }
+.spine .st { position: absolute; left: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--ground); border: 2px solid var(--pale); transform: translateY(-50%); transition: background 200ms, border-color 200ms, transform 200ms; }
+.spine .st.on { background: var(--bead); border-color: var(--bead); transform: translateY(-50%) scale(1.1); }
+.spine-scroll { overflow-y: auto; scrollbar-width: thin; padding-right: 6px; }
+.spine-scroll section { min-height: 150px; padding: 6px 0 20px; }
+.spine-scroll b { font: 800 16px/1 var(--f-display); text-transform: uppercase; font-stretch: 80%; }
+.spine-scroll p { margin: 6px 0 0; color: var(--dim); font-size: 14px; }
+body[data-ground="paper"] .spine-scroll { color: #1b1614; }
+
+/* toggle */
+.tog { display: inline-flex; align-items: center; gap: 12px; background: none; border: 0; cursor: pointer; font-size: 15px; padding: 6px; }
+body[data-ground="paper"] .tog { color: #1b1614; }
+.tog .track { position: relative; width: 52px; height: 18px; }
+.tog .track::before { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 2px; background: var(--pale); opacity: 0.5; border-radius: 2px; }
+.tog .red { position: absolute; left: 0; top: 8px; height: 2px; width: 0; background: var(--thread); border-radius: 2px; transition: width 240ms cubic-bezier(.2,.8,.2,1); }
+.tog .bead { position: absolute; top: 2px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--ground); border: 2px solid var(--pale); transition: left 240ms cubic-bezier(.2,.8,.2,1), background 240ms, border-color 240ms; }
+.tog[aria-checked="true"] .red { width: 100%; }
+.tog[aria-checked="true"] .bead { left: 38px; background: var(--bead); border-color: var(--bead); }
+
+/* fray */
+#fray .fib { transform-box: view-box; transform-origin: 160px 60px; animation: sway 3.4s ease-in-out infinite alternate; }
+#fray .fib:nth-child(2) { animation-duration: 4.1s; animation-delay: -1s; }
+#fray .fib:nth-child(3) { animation-duration: 2.9s; animation-delay: -2s; }
+#fray .fib:nth-child(4) { animation-duration: 4.7s; animation-delay: -.5s; }
+#fray .fib:nth-child(5) { animation-duration: 3.7s; animation-delay: -1.6s; }
+@keyframes sway { from { transform: rotate(-5deg); } to { transform: rotate(6deg); } }
+
+/* ticket */
+.ticket { --stub: 78px; position: relative; display: flex; width: min(300px, 100%); background: #efe6d6; color: #1f1917; border-radius: 6px; font-family: var(--f-mono); box-shadow: 0 10px 26px rgb(0 0 0 / 0.35); cursor: default; }
+.ticket::before, .ticket::after { content: ""; position: absolute; right: calc(var(--stub) - 8px); width: 16px; height: 16px; border-radius: 50%; background: var(--ground); z-index: 2; }
+.ticket::before { top: -8px; } .ticket::after { bottom: -8px; }
+.ticket .main { flex: 1; padding: 14px 14px 12px; display: grid; gap: 4px; min-width: 0; }
+.ticket .main .k { font-size: 10px; letter-spacing: 0.14em; color: #7b6c63; }
+.ticket .main .v { font: 800 19px/1 var(--f-display); font-stretch: 78%; text-transform: uppercase; letter-spacing: 0; }
+.ticket .main .d { font-size: 11px; color: #4a3f39; }
+.ticket .stub { width: var(--stub); border-left: 2px dashed var(--red); display: grid; place-items: center; background: #efe6d6; border-radius: 0 6px 6px 0; transition: transform 380ms cubic-bezier(.2,.8,.2,1); transform-origin: 0 100%; }
+.ticket .stub span { writing-mode: vertical-rl; font-size: 11px; letter-spacing: 0.2em; }
+.ticket:hover .stub, .ticket:focus-visible .stub { transform: translate(12px, 4px) rotate(7deg); }
+
+/* wipe */
+.wipe { position: relative; width: 100%; height: 150px; border-radius: 8px; overflow: hidden; }
+.wipe .pane { position: absolute; inset: 0; padding: 18px; display: grid; align-content: center; gap: 6px; }
+.wipe .pa { background: #1a1210; }
+.wipe .pb { background: #221210; clip-path: inset(0 100% 0 0); transition: clip-path 900ms cubic-bezier(.65,0,.25,1); }
+.wipe .pane .y { font: 500 12px/1 var(--f-mono); color: var(--red); letter-spacing: 0.1em; }
+.wipe .pane .s { font: 800 26px/1 var(--f-display); font-stretch: 76%; text-transform: uppercase; }
+.wipe .pane .n { font: 400 13px/1.3 var(--f-mono); color: var(--dim); }
+.wipe .th { position: absolute; top: -10px; bottom: -10px; left: 0; width: 14px; transform: translateX(-14px); transition: transform 900ms cubic-bezier(.65,0,.25,1); pointer-events: none; }
+.wipe .th svg { height: 100%; width: 14px; }
+.wipe.go .pb { clip-path: inset(0 0 0 0); }
+.wipe.go .th { transform: translateX(calc(var(--w, 320px) - 2px)); }
+
+/* stitch confirm */
+.copybtn { display: inline-flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 9px 14px; cursor: pointer; font: 500 13px/1 var(--f-mono); min-width: 190px; }
+.copybtn svg { width: 22px; height: 22px; }
+.copybtn .x { stroke: var(--thread); stroke-width: 2; stroke-linecap: butt; opacity: 0; }
+.copybtn.done .x { animation: stitchin 160ms both; }
+@keyframes stitchin { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
+.copybtn .x { transform-box: fill-box; transform-origin: center; }
+.copybtn .clip { fill: none; stroke: var(--pale); stroke-width: 1.5; transition: opacity 150ms; }
+.copybtn.done .clip { opacity: 0; }
+
+/* floodlights */
+#flood .lamp { fill: #3a322d; transition: fill 120ms; }
+#flood.on .lamp { animation: flick 700ms steps(1) both; }
+@keyframes flick { 0% { fill: #3a322d; } 20% { fill: #fff3c4; } 35% { fill: #6b5a3a; } 55% { fill: #fff3c4; } 70% { fill: #b89a3e; } 100% { fill: #ffe9a3; } }
+#flood .beam { opacity: 0; transition: opacity 1200ms 900ms; }
+#flood.on .beam { opacity: 1; }
+#flood .pitchline { stroke: var(--pale); stroke-width: 1; opacity: 0.35; transition: opacity 1200ms 900ms; }
+#flood.on .pitchline { opacity: 0.9; }
+
+/* stream */
+.stream-view { width: 100%; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.stream-view svg { width: auto; height: 70px; display: block; }
+.stream-move { animation: stream 36s linear infinite; }
+@keyframes stream { to { transform: translateX(var(--shift)); } }
+
+/* in context */
+.ctx { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+.ctx .demo .floor { place-items: stretch; }
+.nav-mock { display: grid; gap: 2px; width: 100%; max-width: 250px; margin: 0 auto; }
+.nav-mock a { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 8px; text-decoration: none; color: var(--dim); font-size: 14px; position: relative; }
+body[data-ground="paper"] .nav-mock a { color: #4a3f39; }
+.nav-mock a svg { width: 20px; height: 20px; flex: none; }
+.nav-mock a.cur { color: var(--ink); background: rgb(255 59 31 / 0.08); }
+body[data-ground="paper"] .nav-mock a.cur { color: #1b1614; }
+.nav-mock a.cur::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--thread); border-radius: 2px; }
+.nav-mock a:hover { color: var(--ink); }
+.mrow { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 14px; align-items: center; width: 100%; padding: 12px 4px; border-bottom: 1px solid var(--line); }
+.mrow .dt { font: 400 12px/1.2 var(--f-mono); color: var(--dim); }
+.mrow .op { font-weight: 600; min-width: 0; }
+.mrow .sc { font: 500 18px/1 var(--f-mono); }
+.mrow .flow { grid-column: 1 / -1; }
+.mrow .flow svg { width: 100%; height: 34px; display: block; }
+body[data-ground="paper"] .mrow { color: #1b1614; border-color: #d6ccc0; }
+.form { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.form .r { display: grid; justify-items: center; gap: 4px; width: 30px; }
+.form .r svg { width: 28px; height: 28px; }
+.form .r i { font: 600 11px/1 var(--f-mono); font-style: normal; color: var(--pale); }
+
+/* picks tray */
+.picks { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: grid; justify-items: end; gap: 8px; }
+.picks .panel { width: min(320px, calc(100vw - 32px)); max-height: 50vh; overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; box-shadow: 0 16px 40px rgb(0 0 0 / 0.5); }
+.picks .panel ol { margin: 6px 0 10px; padding-left: 18px; color: var(--dim); font-size: 13px; }
+.picks .panel p { margin: 0; color: var(--dim); font-size: 13px; }
+
+footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; max-width: 44rem; }
+
+body.still *, body.still *::before, body.still *::after { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .stage:hover .gl .t[pathLength], .stage:hover .gl circle.b { animation: none; }
+}
+@media (max-width: 520px) {
+  .ch-head { grid-template-columns: 1fr; }
+  .ch-dek { grid-column: 1; }
+  .rail-in { gap: 8px 14px; }
+  input[type="range"] { width: 72px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="eyebrow"><b>Red Thread</b> · Studio bench · Prototypes, not decisions</div>
+    <h1>Thread <em>Glyph</em> Lab</h1>
+    <p class="lede">Every icon, glyph and movement here is made from one material: the thread that runs through <strong><span class="mono">6,028</span> matches from 1886 to today</strong>. Each mark is built from the same small grammar of strand, tick, bead, loop and knot, so the whole set looks drawn by one hand. Hover any glyph to see it sewn in, and star the ones you'd keep.</p>
+    <svg class="mast-thread" viewBox="0 0 1000 44" preserveAspectRatio="none" aria-hidden="true" id="mastThread"></svg>
+  </header>
+</div>
+
+<nav class="rail" aria-label="Glyph controls">
+  <div class="rail-in">
+    <div class="ctl"><label for="wt">Weight</label><input id="wt" type="range" min="1" max="2.6" step="0.1" value="1.6"><span id="wtv" class="mono">1.6</span></div>
+    <div class="ctl">Size <span class="seg" id="sizeSeg">
+      <button data-v="16">16</button><button data-v="20">20</button><button data-v="28">28</button><button data-v="40" aria-pressed="true">40</button><button data-v="64">64</button></span></div>
+    <div class="ctl">Thread <span class="seg" id="threadSeg">
+      <button data-v="red" aria-pressed="true">Identity</button><button data-v="devil">Deep</button><button data-v="ink">Ink</button></span></div>
+    <div class="ctl">Bead <span class="seg" id="beadSeg">
+      <button data-v="gold" aria-pressed="true">Gold</button><button data-v="red">Thread</button></span></div>
+    <div class="ctl">Ground <span class="seg" id="groundSeg">
+      <button data-v="pitch">Pitch</button><button data-v="panel" aria-pressed="true">Panel</button><button data-v="panel2">Raised</button><button data-v="paper">Paper</button></span></div>
+    <button class="btn" id="sewAll">Sew all</button>
+    <button class="btn" id="motionBtn" aria-pressed="true">Motion on</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="ch" id="grammar">
+    <div class="ch-head"><span class="ch-num">01</span><h2>The grammar</h2>
+      <p class="ch-dek">Twelve primitives, each with one job. Every glyph further down is a sentence made from these words. Gold only ever means something proven: a goal, a trophy, a verified number.</p></div>
+    <div class="grammar" id="grammarGrid"></div>
+  </section>
+
+  <section class="ch" id="wayfinding">
+    <div class="ch-head"><span class="ch-num">02</span><h2>Wayfinding, rethreaded</h2>
+      <p class="ch-dek">The ten navigation icons, current set on the left, thread set on the right. The current icons are borrowed from generic UI (a compass, a database, a line chart); each thread version draws the destination from what the section holds.</p></div>
+    <div class="tray wide" id="navTray"></div>
+    <h3>Utility glyphs</h3>
+    <div class="tray" id="utilTray"></div>
+  </section>
+
+  <section class="ch" id="events">
+    <div class="ch-head"><span class="ch-num">03</span><h2>Match events</h2>
+      <p class="ch-dek">Small marks for timelines, lineups and match rows. The house rule applies here too: position carries the side. United events sit above the thread and opponent events hang below it.</p></div>
+    <div class="tray" id="eventTray"></div>
+  </section>
+
+  <section class="ch" id="results">
+    <div class="ch-head"><span class="ch-num">04</span><h2>Result, form and coverage</h2>
+      <p class="ch-dek">W-D-L as tension, not only colour: a win lifts the thread, a draw keeps it level, a loss pulls it down, so the shape survives greyscale. Coverage is drawn as weave density, using the record's real completeness figures.</p></div>
+    <div class="tray" id="resultTray"></div>
+    <h3>Coverage as weave · real figures, all 6,028 matches</h3>
+    <div class="tray" id="coverTray"></div>
+  </section>
+
+  <section class="ch" id="bridges">
+    <div class="ch-head"><span class="ch-num">05</span><h2>Where thread meets football</h2>
+      <p class="ch-dek">The nostalgic bridge: football already has thread in it. Laced leather balls, laced collars, knitted bar scarves, goal nets, perforated ticket stubs and stitched programmes. These are the places the brand can draw on memory without reaching for club marks.</p></div>
+    <div class="tray wide" id="bridgeTray"></div>
+  </section>
+
+  <section class="ch" id="marks">
+    <div class="ch-head"><span class="ch-num">06</span><h2>Mark variations</h2>
+      <p class="ch-dek">For play only. The current Threadline first, then five marks each built on a single idea. Hover to watch each one draw itself.</p></div>
+    <div class="tray wide" id="markTray"></div>
+  </section>
+
+  <section class="ch" id="motion">
+    <div class="ch-head"><span class="ch-num">07</span><h2>Motion bench</h2>
+      <p class="ch-dek">Twenty-one working prototypes. Each one starts in its finished state so nothing is hidden at rest. Press its button to run it again. Where a piece breaks the current motion rules in DESIGN.md, it says so.</p></div>
+    <div class="bench">
+
+      <article class="demo">
+        <div class="floor"><div class="links">
+          <a class="sew a1" href="#motion">Show the matches<svg viewBox="0 0 100 7" preserveAspectRatio="none" aria-hidden="true"><path d="M0 3.5Q50 6.5 100 3.5" pathLength="1"/></svg></a>
+          <a class="sew a2" href="#motion">Follow the thread</a>
+          <a class="sew a3" href="#motion"><span class="lbl">Cite this answer</span><svg viewBox="0 0 100 7" preserveAspectRatio="none" aria-hidden="true"><path class="sag" d="M0 2Q50 9 100 2"/><path class="taut" d="M0 3.5H100" pathLength="1"/></svg></a>
+        </div></div>
+        <div class="meta"><b>Sewn links</b><span>Three hover treatments. A thread draws in and lands a bead, a running stitch is sewn left to right, or a slack thread pulls taut and tugs the label.</span><span class="where">Links · evidence routes · "Show the matches"</span></div>
+        <div class="acts"><span class="cap">Hover or tab to each</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg viewBox="0 0 320 90" aria-label="Running stitch loader">
+          <defs><mask id="revMask"><path d="M16 48C60 14 96 80 160 46S250 14 304 46" fill="none" stroke="#fff" stroke-width="16" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1">
+            <animate attributeName="stroke-dashoffset" values="1;0;0" keyTimes="0;0.82;1" dur="2.8s" repeatCount="indefinite"/></path></mask></defs>
+          <path d="M16 48C60 14 96 80 160 46S250 14 304 46" fill="none" stroke="var(--pale)" stroke-width="1" opacity=".25"/>
+          <path d="M16 48C60 14 96 80 160 46S250 14 304 46" fill="none" stroke="var(--thread)" stroke-width="2.4" stroke-dasharray="9 7" mask="url(#revMask)"/>
+          <g><path d="M-14 0H10M10 0l-3 -1.6M-10 0h3" stroke="var(--pale)" stroke-width="1.8" stroke-linecap="round" fill="none"/><ellipse cx="-11" cy="0" rx="2.4" ry="1.1" fill="none" stroke="var(--pale)" stroke-width="1"/>
+            <animateMotion dur="2.8s" repeatCount="indefinite" rotate="auto" keyPoints="0;1;1" keyTimes="0;0.82;1" calcMode="linear" path="M16 48C60 14 96 80 160 46S250 14 304 46"/></g>
+          <text x="160" y="84" text-anchor="middle" class="mono" font-size="11" fill="var(--pale)">Stitching the record</text>
+        </svg></div>
+        <div class="meta"><b>Running-stitch loader</b><span>A needle leads and the stitches appear behind it. It reads as work being done, where a spinner only reads as waiting.</span><span class="where">Search pending · route loading · export</span></div>
+        <div class="acts"><span class="cap">Loops continuously</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="gap:10px"><svg id="knit" viewBox="0 0 300 58" aria-label="Knitted scarf progress bar"></svg><div class="cap" id="knitCount" style="text-align:center">6,028 of 6,028 matches</div></div>
+        <div class="meta"><b>Knitted progress</b><span>A bar scarf knits itself column by column in red, white and black, and its tassels only appear when it's finished. It's the fan's own piece of thread.</span><span class="where">Dataset download · long loads · journey progress</span></div>
+        <div class="acts"><button class="chip" data-play="knit">▶ Replay</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg id="pluck" viewBox="0 0 320 130" aria-label="1999 final goals plucking the thread"></svg></div>
+        <div class="meta"><span class="flag">Breaks the no-bounce rule, deliberately</span><b>The pluck · Camp Nou, 26 May 1999</b><span>Each goal lands on a taut thread at its real minute and the thread rings. Basler's 6′ pushes up from below. Sheringham at 90+1′ and Solskjær at 90+3′ drop from above, and the winner rings loudest. The oscillation is justified here because a plucked string is literal.</span><span class="where">Match hero · MatchFlow goal moments</span></div>
+        <div class="acts"><button class="chip" data-play="pluck">▶ Replay</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg id="loopfold" class="run" viewBox="0 0 320 124" aria-label="Loop folding from 1968 to 2008">
+          <ellipse class="gw" cx="234" cy="64" rx="10" ry="10"/>
+          <path class="ln" d="M8 64H312" pathLength="1"/>
+          <path class="tk" d="M86 58v12M200.5 59v10M234 56v16M40 60v8M140 60v8M280 60v8"/>
+          <path class="lp" d="M86 64C120 64 140 26 185 26C215 26 234 44 234 64C234 84 215 102 185 102C140 102 120 64 86 64" pathLength="1"/>
+          <circle class="bd" cx="86" cy="64" r="5.5"/>
+          <text x="86" y="84" text-anchor="middle">1968</text>
+          <text x="200.5" y="84" text-anchor="middle">1999</text>
+          <text class="late" x="244" y="84">2008</text>
+          <text class="late" x="160" y="120" text-anchor="middle">European Cup, 1968 · Champions League, 2008</text>
+        </svg></div>
+        <div class="meta"><b>The loop-fold</b><span>The rhyme from the identity films as a UI moment. The thread runs forward, then folds back to connect two nights forty years apart. It gives "connection across eras" a single motion.</span><span class="where">Stories · "this happened before" callouts</span></div>
+        <div class="acts"><button class="chip" data-play="loopfold">▶ Replay</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg viewBox="0 0 320 96" aria-label="Evidence handoff along the thread" id="handoff">
+          <defs><filter id="glow" x="-2" y="-2" width="5" height="5"><feGaussianBlur stdDeviation="4"/></filter></defs>
+          <path d="M20 40H300" stroke="var(--thread)" stroke-width="2" opacity=".85"/>
+        </svg></div>
+        <div class="meta"><b>Evidence handoff</b><span>A pulse carries the answer down the thread, and each station lights as it's reached: answer, evidence, the matches, definition, coverage. These are the five stations of the existing answer spine.</span><span class="where">Question pages · share cards · first-visit hint</span></div>
+        <div class="acts"><span class="cap">Loops continuously</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="gap:4px"><div class="mono" id="tautNum" style="font-size:44px;font-weight:500;letter-spacing:-0.02em">6,028</div><svg id="taut" viewBox="0 0 320 40" aria-hidden="true"></svg><div class="cap">matches in the record, 1886–2026</div></div>
+        <div class="meta"><b>Pull taut</b><span>A stat reveal. A slack thread tightens while the figure counts up, and it goes straight once the number is final. The motion says that this number is now fixed.</span><span class="where">Record figures · plate headlines</span></div>
+        <div class="acts"><button class="chip" data-play="taut">▶ Replay</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><button class="bowbtn" id="bow" aria-pressed="false">
+          <svg viewBox="0 0 44 26" aria-hidden="true"><path class="straight" d="M4 13H40"/>
+            <path class="bow" pathLength="1" d="M22 13.5C19 8.4 13 7.9 13.1 11.5C13.2 15.1 18.4 15.3 22 13.5C25.6 15.3 30.8 15.1 30.9 11.5C31 7.9 25 8.4 22 13.5L19 21.5M22 13.5L25 21.5"/>
+            <circle class="knot" cx="22" cy="13.6" r="2.4"/></svg>
+          <span id="bowLbl">Save this night</span></button></div>
+        <div class="meta"><b>Tie a bow</b><span>Saving ties a bow in the thread, like a string round your finger so you remember. Pressing again unties it.</span><span class="where">Save · collection · "remember this"</span></div>
+        <div class="acts"><span class="cap">Press the button</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg id="tag" viewBox="0 0 160 130" style="max-width:190px" aria-label="Evidence tag on a string">
+          <circle cx="80" cy="10" r="3" fill="var(--pale)"/>
+          <g class="swing">
+            <path d="M80 10C79 22 81 30 80 42" fill="none" stroke="var(--thread)" stroke-width="1.8"/>
+            <path d="M48 50L80 38L112 50V120H48Z" fill="#efe6d6"/>
+            <circle cx="80" cy="50" r="3.2" fill="var(--ground)" stroke="#b9a996"/>
+            <text x="80" y="72" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#6b5f58" letter-spacing="1">EVIDENCE</text>
+            <text x="80" y="90" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1f1917">us:match</text>
+            <text x="80" y="104" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1f1917">1999-05-26</text>
+          </g>
+        </svg></div>
+        <div class="meta"><b>The evidence tag</b><span>Citing something hangs a museum tag on it, and the tag swings once as it's copied. The citable ID in the prototype is only an example.</span><span class="where">Cite this · ShareCite · copy ID</span></div>
+        <div class="acts"><button class="chip" id="tagBtn">Cite</button><span class="cap" id="tagMsg"></span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><div class="spine-demo">
+          <div class="spine" id="spine"><div class="trk"></div><div class="fill"></div></div>
+          <div class="spine-scroll" id="spineScroll" tabindex="0" aria-label="Scrollable answer">
+            <section><b>Answer</b><p>United won all three competitions that finished in May 1999, and the last two in the final eleven days.</p></section>
+            <section><b>Evidence</b><p>The three deciders: Spurs at home on 16 May, Newcastle at Wembley on 22 May, Bayern at the Camp Nou on 26 May.</p></section>
+            <section><b>The matches</b><p>All 63 matches of 1998–99, one row each, each one linked.</p></section>
+            <section><b>Definition</b><p>A treble here means league, FA Cup and European Cup in one season.</p></section>
+            <section><b>Coverage</b><p>Results are complete. Scorers and minutes are recorded for every match in this season.</p></section>
+          </div></div></div>
+        <div class="meta"><b>Scroll spine</b><span>Scrolling pulls the thread through the answer's stations, and each one turns gold once you've read past it. This is the existing AnswerThread idea as a reusable part.</span><span class="where">Questions · stories · long records</span></div>
+        <div class="acts"><span class="cap">Scroll inside the panel</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="gap:14px">
+          <button class="tog" role="switch" aria-checked="true" id="tog1"><span class="track"><span class="red"></span><span class="bead"></span></span>League matches only</button>
+          <button class="tog" role="switch" aria-checked="false" id="tog2"><span class="track"><span class="red"></span><span class="bead"></span></span>Include friendlies</button>
+        </div>
+        <div class="meta"><b>Bead switch</b><span>A bead slides along a thread and the thread fills red behind it. When it's on, the bead turns gold.</span><span class="where">Filters · settings · per-90 toggles</span></div>
+        <div class="acts"><span class="cap">Press either switch</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg id="tangle" viewBox="0 0 320 100" aria-label="Tangled thread resolving into results"></svg></div>
+        <div class="meta"><b>Untangle</b><span>A search runs as a tangle pulling straight, and the results appear as ticks along the straightened line. Loading and resolving become one gesture.</span><span class="where">Search · command palette · answer box</span></div>
+        <div class="acts"><button class="chip" data-play="tangle">▶ Tangle &amp; search</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><svg id="net" viewBox="0 0 320 170" aria-label="Ball bead bulging a woven goal net"></svg></div>
+        <div class="meta"><span class="flag">Oscillates · playful tier</span><b>Net ripple</b><span>A goal net is woven thread. The bead hits it, the weave takes the strain and pulls toward the impact, then settles.</span><span class="where">Goal highlights · 404 easter egg · film</span></div>
+        <div class="acts"><button class="chip" data-play="net">▶ Shoot</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="gap:6px"><svg id="fray" viewBox="0 0 320 110" aria-hidden="true">
+          <path d="M10 60H160" stroke="var(--thread)" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M10 54v12M60 55v10M110 54v12" stroke="var(--pale)" stroke-width="1.3"/>
+          <g>
+            <path class="fib" d="M160 60C180 57 196 48 214 36" fill="none" stroke="var(--thread)" stroke-width="1" stroke-linecap="round" opacity=".9"/>
+            <path class="fib" d="M160 60C184 60 204 62 226 58" fill="none" stroke="var(--thread)" stroke-width="1" stroke-linecap="round" opacity=".8"/>
+            <path class="fib" d="M160 60C182 64 198 74 212 88" fill="none" stroke="var(--thread)" stroke-width="1" stroke-linecap="round" opacity=".75"/>
+            <path class="fib" d="M160 60C174 56 190 52 206 50" fill="none" stroke="var(--thread)" stroke-width=".7" stroke-linecap="round" opacity=".6"/>
+            <path class="fib" d="M160 60C176 66 188 68 204 72" fill="none" stroke="var(--thread)" stroke-width=".7" stroke-linecap="round" opacity=".55"/>
+          </g>
+        </svg><div class="cap">No fixture recorded for this date.</div></div>
+        <div class="meta"><b>The loose end</b><span>An empty state or 404: the thread frays out and moves gently, as if in air. It reads as unknown rather than zero.</span><span class="where">404 · empty filters · "before records began"</span></div>
+        <div class="acts"><span class="cap">Ambient</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><div class="ticket" tabindex="0" aria-label="Match ticket">
+          <div class="main"><span class="k">CAMP NOU · BARCELONA</span><span class="v">Man Utd v Bayern</span><span class="d">Wed 26 May 1999 · Final</span><span class="d" style="color:var(--devil)">2–1</span></div>
+          <div class="stub"><span>ADMIT ONE</span></div></div></div>
+        <div class="meta"><b>Ticket tear</b><span>A match card as a ticket stub. On hover the stub pulls away along its stitched perforation. It could be the affordance for "open this match".</span><span class="where">Match cards · on-this-day · surprise</span></div>
+        <div class="acts"><span class="cap">Hover or tab to the ticket</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="gap:12px"><svg id="weave" viewBox="0 0 250 130" style="max-width:260px" aria-label="Coverage weave"></svg>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center"><input type="range" id="weaveR" min="0" max="100" step="0.1" value="81.1" aria-label="Coverage percent"><span class="mono" id="weaveV" style="min-width:4.5em">81.1%</span></div></div>
+        <div class="meta"><b>Coverage weave</b><span>Coverage shown as fabric. Complete rows are woven over and under, the partial row is tacked in running stitch, and missing rows leave the warp bare. The presets use real figures.</span><span class="where">Coverage notes · data page · facet chips</span></div>
+        <div class="acts"><button class="chip" data-w="100">Results 100%</button><button class="chip" data-w="99.9">Line-ups 99.9%</button><button class="chip" data-w="81.1">Goal events 81.1%</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="padding:0;min-height:200px"><canvas id="rope" style="width:100%;height:200px;display:block;touch-action:none;cursor:crosshair" aria-label="Interactive thread following the pointer"></canvas></div>
+        <div class="meta"><span class="flag">Pure delight · theatre tier</span><b>Pull the thread</b><span>The thread comes off a spool pinned at the left and follows your pointer, with a gold bead at the end. It's a toy, but it could greet a first visit or brighten a 404.</span><span class="where">404 · journey intro · "pull the thread" CTA</span></div>
+        <div class="acts"><span class="cap">Move or drag across it</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><button class="copybtn" id="copyBtn"><svg viewBox="0 0 22 22" aria-hidden="true"><rect class="clip" x="5" y="4" width="12" height="15" rx="2"/><g id="copyStitches"></g></svg><span id="copyLbl">Copy citation</span></button></div>
+        <div class="meta"><b>Cross-stitch confirm</b><span>The tick is sewn in stitch by stitch. It's a small confirmation that fits the material.</span><span class="where">Copy link · copy citation · correction sent</span></div>
+        <div class="acts"><span class="cap">Press to copy a sample citation</span></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor"><div class="wipe" id="wipe">
+          <div class="pane pa"><span class="y">1968 · WEMBLEY</span><span class="s">United 4–1 Benfica</span><span class="n">European Cup final · after extra time</span></div>
+          <div class="pane pb"><span class="y">2008 · MOSCOW</span><span class="s">United 1–1 Chelsea</span><span class="n">Champions League final · won 6–5 on penalties</span></div>
+          <div class="th"><svg viewBox="0 0 14 170" preserveAspectRatio="none"><path d="M7 0C2 30 12 60 7 85S2 140 7 170" fill="none" stroke="var(--thread)" stroke-width="2.2" vector-effect="non-scaling-stroke"/></svg></div>
+        </div></div>
+        <div class="meta"><b>Thread wipe</b><span>The thread is drawn across and pulls the next record in behind it. It could be a page transition between linked nights, and it reverses cleanly.</span><span class="where">Story chapters · prev/next season · rhymes</span></div>
+        <div class="acts"><button class="chip" id="wipeBtn">Next night →</button></div>
+      </article>
+
+      <article class="demo">
+        <div class="floor" style="padding:10px"><svg id="flood" class="on" viewBox="0 0 320 170" aria-label="Floodlight pylons switching on"></svg></div>
+        <div class="meta"><b>Floodlights on</b><span>Match-night atmosphere as a single moment. The lamps flicker on in sequence and the pitch line comes up under them. The lamp heads are a grid of beads.</span><span class="where">Evening hero · "tonight in history"</span></div>
+        <div class="acts"><button class="chip" data-play="flood">▶ Switch on</button></div>
+      </article>
+
+      <article class="demo" style="grid-column:1/-1">
+        <div class="floor" style="gap:12px;min-height:150px"><div class="stream-view"><svg id="stream" aria-label="1998–99 season results as a moving thread"></svg></div><div class="cap" id="streamCap"></div></div>
+        <div class="meta"><b>The season thread · 1998–99, every result in order</b><span>A form strip as a slow, endless thread. A win ticks up in yellow, a draw is a small grey point and a loss ticks down in red. The three matches that decided trophies are tied as gold knots. It could sit as ambient header texture on a season page, fed by the real sequence.</span><span class="where">Season hero · on-this-day header · film lower-third</span></div>
+        <div class="acts"><span class="cap">Ambient loop</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="ch" id="context">
+    <div class="ch-head"><span class="ch-num">08</span><h2>In context</h2>
+      <p class="ch-dek">Three quick placements to judge the sets at working size, with real rows from the record.</p></div>
+    <div class="ctx">
+      <article class="demo"><div class="floor"><nav class="nav-mock" id="navMock" aria-label="Mock navigation"></nav></div>
+        <div class="meta"><b>Sidebar at 20px</b><span>The primary five plus More, with Matches selected.</span></div>
+        <div class="acts"><span class="seg" id="navSwap"><button data-v="new" aria-pressed="true">Thread set</button><button data-v="old">Current</button></span></div></article>
+      <article class="demo"><div class="floor"><div id="mrows" style="width:100%"></div></div>
+        <div class="meta"><b>Match rows with event threads</b><span>A micro MatchFlow. United goals sit above as gold beads and opponent goals hang below as pale beads, each at its real minute.</span></div></article>
+      <article class="demo"><div class="floor"><div class="form" id="form"></div></div>
+        <div class="meta"><b>Form strip · final ten of 1998–99</b><span>Tension glyphs paired with letters, since colour is never the only cue.</span></div></article>
+    </div>
+  </section>
+
+  <footer>Prototype bench for Red Thread · <span class="mono">docs/mockups/glyph-lab.html</span>. Figures come from the canonical record (6,028 matches, 30 Oct 1886 to 24 May 2026; line-ups recorded for 99.9%, goal events complete for 81.1%). The citation ID and ticket are illustrations, not archive evidence. Not affiliated with Manchester United FC.</footer>
+</main>
+
+<div class="picks" id="picks">
+  <div class="panel" id="picksPanel" hidden><b>Starred</b><ol id="picksList"></ol><p id="picksEmpty">Star a glyph or motion to collect it here, then copy the list back into chat.</p><div style="display:flex;gap:6px;margin-top:8px"><button class="btn" id="picksCopy">Copy list</button><button class="btn" id="picksClear">Clear</button></div></div>
+  <button class="btn primary" id="picksBtn" aria-expanded="false">★ Picks <span id="picksN" class="mono">0</span></button>
+</div>
+
+<script>
+(() => {
+const NS = "http://www.w3.org/2000/svg";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+const easeIO = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+/* ============================ real data ============================ */
+const TREBLE = "LWDDDWWDLWDWWWDWWWDWWLDWLDDDDLWDWWWWWWWWDWWWDWWDWDDDWWWDWDWDWWW"; // 1998–99, in date order
+
+/* ============================ glyph library ============================ */
+// classes: t thread · p pale · h/hb halo (over-under) · b gold bead · br thread bead · bp pale bead · bo hollow bead
+const GRAMMAR = [
+  ["strand", "Strand", "Continuity, the line from 1886 to now.", `<path class="t" d="M2 13C6 13 7.5 10 12 10S18 13 22 13"/>`],
+  ["tick", "Tick", "A fixture. Pale, because the record is the ground.", `<path class="t" d="M2 12H22"/><path class="p" d="M5 9.5v5M9.5 10.5v3M14 9.5v5M18.5 10.5v3"/>`],
+  ["bead", "Bead", "A proven fact, such as a goal, a trophy or a verified figure.", `<path class="t" d="M2 12H22"/><circle class="b" cx="12" cy="12" r="2.8"/>`],
+  ["loop", "Loop", "A rhyme across eras, where the thread folds back to an earlier night.", `<path class="t" d="M1.5 12H22.5"/><path class="p" d="M4 10.5v3"/><path class="t" d="M8 12C10.2 12 11 6.5 15 6.5C18.4 6.5 20.5 9 20.5 12C20.5 15 18.4 17.5 15 17.5C11 17.5 10.2 12 8 12"/><circle class="b" cx="8" cy="12" r="2"/>`],
+  ["knot", "Knot", "A fixed point to save, mark and remember.", `<path class="t" d="M2 15C6 15 8 15 10.5 12.5C13 10 14 6.5 11.8 6C9.6 5.5 8.6 8.6 9.8 10.8C10.6 12.2 11.4 13.4 12.6 14.2C14.5 15.3 17 15 22 15"/><path class="hb" d="M9.8 10.8C10.6 12.2 11.4 13.4 12.6 14.2"/><path class="t" d="M9.8 10.8C10.6 12.2 11.4 13.4 12.6 14.2"/>`],
+  ["stitch", "Stitch", "Partial or mended coverage that's still being sewn.", `<path class="p dimmed" d="M2 7.5H22M2 16.5H22"/><path class="t st" d="M3 12H21"/>`],
+  ["tension", "Tension", "Result as shape: lifted, level or pulled down.", `<path class="t" d="M2 9C4.5 9 5 5 7 5S9.5 9 12 9"/><path class="t" d="M12 12H22" opacity=".6"/><path class="t" d="M2 16H7C9 16 9.5 20 12 20" opacity=".35"/><circle class="b" cx="7" cy="5.2" r="1.5"/>`],
+  ["splice", "Splice", "Two strands joined, as in a transfer, a substitution or a comparison.", `<path class="p" d="M2 14.5C6 14.5 8 12 15 12"/><path class="t" d="M22 9.5C18 9.5 16 12 9 12"/><path class="t" d="M10.5 9.8v4.4M12.3 9.8v4.4M14.1 9.8v4.4"/>`],
+  ["weave", "Weave", "The whole record as fabric, where density means coverage.", weave24(1)],
+  ["fray", "Fray", "Beyond the record: unknown, not zero.", `<path class="t" d="M2 12H14"/><path class="t fb" d="M14 12C16.5 11.6 18.5 10.2 21 8.4M14 12C16.8 12 19 12.5 22 12.2M14 12C16.4 12.6 18.4 14.2 20.4 16"/>`],
+  ["spool", "Spool", "Held in reserve: something loading, an era, a tenure.", `<rect class="p" x="5" y="3" width="14" height="2.6" rx="1.1"/><rect class="p" x="5" y="18.4" width="14" height="2.6" rx="1.1"/><path class="t" d="M7.5 7.6L16.5 8.4M7.5 10L16.5 10.8M7.5 12.4L16.5 13.2M7.5 14.8L16.5 15.6C19.4 15.9 21 13.6 21.8 10.4"/>`],
+  ["needle", "Needle", "Pulling through: to discover, to cite, to pin to a source.", `<path class="p" d="M3.5 20.5L15.9 6.3C16.9 5.1 18.7 4.8 19.3 5.5C19.9 6.2 19.4 7.8 18.2 8.5Z"/><path class="t" d="M17.4 6.8C21.5 8.5 22 12.5 18.5 14C15 15.5 11 13.8 9.5 17C8.7 18.7 9.6 20.4 11.5 21M17.4 6.8C16.6 6 15.8 5.2 14.6 4.4"/>`],
+];
+
+// current icons, copied from components/nav/NavIcons.tsx for comparison
+const OLD = {
+  journey: `<path d="M3 12h4c2.5 0 2.5-6 5-6s2.5 12 5 12h4"/><circle cx="3" cy="12" r="1.25"/><circle cx="12" cy="6" r="1.25"/><circle cx="21" cy="18" r="1.25"/>`,
+  discover: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
+  matches: `<rect x="4" y="3" width="16" height="18" rx="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="12" cy="12" r="3"/><path d="M8 3v3h8V3"/><path d="M8 21v-3h8v3"/>`,
+  seasons: `<line x1="3" y1="12" x2="21" y2="12"/><line x1="6" y1="8" x2="6" y2="12"/><circle cx="6" cy="6" r="2"/><line x1="12" y1="12" x2="12" y2="16"/><circle cx="12" cy="18" r="2"/><line x1="18" y1="8" x2="18" y2="12"/><circle cx="18" cy="6" r="2"/>`,
+  players: `<path d="M 5,3 C 8,2 9,3.5 12,3.5 C 15,3.5 16,2 19,3 L 23,7 C 22,8.5 20,9.5 19,9.5 L 19,21 C 19,21.5 18.5,22 18,22 L 6,22 C 5.5,22 5,21.5 5,21 L 5,9.5 C 4,9.5 2,8.5 1,7 Z"/><path d="M 9,3.5 C 9,5.5 15,5.5 15,3.5"/>`,
+  managers: `<circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4h-2l-2 3-2-3H8a4 4 0 0 0-4 4v2"/><path d="M12 18L11 22L12 23.5L13 22Z"/>`,
+  opponents: `<path d="M12 3 4 7v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V7l-8-4z"/><line x1="12" y1="3" x2="12" y2="22"/>`,
+  analytics: `<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>`,
+  transfers: `<path d="m17 2 4 4-4 4"/><path d="M21 6H3"/><path d="m7 22-4-4 4-4"/><path d="M3 18h18"/>`,
+  data: `<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/>`,
+};
+
+const NAV = [
+  ["journey", "Stories", "The loop-fold: a story connects a night to its echo.", `<path class="t" d="M1.5 12H22.5"/><path class="p" d="M4 10.5v3"/><path class="t" d="M8 12C10.2 12 11 6.5 15 6.5C18.4 6.5 20.5 9 20.5 12C20.5 15 18.4 17.5 15 17.5C11 17.5 10.2 12 8 12"/><circle class="b" cx="8" cy="12" r="2"/>`],
+  ["discover", "Discover", "The needle's eye: a lens you pull the thread through.", GRAMMAR[11][3]],
+  ["matches", "Matches", "A ticket stub, with the perforation sewn in thread.", `<path class="p" d="M3 6H14A2 2 0 0 0 18 6H21V18H18A2 2 0 0 0 14 18H3Z"/><path class="t st" d="M16 8.6V15.4"/><path class="p" d="M6 10.5H11M6 13.5H9.5"/>`],
+  ["seasons", "Seasons", "A bracketed run of fixtures with one proven moment in it.", `<path class="p" d="M4.5 7V5.5H19.5V7"/><path class="t" d="M2 13H22"/><path class="p" d="M4.5 10.5v5M8.25 11.5v3M12 10.5v5M19.5 10.5v5"/><circle class="b" cx="15.75" cy="13" r="2"/>`],
+  ["players", "Players", "A laced collar, the way shirts were once tied at the neck.", `<path class="p" d="M8 3.5L3 6.5L4.8 10.5L7 9.6V20.5H17V9.6L19.2 10.5L21 6.5L16 3.5C15 5 13.6 5.8 12 5.8C10.4 5.8 9 5 8 3.5Z"/><path class="p" d="M12 5.8V10"/><path class="t" d="M10.7 6.2L13.3 7.3L10.8 8.4L13.2 9.5M12 10C11.4 11.2 10.8 12 10 12.8M12 10C12.6 11.2 13.2 12 14 12.8"/>`],
+  ["managers", "Managers", "A spool. Each manager holds the thread for an era.", GRAMMAR[10][3]],
+  ["opponents", "Opponents", "A twisted pair. A rivalry is two threads wound together.", `<path class="p" d="M2 16C7 16 9 8 12 8"/><path class="h" d="M2 8C7 8 9 16 12 16C15 16 17 8 22 8"/><path class="t" d="M2 8C7 8 9 16 12 16C15 16 17 8 22 8"/><path class="hb" d="M12 8C15 8 17 16 22 16"/><path class="p" d="M12 8C15 8 17 16 22 16"/>`],
+  ["analytics", "Analytics", "An Elo thread over its 1500 baseline, with the peak beaded.", `<path class="p pd" d="M2 14H22"/><path class="t" d="M2 17C5 17 6 11 9 12C12 13 12 6 15 5.5C18 5 18 13 22 11"/><circle class="b" cx="15.2" cy="5.5" r="1.9"/>`],
+  ["transfers", "Transfers", "A splice: one club's thread bound into another's.", GRAMMAR[7][3]],
+  ["data", "Data", "Warp and weft, the record as woven fabric.", weave24(1)],
+];
+
+const UTIL = [
+  ["search", "Search", "The lens is a loop of thread and the handle is its tail.", `<path class="t" d="M20.5 20.5L14.4 14.4A6.22 6.22 0 1 1 14.41 14.39"/><circle class="b" cx="14.4" cy="14.4" r="1.7"/>`],
+  ["share", "Share", "The familiar share glyph drawn as one continuous thread.", `<path class="t" d="M18 5C12 5 10 9 6 12C10 15 12 19 18 19"/><circle class="bp" cx="18" cy="5" r="2.1"/><circle class="b" cx="6" cy="12" r="2.3"/><circle class="bp" cx="18" cy="19" r="2.1"/>`],
+  ["cite", "Cite", "An evidence tag on a string.", `<path class="p" d="M20.5 8H11L7 12L11 16H20.5Z"/><circle class="p" cx="10.2" cy="12" r="1"/><path class="p" d="M13.5 11H18M13.5 13.5H16.5"/><path class="t" d="M10.2 12C8 11 6.5 8 6 6C5.5 4 3.5 3 2.5 4"/>`],
+  ["onthisday", "On this day", "A spiral: same date, a turn apart each year.", `<path class="t" d="M12 11.5A2 2 0 0 1 12 15.5A3.5 3.5 0 0 1 12 8.5A5 5 0 0 1 12 18.5A6.5 6.5 0 0 1 12 5.5"/><circle class="bp" cx="12" cy="11.5" r="1.2"/><circle class="b" cx="12" cy="8.5" r="1.5"/><circle class="b" cx="12" cy="5.5" r="1.9"/>`],
+  ["surprise", "Surprise", "A tangle with one bead at the end to pull.", `<path class="t" d="M3 20C6 20 7 16 9 13.5C11.5 10.5 17 9 16 5.8C15 3 10 4.2 10.3 7.8C10.6 11.4 17.5 12.5 18.2 16.2C18.9 19.8 13.8 20.8 12.6 17.8C11.6 15.4 14.5 12.6 20.5 11.8"/><circle class="b" cx="20.5" cy="11.8" r="1.9"/>`],
+  ["corrections", "Corrections", "A darn: a tear in the record, stitched shut.", `<path class="p" d="M3 13L6.5 10.5L9.5 13.5L12.5 10L15.5 13.5L18 11L21 12.5"/><path class="t" d="M5 8.5L6.8 15.5M8.8 8.5L10.6 15.5M12.6 8.5L14.4 15.5M16.4 8.5L18.2 15.5"/>`],
+  ["source", "Source", "The thread leaves the frame toward where the fact came from.", `<path class="p" d="M13 4H5.5A1.5 1.5 0 0 0 4 5.5V18.5A1.5 1.5 0 0 0 5.5 20H18.5A1.5 1.5 0 0 0 20 18.5V11"/><path class="t" d="M9 15C11 15 12.5 12 14.5 9.5C16.5 7 18 5 21 3"/><circle class="b" cx="9" cy="15" r="1.9"/>`],
+  ["filter", "Filter", "An abacus: beads slid along strings.", `<path class="p" d="M3 6.5H21M3 12H21M3 17.5H21"/><circle class="br" cx="15" cy="6.5" r="2.1"/><circle class="br" cx="8" cy="12" r="2.1"/><circle class="br" cx="17" cy="17.5" r="2.1"/>`],
+  ["compare", "Compare", "Two careers crossing at one shared, proven point.", `<path class="p" d="M3 18C9 18 9 12 12 12C15 12 15 6 21 6"/><path class="t" d="M3 6C9 6 9 12 12 12C15 12 15 18 21 18"/><circle class="b" cx="12" cy="12" r="2.3"/>`],
+  ["history", "History", "Knotted at 1886 and frayed at today, because it's still being written.", `<path class="t" d="M3.5 12H17"/><path class="t fb" d="M17 12C18.5 11.6 19.6 10.6 21.2 9.4M17 12C18.8 12 20.2 12.3 22 12.1M17 12C18.5 12.5 19.7 13.6 21 15"/><path class="p" d="M7 9.5v5M10.5 10.5v3M14 9.5v5"/><circle class="b" cx="3.5" cy="12" r="1.6"/>`],
+  ["save", "Save", "Tie a bow in it.", `<path class="t" d="M12 12.5C9.5 8.2 4.5 7.8 4.6 10.8C4.7 13.8 9 14 12 12.5C15 14 19.3 13.8 19.4 10.8C19.5 7.8 14.5 8.2 12 12.5M11.4 13.4L9 20M12.6 13.4L15 20"/><circle class="b" cx="12" cy="12.6" r="1.8"/>`],
+  ["menu", "Menu", "Three threads, with the middle one left slack.", `<path class="t" d="M4 7H20M4 17H20"/><path class="t" d="M4 12C7 12 8 10.5 10 10.5S12.5 13.5 14.5 13.5S17 12 20 12"/>`],
+  ["close", "Close", "An X woven over and under.", `<path class="p" d="M6 18L18 6"/><path class="h" d="M6 6L18 18"/><path class="t" d="M6 6L18 18"/>`],
+  ["timeline", "Scroll through time", "Ticks passing a fixed bead: you are here.", `<path class="t" d="M2 16H22"/><path class="p" d="M4 13.5v5M8 14.5v3M16 14.5v3M20 13.5v5"/><path class="p" d="M12 4V13"/><circle class="b" cx="12" cy="16" r="2.2"/>`],
+];
+
+const EVENTS = [
+  ["goal", "Goal (United)", "A bead sits above the thread.", `<path class="t" d="M2 15H22"/><path class="p" d="M12 15V11.4"/><circle class="b" cx="12" cy="9" r="2.5"/>`],
+  ["oppgoal", "Goal (opponent)", "A pale bead hangs below the thread.", `<path class="t" d="M2 9H22"/><path class="p" d="M12 9V12.6"/><circle class="bp" cx="12" cy="15" r="2.5"/>`],
+  ["ball", "Laced ball", "The old leather ball and its lacing.", `<circle class="p" cx="12" cy="12" r="8.5"/><path class="p" d="M5.2 7.2C8.2 9.5 8.2 14.5 5.2 16.8M18.8 7.2C15.8 9.5 15.8 14.5 18.8 16.8M12 6.5V13.4"/><path class="t" d="M10.4 7.6H13.6M10.4 9.6H13.6M10.4 11.6H13.6"/>`],
+  ["net", "In the net", "The weave takes the strain around the bead.", `<path class="p" d="M3 20V5H21V20"/><path class="p fb" d="M8 5C8 10 10.2 12.5 8 20M16 5C16 10 13.8 12.5 16 20M3 9C8 9 12 10.8 21 9M3 16C8 16 12 14.2 21 16"/><circle class="b" cx="12" cy="12.5" r="2.4"/>`],
+  ["penalty", "Penalty", "Spot to goal, in stitches.", `<path class="p" d="M5 5H19M5 5V9M19 5V9"/><path class="t st" d="M12 16.6V7.5"/><circle class="b" cx="12" cy="19" r="1.9"/>`],
+  ["owngoal", "Own goal", "The thread turns back into its own bead.", `<path class="t" d="M4 12H16C19.5 12 20 6.5 16.5 6.5C13 6.5 11 9.5 9.4 11.1"/><circle class="bp" cx="7.5" cy="12" r="2.4"/>`],
+  ["assist", "Assist", "A pass as a stitched arc, handing the bead on.", `<path class="t st" d="M4.5 17.5C7 8 15 6 19 11.2"/><circle class="p" cx="4" cy="18.2" r="1.3"/><circle class="b" cx="19.4" cy="12.6" r="2.2"/>`],
+  ["brace", "Brace", "Two beads on one thread.", `<path class="t" d="M2 12H22"/><circle class="b" cx="9" cy="12" r="2.3"/><circle class="b" cx="15" cy="12" r="2.3"/>`],
+  ["hattrick", "Hat-trick", "Three beads on one thread.", `<path class="t" d="M2 12H22"/><circle class="b" cx="6.5" cy="12" r="2.2"/><circle class="b" cx="12" cy="12" r="2.2"/><circle class="b" cx="17.5" cy="12" r="2.2"/>`],
+  ["late", "Stoppage-time goal", "The bead falls after the 90′ tick.", `<path class="t" d="M2 12H22"/><path class="p" d="M3 10v4M10.5 10.5v3M18 8.5v7"/><circle class="b" cx="20.4" cy="12" r="2"/>`],
+  ["comeback", "Comeback", "The thread dips below level, then climbs past it.", `<path class="p pd" d="M2 12H22"/><path class="t" d="M2 8C6 8 7 18 11 18C15 18 16 6 21 5.2"/><circle class="b" cx="21" cy="5.2" r="1.9"/>`],
+  ["yellow", "Booking", "A card, tilted.", `<rect class="fw" x="8" y="4" width="8.5" height="13" rx="1.3" transform="rotate(10 12 10.5)"/>`],
+  ["sentoff", "Sent off", "The cut: a thread snipped with a red card over the gap.", `<path class="t" d="M2 14H9M15 14H22"/><path class="t fb" d="M9 14L11 12.8M9 14L11.2 14.3M9 14L10.8 15.6M15 14L13 12.8M15 14L12.8 14.3M15 14L13.2 15.6"/><rect class="fl" x="10" y="3" width="4" height="6" rx=".7"/>`],
+  ["sub", "Substitution", "Two strands swap lanes: red on, pale off.", `<path class="p" d="M3 6C9 6 10 18 16 18H21"/><path class="h" d="M3 18C9 18 10 6 16 6H21"/><path class="t" d="M3 18C9 18 10 6 16 6H21"/>`],
+  ["debut", "Debut", "The first knot at the start of a thread.", `<path class="t" d="M7.5 12H22M7.5 12C5.5 12 3.8 13.2 3.8 11.2C3.8 9.2 6.4 9.2 6.9 10.6C7.3 11.9 6.4 13.7 4.6 14.9"/><path class="p" d="M12 9.5v5M17 10.5v3"/>`],
+  ["farewell", "Last appearance", "A finishing knot, tied off.", `<path class="t" d="M2 12H16.5M16.5 12C18.5 12 20.2 13.2 20.2 11.2C20.2 9.2 17.6 9.2 17.1 10.6C16.7 11.9 17.6 13.7 19.4 14.9"/><path class="p" d="M7 10.5v3M12 9.5v5"/>`],
+  ["captain", "Captain", "An armband bound with thread.", `<path class="p" d="M4 8.5C9 7 15 7 20 8.5V15.5C15 14 9 14 4 15.5Z"/><path class="t" d="M7.5 14.6L9.5 7.9M11 14.3L13 7.7M14.5 14.4L16.5 8.1"/>`],
+  ["aet", "Extra time", "The thread runs past 90′ in stitches.", `<path class="t" d="M2 12H16"/><path class="t st" d="M16 12H22"/><path class="p" d="M3 10v4M9.5 10.5v3M16 8.5v7"/>`],
+  ["pens", "Shoot-out", "Five beads, one of them hollow for a miss.", `<path class="p" d="M2 12H22"/><circle class="b" cx="4" cy="12" r="1.8"/><circle class="b" cx="8" cy="12" r="1.8"/><circle class="bo" cx="12" cy="12" r="1.8"/><circle class="b" cx="16" cy="12" r="1.8"/><circle class="b" cx="20" cy="12" r="1.8"/>`],
+  ["cleansheet", "Clean sheet", "The net is intact and its frame holds.", `<path class="t" d="M3 20V5H21V20"/><path class="p fb" d="M7.5 5V20M12 5V20M16.5 5V20M3 10H21M3 15H21"/>`],
+];
+
+const RESULTS = [
+  ["win", "Win", "The thread is lifted to a yellow bead.", `<path class="t" d="M2 16C7 16 8.5 7 12 7C15.5 7 17 16 22 16"/><circle class="fw" cx="12" cy="7" r="2.6"/>`],
+  ["draw", "Draw", "The thread stays level with two equal points.", `<path class="t" d="M2 12H22"/><circle class="fd" cx="8.5" cy="12" r="2.1"/><circle class="fd" cx="15.5" cy="12" r="2.1"/>`],
+  ["loss", "Loss", "The thread is pulled down to a deep-red bead.", `<path class="t" d="M2 8C7 8 8.5 17 12 17C15.5 17 17 8 22 8"/><circle class="fl" cx="12" cy="17" r="2.6"/>`],
+  ["form", "Form thread", "The final six of 1998–99, drawn as ticks on a thread.", formThread(TREBLE.slice(-6))],
+  ["trophy", "Honours knot", "A trophy is a gold knot, deeper than a win's yellow.", `<path class="t" d="M2 16H8.5C9.5 16 10 14.5 10 13C10 10.5 7.8 9.4 7.8 7.3C7.8 5.2 9.8 4 12 4S16.2 5.2 16.2 7.3C16.2 9.4 14 10.5 14 13C14 14.5 14.5 16 15.5 16H22"/><circle class="b" cx="12" cy="8.4" r="2.4"/>`],
+  ["unbeaten", "Unbeaten run", "The thread never dips below the line.", `<path class="p pd" d="M2 15H22"/><path class="t" d="M2 13C4 13 4.5 9 6.5 9S9 13 11 13C13 13 13.5 8 15.5 8S18.5 12 22 11"/>`],
+];
+
+const BRIDGES = [
+  ["scarf", "Bar scarf", "Knitted rows in red, white and black. The fringe is loose thread.", scarf48(), 48],
+  ["ball48", "Laced ball", "The thread is literally in the ball: lacing through the slot of a pre-war case.", `<g transform="scale(2)">${EVENTS[2][3]}</g>`, 48],
+  ["net48", "Goal net", "Every goal lands in woven thread.", net48(), 48],
+  ["ticket48", "Ticket stub", "The perforation is a line of stitches.", ticket48(), 48],
+  ["collar48", "Laced collar", "Early shirts laced shut at the neck.", `<g transform="scale(2)">${NAV[4][3]}</g>`, 48],
+  ["flood48", "Floodlight", "The lamp head is a grid of beads and the pylon is lattice.", flood48(), 48],
+  ["prog48", "Programme", "Saddle-stitched at the spine.", prog48(), 48],
+];
+
+const MARKS = [
+  ["m-current", "Threadline (current)", "The current mark: a shield silhouette drawn as one strand, with the thread coiling in.", currentMark(), 58],
+  ["m-loop", "The rhyme", "The loop-fold as a mark, one fold back to an earlier night.", markLoop(), 64],
+  ["m-spiral", "The anniversary", "The on-this-day spiral: years wound onto one axis.", `<rect x="1" y="1" width="62" height="62" rx="15" fill="#161312" stroke="#2c2522"/><g transform="translate(4.2 5.5) scale(2.3)" style="--sw:1.1">${UTIL[3][3]}</g>`, 64],
+  ["m-stitch", "The seam", "A thread stitched through the ledger's rules, finishing in a proof bead.", markStitch(), 64],
+  ["m-knot", "The knot", "One overhand knot, the smallest thing that holds.", `<rect x="1" y="1" width="62" height="62" rx="15" fill="#161312" stroke="#2c2522"/><g transform="translate(4 3) scale(2.35)" style="--sw:1.15;--ground:#161312">${GRAMMAR[4][3]}</g><circle class="b" cx="31.4" cy="21.6" r="2.8"/>`, 64],
+  ["m-eye", "The eye", "A needle whose eye is the proof bead.", markEye(), 64],
+];
+
+/* ---------- generators ---------- */
+function weave24(frac) {
+  const xs = [4, 8, 12, 16, 20], ys = [4.5, 8.25, 12, 15.75, 19.5];
+  const rows = ys.length, full = Math.floor(frac * rows + 1e-6), rem = frac * rows - full;
+  let s = `<path class="p" d="${xs.map(x => `M${x} 2.5V21.5`).join("")}"/>`;
+  const woven = ys.slice(0, full);
+  if (woven.length) {
+    const d = woven.map(y => `M2.5 ${y}H21.5`).join("");
+    s += `<path class="h" d="${d}"/><path class="t" d="${d}"/>`;
+    let over = "";
+    woven.forEach((y, i) => xs.forEach((x, j) => { if ((i + j) % 2) over += `M${x} ${y - 1.9}V${y + 1.9}`; }));
+    s += `<path class="hb" d="${over}"/><path class="p pb" d="${over}"/>`;
+  }
+  if (rem > 0.02 && full < rows) {
+    const y = ys[full];
+    s += `<path class="t st" d="M2.5 ${y}H${(2.5 + 19 * rem).toFixed(2)}"/>`;
+  }
+  return s;
+}
+function formThread(seq) {
+  const n = seq.length, step = 20 / (n - 1);
+  let s = `<path class="t" d="M1.5 12H22.5"/>`;
+  [...seq].forEach((r, i) => {
+    const x = (2 + i * step).toFixed(2);
+    if (r === "W") s += `<path class="tw" style="stroke-width:calc(var(--sw)*1.25);stroke-linecap:round" d="M${x} 12V5.5"/>`;
+    else if (r === "L") s += `<path class="tl" style="stroke-width:calc(var(--sw)*1.25);stroke-linecap:round" d="M${x} 12V18.5"/>`;
+    else s += `<circle class="fd" cx="${x}" cy="12" r="1.5"/>`;
+  });
+  return s;
+}
+function scarf48() {
+  const pat = ["R","R","R","R","W","K","W","R","R","R","R"];
+  const col = { R: "var(--thread)", W: "#efe6d6", K: "#3b3230" };
+  let s = "";
+  pat.forEach((c, i) => {
+    const x = 7 + i * 3.1;
+    for (let r = 0; r < 6; r++) {
+      const y = 15 + r * 3.1;
+      s += `<path d="M${x} ${y}L${x + 1.55} ${y + 2.6}L${x + 3.1} ${y}" fill="none" stroke="${col[c]}" stroke-width="1.15" stroke-linejoin="round"/>`;
+    }
+  });
+  for (let r = 0; r < 6; r++) {
+    const y = 16.3 + r * 3.1;
+    s += `<path d="M7 ${y}L2.5 ${y + (r % 2 ? .6 : -.4)}M41.1 ${y}L45.5 ${y + (r % 2 ? -.5 : .5)}" stroke="var(--thread)" stroke-width=".8" stroke-linecap="round" opacity=".85"/>`;
+  }
+  return `<g transform="rotate(-8 24 24)">${s}</g>`;
+}
+function net48() {
+  let s = `<path class="p" style="stroke-width:calc(var(--sw)*1.4)" d="M5 42V8H43V42"/>`;
+  const cx = 26, cy = 24;
+  const pull = (x, y) => { const dx = cx - x, dy = cy - y, f = Math.exp(-(dx*dx + dy*dy) / 180) * 0.45; return [x + dx * f, y + dy * f]; };
+  let d = "";
+  for (let x = 9; x <= 39; x += 5) { d += "M"; for (let y = 8; y <= 42; y += 2) { const [a, b] = pull(x, y); d += `${a.toFixed(2)} ${b.toFixed(2)}L`; } d = d.slice(0, -1); }
+  for (let y = 13; y <= 38; y += 5) { d += "M"; for (let x = 5; x <= 43; x += 2) { const [a, b] = pull(x, y); d += `${a.toFixed(2)} ${b.toFixed(2)}L`; } d = d.slice(0, -1); }
+  s += `<path class="p fb" d="${d}"/><circle class="b" cx="${cx}" cy="${cy}" r="3.6"/>`;
+  return s;
+}
+function ticket48() {
+  return `<path class="p" d="M4 13H30A3 3 0 0 0 36 13H44V35H36A3 3 0 0 0 30 35H4Z"/><path class="t st" style="stroke-dasharray:1.6 1.8" d="M33 17V31"/>
+  <text x="8" y="20.5" font-size="3" letter-spacing=".3">ROW K · 14</text><text x="8" y="28" font-size="5.2" style="fill:var(--thread);font-weight:500">1/-</text><text x="8" y="32" font-size="2.6" letter-spacing=".3">ADMIT ONE</text>
+  <text x="40.5" y="24" font-size="2.6" transform="rotate(90 40.5 24)" text-anchor="middle" letter-spacing=".3">No 0412</text>`;
+}
+function flood48() {
+  let s = `<path class="p" d="M21 46L23.5 24M29 46L26.5 24M21.4 42L28.6 38L22 34L28 30.5L22.8 27L27.2 24.5"/><path class="p" d="M23.5 24L22 21M26.5 24L28 21"/><rect class="p" x="13" y="5" width="24" height="16" rx="1.5"/>`;
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) s += `<circle class="b" cx="${17.5 + c * 5}" cy="${9 + r * 4.5}" r="1.6"/>`;
+  return s;
+}
+function prog48() {
+  return `<path class="p" d="M10 6H38A1.5 1.5 0 0 1 39.5 7.5V40.5A1.5 1.5 0 0 1 38 42H10Z"/><path class="p" d="M13 6V42"/><path class="t" style="stroke-width:calc(var(--sw)*1.2)" d="M13 11.5V16.5M13 31.5V36.5"/><path class="t fb" d="M11 11.5H15M11 16.5H15M11 31.5H15M11 36.5H15"/>
+  <text x="26.5" y="15.5" text-anchor="middle" font-size="3.2" letter-spacing=".6">PROGRAMME</text><path class="p" d="M19 20H34M19 23.5H30"/><circle class="p" cx="26.5" cy="30.5" r="4.5"/><path class="t" d="M19 30.5H22M31 30.5H34"/><text x="26.5" y="39.5" text-anchor="middle" font-size="3">6d</text>`;
+}
+function currentMark() {
+  return `<rect x="1" y="1" width="56" height="56" rx="14" fill="#161312" stroke="#2c2522" stroke-width="1.5"/><g stroke="#ff3b1f" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <path d="M29 8.6C24.1 11.3 18.1 13.3 11.4 14.5C11.6 25.3 12.7 32.7 17.2 38.7C20.3 42.8 24.4 46.1 29 48.7C33.6 46.1 37.7 42.8 40.8 38.7C45.3 32.7 46.4 25.3 46.6 14.5C39.9 13.3 33.9 11.3 29 8.6Z" stroke="#d2aa54"/>
+  <path d="M15.2 23.9C20.4 22 25.3 21.9 29.7 23.8C35.2 26.1 38.8 30.9 40.4 36.8" stroke="#d2aa54" opacity=".58"/>
+  <path d="M25.6 57C25.7 54.3 26.7 50.6 29 47.7C31.1 45 34.3 42.5 36.6 39.3C39.3 35.5 41.2 31.6 41 27.3C40.7 22 37.5 18.6 33 18.3C28.5 18.1 24.9 20.6 24.2 24.2C23.5 27.8 25.6 30.8 29.3 31.5C32.7 32.1 35.6 30 35.9 27.1C36.1 25 35 23.5 33.3 22.9" stroke="#161312" stroke-width="5.9"/>
+  <path class="t" pathLength="1" style="stroke:#ff3b1f;stroke-width:2.35" d="M25.6 57C25.7 54.3 26.7 50.6 29 47.7C31.1 45 34.3 42.5 36.6 39.3C39.3 35.5 41.2 31.6 41 27.3C40.7 22 37.5 18.6 33 18.3C28.5 18.1 24.9 20.6 24.2 24.2C23.5 27.8 25.6 30.8 29.3 31.5C32.7 32.1 35.6 30 35.9 27.1C36.1 25 35 23.5 33.3 22.9"/>
+  <path d="M27.4 31C29.8 31.9 32.1 31.4 33.8 30" stroke="#161312" stroke-width="5.9"/><path d="M27.4 31C29.8 31.9 32.1 31.4 33.8 30"/></g>`;
+}
+function markLoop() {
+  return `<rect x="1" y="1" width="62" height="62" rx="15" fill="#161312" stroke="#2c2522"/>
+  <path class="p" style="stroke-width:1.4" d="M11 29v6M47 28v8"/><path class="t" style="stroke-width:2.6" d="M4 32H60"/>
+  <path class="t" style="stroke-width:2.6" d="M20 32C26 32 28 17 39 17C48 17 53 24 53 32C53 40 48 47 39 47C28 47 26 32 20 32"/><circle class="b" cx="20" cy="32" r="4.4"/>`;
+}
+function markStitch() {
+  return `<rect x="1" y="1" width="62" height="62" rx="15" fill="#161312" stroke="#2c2522"/>
+  <path class="p" style="stroke-width:1.1;opacity:.6" d="M10 21H54M10 32H54M10 43H54"/>
+  <path class="t" style="stroke-width:2.6" d="M8 48C14 48 15 38 19 32M23 26C26 22 29 22 31 26M34 32C37 38 40 38 43 32"/>
+  <path class="t" style="stroke-width:1.6;opacity:.35" d="M19 32C20.5 29.5 21.8 27.6 23 26M31 26C32 28 33 30 34 32"/>
+  <circle class="b" cx="46.5" cy="26" r="4.2"/><path class="t" style="stroke-width:2.6" d="M43 32C44 30 44.8 28.3 45.2 27.6"/>`;
+}
+function markEye() {
+  return `<rect x="1" y="1" width="62" height="62" rx="15" fill="#161312" stroke="#2c2522"/>
+  <path class="p" style="stroke-width:1.8" d="M32 56V26M28.3 24C28.3 15 30 10 32 10S35.7 15 35.7 24C35.7 26 34 27.5 32 27.5S28.3 26 28.3 24Z"/>
+  <path class="t" style="stroke-width:2.6" d="M8 44C16 44 20 21 29.5 19.5M34.5 19.5C44 21 48 44 56 44"/><circle class="b" cx="32" cy="19.5" r="3"/>`;
+}
+
+/* ---------- render ---------- */
+const picks = new Set(store.get("glyphlab.picks", []));
+const names = {};
+
+function svgFor(inner, vb = 24, cls = "gl") {
+  return `<svg class="${cls}" viewBox="0 0 ${vb} ${vb}" aria-hidden="true">${inner}</svg>`;
+}
+function tagSew(root) {
+  $$(".t", root).forEach(el => { if (!el.classList.contains("st") && !el.hasAttribute("pathLength")) el.setAttribute("pathLength", "1"); });
+}
+const starSVG = `<svg viewBox="0 0 12 12"><path d="M6 1l1.5 3.2 3.5.4-2.6 2.4.7 3.5L6 8.8 2.9 10.5l.7-3.5L1 4.6l3.5-.4z" fill="currentColor"/></svg>`;
+function actions(id) {
+  const on = picks.has(id);
+  return `<div class="acts"><button class="chip" data-star="${id}" aria-pressed="${on}">${starSVG}${on ? "Starred" : "Star"}</button><button class="chip" data-copy="${id}">Copy SVG</button></div>`;
+}
+function card(id, name, note, inner, vb = 24, big = false) {
+  names[id] = name;
+  return `<figure class="card" data-id="${id}"><div class="stage${big ? " big" : ""}">${svgFor(inner, vb)}</div><figcaption><b>${name}</b><span>${note}</span></figcaption>${actions(id)}</figure>`;
+}
+function fill(sel, html) { const el = $(sel); el.innerHTML = html; tagSew(el); }
+
+fill("#grammarGrid", GRAMMAR.map(([id, name, note, inner]) => { names["g-" + id] = name; return `<div class="gram"><div class="stage">${svgFor(inner)}</div><b>${name}</b><span>${note}</span></div>`; }).join(""));
+fill("#navTray", NAV.map(([id, name, note, inner]) => {
+  names["n-" + id] = name + " (nav)";
+  return `<figure class="card" data-id="n-${id}"><div class="stage"><span class="vs l">Now</span><svg class="old" viewBox="0 0 24 24" aria-hidden="true">${OLD[id]}</svg><svg class="gl" viewBox="0 0 24 24" aria-hidden="true">${inner}</svg><span class="vs r">Thread</span></div><figcaption><b>${name}</b><span>${note}</span></figcaption>${actions("n-" + id)}</figure>`;
+}).join(""));
+fill("#utilTray", UTIL.map(g => card("u-" + g[0], g[1], g[2], g[3])).join(""));
+fill("#eventTray", EVENTS.map(g => card("e-" + g[0], g[1], g[2], g[3])).join(""));
+fill("#resultTray", RESULTS.map(g => card("r-" + g[0], g[1], g[2], g[3])).join(""));
+fill("#coverTray", [["results", "Results", 1, "Every match has a score."], ["lineups", "Line-ups", 0.999, "99.9%: a single stitch short of the full weave."], ["events", "Goal events", 0.811, "81.1% complete. The fourth row is still being tacked in."], ["sparse", "A thin facet", 0.3, "Example only: how a young facet would look."]]
+  .map(([id, n, f, note]) => card("c-" + id, n, note, weave24(f))).join(""));
+fill("#bridgeTray", BRIDGES.map(g => card("b-" + g[0], g[1], g[2], g[3], g[4], true)).join(""));
+fill("#markTray", MARKS.map(g => card("m-" + g[0], g[1], g[2], g[3], g[4], true)).join(""));
+
+// masthead thread: the Treble season as ticks
+(function mast() {
+  const el = $("#mastThread"); const n = TREBLE.length; let s = `<path d="M0 22H1000" stroke="var(--thread)" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
+  [...TREBLE].forEach((r, i) => { const x = 20 + i * (960 / (n - 1));
+    if (r === "W") s += `<path d="M${x} 22V9" stroke="var(--win)" stroke-width="2" vector-effect="non-scaling-stroke" opacity=".9"/>`;
+    else if (r === "L") s += `<path d="M${x} 22V35" stroke="var(--loss)" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
+    else s += `<path d="M${x} 20V24" stroke="var(--draw)" stroke-width="2" vector-effect="non-scaling-stroke"/>`; });
+  el.innerHTML = s;
+})();
+
+/* ---------- rail controls ---------- */
+function seg(id, fn) {
+  $$("#" + id + " button").forEach(b => b.addEventListener("click", () => {
+    $$("#" + id + " button").forEach(x => x.setAttribute("aria-pressed", x === b)); fn(b.dataset.v);
+  }));
+}
+const bodyDS = document.body.dataset;
+seg("sizeSeg", v => document.documentElement.style.setProperty("--gs", v + "px"));
+seg("threadSeg", v => bodyDS.thread = v);
+seg("beadSeg", v => bodyDS.bead = v);
+seg("groundSeg", v => bodyDS.ground = v);
+bodyDS.ground = "panel";
+$("#wt").addEventListener("input", e => { document.documentElement.style.setProperty("--sw", e.target.value); $("#wtv").textContent = (+e.target.value).toFixed(1); });
+$("#sewAll").addEventListener("click", () => {
+  $$(".stage").forEach(s => { s.classList.remove("sewing"); void s.offsetWidth; s.classList.add("sewing"); });
+  setTimeout(() => $$(".stage").forEach(s => s.classList.remove("sewing")), 1200);
+});
+let motion = !reduced;
+function setMotion(on) {
+  motion = on; document.body.classList.toggle("still", !on);
+  $("#motionBtn").textContent = on ? "Motion on" : "Motion paused"; $("#motionBtn").setAttribute("aria-pressed", on);
+  $$("svg").forEach(s => { try { on ? s.unpauseAnimations() : s.pauseAnimations(); } catch {} });
+}
+$("#motionBtn").addEventListener("click", () => setMotion(!motion));
+
+/* ---------- star / copy ---------- */
+function refreshPicks() {
+  store.set("glyphlab.picks", [...picks]);
+  $("#picksN").textContent = picks.size;
+  $("#picksList").innerHTML = [...picks].map(id => `<li>${names[id] || id} <span class="mono" style="color:var(--pale)">· ${id}</span></li>`).join("");
+  $("#picksEmpty").hidden = picks.size > 0;
+}
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-star]");
+  if (s) { const id = s.dataset.star; picks.has(id) ? picks.delete(id) : picks.add(id);
+    $$(`[data-star="${id}"]`).forEach(b => { b.setAttribute("aria-pressed", picks.has(id)); b.innerHTML = starSVG + (picks.has(id) ? "Starred" : "Star"); }); refreshPicks(); }
+  const c = e.target.closest("[data-copy]");
+  if (c) { const svg = $(`[data-id="${c.dataset.copy}"] svg.gl`); const txt = exportSVG(svg);
+    copyText(txt).then(ok => { c.textContent = ok ? "Copied" : "Copy failed"; setTimeout(() => c.textContent = "Copy SVG", 1400); }); }
+});
+function copyText(t) { try { return navigator.clipboard.writeText(t).then(() => true, () => false); } catch { return Promise.resolve(false); } }
+function exportSVG(svg) {
+  const clone = svg.cloneNode(true); const src = [svg, ...svg.querySelectorAll("*")], dst = [clone, ...clone.querySelectorAll("*")];
+  src.forEach((el, i) => { if (i === 0) return; const cs = getComputedStyle(el), d = dst[i];
+    ["fill", "stroke", "stroke-width", "stroke-linecap", "stroke-linejoin", "stroke-dasharray", "opacity"].forEach(p => { const v = cs.getPropertyValue(p); if (v && v !== "normal") d.setAttribute(p, v.replace(/px/g, "")); });
+    d.removeAttribute("class"); d.removeAttribute("style"); d.removeAttribute("pathLength"); });
+  clone.removeAttribute("class"); clone.setAttribute("xmlns", NS); clone.setAttribute("width", "24"); clone.setAttribute("height", "24");
+  return clone.outerHTML;
+}
+$("#picksBtn").addEventListener("click", () => { const p = $("#picksPanel"); p.hidden = !p.hidden; $("#picksBtn").setAttribute("aria-expanded", !p.hidden); });
+$("#picksClear").addEventListener("click", () => { [...picks].forEach(id => $$(`[data-star="${id}"]`).forEach(b => { b.setAttribute("aria-pressed", false); b.innerHTML = starSVG + "Star"; })); picks.clear(); refreshPicks(); });
+$("#picksCopy").addEventListener("click", () => copyText("Glyph lab picks:\n" + [...picks].map(id => `- ${names[id] || id} (${id})`).join("\n")).then(ok => { $("#picksCopy").textContent = ok ? "Copied" : "Select and copy"; setTimeout(() => $("#picksCopy").textContent = "Copy list", 1400); }));
+refreshPicks();
+
+/* ============================ motion bench ============================ */
+const players = {};
+function raf(dur, step, done) {
+  if (!motion) { step(1); done && done(); return; }
+  const t0 = performance.now();
+  const f = now => { const t = Math.min(1, (now - t0) / dur); step(t); t < 1 ? requestAnimationFrame(f) : done && done(); };
+  requestAnimationFrame(f);
+}
+document.addEventListener("click", e => { const b = e.target.closest("[data-play]"); if (b && players[b.dataset.play]) players[b.dataset.play](); });
+
+/* knitted progress */
+(function knit() {
+  const svg = $("#knit"), pat = ["R","R","R","R","R","R","W","K","K","W"], col = { R: "var(--thread)", W: "#efe6d6", K: "#4a3f3b" };
+  const cols = 42, rows = 5; let s = "";
+  for (let c = 0; c < cols; c++) { const x = 24 + c * 6, k = col[pat[c % pat.length]]; let g = "";
+    for (let r = 0; r < rows; r++) { const y = 8 + r * 8; g += `<path d="M${x} ${y}L${x + 3} ${y + 6}L${x + 6} ${y}" fill="none" stroke="${k}" stroke-width="1.8" stroke-linejoin="round"/>`; }
+    s += `<g class="kc">${g}</g>`; }
+  let fr = ""; for (let r = 0; r < rows; r++) { const y = 11 + r * 8; fr += `M24 ${y}L${12 + (r % 2) * 2} ${y + (r % 2 ? 1 : -1)}M276 ${y}L${288 - (r % 2) * 2} ${y + (r % 2 ? -1 : 1)}`; }
+  s += `<path class="fringe" d="${fr}" stroke="var(--thread)" stroke-width="1.2" stroke-linecap="round" fill="none"/>`;
+  svg.innerHTML = s;
+  const gs = $$(".kc", svg), fringe = $(".fringe", svg), cnt = $("#knitCount");
+  players.knit = () => { fringe.style.opacity = 0; raf(2600, t => { const n = Math.round(t * cols);
+    gs.forEach((g, i) => g.style.opacity = i < n ? 1 : 0.08); cnt.textContent = `${Math.round(6028 * t).toLocaleString("en-GB")} of 6,028 matches`; },
+    () => { fringe.style.transition = "opacity 400ms"; fringe.style.opacity = 1; }); };
+})();
+
+/* pluck — Camp Nou 1999 */
+(function pluck() {
+  const svg = $("#pluck"), X0 = 20, X1 = 300, Y = 66, xm = m => X0 + (X1 - X0) * m / 96, N = 90;
+  const evs = [{ m: 6, side: -1, A: 7, lbl: "Basler 6′", at: 300, col: "var(--pale)" }, { m: 91, side: 1, A: 9, lbl: "Sheringham 90+1′", at: 1500, col: "var(--bead)", ly: 20 }, { m: 93, side: 1, A: 15, lbl: "Solskjær 90+3′", at: 2600, col: "var(--bead)", ly: 36 }];
+  svg.innerHTML = `<path d="M${xm(0)} ${Y - 5}v10M${xm(45)} ${Y - 4}v8M${xm(90)} ${Y - 6}v12" stroke="var(--pale)" stroke-width="1.2"/>
+    <text x="${xm(0)}" y="${Y + 20}" font-size="9" fill="var(--pale)" font-family="IBM Plex Mono,monospace" text-anchor="middle">0′</text>
+    <text x="${xm(45)}" y="${Y + 20}" font-size="9" fill="var(--pale)" font-family="IBM Plex Mono,monospace" text-anchor="middle">45′</text>
+    <text x="${xm(90)}" y="${Y + 20}" font-size="9" fill="var(--pale)" font-family="IBM Plex Mono,monospace" text-anchor="middle">90′</text>
+    <path id="plS" fill="none" stroke="var(--thread)" stroke-width="2.2" stroke-linecap="round"/>
+    ${evs.map((e, i) => `<circle id="plB${i}" r="${i === 2 ? 5.5 : 4.5}" fill="${e.col}" ${i === 2 ? 'stroke="#fff4d4" stroke-width="1"' : ""}/>
+      <text id="plT${i}" font-size="10" font-family="IBM Plex Mono,monospace" fill="${i === 2 ? "var(--bead)" : "var(--pale)"}" text-anchor="end">${e.lbl}</text>`).join("")}
+    <text x="160" y="126" font-size="9.5" fill="var(--pale)" font-family="IBM Plex Mono,monospace" text-anchor="middle">United 2–1 Bayern Munich · Champions League final</text>`;
+  const S = $("#plS", svg);
+  const shape = (x, xk) => x < xk ? (x - X0) / (xk - X0) : (X1 - x) / (X1 - xk);
+  function frame(ms) {
+    const disp = x => evs.reduce((acc, e) => { const land = e.at + 380; if (ms < land) return acc; const t = (ms - land) / 1000;
+      return acc + (-e.side) * e.A * Math.exp(-t / 0.42) * Math.sin(2 * Math.PI * 3.6 * t) * shape(x, xm(e.m)); }, 0);
+    let d = ""; for (let i = 0; i <= N; i++) { const x = X0 + (X1 - X0) * i / N; d += (i ? "L" : "M") + x.toFixed(1) + " " + (Y + disp(x)).toFixed(2); }
+    S.setAttribute("d", d);
+    evs.forEach((e, i) => { const b = $("#plB" + i, svg), tx = $("#plT" + i, svg), x = xm(e.m), r = +b.getAttribute("r");
+      const rest = Y + disp(x) - e.side * r; let y;
+      if (ms < e.at) { b.style.opacity = 0; tx.style.opacity = 0; return; }
+      const p = Math.min(1, (ms - e.at) / 380); b.style.opacity = 1;
+      const start = e.side > 0 ? -10 : 140; y = p < 1 ? start + (rest - start) * p * p : rest;
+      b.setAttribute("cx", x); b.setAttribute("cy", y);
+      tx.style.opacity = p < 1 ? 0 : Math.min(1, (ms - e.at - 380) / 300);
+      if (e.side < 0) { tx.setAttribute("x", x + 10); tx.setAttribute("y", Y + 30); tx.setAttribute("text-anchor", "start"); }
+      else { tx.setAttribute("x", x - 8 - (i === 2 ? 0 : 6)); tx.setAttribute("y", e.ly); } });
+  }
+  frame(99999);
+  players.pluck = () => { if (!motion) return frame(99999); const t0 = performance.now(); const f = n => { const ms = n - t0; frame(ms); if (ms < 5200) requestAnimationFrame(f); }; requestAnimationFrame(f); };
+})();
+
+/* loop fold */
+players.loopfold = () => { const s = $("#loopfold"); s.classList.remove("run"); void s.getBoundingClientRect(); requestAnimationFrame(() => s.classList.add("run")); };
+
+/* evidence handoff (SMIL, synced) */
+(function handoff() {
+  const svg = $("#handoff"), xs = [20, 90, 160, 230, 300], lbl = ["Answer", "Evidence", "Matches", "Definition", "Coverage"], D = 3.2;
+  let s = "";
+  xs.forEach((x, i) => { const begin = (0.7 * D * i / 4).toFixed(3);
+    s += `<circle cx="${x}" cy="40" r="${i ? 5 : 6.5}" fill="${i ? "var(--ground)" : "var(--bead)"}" stroke="${i ? "var(--pale)" : "var(--bead)"}" stroke-width="2">
+      <animate attributeName="stroke" values="var(--pale);#ffe9a3;var(--pale);var(--pale)" keyTimes="0;0.04;0.3;1" dur="${D}s" begin="${begin}s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="${i ? "5;7.5;5;5" : "6.5;8.5;6.5;6.5"}" keyTimes="0;0.05;0.3;1" dur="${D}s" begin="${begin}s" repeatCount="indefinite"/></circle>
+      <text x="${x}" y="${i % 2 ? 22 : 64}" font-size="10" fill="var(--pale)" font-family="IBM Plex Mono,monospace" text-anchor="${i === 0 ? "start" : i === 4 ? "end" : "middle"}" dx="${i === 0 ? -6 : i === 4 ? 6 : 0}">${lbl[i]}</text>`; });
+  s += `<circle r="7" fill="#ffd9a0" filter="url(#glow)"><animateMotion path="M20 40H300" dur="${D}s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.7;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.03;0.68;0.76;1" dur="${D}s" repeatCount="indefinite"/></circle>`;
+  svg.insertAdjacentHTML("beforeend", s);
+})();
+
+/* pull taut */
+(function taut() {
+  const svg = $("#taut"); svg.innerHTML = `<path d="M8 20v0" id="tautP" fill="none" stroke="var(--thread)" stroke-width="2.2" stroke-linecap="round"/><path d="M8 14v12M312 14v12" stroke="var(--pale)" stroke-width="1.3"/>`;
+  const P = $("#tautP", svg), num = $("#tautNum");
+  const draw = (A, ph) => { let d = ""; for (let i = 0; i <= 80; i++) { const x = 8 + 304 * i / 80; const env = Math.sin(Math.PI * i / 80); d += (i ? "L" : "M") + x.toFixed(1) + " " + (20 + A * env * Math.sin(i / 80 * Math.PI * 7 + ph)).toFixed(2); } P.setAttribute("d", d); };
+  draw(0, 0);
+  players.taut = () => raf(1700, t => { const e = easeOut(t); draw(12 * (1 - e), t * 5); num.textContent = Math.round(6028 * easeIO(t)).toLocaleString("en-GB"); });
+})();
+
+/* bow */
+$("#bow").addEventListener("click", e => { const b = e.currentTarget, on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on); $("#bowLbl").textContent = on ? "Saved" : "Save this night"; });
+
+/* tag */
+$("#tagBtn").addEventListener("click", () => { const t = $("#tag"); t.classList.remove("go"); void t.getBoundingClientRect(); t.classList.add("go");
+  copyText("Red Thread · us:match 1999-05-26 · Manchester United 2–1 Bayern Munich (example citation)").then(ok => { $("#tagMsg").textContent = ok ? "Example citation copied" : "Tag swung (clipboard unavailable)"; setTimeout(() => $("#tagMsg").textContent = "", 2000); }); });
+
+/* scroll spine */
+(function spine() {
+  const sp = $("#spine"), sc = $("#spineScroll"), fillEl = $(".fill", sp), stops = [0, 25, 50, 75, 100];
+  stops.forEach(p => { const d = document.createElement("span"); d.className = "st"; d.style.top = `calc(6px + (100% - 12px) * ${p / 100})`; sp.appendChild(d); });
+  const dots = $$(".st", sp);
+  const upd = () => { const p = sc.scrollTop / Math.max(1, sc.scrollHeight - sc.clientHeight); fillEl.style.height = `calc((100% - 12px) * ${p})`; dots.forEach((d, i) => d.classList.toggle("on", p * 100 >= stops[i] - 2)); };
+  sc.addEventListener("scroll", upd, { passive: true }); upd();
+})();
+
+/* toggles */
+$$(".tog").forEach(t => t.addEventListener("click", () => t.setAttribute("aria-checked", t.getAttribute("aria-checked") !== "true")));
+
+/* untangle */
+(function tangle() {
+  const svg = $("#tangle"), N = 8;
+  svg.innerHTML = `<path id="tgP" fill="none" stroke="var(--thread)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><g id="tgT"></g><text id="tgL" x="160" y="92" text-anchor="middle" font-size="10" fill="var(--pale)" font-family="IBM Plex Mono,monospace">8 matches found</text>`;
+  const P = $("#tgP", svg), T = $("#tgT", svg), L = $("#tgL", svg);
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const straight = () => { const pts = [], vs = []; for (let i = 0; i <= N; i++) { pts.push([20 + 280 * i / N, 50]); vs.push([280 / N / 3, 0]); } return { pts, vs }; };
+  const tangled = () => { const pts = [[20, 50]], vs = [[30, 0]]; for (let i = 1; i < N; i++) { pts.push([70 + rnd() * 180, 14 + rnd() * 72]); const a = rnd() * Math.PI * 2, l = 30 + rnd() * 50; vs.push([Math.cos(a) * l, Math.sin(a) * l]); } pts.push([300, 50]); vs.push([30, 0]); return { pts, vs }; };
+  const path = ({ pts, vs }) => { let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`; for (let i = 1; i <= N; i++) { const a = pts[i - 1], b = pts[i]; d += `C${(a[0] + vs[i - 1][0]).toFixed(1)} ${(a[1] + vs[i - 1][1]).toFixed(1)} ${(b[0] - vs[i][0]).toFixed(1)} ${(b[1] - vs[i][1]).toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`; } return d; };
+  const lerp = (A, B, t) => ({ pts: A.pts.map((p, i) => [p[0] + (B.pts[i][0] - p[0]) * t, p[1] + (B.pts[i][1] - p[1]) * t]), vs: A.vs.map((v, i) => [v[0] + (B.vs[i][0] - v[0]) * t, v[1] + (B.vs[i][1] - v[1]) * t]) });
+  const ticks = on => { T.innerHTML = on ? straight().pts.slice(1, N).map(([x], i) => `<path d="M${x} 42V58" stroke="var(--pale)" stroke-width="1.4" style="opacity:0;transition:opacity 200ms ${i * 60}ms"/><circle cx="${x}" cy="50" r="3" fill="var(--bead)" style="opacity:0;transition:opacity 200ms ${i * 60}ms"/>`).join("") : ""; requestAnimationFrame(() => $$("*", T).forEach(e => e.style.opacity = 1)); L.style.opacity = on ? 1 : 0; };
+  const S = straight(); P.setAttribute("d", path(S)); ticks(true);
+  players.tangle = () => { const A = tangled(); ticks(false); P.setAttribute("d", path(A));
+    setTimeout(() => raf(1100, t => P.setAttribute("d", path(lerp(A, S, easeIO(t)))), () => ticks(true)), motion ? 650 : 0); };
+})();
+
+/* net ripple */
+(function net() {
+  const svg = $("#net"), L = 40, R = 280, T = 20, B = 150, c = [196, 78], sig2 = 60 * 60;
+  svg.innerHTML = `<path id="nt" fill="none" stroke="var(--pale)" stroke-width=".9" opacity=".6"/><path d="M${L} ${B}V${T}H${R}V${B}" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="square" opacity=".9"/><path d="M10 ${B}H310" stroke="var(--pale)" stroke-width="1" opacity=".4"/><circle id="nb" r="7" fill="var(--bead)"/>`;
+  const nt = $("#nt", svg), nb = $("#nb", svg);
+  const disp = (x, y, A) => { const dx = c[0] - x, dy = c[1] - y, f = Math.exp(-(dx * dx + dy * dy) / sig2) * A; return [x + dx * f, y + dy * f]; };
+  const drawNet = A => { let d = ""; for (let x = L + 20; x < R; x += 20) { for (let k = 0; k <= 26; k++) { const [a, b] = disp(x, T + (B - T) * k / 26, A); d += (k ? "L" : "M") + a.toFixed(1) + " " + b.toFixed(1); } }
+    for (let y = T + 18.6; y < B; y += 18.6) { for (let k = 0; k <= 30; k++) { const [a, b] = disp(L + (R - L) * k / 30, y, A); d += (k ? "L" : "M") + a.toFixed(1) + " " + b.toFixed(1); } } nt.setAttribute("d", d); };
+  const rest = () => { drawNet(0.18); nb.setAttribute("cx", c[0]); nb.setAttribute("cy", c[1]); nb.setAttribute("r", 5.5); };
+  rest();
+  players.net = () => { if (!motion) return rest(); const t0 = performance.now(); const f = n => { const t = (n - t0) / 1000;
+    if (t < 0.45) { const u = t / 0.45, s = [-10, 160], m = [100, 20]; const x = (1 - u) * (1 - u) * s[0] + 2 * (1 - u) * u * m[0] + u * u * c[0], y = (1 - u) * (1 - u) * s[1] + 2 * (1 - u) * u * m[1] + u * u * c[1];
+      nb.setAttribute("cx", x); nb.setAttribute("cy", y); nb.setAttribute("r", 7); drawNet(0); }
+    else { const k = t - 0.45; const A = 0.18 + 0.5 * Math.exp(-k / 0.45) * Math.cos(2 * Math.PI * 1.9 * k); drawNet(A); nb.setAttribute("cx", c[0]); nb.setAttribute("cy", c[1]); nb.setAttribute("r", 7 - 1.5 * Math.min(1, k / 0.3)); }
+    if (t < 2.6) requestAnimationFrame(f); else rest(); }; requestAnimationFrame(f); };
+})();
+
+/* coverage weave slider */
+(function weave() {
+  const svg = $("#weave"), cols = 12, rows = 8, xs = [...Array(cols)].map((_, i) => 14 + i * 20), ys = [...Array(rows)].map((_, i) => 12 + i * 15);
+  const draw = pct => { const f = pct / 100, full = Math.floor(f * rows + 1e-6), rem = f * rows - full;
+    let s = `<path d="${xs.map(x => `M${x} 4V124`).join("")}" stroke="var(--pale)" stroke-width="1.6" fill="none"/>`;
+    const woven = ys.slice(0, full); if (woven.length) { const d = woven.map(y => `M4 ${y}H246`).join("");
+      s += `<path d="${d}" stroke="var(--ground)" stroke-width="5" fill="none"/><path d="${d}" stroke="var(--thread)" stroke-width="2" fill="none"/>`;
+      let o = ""; woven.forEach((y, i) => xs.forEach((x, j) => { if ((i + j) % 2) o += `M${x} ${y - 3.2}V${y + 3.2}`; }));
+      s += `<path d="${o}" stroke="var(--ground)" stroke-width="5" fill="none"/><path d="${o}" stroke="var(--pale)" stroke-width="1.6" fill="none"/>`; }
+    if (rem > 0.005 && full < rows) s += `<path d="M4 ${ys[full]}H${(4 + 242 * rem).toFixed(1)}" stroke="var(--thread)" stroke-width="2" stroke-dasharray="6 5" fill="none"/>`;
+    svg.innerHTML = s; $("#weaveV").textContent = (+pct).toFixed(1) + "%"; };
+  const r = $("#weaveR"); r.addEventListener("input", () => draw(r.value)); draw(r.value);
+  $$("[data-w]").forEach(b => b.addEventListener("click", () => { r.value = b.dataset.w; draw(r.value); }));
+})();
+
+/* rope */
+(function rope() {
+  const cv = $("#rope"), ctx = cv.getContext("2d"), N = 30; let W = 0, H = 0, pts = [], ptr = null, seg = 8, dpr = 1;
+  const size = () => { dpr = Math.min(2, devicePixelRatio || 1); const r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; seg = (W * 0.82) / N;
+    if (!pts.length) for (let i = 0; i <= N; i++) { const x = 34 + seg * i, y = H / 2 + Math.sin(i / 3) * 10; pts.push({ x, y, px: x, py: y }); } };
+  new ResizeObserver(size).observe(cv); size();
+  const pos = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+  cv.addEventListener("pointermove", e => ptr = pos(e)); cv.addEventListener("pointerdown", e => ptr = pos(e)); cv.addEventListener("pointerleave", () => ptr = null);
+  const step = () => {
+    const pin = { x: 30, y: H / 2 };
+    for (let i = 1; i <= N; i++) { const p = pts[i], vx = (p.x - p.px) * 0.975, vy = (p.y - p.py) * 0.975; p.px = p.x; p.py = p.y; p.x += vx; p.y += vy + 0.28; }
+    { const t = pts[N], goal = ptr || { x: W - 34, y: H / 2 - 6 }, k = ptr ? 0.35 : 0.06; t.x += (goal.x - t.x) * k; t.y += (goal.y - t.y) * k; }
+    for (let k = 0; k < 16; k++) { pts[0].x = pin.x; pts[0].y = pin.y;
+      for (let i = 0; i < N; i++) { const a = pts[i], b = pts[i + 1], dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 1, diff = (d - seg) / d / 2;
+        if (i > 0) { a.x += dx * diff; a.y += dy * diff; b.x -= dx * diff; b.y -= dy * diff; } else { b.x -= dx * diff * 2; b.y -= dy * diff * 2; } }
+      pts.forEach(p => { p.x = Math.max(4, Math.min(W - 4, p.x)); p.y = Math.max(4, Math.min(H - 4, p.y)); }); }
+    const cs = getComputedStyle(document.body), thread = cs.getPropertyValue("--thread").trim() || "#ff3b1f", bead = cs.getPropertyValue("--bead").trim() || "#f5c518", ground = cs.getPropertyValue("--ground").trim();
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.fillStyle = ground; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = cs.getPropertyValue("--pale"); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(14, H / 2 - 16, 18, 32, 3) : ctx.rect(14, H / 2 - 16, 18, 32); ctx.stroke();
+    ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = thread; ctx.shadowColor = thread; ctx.shadowBlur = 8; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < N; i++) { const mx = (pts[i].x + pts[i + 1].x) / 2, my = (pts[i].y + pts[i + 1].y) / 2; ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my); } ctx.lineTo(pts[N].x, pts[N].y); ctx.stroke();
+    ctx.shadowBlur = 12; ctx.shadowColor = bead; ctx.fillStyle = bead; ctx.beginPath(); ctx.arc(pts[N].x, pts[N].y, 5.5, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+    requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+})();
+
+/* cross-stitch confirm */
+(function copyStitch() {
+  const g = $("#copyStitches"), pts = [[5, 11.5], [9, 15.5], [17.5, 6.5]], segs = [];
+  const total = Math.hypot(4, 4) + Math.hypot(8.5, 9); const n = 6; let s = "";
+  for (let k = 0; k < n; k++) { const a = (k + 0.15) / n * total, b = (k + 0.7) / n * total;
+    const at = d => { const l1 = Math.hypot(4, 4); if (d <= l1) return [pts[0][0] + 4 * d / l1, pts[0][1] + 4 * d / l1]; const u = (d - l1) / Math.hypot(8.5, 9); return [pts[1][0] + 8.5 * u, pts[1][1] - 9 * u]; };
+    const [x1, y1] = at(a), [x2, y2] = at(b); s += `<line class="x" x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y2.toFixed(2)}" style="animation-delay:${k * 70}ms"/>`; }
+  g.innerHTML = s;
+  $("#copyBtn").addEventListener("click", e => { const b = e.currentTarget; b.classList.remove("done"); void b.offsetWidth; b.classList.add("done");
+    copyText("Red Thread · Manchester United 2–1 Bayern Munich, 26 May 1999 (example citation)").then(ok => $("#copyLbl").textContent = ok ? "Copied" : "Copied (demo)");
+    setTimeout(() => { b.classList.remove("done"); $("#copyLbl").textContent = "Copy citation"; }, 2200); });
+})();
+
+/* wipe */
+(function wipe() { const w = $("#wipe"); const set = () => w.style.setProperty("--w", w.getBoundingClientRect().width + "px"); new ResizeObserver(set).observe(w); set();
+  $("#wipeBtn").addEventListener("click", () => { const on = w.classList.toggle("go"); $("#wipeBtn").textContent = on ? "← Back" : "Next night →"; }); })();
+
+/* floodlights */
+(function flood() {
+  const svg = $("#flood");
+  const pylon = () => { let s = `<path d="M52 165L58 72M72 165L66 72M53 155L71 142L54 128L70 115L55.5 101L69 89L57.5 78M58 72L55 66M66 72L69 66" stroke="var(--pale)" stroke-width="1.5" fill="none" stroke-linejoin="round"/><rect x="38" y="26" width="48" height="40" rx="3" fill="#1b1614" stroke="var(--pale)" stroke-width="1.5"/>`;
+    let k = 0; for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) s += `<circle class="lamp" cx="${47 + c * 10}" cy="${35 + r * 11}" r="3.6" style="animation-delay:${(k++ * 60 + Math.round(Math.random() * 120))}ms"/>`; return s; };
+  svg.innerHTML = `<defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a3" stop-opacity=".22"/><stop offset="1" stop-color="#ffe9a3" stop-opacity="0"/></linearGradient></defs>
+    <path class="beam" d="M86 30L320 132V168H150Z" fill="url(#bm)"/><path class="beam" d="M234 30L0 132V168H170Z" fill="url(#bm)"/>
+    <path class="pitchline" d="M0 166H320M160 150V166"/><g>${pylon()}</g><g transform="translate(320 0) scale(-1 1)">${pylon()}</g>`;
+  players.flood = () => { svg.classList.remove("on"); void svg.getBoundingClientRect(); requestAnimationFrame(() => svg.classList.add("on")); };
+})();
+
+/* season stream */
+(function stream() {
+  const svg = $("#stream"), step = 11, n = TREBLE.length, w = n * step + 40;
+  const one = off => [...TREBLE].map((r, i) => { const x = off + 20 + i * step, last = i >= n - 3;
+    let s = r === "W" ? `<path d="M${x} 35V19" stroke="var(--win)" stroke-width="2.4" stroke-linecap="round"/>` : r === "L" ? `<path d="M${x} 35V51" stroke="var(--loss)" stroke-width="2.4" stroke-linecap="round"/>` : `<circle cx="${x}" cy="35" r="2.4" fill="var(--draw)"/>`;
+    if (last) s += `<circle cx="${x}" cy="12" r="4.2" fill="var(--gold)" stroke="#fff4d4" stroke-width=".8"/>`;
+    return s; }).join("") + `<text x="${off + 10}" y="64" font-size="9" fill="var(--pale)" font-family="IBM Plex Mono,monospace">AUG 1998</text><text x="${off + w - 30}" y="64" font-size="9" fill="var(--pale)" font-family="IBM Plex Mono,monospace" text-anchor="end">26 MAY 1999</text>`;
+  svg.setAttribute("viewBox", `0 0 ${w * 2} 70`); svg.style.width = (w * 2) + "px";
+  svg.innerHTML = `<g class="stream-move" style="--shift:-${w}px"><path d="M0 35H${w * 2}" stroke="var(--thread)" stroke-width="2"/>${one(0)}${one(w)}</g>`;
+  const cnt = { W: 0, D: 0, L: 0 }; [...TREBLE].forEach(r => cnt[r]++);
+  $("#streamCap").textContent = `${n} matches · W ${cnt.W} · D ${cnt.D} · L ${cnt.L} · gold knots: league, FA Cup and European Cup deciders`;
+})();
+
+/* ---------- in context ---------- */
+(function context() {
+  const items = [["journey", "Stories"], ["discover", "Discover"], ["matches", "Matches"], ["seasons", "Seasons"], ["players", "Players"], ["managers", "Managers"], ["data", "Data"]];
+  const inner = Object.fromEntries(NAV.map(n => [n[0], n[3]]));
+  const render = mode => { $("#navMock").innerHTML = items.map(([id, l]) => `<a href="#context" class="${id === "matches" ? "cur" : ""}">${mode === "old" ? `<svg class="old" viewBox="0 0 24 24">${OLD[id]}</svg>` : `<svg class="gl" viewBox="0 0 24 24" style="--sw:1.7">${inner[id]}</svg>`}${l}</a>`).join(""); };
+  render("new"); seg("navSwap", render);
+
+  const rows = [
+    { dt: "26 May 1999", op: "Bayern Munich · CL final", sc: "2–1", ev: [[6, -1], [91, 1], [93, 1]] },
+    { dt: "22 May 1999", op: "Newcastle United · FA Cup final", sc: "2–0", ev: [] },
+    { dt: "16 May 1999", op: "Tottenham Hotspur · League", sc: "2–1", ev: [] },
+  ];
+  $("#mrows").innerHTML = rows.map((r, k) => `<div class="mrow"><span class="dt">${r.dt}</span><span class="op">${r.op}</span><span class="sc">${r.sc}</span>${k === 0 ? `<div class="flow"><svg viewBox="0 0 300 34" preserveAspectRatio="none"><path d="M4 17H296" stroke="var(--thread)" stroke-width="1.6" vector-effect="non-scaling-stroke"/><path d="M4 13v8M150 14v6M285 12v10" stroke="var(--pale)" stroke-width="1" vector-effect="non-scaling-stroke"/>${r.ev.map(([m, s], i) => `<circle cx="${4 + 292 * m / 96}" cy="${s > 0 ? 9 : 25}" r="4" fill="${s > 0 ? "var(--bead)" : "var(--pale)"}" ${i === 2 ? 'stroke="#fff4d4" stroke-width="1"' : ""} opacity="${i === 1 ? .8 : 1}"/>`).join("")}</svg></div>` : ""}</div>`).join("")
+    + `<p class="cap" style="margin:10px 0 0">Only the final is shown with its goals. Minutes: 6′, 90+1′, 90+3′.</p>`;
+
+  const lib = { W: RESULTS[0][3], D: RESULTS[1][3], L: RESULTS[2][3] };
+  $("#form").innerHTML = [...TREBLE.slice(-10)].map(r => `<span class="r"><svg class="gl" viewBox="0 0 24 24" style="--sw:1.5">${lib[r]}</svg><i>${r}</i></span>`).join("");
+})();
+
+setMotion(motion);
+if (reduced) $("#motionBtn").title = "Reduced motion is on, so motion starts paused";
+
+// run each motion bench once as it scrolls into view (the finished state is already drawn)
+const seen = new WeakSet();
+const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting || seen.has(e.target) || !motion) return; seen.add(e.target);
+  const key = e.target.querySelector("[data-play]")?.dataset.play; if (key && players[key]) players[key](); }), { threshold: 0.5 });
+$$(".demo").forEach(d => io.observe(d));
+})();
+</script>
