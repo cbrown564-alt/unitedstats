@@ -49,6 +49,7 @@ coverage weaves at several fractions.
 | Sewn link | `.sewn-link` (`EvidenceLink`) | Underline thread drawn left to right, fastened with a gold bead: the link leads to proof |
 | Running stitch | `StitchLoader` | Stitches travel along a thread while filters or search load; static under reduced motion |
 | Bead switch | Players register Assists switch | A bead slides along a thread that reddens when on |
+| Loose thread | `LooseThread` (`app/not-found.tsx`) | The record runs ticked to a pin, then hangs loose and frays; the pointer pulls the end. Sleeps once settled; one static frame under reduced motion |
 
 ## Rules
 
