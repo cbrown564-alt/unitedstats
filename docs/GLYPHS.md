@@ -33,12 +33,22 @@ three, so they sit quietly in chrome.
 | Family | Component | Glyphs |
 | --- | --- | --- |
 | Sections | `NavIcon` (`components/nav/NavIcons.tsx`) | Stories (loop-fold), Discover (needle), Matches (ticket stub), Seasons (bracketed run), Players (laced collar), Managers (spool), Opponents (twisted pair), Analytics (Elo over baseline), Transfers (splice), Data (weave), More (slack middle thread) |
-| Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X) |
+| Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X), Share (one thread, three beads), Sewn (tick fastened with a bead; the copy-link confirmation) |
 | Record | `RecordGlyph` (`components/glyphs/RecordGlyph.tsx`) | Darn (report a correction), Spiral (on this day), Tangle (pull a random night), Stitch (partial coverage) |
 | Coverage | `CoverageWeave` | Rows woven in proportion to covered / total; the last row stitched part-way. Used by `CoverageNote` for graded counts only |
 
 `/dev/glyphs` (development only) shows every shipped glyph idle and lit, with
 coverage weaves at several fractions.
+
+## Motions
+
+| Motion | Where | Behaviour |
+| --- | --- | --- |
+| Sew-in | `tg-host` hover | Thread dash-draws in, gold beads fade-scale in |
+| Sewn on show | `tg-sew-now` | The same draw, once, when a confirmation appears |
+| Sewn link | `.sewn-link` (`EvidenceLink`) | Underline thread drawn left to right, fastened with a gold bead: the link leads to proof |
+| Running stitch | `StitchLoader` | Stitches travel along a thread while filters or search load; static under reduced motion |
+| Bead switch | Players register Assists switch | A bead slides along a thread that reddens when on |
 
 ## Rules
 
