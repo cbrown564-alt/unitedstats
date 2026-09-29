@@ -50,7 +50,7 @@ const MUFCINFO_DATE_ALIASES: Record<string, string> = {
   "1900-02-24": "1900-02-25",
 };
 
-interface MufcInfoRow {
+export interface MufcInfoRow {
   date: string;
   shirt: number;
   displayName: string;
@@ -118,6 +118,7 @@ const HREF_ALIASES: Record<string, string> = {
   dong_fangzhou: "dong-fangzhuo",
   draycott_levi: "billy-draycott",
   dos_santos_antony: "antony",
+  santos_andrey: "andrey-santos",
   duxbury_michael: "mike-duxbury",
   farman_alfred: "alf-farman",
   feehan_john: "sonny-feehan",
@@ -233,6 +234,8 @@ function subOffName(text: string): { name: string; minute: number } | null {
 
 export function parseRows(date: string, html: string): MufcInfoRow[] {
   const rows: MufcInfoRow[] = [];
+  // MUFCInfo player rows are `<tr align="center">`. Reject nested `<tr>` so a
+  // wrapper row cannot swallow the whole XI as one badStarterCount match.
   const rowPattern =
     /<tr\b[^>]*>(?:(?!<tr\b)[\s\S])*?<\/tr>/gi;
   let match: RegExpExecArray | null;
@@ -261,12 +264,12 @@ export function parseRows(date: string, html: string): MufcInfoRow[] {
   return rows;
 }
 
-function matchesOffName(row: MufcInfoRow, name: string): boolean {
+export function matchesOffName(row: MufcInfoRow, name: string): boolean {
   const needle = normalizedSlug(name);
   const display = row.displaySlug;
   if (display === needle || display.endsWith(`-${needle}`)) return true;
   const parts = display.split("-");
-  return parts[parts.length - 1] === needle;
+  return parts[0] === needle || parts[parts.length - 1] === needle;
 }
 
 function seasonsFromArgs(): string[] {

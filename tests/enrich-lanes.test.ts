@@ -11,10 +11,12 @@ test("plans Wikipedia, Transfermarkt, MUFCInfo, and positions", () => {
     "mufcinfo-lineups",
     "mufcinfo-stadiums",
     "mufcinfo-assists",
+    "mufcinfo-opposition-goals",
     "positions",
   ]);
   assert.ok(lanes.find((l) => l.id === "transfermarkt")?.args.includes("--refresh"));
   assert.ok(lanes.find((l) => l.id === "mufcinfo-lineups")?.args.includes("--write"));
+  assert.ok(lanes.find((l) => l.id === "mufcinfo-opposition-goals")?.args.includes("--refresh"));
 });
 
 test("omits refresh unless asked", () => {

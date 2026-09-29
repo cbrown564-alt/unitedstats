@@ -18,6 +18,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { CANONICAL, RAW, parseCsv, parseSeasonArgs, seasonKey, writeJson } from "../lib";
 
+const ENGLAND_CSV = path.join(RAW, "england.csv");
+const ENGLAND_CSV_URL =
+  "https://raw.githubusercontent.com/jalapic/engsoccerdata/master/data-raw/england.csv";
+
 interface TeamRow { p: number; w: number; d: number; l: number; gf: number; ga: number }
 
 function table(results: { home: string; away: string; hg: number; ag: number }[], startYear: number) {
@@ -95,8 +99,30 @@ function rankRows(sorted: ReturnType<typeof table>): TableRow[] {
   }));
 }
 
+async function ensureEnglandCsv(): Promise<boolean> {
+  if (fs.existsSync(ENGLAND_CSV)) return true;
+  fs.mkdirSync(RAW, { recursive: true });
+  try {
+    const res = await fetch(ENGLAND_CSV_URL, { headers: { "user-agent": "unitedstats-pipeline" } });
+    if (!res.ok) {
+      console.warn(`WARN: england.csv download failed (${res.status})`);
+      return false;
+    }
+    const body = Buffer.from(await res.arrayBuffer());
+    if (body.length < 1000) {
+      console.warn("WARN: england.csv download was empty");
+      return false;
+    }
+    fs.writeFileSync(ENGLAND_CSV, body);
+    return true;
+  } catch (error) {
+    console.warn(`WARN: england.csv download failed (${error instanceof Error ? error.message : error})`);
+    return false;
+  }
+}
+
 function fromEngsoccerdata(): { positions: PositionEntry[]; tables: SeasonTable[] } {
-  const rows = parseCsv(fs.readFileSync(path.join(RAW, "england.csv"), "utf8"));
+  const rows = parseCsv(fs.readFileSync(ENGLAND_CSV, "utf8"));
   // group by season+tier, but only tiers United played in
   const grouped = new Map<string, { home: string; away: string; hg: number; ag: number }[]>();
   const muTier = new Map<string, number>();
@@ -158,6 +184,10 @@ async function fromOpenfootball(
 }
 
 async function main() {
+  if (!(await ensureEnglandCsv())) {
+    console.error("england.csv unavailable; leaving league positions unchanged");
+    process.exit(1);
+  }
   const { positions: entries, tables } = fromEngsoccerdata();
   const have = new Set(entries.map((e) => e.season));
   const extraSeasons = new Set(["2022-23", "2025-26", parseSeasonArgs(["current"])?.[0] ?? ""]);

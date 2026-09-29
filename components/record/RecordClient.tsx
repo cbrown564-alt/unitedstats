@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { trackProductEvent } from "@/lib/analytics";
-import { usePathname, useSearchParams } from "next/navigation";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShareCite } from "@/components/ShareCite";
 import { RecordNext } from "./RecordNext";
 import { matchContext } from "@/lib/matchContext";
 import { recordHref } from "@/lib/recordHref";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import type { EventRow, LineupRow, MatchRow, MatchSourceRecord, OpponentRecord, PlayerTotals } from "@/lib/queries";
 import { fmtDateLong, fmtNum, homeAwayLabel } from "@/lib/format";
 
@@ -31,9 +30,17 @@ function recordUrl(kind: Kind, id: string): string {
   return `/api/v1/${kind === "match" ? "matches" : "players"}/${encodeURIComponent(id)}`;
 }
 
+const subscribeToLocation = (onChange: () => void) => {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+};
+const locationOnServer = () => "";
+const locationInBrowser = () => window.location.pathname + window.location.search;
+
 export function RecordClient() {
-  const pathname = usePathname();
-  const params = useSearchParams();
+  const location = useSyncExternalStore(subscribeToLocation, locationInBrowser, locationOnServer);
+  const [pathname, search = ""] = location.split("?");
+  const params = new URLSearchParams(search);
   const [retry, setRetry] = useState(0);
   const legacyMatch = pathname.match(/^\/(match|player|opponent)\/([^/]+)\/?$/);
   const legacy = legacyMatch ? { kind: legacyMatch[1] as Kind, id: decodeURIComponent(legacyMatch[2]!) } : null;
@@ -66,6 +73,7 @@ export function RecordClient() {
 
   useEffect(() => { if (state.key === key && state.data && kind) trackProductEvent("record_view", { kind, id }); }, [state, key, kind, id]);
 
+  if (!location) return <RecordFrame title="Archive record"><p role="status">Opening the record…</p></RecordFrame>;
   if (!id || !kind || !["match", "player", "opponent"].includes(kind)) {
     return <RecordFrame title="Archive record"><p>Choose a match from <Link href="/matches" className="text-devil-bright hover:underline">the fixture record</Link>.</p></RecordFrame>;
   }

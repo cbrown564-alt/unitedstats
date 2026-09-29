@@ -60,7 +60,9 @@ should enter the canonical record.
   each match before writing.
 - **Importer:** `npm run ingest:mufcinfo-lineups -- <season>` dry-runs by
   default; add `-- --write` to persist canonical lineup changes. Use
-  `-- --date YYYY-MM-DD` for a single-match probe.
+  `-- --date YYYY-MM-DD` for a single-match probe. The current-season enrich
+  job also runs `npm run ingest:mufcinfo-opposition-goals` against the same
+  cached match pages for opposition scorers.
 - **Failure modes:** nickname/local-id mismatches, same-name historical
   collisions, missing player rows, source pages listing only used substitutes,
   and source-page changes.

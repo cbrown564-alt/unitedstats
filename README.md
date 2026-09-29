@@ -91,6 +91,7 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 | `npm run ingest:football-data` | football-data.org enrichment; `-- --write` to persist |
 | `npm run ingest:mufcinfo-lineups` | MUFCInfo lineup enrichment; `-- --write` to persist |
 | `npm run ingest:mufcinfo-assists` | MUFCInfo goal-minute backfill; `-- --inspect YYYY-MM-DD`, `-- --write` |
+| `npm run ingest:mufcinfo-opposition-goals` | MUFCInfo opposition scorers; `-- --write` to persist |
 | `npm run ingest:transfermarkt` | transfermarkt-datasets modern match sheets |
 | `npm run ingest:transfers` | MUFCInfo transfer archive |
 | `npm run ingest:player-records` | Wikipedia player-list career totals |
