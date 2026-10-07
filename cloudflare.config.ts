@@ -7,6 +7,7 @@ export default defineConfig(({ mode }) => ({
     entrypoint: "./deploy/cloudflare-worker.ts",
     compatibilityDate: "2026-10-07",
     workersDev: true,
+    domains: mode === "production" ? ["utdred.com", "www.utdred.com"] : [],
     env: { ASSETS: bindings.assets() },
     assets: { htmlHandling: "auto-trailing-slash", notFoundHandling: "none" },
     observability: { enabled: true, traces: { enabled: true, headSamplingRate: 0.01 } },

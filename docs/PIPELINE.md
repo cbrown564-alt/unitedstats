@@ -137,4 +137,6 @@ The packaging step preserves the permanent redirects from `vercel.json`, restore
 
 Umami pageviews and bounded product events remain. Vercel Web Analytics and Speed Insights scripts are removed because their endpoints depend on the old host. Their historical measurements remain evidence; no field-performance improvement is claimed. Blob upload/revalidation scripts remain dormant manual recovery tools and are not required by the build or weekly update workflow.
 
-Production DNS and native Git deployment are pending verification of the isolated preview. The Monday 18:00 UTC data workflow stays unchanged; its normal master push will start a Cloudflare production rebuild once connected.
+The production configuration attaches `utdred.com` and `www.utdred.com`. A zone Single Redirect rule preserves the existing 308 from www to the apex, including path and query. The separate Google verification TXT record must be preserved. The Monday 18:00 UTC data workflow stays unchanged; its normal master push starts a Cloudflare production rebuild once native Git deployment is connected. Workers Builds must run `npm run build:cloudflare -- production`, then `npx cf deploy --prebuilt --mode production`.
+
+Preview testing reproduced an existing record-navigation defect on Vercel: selecting another record after client navigation could retain the previous result. `RecordClient` now reads pathname/query from Next.js route hooks instead of listening only to browser `popstate`; the existing loading, abort, failure/retry and record-data behavior remain.
