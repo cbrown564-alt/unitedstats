@@ -81,12 +81,14 @@
     "upload:db": "tsx scripts/upload-db.ts",
     "revalidate": "tsx scripts/revalidate.ts",
     "update": "tsx pipeline/update.ts",
-    "enrich": "tsx pipeline/enrichCurrent.ts"
+    "enrich": "tsx pipeline/enrichCurrent.ts",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
+    "deploy:cloudflare": "cf deploy --prebuilt --mode production",
+    "deploy:cloudflare-preview": "cf deploy --prebuilt --mode migration-preview",
+    "check:cloudflare": "cf workers types && tsc -p tsconfig.cloudflare.json && cf deploy --prebuilt --dry-run --mode migration-preview"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.5.0",
-    "@vercel/speed-insights": "^2.0.0",
     "better-sqlite3": "^12.10.0",
     "next": "16.2.9",
     "react": "19.2.4",
@@ -101,6 +103,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cf": "1.0.0-beta.12",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "knip": "^6.16.1",
@@ -110,6 +113,7 @@
     "tailwindcss": "^4",
     "tsx": "^4.22.4",
     "typescript": "^5",
+    "wrangler": "4.148.0",
     "zod": "4.3.6"
   }
 }

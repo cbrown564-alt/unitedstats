@@ -23,6 +23,7 @@ jobs:
       - run: npm run cache:media -- --reconcile-only
       - run: npm run check:media
       - run: npm test
-      - run: npm run build
+      - run: npm run build:cloudflare
+      - run: npm run check:cloudflare
       - run: npm run check:static
       - run: npm run check:perf

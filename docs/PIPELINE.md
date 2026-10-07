@@ -34,8 +34,7 @@ pipeline/update.ts
    8. commit the changed data and push once
    │
    ▼
-Vercel rebuilds `united.db` as a build input and publishes the complete static
-export. SQLite is not a production runtime dependency.
+Cloudflare production builds rebuild `united.db` as a build input and publish the complete static export. SQLite is not a production runtime dependency. The production domains are attached to Cloudflare; the old Vercel project is retained temporarily for rollback.
 ```
 
 If nothing changed, the weekly workflow exits with no commit or deployment.
@@ -65,7 +64,7 @@ checks the resulting deployable `out/` tree.
 ## Why this is low-maintenance
 
 - **No servers, no databases, no webhooks.** Two free, durable services
-  (GitHub Actions, Vercel deploy-on-push) and one community dataset.
+  (GitHub Actions, Cloudflare deploy-on-push) and one community dataset.
 - **Weekly result and sheet release.** The
   contract is still the *result*; scorers and lineups are best-effort and
   may arrive later from Transfermarkt and MUFCInfo. `enrich-results.yml`
@@ -124,3 +123,22 @@ summary when an unknown competition file appears upstream.
 The Blob upload and on-demand revalidation scripts remain available as manual
 recovery tools. They are not called by the scheduled workflow, and production
 must not set `UNITEDSTATS_DB_BLOB_URL` during the current cost-assessment period.
+
+## Cloudflare migration
+
+`cloudflare.config.ts` owns the account, Worker, asset behavior and observability. `wrangler.config.ts` supplies the existing `out/` directory to Wrangler’s installed `cf-wrangler` static build delegate; it does not convert Next.js into a Worker framework. Node 24.19 is pinned for native build compatibility.
+
+- `npm run build:cloudflare` runs the full existing Next.js build and packages an isolated `unitedstats-migration-preview` with noindex. It uses the canonical `https://utdred.com` URL and does not run ingest or remote media refresh.
+- `npm run build:cloudflare -- production` packages `unitedstats` with indexing enabled.
+- `npm run deploy:cloudflare-preview` / `npm run deploy:cloudflare` deploy the matching prebuilt mode. Build first; cf does not execute package scripts. Its beta framework detection calls `next build` and rejects modes, so the packaging script calls the installed `cf-wrangler build --mode …` delegate directly after Next.js has finished. Publishing still uses `cf deploy --prebuilt`.
+- `npm run check:cloudflare` generates platform types, checks configuration/handler types and validates the preview deployment without uploading.
+
+The packaging step preserves the permanent redirects from `vercel.json`, restores API CORS and data/static cache headers, and rejects individual assets above 25 MiB. Existing prerendered entity pages take precedence; unprerendered match/player/opponent/season URLs redirect to the existing browser-backed record reader. Unknown pages return the exported 404 page.
+
+Umami pageviews and bounded product events remain. Vercel Web Analytics and Speed Insights scripts are removed because their endpoints depend on the old host. Their historical measurements remain evidence; no field-performance improvement is claimed. Blob upload/revalidation scripts remain dormant manual recovery tools and are not required by the build or weekly update workflow.
+
+The production configuration attaches `utdred.com` and `www.utdred.com`. A zone Single Redirect rule preserves the existing 308 from www to the apex, including path and query. The separate Google verification TXT record must be preserved. The Monday 18:00 UTC data workflow stays unchanged; its normal master push starts a Cloudflare production rebuild once native Git deployment is connected. Workers Builds must run `npm run build:cloudflare -- production`, then `npx cf deploy --prebuilt --mode production`.
+
+Preview testing reproduced an existing record-navigation defect on Vercel: selecting another record after client navigation could retain the previous result. `RecordClient` now reads pathname/query from Next.js route hooks instead of listening only to browser `popstate`; the existing loading, abort, failure/retry and record-data behavior remain.
+
+Returning from the archive also exposed Next 16.2.9 reusing a previous query URL from its static route cache. Match, player and opponent record links use native anchors so each selected record gets an exact document URL, including after legacy redirects or a return from another page. Search results and search controls also use document navigation for record destinations. Other site links keep their existing client navigation.

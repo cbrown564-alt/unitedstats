@@ -27,8 +27,9 @@ const pillTone = (active: boolean) =>
     : "border-line bg-panel text-ink-dim hover:border-devil/50 hover:bg-panel-2 hover:text-ink";
 
 function EntityRow({ e, q }: { e: SearchEntity; q: string }) {
+  const EntityLink = e.href.startsWith("/record?") ? "a" : Link;
   return (
-    <Link
+    <EntityLink
       href={e.href}
       className="tap-target flex items-center justify-between gap-3 rounded-md px-3 py-2.5 text-sm transition-colors hover:bg-panel-2"
     >
@@ -39,7 +40,7 @@ function EntityRow({ e, q }: { e: SearchEntity; q: string }) {
         <span className="font-medium">{highlight(e.label, q)}</span>
       </span>
       <span className="stat-num shrink-0 text-xs text-ink-faint">{e.detail}</span>
-    </Link>
+    </EntityLink>
   );
 }
 
