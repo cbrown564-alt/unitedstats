@@ -125,7 +125,7 @@ function MatchRecordView({ data }: { data: MatchRecord }) {
             {events.map((event, index) => (
               <li key={`${event.seq}-${index}`} className="flex gap-4 py-2.5">
                 <span className="stat-num w-12 shrink-0 text-ink-faint">{event.minute == null ? "—" : `${event.minute}${event.added_time ? `+${event.added_time}` : ""}′`}</span>
-                <span><span className="font-medium">{event.player_id && event.player_side === "united" ? <Link className="text-devil-bright hover:underline" href={recordHref("player", event.player_id)}>{event.player_display_name}</Link> : event.player_display_name ?? "Unknown player"}</span> <span className="text-ink-dim">· {event.type.replace(/^opp-/, "").replaceAll("-", " ")} · {event.player_side === "united" ? "United" : "Opposition"}</span>{event.assist_display_name && <span className="block text-ink-faint">Assist: {event.assist_display_name}</span>}</span>
+                <span><span className="font-medium">{event.player_id && event.player_side === "united" ? <a className="text-devil-bright hover:underline" href={recordHref("player", event.player_id)}>{event.player_display_name}</a> : event.player_display_name ?? "Unknown player"}</span> <span className="text-ink-dim">· {event.type.replace(/^opp-/, "").replaceAll("-", " ")} · {event.player_side === "united" ? "United" : "Opposition"}</span>{event.assist_display_name && <span className="block text-ink-faint">Assist: {event.assist_display_name}</span>}</span>
               </li>
             ))}
           </ol>
@@ -137,7 +137,7 @@ function MatchRecordView({ data }: { data: MatchRecord }) {
       <div className="grid gap-4 sm:grid-cols-2">
         <section className="rounded-lg border border-line bg-pitch/40 p-5">
           <h2 className="mb-3 text-lg font-semibold">United starters</h2>
-          {starters.length ? <ol className="grid grid-cols-2 gap-2 text-sm">{starters.map((player, index) => <li key={`${player.player_id ?? player.player_display_name}-${index}`}>{player.shirt != null && <span className="stat-num mr-2 text-ink-faint">{player.shirt}</span>}{player.player_id ? <Link href={recordHref("player", player.player_id)} className="text-devil-bright hover:underline">{player.player_display_name}</Link> : player.player_display_name}</li>)}</ol> : <p className="text-sm text-ink-dim">A starting XI is not recorded for this match.</p>}
+          {starters.length ? <ol className="grid grid-cols-2 gap-2 text-sm">{starters.map((player, index) => <li key={`${player.player_id ?? player.player_display_name}-${index}`}>{player.shirt != null && <span className="stat-num mr-2 text-ink-faint">{player.shirt}</span>}{player.player_id ? <a href={recordHref("player", player.player_id)} className="text-devil-bright hover:underline">{player.player_display_name}</a> : player.player_display_name}</li>)}</ol> : <p className="text-sm text-ink-dim">A starting XI is not recorded for this match.</p>}
         </section>
         <section className="rounded-lg border border-line bg-pitch/40 p-5">
           <h2 className="mb-3 text-lg font-semibold">Record context</h2>
