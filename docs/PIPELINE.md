@@ -34,7 +34,7 @@ pipeline/update.ts
    8. commit the changed data and push once
    │
    ▼
-Cloudflare Workers Builds will rebuild `united.db` as a build input and publish the complete static export after the migration is promoted. SQLite is not a production runtime dependency. Vercel remains the current public host until the verified `utdred.com` cutover.
+Cloudflare production builds rebuild `united.db` as a build input and publish the complete static export. SQLite is not a production runtime dependency. The production domains are attached to Cloudflare; the old Vercel project is retained temporarily for rollback.
 ```
 
 If nothing changed, the weekly workflow exits with no commit or deployment.
@@ -64,7 +64,7 @@ checks the resulting deployable `out/` tree.
 ## Why this is low-maintenance
 
 - **No servers, no databases, no webhooks.** Two free, durable services
-  (GitHub Actions, Cloudflare deploy-on-push after cutover) and one community dataset.
+  (GitHub Actions, Cloudflare deploy-on-push) and one community dataset.
 - **Weekly result and sheet release.** The
   contract is still the *result*; scorers and lineups are best-effort and
   may arrive later from Transfermarkt and MUFCInfo. `enrich-results.yml`
