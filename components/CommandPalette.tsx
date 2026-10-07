@@ -62,7 +62,8 @@ export function CommandPalette({ initialOpen = false }: { initialOpen?: boolean 
     pushRecent(q);
     logSearchClick(q, href, total);
     close();
-    router.push(href);
+    if (href.startsWith("/record?")) window.location.assign(href);
+    else router.push(href);
   };
 
   if (!open) return null;

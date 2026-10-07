@@ -113,7 +113,8 @@ export function SearchCommand({
     logSearchClick(q, destination, total);
     setOpen(false);
     setQ("");
-    router.push(destination);
+    if (destination.startsWith("/record?")) window.location.assign(destination);
+    else router.push(destination);
     onNavigate?.();
   };
 
