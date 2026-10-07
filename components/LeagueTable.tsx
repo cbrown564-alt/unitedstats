@@ -276,7 +276,6 @@ export function LeagueTable({
                     {!meta.united && r.opponent_id ? (
                       <a
                         href={`/record?kind=opponent&id=${encodeURIComponent(r.opponent_id)}`}
-                        prefetch={false}
                         className="flex min-w-0 items-center gap-1.5 truncate text-ink transition-colors hover:text-devil-bright hover:underline focus-ring"
                       >
                         {meta.champ && <TrophyIcon className="h-3 w-3 shrink-0 text-gold" />}

@@ -195,7 +195,6 @@ export function PlayersRegisterTable({
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
                 <a
                   href={`/record?kind=player&id=${encodeURIComponent(p.player_id)}`}
-                  prefetch={false}
                   className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright"
                 >
                   <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
