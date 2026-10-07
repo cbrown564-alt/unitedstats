@@ -1,9 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { analyticsDestination, redactAnalyticsUrl, trackProductEvent } from "@/lib/analytics";
+import { analyticsDestination, trackProductEvent } from "@/lib/analytics";
 
 export function ProductAnalytics() {
   const pathname = usePathname();
@@ -17,5 +15,5 @@ export function ProductAnalytics() {
     document.addEventListener("click", click);
     return () => document.removeEventListener("click", click);
   }, [pathname]);
-  return <><Analytics beforeSend={event => ({ ...event, url: redactAnalyticsUrl(event.url) })} /><SpeedInsights beforeSend={event => ({ ...event, url: redactAnalyticsUrl(event.url) })} /></>;
+  return null;
 }

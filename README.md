@@ -42,7 +42,7 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
    reference files for players, transfers, media, positions, and more), compiled
    to SQLite. See `docs/DATA-MODEL.md`.
 2. **Update pipeline** — GitHub Actions cron pulls new results from openfootball,
-   validates, rebuilds, exports, and triggers a normal Vercel deployment
+   validates, rebuilds, exports, and triggers a normal hosting deployment
    containing the refreshed database — no paid APIs, no servers. See
    `docs/PIPELINE.md`.
 3. **Web UI** — Next.js 16 App Router + Tailwind 4, server components querying
@@ -57,6 +57,8 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 | Command | Does |
 |---|---|
 | `npm run dev` | Next dev server (`predev` builds DB if missing) |
+| `npm run build:cloudflare` | Full static build + isolated Cloudflare preview packaging |
+| `npm run build:cloudflare -- production` | Full static build + Cloudflare production packaging |
 | `npm run build` | Production build (`prebuild`: DB + tracked-media reconciliation + dataset export) |
 | `npm run start` | Serve production build |
 | `npm test` | Unit tests (`tests/*.test.ts`) |
@@ -162,7 +164,7 @@ readers can start from `/llms.txt`.
 ### Downloads
 
 Flat CSV exports live under `/dataset/`. Start with
-[`/dataset/manifest.json`](https://unitedstats.vercel.app/dataset/manifest.json)
+[`/dataset/manifest.json`](https://utdred.com/dataset/manifest.json)
 for row counts, build metadata, license, and citation fields.
 
 | File | Contents |
@@ -181,7 +183,7 @@ Regenerate locally: `npm run build:db && npm run export:dataset`.
 ### API
 
 Read-only JSON at `/api/v1/*` with permissive CORS. Index:
-[`/api/v1`](https://unitedstats.vercel.app/api/v1). Key endpoints:
+[`/api/v1`](https://utdred.com/api/v1). Key endpoints:
 
 - `/api/v1/meta` — coverage counts and date range
 - `/api/v1/matches` — paginated, filterable match list
