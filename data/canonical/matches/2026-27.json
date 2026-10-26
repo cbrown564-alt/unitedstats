@@ -1920,6 +1920,268 @@
           "sourceConfidence": "supporting"
         }
       ]
+    },
+    {
+      "id": "2026-10-21-como-1907-a",
+      "date": "2026-10-21",
+      "competition": "champions-league",
+      "round": null,
+      "opponent": "Como 1907",
+      "opponentId": "como-1907",
+      "venue": "A",
+      "stadium": "stadio-giuseppe-sinigaglia",
+      "attendance": 10875,
+      "score": {
+        "ft": [
+          1,
+          4
+        ],
+        "pens": null
+      },
+      "eventsComplete": true,
+      "events": [
+        {
+          "type": "goal",
+          "player": "joshua-zirkzee",
+          "minute": 91
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Nico Paz",
+          "playerSide": "opponent",
+          "minute": 2,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Nico Paz",
+          "playerSide": "opponent",
+          "minute": 57,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Tasos Douvikas",
+          "playerSide": "opponent",
+          "minute": 49,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        },
+        {
+          "type": "opp-goal",
+          "player": null,
+          "playerName": "Jacobo Ramón",
+          "playerSide": "opponent",
+          "minute": 76,
+          "detail": null,
+          "sourceConfidence": "supporting"
+        }
+      ],
+      "sources": [
+        "wikipedia",
+        "mufcinfo-match-lineups",
+        "mufcinfo-match-stadiums",
+        "mufcinfo-goal-minutes"
+      ],
+      "lineup": [
+        {
+          "player": "senne-lammens",
+          "playerName": "Senne Lammens",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lammens_senne",
+          "shirt": 1,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "diogo-dalot",
+          "playerName": "Diogo Dalot",
+          "playerSide": "united",
+          "providerId": "mufcinfo:dalot_diogo",
+          "shirt": 2,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "matthijs-de-ligt",
+          "playerName": "Matthijs de Ligt",
+          "playerSide": "united",
+          "providerId": "mufcinfo:de_ligt_matthijs",
+          "shirt": 4,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 79
+        },
+        {
+          "player": "harry-maguire",
+          "playerName": "Harry Maguire",
+          "playerSide": "united",
+          "providerId": "mufcinfo:maguire_harry",
+          "shirt": 5,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "noussair-mazraoui",
+          "playerName": "Noussair Mazraoui",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mazraoui_noussair",
+          "shirt": 3,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "mason-mount",
+          "playerName": "Mason Mount",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mount_mason",
+          "shirt": 7,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "andrey-santos",
+          "playerName": "Andrey Santos",
+          "playerSide": "united",
+          "providerId": "mufcinfo:santos_andrey",
+          "shirt": 17,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 46
+        },
+        {
+          "player": "bryan-mbeumo",
+          "playerName": "Bryan Mbeumo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:mbeumo_bryan",
+          "shirt": 19,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 86
+        },
+        {
+          "player": "youri-tielemans",
+          "playerName": "Youri Tielemans",
+          "playerSide": "united",
+          "providerId": "mufcinfo:tielemans_youri",
+          "shirt": 18,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": null
+        },
+        {
+          "player": "matheus-cunha",
+          "playerName": "Matheus Cunha",
+          "playerSide": "united",
+          "providerId": "mufcinfo:cunha_matheus",
+          "shirt": 10,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 46
+        },
+        {
+          "player": "bruno-fernandes",
+          "playerName": "Bruno Fernandes",
+          "playerSide": "united",
+          "providerId": "mufcinfo:fernandes_bruno",
+          "shirt": 8,
+          "role": null,
+          "start": true,
+          "bench": false,
+          "on": null,
+          "off": 67
+        },
+        {
+          "player": "amad-diallo",
+          "playerName": "Amad Diallo",
+          "playerSide": "united",
+          "providerId": "mufcinfo:diallo_amad",
+          "shirt": 16,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 46,
+          "off": null
+        },
+        {
+          "player": "carlos-baleba",
+          "playerName": "Carlos Baleba",
+          "playerSide": "united",
+          "providerId": "mufcinfo:baleba_carlos",
+          "shirt": 20,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 46,
+          "off": null
+        },
+        {
+          "player": "joshua-zirkzee",
+          "playerName": "Joshua Zirkzee",
+          "playerSide": "united",
+          "providerId": "mufcinfo:zirkzee_joshua",
+          "shirt": 11,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 67,
+          "off": null
+        },
+        {
+          "player": "harry-amass",
+          "playerName": "Harry Amass",
+          "playerSide": "united",
+          "providerId": "mufcinfo:amass_harry",
+          "shirt": 41,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 79,
+          "off": null
+        },
+        {
+          "player": "shea-lacey",
+          "playerName": "Shea Lacey",
+          "playerSide": "united",
+          "providerId": "mufcinfo:lacey_shea",
+          "shirt": 31,
+          "role": null,
+          "start": false,
+          "bench": false,
+          "on": 86,
+          "off": null
+        }
+      ]
     }
   ]
 }
