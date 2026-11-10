@@ -95,7 +95,6 @@ Drawn from real values, never from a metaphor (`DataGlyphs.tsx`):
 | `SeasonLap` | One league season clockwise round a ring, beads outside / on / inside for W / D / L; a title lap closes on a gold bead |
 | `CordLoader` | A closed loop the needle runs round while something loads |
 | `CoverageWeave` | Covered / total as one cord woven back and forth through three warp bars, filled to the real fraction; the uncovered rows stay open (dashed). Only complete coverage ends on a gold bead |
-
 | `SeasonLapMini` | A season lap reduced to its cord (no per-match beads), light enough to draw a hundred; a title lap is lit and closes on gold |
 
 Result colour is always paired with position, so none of these depends on colour.
@@ -108,6 +107,9 @@ Result colour is always paired with position, so none of these depends on colour
 | Season page | `SeasonLapPlay` | The league season as a lap in the plate's leading slot; pressing it plays the lap |
 | Seasons index | `DecadeLaps` | Each decade opens with a row of mini laps, oldest first; title laps are lit and gold-knotted, so the glory decades glow before any number is read |
 | Opponent page | `RivalryCord` | The head-to-head balance over real time, first meeting to latest: up a step per United win, down per defeat. Pale beads mark where the upper hand changed; peak and trough are labelled; the end knot is today's balance. Replaces the plain span rail through `IdentityPlate`'s `span.rail` |
+| Player page | `CareerCord` | The United career laid along real time inside the player plate: the plate swells with matches played each season, a bead grows with goals (clean sheets for keepers and defenders), gold beads above mark medal seasons. A break in a career leaves the cord open and is labelled from the club's own fixtures: "War" when United played no competitive football, "Away" when they did. Seasons with partly recorded scorers draw hollow beads, as a floor. Replaces the plain first-to-latest bar through `PlayerPlate`'s `span.rail` |
+| Seasons index | `ClubThread` | Every league finish as one cord (monotone, so it passes through each finish without overshooting): champions at the top, the second tier below the divider, gold beads for league titles, a hollow gold ring for a Second Division title, loss beads for relegation seasons, a dashed open strand across the wars. The managers' reigns run beneath as one banded strand on the same calendar, each linking to its manager |
+| Match share card | `matchCard` (`lib/og-card.tsx`) | The match page's score-state cord at card scale, from the same geometry (`lib/matchCord.ts`). Baked only for matches with pages, drawn only when every goal of the scoreline has a minute; stoppage zoom shaded and stated; on photo cards the cord sits on a dark backing |
 
 ### Motion library
 
