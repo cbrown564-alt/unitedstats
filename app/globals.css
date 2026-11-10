@@ -2027,7 +2027,7 @@ input.site-sidebar-search-input:focus {
   .player-plate-secondary {
     display: flex;
     flex-wrap: wrap;
-    align-items: end;
+    align-items: flex-start;
     gap: 0.875rem 1.75rem;
     padding-left: 1.5rem;
   }
@@ -2058,7 +2058,7 @@ input.site-sidebar-search-input:focus {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
-    align-items: end;
+    align-items: start;
     gap: 0.75rem;
     min-width: 0;
     padding-left: 1.25rem;
