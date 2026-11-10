@@ -27,7 +27,7 @@ rules in `app/globals.css`, and `lib/navSections.ts`.
 | **Wave 1 — filter sheet** | 2026-06-30 | Matches search + filters in the floating pill below lg; filter sheet via `BottomSheet`; desktop keeps `MatchControlDeck` |
 | **Wave 1 — match-detail disclosure** | 2026-06-30 | `MatchSectionTabs` on mobile; hero + `MatchFlow` first; teamsheet in Match tab scroll; desktop `<details>` for secondary sections |
 | **Wave 1 — register primitive (partial)** | 2026-06-30 | `DataTable` `registerCards` + `LeagueTable` mobile rows — **leaderboard** for ranked lists (`/players`, `LeagueTable`, manager bounce); **metrics** for timelines and coverage grids (`PlayerSeasonTable`, `/data`). |
-| **Wave 1 — seasons cards** | 2026-06-30 | `/seasons` mobile card stream — `SeasonLedgerCard` per campaign, sticky decade headers below JumpRail; desktop grid table unchanged at `sm+`. |
+| **Wave 1 — seasons cards** | 2026-06-30 | `/seasons` mobile card stream — sticky decade headers below JumpRail; desktop grid table at `sm+`. (2026-11-10: one responsive `SeasonLedgerGrid` now renders both layouts.) |
 | **Wave 1 — analytics chapters** | 2026-06-30 | `/analytics` mobile `ChapterPager` — one ChartPanel (or EloHero / records block) per viewport-height slide, horizontal scroll-snap + dot indicator; desktop three-act layout unchanged at `sm+`. |
 | **Wave 2 — match ledger cards** | 2026-07-01 | `MatchNightCard` below `sm` — thin two-row register rows in `MatchList`: row 1 score (beside result strip) · opponent · date right; row 2 competition (+ cup round). No W/D/L badge; league game numbers hidden; no attendance on `/matches`; season via `MatchGroups` headers only. Desktop rows unchanged at `sm+`. |
 | **Wave 2 — sheet Phase B preview** | tried · cut | `MatchPreviewSheet` built then removed — goals-only peek insufficient vs full match page (lineup, fast load). Lists navigate directly. |
@@ -364,7 +364,7 @@ Impact weighted toward argument-settler and fragmented browse.
 | Filter → bottom-sheet + applied chips (1.3) | M | Med | ✅ Filter button in pill on `/matches`; sheet via `BottomSheet`; page deck hidden below lg. |
 | Touch chart inspection (1.4) | M | Med–High | ✅ Tap-to-pin/dismiss + bigger targets on shared inspectable charts (`useChartPin`). |
 | Answer surfaces — questions + compare (1.7) | M | **High** | ✅ Breadcrumbs, mobile appendix (definition/coverage), compare measures disclosure. |
-| Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | ✅ `SeasonLedgerCard` stream; sticky `season-decade-header` below JumpRail. |
+| Seasons scroll → cards w/ sticky era headers (1.3) | M | Med | ✅ card stream (responsive `SeasonLedgerGrid`); sticky `season-decade-header` below JumpRail. |
 | Analytics chapters (1.3) | M–L | Med | ✅ `ChapterPager` — one question per viewport slide, swipe + dots. |
 
 ### Wave 2 — Structural polish ✅

@@ -1221,12 +1221,105 @@ select {
     backdrop-filter: blur(10px);
   }
 
-  .season-card-stream {
+  .season-ledger {
     padding-bottom: 0.25rem;
   }
 
-  .season-card {
-    margin-inline: 0;
+  .season-ledger__row {
+    border-radius: 0.75rem;
+    background: rgb(30 26 24 / 0.36);
+    transition: background-color 180ms ease;
+  }
+
+  .season-ledger__row:nth-child(even) {
+    background: rgb(255 255 255 / 0.018);
+  }
+
+  .season-ledger__row:has(a:hover),
+  .season-ledger__row:has(a:focus-visible) {
+    background: color-mix(in oklab, var(--color-panel-2), var(--color-devil) 7%);
+  }
+}
+
+/* Season ledger (`SeasonLedgerGrid`, `FinishLadder`, `CupCell`). These repeat
+   once per season on /seasons, so their utilities live here once instead of in
+   every row's markup (and again in the page's flight payload). */
+@layer components {
+  .ledger-link {
+    @apply block rounded-xl border border-line/80 px-4 py-3.5 transition-colors hover:border-devil/35 hover:bg-panel-2/40 sm:items-start sm:rounded-none sm:border-y-0 sm:border-r-0 sm:bg-transparent sm:py-2.5 sm:hover:bg-panel-2/60;
+  }
+  .ledger-link--glory {
+    @apply border-gold/35 bg-gold/[0.04] hover:border-gold/50 hover:bg-gold/[0.04] sm:bg-transparent sm:hover:bg-panel-2/60;
+  }
+  /* After .ledger-link so the desktop grid wins over its mobile `block`. */
+  .ledger-grid {
+    @apply sm:grid sm:[grid-template-columns:var(--ledger-cols)] sm:gap-x-3;
+  }
+  .ledger-season {
+    @apply min-w-0 sm:pt-0.5;
+  }
+  .ledger-season > span {
+    @apply text-lg leading-tight sm:text-base;
+  }
+  .ledger-body {
+    @apply mt-3 space-y-3 sm:contents sm:space-y-0;
+  }
+  .ledger-cups {
+    @apply flex flex-wrap gap-x-3 gap-y-1.5 sm:contents;
+  }
+  .ledger-cup {
+    @apply flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[11px] leading-tight sm:flex-col sm:flex-nowrap sm:items-start sm:gap-1 sm:text-xs sm:leading-normal;
+  }
+  .ledger-cup__lane {
+    @apply text-ink-faint sm:hidden;
+  }
+  .ledger-cup__entry {
+    @apply inline-flex items-center gap-1.5;
+  }
+  .ledger-cup__short {
+    @apply text-[10px] leading-none text-ink-faint max-sm:whitespace-nowrap;
+  }
+  .ledger-cup__round {
+    @apply text-xs text-ink-dim;
+  }
+  .ledger-cup__none {
+    @apply text-ink-faint/55 max-sm:hidden;
+  }
+
+  .verdict-chip {
+    @apply inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold leading-none;
+  }
+  .verdict-chip--gold {
+    @apply border-gold/55 bg-gold/15 text-gold;
+  }
+  .verdict-chip--silver {
+    @apply border-silver/45 bg-silver/10 text-silver;
+  }
+
+  .wdl-seg {
+    @apply relative h-full overflow-hidden;
+  }
+  .wdl-seg__label {
+    @apply absolute inset-0 flex items-center justify-center gap-0.5 text-[10px] font-semibold leading-none tabular-nums;
+  }
+  .wdl-seg__tag {
+    @apply text-[9px] font-bold opacity-75;
+  }
+
+  .finish-ladder__track {
+    @apply h-2 w-full overflow-hidden rounded-full bg-panel-2/70 ring-1 ring-inset ring-line/60;
+  }
+  .finish-ladder__marker {
+    @apply absolute top-1 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-pitch bg-ink shadow-[0_1px_2px_rgb(0_0_0/0.5)];
+  }
+  .finish-ladder__meta {
+    @apply mt-1.5 flex items-center justify-between gap-2 text-[11px] leading-none;
+  }
+  .finish-ladder__place {
+    @apply flex items-center gap-1 font-semibold;
+  }
+  .finish-ladder__div2 {
+    @apply rounded bg-panel-2 px-1 py-px text-[9px] font-bold uppercase tracking-wide text-ink-faint;
   }
 }
 

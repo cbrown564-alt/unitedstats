@@ -97,7 +97,7 @@ export function WdlBar({
         <div className="relative h-[3px] flex-1" aria-hidden>
           <div
             className="absolute inset-y-0 left-0 rounded-full bg-ink-dim/55"
-            style={{ width: `${Math.max(0, Math.min(1, volume.fraction)) * 100}%` }}
+            style={{ width: `${Math.round(Math.max(0, Math.min(1, volume.fraction)) * 1000) / 10}%` }}
           />
         </div>
         <span className="shrink-0 whitespace-nowrap text-[10px] leading-none text-ink-faint">
@@ -196,13 +196,11 @@ function Segment({
 }) {
   if (pct <= 0) return null;
   return (
-    <div className={`relative h-full overflow-hidden ${color}`} style={{ width: `${pct}%` }}>
+    <div className={`wdl-seg ${color}`} style={{ width: `${Math.round(pct * 100) / 100}%` }}>
       {label != null && (
-        <span
-          className={`absolute inset-0 flex items-center justify-center gap-0.5 text-[10px] font-semibold leading-none tabular-nums ${text}`}
-        >
+        <span className={`wdl-seg__label ${text}`}>
           {label}
-          <span className="text-[9px] font-bold opacity-75">{letter}</span>
+          <span className="wdl-seg__tag">{letter}</span>
         </span>
       )}
     </div>

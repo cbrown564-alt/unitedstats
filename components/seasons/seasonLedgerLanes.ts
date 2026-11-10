@@ -1,6 +1,5 @@
 import type { SeasonSummary } from "@/lib/queries";
 import type { CampaignTier } from "@/components/CampaignVerdict";
-import type { SeasonCupOutcome } from "@/components/seasons/SeasonLedgerCard";
 
 export type Lane = "fa-cup" | "league-cup" | "europe" | "other";
 
@@ -11,15 +10,6 @@ export const LANE_LABEL: Record<Lane, string> = {
   "league-cup": "League Cup",
   europe: "Europe",
   other: "Other",
-};
-
-const CUP_SHORT: Record<string, string> = {
-  "charity-shield": "Shield",
-  "uefa-super-cup": "Super Cup",
-  "screen-sport-super-cup": "S.S. Cup",
-  "fifa-club-world-cup": "Club World",
-  "intercontinental-cup": "Interc.",
-  "test-match": "Test",
 };
 
 export function laneOf(type: string): Lane | null {
@@ -68,28 +58,6 @@ export function cupVerdict(
     return lastOutcome === "W" ? { label: "Won", tier: "silverware" } : { label: "Final", tier: "final-loss" };
   }
   return { label: shortRound(s.furthest_round), tier: "neutral" };
-}
-
-export function cupOutcomesForSeason(
-  comps: SeasonSummary[],
-  lanes: Lane[],
-  results: Map<string, string>,
-): SeasonCupOutcome[] {
-  const out: SeasonCupOutcome[] = [];
-  for (const lane of lanes) {
-    const laneComps = comps.filter((c) => laneOf(c.type) === lane);
-    for (const c of laneComps) {
-      const v = cupVerdict(c, results.get(`${c.season}:${c.competition_id}`));
-      out.push({
-        competitionId: c.competition_id,
-        laneLabel: LANE_LABEL[lane],
-        label: v.label,
-        tier: v.tier,
-        competitionShort: lane === "other" ? CUP_SHORT[c.competition_id] : undefined,
-      });
-    }
-  }
-  return out;
 }
 
 export function lanesForComps(comps: SeasonSummary[]): Lane[] {

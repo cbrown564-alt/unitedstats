@@ -8,8 +8,7 @@ import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
 import { CoverageNote } from "@/components/CoverageNote";
 import { JumpRail, type JumpChip } from "@/components/JumpRail";
 import { SeasonLedgerGrid, type SeasonLedgerRow } from "@/components/seasons/SeasonLedgerGrid";
-import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
-import { cupOutcomesForSeason, lanesForComps } from "@/components/seasons/seasonLedgerLanes";
+import { lanesForComps } from "@/components/seasons/seasonLedgerLanes";
 import { fmtNum } from "@/lib/format";
 import { listSeo, seoMetadata } from "@/lib/seo";
 import { seasonHref } from "@/lib/publishedHref";
@@ -220,7 +219,6 @@ export default function SeasonsPage() {
         }));
 
         const lanes = lanesForComps(rows.flatMap((r) => r.comps));
-        const maxLeagueP = Math.max(1, ...rows.map((r) => r.league?.p ?? 0));
         const gridRows: SeasonLedgerRow[] = rows.map((r) => ({
           season: r.season,
           href: seasonHref(r.season),
@@ -274,39 +272,13 @@ export default function SeasonsPage() {
               }))}
             />
 
-            {/* Mobile: card stream — one season per card, decade header sticks below JumpRail. */}
-            <ol className="season-card-stream register-card-list space-y-2.5 sm:hidden">
-              {rows.map((r) => {
-                const eraKey = eraForFirstMatchYear(Number(r.season.slice(0, 4))).key;
-                const seasonGlory =
-                  r.league != null &&
-                  isTopFlight(r.league) &&
-                  r.league.position === 1;
-                return (
-                  <SeasonLedgerCard
-                    key={r.season}
-                    season={r.season}
-                    href={seasonHref(r.season)}
-                    league={r.league}
-                    totalP={r.totalP}
-                    cups={cupOutcomesForSeason(r.comps, lanes, cupResults)}
-                    glory={seasonGlory}
-                    eraClass={eraSeasonRowClass(eraKey)}
-                    maxLeagueP={maxLeagueP}
-                  />
-                );
-              })}
-            </ol>
-
-            {/* Desktop: scannable grid table. */}
-            <div className="hidden overflow-x-auto sm:block">
-              <SeasonLedgerGrid
-                rows={gridRows}
-                lanes={lanes}
-                cupResults={cupResults}
-                borderClass={glory ? "border-gold/25" : "border-line"}
-              />
-            </div>
+            {/* One ledger: a card stream below sm, a scannable grid from sm. */}
+            <SeasonLedgerGrid
+              rows={gridRows}
+              lanes={lanes}
+              cupResults={cupResults}
+              borderClass={glory ? "sm:border-gold/25" : "sm:border-line"}
+            />
           </section>
         );
       })}

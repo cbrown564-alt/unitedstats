@@ -26,15 +26,16 @@ export function FinishLadder({ league }: { league: SeasonSummary }) {
   const danger = top && !champ && frac >= 0.8;
   const relZone = size > 1 ? Math.min(22, (3 / size) * 100) : 16;
 
+  // The marker defaults to an ink dot on a pitch ring (`.finish-ladder__marker`).
   const marker = champ
     ? top
-      ? "bg-gold border-pitch"
-      : "bg-pitch border-gold"
+      ? " bg-gold"
+      : " bg-pitch border-gold"
     : danger
-      ? "bg-loss border-pitch"
+      ? " bg-loss"
       : top
-        ? "bg-ink border-pitch"
-        : "bg-ink-faint border-pitch";
+        ? ""
+        : " bg-ink-faint";
   const placingTone = champ
     ? top
       ? "text-gold"
@@ -47,26 +48,26 @@ export function FinishLadder({ league }: { league: SeasonSummary }) {
   return (
     <div className="min-w-0">
       <div className="relative">
-        <div className="h-2 w-full overflow-hidden rounded-full bg-panel-2/70 ring-1 ring-inset ring-line/60">
+        <div className="finish-ladder__track">
           {top ? (
             <>
               <div className="absolute inset-y-0 left-0 w-[7%] bg-gold/30" />
-              <div className="absolute inset-y-0 right-0 bg-loss/25" style={{ width: `${relZone}%` }} />
+              <div className="absolute inset-y-0 right-0 bg-loss/25" style={{ width: `${Math.round(relZone * 10) / 10}%` }} />
             </>
           ) : (
             <div className="absolute inset-y-0 left-0 w-[12%] bg-ink/12" />
           )}
         </div>
         <span
-          className={`absolute top-1 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 shadow-[0_1px_2px_rgb(0_0_0/0.5)] ${marker}`}
-          style={{ left: `${frac * 100}%` }}
+          className={`finish-ladder__marker${marker}`}
+          style={{ left: `${Math.round(frac * 1000) / 10}%` }}
         />
       </div>
-      <div className="mt-1.5 flex items-center justify-between gap-2 text-[11px] leading-none">
-        <span className={`flex items-center gap-1 font-semibold ${placingTone}`}>
+      <div className="finish-ladder__meta">
+        <span className={`finish-ladder__place ${placingTone}`}>
           {champ && top && <TrophyIcon className="h-3 w-3" />}
           {!top && (
-            <span className="rounded bg-panel-2 px-1 py-px text-[9px] font-bold uppercase tracking-wide text-ink-faint">
+            <span className="finish-ladder__div2">
               Div 2
             </span>
           )}
