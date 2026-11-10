@@ -6,6 +6,7 @@ import { TrophyIcon } from "@/components/CampaignIcons";
 import { CoverageNote } from "@/components/CoverageNote";
 import type { SeasonLeagueTable, LeagueStanding } from "@/lib/queries";
 import { clubName } from "@/lib/format";
+import { recordHref } from "@/lib/recordHref";
 
 /**
  * The classic final league table for the division United played in that season —
@@ -59,9 +60,11 @@ function HeadCell({ children, className = "" }: { children: React.ReactNode; cla
 
 export function LeagueTable({
   table,
+  opponentHrefs,
   season,
 }: {
   table: SeasonLeagueTable;
+  opponentHrefs: Record<string, string>;
   season: string;
 }) {
   // The page is statically prerendered, so the expand/collapse state lives here,
@@ -192,7 +195,7 @@ export function LeagueTable({
             }
             const r = item.row;
             const meta = rowMeta(r);
-            const href = !meta.united && r.opponent_id ? `/opponent/${r.opponent_id}` : undefined;
+            const href = !meta.united && r.opponent_id ? opponentHrefs[r.opponent_id] ?? recordHref("opponent", r.opponent_id) : undefined;
             const inner = (
               <>
                 <span className={`stat-num w-6 shrink-0 text-right text-xs tabular-nums ${meta.posTone}`}>

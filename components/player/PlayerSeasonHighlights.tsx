@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { seasonHref } from "@/lib/publishedHref";
 import { fmtNum, fmtSeasonShort } from "@/lib/format";
 import type { DefensiveSeasonSplit, SeasonSplit } from "@/lib/playerSeasonHighlights";
 
@@ -38,7 +39,7 @@ export function PlayerSeasonHighlights({
             {peaks.map((s, i) => (
               <span key={s.season}>
                 {i > 0 && " · "}
-                <Link href={`/seasons/${s.season}`} className="stat-num text-devil-bright hover:underline focus-ring">
+                <Link href={seasonHref(s.season)} prefetch={false} className="stat-num text-devil-bright hover:underline focus-ring">
                   {fmtSeasonShort(s.season)}
                 </Link>
                 {" · "}
@@ -51,7 +52,7 @@ export function PlayerSeasonHighlights({
           <span>
             <span className="font-medium text-ink">Best G+A</span>
             {" — "}
-            <Link href={`/seasons/${gaPeak.season}`} className="stat-num text-gold hover:underline focus-ring">
+            <Link href={seasonHref(gaPeak.season)} prefetch={false} className="stat-num text-gold hover:underline focus-ring">
               {fmtSeasonShort(gaPeak.season)}
             </Link>
             {" · "}
@@ -81,7 +82,7 @@ export function PlayerSeasonHighlights({
           {csPeaks.map((s, i) => (
             <span key={s.season}>
               {i > 0 && " · "}
-              <Link href={`/seasons/${s.season}`} className="stat-num text-devil-bright hover:underline focus-ring">
+              <Link href={seasonHref(s.season)} prefetch={false} className="stat-num text-devil-bright hover:underline focus-ring">
                 {fmtSeasonShort(s.season)}
               </Link>
               {" · "}
@@ -94,7 +95,7 @@ export function PlayerSeasonHighlights({
         <span>
           <span className="font-medium text-ink">Fewest conceded</span>
           {" — "}
-          <Link href={`/seasons/${fewestConceded.season}`} className="stat-num text-gold hover:underline focus-ring">
+          <Link href={seasonHref(fewestConceded.season)} prefetch={false} className="stat-num text-gold hover:underline focus-ring">
             {fmtSeasonShort(fewestConceded.season)}
           </Link>
           {" · "}

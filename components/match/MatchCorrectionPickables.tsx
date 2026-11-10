@@ -77,7 +77,7 @@ export function MatchLineupPick({
 
   const nameEl =
     playerHref && !pickName ? (
-      <Link href={playerHref} className="flex-1 hover:text-devil-bright focus-ring">
+      <Link href={playerHref} prefetch={false} className="flex-1 hover:text-devil-bright focus-ring">
         {name}
       </Link>
     ) : pickName ? (

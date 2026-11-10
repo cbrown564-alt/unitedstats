@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TrophyIcon } from "@/components/CampaignIcons";
+import { seasonHref } from "@/lib/publishedHref";
 
 /**
  * The club's entire life as one object: every season a vertical bar whose height
@@ -72,7 +73,8 @@ export function HistorySkyline({
             return (
               <Link
                 key={s.season}
-                href={`/seasons/${s.season}`}
+                href={seasonHref(s.season)}
+                prefetch={false}
                 title={title}
                 aria-label={title}
                 className="group relative min-w-0 flex-1 focus-ring"

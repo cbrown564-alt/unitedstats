@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { seasonHref } from "@/lib/publishedHref";
 
 /**
  * A United career as one cord laid along real time, season by season. The
@@ -162,7 +163,8 @@ export function CareerCord({
           return (
             <Link
               key={s.season}
-              href={`/seasons/${s.season}`}
+              href={seasonHref(s.season)}
+              prefetch={false}
               tabIndex={-1}
               aria-hidden
               title={title}

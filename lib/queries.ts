@@ -270,13 +270,16 @@ export interface SeasonCupResult {
 export function seasonCupLastResults(): SeasonCupResult[] {
   return getDb()
     .prepare(
-      `SELECT m.season, m.competition_id, m.outcome AS last_outcome
-       FROM matches m JOIN competitions c ON c.id = m.competition_id
-       WHERE c.type <> 'league'
-         AND m.date = (
-           SELECT MAX(m2.date) FROM matches m2
-           WHERE m2.season = m.season AND m2.competition_id = m.competition_id
-         )`,
+      `WITH last_dates AS (
+         SELECT m.season, m.competition_id, MAX(m.date) AS last_date
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type <> 'league'
+         GROUP BY m.season, m.competition_id
+       )
+       SELECT m.season, m.competition_id, m.outcome AS last_outcome
+       FROM last_dates last
+       JOIN matches m ON m.season = last.season
+         AND m.competition_id = last.competition_id AND m.date = last.last_date`,
     )
     .all() as SeasonCupResult[];
 }

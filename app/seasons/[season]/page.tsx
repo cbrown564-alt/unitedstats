@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref, opponentHref, seasonHref } from "@/lib/publishedHref";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
@@ -176,7 +177,8 @@ export default async function SeasonPage({
           <>
             <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
             <Link
-              href={`/seasons/${older}`}
+              href={seasonHref(older)}
+              prefetch={false}
               className="hover:text-devil-bright focus-ring"
               aria-label={`Previous season ${older}`}
             >
@@ -190,7 +192,8 @@ export default async function SeasonPage({
           <>
             <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
             <Link
-              href={`/seasons/${newer}`}
+              href={seasonHref(newer)}
+              prefetch={false}
               className="hover:text-devil-bright focus-ring"
               aria-label={`Next season ${newer}`}
             >
@@ -263,7 +266,11 @@ export default async function SeasonPage({
 
                 {leagueTable && (
                   <div className="px-4 sm:px-0">
-                    <LeagueTable table={leagueTable} season={season} />
+                    <LeagueTable
+                      table={leagueTable}
+                      season={season}
+                      opponentHrefs={Object.fromEntries(leagueTable.rows.flatMap((row) => row.opponent_id ? [[row.opponent_id, opponentHref(row.opponent_id)]] : []))}
+                    />
                   </div>
                 )}
 
@@ -271,7 +278,7 @@ export default async function SeasonPage({
                   <section className="px-4 sm:px-0">
                     <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
                     <div className="-mx-4 rounded-none border-x-0 border-y border-line bg-panel p-4 sm:mx-0 sm:rounded-xl sm:border sm:p-5">
-                      <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
+                      <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={matchHref} />
                       <p className="mt-2 text-[11px] leading-4 text-ink-dim">
                         Every match in order — wins above the line, losses below, bar height the goal margin.
                       </p>

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
-import { scheduleIdle } from "@/lib/scheduleIdle";
 import { ACTIVATE_SIDEBAR_SEARCH_EVENT } from "@/lib/search/slashShortcut";
 import { CordLoader } from "@/components/glyphs/cord/DataGlyphs";
 import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
@@ -45,12 +44,6 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
     setSearchCommand(() => Comp);
     return Comp;
   }, []);
-
-  useEffect(() => {
-    return scheduleIdle(() => {
-      void ensureSearchCommand();
-    });
-  }, [ensureSearchCommand]);
 
   const activateDesktop = useCallback(() => {
     setDesktopActive(true);
@@ -103,6 +96,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
         onClick={activateDesktop}
         className="site-sidebar-search-trigger site-sidebar-search-trigger--icon cord-host"
         onPointerEnter={() => preloadSearchCommand()}
+        onFocus={() => preloadSearchCommand()}
       >
         <span className="site-sidebar-search-trigger-icon">
           <SearchGlyph />
@@ -142,6 +136,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
           onClick={activateDesktop}
           className="site-sidebar-search-trigger cord-host"
           onPointerEnter={() => preloadSearchCommand()}
+          onFocus={() => preloadSearchCommand()}
         >
           <span className="site-sidebar-search-trigger-icon">
             <SearchGlyph />

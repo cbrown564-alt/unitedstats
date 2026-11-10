@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { playerHref } from "@/lib/publishedHref";
 import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
 import { Pickable } from "@/components/match/MatchCorrection";
@@ -65,7 +66,7 @@ function GoalLabel({
   const connectorHeight = labelOffset;
 
   const name = g.playerId ? (
-    <Link href={`/player/${g.playerId}`} className={focused ? "font-semibold text-gold hover:text-ink" : "text-ink hover:text-devil-bright"}>
+    <Link href={playerHref(g.playerId)} prefetch={false} className={focused ? "font-semibold text-gold hover:text-ink" : "text-ink hover:text-devil-bright"}>
       {g.scorer}
     </Link>
   ) : (

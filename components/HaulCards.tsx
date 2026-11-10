@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref } from "@/lib/publishedHref";
 import type { MatchRow } from "@/lib/queries";
 import { fmtDate, scoreline, venuePrefix } from "@/lib/format";
 import { opponentNames } from "@/lib/clubNames";
@@ -41,7 +42,8 @@ export function HaulCards({
         return (
           <Link
             key={m.id}
-            href={`/match/${m.id}`}
+            href={matchHref(m.id)}
+            prefetch={false}
             className={`group block rounded-xl border border-l-2 border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 ${edge(m.goals)}`}
           >
             <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">{label(m.goals)}</p>

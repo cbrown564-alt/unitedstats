@@ -11,7 +11,7 @@ export function MatchesPageClient({ defaultView }: { defaultView: MatchPageView 
   const searchParams = useSearchParams();
   const catalog = useMatchesCatalog();
   const params = useMemo(() => Object.fromEntries(searchParams.entries()), [searchParams]);
-  const view = catalog ? buildMatchesPageViewFromCatalog(params, catalog) : defaultView;
+  const view = useMemo(() => catalog ? buildMatchesPageViewFromCatalog(params, catalog) : defaultView, [catalog, params, defaultView]);
 
   return <MatchesPageBody view={view} />;
 }

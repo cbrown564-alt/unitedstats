@@ -77,7 +77,10 @@ test("recognition prompts are match doors, not fixture rows", () => {
   const pool = rediscoveryPool({ now: new Date("2026-07-03T12:00:00Z") });
   assert.ok(pool.length >= 24, `thin engine pool: ${pool.length}`);
   const prompt = buildPrompt(pool[0]);
-  assert.ok(prompt.href.startsWith("/match/"), "prompt must link to a match");
+  assert.ok(
+    prompt.href === `/match/${prompt.id}` || prompt.href === `/record?kind=match&id=${encodeURIComponent(prompt.id)}`,
+    "prompt must open the same match through its published page or record reader",
+  );
   assert.equal(prompt.prompt, "Do you remember…?");
   assert.notEqual(prompt.reason, "a charged night");
   assert.ok(prompt.line.length > 0, "prompt needs a human line");

@@ -4,6 +4,7 @@ import { MATCH_SELECT, type MatchRow } from "./queries";
 import { scoreline, scoreNote, fmtRound, resultTone, fmtDate, venuePrefix } from "./format";
 import { CANONICAL_FAME } from "./curatedNights";
 import type { RediscoveryPrompt } from "./rediscovery-prompt";
+import { matchHref } from "./publishedHref";
 
 export { CANONICAL_FAME };
 export type { RediscoveryPrompt } from "./rediscovery-prompt";
@@ -261,7 +262,7 @@ export function buildPrompt(night: ScoredNight): RediscoveryPrompt {
   const line = `${venue} ${m.opponent_name} — ${night.reason}`;
   return {
     id: m.id,
-    href: `/match/${m.id}`,
+    href: matchHref(m.id),
     prompt: "Do you remember…?",
     reason: night.reason === "a charged night"
       ? night.reason

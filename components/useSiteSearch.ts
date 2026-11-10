@@ -45,7 +45,7 @@ export function useSiteSearch(q: string): SiteSearchState & { retry: () => void 
       } catch {
         if (!cancelled) setState({ query: q, result: { ...EMPTY, status: "error" } });
       }
-    }, 150);
+    }, 100);
     return () => { cancelled = true; clearTimeout(timer); clearTimeout(emptyTimer); };
   }, [q, ready, attempt]);
   return { ...(ready ? state.query === q ? state.result : { ...EMPTY, status: "loading" as const } : EMPTY), retry: () => { setState({ query: "", result: EMPTY }); setAttempt(n => n + 1); } };

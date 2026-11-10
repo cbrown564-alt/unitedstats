@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { familyName } from "@/lib/names";
+import { seasonHref } from "@/lib/publishedHref";
 
 /**
  * The club's whole league life as one red cord. Height is where United
@@ -201,7 +202,8 @@ export function ClubThread({ points, reigns }: { points: FinishPoint[]; reigns: 
           return (
             <Link
               key={d.p.season}
-              href={`/seasons/${d.p.season}`}
+              href={seasonHref(d.p.season)}
+              prefetch={false}
               title={title}
               aria-label={title}
               className="ct-hit group absolute z-10 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full focus-ring"
@@ -219,6 +221,7 @@ export function ClubThread({ points, reigns }: { points: FinishPoint[]; reigns: 
           <Link
             key={`${b.managerId}-${b.from}`}
             href={`/manager/${b.managerId}`}
+            prefetch={false}
             title={`${b.name}: ${b.from.slice(0, 4)}–${b.to ? b.to.slice(0, 4) : "now"}`}
             className={`ct-reign absolute top-0 ${b.i % 2 ? "ct-reign--alt" : ""}`}
             style={{ left: `${b.left}%`, width: `${b.width}%` }}

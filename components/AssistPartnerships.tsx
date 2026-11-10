@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { playerHref } from "@/lib/publishedHref";
 import type { AssistPartnership } from "@/lib/queries";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -62,7 +63,8 @@ export function AssistPartnerships({
         <p className="mb-3 text-sm text-ink-dim">
           Most productive with{" "}
           <Link
-            href={`/player/${topCreated ? top.scorer_id : top.assister_id}`}
+            href={playerHref(topCreated ? top.scorer_id : top.assister_id)}
+            prefetch={false}
             className="font-medium text-ink hover:text-devil-bright"
           >
             {topPartner}
@@ -140,7 +142,8 @@ function Column({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <Link
-                  href={`/player/${p.id}`}
+                  href={playerHref(p.id)}
+                  prefetch={false}
                   className="truncate text-sm font-medium text-ink hover:text-devil-bright"
                 >
                   {p.name}

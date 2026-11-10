@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { IntentLink as Link } from "@/components/IntentLink";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { RedThreadWordmark } from "@/components/Brand";

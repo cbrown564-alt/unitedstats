@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { seasonHref } from "@/lib/publishedHref";
 import { WdlBar } from "@/components/WdlBar";
 import { GoalDiff } from "@/components/GoalDiff";
 import { ShareCite } from "@/components/ShareCite";
@@ -209,7 +210,8 @@ function SpanTrack({
         <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch" style={{ backgroundColor: accent }} aria-hidden />
         {peakAt != null && peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
             style={{ left: `${peakAt}%` }}
             title={peakSeason.title}
@@ -229,7 +231,8 @@ function SpanTrack({
         <div className="min-w-0 truncate text-ink-dim">{left}</div>
         {peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
             title={peakSeason.title}
           >

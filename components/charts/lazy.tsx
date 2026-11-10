@@ -1,14 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { ComponentProps } from "react";
+import { useEffect, useRef, useState, type ComponentProps } from "react";
 
 /**
- * Lazy, client-only wrappers for the three recharts charts. recharts is large
- * (~hundreds of KB) and the charts sit below the fold, so we defer the bundle
- * with `ssr: false` and let it load after hydration. Each wrapper reserves the
- * chart's height up front so deferring it costs no layout shift. The `import()`
- * types are erased at runtime, so the heavy modules never enter this chunk.
+ * Client-only chart wrappers with reserved space. The player contribution chart
+ * additionally waits until it approaches the viewport, rather than downloading
+ * Recharts at hydration on phones where the whole chart is below the fold.
+ * The other wrappers retain their existing post-hydration loading behavior.
  */
 
 type SeasonContributionProps = ComponentProps<
@@ -50,9 +49,28 @@ const ManagerLongevityInner = dynamic(
 );
 
 export function SeasonContributionChartLazy(props: SeasonContributionProps) {
+  const host = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!host.current) return;
+    if (typeof IntersectionObserver === "undefined") {
+      const frame = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(frame);
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: "200px" });
+    observer.observe(host.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div style={{ minHeight: props.height ?? 200 }}>
-      <SeasonContributionInner {...props} />
+    <div ref={host} style={{ minHeight: props.height ?? 200 }} aria-busy={!visible}>
+      {visible ? <SeasonContributionInner {...props} /> : null}
     </div>
   );
 }

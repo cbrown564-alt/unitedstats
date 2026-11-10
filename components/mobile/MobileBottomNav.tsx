@@ -1,21 +1,33 @@
 "use client";
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MOBILE_SEARCH_PLACEHOLDER } from "@/lib/search/examples";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
-import { scheduleIdle } from "@/lib/scheduleIdle";
 import { mobileNavLabel } from "@/lib/navSections";
 import { onMobileSearchOpen } from "@/lib/mobileSearch";
 import { OPEN_MOBILE_SEARCH_EVENT } from "@/lib/search/slashShortcut";
 import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 import { MobileNavSheet } from "@/components/mobile/MobileNavSheet";
-import { MobileMatchFilterControls } from "@/components/mobile/MobileMatchFilterControls";
 import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
 import { useMobileShellTier } from "@/components/mobile/useMobileShellTier";
 
 type SearchCommandComponent = typeof import("@/components/SearchCommand").SearchCommand;
+
+// The filter builder and catalog calculations belong to /matches. Other routes
+// keep the same mobile navigation without downloading the archive controls.
+const MobileMatchFilterControls = dynamic(
+  () => import("./MobileMatchFilterControls").then((mod) => mod.MobileMatchFilterControls),
+  {
+    loading: () => (
+      <button type="button" aria-label="Filters" className="mobile-pill-btn mobile-pill-btn--filters tap-target focus-ring" disabled>
+        <UtilGlyph id="filter" />
+      </button>
+    ),
+  },
+);
 
 export function MobileBottomNav() {
   const pathname = usePathname();
@@ -36,12 +48,6 @@ export function MobileBottomNav() {
     const mod = await preloadSearchCommand();
     setSearchCommand(() => mod.SearchCommand);
     return mod.SearchCommand;
-  }, []);
-
-  useEffect(() => {
-    return scheduleIdle(() => {
-      void preloadSearchCommand();
-    });
   }, []);
 
   useEffect(() => {
@@ -146,6 +152,8 @@ export function MobileBottomNav() {
               aria-label="Search"
               aria-expanded={searchOpen}
               onClick={openSearch}
+              onPointerEnter={() => preloadSearchCommand()}
+              onFocus={() => preloadSearchCommand()}
               className="mobile-pill-btn tap-target focus-ring"
             >
               <UtilGlyph id="search" className="cd-lit" />

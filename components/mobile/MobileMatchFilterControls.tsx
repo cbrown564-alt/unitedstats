@@ -32,7 +32,7 @@ function MobileMatchFilterControlsInner({ open, onOpen, onClose }: MobileMatchFi
   );
   const filterCount = countFilterParams(searchParams);
   const catalog = useMatchesCatalog();
-  const view = catalog ? buildMatchesPageViewFromCatalog(params, catalog) : null;
+  const view = useMemo(() => catalog ? buildMatchesPageViewFromCatalog(params, catalog) : null, [catalog, params]);
 
   return (
     <>

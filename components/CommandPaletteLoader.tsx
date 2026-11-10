@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { preloadCommandPalette } from "@/lib/preloadChunks";
-import { scheduleIdle } from "@/lib/scheduleIdle";
 
 const CommandPalette = dynamic<{ initialOpen?: boolean }>(
   () => import("./CommandPalette").then((mod) => mod.CommandPalette),
@@ -12,12 +11,6 @@ const CommandPalette = dynamic<{ initialOpen?: boolean }>(
 
 export function CommandPaletteLoader() {
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    return scheduleIdle(() => {
-      void preloadCommandPalette();
-    });
-  }, []);
 
   useEffect(() => {
     if (mounted) return;

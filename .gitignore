@@ -39,6 +39,9 @@ yarn-error.log*
 # search telemetry (append-only, runtime — see lib/search/log.ts)
 /output/search-log.jsonl
 
+# Local Lighthouse reports and traces; baseline and targets live in docs/PERF.md.
+/output/performance/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

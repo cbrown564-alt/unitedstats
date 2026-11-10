@@ -33,6 +33,7 @@ export function DecadeLaps({ laps }: { laps: DecadeLap[] }) {
           <li key={lap.season}>
             <Link
               href={lap.href}
+              prefetch={false}
               title={title}
               aria-label={title}
               className={`cord-host group flex flex-col items-center gap-0.5 rounded-lg px-0.5 pb-1 pt-0.5 focus-ring ${

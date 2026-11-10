@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { playerHref } from "@/lib/publishedHref";
 import { familyName } from "@/lib/names";
 import type { LineupRow } from "@/lib/queries";
 import { placeBand, pitchPlacement, PITCH_BAND_ORDER } from "@/lib/placement";
@@ -83,7 +84,8 @@ function PitchPlayer({
   );
   return p.player_id ? (
     <Link
-      href={`/player/${p.player_id}`}
+      href={playerHref(p.player_id)}
+      prefetch={false}
       title={p.role ?? undefined}
       className={`group flex w-[4.25rem] flex-col items-center gap-0.5 text-center transition ${
         focused ? "z-10 scale-110 text-ink drop-shadow-[0_0_9px_rgba(245,197,24,0.65)]" : hasFocus ? "opacity-35" : ""
@@ -240,7 +242,7 @@ function BenchRow({
         {card && <CardMark type={card} className="absolute -right-1.5 -top-1" />}
       </span>
       {player.player_id ? (
-        <Link href={`/player/${player.player_id}`} className="group flex min-w-0 flex-1 items-center">
+        <Link href={playerHref(player.player_id)} prefetch={false} className="group flex min-w-0 flex-1 items-center">
           {body}
         </Link>
       ) : (

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { IntentLink as Link } from "@/components/IntentLink";
 import Image from "next/image";
 import { useRef, useState, useSyncExternalStore } from "react";
 import type { GreatNight, HomepageNightCatalog } from "@/lib/greatNightSelect";

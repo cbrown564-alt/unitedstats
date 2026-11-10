@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref, seasonHref } from "@/lib/publishedHref";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { ShareCite } from "@/components/ShareCite";
@@ -272,7 +273,8 @@ function CareerArc({
         <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
         {peakPct != null && peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
             style={{ left: `${peakPct}%` }}
             title={
@@ -299,14 +301,15 @@ function CareerArc({
 
       <div className="mt-2.5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 text-xs">
         {debut ? (
-          <Link href={`/match/${debut.id}`} className="group flex min-w-0 flex-col gap-1 text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
+          <Link href={matchHref(debut.id)} prefetch={false} className="group flex min-w-0 flex-col gap-1 text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
             <span className="stat-num text-ink">{debut.season}</span>
             <span className="break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {debut.opponent_name}</span>
           </Link>
         ) : <span />}
         {peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
             title={
               defensive
@@ -322,7 +325,7 @@ function CareerArc({
           </Link>
         )}
         {latest ? (
-          <Link href={`/match/${latest.id}`} className="group flex min-w-0 flex-col items-end gap-1 text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
+          <Link href={matchHref(latest.id)} prefetch={false} className="group flex min-w-0 flex-col items-end gap-1 text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
             <span className="stat-num text-ink">{latest.season}</span>
             <span className="max-w-full break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {latest.opponent_name}</span>
           </Link>
