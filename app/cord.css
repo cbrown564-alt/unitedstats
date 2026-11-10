@@ -393,3 +393,44 @@
 .cd.cd-cabinet { --cd-plate-o: 0.92; }
 .cd.cd-cabinet .cd-plate--strong { opacity: 0.92; }
 .cd.cd-facet { --cd-plate-o: 0.3; }
+
+/* ------------------------------------------------------------- career cord */
+
+.cc-svg .cc-ns { vector-effect: non-scaling-stroke; }
+.cc-svg { --cd-sw: 2.5px; }
+.cc-svg .cc-plate { opacity: 0.24; }
+.cc-svg .cc-open { stroke-width: 1.5px; stroke-dasharray: 3 5; opacity: 0.4; }
+.cc-svg .cc-tick { stroke-width: 1px; opacity: 0.35; }
+.cc-slot { display: block; }
+.cc-gap {
+  font-size: 9.5px;
+  line-height: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  white-space: nowrap;
+}
+.cc-slot:hover .cc-bead { scale: 1.25; }
+.cc-bead {
+  border-radius: 999px;
+  background: var(--color-ink);
+  box-shadow: 0 0 0 2px var(--color-panel);
+  transition: scale 160ms var(--ease-cinch, ease-out);
+}
+.cc-bead--floor { background: var(--color-panel); box-shadow: inset 0 0 0 1.5px var(--color-ink-dim), 0 0 0 2px var(--color-panel); }
+.cc-medal {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 2px var(--color-panel);
+}
+.cc-medal--inline { display: inline-block; vertical-align: 0; margin-right: 2px; box-shadow: none; }
+.cc-end {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--color-devil-bright);
+  box-shadow: 0 0 0 2.5px var(--color-panel);
+}

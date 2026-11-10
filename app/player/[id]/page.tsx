@@ -9,7 +9,7 @@ import {
   playerAppearanceEndpoints,
   playerDefensiveBySeason, playerDefensiveTotals,
   playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
-  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers,
+  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, allSeasons,
   type CuratedTotals,
 } from "@/lib/queries";
 import { playerBestScoringRun } from "@/lib/trails";
@@ -21,6 +21,7 @@ import { PlayerScoringArchive } from "@/components/player/PlayerScoringArchive";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
 import { PlayerPlate } from "@/components/PlayerPlate";
+import { CareerCord } from "@/components/CareerCord";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
 import { AssistPartnerships } from "@/components/AssistPartnerships";
@@ -35,7 +36,7 @@ import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format"
 import { entityRef } from "@/lib/citations";
 import { jsonLdHtml, playerJsonLd } from "@/lib/structuredData";
 import { correctionPrefillHref } from "@/lib/corrections";
-import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
+import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage, seasonsWithLimitedGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
 import {
   playerUsesDefensiveProfile,
   DEFENSIVE_CLEAN_SHEET_NOTE,
@@ -237,7 +238,25 @@ export default async function PlayerPage({
             concededPerGame,
             cleanSheetPct: defensiveCleanSheetPct,
           }}
-          span={{ debut, latest, peakSeason, peakDefensiveSeason }}
+          span={{
+            debut,
+            latest,
+            peakSeason,
+            peakDefensiveSeason,
+            rail: (
+              <CareerCord
+                seasons={
+                  defensiveProfile && seasonsWithDefense
+                    ? seasonsWithDefense.map((s) => ({ season: s.season, apps: s.apps, marks: s.cleanSheets }))
+                    : bySeason.map((s) => ({ season: s.season, apps: s.apps, marks: s.goals }))
+                }
+                medals={medalSeasons}
+                clubSeasons={new Set(allSeasons())}
+                limitedMarks={defensiveProfile ? new Set<string>() : new Set(seasonsWithLimitedGoalScorerCoverage())}
+                markLabel={defensiveProfile ? "clean sheets" : "goals"}
+              />
+            ),
+          }}
           shirts={shirts}
           caveatBrief="Verified competitive record"
           correctionHref={playerCorrectionHref}
