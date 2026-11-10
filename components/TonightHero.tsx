@@ -1,10 +1,14 @@
 "use client";
 
 import { IntentLink as Link } from "@/components/IntentLink";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRef, useState, useSyncExternalStore } from "react";
 import type { GreatNight, HomepageNightCatalog } from "@/lib/greatNightSelect";
 import { selectGreatNights } from "@/lib/greatNightSelect";
+
+// Most nights use the ghosted year. Load image handling only for a night that
+// actually has a photograph; keep server rendering for those photographs.
+const Image = dynamic(() => import("next/image"));
 
 function utcDayKey(date: Date): string {
   return date.toISOString().slice(0, 10);

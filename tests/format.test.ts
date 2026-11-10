@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { competitionShortName, fmtSeasonShort, fmtYearRange, playerCareerSpan, scoreline, scoreNote } from "@/lib/format";
+import { competitionShortName, fmtAxisNumber, fmtNum, fmtSeasonShort, fmtYearRange, playerCareerSpan, scoreline, scoreNote } from "@/lib/format";
 
 test("fmtSeasonShort renders compact season labels", () => {
   assert.equal(fmtSeasonShort("2003-04"), "03/04");
@@ -39,4 +39,15 @@ test("scoreline and scoreNote format extra time after the score", () => {
   assert.equal(scoreline(1, 1, [4, 3], true), "1–1 (4–3 pens) (a.e.t)");
   assert.equal(scoreNote(null, true), "(a.e.t)");
   assert.equal(scoreNote([4, 3], true), "(a.e.t) · 4–3 pens");
+});
+
+test("reusing number formatting retains existing labels and axis rounding", () => {
+  const values = [0, -0, 1, -1, 999, 1000, 6043, 123456789, 0.00123, 1.005, -1234.56, Infinity, -Infinity, NaN];
+  for (const value of values) {
+    assert.equal(fmtNum(value), value.toLocaleString("en-GB"));
+    assert.equal(fmtAxisNumber(value, "%"), `${Math.round(value).toLocaleString("en-GB")}%`);
+  }
+  assert.equal(fmtNum(null), "—");
+  assert.equal(fmtNum(undefined), "—");
+  assert.equal(fmtAxisNumber("1234.6"), "1,235");
 });

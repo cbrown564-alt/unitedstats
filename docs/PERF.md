@@ -7,7 +7,7 @@
 responsiveness without changing that design. The audit does not establish that
 the latest visual commits caused a regression: there is no comparable earlier
 Lighthouse measurement. The baseline below was captured before the implementation
-pass; the follow-up section records that pass separately. No deployment or field
+pass; the follow-up sections record the implementation passes separately. No deployment or field
 validation is claimed.
 
 ### Measurement method
@@ -367,6 +367,169 @@ it in this harness. Small differences are not evidence of real-user improvement.
   link; chart loading after scrolling and without IntersectionObserver; native
   summaries without JavaScript; and reduced-motion replay behavior. No console
   errors were observed in these checks.
+
+## Second performance pass — JavaScript and transfer, 10 November 2026
+
+**The 50% transfer goal is met; the JavaScript and responsiveness targets remain partly unmet.**
+The final equally weighted corpus is **10.517 → 5.943 → 4.965 MiB**
+(original baseline → first pass → this pass), **52.79% below the original baseline**.
+No route/device transfer increased relative to that original baseline. Total script
+transfer is **3.357 → 2.194 MiB**, a
+**34.6% reduction**; 7 of 12 route/device script budgets pass.
+No budget was raised.
+
+### What changed
+
+- The browser uses a versioned, lossless match catalog. Correlated reference fields
+  share columns, players use references, goal events use columns, and dates use
+  day differences. The decoder reconstructs all 6,043 original rows, including
+  every event, starter, source, note, null, and exceptional ID. Corpus-wide deep
+  equality and filter-parity tests pass. The readable catalog endpoint remains
+  available. The browser-captured catalog response fell from **360,204 to 150,283
+  bytes** (58.3% less); decoded JSON fell from 7,100,681 to 1,253,978 bytes.
+- Decoding yields after each 256 records, with a timer fallback when browser task
+  yielding is unavailable. The test checks that decoding yields and still returns
+  the exact complete catalog. Long chart/ledger labels reuse one number formatter;
+  parity tests cover grouping, rounding, decimals, nulls, negative zero, and
+  non-finite values. Context consumers reuse the provider instead of subscribing
+  to a duplicate local state.
+- Full production builds use Next 16.2.9's supported Webpack path. A paired pilot
+  reduced homepage script transfer from approximately 188 KiB with the second-pass
+  Turbopack candidate to 163 KiB with Webpack. Preview builds and development keep
+  Turbopack; the build wrapper follows the existing profile selection, honors
+  explicit bundler flags, and removes an unused Webpack cache before a Turbopack
+  build. Both artifact-budget thresholds remain unchanged.
+- Mobile navigation/search sheets load on first use and remain mounted for their
+  exit animation. First-open focus, swipe, backdrop, and Escape hooks wait for the
+  portal. Search ranking code loads with the first query, unused photograph
+  handling loads only when a night has an image, and Web Vitals observers load
+  only when reporting or debug is configured. Umami remains enabled as before.
+  The mobile Home link uses the existing intent-based prefetch behavior.
+- The archive's URL reader has its own empty Suspense fallback. The browser
+  observer previously recorded removal/recreation of the result count and summary
+  during hydration; it records none after this change. The full archive chart is
+  retained, including its original closed-summary behavior. Cold desktop paging
+  also reproduced a failure on the saved committed build: a correct page-2 link
+  left the URL on page 1. Pagination, sort, and facet controls now use Next's
+  supported native-history integration over the already-loaded catalog. Direct
+  filtered URLs, page counts, back/forward, sort, modifier-click/new tabs, and
+  native summaries without JavaScript pass on both viewports. Other Pager users
+  keep their normal route links.
+
+### Final production measurement
+
+Only **`output/performance/2026-11-10-budgets-verified/`** forms this comparison:
+36 cold-browser runs, three per route/device, Lighthouse 13.6.0, Chrome 157,
+the same Brotli server and device settings as the original baseline. Build ID:
+`AuPsTnEBuNgfdtrbuVKk9`. Builds, checks, and other test browsers were stopped
+while collecting these runs. This remains a shared-laptop laboratory measurement;
+no development-server or field-performance improvement is claimed by this pass.
+
+Earlier probes and intermediate full candidates are retained as diagnostics and
+are not pooled with these results. They exposed long catalog/formatting tasks,
+whole-archive hydration replacement, and the cold paging failure. The final
+minimum score is **98**; all 36 runs have
+**CLS 0**, zero failed requests, and
+0 Lighthouse run warnings.
+
+Values below are medians of three. Mobile TBT shows the accepted first pass and
+this final pass, so improvements in transfer are not mistaken for uniform CPU
+improvement. Parentheses show score ranges.
+
+| Page | Mobile score (range) | Mobile LCP | Mobile TBT, first → second pass | Desktop score (range) | Desktop LCP | Desktop TBT |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Homepage | 100 (100–100) | 1.211 s | 9 → 7 ms | 100 (100–100) | 0.301 s | 0 ms |
+| Seasons index | 98 (98–99) | 1.509 s | 84 → 126 ms | 100 (100–100) | 0.377 s | 24 ms |
+| Wayne Rooney | 99 (99–100) | 1.508 s | 57 → 98 ms | 100 (100–100) | 0.679 s | 0 ms |
+| 1999 European final | 100 (99–100) | 1.223 s | 7 → 6 ms | 100 (100–100) | 0.434 s | 0 ms |
+| 1998–99 season | 100 (100–100) | 1.217 s | 11 → 3 ms | 100 (100–100) | 0.312 s | 0 ms |
+| Match browser | 99 (99–99) | 1.222 s | 90 → 118 ms | 100 (100–100) | 0.315 s | 8 ms |
+
+Each pair is mobile / desktop; KiB means 1,024 bytes. Script totals include all
+scripts automatically loaded or prefetched during the navigation capture.
+
+| Page | Total transfer, KiB | Script transfer, KiB | Requests |
+| --- | ---: | ---: | ---: |
+| Homepage | 382.7 / 382.7 | 163.2 / 163.2 | 27 / 27 |
+| Seasons index | 352.8 / 352.8 | 153.2 / 153.2 | 19 / 19 |
+| Wayne Rooney | 484.0 / 594.1 | 194.8 / 304.9 | 40 / 45 |
+| 1999 European final | 428.5 / 428.5 | 193.3 / 193.3 | 50 / 50 |
+| 1998–99 season | 367.9 / 367.9 | 164.5 / 164.5 | 27 / 27 |
+| Match browser | 471.3 / 471.3 | 199.6 / 199.6 | 24 / 24 |
+
+### Targets still open
+
+- JavaScript remains above **150 KiB** on Home (**163.2 KiB** on
+  each viewport) and Seasons (**153.2 KiB**). Desktop Rooney remains above
+  its **200 KiB** chart budget at **304.9 KiB**. The other seven
+  measurements meet their script budgets; Home and Seasons remain the two
+  general-navigation routes, with the four profile/replay/spine routes at 200 KiB.
+  The visible contribution chart still loads normally on desktop and adds roughly
+  110 KiB of scripts relative to the phone's initial capture. Reducing shared
+  chrome/Home code and that visible chart dependency remains implementation work.
+- Mobile Seasons TBT is **126 ms** and Matches TBT is
+  **118 ms**, above the 100 ms target. Faster diagnostic probes
+  are not substituted for those final medians. Rooney meets the TBT target at
+  **98 ms**, **61.3% below the original baseline**.
+- Mobile LCP is **1.509 s** on Seasons and
+  **1.508 s** on Rooney, narrowly above 1.500 s. The other median
+  LCP, score, request-count, failed-request, and CLS targets pass.
+- The strict report checker intentionally exits nonzero while these misses
+  remain. It compares the complete corpus against the original baseline and
+  writes `budget-comparison.json` beside the reports:
+
+```bash
+npm run check:perf:lighthouse -- output/performance/2026-11-10 output/performance/2026-11-10-budgets-verified
+```
+
+### Interaction and appearance checks
+
+The same browser harness was rerun against the saved committed first pass and
+this final source. These are single local action-to-frame samples, including
+Playwright polling and two frames, not INP or p95. Pairs are mobile / desktop, ms.
+
+| Action | First pass control | Final source |
+| --- | ---: | ---: |
+| slash focuses page search | 73 / 45 | 77 / 44 |
+| Rooney search results | 233 / 234 | 249 / 232 |
+| search selection opens Rooney | 165 / 167 | 183 / 199 |
+| Premier League filter | 129 / 147 | 92 / 121 |
+| match replay | 62 / 66 | 66 / 66 |
+| season replay | 64 / 66 | 66 / 66 |
+
+Cold search still misses the 200 ms sampled-action target. The other samples are
+within it; small differences are not evidence of field improvement.
+
+All six routes have zero changed screenshot pixels at both viewports after the
+existing animation clock and rotating placeholder are normalized for comparison
+only. Reached contribution-chart crops also match exactly. Evidence is under
+`2026-11-10-budgets-ui-final/`; the last changed route, Matches, was rechecked
+against the same saved baseline under `2026-11-10-budgets-ui-query/`, again with
+zero changed pixels. Phone/tablet/desktop first-use search and command palette,
+search-index failure/retry, first-open sheet focus restoration/swipe dismissal,
+and decoder fallback without browser task yielding pass. The fallback retains
+all 6,043 result-chart rectangles. Replay behavior and the approved CSS, drawing,
+layout, and typography are unchanged.
+
+### Build and data verification
+
+- **308 tests pass**, including exact catalog round-tripping, exceptional IDs,
+  asynchronous decoding, number-format parity, and the existing filter/query
+  corpus tests. Validation reports 6,043 matches across 127 seasons, zero errors,
+  and 40 existing warnings. No canonical data or cached media changed.
+- Full production build, existing postbuild budgets, and full static-render guard
+  pass: 9,212 prerendered paths, 13 static pages, and nine SSG route families.
+  The measured full postbuild export is **404.8 MiB**; `.next` was **788.7 MiB**
+  including the Webpack disk cache, below the unchanged 1,000 MiB full limit.
+- The actual preview build and preview static guard also pass with the previous
+  full build's unused Webpack cache removed: **236.813 MiB** `.next`,
+  **237.638 MiB** export, **710** prerendered paths,
+  below both unchanged 500 MiB preview limits. The measured full build and its
+  generated client catalogs were restored after this check.
+- Scoped ESLint passes with zero errors and 15 existing warnings; Knip passes
+  with only the previously documented `.claude/**` exclusion. The tracked check
+  configuration was not changed to hide the nested worktree. `git diff --check`
+  passes. Only the generated dataset-manifest timestamp was restored.
 
 ## Product measurement — 29 September 2026
 

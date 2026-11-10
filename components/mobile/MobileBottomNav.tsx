@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { IntentLink as Link } from "@/components/IntentLink";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -10,11 +10,12 @@ import { mobileNavLabel } from "@/lib/navSections";
 import { onMobileSearchOpen } from "@/lib/mobileSearch";
 import { OPEN_MOBILE_SEARCH_EVENT } from "@/lib/search/slashShortcut";
 import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
-import { MobileNavSheet } from "@/components/mobile/MobileNavSheet";
-import { MobileSearchOverlay } from "@/components/mobile/MobileSearchOverlay";
 import { useMobileShellTier } from "@/components/mobile/useMobileShellTier";
 
 type SearchCommandComponent = typeof import("@/components/SearchCommand").SearchCommand;
+
+const MobileNavSheet = dynamic(() => import("./MobileNavSheet").then((mod) => mod.MobileNavSheet));
+const MobileSearchOverlay = dynamic(() => import("./MobileSearchOverlay").then((mod) => mod.MobileSearchOverlay));
 
 // The filter builder and catalog calculations belong to /matches. Other routes
 // keep the same mobile navigation without downloading the archive controls.
@@ -39,6 +40,9 @@ export function MobileBottomNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  // Retain each sheet after first use so its existing exit animation can finish.
+  const [menuUsed, setMenuUsed] = useState(false);
+  const [searchUsed, setSearchUsed] = useState(false);
   const [SearchCommand, setSearchCommand] = useState<SearchCommandComponent | null>(null);
   const [searchLoading, setSearchLoading] = useState(false);
   const pillInputRef = useRef<HTMLInputElement>(null);
@@ -68,6 +72,7 @@ export function MobileBottomNav() {
 
   const closeMenu = () => setMenuOpen(false);
   const openMenu = () => {
+    setMenuUsed(true);
     setSearchOpen(false);
     setFiltersOpen(false);
     pillInputRef.current?.blur();
@@ -87,6 +92,7 @@ export function MobileBottomNav() {
   }, []);
 
   const openSearch = useCallback(() => {
+    setSearchUsed(true);
     setMenuOpen(false);
     setFiltersOpen(false);
     if (isNarrowShell) {
@@ -191,8 +197,8 @@ export function MobileBottomNav() {
         </div>
       </nav>
 
-      <MobileNavSheet key={pathname} open={menuOpen} onClose={closeMenu} />
-      {isPhoneShell && (
+      {menuUsed && <MobileNavSheet key={pathname} open={menuOpen} onClose={closeMenu} />}
+      {isPhoneShell && searchUsed && (
         <MobileSearchOverlay
           open={searchOpen}
           onClose={closeSearch}

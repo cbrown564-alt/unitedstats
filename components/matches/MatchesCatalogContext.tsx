@@ -6,10 +6,11 @@ import type { MatchesCatalog } from "@/lib/matches/catalogTypes";
 
 const MatchesCatalogContext = createContext<MatchesCatalog | null | undefined>(undefined);
 
-function useCatalogState(): MatchesCatalog | null {
+function useCatalogState(enabled = true): MatchesCatalog | null {
   const [catalog, setCatalog] = useState<MatchesCatalog | null>(peekMatchesCatalog);
 
   useEffect(() => {
+    if (!enabled) return;
     let cancelled = false;
     loadMatchesCatalog()
       .then((data) => {
@@ -21,7 +22,7 @@ function useCatalogState(): MatchesCatalog | null {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [enabled]);
 
   return catalog;
 }
@@ -37,7 +38,9 @@ const serverSnapshot = () => false;
 
 export function useMatchesCatalog(): MatchesCatalog | null {
   const fromContext = useContext(MatchesCatalogContext);
-  const local = useCatalogState();
+  // The provider already owns this state. Avoid parallel subscriptions and
+  // updates in every consumer while retaining standalone use outside it.
+  const local = useCatalogState(fromContext === undefined);
   // The server renders without the catalog, but a lazily-hydrating Suspense boundary
   // can reach its hydration render after the provider has already loaded it. Withhold
   // the catalog until hydration is done so the first client render matches the HTML.

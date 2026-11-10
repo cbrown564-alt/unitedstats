@@ -3,6 +3,7 @@ import path from "node:path";
 
 import { buildMatchesCatalog } from "../lib/matches/catalog";
 import { buildSearchIndex } from "../lib/search/clientIndex";
+import { encodeMatchesCatalog } from "../lib/matches/encodeCatalog";
 
 const outDir = path.join(process.cwd(), "public", "data");
 mkdirSync(outDir, { recursive: true });
@@ -16,3 +17,5 @@ const catalog = buildMatchesCatalog();
 const catalogPath = path.join(outDir, "matches-catalog.json");
 writeFileSync(catalogPath, JSON.stringify(catalog));
 console.log(`export-client-data: wrote ${catalogPath} (${catalog.matches.length} matches)`);
+// Keep the existing readable endpoint for external consumers.
+writeFileSync(path.join(outDir, "matches-catalog.v2.json"), JSON.stringify(encodeMatchesCatalog(catalog)));

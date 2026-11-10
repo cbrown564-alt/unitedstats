@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import type { SearchEntity, ShapedAnswer } from "@/lib/search";
 import type { SearchIndex } from "@/lib/search/clientIndex";
-import { runClientSearch } from "@/lib/search/clientSearch";
 import { typeaheadTotal } from "@/lib/search/typeaheadTotal";
 import { trackProductEvent } from "@/lib/analytics";
 
@@ -36,7 +35,10 @@ export function useSiteSearch(q: string): SiteSearchState & { retry: () => void 
     let emptyTimer: ReturnType<typeof setTimeout> | undefined;
     const timer = setTimeout(async () => {
       try {
-        const index = await loadSearchIndex();
+        const [index, { runClientSearch }] = await Promise.all([
+          loadSearchIndex(),
+          import("@/lib/search/clientSearch"),
+        ]);
         if (cancelled) return;
         const data = runClientSearch(q, index);
         const displayTotal = data.displayTotal ?? typeaheadTotal(data.shaped, data.questions, data.entities, data.total);

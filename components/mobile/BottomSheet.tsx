@@ -64,13 +64,16 @@ export function BottomSheet({
   const scrollRef = useRef<HTMLDivElement>(null);
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const { mounted, closing, onExitComplete } = useAnimatedOverlay(open, EXIT_MS);
-  const { resetTransform, resetDrag, sheetProps } = useSheetSwipe(sheetRef, onClose, mounted && !closing, {
+  // A sheet may now mount already open after its code loads. Wait for the
+  // portal before attaching behavior to refs that do not exist on that render.
+  const active = mounted && !closing && portalTarget !== null;
+  const { resetTransform, resetDrag, sheetProps } = useSheetSwipe(sheetRef, onClose, active, {
     threshold: dismissThreshold,
     scrollRef,
   });
 
-  useBodyScrollLock(mounted && !closing);
-  useFocusTrap(sheetRef, mounted && !closing);
+  useBodyScrollLock(active);
+  useFocusTrap(sheetRef, active);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => setPortalTarget(document.body));
@@ -106,7 +109,7 @@ export function BottomSheet({
 
     root.addEventListener("touchmove", blockBackdropTouch, { passive: false });
     return () => root.removeEventListener("touchmove", blockBackdropTouch);
-  }, [mounted]);
+  }, [mounted, portalTarget]);
 
   if (!mounted || !portalTarget) return null;
 

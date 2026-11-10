@@ -55,6 +55,7 @@ next-env.d.ts
 # generated client dumps for the static export (reproducible via prebuild)
 /public/data/search-index.json
 /public/data/matches-catalog.json
+/public/data/matches-catalog.v2.json
 
 
 # Cloudflare generated build and types

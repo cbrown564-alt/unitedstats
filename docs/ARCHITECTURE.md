@@ -94,11 +94,34 @@ pipeline, and a public dataset/API.
 - Date-based homepage spark selection and Surprise re-rolls run in the browser
   over build-generated catalogs. Search, match filters, and curated compares
   read exported JSON (`public/data/search-index.json`,
-  `public/data/matches-catalog.json`) instead of request-shaped APIs. The
+  `public/data/matches-catalog.v2.json`) instead of request-shaped APIs. The
+  match transport stores correlated metadata in shared columns, player IDs
+  by reference, goal events in columns, and dates as day differences. The browser
+  restores the complete existing catalog before filtering; no fixture or field
+  is omitted. `lib/matches/catalogWire.ts` owns decoding, and the build-only
+  encoder lives in `lib/matches/encodeCatalog.ts`. The readable
+  `matches-catalog.json` endpoint remains available for existing consumers. The
   unfiltered `/matches` result spine is rebuilt from that catalog after
   hydration so the static HTML stays inside the gzip budget.
+- The archive reads URL state behind a small, empty Suspense fallback so its
+  server-rendered list stays in place during hydration. Pagination, sort links,
+  and facet controls update browser history over the local catalog; they do not
+  request another page payload. Other route links retain normal Next navigation.
+  Catalog decoding yields between batches, and shared number formatting reuses
+  an `Intl.NumberFormat` instance for long chart and ledger labels.
 - Data freshness follows deployments. Do not reintroduce
   `UNITEDSTATS_DB_BLOB_URL` or a hosted SQL database.
+- Full production builds use Next's supported Webpack bundler (`npm run build`);
+  preview builds and development retain Turbopack. `scripts/build-site.mjs`
+  follows the existing build-profile selection and preserves explicit CLI
+  bundler overrides. The November performance
+  comparison found smaller navigation script transfers with Webpack while the
+  same pages and interactions retained their appearance. Keep this choice tied
+  to the measured route budgets in `docs/PERF.md`, and compare again when
+  upgrading Next. Webpack's local build cache increases `.next` disk usage;
+  deployable files remain in `out/`.
+  A Turbopack build removes the previous Webpack disk cache, which it cannot
+  reuse, before checking the existing preview artifact budget.
 
 ## Route map
 
