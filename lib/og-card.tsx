@@ -53,17 +53,17 @@ const ogOptions = (headers?: Record<string, string>) => ({
 
 // Brand tokens, inlined: the OG renderer (Satori) has no access to the
 // stylesheet's CSS custom properties, so these mirror app/globals.css.
-const PITCH = "#0c0b0a";
-const PANEL_2 = "#1f1a18";
-const LINE = "#2c2522";
+const PITCH = "#1e1a18";
+const PANEL_2 = "#322c28";
+const LINE = "#443b36";
 const INK = "#f3ede8";
 const INK_DIM = "#a89c94";
-const INK_FAINT = "#6f645d";
+const INK_FAINT = "#857a72";
 const DEVIL = "#ff3b1f";
 const GOLD = "#f5c518";
 const WIN = "#ffd94a";
 const DRAW = "#9a8d83";
-const LOSS = "#a52218";
+const LOSS = "#b7281c";
 
 function OgBrand() {
   return (
@@ -89,7 +89,7 @@ export function trustStrip(): TrustItem[] {
 
 function OgTrustStrip({ items, dark = false }: { items: TrustItem[]; dark?: boolean }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", background: dark ? "rgba(12,11,10,.82)" : "transparent", padding: dark ? "12px 16px" : 0, borderRadius: dark ? 8 : 0 }}>
+    <div style={{ display: "flex", alignItems: "center", background: dark ? "rgba(30,26,24,.82)" : "transparent", padding: dark ? "12px 16px" : 0, borderRadius: dark ? 8 : 0 }}>
       <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 16, letterSpacing: 2, marginRight: 22 }}>EVIDENCE</span>
       {items.map((item, index) => (
         <div key={item.lead} style={{ display: "flex", alignItems: "baseline" }}>
@@ -112,7 +112,7 @@ function OgFrame({ eyebrow, strip, media, scrim, darkEvidence = false, contextRi
     {media && <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, display: "flex", overflow: "hidden" }}>
       {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
       <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-      <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, background: scrim ?? "linear-gradient(90deg, rgba(12,11,10,.98), rgba(12,11,10,.72) 58%, rgba(12,11,10,.28))" }} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, background: scrim ?? "linear-gradient(90deg, rgba(30,26,24,.98), rgba(30,26,24,.72) 58%, rgba(30,26,24,.28))" }} />
     </div>}
     <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
     <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding }}>
@@ -279,7 +279,7 @@ export function matchCard(
         {media && <div style={{ position: "absolute", right: 0, top: 0, width: 650, height: 630, display: "flex", overflow: "hidden" }}>
           {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
           <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.88) 34%, rgba(12,11,10,.34) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1e1a18 0%, rgba(30,26,24,.88) 34%, rgba(30,26,24,.34) 100%)" }} />
         </div>}
         {media && <div style={{ position: "absolute", left: 16, top: 0, width: 535, height: 630, background: PITCH }} />}
         <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
@@ -318,8 +318,8 @@ export function storyCard(
     <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: PITCH, color: INK, fontFamily: "Archivo", overflow: "hidden" }}>
       {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
       <img src={media.src} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.9) 42%, rgba(12,11,10,.22) 78%, rgba(12,11,10,.38) 100%)" }} />
-      <div style={{ position: "absolute", left: 16, top: 0, width: 730, height: 630, background: "rgba(12,11,10,.76)" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(30,26,24,.98) 0%, rgba(30,26,24,.9) 42%, rgba(30,26,24,.22) 78%, rgba(30,26,24,.38) 100%)" }} />
+      <div style={{ position: "absolute", left: 16, top: 0, width: 730, height: 630, background: "rgba(30,26,24,.76)" }} />
       <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
       <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "56px 72px 54px 88px" }}>
         <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}><div style={{ display: "flex", width: 220 }}><OgBrand /></div><span style={{ color: INK_DIM, marginLeft: 14 }}>STORY / {chapter}</span></div>
@@ -447,7 +447,7 @@ function renderStatCard(
         {media && <div style={{ position: "absolute", right: 0, top: 0, width: 460, height: 630, display: "flex", overflow: "hidden" }}>
           {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
           <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 35%" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.72) 20%, rgba(12,11,10,.08) 66%, rgba(12,11,10,.28) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1e1a18 0%, rgba(30,26,24,.72) 20%, rgba(30,26,24,.08) 66%, rgba(30,26,24,.28) 100%)" }} />
         </div>}
         <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
@@ -483,7 +483,7 @@ export function seasonPosterCard(
   headers?: Record<string, string>,
 ) {
   return new ImageResponse(
-    <OgFrame eyebrow="LANDMARK SEASON" strip={strip} media={media} darkEvidence padding="56px 72px 54px 88px" scrim="linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.88) 47%, rgba(12,11,10,.22) 82%, rgba(12,11,10,.38) 100%)">
+    <OgFrame eyebrow="LANDMARK SEASON" strip={strip} media={media} darkEvidence padding="56px 72px 54px 88px" scrim="linear-gradient(90deg, rgba(30,26,24,.98) 0%, rgba(30,26,24,.88) 47%, rgba(30,26,24,.22) 82%, rgba(30,26,24,.38) 100%)">
         <div style={{ display: "flex", flexDirection: "column", width: 720 }}>
           <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 24, letterSpacing: 2 }}>{marker}</span>
           <span style={{ fontSize: 82, fontWeight: 800, lineHeight: 1, letterSpacing: -2, marginTop: 12 }}>{season}</span>
@@ -634,7 +634,7 @@ export function questionCard(
         {media && <div style={{ position: "absolute", right: 0, top: 0, width: 520, height: 630, display: "flex", overflow: "hidden" }}>
           {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
           <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.84) 28%, rgba(12,11,10,.2) 72%, rgba(12,11,10,.38) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1e1a18 0%, rgba(30,26,24,.84) 28%, rgba(30,26,24,.2) 72%, rgba(30,26,24,.38) 100%)" }} />
         </div>}
         <div
           style={{
