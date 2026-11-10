@@ -12,6 +12,8 @@ type Pt = [number, number];
 
 const RESULT_BEAD: Record<Result, CordBeadKind> = { W: "w", D: "d", L: "l" };
 const r1 = (n: number) => Math.round(n * 100) / 100;
+/** One decimal, for marks drawn many times on a page. */
+const t1 = (n: number) => Math.round(n * 10) / 10;
 
 /** A smooth open path through points (Catmull-Rom, as cubic Béziers). */
 function smoothPath(pts: Pt[], tension = 1): string {
@@ -275,18 +277,19 @@ export function SeasonLapMini({
   // Midpoint smoothing (quadratics through the beads' midpoints): smooth enough
   // to read as a shape, and half the bytes of a cubic spline.
   const all = champions ? [...pts, knot] : pts;
-  let path = `M${r1(all[0][0])} ${r1(all[0][1])}`;
+  let path = `M${t1(all[0][0])} ${t1(all[0][1])}`;
   for (let i = 1; i < all.length - 1; i++) {
     const [mx, my] = [(all[i][0] + all[i + 1][0]) / 2, (all[i][1] + all[i + 1][1]) / 2];
-    path += `Q${r1(all[i][0])} ${r1(all[i][1])} ${r1(mx)} ${r1(my)}`;
+    path += `Q${t1(all[i][0])} ${t1(all[i][1])} ${t1(mx)} ${t1(my)}`;
   }
   const last = all[all.length - 1];
-  path += `L${r1(last[0])} ${r1(last[1])}`;
+  path += `L${t1(last[0])} ${t1(last[1])}`;
   return (
     <CordSvg size={size} unit={80} viewBox="0 0 80 80" className={className} label={label}>
       <Strand d={`M${C} ${C - R}A${R} ${R} 0 1 1 ${C - 0.01} ${C - R}`} dashed />
-      <Cord d={path} />
-      {champions && <Bead cx={r1(knot[0])} cy={r1(knot[1])} r={6} t={1} />}
+      {/* No needle-head twin: a hundred of these sit on one page. */}
+      <path className="cd-cord" d={path} pathLength={1} />
+      {champions && <Bead cx={t1(knot[0])} cy={t1(knot[1])} r={6} t={1} />}
     </CordSvg>
   );
 }
