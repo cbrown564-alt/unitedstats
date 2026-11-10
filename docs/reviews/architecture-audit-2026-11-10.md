@@ -149,6 +149,11 @@ hurts performance; some are correctness or maintenance risks.
    if the spike shows a clear win on the misses that remain after steps 1–3, and
    the port of that route stays mechanical.
 
+**Outcome (same day):** steps 1–3 landed (`d99b383`, `f44cbe2`, `f9d3afb`; Seasons HTML 2.8 MB →
+1.5 MB). The step 4 spike won on bytes (HTML gzip 120 → 62 KiB, script 153 → 87 KiB) and mobile
+LCP (≈1.53 → 1.38 s), tied on score, and was inconclusive on TBT. We stay on Next; see
+[ADR 0005](../adr/0005-stay-on-next-after-astro-seasons-spike.md).
+
 Not recommended: rewriting interactive components in vanilla JS. It trades a
 component model for hand-managed DOM in exactly the parts of the product that
 are hardest to get right.

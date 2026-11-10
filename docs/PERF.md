@@ -16,6 +16,12 @@ Lighthouse measurement. The baseline below was captured before the implementatio
 pass; the follow-up sections record the implementation passes separately. No deployment or field
 validation is claimed.
 
+**Framework follow-up (10 November):** after the Vercel cleanup, the hand-drawn charts and the
+single-markup Seasons ledger, `/seasons` mobile scores 99 (LCP 1516 ms, TBT 67 ms, 153 KiB of
+script; `output/performance/2026-11-10-after-steps-1-3`). An Astro port of `/seasons` cut HTML
+and script roughly in half but tied on score. We stay on Next; see
+[ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md).
+
 ### Measurement method
 
 The full `npm run build` passed, including the existing postbuild budgets.
