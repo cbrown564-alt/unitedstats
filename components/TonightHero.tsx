@@ -484,7 +484,7 @@ export function TonightHero({
         {/* A red wash by the thread and a vignette that sinks the edges to black —
             laid over the portrait so it reads as atmosphere, not a photo. */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_14%_24%,rgba(216,33,13,0.18),transparent_60%)]" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.66))]" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.42))]" aria-hidden />
 
         {/* Ghosted year — above the vignette so the numeral dissolves softly rather
             than getting clipped or swallowed at the right edge. Inset from the

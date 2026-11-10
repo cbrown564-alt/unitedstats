@@ -14,7 +14,10 @@ function contrast(foreground: string, background: string): number {
 }
 
 test("essential faint text meets WCAG AA on every product surface", () => {
-  for (const background of ["0c0b0a", "161312", "1f1a18"]) {
-    assert.ok(contrast("91857d", background) >= 4.5, `ink-faint fails on #${background}`);
+  // Keep in step with the @theme tokens in app/globals.css.
+  for (const background of ["1e1a18", "282320", "322c28"]) {
+    for (const [name, ink] of [["ink-faint", "aa9f97"], ["ink-dim", "a89c94"]]) {
+      assert.ok(contrast(ink, background) >= 4.5, `${name} fails on #${background}`);
+    }
   }
 });
