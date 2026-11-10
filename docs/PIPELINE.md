@@ -38,6 +38,12 @@ Cloudflare production builds rebuild `united.db` as a build input and publish th
 ```
 
 If nothing changed, the weekly workflow exits with no commit or deployment.
+League results come from openfootball. If a scheduled league fixture is past
+its date and openfootball has not supplied a result, the Wikipedia lane fills
+that fixture (and only that fixture) and is recorded as its source. The final
+workflow step, `npm run check:overdue`, fails the run when any fixture is more
+than two days past with no result from either source.
+
 `update-results.yml` remains available by manual dispatch for an urgent result
 or schedule correction between weekly releases.
 
