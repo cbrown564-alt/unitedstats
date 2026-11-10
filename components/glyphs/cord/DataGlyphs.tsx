@@ -241,6 +241,56 @@ export function SeasonLap({
   );
 }
 
+/**
+ * A season lap reduced to its shape, for rows of many seasons: the cord alone,
+ * stepping out for a win, along the ring for a draw and in for a loss, with no
+ * per-match beads (light enough to draw a hundred). A title lap still closes
+ * on its gold bead.
+ */
+export function SeasonLapMini({
+  results,
+  champions,
+  size = 60,
+  className,
+  label,
+}: {
+  results: Result[];
+  champions: boolean;
+  size?: number;
+  className?: string;
+  label?: string;
+}) {
+  const C = 40;
+  const R = 25;
+  const sweep = 324;
+  const start = -90 + (360 - sweep) / 2;
+  const lift: Record<Result, number> = { W: 4.5, D: 0, L: -4.5 };
+  const n = results.length;
+  const at = (deg: number, rad: number): Pt => {
+    const a = (deg * Math.PI) / 180;
+    return [C + Math.cos(a) * rad, C + Math.sin(a) * rad];
+  };
+  const pts = results.map((r, i) => at(start + (i / Math.max(1, n - 1)) * sweep, R + lift[r]));
+  const knot = at(start + sweep + 9, R);
+  // Midpoint smoothing (quadratics through the beads' midpoints): smooth enough
+  // to read as a shape, and half the bytes of a cubic spline.
+  const all = champions ? [...pts, knot] : pts;
+  let path = `M${r1(all[0][0])} ${r1(all[0][1])}`;
+  for (let i = 1; i < all.length - 1; i++) {
+    const [mx, my] = [(all[i][0] + all[i + 1][0]) / 2, (all[i][1] + all[i + 1][1]) / 2];
+    path += `Q${r1(all[i][0])} ${r1(all[i][1])} ${r1(mx)} ${r1(my)}`;
+  }
+  const last = all[all.length - 1];
+  path += `L${r1(last[0])} ${r1(last[1])}`;
+  return (
+    <CordSvg size={size} unit={80} viewBox="0 0 80 80" className={className} label={label}>
+      <Strand d={`M${C} ${C - R}A${R} ${R} 0 1 1 ${C - 0.01} ${C - R}`} dashed />
+      <Cord d={path} />
+      {champions && <Bead cx={r1(knot[0])} cy={r1(knot[1])} r={6} t={1} />}
+    </CordSvg>
+  );
+}
+
 // ---------------------------------------------------------------- loader
 
 /** A waiting loop: the needle runs round a closed thread. Pair with visible text. */

@@ -304,3 +304,92 @@
   white-space: nowrap;
 }
 .cd-thread-axis__marks span:first-child { transform: none; }
+
+/* ------------------------------------------------------------ match flow */
+
+/* The score band is drawn in a stretched 100-wide viewBox; strokes keep their
+   pixel weight so the cord reads the same at any width. */
+.mf-cord .mf-ns { vector-effect: non-scaling-stroke; }
+.mf-cord { --cd-sw: 3px; }
+.mf-cord .cd-strand { stroke-width: 1.25px; }
+.mf-cord .mf-tether { stroke-dasharray: 2 3; opacity: 0.32; }
+.mf-cord .mf-plate { opacity: 0.09; }
+.mf-cord .cd-head { stroke-width: 7px; }
+.mf-cord .mf-level { stroke-dasharray: 3 5; opacity: 0.3; }
+.mf-stoppage { fill: var(--color-ink); opacity: 0.03; }
+
+.mf-knot {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px var(--color-panel);
+}
+.mf-knot--w { background: var(--color-win); }
+.mf-knot--d { background: var(--color-draw); }
+.mf-knot--l { background: var(--color-loss); }
+
+.mf-playhead { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .mf { --m-night: 4200ms; }
+  .mf.mf-play .mf-live {
+    animation: cd-reveal var(--m-night) var(--ease-play) both;
+  }
+  .mf.mf-play .mf-playhead {
+    display: block;
+    position: absolute;
+    top: -6px;
+    bottom: -6px;
+    width: 2px;
+    margin-left: -1px;
+    border-radius: 2px;
+    background: var(--color-ink);
+    box-shadow: 0 0 10px 1px color-mix(in oklab, var(--color-devil-bright) 60%, transparent);
+    animation: mf-playhead var(--m-night) var(--ease-play) both;
+  }
+  .mf.mf-play .mf-land {
+    animation: mf-land var(--m-cinch) calc(var(--t, 1) * var(--m-night)) var(--ease-cinch) both;
+  }
+}
+@keyframes mf-playhead {
+  0% { left: 0; opacity: 1; }
+  96% { opacity: 1; }
+  100% { left: var(--end); opacity: 0; }
+}
+@keyframes mf-land {
+  from { opacity: 0; scale: 0.4; }
+  to { opacity: 1; scale: 1; }
+}
+
+/* ------------------------------------------------------------ rivalry cord */
+
+.rc-svg .rc-ns { vector-effect: non-scaling-stroke; }
+.rc-svg { --cd-sw: 2.5px; }
+.rc-svg .rc-zero { stroke-width: 1.25px; stroke-dasharray: 3 5; opacity: 0.32; }
+.rc-svg .rc-plate { opacity: 0.1; }
+.rc-svg .rc-tick { stroke-width: 1px; opacity: 0.35; }
+.rc-swap {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-ink-dim);
+  box-shadow: 0 0 0 2px var(--color-panel);
+}
+.rc-knot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px var(--color-panel);
+}
+.rc-knot--up { background: var(--color-win); }
+.rc-knot--level { background: var(--color-draw); }
+.rc-knot--down { background: var(--color-loss); }
+.rc-note { font-size: 10px; line-height: 12px; color: var(--color-ink-dim); white-space: nowrap; }
+
+/* Small solid marks (trophies, medals, facets): the plate carries the shape
+   at 12–16px, so it is denser than an icon's tonal plate. */
+.cd.cd-solid { --cd-plate-o: 0.42; }
+.cd.cd-cabinet { --cd-plate-o: 0.92; }
+.cd.cd-cabinet .cd-plate--strong { opacity: 0.92; }
+.cd.cd-facet { --cd-plate-o: 0.3; }

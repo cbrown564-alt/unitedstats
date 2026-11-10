@@ -10,6 +10,9 @@ import {
   type CordGlyphId,
 } from "@/components/glyphs/cord/CordGlyph";
 import { CoverageNote } from "@/components/CoverageNote";
+import { FacetIcon } from "@/components/FacetIcon";
+import { MedalIcon, TrophyGlyphFilled, TrophyIcon, TROPHY_CAT_TONE } from "@/components/CampaignIcons";
+import { ThreadSignalKnot } from "@/components/ThreadSignalKnot";
 import {
   CordLoader,
   CoverageWeave,
@@ -230,6 +233,57 @@ function ordinal(n: number) {
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+const FACETS = [
+  "shield", "suit", "person", "target", "margin", "arrow", "trophy", "tag",
+  "flag", "hourglass", "home", "stadium", "pin", "calendar", "stopwatch",
+];
+
+function ProductMarks() {
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-end gap-5 rounded-xl border border-line bg-panel p-4">
+        <figure className="grid justify-items-center gap-2 text-gold">
+          <span className="flex items-end gap-2">
+            <TrophyIcon className="h-3 w-3" />
+            <TrophyIcon className="h-8 w-8" />
+          </span>
+          <figcaption className="font-mono text-[11px] text-ink-faint">won</figcaption>
+        </figure>
+        <figure className="grid justify-items-center gap-2 text-silver">
+          <span className="flex items-end gap-2">
+            <MedalIcon className="h-3 w-3" />
+            <MedalIcon className="h-8 w-8" />
+          </span>
+          <figcaption className="font-mono text-[11px] text-ink-faint">runners-up</figcaption>
+        </figure>
+        <figure className="grid justify-items-center gap-2">
+          <span className="flex items-end gap-1">
+            {Object.entries(TROPHY_CAT_TONE).map(([k, tone]) => (
+              <TrophyGlyphFilled key={k} style={{ color: tone }} />
+            ))}
+          </span>
+          <figcaption className="font-mono text-[11px] text-ink-faint">cabinet tones</figcaption>
+        </figure>
+        <figure className="grid justify-items-center gap-2">
+          <ThreadSignalKnot />
+          <figcaption className="font-mono text-[11px] text-ink-faint">rediscovery</figcaption>
+        </figure>
+      </div>
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-8">
+        {FACETS.map((f) => (
+          <figure key={f} className="grid justify-items-center gap-2 rounded-xl border border-line bg-panel px-2 py-3 text-ink-dim">
+            <span className="flex items-end gap-2">
+              <FacetIcon name={f} className="h-4 w-4" />
+              <FacetIcon name={f} className="h-8 w-8 text-ink" />
+            </span>
+            <figcaption className="font-mono text-[11px] text-ink-faint">{f}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 const WEAVE_FRACTIONS = [0, 0.1, 0.35, 0.5, 0.8, 0.97, 1];
@@ -489,6 +543,13 @@ export function CordGallery({ matches, laps }: { matches: GalleryMatch[]; laps: 
           draw, inside for a loss. A title-winning lap ends on a gold bead. Tap a lap to play it.
         </p>
         <Weaves />
+      </Section>
+
+      <Section
+        title="Product marks"
+        lead="The small marks the surfaces lean on, redrawn in the same grammar: campaign outcomes, filter facets and the rediscovery knot. They stay monochrome in currentColor so each host's tone carries through."
+      >
+        <ProductMarks />
       </Section>
 
       <Section

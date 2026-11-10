@@ -19,6 +19,10 @@ hover motion.
 | Record | `RecordGlyph` (`components/glyphs/RecordGlyph.tsx`) | Darn (report a correction), Spiral (on this day), Tangle (pull a random night), Stitch (partial coverage) |
 | Loading | `CordLoader` (`components/glyphs/cord/DataGlyphs.tsx`) | The needle orbiting a closed loop while filters or search load |
 | Coverage | `CoverageWeave` (`components/glyphs/cord/DataGlyphs.tsx`) | One cord woven through the record for the covered share; open rows for the rest. Used by `CoverageNote` for graded counts only |
+| Campaigns | `TrophyIcon`, `MedalIcon`, `TrophyGlyphFilled` (`components/CampaignIcons.tsx`) | A solid cup whose handles and stem are one cord; a medal hung from its ribbon; the cabinet cup at full tone. Monochrome in currentColor, so gold, silver and competition tones carry through |
+| Facets | `FacetIcon` (`components/FacetIcon.tsx`) | The match-filter facets (competition shield, manager, player, scorer target, margin, round tag, country flag, era hourglass, venue, stadium, ground pin, date, minute) as plate plus cord |
+| Rediscovery | `ThreadSignalKnot` | A slack thread tying one loop round a proven gold bead, beside a rediscovery prompt |
+| Best season | `IdentityPlate`, `PlayerPlate` | A gold bead (proof) before the season, in place of a star |
 
 ## Hosts and states
 
@@ -92,7 +96,18 @@ Drawn from real values, never from a metaphor (`DataGlyphs.tsx`):
 | `CordLoader` | A closed loop the needle runs round while something loads |
 | `CoverageWeave` | Covered / total as one cord woven back and forth through three warp bars, filled to the real fraction; the uncovered rows stay open (dashed). Only complete coverage ends on a gold bead |
 
+| `SeasonLapMini` | A season lap reduced to its cord (no per-match beads), light enough to draw a hundred; a title lap is lit and closes on gold |
+
 Result colour is always paired with position, so none of these depends on colour.
+
+### On the surfaces
+
+| Surface | Mark | Reads |
+| --- | --- | --- |
+| Match page, journey chapters, question modules | `MatchFlow` | The score-state cord at full width: level line, a step up per United goal and down per opponent goal, scorers tied above and below by tethers, the in-play result as the end knot. Stoppage time after 90′ gets a widened slice, marked on the axis and stated in a note. "Play the match" replays it: the cord is revealed left to right at match pace behind a playhead and each scorer lands as it passes (clip-path reveal, because the stretched viewBox keeps strokes at pixel weight with `vector-effect`, which breaks dash-based sewing) |
+| Season page | `SeasonLapPlay` | The league season as a lap in the plate's leading slot; pressing it plays the lap |
+| Seasons index | `DecadeLaps` | Each decade opens with a row of mini laps, oldest first; title laps are lit and gold-knotted, so the glory decades glow before any number is read |
+| Opponent page | `RivalryCord` | The head-to-head balance over real time, first meeting to latest: up a step per United win, down per defeat. Pale beads mark where the upper hand changed; peak and trough are labelled; the end knot is today's balance. Replaces the plain span rail through `IdentityPlate`'s `span.rail` |
 
 ### Motion library
 

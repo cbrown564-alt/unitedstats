@@ -104,9 +104,11 @@ export function CordSvg({
   unit = 24,
   width,
   height,
+  style,
 }: {
   size?: number;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
   label?: string;
   /** Signature motion this glyph runs when its host is hovered (cord.css). */
@@ -123,7 +125,7 @@ export function CordSvg({
       height={height ?? size}
       viewBox={viewBox}
       className={["cd", className].filter(Boolean).join(" ")}
-      style={{ "--cd-sw": opticalStroke(size, unit) } as CSSProperties}
+      style={{ "--cd-sw": opticalStroke(size, unit), ...style } as CSSProperties}
       data-motion={motion}
       aria-hidden={label ? undefined : true}
       role={label ? "img" : undefined}

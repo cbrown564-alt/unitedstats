@@ -307,7 +307,8 @@ function CareerArc({
                 : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
             }
           >
-            ★ {peakSeason.season}
+            <span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-gold align-[1px] shadow-[0_0_0_2.5px_rgb(245_197_24_/0.18)]" />
+            {peakSeason.season}
             <span className="hidden sm:inline">
               {defensive ? ": Best clean-sheet season" : ": Most Prolific Season"}
             </span>

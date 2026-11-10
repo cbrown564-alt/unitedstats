@@ -287,6 +287,25 @@ export function seasonMatches(season: string): MatchRow[] {
     .all(season) as MatchRow[];
 }
 
+/** Every league match result, grouped by season in date order (for season laps). */
+export function leagueResultsBySeason(): Map<string, ("W" | "D" | "L")[]> {
+  return cachedQuery("leagueResultsBySeason", STATIC_REF_TTL_MS, () => {
+    const rows = getDb()
+      .prepare(
+        `SELECT m.season, m.result FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type = 'league' ORDER BY m.date`,
+      )
+      .all() as { season: string; result: "W" | "D" | "L" }[];
+    const out = new Map<string, ("W" | "D" | "L")[]>();
+    for (const r of rows) {
+      const list = out.get(r.season) ?? [];
+      list.push(r.result);
+      out.set(r.season, list);
+    }
+    return out;
+  });
+}
+
 export function allSeasons(): string[] {
   return cachedQuery("allSeasons", STATIC_REF_TTL_MS, () =>
     (

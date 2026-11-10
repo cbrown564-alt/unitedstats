@@ -1,5 +1,6 @@
-import { seasonsIndex, seasonCupLastResults } from "@/lib/queries";
+import { seasonsIndex, seasonCupLastResults, leagueResultsBySeason } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
+import { DecadeLaps } from "@/components/seasons/DecadeLaps";
 import { PageHeader } from "@/components/PageHeader";
 import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
 import { HonoursChip } from "@/components/HonoursBadge";
@@ -80,6 +81,7 @@ export default function SeasonsPage() {
     byDecade.set(decade, list);
   }
   const briefs = decadeBriefs();
+  const leagueResults = leagueResultsBySeason();
   // Deciding-match outcome per season+competition, so each cup lane can tell a
   // won final from a lost one without loading every match.
   const cupResults = new Map(
@@ -260,6 +262,16 @@ export default function SeasonsPage() {
             >
               {decadeHeader}
             </div>
+
+            <DecadeLaps
+              laps={[...rows].reverse().map((r) => ({
+                season: r.season,
+                href: seasonHref(r.season),
+                results: leagueResults.get(r.season) ?? [],
+                champions: r.league != null && isTopFlight(r.league) && r.league.position === 1,
+                position: r.league?.position ?? null,
+              }))}
+            />
 
             {/* Mobile: card stream — one season per card, decade header sticks below JumpRail. */}
             <ol className="season-card-stream register-card-list space-y-2.5 sm:hidden">
