@@ -80,3 +80,7 @@ jobs:
         run: |
           echo "Latest current-season match sheet is incomplete. See the job summary."
           exit 1
+
+      - name: Fail if a past fixture still has no result
+        if: always()
+        run: npm run check:overdue

@@ -257,3 +257,41 @@ export function upcomingVsOpponent(
 ): UpcomingFixture | undefined {
   return overlay.fixtures.find((f) => f.opponentId === opponentId);
 }
+
+function dayDiff(a: string, b: string): number {
+  return Math.round((Date.parse(`${a}T00:00:00Z`) - Date.parse(`${b}T00:00:00Z`)) / 86_400_000);
+}
+
+/**
+ * Fixtures whose date passed more than `graceDays` ago and still have no
+ * result. A non-empty list means the result source has stalled (or the match
+ * was postponed and the schedule has not caught up) and a person should look.
+ */
+export function overdueFixtures(
+  overlay: UpcomingOverlay,
+  today: string,
+  graceDays = 2,
+): UpcomingFixture[] {
+  return overlay.fixtures.filter((f) => dayDiff(today, f.date) > graceDays);
+}
+
+/**
+ * The scheduled fixture a result from a secondary source may fill. The fixture
+ * must already be in the past and agree on opponent and venue; the played date
+ * may differ from the scheduled one by a few days (TV moves).
+ */
+export function playedFixtureFor(
+  overlay: UpcomingOverlay,
+  result: { date: string; opponentId: string; venue: Venue },
+  today: string,
+  toleranceDays = 3,
+): UpcomingFixture | undefined {
+  if (result.date > today) return undefined;
+  return overlay.fixtures.find(
+    (f) =>
+      f.opponentId === result.opponentId &&
+      f.venue === result.venue &&
+      f.date <= today &&
+      Math.abs(dayDiff(f.date, result.date)) <= toleranceDays,
+  );
+}

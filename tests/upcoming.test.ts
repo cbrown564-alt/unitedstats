@@ -4,6 +4,8 @@ import { parseOpenfootball } from "../pipeline/update";
 import {
   buildUpcomingOverlay,
   nextOpponent,
+  overdueFixtures,
+  playedFixtureFor,
   upcomingVsOpponent,
   type KnownResultKey,
 } from "../pipeline/upcoming";
@@ -82,4 +84,35 @@ test("nextOpponent is the earliest remaining United fixture", () => {
   assert.equal(next.opponentId, "ipswich-town");
   assert.equal(upcomingVsOpponent(overlay, "everton")?.date, "2026-09-05");
   assert.equal(upcomingVsOpponent(overlay, "hull-city"), undefined);
+});
+
+const STALLED: import("../pipeline/upcoming").UpcomingOverlay = {
+  season: "2026-27",
+  source: "openfootball",
+  updatedAt: "2026-11-10",
+  competitions: ["premier-league"],
+  fixtures: [
+    { date: "2026-11-07", competition: "premier-league", competitionName: "Premier League", round: null, opponent: "Aston Villa", opponentId: "aston-villa", venue: "H", kickoff: null },
+    { date: "2026-11-21", competition: "premier-league", competitionName: "Premier League", round: null, opponent: "Liverpool", opponentId: "liverpool", venue: "A", kickoff: null },
+    { date: "2027-01-16", competition: "premier-league", competitionName: "Premier League", round: null, opponent: "Aston Villa", opponentId: "aston-villa", venue: "A", kickoff: null },
+  ],
+};
+
+test("overdueFixtures reports only fixtures past the grace period", () => {
+  assert.deepEqual(overdueFixtures(STALLED, "2026-11-09").map((f) => f.opponentId), []);
+  assert.deepEqual(overdueFixtures(STALLED, "2026-11-10").map((f) => f.opponentId), ["aston-villa"]);
+  assert.equal(overdueFixtures(STALLED, "2026-11-24").length, 2);
+});
+
+test("playedFixtureFor fills a past fixture moved by a day, on the right venue only", () => {
+  const moved = { date: "2026-11-08", opponentId: "aston-villa", venue: "H" as const };
+  assert.equal(playedFixtureFor(STALLED, moved, "2026-11-10")?.date, "2026-11-07");
+  assert.equal(playedFixtureFor(STALLED, { ...moved, venue: "A" }, "2026-11-10"), undefined);
+  assert.equal(playedFixtureFor(STALLED, { ...moved, date: "2026-11-20" }, "2026-11-21"), undefined);
+});
+
+test("playedFixtureFor never fills a fixture or result dated in the future", () => {
+  const early = { date: "2026-11-20", opponentId: "liverpool", venue: "A" as const };
+  assert.equal(playedFixtureFor(STALLED, early, "2026-11-20"), undefined);
+  assert.equal(playedFixtureFor(STALLED, { ...early, date: "2026-11-21" }, "2026-11-20"), undefined);
 });

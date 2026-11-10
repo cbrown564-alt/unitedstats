@@ -12,6 +12,8 @@
  * Behaviour per parsed row:
  *  - competitions we already hold result-level (league, FA Cup): enrich the
  *    existing match (attendance, round, scorers->events) — never duplicate.
+ *    Exception: a scheduled league fixture that is past its date with no
+ *    result from the primary source is created from the Wikipedia row.
  *  - other competitions (Europe, League Cup, Charity Shield, ...): add the
  *    match if missing, enrich if present.
  * New players found in scorer cells are appended to players.json.
@@ -24,6 +26,7 @@ import {
   loadSeasonFile, matchId, opponentIdFor, readJson, saveSeasonFile,
   seasonKey, slugify, writeJson,
 } from "../lib";
+import { playedFixtureFor, type UpcomingOverlay } from "../../pipeline/upcoming";
 import { fetchArticle, linkTarget, parseWikiDate, splitCells, stripWiki } from "./wiki-utils";
 
 const CACHE = path.join(RAW, "wikipedia");
@@ -359,6 +362,16 @@ function parseArticle(wikitext: string, startYear: number): { rows: ParsedRow[];
 
 // ----------------------------------------------------------------- merging
 
+const UPCOMING_PATH = path.join(CANONICAL, "upcoming.json");
+const CUP_COMPETITIONS = new Set(["fa-cup", "league-cup"]);
+
+/** The schedule overlay, only when it describes the season being processed. */
+function loadOverlay(season: string): UpcomingOverlay | null {
+  if (!fs.existsSync(UPCOMING_PATH)) return null;
+  const overlay = readJson<UpcomingOverlay>(UPCOMING_PATH);
+  return overlay.season === season ? overlay : null;
+}
+
 interface PlayersFile { players: { id: string; name: string; positions?: string[]; nationality?: string; born?: string }[] }
 
 async function processSeason(
@@ -374,6 +387,9 @@ async function processSeason(
   const byDateOpp = new Map(sf.matches.map((m) => [`${m.date}|${m.opponentId}`, m]));
   let added = 0;
   let enriched = 0;
+  const today = new Date().toISOString().slice(0, 10);
+  const overlay = loadOverlay(season);
+  let filledFixtures = 0;
 
   for (const r of rows) {
     const oppId = opponentIdFor(r.opponent, aliases);
@@ -391,8 +407,28 @@ async function processSeason(
     }
 
     // never create league/FA Cup matches from Wikipedia (we hold those
-    // result-complete from engsoccerdata); date mismatches would duplicate
-    if (r.competition === "league") { warnings.push(`league row not matched: ${r.date} v ${r.opponent}`); continue; }
+    // result-complete from engsoccerdata); date mismatches would duplicate.
+    // One exception: a scheduled league fixture whose date has passed without
+    // the primary source (openfootball) supplying a result. Wikipedia then
+    // fills that exact fixture, and is recorded as the match's only source.
+    let competition: string = r.competition;
+    if (r.competition === "league") {
+      const fixture = overlay
+        ? playedFixtureFor(overlay, { date: r.date, opponentId: oppId, venue: r.venue }, today)
+        : undefined;
+      const fillable = fixture
+        && !CUP_COMPETITIONS.has(fixture.competition)
+        && !sf.matches.some((m) =>
+          m.competition === fixture.competition && m.opponentId === oppId && m.venue === r.venue);
+      if (!fixture || !fillable) {
+        warnings.push(`league row not matched: ${r.date} v ${r.opponent}`);
+        continue;
+      }
+      competition = fixture.competition;
+      overlay!.fixtures = overlay!.fixtures.filter((f) => f !== fixture);
+      filledFixtures++;
+      console.log(`+ ${r.date} ${r.venue} ${r.opponent} ${r.gf}-${r.ga} (${competition}, overdue fixture filled from Wikipedia)`);
+    }
     if (r.competition === "fa-cup" && startYear >= 1889 && startYear <= 2018) {
       warnings.push(`fa-cup row not matched: ${r.date} v ${r.opponent}`);
       continue;
@@ -401,8 +437,8 @@ async function processSeason(
     const match: Match = {
       id: matchId(r.date, oppId, r.venue),
       date: r.date,
-      competition: r.competition,
-      round: r.round,
+      competition,
+      round: r.competition === "league" ? null : r.round,
       opponent: r.opponent,
       opponentId: oppId,
       venue: r.venue,
@@ -419,6 +455,7 @@ async function processSeason(
   }
 
   if (added > 0 || enriched > 0) saveSeasonFile(sf);
+  if (overlay && filledFixtures > 0) writeJson(UPCOMING_PATH, overlay);
   return { added, enriched, warnings };
 }
 
