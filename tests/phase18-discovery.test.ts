@@ -36,7 +36,14 @@ test("every surprise fact is a complete, curated morsel with a door", () => {
     assert.ok(f.href.startsWith("/"), `${f.id} href not site-relative: ${f.href}`);
     assert.ok(validTone.has(f.tone), `${f.id} has an unknown tone: ${f.tone}`);
     assert.equal(f.kind, "night");
-    assert.ok(f.href.startsWith("/match/"), `${f.id} is not a match receipt`);
+    const href = new URL(f.href, "https://utdred.com");
+    const matchId = href.pathname.startsWith("/match/")
+      ? href.pathname.slice("/match/".length)
+      : href.pathname === "/record" && href.searchParams.get("kind") === "match"
+        ? href.searchParams.get("id")
+        : null;
+    assert.ok(matchId, `${f.id} is not a match receipt`);
+    assert.equal(f.id, `night-${matchId}`, "the link must preserve the selected match identity");
   }
 });
 

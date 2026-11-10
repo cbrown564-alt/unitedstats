@@ -1,13 +1,12 @@
 "use client";
 
 import { Fragment, useEffect, useRef, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import { queryString } from "@/lib/url";
 import { FacetCombobox } from "@/components/FacetCombobox";
 import { FacetIcon } from "@/components/FacetIcon";
 import { FilterZones, type DecadeBucket } from "@/components/matches/FilterZones";
 import { usePopoverAlign } from "@/components/usePopoverAlign";
-import { StitchLoader } from "@/components/glyphs/StitchLoader";
+import { CordLoader } from "@/components/glyphs/cord/DataGlyphs";
 import {
   FACET_BY_KEY,
   type FacetDef,
@@ -77,7 +76,6 @@ export function MatchFilterBar({
   seasons: string[];
   decadeBuckets?: DecadeBucket[];
 }) {
-  const router = useRouter();
   const [pending, startTransition] = useTransition();
   // open: key of the non-zone chip whose editor popover is currently visible
   const [open, setOpen] = useState<string | null>(null);
@@ -103,7 +101,7 @@ export function MatchFilterBar({
   const navigate = (next: Record<string, string | undefined>) => {
     setOpen(null);
     startTransition(() => {
-      router.push(`/matches${queryString({ ...next, page: undefined })}`, { scroll: false });
+      window.history.pushState(null, "", `/matches${queryString({ ...next, page: undefined })}`);
     });
   };
 
@@ -130,7 +128,7 @@ export function MatchFilterBar({
     >
       {(pending || countsLoading || optionsLoading) && (
         <p className={`flex items-center gap-2 text-ink-faint ${sheetLayout ? "mb-4 text-sm" : "mb-2.5 text-xs"}`}>
-          <StitchLoader />
+          <CordLoader size={14} />
           {pending ? "Updating…" : "Loading…"}
         </p>
       )}

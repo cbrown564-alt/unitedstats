@@ -7,6 +7,7 @@ import { SITE_URL } from "@/lib/site";
 import { jsonLdHtml, websiteJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 import "./thread.css";
+import "./cord.css";
 
 const archivo = Archivo({
   variable: "--font-archivo",

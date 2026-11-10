@@ -12,7 +12,7 @@ const ELO_SLICE =
  * `IdentityPlate` atmosphere (pitch-line texture, a single red wash, deep
  * shadow). The current rating is promoted to a real headline figure with peak
  * and low as a hairline ribbon beside it, then the full-width era-shaded
- * timeline below. This is the analytics equivalent of the seasons `FinishTimeline`
+ * timeline below. This is the analytics equivalent of the seasons `ClubThread`
  * opening — the strength signal as the thing you see before you read.
  *
  * `compact` drops the in-plate title (chapter pager carries it) and tightens

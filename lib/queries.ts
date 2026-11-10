@@ -270,13 +270,16 @@ export interface SeasonCupResult {
 export function seasonCupLastResults(): SeasonCupResult[] {
   return getDb()
     .prepare(
-      `SELECT m.season, m.competition_id, m.outcome AS last_outcome
-       FROM matches m JOIN competitions c ON c.id = m.competition_id
-       WHERE c.type <> 'league'
-         AND m.date = (
-           SELECT MAX(m2.date) FROM matches m2
-           WHERE m2.season = m.season AND m2.competition_id = m.competition_id
-         )`,
+      `WITH last_dates AS (
+         SELECT m.season, m.competition_id, MAX(m.date) AS last_date
+         FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type <> 'league'
+         GROUP BY m.season, m.competition_id
+       )
+       SELECT m.season, m.competition_id, m.outcome AS last_outcome
+       FROM last_dates last
+       JOIN matches m ON m.season = last.season
+         AND m.competition_id = last.competition_id AND m.date = last.last_date`,
     )
     .all() as SeasonCupResult[];
 }
@@ -285,6 +288,25 @@ export function seasonMatches(season: string): MatchRow[] {
   return getDb()
     .prepare(`${MATCH_SELECT} WHERE m.season = ? ORDER BY m.date`)
     .all(season) as MatchRow[];
+}
+
+/** Every league match result, grouped by season in date order (for season laps). */
+export function leagueResultsBySeason(): Map<string, ("W" | "D" | "L")[]> {
+  return cachedQuery("leagueResultsBySeason", STATIC_REF_TTL_MS, () => {
+    const rows = getDb()
+      .prepare(
+        `SELECT m.season, m.result FROM matches m JOIN competitions c ON c.id = m.competition_id
+         WHERE c.type = 'league' ORDER BY m.date`,
+      )
+      .all() as { season: string; result: "W" | "D" | "L" }[];
+    const out = new Map<string, ("W" | "D" | "L")[]>();
+    for (const r of rows) {
+      const list = out.get(r.season) ?? [];
+      list.push(r.result);
+      out.set(r.season, list);
+    }
+    return out;
+  });
 }
 
 export function allSeasons(): string[] {
@@ -744,6 +766,19 @@ export function managerTenures(id: string): { date_from: string; date_to: string
   return getDb()
     .prepare("SELECT date_from, date_to, note FROM manager_tenures WHERE manager_id = ? ORDER BY date_from")
     .all(id) as { date_from: string; date_to: string | null; note: string | null }[];
+}
+
+/** Every managerial spell in order, with the manager's name (for era bands). */
+export function allManagerTenures(): { manager_id: string; name: string; date_from: string; date_to: string | null }[] {
+  return cachedQuery("allManagerTenures", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT t.manager_id, m.name, t.date_from, t.date_to
+         FROM manager_tenures t JOIN managers m ON m.id = t.manager_id
+         ORDER BY t.date_from`,
+      )
+      .all() as { manager_id: string; name: string; date_from: string; date_to: string | null }[],
+  );
 }
 
 /** Every competitive match under this manager, newest first — the full grouped archive. */

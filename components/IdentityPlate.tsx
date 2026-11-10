@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { seasonHref } from "@/lib/publishedHref";
 import { WdlBar } from "@/components/WdlBar";
 import { GoalDiff } from "@/components/GoalDiff";
 import { ShareCite } from "@/components/ShareCite";
@@ -49,6 +50,8 @@ interface SpanProps {
   caption?: React.ReactNode;
   /** Tenure-style bands; omit for a single continuous span. */
   segments?: SpanSegment[];
+  /** A drawn chart that replaces the plain rail (e.g. the rivalry cord). */
+  rail?: React.ReactNode;
   peakSeason?: SpanPeakSeason;
 }
 
@@ -177,7 +180,7 @@ export function IdentityPlate({
  * a single continuous fixture history fills the whole rail.
  */
 function SpanTrack({
-  leftLabel, left, rightLabel, right, caption, segments, peakSeason, accent,
+  leftLabel, left, rightLabel, right, caption, segments, peakSeason, rail, accent,
 }: SpanProps & { accent: string }) {
   const bands = segments && segments.length > 0 ? segments : [{ from: 0, to: 1 }];
   const peakAt =
@@ -191,6 +194,9 @@ function SpanTrack({
         <span>{rightLabel}</span>
       </div>
 
+      {rail ? (
+        <div className="mt-3">{rail}</div>
+      ) : (
       <div className="relative mt-3 h-1.5 rounded-full bg-panel-2 ring-1 ring-inset ring-line">
         {bands.map((b, i) => (
           <div
@@ -204,7 +210,8 @@ function SpanTrack({
         <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch" style={{ backgroundColor: accent }} aria-hidden />
         {peakAt != null && peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
             style={{ left: `${peakAt}%` }}
             title={peakSeason.title}
@@ -218,15 +225,19 @@ function SpanTrack({
         )}
       </div>
 
+      )}
+
       <div className="mt-2.5 flex items-center justify-between gap-3 text-xs">
         <div className="min-w-0 truncate text-ink-dim">{left}</div>
         {peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
             title={peakSeason.title}
           >
-            ★ {peakSeason.season}
+            <span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-gold align-[1px] shadow-[0_0_0_2.5px_rgb(245_197_24_/0.18)]" />
+            {peakSeason.season}
             <span className="hidden sm:inline">: Best season</span>
           </Link>
         )}

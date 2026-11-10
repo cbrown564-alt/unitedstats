@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { seasonHref } from "@/lib/publishedHref";
 import type { ReactNode } from "react";
 import type { MatchRow } from "@/lib/queries";
 import { fmtNum } from "@/lib/format";
@@ -57,7 +58,7 @@ function ScoringSeasonRow({
       </summary>
       <div className="border-t border-line">
         <div className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 border-b border-line/60 px-3 py-2 sm:px-4">
-          <Link href={`/seasons/${season}`} className="text-xs text-ink-dim hover:text-devil-bright focus-ring">
+          <Link href={seasonHref(season)} prefetch={false} className="text-xs text-ink-dim hover:text-devil-bright focus-ring">
             View {season} →
           </Link>
           <EvidenceLink

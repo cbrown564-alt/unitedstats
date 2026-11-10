@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref, opponentHref, seasonHref } from "@/lib/publishedHref";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
@@ -17,6 +18,7 @@ import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
 import { WdlBar } from "@/components/WdlBar";
+import { SeasonLapPlay } from "@/components/seasons/SeasonLapPlay";
 import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { RediscoveryRail } from "@/components/RediscoveryRail";
 import { fmtNum, pct, clubName, tallyWdl, fmtRound } from "@/lib/format";
@@ -125,6 +127,9 @@ export default async function SeasonPage({
     ([comp, list]) => campaignOutcome(summaryByName.get(comp), list)?.tier === "silverware",
   ).length;
 
+  // The league season as a lap: every league match in order, for the plate.
+  const leagueResults = matches.filter((m) => m.competition_type === "league").map((m) => m.result);
+
   const narrative = seasonNarrative(season);
   // The spine reads the whole season in date order; it earns its space once there
   // are enough matches for a shape to emerge (the shortest early seasons fall short).
@@ -172,7 +177,8 @@ export default async function SeasonPage({
           <>
             <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
             <Link
-              href={`/seasons/${older}`}
+              href={seasonHref(older)}
+              prefetch={false}
               className="hover:text-devil-bright focus-ring"
               aria-label={`Previous season ${older}`}
             >
@@ -186,7 +192,8 @@ export default async function SeasonPage({
           <>
             <span className="mx-1.5 text-ink-faint/70" aria-hidden>·</span>
             <Link
-              href={`/seasons/${newer}`}
+              href={seasonHref(newer)}
+              prefetch={false}
               className="hover:text-devil-bright focus-ring"
               aria-label={`Next season ${newer}`}
             >
@@ -200,6 +207,18 @@ export default async function SeasonPage({
         eyebrow="Season"
         share={{ path: `/seasons/${season}`, title: `Manchester United ${season} season` }}
         title={season}
+        leading={
+          leagueResults.length >= 10 ? (
+            <SeasonLapPlay results={leagueResults} champions={champions} season={season} caption="league" size={156} />
+          ) : undefined
+        }
+        leadingNote={
+          leagueResults.length >= 10 ? (
+            <p className="max-w-[10rem] text-[10px] leading-snug text-ink-faint">
+              Clockwise from the top: out for a win, on the ring for a draw, in for a loss.
+            </p>
+          ) : undefined
+        }
         subtitle={
           <>
             <span>{clubName(matches[0].date)}</span>
@@ -247,7 +266,11 @@ export default async function SeasonPage({
 
                 {leagueTable && (
                   <div className="px-4 sm:px-0">
-                    <LeagueTable table={leagueTable} season={season} />
+                    <LeagueTable
+                      table={leagueTable}
+                      season={season}
+                      opponentHrefs={Object.fromEntries(leagueTable.rows.flatMap((row) => row.opponent_id ? [[row.opponent_id, opponentHref(row.opponent_id)]] : []))}
+                    />
                   </div>
                 )}
 
@@ -255,7 +278,7 @@ export default async function SeasonPage({
                   <section className="px-4 sm:px-0">
                     <SectionHead title="The season, match by match" aside={`${fmtNum(p)} matches`} />
                     <div className="-mx-4 rounded-none border-x-0 border-y border-line bg-panel p-4 sm:mx-0 sm:rounded-xl sm:border sm:p-5">
-                      <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={(id) => `/match/${id}`} />
+                      <ResultSpine matches={sequence} subject={`United ${season}`} hrefForMatch={matchHref} />
                       <p className="mt-2 text-[11px] leading-4 text-ink-dim">
                         Every match in order — wins above the line, losses below, bar height the goal margin.
                       </p>

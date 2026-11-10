@@ -64,13 +64,13 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
     <div className="flex flex-wrap items-center justify-end gap-2 text-xs" aria-label="Share this page">
       {error && <span role="status">Could not copy. Copy this page’s address from your browser.</span>}
       {canShare ? (
-        <button type="button" onClick={share} className={`${btn} tg-host`}>
+        <button type="button" onClick={share} className={`${btn} cord-host`}>
           <UtilGlyph id="share" size={14} />
           Share
         </button>
       ) : (
         <button type="button" onClick={copyLink} className={btn}>
-          {copied && <UtilGlyph id="sewn" size={14} className="tg-lit tg-sew-now" />}
+          {copied && <UtilGlyph id="sewn" size={14} className="cd-lit cd-now" />}
           {copied ? "Link copied" : "Copy link"}
         </button>
       )}

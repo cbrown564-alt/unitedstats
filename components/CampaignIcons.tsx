@@ -1,47 +1,47 @@
 import type { CSSProperties } from "react";
+import { Cord, CordSvg, Plate } from "@/components/glyphs/cord/primitives";
 
 /**
- * Shared campaign-outcome glyphs. A won campaign earns a trophy, a runners-up
- * finish a medal — used both in the season page's competition-lane verdict and
- * the {@link CupRun} bracket's terminal node, so the same season reads the same
- * trophy in both places.
+ * Shared campaign-outcome glyphs, drawn in Cord. A won campaign earns a
+ * trophy, a runners-up finish a medal: used in the season page's competition
+ * lanes, the CupRun bracket, honours badges, tables and cabinets, so the same
+ * season reads the same trophy everywhere. Monochrome in currentColor: the
+ * caller's text colour (gold, silver, a competition tone) tints cup and cord.
  */
 
-/** Trophy glyph for a won campaign. */
+const CUP = "M6.4 3H17.6V8.6A5.6 5.6 0 0 1 6.4 8.6Z";
+const BASE = "M8.6 19H15.4V21.6H8.6Z";
+const HANDLES = "M6.4 4.8H3.6C3.6 8.8 5.8 11 9 11.6M17.6 4.8H20.4C20.4 8.8 18.2 11 15 11.6M12 14.2V19";
+
+/** Trophy for a won campaign: a solid cup, its handles and stem one cord. */
 export function TrophyIcon({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path
-        d="M4.5 2.5h7v2.2a3.5 3.5 0 0 1-7 0V2.5Z M4.5 3.2H2.8v1a2 2 0 0 0 1.9 2 M11.5 3.2h1.7v1a2 2 0 0 1-1.9 2 M8 8.2v2.3 M5.6 13.5h4.8 M6.4 11.6h3.2l.4 1.9H6l.4-1.9Z"
-        stroke="currentColor"
-        strokeWidth="1.1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <CordSvg size={14} className={`cd-solid ${className}`}>
+      <Plate d={CUP} strong />
+      <Plate d={BASE} strong />
+      <Cord d={HANDLES} />
+    </CordSvg>
   );
 }
 
-/** Medal glyph for a runners-up campaign — the near-miss achievement. */
+/** Medal for a runners-up campaign: the near miss, hung from its ribbon. */
 export function MedalIcon({ className = "" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M5.8 2.5 8 6.2 M10.2 2.5 8 6.2" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
-      <circle cx="8" cy="10" r="3.4" stroke="currentColor" strokeWidth="1.1" />
-    </svg>
+    <CordSvg size={13} className={`cd-solid ${className}`}>
+      <Plate d="M12 10A5.6 5.6 0 1 1 11.99 10ZM12 13A2.6 2.6 0 1 0 12.01 13Z" strong />
+      <Cord d="M6.6 2.6L12 10L17.4 2.6" />
+    </CordSvg>
   );
 }
 
-/** Filled trophy for cabinet walls (manager detail, compare). */
+/** Filled trophy for cabinet walls (manager detail, compare): the cup at full tone. */
 export function TrophyGlyphFilled({ className = "", style }: { className?: string; style?: CSSProperties }) {
   return (
-    <svg width="15" height="17" viewBox="0 0 24 26" aria-hidden className={className} style={style}>
-      <path d="M6 2h12v5a6 6 0 0 1-12 0V2Z" fill="currentColor" />
-      <path d="M6 3H3v2a4 4 0 0 0 4 4M18 3h3v2a4 4 0 0 1-4 4" fill="none" stroke="currentColor" strokeWidth="1.6" />
-      <rect x="11" y="13" width="2" height="5" fill="currentColor" />
-      <rect x="7" y="22" width="10" height="2.5" rx="1" fill="currentColor" />
-      <rect x="9" y="18" width="6" height="4" rx="1" fill="currentColor" />
-    </svg>
+    <CordSvg size={16} className={`cd-cabinet ${className}`} style={style}>
+      <Plate d={CUP} />
+      <Plate d={BASE} />
+      <Cord d={HANDLES} />
+    </CordSvg>
   );
 }
 

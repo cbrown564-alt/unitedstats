@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-pitch: #0c0b0a;
-  --color-panel: #161312;
-  --color-panel-2: #1f1a18;
-  --color-line: #2c2522;
+  --color-pitch: #1e1a18;
+  --color-panel: #282320;
+  --color-panel-2: #322c28;
+  --color-line: #443b36;
   --color-ink: #f3ede8;
   --color-ink-dim: #a89c94;
   --color-ink-faint: #aa9f97;
@@ -24,12 +24,12 @@
       - win (#ffd94a, a bright lemon) sits ABOVE the deeper honours --color-gold
         (#f5c518), so a win reads as yellow and silverware as the richer gold —
         a win→trophy hierarchy, not a collision.
-      - loss (#a52218, a deep brick red) sits BELOW the hot identity/goals
+      - loss (#b7281c, a deep brick red) sits BELOW the hot identity/goals
         --color-devil-bright (#ff3b1f), so bright red stays "United / positive /
         goals / identity" and the heavier red reads "defeat". */
   --color-win: #ffd94a;  /* United yellow: wins (lighter than honours gold) */
   --color-draw: #9a8d83; /* neutral mid-grey, unchanged */
-  --color-loss: #a52218; /* deep brick red: losses (darker than identity red) */
+  --color-loss: #b7281c; /* deep brick red: losses (darker than identity red) */
 
   --font-display: var(--font-archivo), system-ui, sans-serif;
   --font-sans: var(--font-archivo), system-ui, sans-serif;
@@ -69,7 +69,7 @@ html {
   overflow: hidden;
   background:
     radial-gradient(70% 22% at 50% 0%, rgb(184 37 20 / 0.24), transparent 72%),
-    linear-gradient(180deg, #100b09 0%, #160906 42%, #0d0a09 100%);
+    linear-gradient(180deg, #231816 0%, #2a1611 42%, #1e1a18 100%);
   color: var(--color-ink);
 }
 
@@ -185,7 +185,7 @@ html {
   padding: 8rem var(--stories-gutter) 9rem;
   background:
     radial-gradient(60% 52% at 50% 52%, rgb(126 24 14 / 0.2), transparent 76%),
-    #0d0a09;
+    #201715;
   isolation: isolate;
 }
 
@@ -210,7 +210,7 @@ html {
   height: 0.7rem;
   border: 1px solid var(--color-gold);
   border-radius: 50%;
-  background: #0d0a09;
+  background: #201715;
   transform: translateX(-50%);
   box-shadow: 0 0 18px rgb(245 197 24 / 0.7);
 }
@@ -403,7 +403,7 @@ html {
   place-items: center;
   border: 1px solid rgb(255 59 31 / 0.26);
   border-radius: 50%;
-  background: #160906;
+  background: #2a1611;
   transform: translate(-50%, -50%);
   transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
 }
@@ -1035,7 +1035,7 @@ select {
 }
 
 .data-table tbody tr {
-  background: rgb(12 11 10 / 0.36);
+  background: rgb(30 26 24 / 0.36);
   transition:
     background-color 180ms ease,
     box-shadow 180ms ease,
@@ -1090,7 +1090,7 @@ select {
 }
 
 .data-table tbody tr.player-season-decade-row:hover {
-  background: rgb(12 11 10 / 0.36);
+  background: rgb(30 26 24 / 0.36);
   box-shadow: none;
 }
 
@@ -1189,7 +1189,7 @@ select {
 }
 
 .register-card-item {
-  background: rgb(12 11 10 / 0.36);
+  background: rgb(30 26 24 / 0.36);
   transition: background-color 180ms ease;
 }
 
@@ -1217,7 +1217,7 @@ select {
     z-index: 20;
     margin-inline: -1rem;
     padding: 0.625rem 1rem 0.75rem;
-    background: rgb(8 7 6 / 0.94);
+    background: rgb(30 26 24 / 0.94);
     backdrop-filter: blur(10px);
   }
 
@@ -1391,7 +1391,7 @@ select {
   border-right: 1px solid rgb(255 255 255 / 0.06);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.045) 0%, transparent 24%),
-    rgb(12 11 10 / 0.42);
+    rgb(22 19 17 / 0.5);
   -webkit-backdrop-filter: blur(20px) saturate(1.12);
   backdrop-filter: blur(20px) saturate(1.12);
   transition: width 220ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -2027,7 +2027,7 @@ input.site-sidebar-search-input:focus {
   .player-plate-secondary {
     display: flex;
     flex-wrap: wrap;
-    align-items: end;
+    align-items: flex-start;
     gap: 0.875rem 1.75rem;
     padding-left: 1.5rem;
   }
@@ -2058,7 +2058,7 @@ input.site-sidebar-search-input:focus {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
-    align-items: end;
+    align-items: start;
     gap: 0.75rem;
     min-width: 0;
     padding-left: 1.25rem;
@@ -2107,7 +2107,7 @@ input.site-sidebar-search-input:focus {
   border: 1px solid rgb(255 255 255 / 0.14);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.11) 0%, rgb(255 255 255 / 0.02) 38%, rgb(0 0 0 / 0.08) 100%),
-    rgb(12 11 10 / 0.42);
+    rgb(22 19 17 / 0.5);
   box-shadow:
     0 0 0 0.5px rgb(255 255 255 / 0.05),
     0 4px 24px rgb(0 0 0 / 0.28),

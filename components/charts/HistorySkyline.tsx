@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TrophyIcon } from "@/components/CampaignIcons";
+import { seasonHref } from "@/lib/publishedHref";
 
 /**
  * The club's entire life as one object: every season a vertical bar whose height
@@ -35,7 +36,7 @@ export function HistorySkyline({
 
   const firstYear = Number(rows[0].season.slice(0, 4));
   const lastYear = Number(rows[rows.length - 1].season.slice(0, 4));
-  // 20-year ticks, like the seasons FinishTimeline, so the axis stays uncrowded
+  // 20-year ticks, like the seasons ClubThread, so the axis stays uncrowded
   // under ~135 bars. Index-positioned (not year-positioned) to line up with the
   // flex bars, which are evenly spaced by season, not by calendar year.
   // Ticks within 12% of either edge are dropped so they never collide with the
@@ -72,7 +73,8 @@ export function HistorySkyline({
             return (
               <Link
                 key={s.season}
-                href={`/seasons/${s.season}`}
+                href={seasonHref(s.season)}
+                prefetch={false}
                 title={title}
                 aria-label={title}
                 className="group relative min-w-0 flex-1 focus-ring"

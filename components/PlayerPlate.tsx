@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref, seasonHref } from "@/lib/publishedHref";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { ShirtBadge } from "@/components/ShirtBadge";
 import { ShareCite } from "@/components/ShareCite";
@@ -50,6 +51,8 @@ interface PlayerPlateProps {
     latest: MatchRef | null;
     peakSeason: { season: string; goals: number } | null;
     peakDefensiveSeason?: { season: string; cleanSheets: number } | null;
+    /** A drawn career (CareerCord) in place of the plain first-to-latest bar. */
+    rail?: React.ReactNode;
   };
   shirts: Shirt[];
   /** One-line trust note shown in the footer band. */
@@ -204,7 +207,7 @@ export function PlayerPlate({
 
         {(span.debut || span.latest) && (
           <div className="player-plate-career">
-            <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} />
+            <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} rail={span.rail} />
           </div>
         )}
       </div>
@@ -235,12 +238,13 @@ export function PlayerPlate({
  * time, so the whole arc reads before any of the labels do.
  */
 function CareerArc({
-  debut, latest, peakSeason, defensive = false,
+  debut, latest, peakSeason, defensive = false, rail,
 }: {
   debut: MatchRef | null;
   latest: MatchRef | null;
   peakSeason: { season: string; goals?: number; cleanSheets?: number } | null;
   defensive?: boolean;
+  rail?: React.ReactNode;
 }) {
   const y0 = debut ? yearOf(debut) : latest ? yearOf(latest) : null;
   const y1 = latest ? yearOf(latest) : debut ? yearOf(debut) : null;
@@ -260,13 +264,17 @@ function CareerArc({
         <span>Latest</span>
       </div>
 
+      {rail ? (
+        <div className="mt-3">{rail}</div>
+      ) : (
       <div className="relative mt-3 h-1.5 rounded-full bg-panel-2 ring-1 ring-inset ring-line">
         <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-devil/45 via-devil/60 to-devil-bright/70" />
         <span className="absolute -left-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
         <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
         {peakPct != null && peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
             style={{ left: `${peakPct}%` }}
             title={
@@ -289,17 +297,19 @@ function CareerArc({
           </Link>
         )}
       </div>
+      )}
 
       <div className="mt-2.5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 text-xs">
         {debut ? (
-          <Link href={`/match/${debut.id}`} className="group flex min-w-0 flex-col gap-1 text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
+          <Link href={matchHref(debut.id)} prefetch={false} className="group flex min-w-0 flex-col gap-1 text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
             <span className="stat-num text-ink">{debut.season}</span>
             <span className="break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {debut.opponent_name}</span>
           </Link>
         ) : <span />}
         {peakSeason && (
           <Link
-            href={`/seasons/${peakSeason.season}`}
+            href={seasonHref(peakSeason.season)}
+            prefetch={false}
             className="stat-num shrink-0 text-gold/90 hover:text-gold"
             title={
               defensive
@@ -307,14 +317,15 @@ function CareerArc({
                 : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
             }
           >
-            ★ {peakSeason.season}
+            <span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-gold align-[1px] shadow-[0_0_0_2.5px_rgb(245_197_24_/0.18)]" />
+            {peakSeason.season}
             <span className="hidden sm:inline">
               {defensive ? ": Best clean-sheet season" : ": Most Prolific Season"}
             </span>
           </Link>
         )}
         {latest ? (
-          <Link href={`/match/${latest.id}`} className="group flex min-w-0 flex-col items-end gap-1 text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
+          <Link href={matchHref(latest.id)} prefetch={false} className="group flex min-w-0 flex-col items-end gap-1 text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
             <span className="stat-num text-ink">{latest.season}</span>
             <span className="max-w-full break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {latest.opponent_name}</span>
           </Link>

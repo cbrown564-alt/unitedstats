@@ -25,6 +25,7 @@ import { MatchArchive } from "@/components/MatchArchive";
 import { ResultSpine } from "@/components/charts/ResultSpine";
 import { NotableMatches } from "@/components/NotableMatches";
 import { WdlBar } from "@/components/WdlBar";
+import { RivalryCord } from "@/components/RivalryCord";
 import { GoalDiff } from "@/components/GoalDiff";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -154,7 +155,8 @@ export default async function OpponentPage({
             left: <span className="stat-num text-ink">{o.first?.slice(0, 4)}</span>,
             rightLabel: "Last met",
             right: <span className="stat-num text-ink">{o.last?.slice(0, 4)}</span>,
-            caption: `Every meeting between the sides, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}.`,
+            rail: sequence.length >= 4 ? <RivalryCord meetings={sequence} opponent={o.name} /> : undefined,
+            caption: sequence.length >= 4 ? undefined : `Every meeting between the sides, ${o.first?.slice(0, 4)}–${o.last?.slice(0, 4)}.`,
             peakSeason:
               bestSeason && bestSeasonAt != null && bestSeasonTitle
                 ? { season: bestSeason.season, at: bestSeasonAt, title: bestSeasonTitle }

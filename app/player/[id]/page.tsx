@@ -1,6 +1,7 @@
 import { sampleStaticIds } from "@/lib/static-build";
 import { RecordNext } from "@/components/record/RecordNext";
 import Link from "next/link";
+import { matchHref, seasonHref } from "@/lib/publishedHref";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
@@ -10,7 +11,7 @@ import {
   playerAppearanceEndpoints,
   playerDefensiveBySeason, playerDefensiveTotals,
   playerGoalMatches, playerGoalsByOpponent, playerMedalSeasons,
-  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers,
+  playerShirtNumbersByDecade, playerSplitsBySeason, playerTransfers, allSeasons,
   type CuratedTotals,
 } from "@/lib/queries";
 import { playerBestScoringRun } from "@/lib/trails";
@@ -22,6 +23,7 @@ import { PlayerScoringArchive } from "@/components/player/PlayerScoringArchive";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
 import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
 import { PlayerPlate } from "@/components/PlayerPlate";
+import { CareerCord } from "@/components/CareerCord";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
 import { AssistPartnerships } from "@/components/AssistPartnerships";
@@ -36,7 +38,7 @@ import { fmtDate, fmtNum, fmtSeasonShort, playerCareerSpan } from "@/lib/format"
 import { entityRef } from "@/lib/citations";
 import { jsonLdHtml, playerJsonLd } from "@/lib/structuredData";
 import { correctionPrefillHref } from "@/lib/corrections";
-import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
+import { playerSeasonChartFootnotes, playerHasFullGoalScorerCoverage, seasonsWithLimitedGoalScorerCoverage } from "@/lib/playerSeasonChartNotes";
 import {
   playerUsesDefensiveProfile,
   DEFENSIVE_CLEAN_SHEET_NOTE,
@@ -239,7 +241,25 @@ export default async function PlayerPage({
             concededPerGame,
             cleanSheetPct: defensiveCleanSheetPct,
           }}
-          span={{ debut, latest, peakSeason, peakDefensiveSeason }}
+          span={{
+            debut,
+            latest,
+            peakSeason,
+            peakDefensiveSeason,
+            rail: (
+              <CareerCord
+                seasons={
+                  defensiveProfile && seasonsWithDefense
+                    ? seasonsWithDefense.map((s) => ({ season: s.season, apps: s.apps, marks: s.cleanSheets }))
+                    : bySeason.map((s) => ({ season: s.season, apps: s.apps, marks: s.goals }))
+                }
+                medals={medalSeasons}
+                clubSeasons={new Set(allSeasons())}
+                limitedMarks={defensiveProfile ? new Set<string>() : new Set(seasonsWithLimitedGoalScorerCoverage())}
+                markLabel={defensiveProfile ? "clean sheets" : "goals"}
+              />
+            ),
+          }}
           shirts={shirts}
           caveatBrief="Verified competitive record"
           correctionHref={playerCorrectionHref}
@@ -259,7 +279,7 @@ export default async function PlayerPage({
                 {(debut || latest) && (
                   <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 border-b border-line pb-4 text-sm sm:hidden">
                     {debut ? (
-                      <Link href={`/match/${debut.id}`} className="inline-flex min-h-11 min-w-0 flex-col justify-center hover:text-devil-bright focus-ring">
+                      <Link href={matchHref(debut.id)} prefetch={false} className="inline-flex min-h-11 min-w-0 flex-col justify-center hover:text-devil-bright focus-ring">
                         <span className="block text-[10px] uppercase tracking-[0.13em] text-ink-faint">First appearance</span>
                         <span className="stat-num text-xs text-ink">{debut.season}</span>
                         <span className="block truncate text-xs text-ink-dim">v {debut.opponent_name}</span>
@@ -267,7 +287,7 @@ export default async function PlayerPage({
                     ) : <span />}
                     <span aria-hidden className="text-ink-faint">→</span>
                     {latest ? (
-                      <Link href={`/match/${latest.id}`} className="inline-flex min-h-11 min-w-0 flex-col justify-center text-right hover:text-devil-bright focus-ring">
+                      <Link href={matchHref(latest.id)} prefetch={false} className="inline-flex min-h-11 min-w-0 flex-col justify-center text-right hover:text-devil-bright focus-ring">
                         <span className="block text-[10px] uppercase tracking-[0.13em] text-ink-faint">Latest appearance</span>
                         <span className="stat-num text-xs text-ink">{latest.season}</span>
                         <span className="block truncate text-xs text-ink-dim">v {latest.opponent_name}</span>
@@ -308,7 +328,7 @@ export default async function PlayerPage({
                               goalsConceded: s.goalsConceded,
                               valueLabel: `${fmtNum(s.cleanSheets)} clean sheets · ${fmtNum(s.goalsConceded)} conceded`,
                               meta: s.season,
-                              href: `/seasons/${s.season}`,
+                              href: seasonHref(s.season),
                             }))
                           : bySeason.map((s) => ({
                               label: fmtSeasonShort(s.season),
@@ -316,7 +336,7 @@ export default async function PlayerPage({
                               assists: s.assists,
                               valueLabel: `${fmtNum(s.goals)} goals · ${fmtNum(s.assists)} assists`,
                               meta: s.season,
-                              href: `/seasons/${s.season}`,
+                              href: seasonHref(s.season),
                             }))
                       }
                       labelEvery={Math.max(1, Math.floor(bySeason.length / 12))}
@@ -361,6 +381,7 @@ export default async function PlayerPage({
                   )}
                   {defensiveProfile && seasonsWithDefense ? (
                     <PlayerSeasonTable
+                      seasonHrefs={Object.fromEntries(bySeason.map((s) => [s.season, seasonHref(s.season)]))}
                       statProfile="defensive"
                       seasons={seasonsWithDefense}
                       playerName={p.name}
@@ -370,6 +391,7 @@ export default async function PlayerPage({
                     />
                   ) : (
                     <PlayerSeasonTable
+                      seasonHrefs={Object.fromEntries(bySeason.map((s) => [s.season, seasonHref(s.season)]))}
                       seasons={bySeason}
                       playerName={p.name}
                       goalPeakSeasons={goalPeakSeasons.map((s) => s.season)}

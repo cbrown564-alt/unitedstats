@@ -831,7 +831,7 @@ Ordered by how cleanly they reuse existing surfaces:
 | ~~Fortress OT~~ | Spin-off (place) | **Manner-first first build — see §4c** |
 | ~~Fergie time~~ | Loop across managers | **Built — see §4d** |
 | ~~A thread of nights~~ | Continuous follow + spin-offs | **Built — see §4e** |
-| Skyline breath | Follow | `HistorySkyline` / seasons `FinishTimeline` |
+| Skyline breath | Follow | `HistorySkyline` / seasons `ClubThread` |
 
 Each chapter should be authorable as a short beat sheet before any motion work.
 

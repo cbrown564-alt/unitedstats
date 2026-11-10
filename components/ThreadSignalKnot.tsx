@@ -1,44 +1,23 @@
+import { Bead, Cord, CordSvg, Strand } from "@/components/glyphs/cord/primitives";
+
 /**
- * The homepage match thread reduced to one signal: a swaying red filament,
- * one tied loop, and the gold bead that marks a United goal.
+ * The rediscovery mark, in Cord: a slack thread that ties one loop round a
+ * proven bead (the night worth pulling on) and runs on. Static; it marks a
+ * prompt, it does not perform.
  */
 export function ThreadSignalKnot() {
-  const thread =
-    "M 2 20 C 10 6, 18 33, 29 20 C 34 14, 38 12, 42 12 A 7 7 0 1 1 42 26 A 7 7 0 1 1 42 12 C 50 14, 55 29, 66 15";
-
   return (
-    <svg
+    <CordSvg
+      size={36}
+      unit={40}
       viewBox="0 0 68 40"
-      className="h-9 w-[4.25rem] shrink-0 overflow-visible"
-      fill="none"
-      aria-hidden
+      width={68}
+      height={40}
+      className="cd-lit h-9 w-[4.25rem] shrink-0"
     >
-      <path
-        d={thread}
-        pathLength={1}
-        className="thread-path"
-        stroke="rgb(255 59 31)"
-        strokeOpacity="0.2"
-        strokeWidth="5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        style={{ filter: "blur(2px)" }}
-      />
-      <path
-        d={thread}
-        pathLength={1}
-        className="thread-path"
-        stroke="rgb(255 59 31)"
-        strokeOpacity="0.82"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <g className="thread-knot" style={{ animationDelay: "620ms" }}>
-        <circle cx="42" cy="19" r="8.5" fill="rgb(245 197 24)" fillOpacity="0.12" />
-        <circle cx="42" cy="19" r="4" fill="rgb(245 197 24)" stroke="#fff4d4" strokeWidth="1" />
-        <circle cx="42" cy="19" r="1.2" fill="#fff4d4" />
-      </g>
-    </svg>
+      <Strand d="M2 30H66" dashed />
+      <Cord d="M2 30C10 30 16 14 26 18C33 21 33 27 40 27A8 8 0 1 0 32 19C34 25 46 30 54 22C58 18 61 14 66 13" />
+      <Bead cx={40} cy={19} r={4.4} />
+    </CordSvg>
   );
 }

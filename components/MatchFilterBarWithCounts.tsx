@@ -35,9 +35,10 @@ export function MatchFilterBarWithCounts({
   const filter = useMemo(() => matchFilterFromSearchParams(params), [params]);
   const chipKeys = useMemo(() => chips.map((chip) => chip.key), [chips]);
   const options = catalog?.options ?? EMPTY_OPTIONS;
-  const counts = catalog ? catalogFacetCounts(catalog.matches, filter) : EMPTY_COUNTS;
-  const chipCounts =
-    catalog && chipKeys.length > 0 ? catalogChipCounts(catalog.matches, filter, chipKeys) : EMPTY_CHIP_COUNTS;
+  const counts = useMemo(() => catalog ? catalogFacetCounts(catalog.matches, filter) : EMPTY_COUNTS, [catalog, filter]);
+  const chipCounts = useMemo(() =>
+    catalog && chipKeys.length > 0 ? catalogChipCounts(catalog.matches, filter, chipKeys) : EMPTY_CHIP_COUNTS,
+  [catalog, filter, chipKeys]);
 
   return (
     <MatchFilterBar

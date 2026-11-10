@@ -1,5 +1,6 @@
 import { RecordNext } from "@/components/record/RecordNext";
 import Link from "next/link";
+import { matchHref, opponentHref, playerHref, seasonHref } from "@/lib/publishedHref";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
@@ -300,7 +301,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         namePath={paths.name}
                         shirt={p.shirt ?? ""}
                         name={p.player_display_name}
-                        playerHref={p.player_id ? `/player/${p.player_id}` : undefined}
+                        playerHref={p.player_id ? playerHref(p.player_id) : undefined}
                         meta={p.role ? <span className="text-xs text-ink-faint">{p.role}</span> : undefined}
                       />
                     );
@@ -321,7 +322,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         namePath={paths.name}
                         shirt={p.shirt ?? ""}
                         name={p.player_display_name}
-                        playerHref={p.player_id ? `/player/${p.player_id}` : undefined}
+                        playerHref={p.player_id ? playerHref(p.player_id) : undefined}
                         meta={<span className="text-xs text-ink-faint">on {p.sub_on != null ? `${p.sub_on}'` : "—"}</span>}
                       />
                     );
@@ -342,7 +343,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                         namePath={paths.name}
                         shirt={p.shirt ?? ""}
                         name={p.player_display_name}
-                        playerHref={p.player_id ? `/player/${p.player_id}` : undefined}
+                        playerHref={p.player_id ? playerHref(p.player_id) : undefined}
                         meta={<span className="text-xs text-ink-faint">unused</span>}
                       />
                     );
@@ -456,7 +457,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               opposite the head-to-head column. */}
           <div className="flex justify-center gap-1.5 sm:justify-end">
             {form.map((f) => (
-              <Link key={f.id} href={`/match/${f.id}`} title={`${f.date} ${homeAwayLabel(f.venue)} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
+              <Link key={f.id} href={matchHref(f.id)} prefetch={false} title={`${f.date} ${homeAwayLabel(f.venue)} ${f.opponent_name} ${f.gf}-${f.ga}`} className="focus-ring">
                 <ResultBadge result={f.result} outcome={f.outcome} />
               </Link>
             ))}
@@ -471,7 +472,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <p className="mt-2 text-center text-xs text-ink-dim sm:text-left">
             Other {m.venue === "A" ? "away" : m.venue === "H" ? "home" : "neutral"} meetings with{" "}
             {m.opponent_name} that finished {m.gf}–{m.ga}.{" "}
-            <Link href={`/opponent/${m.opponent_id}`} className="text-devil-bright hover:underline focus-ring">
+            <Link href={opponentHref(m.opponent_id)} className="text-devil-bright hover:underline focus-ring">
               Full head-to-head →
             </Link>
           </p>
@@ -548,7 +549,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                 </div>
                 <header className="space-y-3">
                   <nav className="flex items-center justify-center gap-2 pr-16 text-sm text-ink-dim sm:pr-20">
-                    <Link href={`/seasons/${m.season}`} className="hover:text-ink focus-ring">{m.season}</Link>
+                    <Link href={seasonHref(m.season)} className="hover:text-ink focus-ring">{m.season}</Link>
                     <span aria-hidden>·</span>
                     <CompetitionChip
                       type={m.competition_type}
@@ -571,7 +572,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                     <h1 className="display grid w-full max-w-full grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-2 gap-y-2 text-xl leading-tight sm:gap-x-5 sm:text-4xl lg:text-5xl xl:gap-x-8 2xl:text-6xl [&>*]:min-w-0">
                       {m.venue === "A" ? (
                         <>
-                          <TeamName names={oppN} align="right" href={`/opponent/${m.opponent_id}`} />
+                          <TeamName names={oppN} align="right" href={opponentHref(m.opponent_id)} />
                           <Pickable
                             fieldPath={matchFieldPath(id, "score")}
                             className={`stat-num shrink-0 whitespace-nowrap text-3xl leading-none sm:text-5xl lg:text-6xl ${tone}`}
@@ -589,7 +590,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                           >
                             {m.gf}–{m.ga}
                           </Pickable>
-                          <TeamName names={oppN} align="left" href={`/opponent/${m.opponent_id}`} />
+                          <TeamName names={oppN} align="left" href={opponentHref(m.opponent_id)} />
                         </>
                       )}
                     </h1>
@@ -632,7 +633,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
               sticky={false}
               segments={[
                 { label: "Seasons", href: "/seasons" },
-                { label: m.season, href: `/seasons/${m.season}` },
+                { label: m.season, href: seasonHref(m.season) },
                 { label: "This match" },
               ]}
             />

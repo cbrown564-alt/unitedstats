@@ -1,35 +1,30 @@
 import Link from "next/link";
+import { playerHref } from "@/lib/publishedHref";
 import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
 import { Pickable } from "@/components/match/MatchCorrection";
+import { MatchFlowPlay } from "@/components/MatchFlowPlay";
+import { goalClock, matchTimeScale, scoreCordPath } from "@/lib/matchCord";
 
 /**
- * Match flow: a single time bar coloured by who led and by how much. Red when
- * United are ahead, neutral grey at level, near-black when behind, deepening with
- * the margin. United scorers ride above the bar, opponent scorers below — each a
- * lollipop dot on the timeline. Cards and subs live on the teamsheet; this is
- * purely the shape of the result.
+ * Match flow, drawn as a cord: one red thread that runs level, steps up when
+ * United score and down when the opponent does, so its height is the score
+ * state at every minute. United scorers sit above the band and opponent
+ * scorers below, each tied to the bead where the score changed; the knot at
+ * the end is the scoreline at the whistle (never a shootout).
+ *
+ * Stoppage time after 90' gets a widened slice of the axis so late goals are
+ * readable; the axis marks where the scale changes and says so.
  *
  * Server-rendered from timed goal events only. Matches without timed goals fall
- * back to a plain scorer list (handled by the caller).
- *
- * On narrow viewports labels stack minute over surname at their timeline position
- * (same spatial read as desktop, tighter lanes). The lead bar stays the primary
- * shape; dots carry a high-contrast ring so they read on any segment colour.
+ * back to a plain scorer list (handled by the caller). "Play" (a small client
+ * control) replays the night: the cord sews at match pace and each scorer
+ * lands as the needle reaches them.
  */
 
 /** Clock label that keeps stoppage time as "90+6", regulation as "64". */
 function clock(minute: number, added: number | null): string {
   return added ? `${minute}+${added}` : `${minute}`;
-}
-
-/**
- * Absolute minute on the match axis. Stoppage is 90+added; older sources sometimes
- * write 93 directly instead of 90+3 — same contract as late-goal plotting.
- */
-function goalClock(minute: number, added: number | null): number {
-  if (minute === 90 && added != null && added > 0) return 90 + added;
-  return minute;
 }
 
 type GoalMark = {
@@ -46,14 +41,6 @@ type GoalMark = {
   scorerPath?: string;
   minutePath?: string;
 };
-
-/** United-perspective lead → tinted bar colour. Red ahead, grey level, near-black behind. */
-function leadColor(margin: number): string {
-  if (margin === 0) return "oklch(47% 0.008 50)";
-  const t = Math.min(1, (Math.abs(margin) - 1) / 2); // 1-goal lead → 0, 3+ → 1
-  if (margin > 0) return `oklch(${53 - t * 9}% ${0.17 + t * 0.04} 28)`;
-  return `oklch(${30 - t * 9}% ${0.018 - t * 0.008} 45)`;
-}
 
 function anchorTransform(p: number): string {
   return p > 84 ? "translateX(-100%)" : p < 16 ? "translateX(0)" : "translateX(-50%)";
@@ -75,11 +62,11 @@ function GoalLabel({
 }) {
   const anchorTx = anchorTransform(p);
   const minuteClass = focused ? "text-gold" : side === "united" ? "text-devil-bright" : "text-ink-dim";
-  const labelOffset = [18, 42, 66][lane] ?? 18;
-  const connectorHeight = [10, 34, 58][lane] ?? 10;
+  const labelOffset = [10, 32, 54][lane] ?? 10;
+  const connectorHeight = labelOffset;
 
   const name = g.playerId ? (
-    <Link href={`/player/${g.playerId}`} className={focused ? "font-semibold text-gold hover:text-ink" : "text-ink hover:text-devil-bright"}>
+    <Link href={playerHref(g.playerId)} prefetch={false} className={focused ? "font-semibold text-gold hover:text-ink" : "text-ink hover:text-devil-bright"}>
       {g.scorer}
     </Link>
   ) : (
@@ -103,7 +90,7 @@ function GoalLabel({
     <>
       <span
         aria-hidden
-        className={`absolute left-1/2 w-px -translate-x-1/2 bg-line/80 ${side === "united" ? "bottom-2" : "top-2"}`}
+        className={`absolute left-1/2 w-px -translate-x-1/2 bg-ink/25 ${side === "united" ? "bottom-0" : "top-0"}`}
         style={{ height: connectorHeight }}
       />
       <span
@@ -134,14 +121,15 @@ function GoalLabel({
 function GoalDot({ side, focused }: { side: "united" | "opponent"; focused: boolean }) {
   return (
     <span
-      className={`tap-target relative z-10 block h-3 w-3 rounded-full shadow-[0_0_0_1px_rgba(0,0,0,0.35)] sm:h-2.5 sm:w-2.5 ${
-        focused ? "ring-2 ring-gold shadow-[0_0_12px_2px_rgba(245,197,24,0.55)]" : "ring-2 ring-pitch"
-      } ${
-        side === "united" ? "bg-devil-bright" : "bg-white/90"
-      }`}
+      className={`tap-target relative z-10 block h-3 w-3 rounded-full sm:h-[11px] sm:w-[11px] ${
+        focused ? "ring-2 ring-gold shadow-[0_0_12px_2px_rgba(245,197,24,0.55)]" : "ring-[2.5px] ring-panel"
+      } ${focused ? "bg-gold" : side === "united" ? "bg-devil-bright" : "bg-ink-dim"}`}
     />
   );
 }
+
+/** Height of the score band, and of each one-goal step within it. */
+const BAND = 72;
 
 export function MatchFlow({
   unitedGoals,
@@ -210,28 +198,31 @@ export function MatchFlow({
   const sorted = [...goals].sort(
     (a, b) => goalClock(a.minute, a.added) - goalClock(b.minute, b.added) || a.seq - b.seq,
   );
-  const clocks = goals.map((g) => goalClock(g.minute, g.added));
-  const maxClock = Math.max(90, ...clocks, aet ? 120 : 0);
-  // Pad past the last stoppage goal so the final knot isn't pinned to the clipped edge.
-  const end = aet
-    ? 120
-    : maxClock > 90
-      ? Math.min(120, Math.ceil((maxClock + 1) / 5) * 5)
-      : 90;
-  const pos = (m: number) => Math.max(0, Math.min(100, (m / end) * 100));
+  const { end, stoppage, zoom, endX, pos } = matchTimeScale(
+    goals.map((g) => goalClock(g.minute, g.added)),
+    aet,
+  );
   const markPos = (g: GoalMark) => pos(goalClock(g.minute, g.added));
 
-  // Running-lead segments: hold each margin until the next goal, then jump.
-  const segs: { from: number; to: number; margin: number }[] = [];
-  let cur = 0;
-  let prev = 0;
+  // Score state after each goal, United's perspective.
+  const after = new Map<string, number>();
+  let diff = 0;
+  let maxAbs = 1;
   for (const g of sorted) {
-    const at = goalClock(g.minute, g.added);
-    segs.push({ from: prev, to: at, margin: cur });
-    cur += g.delta;
-    prev = at;
+    diff += g.delta;
+    maxAbs = Math.max(maxAbs, Math.abs(diff));
+    after.set(g.key, diff);
   }
-  segs.push({ from: prev, to: end, margin: cur });
+  const final = diff;
+  const mid = BAND / 2;
+  const stepPx = Math.min(20, (mid - 9) / maxAbs);
+  const yOf = (d: number) => mid - d * stepPx;
+
+  const { d, plate } = scoreCordPath(
+    sorted.map((g) => ({ x: markPos(g), after: after.get(g.key) ?? 0 })),
+    yOf,
+    endX,
+  );
 
   // Greedily stagger dense goal clusters across three lanes. Two lanes were not
   // enough for high-scoring nights such as Chelsea 5–6 and caused name collisions.
@@ -257,32 +248,40 @@ export function MatchFlow({
   const unitedMaxLane = unitedMarks.reduce((max, g) => Math.max(max, lane.get(g.key) ?? 0), 0);
   const oppMaxLane = oppMarks.reduce((max, g) => Math.max(max, lane.get(g.key) ?? 0), 0);
   const zoneHeight = (maxLane: number) =>
-    maxLane >= 2 ? "h-[86px]" : maxLane >= 1 ? "h-[64px]" : "h-[46px] sm:h-[60px]";
-  const unitedZoneH = zoneHeight(unitedMaxLane);
-  const oppZoneH = zoneHeight(oppMaxLane);
+    maxLane >= 2 ? "h-[86px] sm:h-[72px]" : maxLane >= 1 ? "h-[62px] sm:h-[50px]" : "h-[38px] sm:h-[28px]";
+  const unitedZoneH = unitedMarks.length ? zoneHeight(unitedMaxLane) : "h-3";
+  const oppZoneH = oppMarks.length ? zoneHeight(oppMaxLane) : "h-3";
 
-  const PAD = 1.4;
-  const barStops = segs
-    .map((s, i) => {
-      const c = leadColor(s.margin);
-      const left = i === 0 ? pos(s.from) : pos(s.from) + PAD;
-      const right = i === segs.length - 1 ? pos(s.to) : pos(s.to) - PAD;
-      return `${c} ${left.toFixed(2)}%, ${c} ${right.toFixed(2)}%`;
+  // Tethers: a pale thread from the band edge down (or up) to each goal's bead.
+  const tethers = sorted
+    .map((g) => {
+      const x = markPos(g).toFixed(2);
+      const y = yOf(after.get(g.key) ?? 0);
+      return g.side === "united" ? `M${x} 0V${y}` : `M${x} ${BAND}V${y}`;
     })
-    .join(", ");
-  const barBg =
-    `linear-gradient(to bottom, rgba(255,255,255,0.14), rgba(255,255,255,0) 45%, rgba(0,0,0,0.28)), ` +
-    `linear-gradient(to right, ${barStops})`;
+    .join("");
 
-  const gridlines = [
-    { m: 45, label: "HT" },
-    { m: 90, label: end > 90 ? "90" : "FT" },
-    ...(end > 90 ? [{ m: end, label: "FT" }] : []),
+  const ticks = [45, ...(end >= 90 ? [90] : []), ...(aet ? [105] : [])];
+  const axis: { at: number; label: string; key: string }[] = [
+    { at: 0, label: "0\u2032", key: "0" },
+    { at: pos(45), label: "HT", key: "ht" },
+    ...(aet
+      ? [{ at: pos(90), label: "90\u2032", key: "90" }, { at: pos(120), label: "AET", key: "ft" }]
+      : stoppage
+        ? [
+            { at: pos(90), label: "90\u2032", key: "90" },
+            { at: pos(90 + stoppage), label: `+${stoppage}\u2032`, key: "st" },
+          ]
+        : [{ at: pos(90), label: "FT", key: "ft" }]),
   ];
+  const result = final > 0 ? "w" : final < 0 ? "l" : "d";
+  const resultWord = final > 0 ? "United ahead" : final < 0 ? "United behind" : "level";
+  // Playback timing: where each goal falls along the cord, 0–1.
+  const tOf = (g: GoalMark) => (markPos(g) / 100).toFixed(3);
 
   return (
-    <div className="relative z-0 w-full overflow-visible">
-      {/* United scorers above the bar — positioned at their minute on every viewport. */}
+    <div className="mf relative z-0 w-full overflow-visible">
+      {/* United scorers above the band — positioned at their minute on every viewport. */}
       <div className={`relative overflow-visible ${unitedZoneH}`}>
         {unitedMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
@@ -291,36 +290,61 @@ export function MatchFlow({
           return (
             <div
               key={g.key}
-              className={`absolute bottom-0 ${ln >= 1 ? "z-20" : "z-10"}`}
-              style={{ left: `${p}%`, transform: "translateX(-50%)" }}
+              className={`mf-land absolute bottom-0 ${ln >= 1 ? "z-20" : "z-10"}`}
+              style={{ left: `${p}%`, "--t": tOf(g) } as React.CSSProperties}
               title={g.title}
             >
               <GoalLabel g={g} p={p} lane={ln} side="united" focused={focused} />
-              <span className="-mb-1 block">
-                <GoalDot side="united" focused={focused} />
-              </span>
             </div>
           );
         })}
       </div>
 
-      {/* Lead bar */}
-      <div
-        className="relative h-3.5 w-full overflow-hidden rounded-full ring-1 ring-inset ring-line shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
-        style={{ background: barBg }}
-        role="img"
-        aria-label="Lead by minute"
-      >
-        {end >= 45 && (
-          <span
-            className="absolute top-0 bottom-0 w-px"
-            style={{ left: `${pos(45)}%`, background: "color-mix(in oklab, var(--color-ink) 22%, transparent)" }}
-            aria-hidden
+      {/* The score band: level line, half-time tick, the cord and its beads. */}
+      <div className="relative" style={{ height: BAND }} role="img" aria-label={`Score state by minute; finished ${resultWord}`}>
+        <svg
+          className="mf-cord cd cd-lit absolute inset-0 h-full w-full overflow-visible"
+          viewBox={`0 0 100 ${BAND}`}
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          {zoom > 0 && (
+            <rect className="mf-stoppage" x={pos(90)} y={0} width={endX - pos(90)} height={BAND} />
+          )}
+          <path className="cd-strand mf-ns mf-level" d={`M0 ${mid}H${endX}`} />
+          <path
+            className="cd-strand mf-ns"
+            d={ticks.map((m) => `M${pos(m).toFixed(2)} ${mid - 5}V${mid + 5}`).join("")}
           />
-        )}
+          {/* The live layer: revealed left to right at match pace on replay. */}
+          <g className="mf-live">
+            <path className="cd-plate mf-plate" d={plate} />
+            <path className="cd-strand mf-ns mf-tether" d={tethers} />
+            <path className="cd-cord mf-ns" d={d} />
+          </g>
+        </svg>
+        <span aria-hidden className="mf-playhead" style={{ "--end": `${endX}%` } as React.CSSProperties} />
+        {sorted.map((g) => {
+          const focused = !!g.playerId && focusSet?.has(g.playerId) === true;
+          return (
+            <span
+              key={g.key}
+              className="mf-land absolute z-10 -translate-x-1/2 -translate-y-1/2"
+              style={{ left: `${markPos(g)}%`, top: yOf(after.get(g.key) ?? 0), "--t": tOf(g) } as React.CSSProperties}
+              title={g.title}
+            >
+              <GoalDot side={g.side} focused={focused} />
+            </span>
+          );
+        })}
+        <span
+          aria-hidden
+          className={`mf-land mf-knot mf-knot--${result} absolute -translate-x-1/2 -translate-y-1/2`}
+          style={{ left: `${endX}%`, top: yOf(final), "--t": 1 } as React.CSSProperties}
+        />
       </div>
 
-      {/* Opponent scorers below the bar. */}
+      {/* Opponent scorers below the band. */}
       <div className={`relative overflow-visible ${oppZoneH}`}>
         {oppMarks.map((g) => {
           const ln = lane.get(g.key) ?? 0;
@@ -329,13 +353,10 @@ export function MatchFlow({
           return (
             <div
               key={g.key}
-              className={`absolute top-0 ${ln >= 1 ? "z-20" : "z-10"}`}
-              style={{ left: `${p}%`, transform: "translateX(-50%)" }}
+              className={`mf-land absolute top-0 ${ln >= 1 ? "z-20" : "z-10"}`}
+              style={{ left: `${p}%`, "--t": tOf(g) } as React.CSSProperties}
               title={g.title}
             >
-              <span className="-mt-1 block">
-                <GoalDot side="opponent" focused={focused} />
-              </span>
               <GoalLabel g={g} p={p} lane={ln} side="opponent" focused={focused} />
             </div>
           );
@@ -343,21 +364,27 @@ export function MatchFlow({
       </div>
 
       {/* Minute axis */}
-      <div className="relative mt-2 h-4 sm:mt-0">
-        <span className="stat-num absolute left-0 text-[10px] text-ink-faint">0&prime;</span>
-        {gridlines.map((gl) => (
+      <div className="relative mt-1 h-4">
+        {axis.map((a) => (
           <span
-            key={gl.m}
-            className="stat-num absolute text-[10px] text-ink-faint"
-            style={{ left: `${pos(gl.m)}%`, transform: "translateX(-50%)" }}
+            key={a.key}
+            className={`stat-num absolute text-[10px] ${a.key === "st" ? "text-ink-dim" : "text-ink-faint"}`}
+            style={{ left: `${a.at}%`, transform: a.at === 0 ? "none" : a.key === "st" || a.key === "ft" ? "translateX(-70%)" : "translateX(-50%)" }}
           >
-            {gl.label}
+            {a.label}
           </span>
         ))}
       </div>
 
+      <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <MatchFlowPlay />
+        {zoom > 0 && (
+          <p className="text-[11px] text-ink-faint">Stoppage time is drawn wider than the rest of the clock.</p>
+        )}
+      </div>
+
       {/* Screen-reader ordered list — visual labels are spatial, this preserves sequence. */}
-      <details className="mt-5 rounded-lg border border-line p-3"><summary className="cursor-pointer text-sm font-medium text-ink-dim">Read goals in chronological order</summary>
+      <details className="mt-4 rounded-lg border border-line p-3"><summary className="cursor-pointer text-sm font-medium text-ink-dim">Read goals in chronological order</summary>
       <ol className="mt-3 space-y-2 text-sm text-ink">
         {sorted.map((g) => (
           <li key={g.key}>{g.title}</li>

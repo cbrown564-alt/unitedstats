@@ -34,7 +34,7 @@ The UI should feel like a serious tool that happens to have a strong sense of pl
 
 Restrained identity palette.
 
-Use tinted near-black and warm charcoal surfaces, with United red as the primary accent. Gold is a secondary historical or attention color, used sparingly. Result colors are semantic and must never be the only way to understand a result.
+Use warm charcoal surfaces — dusk under the floodlights, not midnight — with United red as the primary accent. The page canvas is never near-black: feedback (November 2026) was that the original `#0c0b0a` base read as one heavy black mass, so the base was lifted and the steps between surfaces widened. The sidebar and mobile pill sit a step *darker* than the canvas, so chrome recedes and content is the lit surface. True black is reserved for film frames and vignette shadows. Gold is a secondary historical or attention color, used sparingly. Result colors are semantic and must never be the only way to understand a result.
 
 > **Result palette: win = United yellow, loss = United red.** This is the current
 > encoding. It replaced the earlier red-win / slate-loss pairing (git `fecc1c7`)
@@ -68,10 +68,10 @@ two-colour identity story.
 Current implementation palette:
 
 ```css
---color-pitch: #0c0b0a;
---color-panel: #161312;
---color-panel-2: #1f1a18;
---color-line: #2c2522;
+--color-pitch: #1e1a18;
+--color-panel: #282320;
+--color-panel-2: #322c28;
+--color-line: #443b36;
 --color-ink: #f3ede8;
 --color-ink-dim: #a89c94;
 --color-ink-faint: #91857d; /* 4.8:1 or better on pitch, panel, and panel-2 */
@@ -80,12 +80,12 @@ Current implementation palette:
 --color-gold: #f5c518;
 --color-win: #ffd94a;   /* United yellow: wins (lighter than honours gold, so the two don't merge) */
 --color-draw: #9a8d83;  /* neutral mid-grey */
---color-loss: #a52218;  /* deep brick red: losses (darker than identity devil-bright, greyscale-separable) */
+--color-loss: #b7281c;  /* deep brick red: losses (darker than identity devil-bright, greyscale-separable) */
 ```
 
 Future palette work should translate these into OKLCH tokens, keeping the same relationships:
 
-- Pitch: warm near-black, not pure black.
+- Pitch: warm charcoal, clearly lighter than black (around L* 10); never drift back toward near-black.
 - Panel: one step above pitch.
 - Panel 2: active or nested surface, used with restraint.
 - Line: visible enough for dense tables on dark surfaces.

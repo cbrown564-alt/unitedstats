@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { QueryLink as Link } from "@/components/QueryLink";
 import { MatchList } from "@/components/MatchList";
 import { MatchGroups } from "@/components/MatchGroups";
 import { FacetIcon } from "@/components/FacetIcon";
@@ -143,7 +143,7 @@ export function MatchesPageBody({ view }: { view: MatchPageView }) {
         <MatchList matches={rows} showSeason accentResult renderExtra={eventBadgeRenderer} />
       )}
 
-      <Pager page={page} pages={pages} hrefFor={(p) => `/matches${qs({ page: String(p) })}`} />
+      <Pager queryOnly page={page} pages={pages} hrefFor={(p) => `/matches${qs({ page: String(p) })}`} />
     </>
   );
 }

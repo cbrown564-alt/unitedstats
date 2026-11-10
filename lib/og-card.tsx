@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { getMeta } from "@/lib/queries";
+import { goalClock, matchTimeScale, scoreCordPath } from "@/lib/matchCord";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
@@ -53,17 +54,17 @@ const ogOptions = (headers?: Record<string, string>) => ({
 
 // Brand tokens, inlined: the OG renderer (Satori) has no access to the
 // stylesheet's CSS custom properties, so these mirror app/globals.css.
-const PITCH = "#0c0b0a";
-const PANEL_2 = "#1f1a18";
-const LINE = "#2c2522";
+const PITCH = "#1e1a18";
+const PANEL_2 = "#322c28";
+const LINE = "#443b36";
 const INK = "#f3ede8";
 const INK_DIM = "#a89c94";
-const INK_FAINT = "#6f645d";
+const INK_FAINT = "#857a72";
 const DEVIL = "#ff3b1f";
 const GOLD = "#f5c518";
 const WIN = "#ffd94a";
 const DRAW = "#9a8d83";
-const LOSS = "#a52218";
+const LOSS = "#b7281c";
 
 function OgBrand() {
   return (
@@ -89,7 +90,7 @@ export function trustStrip(): TrustItem[] {
 
 function OgTrustStrip({ items, dark = false }: { items: TrustItem[]; dark?: boolean }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", background: dark ? "rgba(12,11,10,.82)" : "transparent", padding: dark ? "12px 16px" : 0, borderRadius: dark ? 8 : 0 }}>
+    <div style={{ display: "flex", alignItems: "center", background: dark ? "rgba(30,26,24,.82)" : "transparent", padding: dark ? "12px 16px" : 0, borderRadius: dark ? 8 : 0 }}>
       <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 16, letterSpacing: 2, marginRight: 22 }}>EVIDENCE</span>
       {items.map((item, index) => (
         <div key={item.lead} style={{ display: "flex", alignItems: "baseline" }}>
@@ -112,7 +113,7 @@ function OgFrame({ eyebrow, strip, media, scrim, darkEvidence = false, contextRi
     {media && <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, display: "flex", overflow: "hidden" }}>
       {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
       <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-      <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, background: scrim ?? "linear-gradient(90deg, rgba(12,11,10,.98), rgba(12,11,10,.72) 58%, rgba(12,11,10,.28))" }} />
+      <div style={{ position: "absolute", left: 0, top: 0, width: 1200, height: 630, background: scrim ?? "linear-gradient(90deg, rgba(30,26,24,.98), rgba(30,26,24,.72) 58%, rgba(30,26,24,.28))" }} />
     </div>}
     <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
     <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding }}>
@@ -198,46 +199,86 @@ export function entityCard(
  *  United gold, opponent grey — so the run of play reads as a shape. */
 export type MatchGoal = { minute: number; addedTime: number; side: "united" | "opponent" };
 
-/** The goal-minute timeline: a 0→full-time axis with a dot per goal, United gold
- *  and opponent grey, ticks at half- and full-time. A late flurry crammed past the
- *  90' tick (the treble final's two stoppage-time goals) reads instantly; an early
- *  concession sits alone on the left. The shape carries the drama the scoreline hides. */
-function goalStrip(goals: MatchGoal[]) {
-  const W = Q_WIDTH;
-  const dotR = 11;
-  const inner = W - dotR * 2;
-  const lastEff = Math.max(90, ...goals.map((g) => g.minute + (g.addedTime ?? 0)));
-  const domain = lastEff <= 90 ? 98 : lastEff + 6; // headroom past the last goal
-  const at = (min: number) => Math.round((min / domain) * inner) + dotR;
-  const x = (g: MatchGoal) => at(g.minute + Math.min(g.addedTime ?? 0, 7) * 0.7);
+/** The night as the site draws it: one red cord that runs level, steps up for a
+ *  United goal and down for an opponent's, so its height is the score state at
+ *  every minute; the knot at the end is the scoreline at the whistle. Same
+ *  geometry as the match page (lib/matchCord), drawn at pixel scale because the
+ *  card has no CSS. Stoppage time gets a widened, shaded slice and says so. */
+function cordStrip(goals: MatchGoal[], aet: boolean, backed: boolean) {
+  const PAD = backed ? 22 : 0;
+  const W = Q_WIDTH - PAD * 2;
+  const H = 132;
+  const sorted = goals
+    .map((g, i) => ({ ...g, i, clock: goalClock(g.minute, g.addedTime || null) }))
+    .sort((a, b) => a.clock - b.clock || a.i - b.i);
+  const scale = matchTimeScale(sorted.map((g) => g.clock), aet);
+  const px = (pct: number) => (pct / 100) * W;
+  let diff = 0;
+  let maxAbs = 1;
+  const steps = sorted.map((g) => {
+    diff += g.side === "united" ? 1 : -1;
+    maxAbs = Math.max(maxAbs, Math.abs(diff));
+    return { x: px(scale.pos(g.clock)), after: diff, side: g.side };
+  });
+  const mid = H / 2;
+  const step = Math.min(24, (mid - 16) / maxAbs);
+  const yOf = (d: number) => mid - d * step;
+  const endX = px(scale.endX);
+  const { d, plate } = scoreCordPath(steps, yOf, endX, 5);
+  const knot = diff > 0 ? WIN : diff < 0 ? LOSS : DRAW;
+  const ticks = [45, ...(aet ? [90, 105] : [90])].map((m) => px(scale.pos(m)));
+  const s90 = px(scale.pos(90));
+  const marks: { at: number; label: string; anchor: "start" | "middle" | "end" }[] = [
+    { at: 0, label: "Kick-off", anchor: "start" },
+    { at: px(scale.pos(45)), label: "HT", anchor: "middle" },
+    ...(aet
+      ? [{ at: s90, label: "90\u2032", anchor: "middle" as const }, { at: W, label: "AET", anchor: "end" as const }]
+      : scale.stoppage
+        ? [{ at: s90, label: "90\u2032", anchor: "middle" as const }, { at: W, label: `+${scale.stoppage}\u2032`, anchor: "end" as const }]
+        : [{ at: W, label: "Full time", anchor: "end" as const }]),
+  ];
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: W }}>
-      <div style={{ position: "relative", display: "flex", width: W, height: 52 }}>
-        <div style={{ position: "absolute", left: 0, top: 25, width: W, height: 2, background: LINE }} />
-        {[45, 90].map((m) => (
-          <div key={m} style={{ position: "absolute", left: at(m), top: 16, width: 2, height: 20, background: LINE }} />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: W + PAD * 2,
+        padding: backed ? `14px ${PAD}px 12px` : 0,
+        borderRadius: 16,
+        background: backed ? "rgba(30,26,24,0.9)" : "transparent",
+      }}
+    >
+      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+        {scale.zoom > 0 && <rect x={s90} y={0} width={endX - s90} height={H} fill={INK} fillOpacity={0.05} />}
+        <path d={plate} fill={INK} fillOpacity={0.09} />
+        <path d={`M0 ${mid}H${endX}`} stroke={INK_FAINT} strokeOpacity={0.6} strokeWidth={2} strokeDasharray="5 8" fill="none" />
+        <path d={ticks.map((x) => `M${x} ${mid - 9}V${mid + 9}`).join("")} stroke={INK_FAINT} strokeWidth={2} fill="none" />
+        <path d={d} stroke={DEVIL} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        {steps.map((st, i) => (
+          <circle key={i} cx={st.x} cy={yOf(st.after)} r={10} fill={st.side === "united" ? DEVIL : INK_DIM} stroke={PITCH} strokeWidth={4} />
         ))}
-        {goals.map((g, i) => (
-          <div
-            key={i}
+        <circle cx={endX} cy={yOf(diff)} r={14} fill={knot} stroke={PITCH} strokeWidth={5} />
+      </svg>
+      <div style={{ position: "relative", display: "flex", width: W, height: 28, marginTop: 4, fontSize: 19, color: INK_FAINT }}>
+        {marks.map((m) => (
+          <span
+            key={m.label}
             style={{
               position: "absolute",
-              left: x(g) - dotR,
-              top: 15,
-              width: dotR * 2,
-              height: dotR * 2,
-              borderRadius: dotR,
-              background: g.side === "united" ? GOLD : DRAW,
-              border: `3px solid ${PITCH}`,
+              ...(m.anchor === "end" ? { right: W - m.at } : { left: m.anchor === "middle" ? m.at - 40 : m.at }),
+              ...(m.anchor === "middle" ? { width: 80, justifyContent: "center" } : {}),
+              display: "flex",
             }}
-          />
+          >
+            {m.label}
+          </span>
         ))}
       </div>
-      <div style={{ position: "relative", display: "flex", width: W, height: 26, fontSize: 19, color: INK_FAINT }}>
-        <span style={{ position: "absolute", left: 0 }}>Kick-off</span>
-        <span style={{ position: "absolute", left: at(45) - 12 }}>HT</span>
-        <span style={{ position: "absolute", left: at(90) - 64 }}>Full time</span>
-      </div>
+      {scale.zoom > 0 && (
+        <div style={{ display: "flex", justifyContent: "flex-end", width: W, fontSize: 16, color: INK_FAINT }}>
+          Stoppage time is drawn wider than the rest of the clock.
+        </div>
+      )}
     </div>
   );
 }
@@ -251,7 +292,7 @@ function goalStrip(goals: MatchGoal[]) {
  */
 export function matchCard(
   {
-    eyebrow, home, away, score, outcome, date, goals, footnote, strip, media,
+    eyebrow, home, away, score, outcome, date, goals, aet = false, footnote, strip, media,
   }: {
     eyebrow: string;
     home: string;
@@ -259,7 +300,10 @@ export function matchCard(
     score: string;
     outcome: "W" | "D" | "L";
     date: string;
+    /** Timed goals; pass none unless every goal of the scoreline has a minute. */
     goals: MatchGoal[];
+    /** Extra time was played (the axis runs to 120). */
+    aet?: boolean;
     footnote?: string;
     strip: TrustItem[];
     media?: OgMedia;
@@ -279,7 +323,7 @@ export function matchCard(
         {media && <div style={{ position: "absolute", right: 0, top: 0, width: 650, height: 630, display: "flex", overflow: "hidden" }}>
           {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
           <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.88) 34%, rgba(12,11,10,.34) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1e1a18 0%, rgba(30,26,24,.88) 34%, rgba(30,26,24,.34) 100%)" }} />
         </div>}
         {media && <div style={{ position: "absolute", left: 16, top: 0, width: 535, height: 630, background: PITCH }} />}
         <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
@@ -298,7 +342,7 @@ export function matchCard(
             {footnote && (
               <div style={{ display: "flex", justifyContent: "center", marginTop: 14, fontSize: 23, color: INK_DIM }}>{footnote}</div>
             )}
-            {goals.length > 0 && <div style={{ display: "flex", marginTop: 40 }}>{goalStrip(goals)}</div>}
+            {goals.length > 0 && <div style={{ display: "flex", marginTop: media ? 26 : 34 }}>{cordStrip(goals, aet, !!media)}</div>}
           </div>
 
           <OgTrustStrip items={strip} dark={!!media} />
@@ -318,8 +362,8 @@ export function storyCard(
     <div style={{ width: "100%", height: "100%", display: "flex", position: "relative", background: PITCH, color: INK, fontFamily: "Archivo", overflow: "hidden" }}>
       {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
       <img src={media.src} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.9) 42%, rgba(12,11,10,.22) 78%, rgba(12,11,10,.38) 100%)" }} />
-      <div style={{ position: "absolute", left: 16, top: 0, width: 730, height: 630, background: "rgba(12,11,10,.76)" }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(30,26,24,.98) 0%, rgba(30,26,24,.9) 42%, rgba(30,26,24,.22) 78%, rgba(30,26,24,.38) 100%)" }} />
+      <div style={{ position: "absolute", left: 16, top: 0, width: 730, height: 630, background: "rgba(30,26,24,.76)" }} />
       <div style={{ position: "absolute", left: 0, top: 0, width: 16, height: 630, background: DEVIL }} />
       <div style={{ position: "relative", width: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "56px 72px 54px 88px" }}>
         <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}><div style={{ display: "flex", width: 220 }}><OgBrand /></div><span style={{ color: INK_DIM, marginLeft: 14 }}>STORY / {chapter}</span></div>
@@ -447,7 +491,7 @@ function renderStatCard(
         {media && <div style={{ position: "absolute", right: 0, top: 0, width: 460, height: 630, display: "flex", overflow: "hidden" }}>
           {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
           <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 35%" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.72) 20%, rgba(12,11,10,.08) 66%, rgba(12,11,10,.28) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1e1a18 0%, rgba(30,26,24,.72) 20%, rgba(30,26,24,.08) 66%, rgba(30,26,24,.28) 100%)" }} />
         </div>}
         <div style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "58px 72px" }}>
           <div style={{ display: "flex", alignItems: "center", fontSize: 26, letterSpacing: 4 }}>
@@ -483,7 +527,7 @@ export function seasonPosterCard(
   headers?: Record<string, string>,
 ) {
   return new ImageResponse(
-    <OgFrame eyebrow="LANDMARK SEASON" strip={strip} media={media} darkEvidence padding="56px 72px 54px 88px" scrim="linear-gradient(90deg, rgba(12,11,10,.98) 0%, rgba(12,11,10,.88) 47%, rgba(12,11,10,.22) 82%, rgba(12,11,10,.38) 100%)">
+    <OgFrame eyebrow="LANDMARK SEASON" strip={strip} media={media} darkEvidence padding="56px 72px 54px 88px" scrim="linear-gradient(90deg, rgba(30,26,24,.98) 0%, rgba(30,26,24,.88) 47%, rgba(30,26,24,.22) 82%, rgba(30,26,24,.38) 100%)">
         <div style={{ display: "flex", flexDirection: "column", width: 720 }}>
           <span style={{ color: DEVIL, fontFamily: MONO, fontSize: 24, letterSpacing: 2 }}>{marker}</span>
           <span style={{ fontSize: 82, fontWeight: 800, lineHeight: 1, letterSpacing: -2, marginTop: 12 }}>{season}</span>
@@ -634,7 +678,7 @@ export function questionCard(
         {media && <div style={{ position: "absolute", right: 0, top: 0, width: 520, height: 630, display: "flex", overflow: "hidden" }}>
           {/* @ts-expect-error ImageResponse supports local image ArrayBuffers. */}
           <img src={media.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: media.position ?? "50% 50%" }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #0c0b0a 0%, rgba(12,11,10,.84) 28%, rgba(12,11,10,.2) 72%, rgba(12,11,10,.38) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #1e1a18 0%, rgba(30,26,24,.84) 28%, rgba(30,26,24,.2) 72%, rgba(30,26,24,.38) 100%)" }} />
         </div>}
         <div
           style={{

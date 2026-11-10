@@ -145,6 +145,7 @@ export function ResultSpine({
                 <Link
                   key={m.id}
                   href={hrefForMatch(m.id)}
+                  prefetch={false}
                   title={tip}
                   aria-label={tip}
                   className="min-w-0 flex-1 transition-opacity hover:bg-ink/5 focus-ring"

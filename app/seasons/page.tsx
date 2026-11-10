@@ -1,7 +1,8 @@
-import { seasonsIndex, seasonCupLastResults } from "@/lib/queries";
+import { seasonsIndex, seasonCupLastResults, leagueResultsBySeason, allManagerTenures } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
+import { DecadeLaps } from "@/components/seasons/DecadeLaps";
 import { PageHeader } from "@/components/PageHeader";
-import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
+import { ClubThread, type FinishPoint } from "@/components/ClubThread";
 import { HonoursChip } from "@/components/HonoursBadge";
 import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -11,6 +12,7 @@ import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
 import { cupOutcomesForSeason, lanesForComps } from "@/components/seasons/seasonLedgerLanes";
 import { fmtNum } from "@/lib/format";
 import { listSeo, seoMetadata } from "@/lib/seo";
+import { seasonHref } from "@/lib/publishedHref";
 
 export const metadata = seoMetadata(listSeo.seasons.title, listSeo.seasons.description);
 
@@ -60,7 +62,6 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
 }
 
 export default function SeasonsPage() {
-  const seasonHref = (season: string) => `/seasons/${season}`;
   // Newest first — the ledger opens on the latest decades.
   const order = "desc" as const;
   const summaries = seasonsIndex();
@@ -78,6 +79,7 @@ export default function SeasonsPage() {
     byDecade.set(decade, list);
   }
   const briefs = decadeBriefs();
+  const leagueResults = leagueResultsBySeason();
   // Deciding-match outcome per season+competition, so each cup lane can tell a
   // won final from a lost one without loading every match.
   const cupResults = new Map(
@@ -179,7 +181,10 @@ export default function SeasonsPage() {
                 ))}
               </dl>
             </div>
-            <FinishTimeline points={points} />
+            <ClubThread
+              points={points}
+              reigns={allManagerTenures().map((t) => ({ managerId: t.manager_id, name: t.name, from: t.date_from, to: t.date_to }))}
+            />
             <CoverageNote
               className="mt-3"
               slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}
@@ -258,6 +263,16 @@ export default function SeasonsPage() {
             >
               {decadeHeader}
             </div>
+
+            <DecadeLaps
+              laps={[...rows].reverse().map((r) => ({
+                season: r.season,
+                href: seasonHref(r.season),
+                results: leagueResults.get(r.season) ?? [],
+                champions: r.league != null && isTopFlight(r.league) && r.league.position === 1,
+                position: r.league?.position ?? null,
+              }))}
+            />
 
             {/* Mobile: card stream — one season per card, decade header sticks below JumpRail. */}
             <ol className="season-card-stream register-card-list space-y-2.5 sm:hidden">

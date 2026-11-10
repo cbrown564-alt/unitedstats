@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { QueryLink as Link } from "@/components/QueryLink";
 import { FacetIcon } from "@/components/FacetIcon";
 import { fmtNum } from "@/lib/format";
 

@@ -238,7 +238,7 @@ function SeasonDecadeHeader({ decade }: { decade: number }) {
   );
 }
 
-type PlayerSeasonTableProps =
+type PlayerSeasonTableProps = { seasonHrefs: Record<string, string> } & (
   | {
       statProfile?: "attacking";
       seasons: SeasonSplit[];
@@ -258,7 +258,7 @@ type PlayerSeasonTableProps =
       goalPeakSeasons?: never;
       assistPeakSeasons?: never;
       medalSeasons?: string[];
-    };
+    });
 
 /**
  * Season-by-season table with client-side sorting. The page is statically
@@ -358,7 +358,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
         card: "identity",
         render: (s) => (
           <span className="inline-flex items-center gap-1.5">
-            <Link href={`/seasons/${s.season}`} prefetch={false} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
+            <Link href={props.seasonHrefs[s.season] ?? `/matches?season=${encodeURIComponent(s.season)}`} prefetch={false} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
               {fmtSeasonShort(s.season)}
             </Link>
             {medalSet.has(s.season) && (
@@ -471,7 +471,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
         density="compact"
         registerCards
         registerLayout="leaderboard"
-        registerHref={(s) => `/seasons/${s.season}`}
+        registerHref={(s) => props.seasonHrefs[s.season] ?? `/matches?season=${encodeURIComponent(s.season)}`}
         registerSubline={(s, _index, key) => defensiveSubline(s, key as DefensiveSortKey)}
         registerFigureTone={(key) => seasonFigureTone(key, true)}
         registerShowRank={sortKey !== "season"}
@@ -508,7 +508,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
       card: "identity",
       render: (s) => (
         <span className="inline-flex items-center gap-1.5">
-          <Link href={`/seasons/${s.season}`} prefetch={false} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
+          <Link href={props.seasonHrefs[s.season] ?? `/matches?season=${encodeURIComponent(s.season)}`} prefetch={false} className="font-medium text-ink hover:text-devil-bright" title={s.season}>
             {fmtSeasonShort(s.season)}
           </Link>
           {medalSet.has(s.season) && (
@@ -615,7 +615,7 @@ export function PlayerSeasonTable(props: PlayerSeasonTableProps) {
       density="compact"
       registerCards
       registerLayout="leaderboard"
-      registerHref={(s) => `/seasons/${s.season}`}
+      registerHref={(s) => props.seasonHrefs[s.season] ?? `/matches?season=${encodeURIComponent(s.season)}`}
       registerSubline={(s, _index, key) => attackingSubline(s, key as AttackingSortKey)}
       registerFigureTone={(key) => seasonFigureTone(key, false)}
       registerShowRank={sortKey !== "season"}

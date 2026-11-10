@@ -1,6 +1,6 @@
 import { EvidenceLink } from "./EvidenceLink";
 import { fmtNum } from "@/lib/format";
-import { CoverageWeave } from "@/components/glyphs/RecordGlyph";
+import { CoverageWeave } from "@/components/glyphs/cord/DataGlyphs";
 
 /**
  * Consistent slice/coverage footer for charts, tables, and modules.
@@ -66,7 +66,7 @@ export function CoverageNote({
     // glyph there would claim a gap that is not in the record.
     const mark =
       !coverage && count ? (
-        <CoverageWeave fraction={count.covered / count.total} className="tg-lit coverage-mark" />
+        <CoverageWeave fraction={count.covered / count.total} className="cd-lit coverage-mark" />
       ) : null;
     lines.push(
       <>

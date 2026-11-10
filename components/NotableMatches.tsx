@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref } from "@/lib/publishedHref";
 import { fmtDate, scoreline, scoreNote, venuePrefix } from "@/lib/format";
 import { opponentNames } from "@/lib/clubNames";
 import type { NotableMatch } from "@/lib/trails";
@@ -40,7 +41,8 @@ export function NotableMatches({
         return (
         <Link
           key={m.id}
-          href={`/match/${m.id}`}
+          href={matchHref(m.id)}
+          prefetch={false}
           className={`group block rounded-xl border border-l-2 border-line bg-panel px-4 py-3 transition-colors hover:border-devil/60 ${EDGE[m.result] ?? EDGE.D}`}
         >
           <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">{m.reason}</p>

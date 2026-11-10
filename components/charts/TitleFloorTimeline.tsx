@@ -7,7 +7,7 @@ import type { FloorTimelinePoint } from "@/lib/trails";
  * (champions at the top), calendar time on the horizontal. A vertical hinge at
  * May 2013 splits the warm Ferguson band from the cooler years since; a dashed
  * top-four line marks the floor United used to stand on. Built like
- * {@link FinishTimeline}: stretch-to-fit SVG line, crisp HTML dots, every season
+ * the seasons ClubThread: stretch-to-fit SVG line, crisp HTML dots, every season
  * a link.
  */
 export function TitleFloorTimeline({
@@ -37,7 +37,7 @@ export function TitleFloorTimeline({
   const x = (year: number) => X_PAD + ((year - yMin) / span) * (100 - 2 * X_PAD);
   const hingeX = x(hingeYear + 0.35);
 
-  // Depth 0 = champions, 1 = foot of the table — same pyramid read as FinishTimeline.
+  // Depth 0 = champions, 1 = foot of the table — same pyramid read as the seasons ClubThread.
   const Y_TOP = compact ? 14 : 10;
   const Y_BOT = compact ? 88 : 84;
   const y = (position: number, size: number) => {

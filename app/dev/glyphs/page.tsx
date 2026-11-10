@@ -1,94 +1,61 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CoverageWeave, RecordGlyph, type RecordGlyphId } from "@/components/glyphs/RecordGlyph";
-import { StitchLoader } from "@/components/glyphs/StitchLoader";
-import { UtilGlyph, type UtilGlyphId } from "@/components/glyphs/UtilGlyph";
-import { EvidenceLink } from "@/components/EvidenceLink";
-import { NavIcon, type NavIconId } from "@/components/nav/NavIcons";
+import { CordGallery, type GalleryLap, type GalleryMatch } from "@/components/dev/CordGallery";
+import type { ThreadGoal } from "@/components/glyphs/cord/DataGlyphs";
+import { eventsForMatch, formBefore, matchById, seasonMatches, seasonsIndex } from "@/lib/queries";
 
 export const metadata: Metadata = {
-  title: "Glyph specimen",
+  title: "Cord glyphs",
   robots: { index: false, follow: false },
 };
 
-const NAV: NavIconId[] = [
-  "journey", "discover", "matches", "seasons", "players", "managers", "opponents", "analytics", "transfers", "data", "more",
+const US = new Set(["goal", "pen-goal", "own-goal-for"]);
+const THEM = new Set(["opp-goal", "own-goal-against"]);
+
+const NIGHTS: { id: string; title: string }[] = [
+  { id: "1999-05-26-bayern-munich-n", title: "Bayern Munich, Barcelona 1999" },
+  { id: "1968-05-29-benfica-n", title: "Benfica, Wembley 1968" },
+  { id: "2011-08-28-arsenal-h", title: "Arsenal, Old Trafford 2011" },
 ];
-const UTIL: UtilGlyphId[] = ["search", "home", "filter", "close", "share", "sewn"];
-const RECORD: RecordGlyphId[] = ["darn", "spiral", "tangle", "stitch"];
-const FRACTIONS = [0, 0.1, 0.35, 0.5, 0.8, 0.999, 1];
+const LAPS = ["1998-99", "1973-74", "2012-13"];
 
-function Row({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-3">
-      <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">{title}</h2>
-      <div className="flex flex-wrap gap-3">{children}</div>
-    </section>
-  );
+function matchesFromRecord(): GalleryMatch[] {
+  return NIGHTS.flatMap(({ id, title }) => {
+    const m = matchById(id);
+    if (!m) return [];
+    const goals: ThreadGoal[] = eventsForMatch(id)
+      .filter((e) => (US.has(e.type) || THEM.has(e.type)) && e.minute !== null)
+      .map((e) => ({ minute: e.minute as number, added: e.added_time, side: US.has(e.type) ? "us" : "them" }));
+    const form = formBefore(m.date, 8)
+      .reverse()
+      .map((r) => r.result);
+    return [{ id, title, gf: m.gf, ga: m.ga, aet: m.aet === 1, result: m.result, goals, form }];
+  });
 }
 
-function Cell({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <figure className="tg-host grid w-24 justify-items-center gap-2 rounded-lg border border-line bg-panel px-2 py-3 text-ink-faint">
-      <div className="flex items-center gap-2">{children}</div>
-      <figcaption className="text-[10px] text-ink-dim">{label}</figcaption>
-    </figure>
-  );
+function lapsFromRecord(): GalleryLap[] {
+  const index = seasonsIndex();
+  return LAPS.flatMap((season) => {
+    const league = seasonMatches(season).filter((m) => m.competition_type === "league");
+    if (league.length === 0) return [];
+    const summary = index.find((s) => s.season === season && s.type === "league");
+    const results = league.map((m) => m.result);
+    return [
+      {
+        season,
+        results,
+        position: summary?.position ?? null,
+        competition: league[0].competition_name,
+        w: results.filter((r) => r === "W").length,
+        d: results.filter((r) => r === "D").length,
+        l: results.filter((r) => r === "L").length,
+      },
+    ];
+  });
 }
 
-/** Dev-only specimen of every shipped thread glyph, idle and lit. 404 in production. */
-export default function GlyphSpecimenPage() {
+/** Dev-only gallery of the cord glyphs and the motion library. 404 in production. */
+export default function CordGalleryPage() {
   if (process.env.NODE_ENV !== "development") notFound();
-
-  return (
-    <div className="space-y-8 py-6">
-      <header>
-        <h1 className="display text-2xl">Glyph specimen</h1>
-        <p className="text-sm text-ink-dim">Idle, then lit. Hover a cell to sew it in. Grammar: docs/GLYPHS.md.</p>
-      </header>
-      <Row title="Sections">
-        {NAV.map((id) => (
-          <Cell key={id} label={id}>
-            <NavIcon id={id} />
-            <span className="tg-lit"><NavIcon id={id} /></span>
-          </Cell>
-        ))}
-      </Row>
-      <Row title="Chrome">
-        {UTIL.map((id) => (
-          <Cell key={id} label={id}>
-            <UtilGlyph id={id} />
-            <UtilGlyph id={id} className="tg-lit" />
-          </Cell>
-        ))}
-      </Row>
-      <Row title="Record">
-        {RECORD.map((id) => (
-          <Cell key={id} label={id}>
-            <RecordGlyph id={id} size={20} />
-            <RecordGlyph id={id} size={20} className="tg-lit" />
-          </Cell>
-        ))}
-      </Row>
-      <Row title="Motion">
-        <Cell label="running stitch">
-          <StitchLoader />
-        </Cell>
-        <Cell label="sewn (on show)">
-          <UtilGlyph id="sewn" className="tg-lit tg-sew-now" />
-        </Cell>
-        <div className="flex items-center px-3">
-          <EvidenceLink href="/dev/glyphs" label="Sewn link: hover me →" />
-        </div>
-      </Row>
-      <Row title="Coverage weave">
-        {FRACTIONS.map((f) => (
-          <Cell key={f} label={`${Math.round(f * 1000) / 10}%`}>
-            <CoverageWeave fraction={f} className="tg-lit" />
-            <CoverageWeave fraction={f} size={28} className="tg-lit" />
-          </Cell>
-        ))}
-      </Row>
-    </div>
-  );
+  return <CordGallery matches={matchesFromRecord()} laps={lapsFromRecord()} />;
 }

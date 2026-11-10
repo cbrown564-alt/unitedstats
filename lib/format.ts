@@ -1,6 +1,7 @@
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MONTHS_LONG = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const numberFormat = new Intl.NumberFormat("en-GB");
 
 export function fmtDate(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
@@ -27,7 +28,7 @@ export function fmtDateLong(iso: string): string {
 
 export function fmtNum(n: number | null | undefined): string {
   if (n == null) return "—";
-  return n.toLocaleString("en-GB");
+  return numberFormat.format(n);
 }
 
 /** Compact season label from a canonical id, e.g. `2003-04` → `03/04`. */
@@ -37,7 +38,7 @@ export function fmtSeasonShort(season: string): string {
 
 /** Round to an integer, group with en-GB thousands separators, append an optional suffix. */
 export function fmtAxisNumber(value: number | string, suffix = ""): string {
-  return `${Math.round(Number(value)).toLocaleString("en-GB")}${suffix}`;
+  return `${numberFormat.format(Math.round(Number(value)))}${suffix}`;
 }
 
 export function pct(part: number, whole: number): string {

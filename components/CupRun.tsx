@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { matchHref } from "@/lib/publishedHref";
 import type { CupStage, CupTie, CupGroup, StageOutcome } from "@/lib/cupRun";
 import { ClubBadge } from "./ClubBadge";
 import { TrophyIcon, MedalIcon } from "./CampaignIcons";
@@ -69,7 +70,8 @@ function ProgressChip({ outcome }: { outcome: StageOutcome }) {
 function LegScore({ id, label }: { id: string; label: string }) {
   return (
     <Link
-      href={`/match/${id}`}
+      href={matchHref(id)}
+      prefetch={false}
       className="stat-num rounded bg-panel px-1.5 py-0.5 text-xs font-semibold whitespace-nowrap transition-colors hover:bg-panel-2 hover:text-devil-bright focus-visible:outline-2 focus-visible:outline-devil-bright"
     >
       {label}

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { IntentLink as Link } from "@/components/IntentLink";
 import type { RediscoveryPrompt } from "@/lib/rediscovery-prompt";
 import { ThreadSignalKnot } from "@/components/ThreadSignalKnot";
 

@@ -5,8 +5,11 @@ import { ViewTransition } from "react";
 import { SidebarNav } from "@/components/SidebarNav";
 import { CommandPaletteLoader } from "@/components/CommandPaletteLoader";
 import { SlashSearchShortcut } from "@/components/SlashSearchShortcut";
-import { WebVitals } from "@/components/WebVitals";
+import dynamic from "next/dynamic";
 import { MobileBottomNav } from "@/components/mobile/MobileBottomNav";
+
+const WebVitals = dynamic(() => import("./WebVitals").then((mod) => mod.WebVitals));
+const reportVitals = Boolean(process.env.NEXT_PUBLIC_WEB_VITALS_ENDPOINT) || process.env.NEXT_PUBLIC_DEBUG_WEB_VITALS === "1";
 
 /**
  * The site chrome — sidebar, search, footer — wrapping every page. Pages stay
@@ -24,7 +27,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <SidebarNav />
       <div className="site-shell-main flex min-w-0 flex-col lg:min-h-dvh lg:pl-[var(--sidebar-width)] lg:transition-[padding-left] lg:duration-200">
         <CommandPaletteLoader />
-        <WebVitals />
+        {reportVitals && <WebVitals />}
         <main className="site-main mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
           <ViewTransition>{children}</ViewTransition>
         </main>

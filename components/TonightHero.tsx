@@ -1,10 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import { IntentLink as Link } from "@/components/IntentLink";
+import dynamic from "next/dynamic";
 import { useRef, useState, useSyncExternalStore } from "react";
 import type { GreatNight, HomepageNightCatalog } from "@/lib/greatNightSelect";
 import { selectGreatNights } from "@/lib/greatNightSelect";
+
+// Most nights use the ghosted year. Load image handling only for a night that
+// actually has a photograph; keep server rendering for those photographs.
+const Image = dynamic(() => import("next/image"));
 
 function utcDayKey(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -484,7 +488,7 @@ export function TonightHero({
         {/* A red wash by the thread and a vignette that sinks the edges to black —
             laid over the portrait so it reads as atmosphere, not a photo. */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_14%_24%,rgba(216,33,13,0.18),transparent_60%)]" aria-hidden />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.66))]" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(125%_120%_at_45%_45%,transparent_38%,rgba(0,0,0,0.42))]" aria-hidden />
 
         {/* Ghosted year — above the vignette so the numeral dissolves softly rather
             than getting clipped or swallowed at the right edge. Inset from the

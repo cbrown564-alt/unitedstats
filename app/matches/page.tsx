@@ -1,9 +1,7 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/PageHeader";
 import { MatchesCatalogProvider } from "@/components/matches/MatchesCatalogContext";
 import { MatchesPageClient } from "@/components/matches/MatchesPageClient";
-import { MatchesPageBody } from "@/components/matches/MatchesPageBody";
 import { buildMatchesPageView } from "@/lib/buildMatchesPageView";
 import { listSeo, seoMetadata } from "@/lib/seo";
 
@@ -18,9 +16,7 @@ export default function MatchesPage() {
         Every official match since 1886. Filter by era, competition, opponent, or result.
       </PageHeader>
       <MatchesCatalogProvider>
-        <Suspense fallback={<MatchesPageBody view={defaultView} />}>
-          <MatchesPageClient defaultView={defaultView} />
-        </Suspense>
+        <MatchesPageClient defaultView={defaultView} />
       </MatchesCatalogProvider>
     </div>
   );
