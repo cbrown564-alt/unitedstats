@@ -9,7 +9,15 @@ import {
   CordGlyph,
   type CordGlyphId,
 } from "@/components/glyphs/cord/CordGlyph";
-import { CordLoader, FormCord, MatchThread, SeasonLap, type ThreadGoal } from "@/components/glyphs/cord/DataGlyphs";
+import { CoverageNote } from "@/components/CoverageNote";
+import {
+  CordLoader,
+  CoverageWeave,
+  FormCord,
+  MatchThread,
+  SeasonLap,
+  type ThreadGoal,
+} from "@/components/glyphs/cord/DataGlyphs";
 import { opticalStroke } from "@/components/glyphs/cord/primitives";
 
 type Result = "W" | "D" | "L";
@@ -222,6 +230,36 @@ function ordinal(n: number) {
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+const WEAVE_FRACTIONS = [0, 0.1, 0.35, 0.5, 0.8, 0.97, 1];
+
+function Weaves() {
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap gap-3">
+        {WEAVE_FRACTIONS.map((f) => (
+          <figure key={f} className="grid w-24 justify-items-center gap-2 rounded-xl border border-line bg-panel px-2 py-3">
+            <span className="flex items-center gap-3">
+              <CoverageWeave fraction={f} className="cd-lit" />
+              <CoverageWeave fraction={f} size={40} className="cd-lit" />
+            </span>
+            <figcaption className="font-mono text-[11px] text-ink-faint">{Math.round(f * 100)}%</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="max-w-xl rounded-xl border border-line bg-panel p-4">
+        <CoverageNote
+          slice="all competitions, per season"
+          count={{ covered: 13, total: 17, noun: "seasons carry lineup coverage", note: "empty cells are coverage gaps, not zero" }}
+        />
+      </div>
+      <p className="max-w-xl text-xs leading-relaxed text-ink-faint">
+        A coverage weave is one cord woven through the record for exactly the share that is covered; the rest is left
+        open. Only complete coverage ends on a gold knot. Coverage notes show it at 14px beside a graded count.
+      </p>
+    </div>
+  );
 }
 
 // ------------------------------------------------------------ motion library
@@ -450,6 +488,7 @@ export function CordGallery({ matches, laps }: { matches: GalleryMatch[]; laps: 
           A season lap runs clockwise from the top, one bead per league match: outside the ring for a win, on it for a
           draw, inside for a loss. A title-winning lap ends on a gold bead. Tap a lap to play it.
         </p>
+        <Weaves />
       </Section>
 
       <Section

@@ -18,7 +18,7 @@ hover motion.
 | Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X), Share (one thread, three beads), Sewn (tick knotted off; the copy-link confirmation) |
 | Record | `RecordGlyph` (`components/glyphs/RecordGlyph.tsx`) | Darn (report a correction), Spiral (on this day), Tangle (pull a random night), Stitch (partial coverage) |
 | Loading | `CordLoader` (`components/glyphs/cord/DataGlyphs.tsx`) | The needle orbiting a closed loop while filters or search load |
-| Coverage | `CoverageWeave` (`RecordGlyph.tsx`) | Rows woven in proportion to covered / total; the last row stitched part-way. Used by `CoverageNote` for graded counts only. Still drawn with the first-generation primitives |
+| Coverage | `CoverageWeave` (`components/glyphs/cord/DataGlyphs.tsx`) | One cord woven through the record for the covered share; open rows for the rest. Used by `CoverageNote` for graded counts only |
 
 ## Hosts and states
 
@@ -50,11 +50,11 @@ hover motion.
 
 ## First generation
 
-The original set was drawn as hairline outline (`components/glyphs/primitives.tsx`:
-red thread `T`, pale stroke `P`, mask-cut `Under`; colour from `--tg-*` in
-`app/thread.css`) for the near-black canvas. After the palette was lifted to
-warm charcoal those hairlines read thin and fussy, and Cord replaced them. Only
-`CoverageWeave` still uses these primitives.
+The original set was drawn as hairline outline (red thread, pale stroke and
+mask-cut crossings, coloured from `--tg-*` tokens) for the near-black canvas.
+After the palette was lifted to warm charcoal those hairlines read thin and
+fussy. Cord replaced every one of them, and the first-generation primitives and
+styles are gone.
 
 ## Cord
 
@@ -90,6 +90,7 @@ Drawn from real values, never from a metaphor (`DataGlyphs.tsx`):
 | `FormCord` | Results as beads above (W), on (D) or below (L) a cord |
 | `SeasonLap` | One league season clockwise round a ring, beads outside / on / inside for W / D / L; a title lap closes on a gold bead |
 | `CordLoader` | A closed loop the needle runs round while something loads |
+| `CoverageWeave` | Covered / total as one cord woven back and forth through three warp bars, filled to the real fraction; the uncovered rows stay open (dashed). Only complete coverage ends on a gold bead |
 
 Result colour is always paired with position, so none of these depends on colour.
 

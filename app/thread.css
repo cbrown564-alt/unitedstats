@@ -1,51 +1,8 @@
 /*
- * First-generation thread glyphs (docs/GLYPHS.md). The icons themselves moved
- * to Cord (app/cord.css); this file keeps the hairline primitives the coverage
- * weave still draws with, the sewn link, and layout for glyph rows.
+ * Thread chrome outside the glyphs: the sewn link, coverage-mark placement and
+ * glyph rows in the mobile sheet. Glyphs and their motion live in app/cord.css
+ * (docs/GLYPHS.md).
  */
-
-.tg {
-  --tg-sw: 1.6;
-  --tg-thread: currentColor;
-  --tg-pale: currentColor;
-  --tg-bead: currentColor;
-  flex-shrink: 0;
-  overflow: visible;
-}
-
-.tg .tg-t,
-.tg .tg-p {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: var(--tg-sw);
-}
-
-.tg .tg-t { stroke: var(--tg-thread); }
-.tg .tg-p { stroke: var(--tg-pale); opacity: var(--tg-pale-opacity, 1); }
-.tg .tg-st { stroke-dasharray: 1.3 1.7; stroke-linecap: butt; }
-.tg .tg-pd { stroke-dasharray: 1.2 2; }
-.tg .tg-pb { stroke-linecap: butt; }
-.tg .tg-fb { stroke-width: calc(var(--tg-sw) * 0.6); }
-
-/* Over-under crossings are cut out with masks, so they read on any ground. */
-.tg .tg-cut {
-  fill: none;
-  stroke: #000;
-  stroke-width: calc(var(--tg-sw) * var(--tg-cut, 2.7));
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.tg .tg-cut-b { stroke-linecap: butt; }
-
-
-/* Lit: coloured for good. The only first-generation glyph left is the
-   coverage weave, which is always shown lit. */
-.tg.tg-lit {
-  --tg-thread: var(--color-devil-bright);
-  --tg-bead: var(--color-gold);
-  --tg-pale: var(--color-ink-dim);
-}
 
 /* Mobile section sheet: glyph beside each label. */
 .mobile-sheet-link--glyph {
@@ -56,9 +13,6 @@
 .mobile-sheet-link--glyph .cd { color: var(--color-ink-faint); }
 .mobile-sheet-secondary > summary.mobile-sheet-link--glyph { justify-content: flex-start; }
 .mobile-sheet-secondary > summary.mobile-sheet-link--glyph > span[aria-hidden] { margin-inline-start: auto; }
-
-/* Dense weaves need a narrower gap at each crossing to stay one fabric. */
-.tg-weave { --tg-cut: 2; }
 
 /* Coverage notes lead their coverage line with its grade, drawn. */
 .coverage-mark {

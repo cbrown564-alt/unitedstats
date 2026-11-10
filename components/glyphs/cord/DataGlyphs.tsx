@@ -252,3 +252,60 @@ export function CordLoader({ size = 20, className }: { size?: number; className?
     </CordSvg>
   );
 }
+
+// ------------------------------------------------------------ coverage weave
+
+const WEAVE_ROWS = [5, 9.67, 14.33, 19];
+const WEAVE_X0 = 4.5;
+const WEAVE_X1 = 19.5;
+
+/**
+ * Coverage as fabric. One cord is woven back and forth through the warps for
+ * exactly the covered fraction (covered / total), so its length is the grade;
+ * whatever the record lacks is left as open, dashed rows. Only complete
+ * coverage earns the gold knot. Takes real counts only (see CoverageNote).
+ */
+export function CoverageWeave({ fraction, size = 14, className }: { fraction: number; size?: number; className?: string }) {
+  const f = Math.min(1, Math.max(0, fraction));
+  const rows = WEAVE_ROWS.length;
+  const sewn = f * rows;
+  const full = Math.min(rows, Math.floor(sewn + 1e-6));
+  const rem = full < rows ? sewn - full : 0;
+  const turn = (WEAVE_ROWS[1] - WEAVE_ROWS[0]) / 2;
+  const startOf = (i: number) => (i % 2 ? WEAVE_X1 : WEAVE_X0);
+  const endOf = (i: number) => (i % 2 ? WEAVE_X0 : WEAVE_X1);
+  const along = (i: number, t: number) => startOf(i) + (endOf(i) - startOf(i)) * t;
+
+  let d = "";
+  let tip: Pt | null = null;
+  if (full > 0 || rem > 0.02) {
+    d = `M${WEAVE_X0} ${WEAVE_ROWS[0]}`;
+    for (let i = 0; i < full; i++) {
+      d += `H${endOf(i)}`;
+      tip = [endOf(i), WEAVE_ROWS[i]];
+      const next = i + 1;
+      if (next < rows && (next < full || rem > 0.02)) {
+        d += `A${r1(turn)} ${r1(turn)} 0 0 ${i % 2 ? 0 : 1} ${endOf(i)} ${WEAVE_ROWS[next]}`;
+      }
+    }
+    if (rem > 0.02) {
+      const x = r1(along(full, rem));
+      d += `H${x}`;
+      tip = [x, WEAVE_ROWS[full]];
+    }
+  }
+
+  const open: string[] = [];
+  if (rem > 0.02) open.push(`M${r1(along(full, rem))} ${WEAVE_ROWS[full]}H${endOf(full)}`);
+  for (let i = rem > 0.02 ? full + 1 : full; i < rows; i++) open.push(`M${WEAVE_X0} ${WEAVE_ROWS[i]}H${WEAVE_X1}`);
+
+  const complete = f >= 1;
+  return (
+    <CordSvg size={size} className={className}>
+      <Plate d="M6.6 2.5H8.8V21.5H6.6ZM10.9 2.5H13.1V21.5H10.9ZM15.2 2.5H17.4V21.5H15.2Z" strong />
+      {open.length > 0 && <Strand d={open.join("")} dashed />}
+      {d && <Cord d={d} />}
+      {tip && <Bead kind={complete ? "gold" : "thread"} cx={tip[0]} cy={tip[1]} r={complete ? 2.6 : 2} />}
+    </CordSvg>
+  );
+}
