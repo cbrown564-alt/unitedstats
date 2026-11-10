@@ -8,7 +8,7 @@ import {
 import { MatchFilterBarWithCounts } from "@/components/MatchFilterBarWithCounts";
 import type { DecadeBucket } from "@/components/matches/FilterZones";
 import { fmtNum } from "@/lib/format";
-import { StitchLoader } from "@/components/glyphs/StitchLoader";
+import { CordLoader } from "@/components/glyphs/cord/DataGlyphs";
 
 export type MatchFilterSheetProps = {
   open: boolean;
@@ -77,7 +77,7 @@ export function MatchFilterSheet({
       <BottomSheetBody>
         {loading ? (
           <p className="flex items-center justify-center gap-2 px-1 py-8 text-sm text-ink-faint">
-            <StitchLoader />
+            <CordLoader size={14} />
             Loading filters…
           </p>
         ) : (

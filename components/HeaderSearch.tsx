@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { preloadSearchCommand } from "@/lib/preloadChunks";
 import { scheduleIdle } from "@/lib/scheduleIdle";
 import { ACTIVATE_SIDEBAR_SEARCH_EVENT } from "@/lib/search/slashShortcut";
-import { StitchLoader } from "@/components/glyphs/StitchLoader";
+import { CordLoader } from "@/components/glyphs/cord/DataGlyphs";
 import { UtilGlyph } from "@/components/glyphs/UtilGlyph";
 
 type SearchCommandProps = {
@@ -101,7 +101,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
         title="Search (press /)"
         data-tooltip="Search"
         onClick={activateDesktop}
-        className="site-sidebar-search-trigger site-sidebar-search-trigger--icon tg-host"
+        className="site-sidebar-search-trigger site-sidebar-search-trigger--icon cord-host"
         onPointerEnter={() => preloadSearchCommand()}
       >
         <span className="site-sidebar-search-trigger-icon">
@@ -131,7 +131,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
               <SearchGlyph />
             </span>
             <span className="site-sidebar-search-trigger-text">{SIDEBAR_SEARCH_LABEL}</span>
-            <StitchLoader className="ml-auto" />
+            <CordLoader size={14} className="ml-auto" />
           </div>
         )
       ) : (
@@ -140,7 +140,7 @@ export function SidebarSearch({ collapsed = false }: SidebarSearchProps) {
           aria-label="Search"
           aria-busy={desktopActivating}
           onClick={activateDesktop}
-          className="site-sidebar-search-trigger tg-host"
+          className="site-sidebar-search-trigger cord-host"
           onPointerEnter={() => preloadSearchCommand()}
         >
           <span className="site-sidebar-search-trigger-icon">

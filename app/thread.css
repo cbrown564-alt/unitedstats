@@ -1,7 +1,7 @@
 /*
- * Thread glyphs and motion: the shared vocabulary from docs/GLYPHS.md.
- * Glyph markup lives in components/glyphs/; this file owns colour, weight and
- * the small motions (sew-in, bead pop) that hosts opt into.
+ * First-generation thread glyphs (docs/GLYPHS.md). The icons themselves moved
+ * to Cord (app/cord.css); this file keeps the hairline primitives the coverage
+ * weave still draws with, the sewn link, and layout for glyph rows.
  */
 
 .tg {
@@ -38,50 +38,13 @@
 }
 .tg .tg-cut-b { stroke-linecap: butt; }
 
-.tg .tg-b { fill: var(--tg-bead); }
-.tg .tg-br { fill: var(--tg-thread); }
-.tg .tg-bp { fill: var(--tg-pale); }
-.tg .tg-bo { fill: none; stroke: var(--tg-bead); stroke-width: calc(var(--tg-sw) * 0.8); }
-.tg .tg-fw { fill: var(--color-win); }
-.tg .tg-fd { fill: var(--color-draw); }
-.tg .tg-fl { fill: var(--color-loss); }
 
-.tg circle { transform-box: fill-box; transform-origin: center; }
-
-/*
- * Hosts. Idle glyphs are one quiet colour; a hovered host lights the thread
- * red and its proof beads gold, sewing the thread in as it does. A lit host
- * (the current section, the primary search) stays coloured.
- */
-.tg-host:is(:hover, :focus-visible) .tg,
-.tg-lit .tg,
+/* Lit: coloured for good. The only first-generation glyph left is the
+   coverage weave, which is always shown lit. */
 .tg.tg-lit {
   --tg-thread: var(--color-devil-bright);
   --tg-bead: var(--color-gold);
-}
-
-.tg-lit .tg,
-.tg.tg-lit {
   --tg-pale: var(--color-ink-dim);
-}
-
-@keyframes tg-sew {
-  from { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
-  to { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
-}
-
-@keyframes tg-pop {
-  from { transform: scale(0); }
-  to { transform: scale(1); }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .tg-host:hover .tg .tg-t[pathLength] {
-    animation: tg-sew 420ms cubic-bezier(0.3, 0.7, 0.2, 1) both;
-  }
-  .tg-host:hover .tg .tg-b {
-    animation: tg-pop 200ms 280ms ease-out both;
-  }
 }
 
 /* Mobile section sheet: glyph beside each label. */
@@ -90,7 +53,7 @@
   align-items: center;
   gap: 0.75rem;
 }
-.mobile-sheet-link--glyph .tg { color: var(--color-ink-faint); }
+.mobile-sheet-link--glyph .cd { color: var(--color-ink-faint); }
 .mobile-sheet-secondary > summary.mobile-sheet-link--glyph { justify-content: flex-start; }
 .mobile-sheet-secondary > summary.mobile-sheet-link--glyph > span[aria-hidden] { margin-inline-start: auto; }
 
@@ -150,36 +113,4 @@
 @media (prefers-reduced-motion: reduce) {
   .sewn-link::before,
   .sewn-link::after { transition: none; }
-}
-
-/* Running stitch: stitches travel along the thread while something loads. */
-.tg-stitch-loader {
-  display: inline-block;
-  flex-shrink: 0;
-  vertical-align: middle;
-  overflow: visible;
-}
-.tg-stitch-loader path {
-  fill: none;
-  stroke-width: 1.6;
-}
-.tg-stitch-loader__ground {
-  stroke: var(--color-line);
-}
-.tg-stitch-loader__thread {
-  stroke: var(--color-devil-bright);
-  stroke-dasharray: 3 2.5;
-  stroke-linecap: butt;
-}
-@keyframes tg-running-stitch {
-  to { stroke-dashoffset: -11; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .tg-stitch-loader__thread { animation: tg-running-stitch 700ms linear infinite; }
-}
-
-/* Sewn in once, on the state change that shows it (a confirmation). */
-@media (prefers-reduced-motion: no-preference) {
-  .tg-sew-now .tg-t[pathLength] { animation: tg-sew 320ms cubic-bezier(0.3, 0.7, 0.2, 1) both; }
-  .tg-sew-now .tg-br { animation: tg-pop 160ms 260ms ease-out both; }
 }

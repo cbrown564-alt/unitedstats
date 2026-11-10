@@ -148,7 +148,7 @@ export function MobileBottomNav() {
               onClick={openSearch}
               className="mobile-pill-btn tap-target focus-ring"
             >
-              <UtilGlyph id="search" className="tg-lit" />
+              <UtilGlyph id="search" className="cd-lit" />
             </button>
           </div>
 

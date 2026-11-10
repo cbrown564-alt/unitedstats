@@ -40,7 +40,7 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
             href="/"
             onClick={onClose}
             aria-current={pathname === "/" ? "page" : undefined}
-            className={["mobile-sheet-link mobile-sheet-link--glyph", pathname === "/" ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}
+            className={["mobile-sheet-link mobile-sheet-link--glyph", pathname === "/" ? "mobile-sheet-link--active cd-lit" : ""].join(" ")}
           >
             <UtilGlyph id="home" size={20} />
             <span className="mobile-sheet-link-label">Home</span>
@@ -54,7 +54,7 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
                 href={href}
                 onClick={onClose}
                 aria-current={active ? "page" : undefined}
-                className={["mobile-sheet-link mobile-sheet-link--glyph", active ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}
+                className={["mobile-sheet-link mobile-sheet-link--glyph", active ? "mobile-sheet-link--active cd-lit" : ""].join(" ")}
               >
                 <NavIcon id={icon} className="mobile-sheet-link-glyph" />
                 <span className="mobile-sheet-link-label">{label}</span>
@@ -67,7 +67,7 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
             open={secondaryOpen}
             onToggle={(event) => setSecondaryOpen(event.currentTarget.open)}
           >
-            <summary className={["mobile-sheet-link mobile-sheet-link--glyph", secondaryActive ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}>
+            <summary className={["mobile-sheet-link mobile-sheet-link--glyph", secondaryActive ? "mobile-sheet-link--active cd-lit" : ""].join(" ")}>
               <NavIcon id="more" className="mobile-sheet-link-glyph" />
               <span className="mobile-sheet-link-label">More</span>
               <span aria-hidden>⌄</span>
@@ -81,7 +81,7 @@ export function MobileNavSheet({ open, onClose }: MobileNavSheetProps) {
                     href={href}
                     onClick={onClose}
                     aria-current={active ? "page" : undefined}
-                    className={["mobile-sheet-link mobile-sheet-link--glyph", active ? "mobile-sheet-link--active tg-lit" : ""].join(" ")}
+                    className={["mobile-sheet-link mobile-sheet-link--glyph", active ? "mobile-sheet-link--active cd-lit" : ""].join(" ")}
                   >
                     <NavIcon id={icon} className="mobile-sheet-link-glyph" />
                     <span className="mobile-sheet-link-label">{label}</span>

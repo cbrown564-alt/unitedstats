@@ -43,9 +43,9 @@ export function MatchCorrectionTrustBand({ trustNote }: { trustNote: string }) {
         <button
           type="button"
           onClick={ctx.startPickMode}
-          className="tg-host inline-flex shrink-0 items-center gap-1.5 text-[11px] font-semibold text-devil-bright hover:underline focus-ring"
+          className="cord-host inline-flex shrink-0 items-center gap-1.5 text-[11px] font-semibold text-devil-bright hover:underline focus-ring"
         >
-          <RecordGlyph id="darn" size={14} className="tg-lit" />
+          <RecordGlyph id="darn" size={14} className="cd-lit" />
           Spot an error? →
         </button>
       )}

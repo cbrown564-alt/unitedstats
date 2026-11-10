@@ -18,7 +18,7 @@ const WAYS_BACK: { href: string; label: string; icon: NavIconId }[] = [
 ];
 
 const wayClass =
-  "tg-host inline-flex items-center gap-2 rounded-full border border-line bg-panel/60 px-4 py-2 text-sm font-semibold text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring";
+  "cord-host inline-flex items-center gap-2 rounded-full border border-line bg-panel/60 px-4 py-2 text-sm font-semibold text-ink-dim transition-colors hover:border-devil/60 hover:text-ink focus-ring";
 
 /** Unmatched routes and notFound() calls: the thread frays where the address stops matching. */
 export default function NotFound() {
@@ -38,7 +38,7 @@ export default function NotFound() {
 
       <nav aria-label="Ways back into the record" className="flex flex-wrap gap-2.5">
         <Link href="/surprise" className={`${wayClass} border-devil-bright/60 text-ink`}>
-          <RecordGlyph id="tangle" size={16} className="tg-lit" />
+          <RecordGlyph id="tangle" size={16} className="cd-lit" />
           Pull another night
         </Link>
         {WAYS_BACK.map(({ href, label, icon }) => (

@@ -2,73 +2,64 @@
 
 Red Thread's icons, event marks and small motions share one grammar: a red
 thread running through a pale record, with gold beads only where something is
-proven. The exploratory lab is [`mockups/glyph-lab.html`](mockups/glyph-lab.html);
-this document owns what has shipped.
-
-## Primitives
-
-All glyphs sit on a 24 × 24 grid and are built from `components/glyphs/primitives.tsx`:
-
-| Primitive | Mark | Means |
-| --- | --- | --- |
-| `T` | Red thread (solid, or stitched with `st`) | Continuity; the part that lights up |
-| `P` | Pale stroke (optionally dashed or fine) | The record, frames, ticks and other strands |
-| `B` | Bead: `b` gold, `br` thread, `bp` pale, `bo` hollow, `fw`/`fd`/`fl` result | A fact. Gold is reserved for proof |
-| `Under` | Mask-cut crossing | Over-under without a halo colour, so it reads on glass |
-
-Colour and weight come from `--tg-thread`, `--tg-pale`, `--tg-bead` and
-`--tg-sw` in `app/thread.css`. Idle glyphs default to `currentColor` for all
-three, so they sit quietly in chrome.
-
-## Hosts and states
-
-- `tg-host` on a link or button: hovering or focusing it lights the thread red
-  and the beads gold, and sews the thread in (≈420 ms dash draw, then a 200 ms
-  bead fade-scale). It only runs on hover-capable devices without reduced motion.
-- `tg-lit` on a host or the glyph itself: always coloured. Use it for the current
-  section and for the primary search entry.
+proven. The shipped set is **Cord** (November 2026), drawn for the lifted
+charcoal canvas. The gallery is `/dev/glyphs` (development only); the earlier
+exploratory lab is [`mockups/glyph-lab.html`](mockups/glyph-lab.html).
 
 ## Shipped glyphs
 
+All three families are thin wrappers over `CordGlyph`
+(`components/glyphs/cord/CordGlyph.tsx`), which holds every drawing and its
+hover motion.
+
 | Family | Component | Glyphs |
 | --- | --- | --- |
-| Sections | `NavIcon` (`components/nav/NavIcons.tsx`) | Stories (loop-fold), Discover (needle), Matches (ticket stub), Seasons (bracketed run), Players (laced collar), Managers (spool), Opponents (twisted pair), Analytics (Elo over baseline), Transfers (splice), Data (weave), More (slack middle thread) |
-| Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X), Share (one thread, three beads), Sewn (tick fastened with a bead; the copy-link confirmation) |
+| Sections | `NavIcon` (`components/nav/NavIcons.tsx`) | Stories (floodlight and loop), Discover (needle), Matches (ticket stub, stitched), Seasons (one lap), Players (shirt), Managers (spool), Opponents (overlapping records), Analytics (Elo over baseline), Transfers (splice), Data (weave), More (slack middle thread) |
+| Chrome | `UtilGlyph` (`components/glyphs/UtilGlyph.tsx`) | Search (loop lens), Home (roofline), Filter (abacus), Close (woven X), Share (one thread, three beads), Sewn (tick knotted off; the copy-link confirmation) |
 | Record | `RecordGlyph` (`components/glyphs/RecordGlyph.tsx`) | Darn (report a correction), Spiral (on this day), Tangle (pull a random night), Stitch (partial coverage) |
-| Coverage | `CoverageWeave` | Rows woven in proportion to covered / total; the last row stitched part-way. Used by `CoverageNote` for graded counts only |
+| Loading | `CordLoader` (`components/glyphs/cord/DataGlyphs.tsx`) | The needle orbiting a closed loop while filters or search load |
+| Coverage | `CoverageWeave` (`RecordGlyph.tsx`) | Rows woven in proportion to covered / total; the last row stitched part-way. Used by `CoverageNote` for graded counts only. Still drawn with the first-generation primitives |
 
-`/dev/glyphs` (development only) is now the Cord gallery (below); it keeps the
-shipped section glyphs beside their Cord redraws for comparison.
+## Hosts and states
 
-## Motions
+- `cord-host` on a link or button: hovering or focusing it lights the cord red,
+  beads gold and the plate a step brighter, and runs the glyph's motion (below).
+  Hover motion only runs on hover-capable devices without reduced motion.
+- `cd-lit` on a host or the glyph: always coloured. Use it for the current
+  section and the primary search entry.
+- `cd-now` on the glyph: run its motion once, on the state change that shows it
+  (the share confirmation). Remount to replay.
+
+## Other thread motions
 
 | Motion | Where | Behaviour |
 | --- | --- | --- |
-| Sew-in | `tg-host` hover | Thread dash-draws in, gold beads fade-scale in |
-| Sewn on show | `tg-sew-now` | The same draw, once, when a confirmation appears |
 | Sewn link | `.sewn-link` (`EvidenceLink`) | Underline thread drawn left to right, fastened with a gold bead: the link leads to proof |
-| Running stitch | `StitchLoader` | Stitches travel along a thread while filters or search load; static under reduced motion |
 | Bead switch | Players register Assists switch | A bead slides along a thread that reddens when on |
 | Loose thread | `LooseThread` (`app/not-found.tsx`) | The record runs ticked to a pin, then hangs loose and frays; the pointer pulls the end. Sleeps once settled; one static frame under reduced motion |
 
 ## Rules
 
-- A bead is gold only when it stands for something proven. Decoration uses `br` or `bp`.
+- A bead is gold only when it stands for something proven. Decoration uses `thread` or `pale`.
 - Never draw a coverage grade that the record does not state. `CoverageWeave`
   takes real counts; prose coverage gets no mark, because it may describe a
   complete facet.
-- Stitched threads (`st`) never carry `pathLength`, so their dash pattern stays in user units.
+- Dashed cords never carry `pathLength`, so their dash pattern stays in user units.
 - Motion follows DESIGN.md: state-based, never on load, and nothing is required
   to finish before the control can be used.
 
-## Cord (second generation, not yet shipped)
+## First generation
 
-The thread set above was drawn as hairline outline for the near-black canvas.
-After the palette was lifted to warm charcoal (November 2026) those hairlines
-read thin and fussy, so Cord redraws the set with mass. It lives in
-`components/glyphs/cord/` with styles and motion in `app/cord.css`, and is shown
-at `/dev/glyphs`. Nothing in the product uses it yet; ids match `NavIcon`,
-`UtilGlyph` and `RecordGlyph`, so adoption is one import per call site.
+The original set was drawn as hairline outline (`components/glyphs/primitives.tsx`:
+red thread `T`, pale stroke `P`, mask-cut `Under`; colour from `--tg-*` in
+`app/thread.css`) for the near-black canvas. After the palette was lifted to
+warm charcoal those hairlines read thin and fussy, and Cord replaced them. Only
+`CoverageWeave` still uses these primitives.
+
+## Cord
+
+Cord gives the glyphs mass. It lives in `components/glyphs/cord/`, with styles
+and motion in `app/cord.css`.
 
 ### Grammar
 

@@ -49,7 +49,7 @@ export default async function OnThisDayPage({ params }: { params: Promise<{ mont
         </Link>
         <Link
           href="/on-this-day"
-          className="tg-host inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint hover:text-devil-bright focus-ring"
+          className="cord-host inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-ink-faint hover:text-devil-bright focus-ring"
         >
           <RecordGlyph id="spiral" size={16} />
           Today

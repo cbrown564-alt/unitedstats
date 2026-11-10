@@ -11,7 +11,6 @@ import {
 } from "@/components/glyphs/cord/CordGlyph";
 import { CordLoader, FormCord, MatchThread, SeasonLap, type ThreadGoal } from "@/components/glyphs/cord/DataGlyphs";
 import { opticalStroke } from "@/components/glyphs/cord/primitives";
-import { NavIcon, type NavIconId } from "@/components/nav/NavIcons";
 
 type Result = "W" | "D" | "L";
 
@@ -35,20 +34,6 @@ export interface GalleryLap {
   d: number;
   l: number;
 }
-
-const NAV_LABEL: Record<NavIconId, string> = {
-  journey: "Stories",
-  discover: "Discover",
-  matches: "Matches",
-  seasons: "Seasons",
-  players: "Players",
-  managers: "Managers",
-  opponents: "Opponents",
-  analytics: "Analytics",
-  transfers: "Transfers",
-  data: "Data",
-  more: "More",
-};
 
 const SIZES = [16, 20, 24, 32, 48, 80, 128];
 
@@ -109,52 +94,6 @@ function Hero({ match }: { match: GalleryMatch }) {
         label={`${match.title}: United ${match.gf}–${match.ga}, drawn as score state over time`}
       />
     </figure>
-  );
-}
-
-// ------------------------------------------------------------ then and now
-
-function Column({ era, children }: { era: string; children: ReactNode }) {
-  return (
-    <div className="cord-glass space-y-1 rounded-xl p-3">
-      <p className="px-2 pb-1 text-xs text-ink-faint">{era}</p>
-      {children}
-    </div>
-  );
-}
-
-function ThenNow() {
-  const rows = CORD_SECTIONS;
-  const current: NavIconId = "matches";
-  return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:max-w-2xl">
-      <Column era="Thread, 2026 — drawn for near-black">
-        {rows.map((id) => (
-          <div
-            key={id}
-            className={`tg-host flex items-center gap-3 rounded-lg px-2 py-1.5 text-sm ${id === current ? "tg-lit bg-white/5 text-ink" : "text-ink-dim"}`}
-          >
-            <span className="text-ink-faint">
-              <NavIcon id={id} />
-            </span>
-            {NAV_LABEL[id]}
-          </div>
-        ))}
-      </Column>
-      <Column era="Cord — drawn for the lifted canvas">
-        {rows.map((id) => (
-          <div
-            key={id}
-            className={`cord-host flex items-center gap-3 rounded-lg px-2 py-1.5 text-sm ${id === current ? "cd-lit bg-white/5 text-ink" : "text-ink-dim"}`}
-          >
-            <span className="text-ink-faint">
-              <CordGlyph id={id} />
-            </span>
-            {NAV_LABEL[id]}
-          </div>
-        ))}
-      </Column>
-    </div>
   );
 }
 
@@ -469,20 +408,13 @@ export function CordGallery({ matches, laps }: { matches: GalleryMatch[]; laps: 
       <header className="max-w-2xl space-y-3">
         <h1 className="display text-3xl sm:text-4xl">Cord glyphs</h1>
         <p className="text-base leading-relaxed text-ink-dim">
-          The thread icons were drawn as hairlines for a near-black page, and on the lifted charcoal they read thin. Cord
-          gives them mass: a tonal plate for the record, one weighted red cord that does the moving, and beads where
+          Cord replaced the hairline thread icons, which were drawn for a near-black page and read thin on the lifted
+          charcoal. It gives them mass: a tonal plate for the record, one weighted red cord that does the moving, and beads where
           something is proven. Some of them are drawn straight from the record.
         </p>
       </header>
 
       {hero && <Hero match={hero} />}
-
-      <Section
-        title="Then and now"
-        lead="The same eleven sections at sidebar size, on the sidebar's own glass. Hover a row to sew it in; Matches is the current section."
-      >
-        <ThenNow />
-      </Section>
 
       <Section
         title="The set"

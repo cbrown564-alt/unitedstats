@@ -63,7 +63,7 @@ export function SidebarNav() {
           aria-current={active ? "page" : undefined}
           title={collapsed ? item.label : undefined}
           data-tooltip={collapsed ? item.label : undefined}
-          className={["site-sidebar-link tg-host", active ? "site-sidebar-link--active tg-lit" : ""]
+          className={["site-sidebar-link cord-host", active ? "site-sidebar-link--active cd-lit" : ""]
             .filter(Boolean)
             .join(" ")}
         >
@@ -108,7 +108,7 @@ export function SidebarNav() {
           </div>
           <details className="site-sidebar-secondary" open={secondaryActive || undefined}>
             <summary
-              className={["site-sidebar-link tg-host", secondaryActive ? "site-sidebar-link--active tg-lit" : ""].filter(Boolean).join(" ")}
+              className={["site-sidebar-link cord-host", secondaryActive ? "site-sidebar-link--active cd-lit" : ""].filter(Boolean).join(" ")}
               title={collapsed ? "More sections" : undefined}
               data-tooltip={collapsed ? "More sections" : undefined}
             >

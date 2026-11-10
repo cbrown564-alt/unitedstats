@@ -7,7 +7,7 @@ import { FacetCombobox } from "@/components/FacetCombobox";
 import { FacetIcon } from "@/components/FacetIcon";
 import { FilterZones, type DecadeBucket } from "@/components/matches/FilterZones";
 import { usePopoverAlign } from "@/components/usePopoverAlign";
-import { StitchLoader } from "@/components/glyphs/StitchLoader";
+import { CordLoader } from "@/components/glyphs/cord/DataGlyphs";
 import {
   FACET_BY_KEY,
   type FacetDef,
@@ -130,7 +130,7 @@ export function MatchFilterBar({
     >
       {(pending || countsLoading || optionsLoading) && (
         <p className={`flex items-center gap-2 text-ink-faint ${sheetLayout ? "mb-4 text-sm" : "mb-2.5 text-xs"}`}>
-          <StitchLoader />
+          <CordLoader size={14} />
           {pending ? "Updating…" : "Loading…"}
         </p>
       )}

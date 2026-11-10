@@ -246,7 +246,7 @@ export function SeasonLap({
 /** A waiting loop: the needle runs round a closed thread. Pair with visible text. */
 export function CordLoader({ size = 20, className }: { size?: number; className?: string }) {
   return (
-    <CordSvg size={size} className={["cd-loader", className].filter(Boolean).join(" ")}>
+    <CordSvg size={size} className={["cd-loader cd-lit", className].filter(Boolean).join(" ")}>
       <Strand d="M12 4A8 8 0 1 1 11.99 4" />
       <Cord d="M12 4A8 8 0 1 1 11.99 4" />
     </CordSvg>

@@ -1,14 +1,11 @@
 import { useId, type ReactNode } from "react";
 
 /*
- * Thread-glyph primitives. Every glyph in the set is built from these marks:
- * a red thread (T), the pale record it runs through (P), and beads (B) where a
- * fact is proven. Colours and weight come from --tg-* custom properties in
- * app/thread.css so the same glyph can sit quietly in a nav rail or light up
- * when active. See docs/GLYPHS.md for the grammar.
+ * First-generation thread primitives: a red thread (T) and the pale record it
+ * runs through (P). The icons now use Cord (components/glyphs/cord/); these
+ * remain for the coverage weave. Colour and weight come from --tg-* custom
+ * properties in app/thread.css. See docs/GLYPHS.md for the grammar.
  */
-
-type BeadKind = "b" | "br" | "bp" | "bo" | "fw" | "fd" | "fl";
 
 /** The red thread. Solid threads carry pathLength so hosts can sew them in. */
 export function T({ d, st, fine, opacity }: { d: string; st?: boolean; fine?: boolean; opacity?: number }) {
@@ -20,11 +17,6 @@ export function T({ d, st, fine, opacity }: { d: string; st?: boolean; fine?: bo
 export function P({ d, dashed, fine, butt }: { d: string; dashed?: boolean; fine?: boolean; butt?: boolean }) {
   const cls = ["tg-p", dashed && "tg-pd", fine && "tg-fb", butt && "tg-pb"].filter(Boolean).join(" ");
   return <path className={cls} d={d} />;
-}
-
-/** A bead. Gold (b) is reserved for something proven. */
-export function B({ cx, cy, r, kind = "b" }: { cx: number; cy: number; r: number; kind?: BeadKind }) {
-  return <circle className={`tg-${kind}`} cx={cx} cy={cy} r={r} />;
 }
 
 /**
