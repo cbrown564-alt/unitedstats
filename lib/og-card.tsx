@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { getMeta } from "@/lib/queries";
+import { goalClock, matchTimeScale, scoreCordPath } from "@/lib/matchCord";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
@@ -198,46 +199,86 @@ export function entityCard(
  *  United gold, opponent grey — so the run of play reads as a shape. */
 export type MatchGoal = { minute: number; addedTime: number; side: "united" | "opponent" };
 
-/** The goal-minute timeline: a 0→full-time axis with a dot per goal, United gold
- *  and opponent grey, ticks at half- and full-time. A late flurry crammed past the
- *  90' tick (the treble final's two stoppage-time goals) reads instantly; an early
- *  concession sits alone on the left. The shape carries the drama the scoreline hides. */
-function goalStrip(goals: MatchGoal[]) {
-  const W = Q_WIDTH;
-  const dotR = 11;
-  const inner = W - dotR * 2;
-  const lastEff = Math.max(90, ...goals.map((g) => g.minute + (g.addedTime ?? 0)));
-  const domain = lastEff <= 90 ? 98 : lastEff + 6; // headroom past the last goal
-  const at = (min: number) => Math.round((min / domain) * inner) + dotR;
-  const x = (g: MatchGoal) => at(g.minute + Math.min(g.addedTime ?? 0, 7) * 0.7);
+/** The night as the site draws it: one red cord that runs level, steps up for a
+ *  United goal and down for an opponent's, so its height is the score state at
+ *  every minute; the knot at the end is the scoreline at the whistle. Same
+ *  geometry as the match page (lib/matchCord), drawn at pixel scale because the
+ *  card has no CSS. Stoppage time gets a widened, shaded slice and says so. */
+function cordStrip(goals: MatchGoal[], aet: boolean, backed: boolean) {
+  const PAD = backed ? 22 : 0;
+  const W = Q_WIDTH - PAD * 2;
+  const H = 132;
+  const sorted = goals
+    .map((g, i) => ({ ...g, i, clock: goalClock(g.minute, g.addedTime || null) }))
+    .sort((a, b) => a.clock - b.clock || a.i - b.i);
+  const scale = matchTimeScale(sorted.map((g) => g.clock), aet);
+  const px = (pct: number) => (pct / 100) * W;
+  let diff = 0;
+  let maxAbs = 1;
+  const steps = sorted.map((g) => {
+    diff += g.side === "united" ? 1 : -1;
+    maxAbs = Math.max(maxAbs, Math.abs(diff));
+    return { x: px(scale.pos(g.clock)), after: diff, side: g.side };
+  });
+  const mid = H / 2;
+  const step = Math.min(24, (mid - 16) / maxAbs);
+  const yOf = (d: number) => mid - d * step;
+  const endX = px(scale.endX);
+  const { d, plate } = scoreCordPath(steps, yOf, endX, 5);
+  const knot = diff > 0 ? WIN : diff < 0 ? LOSS : DRAW;
+  const ticks = [45, ...(aet ? [90, 105] : [90])].map((m) => px(scale.pos(m)));
+  const s90 = px(scale.pos(90));
+  const marks: { at: number; label: string; anchor: "start" | "middle" | "end" }[] = [
+    { at: 0, label: "Kick-off", anchor: "start" },
+    { at: px(scale.pos(45)), label: "HT", anchor: "middle" },
+    ...(aet
+      ? [{ at: s90, label: "90\u2032", anchor: "middle" as const }, { at: W, label: "AET", anchor: "end" as const }]
+      : scale.stoppage
+        ? [{ at: s90, label: "90\u2032", anchor: "middle" as const }, { at: W, label: `+${scale.stoppage}\u2032`, anchor: "end" as const }]
+        : [{ at: W, label: "Full time", anchor: "end" as const }]),
+  ];
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: W }}>
-      <div style={{ position: "relative", display: "flex", width: W, height: 52 }}>
-        <div style={{ position: "absolute", left: 0, top: 25, width: W, height: 2, background: LINE }} />
-        {[45, 90].map((m) => (
-          <div key={m} style={{ position: "absolute", left: at(m), top: 16, width: 2, height: 20, background: LINE }} />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: W + PAD * 2,
+        padding: backed ? `14px ${PAD}px 12px` : 0,
+        borderRadius: 16,
+        background: backed ? "rgba(30,26,24,0.9)" : "transparent",
+      }}
+    >
+      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+        {scale.zoom > 0 && <rect x={s90} y={0} width={endX - s90} height={H} fill={INK} fillOpacity={0.05} />}
+        <path d={plate} fill={INK} fillOpacity={0.09} />
+        <path d={`M0 ${mid}H${endX}`} stroke={INK_FAINT} strokeOpacity={0.6} strokeWidth={2} strokeDasharray="5 8" fill="none" />
+        <path d={ticks.map((x) => `M${x} ${mid - 9}V${mid + 9}`).join("")} stroke={INK_FAINT} strokeWidth={2} fill="none" />
+        <path d={d} stroke={DEVIL} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        {steps.map((st, i) => (
+          <circle key={i} cx={st.x} cy={yOf(st.after)} r={10} fill={st.side === "united" ? DEVIL : INK_DIM} stroke={PITCH} strokeWidth={4} />
         ))}
-        {goals.map((g, i) => (
-          <div
-            key={i}
+        <circle cx={endX} cy={yOf(diff)} r={14} fill={knot} stroke={PITCH} strokeWidth={5} />
+      </svg>
+      <div style={{ position: "relative", display: "flex", width: W, height: 28, marginTop: 4, fontSize: 19, color: INK_FAINT }}>
+        {marks.map((m) => (
+          <span
+            key={m.label}
             style={{
               position: "absolute",
-              left: x(g) - dotR,
-              top: 15,
-              width: dotR * 2,
-              height: dotR * 2,
-              borderRadius: dotR,
-              background: g.side === "united" ? GOLD : DRAW,
-              border: `3px solid ${PITCH}`,
+              ...(m.anchor === "end" ? { right: W - m.at } : { left: m.anchor === "middle" ? m.at - 40 : m.at }),
+              ...(m.anchor === "middle" ? { width: 80, justifyContent: "center" } : {}),
+              display: "flex",
             }}
-          />
+          >
+            {m.label}
+          </span>
         ))}
       </div>
-      <div style={{ position: "relative", display: "flex", width: W, height: 26, fontSize: 19, color: INK_FAINT }}>
-        <span style={{ position: "absolute", left: 0 }}>Kick-off</span>
-        <span style={{ position: "absolute", left: at(45) - 12 }}>HT</span>
-        <span style={{ position: "absolute", left: at(90) - 64 }}>Full time</span>
-      </div>
+      {scale.zoom > 0 && (
+        <div style={{ display: "flex", justifyContent: "flex-end", width: W, fontSize: 16, color: INK_FAINT }}>
+          Stoppage time is drawn wider than the rest of the clock.
+        </div>
+      )}
     </div>
   );
 }
@@ -251,7 +292,7 @@ function goalStrip(goals: MatchGoal[]) {
  */
 export function matchCard(
   {
-    eyebrow, home, away, score, outcome, date, goals, footnote, strip, media,
+    eyebrow, home, away, score, outcome, date, goals, aet = false, footnote, strip, media,
   }: {
     eyebrow: string;
     home: string;
@@ -259,7 +300,10 @@ export function matchCard(
     score: string;
     outcome: "W" | "D" | "L";
     date: string;
+    /** Timed goals; pass none unless every goal of the scoreline has a minute. */
     goals: MatchGoal[];
+    /** Extra time was played (the axis runs to 120). */
+    aet?: boolean;
     footnote?: string;
     strip: TrustItem[];
     media?: OgMedia;
@@ -298,7 +342,7 @@ export function matchCard(
             {footnote && (
               <div style={{ display: "flex", justifyContent: "center", marginTop: 14, fontSize: 23, color: INK_DIM }}>{footnote}</div>
             )}
-            {goals.length > 0 && <div style={{ display: "flex", marginTop: 40 }}>{goalStrip(goals)}</div>}
+            {goals.length > 0 && <div style={{ display: "flex", marginTop: media ? 26 : 34 }}>{cordStrip(goals, aet, !!media)}</div>}
           </div>
 
           <OgTrustStrip items={strip} dark={!!media} />

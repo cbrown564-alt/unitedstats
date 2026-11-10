@@ -3,6 +3,7 @@ import { familyName } from "@/lib/names";
 import type { EventRow } from "@/lib/queries";
 import { Pickable } from "@/components/match/MatchCorrection";
 import { MatchFlowPlay } from "@/components/MatchFlowPlay";
+import { goalClock, matchTimeScale, scoreCordPath } from "@/lib/matchCord";
 
 /**
  * Match flow, drawn as a cord: one red thread that runs level, steps up when
@@ -23,15 +24,6 @@ import { MatchFlowPlay } from "@/components/MatchFlowPlay";
 /** Clock label that keeps stoppage time as "90+6", regulation as "64". */
 function clock(minute: number, added: number | null): string {
   return added ? `${minute}+${added}` : `${minute}`;
-}
-
-/**
- * Absolute minute on the match axis. Stoppage is 90+added; older sources sometimes
- * write 93 directly instead of 90+3 — same contract as late-goal plotting.
- */
-function goalClock(minute: number, added: number | null): number {
-  if (minute === 90 && added != null && added > 0) return 90 + added;
-  return minute;
 }
 
 type GoalMark = {
@@ -205,21 +197,10 @@ export function MatchFlow({
   const sorted = [...goals].sort(
     (a, b) => goalClock(a.minute, a.added) - goalClock(b.minute, b.added) || a.seq - b.seq,
   );
-  const clocks = goals.map((g) => goalClock(g.minute, g.added));
-  const maxClock = Math.max(90, ...clocks);
-  // Pad past the last stoppage goal so the final knot isn't pinned to the edge.
-  const stoppage = !aet && maxClock > 90 ? maxClock - 90 : 0;
-  const end = aet ? 120 : stoppage ? 90 + stoppage + 1.5 : 90;
-  // Stoppage gets a widened slice of the axis, scaled to how much was played.
-  const zoom = stoppage ? Math.min(0.2, 0.07 + stoppage * 0.018) : 0;
-  const KNOT = 2.5; // % of width kept after the whistle for the result knot
-  const span = 100 - KNOT;
-  const pos = (m: number) => {
-    const c = Math.max(0, Math.min(end, m));
-    if (!zoom) return (c / end) * span;
-    if (c <= 90) return (c / 90) * span * (1 - zoom);
-    return span * (1 - zoom) + ((c - 90) / (end - 90)) * span * zoom;
-  };
+  const { end, stoppage, zoom, endX, pos } = matchTimeScale(
+    goals.map((g) => goalClock(g.minute, g.added)),
+    aet,
+  );
   const markPos = (g: GoalMark) => pos(goalClock(g.minute, g.added));
 
   // Score state after each goal, United's perspective.
@@ -236,20 +217,11 @@ export function MatchFlow({
   const stepPx = Math.min(20, (mid - 9) / maxAbs);
   const yOf = (d: number) => mid - d * stepPx;
 
-  // The cord: hold each score, then step at the goal with a short eased turn.
-  const ease = 0.5; // % of width either side of a step
-  let d = `M0 ${mid}`;
-  let level = 0;
-  for (const g of sorted) {
-    const x = markPos(g);
-    const y0 = yOf(level);
-    level = after.get(g.key) ?? level;
-    const y1 = yOf(level);
-    d += `L${(x - ease).toFixed(2)} ${y0}C${x.toFixed(2)} ${y0} ${x.toFixed(2)} ${y1} ${(x + ease).toFixed(2)} ${y1}`;
-  }
-  const endX = 100 - KNOT / 2;
-  d += `L${endX} ${yOf(final)}`;
-  const plate = `${d}L${endX} ${mid}L0 ${mid}Z`;
+  const { d, plate } = scoreCordPath(
+    sorted.map((g) => ({ x: markPos(g), after: after.get(g.key) ?? 0 })),
+    yOf,
+    endX,
+  );
 
   // Greedily stagger dense goal clusters across three lanes. Two lanes were not
   // enough for high-scoring nights such as Chelsea 5–6 and caused name collisions.
