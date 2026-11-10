@@ -6,7 +6,8 @@ import type { Comparison, CompareMetric, CompareMode, CompareSide, CompareSignat
 import { PlayerPortrait } from "@/components/PlayerPortrait";
 import { CoverageNote } from "@/components/CoverageNote";
 import { CompareCareerTimeline } from "@/components/charts/CompareCareerTimeline";
-import { CareerDuelChartLazy, EraSkylineChartLazy } from "@/components/charts/lazy";
+import { CareerDuelChart } from "@/components/charts/CareerDuelChart";
+import { EraSkylineChart } from "@/components/charts/EraSkylineChart";
 import { TrophyCabinet } from "@/components/CompareSignatures";
 import { ShareCite } from "@/components/ShareCite";
 import { fmtNum } from "@/lib/format";
@@ -221,7 +222,7 @@ function Signature({
     return (
       <>
         <CompareCareerTimeline a={a} b={b} />
-        <CareerDuelChartLazy
+        <CareerDuelChart
           a={signature.a}
           b={signature.b}
           aId={a.id}
@@ -252,7 +253,7 @@ function Signature({
   // + points-per-game, click to open it); the static EraSkyline stays for the
   // /explore SSR preview, where a client chart would flash blank.
   return (
-    <EraSkylineChartLazy a={signature.a} b={signature.b} labelA={short(a.label)} labelB={short(b.label)} />
+    <EraSkylineChart a={signature.a} b={signature.b} labelA={short(a.label)} labelB={short(b.label)} />
   );
 }
 

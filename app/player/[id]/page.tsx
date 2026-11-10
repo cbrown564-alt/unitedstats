@@ -21,7 +21,7 @@ import { PlayerSeasonTable, type SeasonSplit } from "@/components/PlayerSeasonTa
 import { PlayerSeasonHighlights } from "@/components/player/PlayerSeasonHighlights";
 import { PlayerScoringArchive } from "@/components/player/PlayerScoringArchive";
 import { GoalBodyMap } from "@/components/charts/GoalBodyMap";
-import { SeasonContributionChartLazy as SeasonContributionChart } from "@/components/charts/lazy";
+import { SeasonContributionChart } from "@/components/charts/SeasonContributionChart";
 import { PlayerPlate } from "@/components/PlayerPlate";
 import { CareerCord } from "@/components/CareerCord";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";

@@ -37,7 +37,7 @@ import { ManagerSeasonHighlights } from "@/components/manager/ManagerSeasonHighl
 import { ManagerSeasonLedger } from "@/components/manager/ManagerSeasonLedger";
 import { TransferArchive } from "@/components/TransferArchive";
 import { StatTile } from "@/components/PageHeader";
-import { InspectableTimeSeriesChartLazy as InspectableTimeSeriesChart } from "@/components/charts/lazy";
+import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { managerTrophyHaul, managerBestSeason, majorHonoursCaption, splitManagerTrophyHaul } from "@/lib/compare";
 import {
   enrichManagerSeasons,

@@ -1,4 +1,4 @@
-import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { fmtNum } from "@/lib/format";
 
 /**

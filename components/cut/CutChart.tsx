@@ -1,8 +1,6 @@
 import Link from "next/link";
-import {
-  InspectableBarChartLazy,
-  InspectableTimeSeriesChartLazy,
-} from "@/components/charts/lazy";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
+import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import {
   isChronological,
   metricFmt,
@@ -94,7 +92,7 @@ function CutTimeSeries({
     baseVal === undefined ? undefined : metric === "gd" ? "even" : metricFmt(baseVal, metric);
 
   return (
-    <InspectableTimeSeriesChartLazy
+    <InspectableTimeSeriesChart
       data={data}
       height={300}
       stroke={style.stroke}
@@ -133,7 +131,7 @@ function CutColumns({
         : { value: baseline, label: metricFmt(baseline, metric) };
 
   return (
-    <InspectableBarChartLazy
+    <InspectableBarChart
       data={groups.map((g) => ({
         label: g.label,
         value: g.value ?? 0,

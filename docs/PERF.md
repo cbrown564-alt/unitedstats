@@ -665,6 +665,7 @@ written by `scripts/export-client-data.ts`.
 
 ## M4 — bundle
 
+_Superseded 2026-11-10: Recharts is gone; charts are hand-drawn and server-rendered (ADR 0004)._
 recharts (~348 KB) was already route-split (the home page never loads it). Its
 three charts now load behind `ssr: false` wrappers (`components/charts/lazy.tsx`)
 with height-reserved skeletons, so the 985 `/player/[id]` pages and `/questions`

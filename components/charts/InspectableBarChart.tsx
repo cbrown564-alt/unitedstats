@@ -1,22 +1,8 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  ReferenceLine,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import type { MouseHandlerDataParam } from "recharts";
 import type { ChartBarDatum } from "@/components/charts";
 import { fmtAxisNumber } from "@/lib/format";
-import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
-import { useChartPin, useCoarsePointer } from "./useChartPin";
+import { ChartInspector, type InspectPoint } from "./ChartInspector";
+import { PlotShell } from "./PlotShell";
+import { niceDomain, niceTicks, scale, type Domain } from "./plot";
 
 type InspectableBarChartProps = {
   data: ChartBarDatum[];
@@ -53,6 +39,11 @@ type InspectableBarChartProps = {
   slantXLabels?: boolean;
 };
 
+/**
+ * Categorical bars drawn as HTML columns over a shared frame, so they stay
+ * crisp at any width and render on the server. Inspection, tap-to-pin and
+ * evidence links come from {@link ChartInspector}.
+ */
 export function InspectableBarChart({
   data,
   height = 180,
@@ -69,141 +60,95 @@ export function InspectableBarChart({
   stack,
   slantXLabels = false,
 }: InspectableBarChartProps) {
-  const router = useRouter();
-  const coarse = useCoarsePointer();
-  const { pinned, pin, rootRef } = useChartPin<ChartBarDatum>();
-
   if (data.length === 0) return null;
 
-  const hasEvidenceLinks = data.some((datum) => datum.href);
+  const totals = data.map((d) => (d.gap || d.value == null ? 0 : d.value + (stack ? d.value2 ?? 0 : 0)));
+  const domain: Domain = yDomain ?? niceDomain([
+    Math.min(0, ...totals, baseline?.value ?? 0),
+    Math.max(0, ...totals, baseline?.value ?? 0),
+  ]);
+  const y = scale(domain, true);
+  const zero = y(Math.max(domain[0], Math.min(domain[1], 0)));
+  const yTicks = niceTicks(domain, 4).map((v) => ({ at: y(v), label: fmtAxisNumber(v, yTickSuffix) }));
 
-  const onBarActivate = (datum: ChartBarDatum) => {
-    if (coarse) {
-      pin(datum);
-      return;
-    }
-    if (datum.href) router.push(datum.href);
-  };
+  const band = 100 / data.length;
+  const gap = band * 0.1;
+  // Labels are HTML and can't measure themselves on the server, so dense slanted
+  // axes keep at most ~16 ticks (Recharts used to drop overlapping ones).
+  const every = Math.max(1, labelEvery, slantXLabels ? Math.ceil(data.length / 16) : 1);
+  const xTicks = data.flatMap((d, i) =>
+    i % every === 0 ? [{ at: (i + 0.5) * band, label: d.tickLabel ?? d.label }] : [],
+  );
 
-  const onBarClick = (datum: ChartBarDatum) => {
-    if (coarse && pinned === datum && datum.href) {
-      router.push(datum.href);
-      return;
-    }
-    onBarActivate(datum);
-  };
-
-  const onChartClick = (state: MouseHandlerDataParam) => {
-    if (!coarse) return;
-    const idx = state.activeIndex ?? state.activeTooltipIndex;
-    if (typeof idx === "number" && data[idx]) onBarClick(data[idx]);
-  };
+  const points: InspectPoint[] = data.flatMap((d, i) =>
+    d.gap || d.value == null
+      ? []
+      : [{
+          x: (i + 0.5) * band,
+          x0: i * band,
+          x1: (i + 1) * band,
+          href: d.href,
+          tip: { title: d.label, value: d.valueLabel, meta: d.meta },
+        }],
+  );
+  const hasLinks = points.some((p) => p.href);
 
   return (
-    <div ref={rootRef} className="h-full min-h-40 min-w-0 w-full" style={fill ? undefined : { height }}>
-      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
-        <BarChart
-          data={data}
-          margin={{ top: 10, right: 8, bottom: slantXLabels ? 36 : 8, left: 0 }}
-          accessibilityLayer
-          aria-label={chartLabel}
-          onClick={onChartClick}
-        >
-          <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.64} vertical={false} />
-          <XAxis
-            dataKey="label"
-            interval={labelEvery <= 1 ? 0 : labelEvery - 1}
-            tickFormatter={(label) => data.find((datum) => datum.label === label)?.tickLabel ?? String(label)}
-            axisLine={false}
-            tickLine={false}
-            tickMargin={slantXLabels ? 4 : 8}
-            minTickGap={slantXLabels ? 0 : 8}
-            angle={slantXLabels ? -55 : 0}
-            textAnchor={slantXLabels ? "end" : "middle"}
-            height={slantXLabels ? 52 : 30}
-            stroke="var(--color-ink-faint)"
-            fontSize={10}
-          />
-          <YAxis
-            type="number"
-            domain={yDomain ?? ["auto", "auto"]}
-            axisLine={false}
-            tickLine={false}
-            tickMargin={8}
-            width={58}
-            stroke="var(--color-ink-faint)"
-            fontSize={11}
-            tickFormatter={(value) => fmtAxisNumber(value, yTickSuffix)}
-          />
-          {!coarse && (
-            <Tooltip
-              content={<QuietAnalystTooltip />}
-              cursor={{ fill: "rgb(255 255 255 / 0.035)" }}
-              isAnimationActive={false}
-            />
-          )}
+    <div className={fill ? "h-full w-full min-w-0" : "w-full min-w-0"}>
+      <PlotShell height={height} fill={fill} yTicks={yTicks} xTicks={xTicks} slantX={slantXLabels} xAxisHeight={30}>
+        <ChartInspector points={points} cursor="band" label={hasLinks ? `${chartLabel}. Select a bar to open its evidence.` : chartLabel}>
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
+            {data.map((d, i) => {
+              if (d.gap || d.value == null) return null;
+              const highlighted = d.label === highlightLabel;
+              const baseTop = y(d.value);
+              const capTop = stack ? y(d.value + (d.value2 ?? 0)) : baseTop;
+              const left = `${i * band + gap}%`;
+              const width = `${band - gap * 2}%`;
+              return (
+                <div key={`${d.label}-${i}`}>
+                  <div
+                    className={stack && (d.value2 ?? 0) > 0 ? "absolute" : "absolute rounded-t-[2px]"}
+                    style={{
+                      left,
+                      width,
+                      top: `${Math.min(baseTop, zero)}%`,
+                      height: `${Math.abs(zero - baseTop)}%`,
+                      minHeight: 2,
+                      background: highlighted ? highlightColor : color,
+                      opacity: highlighted ? 1 : dimOpacity,
+                    }}
+                  />
+                  {stack && (d.value2 ?? 0) > 0 && (
+                    <div
+                      className="absolute rounded-t-[2px]"
+                      style={{ left, width, top: `${capTop}%`, height: `${baseTop - capTop}%`, background: stack.color }}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
           {baseline && (
-            <ReferenceLine
-              y={baseline.value}
-              stroke="var(--color-ink-faint)"
-              strokeDasharray="3 3"
-              strokeWidth={1}
-              ifOverflow="extendDomain"
-              label={
-                baseline.label
-                  ? // Draw the label a few px *above* the line, hard left — over the
-                    // short early bars where the background is dark, so light-grey
-                    // text stays legible (on the right it lands on the tall gold bars
-                    // and vanishes; named "inside" positions sit below the line).
-                    ({ viewBox }: { viewBox?: { x?: number; y?: number } }) => (
-                      <text x={(viewBox?.x ?? 0) + 6} y={(viewBox?.y ?? 0) - 5} fill="var(--color-ink-dim)" fontSize={10}>
-                        {baseline.label}
-                      </text>
-                    )
-                  : undefined
-              }
-            />
+            <div className="pointer-events-none absolute inset-x-0" style={{ top: `${y(baseline.value)}%` }} aria-hidden>
+              <div className="border-t border-dashed border-ink-faint" />
+              {baseline.label && (
+                <span className="absolute bottom-1 left-1.5 text-[10px] leading-none text-ink-dim">{baseline.label}</span>
+              )}
+            </div>
           )}
-          <Bar
-            dataKey="value"
-            stackId={stack ? "a" : undefined}
-            radius={stack ? [0, 0, 0, 0] : [2, 2, 0, 0]}
-            minPointSize={2}
-            isAnimationActive={false}
-          >
-            {data.map((datum, index) => (
-              <Cell
-                key={`${datum.label}-${index}`}
-                className={datum.gap ? undefined : datum.href ? "cursor-pointer" : undefined}
-                fill={datum.gap || datum.value == null ? "transparent" : datum.label === highlightLabel ? highlightColor : color}
-                fillOpacity={datum.gap || datum.value == null ? 0 : datum.label === highlightLabel ? 1 : dimOpacity}
-                onClick={datum.gap || datum.value == null ? undefined : () => onBarClick(datum)}
-              />
-            ))}
-          </Bar>
-          {stack && (
-            <Bar dataKey="value2" stackId="a" radius={[2, 2, 0, 0]} isAnimationActive={false}>
-              {data.map((datum, index) => (
-                <Cell
-                  key={`${datum.label}-cap-${index}`}
-                  className={datum.href ? "cursor-pointer" : undefined}
-                  fill={stack.color}
-                  onClick={() => onBarClick(datum)}
-                />
-              ))}
-            </Bar>
-          )}
-          {hasEvidenceLinks && <title>Click a bar to open its evidence</title>}
-        </BarChart>
-      </ResponsiveContainer>
-      {coarse && pinned && (
-        <div className="mt-2">
-          <QuietAnalystTooltip active pinned payload={[{ payload: pinned }]} />
-        </div>
-      )}
-      {coarse && !pinned && (
-        <p className="mt-1.5 text-center text-[11px] text-ink-faint">Tap a bar to inspect</p>
-      )}
+        </ChartInspector>
+      </PlotShell>
+      <TapHint noun="bar" />
     </div>
+  );
+}
+
+/** Shown only on touch devices, where hover is unavailable. */
+export function TapHint({ noun, text }: { noun?: string; text?: string }) {
+  return (
+    <p className="mt-1.5 hidden text-center text-[11px] text-ink-faint pointer-coarse:block">
+      {text ?? `Tap a ${noun} to inspect`}
+    </p>
   );
 }

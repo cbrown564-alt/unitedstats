@@ -268,7 +268,7 @@ Charts should make patterns readable before they look impressive.
 The Chart System includes three layers:
 
 - Chart primitives: the reusable chart types and static SVG fallbacks.
-- Interactive chart layer: Recharts-based client-side inspection for direct reading support.
+- Interactive chart layer: hand-drawn, server-rendered charts with a small client inspector for direct reading support.
 - Chart frame: title, legend, value callouts, slice, coverage, and evidence trail.
 
 Inspectable chart data should carry reader-facing context, not only coordinates. Time-series
@@ -527,11 +527,11 @@ at the top of the active Career tab, not inside the plate. Desktop keeps the
 full career arc. This is a player-specific pattern until another entity type is
 proved on its own data shapes.
 
-Chart System implementation should keep `components/charts.tsx` as the shared primitive/type layer and static fallback home, add Recharts-based client-side inspection components beside it, and evolve `components/ChartPanel.tsx` as the reusable server-compatible frame for legends, value callouts, coverage, and evidence links. The first inspection target should be the Elo rating chart on `/analytics`, followed by homepage Elo and season trend charts after the API settles. See `docs/adr/0001-use-recharts-for-interactive-chart-inspection.md` for the dependency decision.
+Chart System implementation should keep `components/charts.tsx` as the shared primitive/type layer and static fallback home, add hand-drawn inspectable chart components beside it (`components/charts/`), and evolve `components/ChartPanel.tsx` as the reusable server-compatible frame for legends, value callouts, coverage, and evidence links. The first inspection target should be the Elo rating chart on `/analytics`, followed by homepage Elo and season trend charts after the API settles. See `docs/adr/0004-hand-drawn-charts-replace-recharts.md` (superseding 0001) for the rendering decision.
 
-Page code should import UnitedStats chart components, not Recharts primitives directly. Recharts is the rendering engine behind the Interactive Chart Layer; UnitedStats components own the visual language, tooltip behavior, evidence affordances, color semantics, and data contracts.
+Page code should import UnitedStats chart components, not plot internals. `PlotShell`, `plot.ts` and `ChartInspector` are the rendering engine behind the Interactive Chart Layer; UnitedStats components own the visual language, tooltip behavior, evidence affordances, color semantics, and data contracts.
 
-The first interactive components are `InspectableTimeSeriesChart`, `InspectableBarChart`, and `EloRatingChart`. `InspectableTimeSeriesChart` is the reusable Recharts-backed line/area primitive with Quiet Analyst Tooltip, baseline, axes, highlights, and responsive behavior. `InspectableBarChart` is the reusable Recharts-backed bar primitive for comparisons, distributions, and records. `EloRatingChart` is the domain wrapper that formats Elo labels, applies the 1500 baseline, and carries peak, trough, and current rating context.
+The first interactive components are `InspectableTimeSeriesChart`, `InspectableBarChart`, and `EloRatingChart`. `InspectableTimeSeriesChart` is the reusable line/area primitive with Quiet Analyst Tooltip, baseline, axes, highlights, and responsive behavior. `InspectableBarChart` is the reusable bar primitive for comparisons, distributions, and records. `EloRatingChart` is the domain wrapper that formats Elo labels, applies the 1500 baseline, and carries peak, trough, and current rating context.
 
 When an inspectable bar datum has a real evidence URL, the bar may navigate to that evidence route
 and the Quiet Analyst Tooltip should say so. Do not add chart links unless the datum maps cleanly
@@ -543,7 +543,7 @@ also maps to a fixture, the tooltip may add opponent/result context and an evide
 but the first pass can stay with date, rating, and movement while the query contract is extended.
 
 Migration should be incremental. Keep `AreaChart`, `Bars`, and `Sparkline` intact as static
-fallbacks and migration scaffolding while Recharts-backed components are introduced. The
+fallbacks and migration scaffolding while the interactive components were introduced. The
 homepage, analytics, questions, odds, travel, and player chart modules now use the interactive
 layer where inspection improves reading. Revisit whether static primitives should be retired
 after the interactive coverage is broad enough; `Sparkline` may remain useful as a tiny no-JS

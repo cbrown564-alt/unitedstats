@@ -9,7 +9,7 @@ import { calibration, simulateLeagueSeason } from "@/lib/predict";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EloHero } from "@/components/EloHero";
 import { ReliabilityCurve } from "@/components/charts/ReliabilityCurve";
-import { InspectableBarChartLazy as InspectableBarChart } from "@/components/charts/lazy";
+import { InspectableBarChart } from "@/components/charts/InspectableBarChart";
 import { PageHeader, StatTile } from "@/components/PageHeader";
 import { ChapterPager, type Chapter } from "@/components/mobile/ChapterPager";
 import { fmtNum, pct } from "@/lib/format";

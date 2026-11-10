@@ -185,9 +185,9 @@ Every App Router page is statically generated. Enforced by
   deployable export ceiling. Selected match, player, opponent, and season pages
   hold down the aggregate output; the complete records remain in build-generated
   JSON, the match browser, and downloadable files.
-- recharts (~348 KB) is route-split and lazy-mounted (`ssr: false` wrappers with
-  height-reserved skeletons) everywhere except `/analytics`, whose Elo hero chart
-  is above the fold. Fonts self-host via `next/font/google`; fixed-size portraits
+- Charts are hand-drawn and server-rendered (`components/charts/PlotShell.tsx`,
+  `plot.ts`); only `ChartInspector` hydrates, for hover, keyboard and tap-to-pin
+  inspection (ADR 0004). Fonts self-host via `next/font/google`; fixed-size portraits
   are served directly from cached local WebP files (`public/media/**`) with
   `next/image` transformation disabled, avoiding paid variants.
 - `.vercelignore` owns CLI deployment inputs. It excludes local credentials,

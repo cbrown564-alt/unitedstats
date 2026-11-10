@@ -12,7 +12,7 @@ const nextDir = path.join(root, ".next");
 const exportDir = path.join(root, "out");
 const appDir = path.join(nextDir, "server", "app");
 const chunksDir = path.join(nextDir, "static", "chunks");
-const ignoredRootEntries = new Set(["dev"]);
+const ignoredRootEntries = new Set(["dev", "cache"]);
 
 const KB = 1024;
 const MB = 1024 * KB;

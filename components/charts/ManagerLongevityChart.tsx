@@ -1,202 +1,88 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import {
-  CartesianGrid,
-  ReferenceLine,
-  ResponsiveContainer,
-  Scatter,
-  ScatterChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-  ZAxis,
-} from "recharts";
 import type { ManagerLongevityPoint } from "@/lib/trails";
-import type { MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber, fmtNum } from "@/lib/format";
-import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
-import { useChartPin, useCoarsePointer } from "./useChartPin";
+import { ChartInspector, type InspectPoint } from "./ChartInspector";
+import { PlotShell } from "./PlotShell";
+import { niceTicks, scale } from "./plot";
 
 const KIND_STYLE: Record<
   ManagerLongevityPoint["kind"],
-  { fill: string; stroke: string; z: number; label?: boolean }
+  { fill: string; stroke: string; z: number; label?: boolean; opacity: number }
 > = {
-  ferguson: { fill: "var(--color-gold)", stroke: "var(--color-gold)", z: 140, label: true },
-  busby: { fill: "var(--color-gold)", stroke: "var(--color-gold)", z: 110, label: true },
-  since: { fill: "var(--color-europe)", stroke: "var(--color-europe)", z: 70 },
-  other: { fill: "var(--color-ink-dim)", stroke: "var(--color-ink-faint)", z: 40 },
+  ferguson: { fill: "var(--color-gold)", stroke: "var(--color-gold)", z: 140, label: true, opacity: 1 },
+  busby: { fill: "var(--color-gold)", stroke: "var(--color-gold)", z: 110, label: true, opacity: 1 },
+  since: { fill: "var(--color-europe)", stroke: "var(--color-europe)", z: 70, opacity: 0.85 },
+  other: { fill: "var(--color-ink-dim)", stroke: "var(--color-ink-faint)", z: 40, opacity: 0.55 },
 };
 
-type ChartDatum = ManagerLongevityPoint & {
-  valueLabel: string;
-  meta: string;
-};
-
-function toChartDatum(p: ManagerLongevityPoint): ChartDatum {
-  return {
-    ...p,
-    valueLabel: `${p.ppg.toFixed(2)} ppg`,
-    meta: `${fmtNum(p.matches)} official matches`,
-  };
-}
-
-function LongevityDot({
-  cx,
-  cy,
-  payload,
-  coarse = false,
-}: {
-  cx?: number;
-  cy?: number;
-  payload?: ChartDatum;
-  coarse?: boolean;
-}) {
-  if (cx == null || cy == null || !payload) return null;
-  const style = KIND_STYLE[payload.kind];
-  const r = Math.sqrt(style.z) * 0.85;
-  return (
-    <g>
-      <circle
-        cx={cx}
-        cy={cy}
-        r={r}
-        fill={style.fill}
-        fillOpacity={payload.kind === "other" ? 0.55 : payload.kind === "since" ? 0.85 : 1}
-        stroke={style.stroke}
-        strokeWidth={payload.kind === "ferguson" ? 2 : 1}
-        strokeOpacity={payload.kind === "ferguson" ? 1 : 0.7}
-      />
-      {style.label && !coarse && (
-        <text
-          x={cx}
-          y={cy - r - 6}
-          textAnchor="middle"
-          className="fill-ink text-[10px] font-medium"
-          style={{ fontSize: 10 }}
-        >
-          {payload.label}
-        </text>
-      )}
-    </g>
-  );
-}
-
+/** Every manager by matches in charge against points per game. */
 export function ManagerLongevityChart({ points }: { points: ManagerLongevityPoint[] }) {
-  const router = useRouter();
-  const coarse = useCoarsePointer();
-  const { pinned, pin, rootRef } = useChartPin<ChartDatum>();
-
   if (points.length === 0) return null;
 
-  const data = points.map(toChartDatum);
-  const ferg = data.find((p) => p.kind === "ferguson");
-  const maxMatches = Math.max(...data.map((p) => p.matches));
-  const yMin = Math.floor(Math.min(...data.map((p) => p.ppg)) * 20) / 20 - 0.05;
-  const yMax = Math.ceil(Math.max(...data.map((p) => p.ppg)) * 20) / 20 + 0.05;
+  const ferg = points.find((p) => p.kind === "ferguson");
+  const maxMatches = Math.max(...points.map((p) => p.matches));
+  const yMin = Math.floor(Math.min(...points.map((p) => p.ppg)) * 20) / 20 - 0.05;
+  const yMax = Math.ceil(Math.max(...points.map((p) => p.ppg)) * 20) / 20 + 0.05;
+  const sx = scale([0, maxMatches * 1.05]);
+  const sy = scale([yMin, yMax], true);
+  const yTicks = niceTicks([yMin, yMax], 4).map((v) => ({ at: sy(v), label: v.toFixed(2) }));
+  const xTickValues = niceTicks([0, maxMatches * 1.05], 3);
+  const xTicks = xTickValues.map((v) => ({ at: sx(v), label: fmtAxisNumber(v) }));
 
-  const onActivate = (d: ChartDatum) => {
-    if (coarse) {
-      pin(d);
-      return;
-    }
-    router.push(d.href);
-  };
-
-  const onDotClick = (d: ChartDatum) => {
-    if (coarse && pinned === d && d.href) {
-      router.push(d.href);
-      return;
-    }
-    onActivate(d);
-  };
-
-  const onChartClick = (state: MouseHandlerDataParam) => {
-    if (!coarse) return;
-    const idx = state.activeIndex ?? state.activeTooltipIndex;
-    if (typeof idx === "number" && data[idx]) onDotClick(data[idx]);
-  };
+  const inspect: InspectPoint[] = points.map((p) => ({
+    x: sx(p.matches),
+    y: sy(p.ppg),
+    href: p.href,
+    tip: { title: p.label, value: `${p.ppg.toFixed(2)} ppg`, meta: `${fmtNum(p.matches)} official matches` },
+  }));
 
   return (
-    <div ref={rootRef} className="space-y-1">
+    <div className="w-full space-y-1">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-[11px] text-ink-dim">
         <span>Matches in charge →</span>
         <span>↑ points per game</span>
       </div>
-      <div style={{ height: 280 }}>
-        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-          <ScatterChart
-            margin={{ top: 16, right: coarse ? 28 : 12, bottom: 4, left: coarse ? 4 : 0 }}
-            accessibilityLayer
-            aria-label="Manchester United managers by matches in charge and points per game"
-            onClick={onChartClick}
-          >
-            <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.35} strokeDasharray="3 3" />
-            <XAxis
-              type="number"
-              dataKey="matches"
-              domain={[0, maxMatches * (coarse ? 1 : 1.05)]}
-              tickLine={false}
-              axisLine={false}
-              stroke="var(--color-ink-faint)"
-              fontSize={10}
-              tickFormatter={(v) => fmtAxisNumber(v)}
-            />
-            <YAxis
-              type="number"
-              dataKey="ppg"
-              domain={[yMin, yMax]}
-              tickLine={false}
-              axisLine={false}
-              stroke="var(--color-ink-faint)"
-              fontSize={10}
-              width={coarse ? 40 : 36}
-              tickFormatter={(v) => v.toFixed(2)}
-            />
+      <PlotShell height={280} yAxisWidth={40} yTicks={yTicks} xTicks={xTicks} padTop={16} padRight={16} grid="dashed">
+        <ChartInspector points={inspect} mode="xy" cursor="none" label="Manchester United managers by matches in charge and points per game. Select a manager to open their record.">
+          <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+            {xTickValues.map((v) => (
+              <line key={v} x1={sx(v)} x2={sx(v)} y1={0} y2={100} stroke="var(--color-line)" strokeOpacity={0.35} strokeDasharray="3 3" vectorEffect="non-scaling-stroke" />
+            ))}
             {ferg && (
-              <>
-                <ReferenceLine
-                  x={ferg.matches}
-                  stroke="var(--color-gold)"
-                  strokeDasharray="4 4"
-                  strokeOpacity={0.35}
-                />
-                <ReferenceLine
-                  y={ferg.ppg}
-                  stroke="var(--color-gold)"
-                  strokeDasharray="4 4"
-                  strokeOpacity={0.35}
-                />
-              </>
+              <g stroke="var(--color-gold)" strokeOpacity={0.35} strokeDasharray="4 4">
+                <line x1={sx(ferg.matches)} x2={sx(ferg.matches)} y1={0} y2={100} vectorEffect="non-scaling-stroke" />
+                <line x1={0} x2={100} y1={sy(ferg.ppg)} y2={sy(ferg.ppg)} vectorEffect="non-scaling-stroke" />
+              </g>
             )}
-            {!coarse && (
-              <Tooltip
-                cursor={{ strokeDasharray: "3 3" }}
-                content={({ active, payload }) => (
-                  <QuietAnalystTooltip
-                    active={active}
-                    payload={payload as unknown as { payload: ChartDatum }[] | undefined}
-                  />
+          </svg>
+          {points.map((p) => {
+            const style = KIND_STYLE[p.kind];
+            const d = Math.sqrt(style.z) * 0.85 * 2;
+            return (
+              <div key={`${p.label}-${p.matches}`} aria-hidden className="pointer-events-none absolute" style={{ left: `${sx(p.matches)}%`, top: `${sy(p.ppg)}%` }}>
+                <span
+                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
+                  style={{
+                    width: d,
+                    height: d,
+                    background: `color-mix(in srgb, ${style.fill} ${style.opacity * 100}%, transparent)`,
+                    border: `${p.kind === "ferguson" ? 2 : 1}px solid color-mix(in srgb, ${style.stroke} ${p.kind === "ferguson" ? 100 : 70}%, transparent)`,
+                  }}
+                />
+                {style.label && (
+                  <span
+                    className="absolute -translate-x-1/2 whitespace-nowrap text-[10px] font-medium leading-none text-ink pointer-coarse:hidden"
+                    style={{ bottom: d / 2 + 6 }}
+                  >
+                    {p.label}
+                  </span>
                 )}
-                isAnimationActive={false}
-              />
-            )}
-            <Scatter
-              data={data}
-              isAnimationActive={false}
-              shape={(props) => <LongevityDot {...props} coarse={coarse} />}
-              onClick={(point) => {
-                if (point && typeof point === "object" && "href" in point) onDotClick(point as unknown as ChartDatum);
-              }}
-            />
-          </ScatterChart>
-        </ResponsiveContainer>
-      </div>
-      {coarse && pinned && (
-        <QuietAnalystTooltip active pinned payload={[{ payload: pinned }]} />
-      )}
-      <p className="text-center text-[11px] text-ink-faint sm:hidden">Tap a point to inspect · tap again to open</p>
-      <p className="hidden text-center text-[11px] text-ink-faint sm:block">Click a point to open that manager&apos;s record</p>
+              </div>
+            );
+          })}
+        </ChartInspector>
+      </PlotShell>
+      <p className="hidden text-center text-[11px] text-ink-faint pointer-coarse:block">Tap a point to inspect · tap again to open</p>
+      <p className="text-center text-[11px] text-ink-faint pointer-coarse:hidden">Click a point to open that manager&apos;s record</p>
     </div>
   );
 }

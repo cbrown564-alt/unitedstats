@@ -1,18 +1,7 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import type { DotItemDotProps, MouseHandlerDataParam } from "recharts";
 import { fmtAxisNumber, fmtNum } from "@/lib/format";
-import { QuietAnalystTooltip } from "./QuietAnalystTooltip";
+import { ChartInspector, type InspectPoint } from "./ChartInspector";
+import { PlotShell } from "./PlotShell";
+import { monotonePath, niceDomain, niceTicks, scale } from "./plot";
 
 type ContributionMeasure = "goals" | "assists" | "cleanSheets" | "goalsConceded";
 
@@ -53,46 +42,6 @@ function measureLabel(value: number, unit: ContributionMeasure) {
   }
 }
 
-function PeakMarker({
-  cx,
-  cy,
-  index,
-  payload,
-  peaks,
-  color,
-  unit,
-  count,
-}: DotItemDotProps & {
-  peaks: Set<number>;
-  color: string;
-  unit: ContributionMeasure;
-  count: number;
-}) {
-  if (cx == null || cy == null || index == null || !payload || !peaks.has(index)) return null;
-
-  const datum = payload as SeasonContributionDatum;
-  const value = datum[unit] ?? 0;
-  const anchor =
-    index === 0 ? "start" : index === count - 1 ? "end" : "middle";
-  const dx = anchor === "start" ? 4 : anchor === "end" ? -4 : 0;
-
-  return (
-    <g>
-      <circle cx={cx} cy={cy} r={4} fill={color} stroke="var(--color-panel)" strokeWidth={2} />
-      <text
-        x={cx + dx}
-        y={cy - 10}
-        textAnchor={anchor}
-        fill={color}
-        fontSize={10}
-        fontWeight={600}
-      >
-        {measureLabel(value, unit)}
-      </text>
-    </g>
-  );
-}
-
 /**
  * A season's contribution lines — devil red and gold by default for goals and
  * assists; defenders and keepers switch to clean sheets and goals conceded.
@@ -111,120 +60,70 @@ export function SeasonContributionChart({
   chartLabel?: string;
   variant?: "attacking" | "defensive";
 }) {
-  const router = useRouter();
-
   if (data.length === 0) return null;
 
   const primaryKey: ContributionMeasure = variant === "defensive" ? "cleanSheets" : "goals";
   const secondaryKey: ContributionMeasure = variant === "defensive" ? "goalsConceded" : "assists";
-  const primaryName = variant === "defensive" ? "Clean sheets" : "Goals";
-  const secondaryName = variant === "defensive" ? "Goals conceded" : "Assists";
-  const primaryColor = "var(--color-devil)";
-  const secondaryColor = "var(--color-gold)";
+  const series = [
+    { key: primaryKey, color: "var(--color-devil)", peaks: peakIndices(data, primaryKey) },
+    { key: secondaryKey, color: "var(--color-gold)", peaks: peakIndices(data, secondaryKey) },
+  ];
 
-  const hasEvidenceLinks = data.some((datum) => datum.href);
-  const primaryPeaks = peakIndices(data, primaryKey);
-  const secondaryPeaks = peakIndices(data, secondaryKey);
+  const max = Math.max(0, ...data.flatMap((d) => [d[primaryKey] ?? 0, d[secondaryKey] ?? 0]));
+  const domain = niceDomain([0, max || 1]);
+  const sy = scale(domain, true);
+  // A point scale, like the line it replaces: first and last seasons sit on the edges.
+  const xAt = (i: number) => (data.length > 1 ? (i / (data.length - 1)) * 100 : 50);
+  const half = data.length > 1 ? 50 / (data.length - 1) : 50;
+  const yTicks = niceTicks(domain, 4).map((v) => ({ at: sy(v), label: fmtAxisNumber(v, "") }));
 
-  const go = (state: MouseHandlerDataParam) => {
-    const idx = state.activeTooltipIndex;
-    const href = typeof idx === "number" ? data[idx]?.href : undefined;
-    if (href) router.push(href);
-  };
+  const every = Math.max(1, labelEvery);
+  const xTicks = data.flatMap((d, i) =>
+    i % every === 0 ? [{ at: xAt(i), label: d.label }] : [],
+  );
+
+  const lines = series.map((s) => ({
+    ...s,
+    pts: data.flatMap((d, i): [number, number][] => (d[s.key] == null ? [] : [[xAt(i), sy(d[s.key] ?? 0)]])),
+  }));
+
+  const points: InspectPoint[] = data.map((d, i) => ({
+    x: xAt(i),
+    x0: Math.max(0, xAt(i) - half),
+    x1: Math.min(100, xAt(i) + half),
+    href: d.href,
+    tip: { title: d.label, value: d.valueLabel, meta: d.meta },
+    markers: series.flatMap((s) => (d[s.key] == null ? [] : [{ y: sy(d[s.key] ?? 0), color: s.color }])),
+  }));
 
   return (
-    <div className="h-full min-h-40 min-w-0 w-full" style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 800, height }}>
-        <LineChart
-          data={data}
-          margin={{ top: 28, right: 8, bottom: 22, left: 0 }}
-          accessibilityLayer
-          aria-label={chartLabel}
-          onClick={hasEvidenceLinks ? go : undefined}
-        >
-          <CartesianGrid stroke="var(--color-line)" strokeOpacity={0.64} vertical={false} />
-          <XAxis
-            dataKey="label"
-            interval={labelEvery <= 1 ? "preserveStartEnd" : labelEvery - 1}
-            axisLine={false}
-            tickLine={false}
-            tickMargin={8}
-            minTickGap={14}
-            stroke="var(--color-ink-faint)"
-            fontSize={11}
-            label={{
-              value: "Season",
-              position: "insideBottom",
-              offset: -2,
-              style: { fill: "var(--color-ink-faint)", fontSize: 11, textAnchor: "middle" },
-            }}
-          />
-          <YAxis
-            type="number"
-            axisLine={false}
-            tickLine={false}
-            tickMargin={8}
-            width={58}
-            stroke="var(--color-ink-faint)"
-            fontSize={11}
-            tickFormatter={(value) => fmtAxisNumber(value, "")}
-          />
-          <Tooltip
-            content={<QuietAnalystTooltip />}
-            cursor={{ stroke: "var(--color-devil-bright)", strokeOpacity: 0.28, strokeWidth: 1 }}
-            isAnimationActive={false}
-          />
-          <Line
-            type="monotone"
-            dataKey={primaryKey}
-            name={primaryName}
-            stroke={primaryColor}
-            strokeWidth={2}
-            dot={(props) => (
-              <PeakMarker
-                {...props}
-                peaks={primaryPeaks}
-                color={primaryColor}
-                unit={primaryKey}
-                count={data.length}
-              />
-            )}
-            activeDot={{
-              r: 4,
-              stroke: primaryColor,
-              strokeWidth: 2,
-              fill: "var(--color-panel)",
-            }}
-            isAnimationActive={false}
-            className={hasEvidenceLinks ? "cursor-pointer" : undefined}
-          />
-          <Line
-            type="monotone"
-            dataKey={secondaryKey}
-            name={secondaryName}
-            stroke={secondaryColor}
-            strokeWidth={2}
-            dot={(props) => (
-              <PeakMarker
-                {...props}
-                peaks={secondaryPeaks}
-                color={secondaryColor}
-                unit={secondaryKey}
-                count={data.length}
-              />
-            )}
-            activeDot={{
-              r: 4,
-              stroke: secondaryColor,
-              strokeWidth: 2,
-              fill: "var(--color-panel)",
-            }}
-            isAnimationActive={false}
-            className={hasEvidenceLinks ? "cursor-pointer" : undefined}
-          />
-          {hasEvidenceLinks && <title>Click a point to open its season</title>}
-        </LineChart>
-      </ResponsiveContainer>
+    <div className="w-full min-w-0">
+      <PlotShell height={height} yTicks={yTicks} xTicks={xTicks} padTop={28} xAxisLabel="Season">
+        <ChartInspector points={points} label={`${chartLabel}. Select a season to open its matches.`}>
+          <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+            {lines.map((l) => (
+              <path key={l.key} d={monotonePath(l.pts)} fill="none" stroke={l.color} strokeWidth={2} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            ))}
+          </svg>
+          {lines.flatMap((l) =>
+            [...l.peaks].map((i) => {
+              const value = data[i][l.key] ?? 0;
+              const align = i === 0 ? "" : i === data.length - 1 ? "-translate-x-full" : "-translate-x-1/2";
+              return (
+                <div key={`${l.key}-${i}`} aria-hidden className="pointer-events-none absolute" style={{ left: `${xAt(i)}%`, top: `${sy(value)}%` }}>
+                  <span className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-panel" style={{ background: l.color }} />
+                  <span
+                    className={`absolute bottom-2 whitespace-nowrap text-[10px] font-semibold leading-none ${align}`}
+                    style={{ color: l.color }}
+                  >
+                    {measureLabel(value, l.key)}
+                  </span>
+                </div>
+              );
+            }),
+          )}
+        </ChartInspector>
+      </PlotShell>
     </div>
   );
 }

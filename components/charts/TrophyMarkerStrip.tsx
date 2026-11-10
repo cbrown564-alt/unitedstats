@@ -9,7 +9,7 @@ const DOT_R = 2.5;
 const STACK_STEP = 5.5;
 
 /**
- * Trophy-winning seasons as gold ticks on a timeline — rendered outside Recharts
+ * Trophy-winning seasons as gold ticks on a timeline — rendered outside the plot
  * so markers are never clipped by the plot margin. Multiple trophies in one
  * season stack vertically at the same date.
  */

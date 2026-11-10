@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { RhymeMorph, type RhymeMorphSide } from "@/components/journey/RhymeMorph";
 import { JourneyBeat, JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
 import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
-import { CareerDuelChartLazy } from "@/components/charts/lazy";
+import { CareerDuelChart } from "@/components/charts/CareerDuelChart";
 import { EuropeFinalsTimeline, type EuropeFinal } from "@/components/charts/EuropeFinalsTimeline";
 import { MatchFlow } from "@/components/MatchFlow";
 import { FormationPitch } from "@/components/FormationPitch";
@@ -180,7 +180,7 @@ export default function JourneyPage() {
             <div className="journey-figure-bleed relative overflow-hidden bg-pitch bg-[radial-gradient(72%_125%_at_50%_100%,rgba(216,33,13,0.14),transparent_70%)] py-8 sm:py-14">
               <span className="pointer-events-none absolute bottom-0 right-[4%] stat-num text-[11rem] font-bold leading-none text-devil-bright/[0.06] sm:text-[17rem]" aria-hidden>5</span>
               <div className="relative mx-auto w-full max-w-5xl px-4 sm:px-8">
-                <CareerDuelChartLazy
+                <CareerDuelChart
                   a={ronaldoArc}
                   b={bestArc}
                   aId={ronaldo.id}
