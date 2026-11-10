@@ -1,4 +1,3 @@
-import { CURATED_DEBATES } from "./curatedDebates";
 import { CURATED_NIGHTS } from "./curatedNights";
 import { getDb } from "./db";
 import { THREAD_OF_NIGHTS } from "./journey";
@@ -6,17 +5,11 @@ import { CUP_WON_PREDICATE, allSeasons, managersIndex, opponentsIndex, playersIn
 import { europeanFinals } from "./trails";
 
 /**
- * Hobby Move 6: crawlers get the authored front door and the spine of the
- * record (seasons, managers, major careers, selected nights). The full
- * archive stays linkable; it is no longer cheap to enumerate from the sitemap.
+ * What is published as a static, indexable page. Every season, manager,
+ * player and opponent has one. Matches are still a selected set (authored
+ * nights, trophy matches, European finals); the rest open in the record
+ * reader. See docs/INDEXABLE-RECORDS-SCOPE.md.
  */
-
-export const MAJOR_PLAYER_APPS_FLOOR = 500;
-const MAJOR_OPPONENT_MEETINGS_FLOOR = 150;
-
-const FEATURED_OPPONENT_IDS = new Set([
-  "bayern-munich", "barcelona", "real-madrid", "ac-milan", "juventus",
-]);
 
 export const DISCOVERY_UTILITY_PATHS = [
   "/surprise",
@@ -41,10 +34,6 @@ const ROBOTS_DISALLOW_PATHS = [
   "/dev/",
 ] as const;
 
-const FEATURED_PLAYER_IDS = new Set(
-  CURATED_DEBATES.players.flatMap((debate) => [debate.a, debate.b]),
-);
-
 export function sitemapStaticPaths(): string[] {
   return [
     "/",
@@ -63,9 +52,7 @@ export function robotsDisallowPaths(): string[] {
 }
 
 export function sitemapSeasonIds(): string[] {
-  const seasons = allSeasons();
-  const authored = new Set(["1967-68", "1998-99", "2007-08", "2012-13"]);
-  return seasons.filter((season, index) => index < 12 || authored.has(season));
+  return allSeasons();
 }
 
 export function sitemapManagerIds(): string[] {
@@ -73,15 +60,11 @@ export function sitemapManagerIds(): string[] {
 }
 
 export function sitemapPlayerIds(): string[] {
-  return playersIndex()
-    .filter((player) => FEATURED_PLAYER_IDS.has(player.player_id) || player.apps >= MAJOR_PLAYER_APPS_FLOOR)
-    .map((player) => player.player_id);
+  return playersIndex().map((player) => player.player_id);
 }
 
-export function publishedOpponentIds(): string[] {
-  return opponentsIndex()
-    .filter((opponent) => opponent.p >= MAJOR_OPPONENT_MEETINGS_FLOOR || FEATURED_OPPONENT_IDS.has(opponent.id))
-    .map((opponent) => opponent.id);
+export function sitemapOpponentIds(): string[] {
+  return opponentsIndex().map((opponent) => opponent.id);
 }
 
 function authoredMatchIds(): string[] {

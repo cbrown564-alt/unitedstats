@@ -24,7 +24,7 @@ import { rediscoveryForEntity } from "@/lib/rediscovery";
 import { jsonLdHtml, seasonJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
 import { sitemapSeasonIds } from "@/lib/discovery";
-import { seasonSeoDescription, seasonSeoTitle, seoMetadata } from "@/lib/seo";
+import { seasonSeoDescription, seasonSeoTitle, recordSeoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -33,7 +33,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: { params: Promise<{ season: string }> }): Promise<Metadata> {
   const { season } = await params;
-  return seoMetadata(seasonSeoTitle(season), seasonSeoDescription(season));
+  return recordSeoMetadata(`/seasons/${season}`, seasonSeoTitle(season), seasonSeoDescription(season));
 }
 
 export async function generateStaticParams() {

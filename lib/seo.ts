@@ -18,6 +18,11 @@ import type { OnThisDayEntry } from "./onThisDay";
 const TREBLE_SEASON = "1998-99";
 
 /** Page title + description with matching Open Graph fields. */
+/** Metadata for a record page that is the canonical address of its entity. */
+export function recordSeoMetadata(path: string, title: string, description: string): Metadata {
+  return seoMetadata(title, description, { alternates: { canonical: path } });
+}
+
 export function seoMetadata(title: string, description: string, extra?: Metadata): Metadata {
   const { openGraph: ogExtra, ...rest } = extra ?? {};
   return {

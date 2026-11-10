@@ -64,8 +64,8 @@ SQLite. Do not reintroduce `UNITEDSTATS_DB_BLOB_URL`.
 | CLS | < 0.05 |
 | First Load JS (per route) | < 150 KB; chart-heavy routes < 200 KB |
 | Runtime DB access | none from page routes (build-time only) |
-| Aggregate `.next` output | ≤ 500 MB preview; ≤ 1,000 MB full |
-| Deployable `out/` export | ≤ 500 MB, including all public site assets |
+| Aggregate `.next` output | ≤ 500 MB preview; ≤ 1,300 MB full |
+| Deployable `out/` export | ≤ 500 MB preview; ≤ 1,200 MB full, including all public site assets |
 
 ## Route disposition (achieved)
 
@@ -170,11 +170,20 @@ leave roughly 100 MB of export room before a release fails CI. Vercel's build
 adapter produced 786.0 MB in `.next` for the same output; the 1,000 MB build
 artifact budget accommodates that adapter while the export ceiling remains 500 MB.
 
+**2026-11-10 revision.** Production moved to Cloudflare Workers static assets
+(Paid plan: 100,000 files per version) on 2026-10-07, so the Vercel storage
+limit behind the cut no longer applies. Every player (985), opponent (238) and
+season (127) is prerendered again; matches remain the selected set of 84. The
+full build now generates 10,429 routes in about 4 minutes and produces
+25,893 files, 997 MB in `out/` and 1,010 MB in `.next`. The full-profile
+ceilings are 1,200 MB (`out/`) and 1,300 MB (`.next`). See
+`docs/INDEXABLE-RECORDS-SCOPE.md`.
+
 Production deploys and CI use a **full** build profile: `prebuild` rebuilds the
 DB, verifies media, exports the downloadable dataset, and prerenders selected
 entity pages. `postbuild` removes film working audio copied into local `out/`;
 `.vercelignore` already excludes it from remote build uploads. CI checks the
-500 MB export ceiling after the build.
+export ceiling after the build.
 
 **Preview** deploys (Vercel `VERCEL_ENV=preview`, i.e. PR branches) default to
 a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy

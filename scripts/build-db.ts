@@ -1169,7 +1169,7 @@ for (const p of playerRows) {
   seeds.push({
     kind: "player", entity_id: p.id, label: p.name,
     detail: `${p.goals} goals${p.apps ? ` · ${p.apps} apps` : ""}`,
-    href: `/record?kind=player&id=${encodeURIComponent(p.id)}`, raw: p.goals + p.apps / 3,
+    href: `/player/${encodeURIComponent(p.id)}`, raw: p.goals + p.apps / 3,
   });
 }
 
@@ -1192,7 +1192,7 @@ const opponentRows = db.prepare(`
 for (const o of opponentRows) {
   seeds.push({
     kind: "opponent", entity_id: o.id, label: o.name,
-    detail: `${o.p} meetings`, href: `/record?kind=opponent&id=${encodeURIComponent(o.id)}`, raw: o.p,
+    detail: `${o.p} meetings`, href: `/opponent/${encodeURIComponent(o.id)}`, raw: o.p,
   });
 }
 

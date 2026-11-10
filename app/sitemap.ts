@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import {
   sitemapManagerIds,
   sitemapMatchIds,
+  sitemapOpponentIds,
   sitemapPlayerIds,
   sitemapSeasonIds,
   sitemapStaticPaths,
@@ -18,9 +19,9 @@ function sitemapLoc(path: string): string {
 }
 
 /**
- * Authored and spine URLs only. The full archive stays routable through
- * internal links; crawlers are not invited to enumerate every receipt.
- * See `lib/discovery.ts` and `docs/VERCEL-HOBBY-ASSESSMENT.md` Move 6.
+ * Every published static page: the authored front door, plus every season,
+ * manager, player and opponent, and the selected set of matches.
+ * See `lib/discovery.ts`.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const meta = getMeta();
@@ -61,11 +62,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.4,
   }));
 
+  const opponents: MetadataRoute.Sitemap = sitemapOpponentIds().map((id) => ({
+    url: url(`/opponent/${id}`),
+    changeFrequency: "monthly",
+    priority: 0.4,
+  }));
+
   const matches: MetadataRoute.Sitemap = sitemapMatchIds().map((id) => ({
     url: url(`/match/${id}`),
     changeFrequency: "yearly",
     priority: 0.4,
   }));
 
-  return [...staticPages, ...questions, ...seasons, ...players, ...managers, ...matches];
+  return [...staticPages, ...questions, ...seasons, ...players, ...managers, ...opponents, ...matches];
 }

@@ -1,6 +1,7 @@
 # Scope: indexable match and player pages
 
-Scoped 2026-11-10. Status: proposal, nothing built.
+Scoped 2026-11-10. Status: step 2 built (players, opponents, seasons); step 3
+(all matches) not started.
 
 ## Why
 
@@ -117,6 +118,25 @@ starts at 80% of the 100,000-file limit.
 
 - The Cloudflare account is on Workers Paid, so the 100,000-file limit applies.
 - Result-only pre-war match pages go in the sitemap.
+
+## Step 2 as built (2026-11-10)
+
+Every player (985), opponent (238) and season (127) is prerendered, listed in
+the sitemap and carries a canonical tag; manager and match pages gained the
+canonical tag too. Search results, the players register, the league table, the
+seasons index and the record reader now link to `/player/{id}`,
+`/opponent/{id}` and `/seasons/{season}`.
+
+Full build: 10,429 routes in 3.9 min, 25,893 files, 997 MB export. The
+sitemap has 1,475 URLs.
+
+One deliberate change from the recommendation: these routes keep their RSC
+payload files. They add only about 10,800 files, the total sits well inside
+the Paid limit, and keeping them preserves client transitions and avoids the
+404 prefetches seen in the spike. Pruning and non-prefetching links are
+deferred to step 3, where the 6,000 match pages make them necessary.
+
+Not measured: Cloudflare upload time for the larger export.
 
 ## Open questions
 

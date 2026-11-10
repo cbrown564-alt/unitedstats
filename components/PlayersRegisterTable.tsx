@@ -194,7 +194,7 @@ export function PlayersRegisterTable({
               <div className="flex items-center gap-2.5">
                 <PositionTag bucket={p.position_bucket} title={p.position_label} />
                 <a
-                  href={`/record?kind=player&id=${encodeURIComponent(p.player_id)}`}
+                  href={`/player/${encodeURIComponent(p.player_id)}`}
                   className="flex min-w-0 items-center gap-3 font-medium hover:text-devil-bright"
                 >
                   <PlayerPortrait name={p.name} src={p.player_thumb_url ?? p.player_image_url} />
