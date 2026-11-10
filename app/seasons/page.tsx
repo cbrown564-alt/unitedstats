@@ -1,8 +1,8 @@
-import { seasonsIndex, seasonCupLastResults, leagueResultsBySeason } from "@/lib/queries";
+import { seasonsIndex, seasonCupLastResults, leagueResultsBySeason, allManagerTenures } from "@/lib/queries";
 import { decadeBriefs } from "@/lib/narrative";
 import { DecadeLaps } from "@/components/seasons/DecadeLaps";
 import { PageHeader } from "@/components/PageHeader";
-import { FinishTimeline, type FinishPoint } from "@/components/charts/FinishTimeline";
+import { ClubThread, type FinishPoint } from "@/components/ClubThread";
 import { HonoursChip } from "@/components/HonoursBadge";
 import { eraForFirstMatchYear, eraSeasonRowClass } from "@/lib/managerEras";
 import { CoverageNote } from "@/components/CoverageNote";
@@ -183,7 +183,10 @@ export default function SeasonsPage() {
                 ))}
               </dl>
             </div>
-            <FinishTimeline points={points} />
+            <ClubThread
+              points={points}
+              reigns={allManagerTenures().map((t) => ({ managerId: t.manager_id, name: t.name, from: t.date_from, to: t.date_to }))}
+            />
             <CoverageNote
               className="mt-3"
               slice={`league finishes from ${firstSeason ?? "1892–93"} to ${latestSeason}.`}

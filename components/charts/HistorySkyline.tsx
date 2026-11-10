@@ -35,7 +35,7 @@ export function HistorySkyline({
 
   const firstYear = Number(rows[0].season.slice(0, 4));
   const lastYear = Number(rows[rows.length - 1].season.slice(0, 4));
-  // 20-year ticks, like the seasons FinishTimeline, so the axis stays uncrowded
+  // 20-year ticks, like the seasons ClubThread, so the axis stays uncrowded
   // under ~135 bars. Index-positioned (not year-positioned) to line up with the
   // flex bars, which are evenly spaced by season, not by calendar year.
   // Ticks within 12% of either edge are dropped so they never collide with the

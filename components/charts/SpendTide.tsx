@@ -15,7 +15,7 @@ import type { SpendYear } from "@/lib/queries";
  * pre-fee century reads as *busy with unrecorded business*, not empty. Two units,
  * two clearly separated registers, one timeline.
  *
- * Built like {@link FinishTimeline}/{@link HistorySkyline}: an honest linear time
+ * Built like the seasons ClubThread and {@link HistorySkyline}: an honest linear time
  * axis with absolutely-positioned bars (a missing year is a real gap), pure
  * positioned HTML so the bars stay crisp at any width.
  */

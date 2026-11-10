@@ -765,6 +765,19 @@ export function managerTenures(id: string): { date_from: string; date_to: string
     .all(id) as { date_from: string; date_to: string | null; note: string | null }[];
 }
 
+/** Every managerial spell in order, with the manager's name (for era bands). */
+export function allManagerTenures(): { manager_id: string; name: string; date_from: string; date_to: string | null }[] {
+  return cachedQuery("allManagerTenures", STATIC_REF_TTL_MS, () =>
+    getDb()
+      .prepare(
+        `SELECT t.manager_id, m.name, t.date_from, t.date_to
+         FROM manager_tenures t JOIN managers m ON m.id = t.manager_id
+         ORDER BY t.date_from`,
+      )
+      .all() as { manager_id: string; name: string; date_from: string; date_to: string | null }[],
+  );
+}
+
 /** Every competitive match under this manager, newest first — the full grouped archive. */
 export function managerMatches(id: string): MatchRow[] {
   return getDb()

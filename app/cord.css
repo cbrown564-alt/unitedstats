@@ -434,3 +434,59 @@
   background: var(--color-devil-bright);
   box-shadow: 0 0 0 2.5px var(--color-panel);
 }
+
+/* -------------------------------------------------------------- club thread */
+
+.ct-svg .ct-ns { vector-effect: non-scaling-stroke; }
+.ct-svg { --cd-sw: 2.25px; }
+.ct-svg .ct-plate { opacity: 0.08; }
+.ct-svg .ct-open { stroke-width: 1.5px; stroke-dasharray: 3 5; opacity: 0.45; }
+.ct-hit { width: 14px; height: 14px; }
+.ct-bead {
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 999px;
+  transition: width 140ms var(--ease-cinch, ease-out), height 140ms var(--ease-cinch, ease-out);
+}
+.ct-hit:hover .ct-bead,
+.ct-hit:focus-visible .ct-bead { width: 8px; height: 8px; background: var(--color-ink); box-shadow: 0 0 0 2px var(--color-panel); }
+.ct-bead--title,
+.ct-bead--second,
+.ct-bead--down { width: 9px; height: 9px; box-shadow: 0 0 0 2px var(--color-panel); }
+.ct-bead--title,
+.ct-hit:hover .ct-bead--title { background: var(--color-gold); }
+.ct-bead--second,
+.ct-hit:hover .ct-bead--second { background: var(--color-panel); box-shadow: inset 0 0 0 2px var(--color-gold), 0 0 0 2px var(--color-panel); }
+.ct-bead--down,
+.ct-hit:hover .ct-bead--down { background: var(--color-loss); }
+.ct-hit:hover .ct-bead--title,
+.ct-hit:hover .ct-bead--second,
+.ct-hit:hover .ct-bead--down { width: 12px; height: 12px; }
+.ct-war {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--color-ink-faint);
+}
+.ct-reign {
+  display: block;
+  position: absolute;
+  height: 100%;
+  border-top: 3px solid color-mix(in oklab, var(--color-ink) 30%, transparent);
+  border-left: 1px solid var(--color-panel);
+}
+.ct-reign--alt { border-top-color: color-mix(in oklab, var(--color-ink) 16%, transparent); }
+.ct-reign:hover { border-top-color: var(--color-devil-bright); }
+.ct-reign-name {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+  color: var(--color-ink-faint);
+  pointer-events: none;
+}
+.ct-reign-name--low { top: 18px; }
+.ct-reign:hover .ct-reign-name { color: var(--color-ink); }
