@@ -80,7 +80,6 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 |---|---|
 | `npm run update` | Fetch latest results (same entry point as cron) |
 | `npm run enrich` | Fill current-season scorers, lineups, cards, and assists |
-| `npm run upload:db` | Manual Blob recovery only — not part of the live export |
 | `npm run revalidate` | Dormant; the static export has no ISR cache to bust |
 
 ### Historical ingest (one-off)

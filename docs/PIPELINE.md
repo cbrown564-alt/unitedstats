@@ -62,8 +62,8 @@ branch. Record the exact keep/delete list and verify the remaining deployment
 IDs and production alias after deletion. Old review links and instant rollback
 to deleted releases are the trade-off; source history remains in Git.
 
-`public/video/audio` is excluded by `.vercelignore` and removed from the local
-`out/` copy after each build. Preserve those film-production sources; the
+`public/video/audio` is removed from `out/` after each build, so it never
+reaches the Cloudflare deployment. Preserve those film-production sources; the
 homepage uses `home-thread.mp4` and `home-thread-poster.jpg`. The export budget
 checks the resulting deployable `out/` tree.
 
@@ -126,9 +126,11 @@ summary when an unknown competition file appears upstream.
 | `FOOTBALL_DATA_TOKEN` | optional | football-data.org scorer, assist, lineup, substitution, booking, and attendance enrichment |
 | `FOOTBALL_DATA_TEAM_ID` | optional | override the football-data.org Manchester United team id; defaults to `66` |
 
-The Blob upload and on-demand revalidation scripts remain available as manual
-recovery tools. They are not called by the scheduled workflow, and production
-must not set `UNITEDSTATS_DB_BLOB_URL` during the current cost-assessment period.
+The runtime Blob database path and its upload script were removed on
+2026-11-10; the static export has no runtime database to refresh. Do not
+reintroduce `UNITEDSTATS_DB_BLOB_URL`. After a deploy, `node
+scripts/smoke-check.mjs` checks the health snapshot, core pages, and the
+Worker's record redirect on `https://utdred.com` (pass `--site` for a preview).
 
 ## Cloudflare migration
 

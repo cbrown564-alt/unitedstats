@@ -1,11 +1,9 @@
 /**
- * Post-deploy smoke check. Proves a live deployment can actually read the
- * database from its serving functions — the exact failure that took production
- * down on 2026-06-30 (every dynamic page 500'd on a missing /tmp blob copy).
+ * Post-deploy smoke check for the Cloudflare static export. Confirms the
+ * build-time health snapshot, a few core pages, and one Worker redirect.
  *
- * Run this against a production or preview URL after promoting a deploy:
- *   node scripts/smoke-check.mjs --site https://unitedstats.vercel.app
- *   node scripts/smoke-check.mjs --site "$UNITEDSTATS_SITE_URL" --bypass "$VERCEL_AUTOMATION_BYPASS_SECRET"
+ *   node scripts/smoke-check.mjs                       # https://utdred.com
+ *   node scripts/smoke-check.mjs --site https://unitedstats-migration-preview.<account>.workers.dev
  *
  * Exit 0 = healthy, exit 1 = any checked surface failed.
  */
@@ -14,55 +12,40 @@ function arg(name) {
   return i !== -1 ? process.argv[i + 1] : undefined;
 }
 
-async function main() {
-  const site = (arg("--site") ?? process.env.UNITEDSTATS_SITE_URL ?? "").replace(/\/$/, "");
-  if (!site) {
-    console.error("smoke-check: provide --site or UNITEDSTATS_SITE_URL");
-    process.exit(1);
-  }
-  // Deployment-protection bypass for non-public preview/prod URLs (optional).
-  const bypass = arg("--bypass") ?? process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
-  const headers = bypass ? { "x-vercel-protection-bypass": bypass } : {};
+const site = (arg("--site") ?? process.env.UNITEDSTATS_SITE_URL ?? "https://utdred.com").replace(/\/$/, "");
+let failed = false;
 
-  let failed = false;
-
-  // 1) The DB liveness probe — the strongest single signal.
-  try {
-    const res = await fetch(`${site}/api/health`, { cache: "no-store", headers });
-    const body = await res.json().catch(() => ({}));
-    if (res.ok && body.ok) {
-      console.log(`smoke-check: /api/health OK — source=${body.source} matches=${body.matches} blobConfigured=${body.blobConfigured}`);
-    } else {
-      failed = true;
-      console.error(`smoke-check: /api/health FAILED — ${res.status} ${JSON.stringify(body)}`);
-    }
-  } catch (err) {
-    failed = true;
-    console.error(`smoke-check: /api/health request failed — ${err instanceof Error ? err.message : err}`);
-  }
-
-  // 2) The homepage is force-dynamic and reads the DB on every request — if the
-  //    runtime DB path is broken it 500s, so it's a meaningful end-to-end check.
-  for (const path of ["/", "/matches"]) {
-    try {
-      const res = await fetch(`${site}${path}`, { cache: "no-store", headers });
-      if (res.ok) {
-        console.log(`smoke-check: GET ${path} ${res.status} OK`);
-      } else {
-        failed = true;
-        console.error(`smoke-check: GET ${path} ${res.status} FAILED`);
-      }
-    } catch (err) {
-      failed = true;
-      console.error(`smoke-check: GET ${path} request failed — ${err instanceof Error ? err.message : err}`);
-    }
-  }
-
-  if (failed) {
-    console.error("smoke-check: FAILED");
-    process.exit(1);
-  }
-  console.log("smoke-check: all checks passed");
+function fail(message) {
+  failed = true;
+  console.error(`smoke-check: ${message}`);
 }
 
-main();
+async function check(path, { expectStatus = 200, redirectTo } = {}) {
+  try {
+    const res = await fetch(`${site}${path}`, { cache: "no-store", redirect: "manual" });
+    if (res.status !== expectStatus) return fail(`GET ${path} ${res.status}, expected ${expectStatus}`);
+    if (redirectTo) {
+      const location = res.headers.get("location") ?? "";
+      if (!location.includes(redirectTo)) return fail(`GET ${path} redirected to ${location}, expected ${redirectTo}`);
+    }
+    console.log(`smoke-check: GET ${path} ${res.status} OK`);
+    return res;
+  } catch (err) {
+    fail(`GET ${path} request failed — ${err instanceof Error ? err.message : err}`);
+  }
+}
+
+const health = await check("/api/health");
+if (health) {
+  const body = await health.json().catch(() => ({}));
+  if (!body.ok || !(body.matches > 0)) fail(`/api/health body ${JSON.stringify(body)}`);
+  else console.log(`smoke-check: health snapshot reports ${body.matches} matches`);
+}
+for (const path of ["/", "/matches", "/seasons", "/player/wayne-rooney"]) await check(path);
+await check("/match/not-a-published-match", { expectStatus: 307, redirectTo: "/record?kind=match" });
+
+if (failed) {
+  console.error("smoke-check: FAILED");
+  process.exit(1);
+}
+console.log("smoke-check: all checks passed");

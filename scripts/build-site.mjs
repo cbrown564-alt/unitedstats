@@ -5,9 +5,7 @@ import path from "node:path";
 
 const require = createRequire(import.meta.url);
 const explicit = process.env.UNITEDSTATS_BUILD_PROFILE;
-const profile = explicit === "full" || explicit === "preview"
-  ? explicit
-  : process.env.VERCEL_ENV === "preview" ? "preview" : "full";
+const profile = explicit === "preview" ? "preview" : "full";
 const args = process.argv.slice(2);
 const selectedBundler = args.some((arg) => ["--webpack", "--turbopack", "--turbo"].includes(arg));
 // Full releases use the smaller measured browser bundles. Keep the existing

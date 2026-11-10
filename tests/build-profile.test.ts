@@ -17,18 +17,23 @@ async function loadStaticBuild(env: Record<string, string | undefined>) {
   return import("../lib/static-build");
 }
 
-test("buildProfile defaults to full outside Vercel preview", async () => {
+test("buildProfile defaults to full", async () => {
   const { buildProfile, isFullBuild } = await loadBuildProfile({});
   assert.equal(buildProfile(), "full");
   assert.equal(isFullBuild(), true);
 });
 
-test("buildProfile follows VERCEL_ENV=preview", async () => {
+test("buildProfile follows an explicit preview profile", async () => {
   const { buildProfile, isFullBuild } = await loadBuildProfile({
-    VERCEL_ENV: "preview",
+    UNITEDSTATS_BUILD_PROFILE: "preview",
   });
   assert.equal(buildProfile(), "preview");
   assert.equal(isFullBuild(), false);
+});
+
+test("buildProfile ignores the retired VERCEL_ENV preview signal", async () => {
+  const { buildProfile } = await loadBuildProfile({ VERCEL_ENV: "preview" });
+  assert.equal(buildProfile(), "full");
 });
 
 test("sampleStaticIds returns a stable preview subset", async () => {

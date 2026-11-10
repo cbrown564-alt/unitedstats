@@ -47,7 +47,6 @@ const EXPECTED_SSG = [
 function buildProfile() {
   const explicit = process.env.UNITEDSTATS_BUILD_PROFILE;
   if (explicit === "full" || explicit === "preview") return explicit;
-  if (process.env.VERCEL_ENV === "preview") return "preview";
   return "full";
 }
 

@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 /**
  * Cooperative crawlers may follow the authored sitemap. APIs, dataset dumps,
  * search, and other query-shaped tools are disallowed so they are not cheap
- * to enumerate. Hostile crawlers ignore this — Vercel bot rules sit in front.
+ * to enumerate. Hostile crawlers ignore this; only Cloudflare edge protections apply to them.
  */
 export default function robots(): MetadataRoute.Robots {
   return {

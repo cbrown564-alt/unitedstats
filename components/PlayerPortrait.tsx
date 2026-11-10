@@ -56,8 +56,8 @@ export function PlayerPortrait({ name, src, size = "sm", priority = false, class
           width={config.pixels}
           height={config.pixels}
           // Portraits are already cached, compact WebPs rendered at fixed sizes.
-          // Serving them directly avoids creating paid Vercel variants for every
-          // portrait/size combination with negligible visual benefit.
+          // The static export has no image optimizer, and resizing them again
+          // would add variants for negligible visual benefit.
           unoptimized
           priority={priority}
           sizes={`${config.pixels}px`}

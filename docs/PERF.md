@@ -606,7 +606,7 @@ GitHub Actions (enrich-results.yml, Mondays at 18:00 UTC)
   1. append new match to data/canonical/
   2. npm run validate && npm run build:db && npm run export:dataset
   3. git commit + push
-  4. Vercel runs a full production static export and deploys `out/`
+  4. Cloudflare runs a full production static export and deploys `out/`
 ```
 
 ### Runtime database
@@ -759,10 +759,10 @@ entity pages. `postbuild` removes film working audio copied into local `out/`;
 `.vercelignore` already excludes it from remote build uploads. CI checks the
 export ceiling after the build.
 
-**Preview** deploys (Vercel `VERCEL_ENV=preview`, i.e. PR branches) default to
-a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy
+**Preview** builds (`UNITEDSTATS_BUILD_PROFILE=preview`; the retired Vercel
+`VERCEL_ENV` signal no longer selects it) use a faster profile: `generateStaticParams` samples ~24 evenly spaced ids per heavy
 route (other valid ids 404 — `dynamicParams = false`), and `export:dataset` is
-skipped. Override either way with `UNITEDSTATS_BUILD_PROFILE=full|preview`.
+skipped. Every other build is full.
 Local fast iteration:
 
 ```bash

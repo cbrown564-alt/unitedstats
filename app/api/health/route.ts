@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getDb, dbSource } from "@/lib/db";
-import { usesRuntimeDbBlob } from "@/lib/runtime-db-path";
+import { getDb } from "@/lib/db";
 
 export const dynamic = "force-static";
 
@@ -13,23 +12,10 @@ export async function GET() {
     const row = getDb().prepare("SELECT count(*) AS matches FROM matches").get() as {
       matches: number;
     };
-    return NextResponse.json(
-      {
-        ok: true,
-        source: dbSource(),
-        blobConfigured: usesRuntimeDbBlob(),
-        matches: row.matches,
-      },
-      { headers: { "Cache-Control": "no-store" } },
-    );
+    return NextResponse.json({ ok: true, matches: row.matches }, { headers: { "Cache-Control": "no-store" } });
   } catch (err) {
     return NextResponse.json(
-      {
-        ok: false,
-        source: dbSource(),
-        blobConfigured: usesRuntimeDbBlob(),
-        error: err instanceof Error ? err.message : String(err),
-      },
+      { ok: false, error: err instanceof Error ? err.message : String(err) },
       { status: 500, headers: { "Cache-Control": "no-store" } },
     );
   }

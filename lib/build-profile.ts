@@ -5,16 +5,14 @@ export const PREVIEW_STATIC_SAMPLE = 24;
 
 /**
  * Full builds prerender ~7,400 entity pages for CDN-fast UX. Preview builds
- * sample a slice so Vercel PR deploys finish in a few minutes while the data
- * layer is stable and only UI is changing.
+ * sample a slice so UI iteration builds finish in a few minutes while the data
+ * layer is stable.
  *
- * Override with UNITEDSTATS_BUILD_PROFILE=full|preview. On Vercel, preview
- * deployments default to preview; production defaults to full.
+ * Select with UNITEDSTATS_BUILD_PROFILE=full|preview; anything else is full.
  */
 export function buildProfile(): BuildProfile {
   const explicit = process.env.UNITEDSTATS_BUILD_PROFILE;
   if (explicit === "full" || explicit === "preview") return explicit;
-  if (process.env.VERCEL_ENV === "preview") return "preview";
   return "full";
 }
 

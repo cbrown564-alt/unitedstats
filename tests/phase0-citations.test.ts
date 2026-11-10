@@ -87,7 +87,7 @@ test("citable IDs round-trip and do not collide across the known public set", ()
 });
 
 test("low-level citation helpers normalize paths and canonical objects", () => {
-  assert.equal(canonicalUrl("match/1999-05-26-bayern-munich-n"), "https://unitedstats.vercel.app/match/1999-05-26-bayern-munich-n");
+  assert.equal(canonicalUrl("match/1999-05-26-bayern-munich-n"), "https://utdred.com/match/1999-05-26-bayern-munich-n");
   assert.equal(normalizePath("/cut?venue=H&metric=ppg&by=manager"), "/cut?by=manager&metric=ppg&venue=H");
   assert.equal(citableId("match", "1999-05-26-bayern-munich-n"), "us:match:1999-05-26-bayern-munich-n");
   assert.deepEqual(citableRef("answer", "meta:dataset", "/api/v1/meta?b=2&a=1"), {
@@ -95,7 +95,7 @@ test("low-level citation helpers normalize paths and canonical objects", () => {
     key: "meta:dataset",
     id: "us:answer:meta%3Adataset",
     path: "/api/v1/meta?a=1&b=2",
-    url: "https://unitedstats.vercel.app/api/v1/meta?a=1&b=2",
+    url: "https://utdred.com/api/v1/meta?a=1&b=2",
   });
   assert.equal(canonicalStringify({ z: 1, a: { c: 3, b: 2 } }), '{"a":{"b":2,"c":3},"z":1}');
 });
@@ -145,7 +145,7 @@ test("provenance includes canonical dates when present and omits wall-clock fall
     sourceUrl: "https://en.wikipedia.org/wiki/List_of_Manchester_United_F.C._players",
     scope: "official player record",
     evidencePath: "/player/wayne-rooney",
-    evidenceUrl: "https://unitedstats.vercel.app/player/wayne-rooney",
+    evidenceUrl: "https://utdred.com/player/wayne-rooney",
     statsAsOf: "2026-05-24",
   });
 
