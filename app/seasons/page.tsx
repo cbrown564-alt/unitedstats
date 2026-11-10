@@ -11,7 +11,6 @@ import { SeasonLedgerCard } from "@/components/seasons/SeasonLedgerCard";
 import { cupOutcomesForSeason, lanesForComps } from "@/components/seasons/seasonLedgerLanes";
 import { fmtNum } from "@/lib/format";
 import { listSeo, seoMetadata } from "@/lib/seo";
-import { sitemapSeasonIds } from "@/lib/discovery";
 
 export const metadata = seoMetadata(listSeo.seasons.title, listSeo.seasons.description);
 
@@ -61,8 +60,7 @@ function DecadeHonours({ titles, cups }: { titles: number; cups: number }) {
 }
 
 export default function SeasonsPage() {
-  const publishedSeasons = new Set(sitemapSeasonIds());
-  const seasonHref = (season: string) => publishedSeasons.has(season) ? `/seasons/${season}` : `/matches?season=${encodeURIComponent(season)}`;
+  const seasonHref = (season: string) => `/seasons/${season}`;
   // Newest first — the ledger opens on the latest decades.
   const order = "desc" as const;
   const summaries = seasonsIndex();

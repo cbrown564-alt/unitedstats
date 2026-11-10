@@ -8,14 +8,14 @@ test("client search finds a prominent player from the exported index", () => {
   const index = buildSearchIndex();
   const result = runClientSearch("rooney", index);
   assert.equal(result.shaped.length, 0);
-  assert.ok(result.entities.some((e) => e.href === "/record?kind=player&id=wayne-rooney"));
+  assert.ok(result.entities.some((e) => e.href === "/player/wayne-rooney"));
   assert.ok(result.total >= 1);
 });
 
 test("client search is typo-tolerant for a well-known name", () => {
   const index = buildSearchIndex();
   const result = runClientSearch("roony", index);
-  assert.ok(result.entities.some((e) => e.href === "/record?kind=player&id=wayne-rooney"));
+  assert.ok(result.entities.some((e) => e.href === "/player/wayne-rooney"));
 });
 
 test("client search surfaces curated question pages", () => {

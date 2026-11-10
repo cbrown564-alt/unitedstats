@@ -8,7 +8,7 @@ import {
 } from "@/lib/queries";
 import { similarMatches } from "@/lib/trails";
 import { fmtDateLong, fmtNum, homeAwayLabel, stadiumLabel, clubName, pct, resultLabel, resultTone } from "@/lib/format";
-import { matchSeoDescription, matchSeoTitle, seoMetadata } from "@/lib/seo";
+import { matchSeoDescription, matchSeoTitle, recordSeoMetadata } from "@/lib/seo";
 import { clubNames, opponentNames, type ClubNames } from "@/lib/clubNames";
 import { ResultBadge } from "@/components/ResultBadge";
 import { CompetitionChip } from "@/components/CompetitionChip";
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const m = matchById(id);
   if (!m) return {};
-  return seoMetadata(matchSeoTitle(m), matchSeoDescription(m));
+  return recordSeoMetadata(`/match/${id}`, matchSeoTitle(m), matchSeoDescription(m));
 }
 
 export function generateStaticParams() {

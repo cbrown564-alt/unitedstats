@@ -50,7 +50,7 @@ import { getDb } from "@/lib/db";
 import { queryString } from "@/lib/url";
 import { jsonLdHtml, managerJsonLd } from "@/lib/structuredData";
 import { sampleStaticIds } from "@/lib/static-build";
-import { managerSeoDescription, managerSeoTitle, seoMetadata } from "@/lib/seo";
+import { managerSeoDescription, managerSeoTitle, recordSeoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const m = managerById(id);
   if (!m) return {};
-  return seoMetadata(managerSeoTitle(m), managerSeoDescription(m));
+  return recordSeoMetadata(`/manager/${id}`, managerSeoTitle(m), managerSeoDescription(m));
 }
 
 export function generateStaticParams() {

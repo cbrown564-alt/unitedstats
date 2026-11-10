@@ -1,3 +1,4 @@
+import { sampleStaticIds } from "@/lib/static-build";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
@@ -38,9 +39,9 @@ import {
 import { fmtNum, pct, homeAwayLabel } from "@/lib/format";
 import { queryString } from "@/lib/url";
 import { jsonLdHtml, opponentJsonLd } from "@/lib/structuredData";
-import { publishedOpponentIds } from "@/lib/discovery";
+import { sitemapOpponentIds } from "@/lib/discovery";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
-import { opponentSeoDescription, opponentSeoTitle, seoMetadata } from "@/lib/seo";
+import { opponentSeoDescription, opponentSeoTitle, recordSeoMetadata } from "@/lib/seo";
 import { UpcomingMeetingNote } from "@/components/UpcomingMeetingNote";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
@@ -52,11 +53,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const o = opponentById(id);
   if (!o) return {};
-  return seoMetadata(opponentSeoTitle(o), opponentSeoDescription(o));
+  return recordSeoMetadata(`/opponent/${id}`, opponentSeoTitle(o), opponentSeoDescription(o));
 }
 
 export function generateStaticParams() {
-  return publishedOpponentIds().map((id) => ({ id }));
+  return sampleStaticIds(sitemapOpponentIds()).map((id) => ({ id }));
 }
 
 export default async function OpponentPage({

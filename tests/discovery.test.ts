@@ -3,13 +3,13 @@ import { test } from "node:test";
 import { CURATED_NIGHTS } from "../lib/curatedNights";
 import { THREAD_OF_NIGHTS } from "../lib/journey";
 import { CURATED_DEBATES } from "../lib/compare";
-import { allMatchIds, allSeasons, managersIndex, playersIndex } from "../lib/queries";
+import { allMatchIds, allSeasons, managersIndex, opponentsIndex, playersIndex } from "../lib/queries";
 import {
   DISCOVERY_UTILITY_PATHS,
-  MAJOR_PLAYER_APPS_FLOOR,
   robotsDisallowPaths,
   sitemapManagerIds,
   sitemapMatchIds,
+  sitemapOpponentIds,
   sitemapPlayerIds,
   sitemapSeasonIds,
   sitemapStaticPaths,
@@ -41,33 +41,18 @@ test("sitemap match ids are the authored and trophy set, not the full archive", 
   assert.ok(selected.has("1968-05-29-benfica-n"));
 });
 
-test("sitemap player ids are major careers and authored debates, not the register", () => {
-  const selected = new Set(sitemapPlayerIds());
-  const register = playersIndex();
-  assert.ok(selected.size < 200, `major players should stay well under 200, got ${selected.size}`);
-  assert.ok(selected.size < register.length / 3);
+test("every player, opponent and season is a published page", () => {
+  assert.deepEqual(sitemapPlayerIds().sort(), playersIndex().map((player) => player.player_id).sort());
+  assert.deepEqual(sitemapOpponentIds().sort(), opponentsIndex().map((opponent) => opponent.id).sort());
+  assert.deepEqual(sitemapSeasonIds(), allSeasons());
   for (const debate of CURATED_DEBATES.players) {
-    assert.ok(selected.has(debate.a), debate.a);
-    assert.ok(selected.has(debate.b), debate.b);
-  }
-  const byId = new Map(register.map((player) => [player.player_id, player]));
-  for (const id of selected) {
-    const player = byId.get(id);
-    assert.ok(player, `unknown player ${id}`);
-    const featured = CURATED_DEBATES.players.some((debate) => debate.a === id || debate.b === id);
-    assert.ok(
-      featured || player.apps >= MAJOR_PLAYER_APPS_FLOOR,
-      `${id} is neither a debate player nor at the appearance floor`,
-    );
+    assert.ok(sitemapPlayerIds().includes(debate.a), debate.a);
+    assert.ok(sitemapPlayerIds().includes(debate.b), debate.b);
   }
 });
 
-test("sitemap keeps selected seasons and every manager", () => {
+test("sitemap keeps every manager", () => {
   assert.deepEqual(sitemapManagerIds().sort(), managersIndex().map((manager) => manager.id).sort());
-  assert.ok(sitemapSeasonIds().length < allSeasons().length / 4);
-  for (const season of ["1967-68", "1998-99", "2007-08", "2012-13", allSeasons()[0]!]) {
-    assert.ok(sitemapSeasonIds().includes(season));
-  }
 });
 
 test("robots disallows APIs, datasets, and utility crawls", () => {

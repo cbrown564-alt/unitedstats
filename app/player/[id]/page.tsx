@@ -1,3 +1,4 @@
+import { sampleStaticIds } from "@/lib/static-build";
 import { RecordNext } from "@/components/record/RecordNext";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -52,7 +53,7 @@ import {
   cleanSheetPct,
 } from "@/lib/playerSeasonHighlights";
 import { rediscoveryForEntity } from "@/lib/rediscovery";
-import { playerSeoDescription, playerSeoTitle, seoMetadata } from "@/lib/seo";
+import { playerSeoDescription, playerSeoTitle, recordSeoMetadata } from "@/lib/seo";
 
 // Sampled SSG (see lib/static-build): preview builds prerender a subset, so
 // non-sampled ids render on demand; full builds prerender every id, leaving only
@@ -64,7 +65,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const p = playerById(id);
   if (!p) return {};
   const defensiveProfile = playerUsesDefensiveProfile(p.position_bucket);
-  return seoMetadata(
+  return recordSeoMetadata(
+    `/player/${id}`,
     playerSeoTitle(p),
     playerSeoDescription(p, defensiveProfile
       ? { defensive: true, cleanSheets: playerDefensiveTotals(id).cleanSheets }
@@ -75,7 +77,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 const SCORING_ARCHIVE_INLINE_MAX = 25;
 
 export async function generateStaticParams() {
-  return sitemapPlayerIds().map((id) => ({ id }));
+  return sampleStaticIds(sitemapPlayerIds()).map((id) => ({ id }));
 }
 
 export default async function PlayerPage({
