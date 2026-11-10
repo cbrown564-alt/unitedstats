@@ -74,9 +74,50 @@ Option B, in three steps.
 - Revise the export budget in `scripts/check-perf-budgets.mjs` and the decision
   in `docs/PERF.md`.
 
+## Spike results (2026-11-10)
+
+One full build with every match, player, opponent and season prerendered, in
+an isolated worktree.
+
+| | Today | Option A | Option B |
+|---|---|---|---|
+| Files | 14,186 | 79,637 | 20,487 |
+| Export size | 395 MB | 3.6 GB | about 2.0 GB |
+| `next build` | about 1.5 min | 4 min 23 s | same as A, plus the prune |
+
+| Route | Pages | Median HTML | 95th percentile | Largest |
+|---|---|---|---|---|
+| Match | 6,043 | 167 KB | 209 KB | 249 KB |
+| Player | 985 | 94 KB | 479 KB | 1,830 KB |
+| Opponent | 238 | 129 KB | 1,132 KB | 1,421 KB |
+| Season | 127 | 453 KB | 516 KB | 541 KB |
+
+Navigation with the RSC files removed, served from the pruned export:
+
+- Match to player, player to season, homepage night to match, and browser Back
+  all landed on the right page.
+- Each of those was a full document load, not a client transition.
+- `next/link` still prefetches `__next._tree.txt` for every record link in
+  view. One short session produced 173 failed requests in the console. About
+  34 files under `app/` and `components/` link to records through `next/link`.
+
+Also found: prerendered match and player pages carry no canonical link tag.
+
+Not measured: Cloudflare upload time, and the local build needs about 8 GB of
+free disk (the first attempt filled the disk).
+
+### Revised recommendation
+
+Option B still, with one added task: record links must stop prefetching, by
+using native anchors (as PR #77 already did for the archive lists) through one
+shared link component. Option A works on Workers Paid without that task but
+starts at 80% of the 100,000-file limit.
+
+## Decided (2026-11-10)
+
+- The Cloudflare account is on Workers Paid, so the 100,000-file limit applies.
+- Result-only pre-war match pages go in the sitemap.
+
 ## Open questions
 
-- Which Workers plan the account is on.
-- Whether result-only pre-war match pages are worth indexing or should stay
-  out of the sitemap.
 - Weekly deploy time once every record is rebuilt each Monday.
