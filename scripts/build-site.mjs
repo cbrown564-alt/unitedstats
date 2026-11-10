@@ -13,9 +13,8 @@ const selectedBundler = args.some((arg) => ["--webpack", "--turbopack", "--turbo
 // Full releases use the smaller measured browser bundles. Keep the existing
 // Turbopack preview path and its tighter build-artifact budget unchanged.
 if (profile === "full" && !selectedBundler) args.unshift("--webpack");
-if (!args.includes("--webpack") && !args.includes("--help") && !args.includes("-h")) {
-  // Next retains this disk cache across builds, but Turbopack cannot reuse it.
-  // Do not count a previous full build's cache against the preview budget.
+function clearWebpackCache() {
+  // Compiler cache is disposable and is not part of the deployable artifact.
   const dist = path.resolve(process.env.NEXT_VERIFY_DIST ?? ".next");
   const relative = path.relative(process.cwd(), dist);
   if (!relative || relative === ".." || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) {
@@ -23,7 +22,10 @@ if (!args.includes("--webpack") && !args.includes("--help") && !args.includes("-
   }
   rmSync(path.join(dist, "cache", "webpack"), { recursive: true, force: true });
 }
+const help = args.includes("--help") || args.includes("-h");
+if (!args.includes("--webpack") && !help) clearWebpackCache();
 console.log(`build: profile=${profile}; bundler=${args.includes("--webpack") ? "webpack" : "turbopack"}`);
 const result = spawnSync(process.execPath, [require.resolve("next/dist/bin/next"), "build", ...args], { stdio: "inherit" });
 if (result.error) throw result.error;
+if (result.status === 0 && !help) clearWebpackCache();
 process.exit(result.status ?? 1);

@@ -2,6 +2,12 @@
 
 ## Current performance work — 10 November 2026
 
+**Integration scope:** the Lighthouse comparison below was captured before the
+indexable-record expansion from `c6aac3b` was merged with the design/performance
+branch. The merged default branch publishes every player, opponent, and season.
+The 52.79% result remains evidence for the measured pre-expansion build, not a
+new Lighthouse measurement of the merged publication scope.
+
 **Scope:** establish the local baseline for the approved Cord design at
 `ca0d5bfe0e21827ee12fa0d351fd88e48763d9b0`, then improve its loading and
 responsiveness without changing that design. The audit does not establish that
@@ -530,6 +536,41 @@ layout, and typography are unchanged.
   with only the previously documented `.claude/**` exclusion. The tracked check
   configuration was not changed to hide the nested worktree. `git diff --check`
   passes. Only the generated dataset-manifest timestamp was restored.
+
+## Default-branch integration — 10 November 2026
+
+The design/performance branch (`b60ce42`) and the indexable-record expansion
+(`c6aac3b`) are combined in merge commit `b15c715`. The integration preserves the
+expanded static player, opponent, and season coverage, canonical tags, sitemap,
+approved Cord design, and performance implementation. Publication helpers now
+follow that expanded coverage; matches outside the selected set still use the
+record reader.
+
+A fresh isolated checkout with its own dependency installation verified the
+combined code, separately from ongoing edits in the original working tree:
+
+- All **308 tests pass**. Full ESLint has zero errors and 15 existing warnings;
+  Knip passes without a nested-worktree exclusion. Validation has zero errors
+  and 40 existing warnings across 6,043 matches and 127 seasons.
+- Full production build and static-render guard pass: **10,513 prerendered
+  paths**, 13 static pages, and nine SSG route families. This build used
+  `NEXT_PUBLIC_SITE_URL=https://utdred.com` and Node 25.3.0.
+- `.next` is **1,013.6 MiB** and `out/` is **1,021.0 MiB**, within the expanded
+  publication limits already set by `c6aac3b`: 1,300 / 1,200 MiB. Per-page and
+  JavaScript limits are unchanged. An initial build exceeded the `.next` limit
+  by 13.4 MiB because compiler cache was included. Successful builds now remove
+  the disposable Webpack cache before artifact checks; deployable content is
+  retained and no threshold was increased for the merge.
+- Phone and desktop checks pass for Home, Seasons, Jaap Stam, Fleetwood Rangers,
+  and 2014–15. The newly published record pages return HTTP 200 with canonical
+  URLs at the configured domain. Archive pagination and browser Back show the
+  correct fixture counts, with no browser JavaScript errors. Home and Seasons
+  screenshots were inspected at both viewports.
+
+The Lighthouse comparison above remains a historical measurement of the
+pre-expansion build. Lighthouse was not rerun for this merge, so its 52.79%
+transfer reduction is not claimed as a measurement of the expanded publication
+scope. Canonical data and cached media were not changed by the integration.
 
 ## Product measurement — 29 September 2026
 

@@ -89,8 +89,10 @@ pipeline, and a public dataset/API.
 
 - Historical data is immutable between ingests, so the site is a real
   `output: "export"` build: HTML, RSC, JavaScript, JSON, and pre-sized media
-  with no Vercel Functions, ISR, or runtime SQLite. ~7,400 entity paths
-  prerender on full builds; CI enforces that with `npm run check:static`.
+  with no Vercel Functions, ISR, or runtime SQLite. Full builds prerender every
+  player, opponent, season, and manager, plus selected matches and API exports;
+  CI enforces coverage with `npm run check:static`. Publication scope is owned by
+  `docs/INDEXABLE-RECORDS-SCOPE.md`.
 - Date-based homepage spark selection and Surprise re-rolls run in the browser
   over build-generated catalogs. Search, match filters, and curated compares
   read exported JSON (`public/data/search-index.json`,
@@ -120,8 +122,10 @@ pipeline, and a public dataset/API.
   to the measured route budgets in `docs/PERF.md`, and compare again when
   upgrading Next. Webpack's local build cache increases `.next` disk usage;
   deployable files remain in `out/`.
-  A Turbopack build removes the previous Webpack disk cache, which it cannot
-  reuse, before checking the existing preview artifact budget.
+  Turbopack builds remove any previous Webpack disk cache before compilation.
+  Successful production builds remove compiler disk cache before artifact checks,
+  so the expanded publication scope stays within the existing limits without
+  treating disposable compiler cache as deployable output.
 
 ## Route map
 
