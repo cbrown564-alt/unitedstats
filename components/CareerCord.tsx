@@ -1,3 +1,4 @@
+import { CareerKey } from "@/components/glyphs/cord/KeyGlyphs";
 import Link from "next/link";
 import { seasonHref } from "@/lib/publishedHref";
 
@@ -192,11 +193,11 @@ export function CareerCord({
           </span>
         ))}
       </div>
-      <figcaption className="mt-1 text-[11px] leading-4 text-ink-faint">
-        Thicker in seasons with more matches; each bead grows with that season&rsquo;s {markLabel}
-        {medalCount > 0 ? <>; <span className="cc-medal cc-medal--inline" aria-hidden /> a medal season</> : null}.
-        {limitedHere ? " Hollow beads: scorers only partly recorded that season, so a floor." : null}
-        {" "}Busiest: <span className="stat-num text-ink-dim">{shortSeason(peak.season)}</span>, {peak.apps} matches.
+      <figcaption className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <CareerKey markLabel={markLabel} medal={medalCount > 0} floor={limitedHere} />
+        <span className="text-[11px] text-ink-faint">
+          Busiest <span className="stat-num text-ink-dim">{shortSeason(peak.season)}</span> · {peak.apps} matches
+        </span>
       </figcaption>
     </figure>
   );

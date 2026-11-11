@@ -25,6 +25,7 @@ export function GoalDiff({
   played,
   size = "md",
   inline = false,
+  variant = "block",
   className = "",
 }: {
   gf: number;
@@ -33,12 +34,16 @@ export function GoalDiff({
   played?: number;
   size?: "md" | "lg";
   inline?: boolean;
+  /** `cell` renders dd/dt rows for a plate's stat strip (`PlateStats`), with the
+   *  unit toggle seated beside the figure so the cell keeps three rows. */
+  variant?: "block" | "cell";
   className?: string;
 }) {
   if (inline) {
     const gd = gf - ga;
     return <span className={toneOf(gd)}>{signOf(gd)}{fmtNum(Math.abs(gd))}</span>;
   }
+  if (variant === "cell") return <GoalDiffCell gf={gf} ga={ga} played={played} />;
   return <GoalDiffBlock gf={gf} ga={ga} played={played} size={size} className={className} />;
 }
 
@@ -55,14 +60,7 @@ function GoalDiffBlock({
   size: "md" | "lg";
   className: string;
 }) {
-  const canPerGame = !!played && played > 0;
-  const [perGame, setPerGame] = useState(canPerGame);
-
-  const gd = gf - ga;
-  const per = (n: number) => (n / (played as number)).toFixed(1);
-  const figure = `${signOf(gd)}${perGame ? per(Math.abs(gd)) : fmtNum(Math.abs(gd))}`;
-  const scored = perGame ? per(gf) : fmtNum(gf);
-  const conceded = perGame ? per(ga) : fmtNum(ga);
+  const { canPerGame, perGame, setPerGame, gd, figure, scored, conceded } = useGoalDiff(gf, ga, played);
 
   return (
     <div className={`leading-none ${className}`}>
@@ -81,6 +79,51 @@ function GoalDiffBlock({
         </div>
       )}
     </div>
+  );
+}
+
+function useGoalDiff(gf: number, ga: number, played?: number) {
+  const canPerGame = !!played && played > 0;
+  const [perGame, setPerGame] = useState(canPerGame);
+  const gd = gf - ga;
+  const per = (n: number) => (n / (played as number)).toFixed(1);
+  return {
+    canPerGame,
+    perGame,
+    setPerGame,
+    gd,
+    figure: `${signOf(gd)}${perGame ? per(Math.abs(gd)) : fmtNum(Math.abs(gd))}`,
+    scored: perGame ? per(gf) : fmtNum(gf),
+    conceded: perGame ? per(ga) : fmtNum(ga),
+  };
+}
+
+function GoalDiffCell({ gf, ga, played }: { gf: number; ga: number; played?: number }) {
+  const g = useGoalDiff(gf, ga, played);
+  return (
+    <>
+      <dd className="plate-cell-value stat-num">
+        <span className={toneOf(g.gd)}>{g.figure}</span>
+        {g.canPerGame && (
+          <button
+            type="button"
+            className="gd-unit focus-ring"
+            onClick={() => g.setPerGame(!g.perGame)}
+            title={g.perGame ? "Show totals" : "Show per game"}
+            aria-label={g.perGame ? "Per game; show totals" : "Totals; show per game"}
+          >
+            {g.perGame ? "/ game" : "total"}
+            <svg viewBox="0 0 10 10" width="8" height="8" aria-hidden>
+              <path d="M2 3.5h6L6.2 1.7M8 6.5H2l1.8 1.8" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
+      </dd>
+      <dt className="plate-cell-label">goal difference</dt>
+      <dd className="plate-cell-detail">
+        <span className="stat-num">{g.scored}</span> for <span className="text-ink-faint">·</span> <span className="stat-num">{g.conceded}</span> against
+      </dd>
+    </>
   );
 }
 

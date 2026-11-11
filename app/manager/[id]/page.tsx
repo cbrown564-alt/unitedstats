@@ -28,6 +28,7 @@ import { IdentityPlate, type SpanSegment } from "@/components/IdentityPlate";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { normalizePortraitSrc } from "@/lib/portraitSrc";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { EvidenceLink } from "@/components/EvidenceLink";
@@ -37,6 +38,7 @@ import { ManagerSeasonHighlights } from "@/components/manager/ManagerSeasonHighl
 import { ManagerSeasonLedger } from "@/components/manager/ManagerSeasonLedger";
 import { TransferArchive } from "@/components/TransferArchive";
 import { StatTile } from "@/components/PageHeader";
+import { TrophyIcon } from "@/components/CampaignIcons";
 import { InspectableTimeSeriesChart } from "@/components/charts/InspectableTimeSeriesChart";
 import { managerTrophyHaul, managerBestSeason, majorHonoursCaption, splitManagerTrophyHaul } from "@/lib/compare";
 import {
@@ -172,12 +174,14 @@ export default async function ManagerPage({
     })
     .filter((s): s is SpanSegment => s != null);
   const majorHonoursLine = majorHonoursCaption(majorHaul.categories);
-  const tenureCaption = tenures
-    .map((t) => {
-      const dates = `${fmtDate(t.date_from)}–${t.date_to ? fmtDate(t.date_to) : "present"}`;
-      return majorHonoursLine ? `${dates} (${majorHonoursLine})` : dates;
-    })
-    .join(" · ");
+  // The ends of the track carry the dates; a caption is only needed to name the
+  // separate spells when there was more than one.
+  const tenureCaption =
+    tenures.length > 1
+      ? `${tenures.length} spells: ` +
+        tenures.map((t) => `${fmtDate(t.date_from)}–${t.date_to ? fmtDate(t.date_to) : "present"}`).join(" · ")
+      : undefined;
+  const openTenure = tenures.some((t) => !t.date_to);
 
   const bestSeason = managerBestSeason(id, haul);
   const bestSeasonAnchor = bestSeason ? seasonSpanAnchor(bestSeason.season) : null;
@@ -435,7 +439,9 @@ export default async function ManagerPage({
         <IdentityPlate
           eyebrow={m.role ?? "Manager"}
           share={{ path: `/manager/${m.id}`, title: `${m.name} — Manchester United record` }}
-          leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="lg" />}
+          leading={<PlayerPortrait name={m.name} src={m.thumb_url ?? m.image_url} size="lg" priority />}
+          leadingKind="portrait"
+          leadingBackdrop={normalizePortraitSrc(m.thumb_url ?? m.image_url)}
           title={m.name}
           subtitle={
             <>
@@ -447,17 +453,23 @@ export default async function ManagerPage({
           record={m}
           secondary={[
             ...(majorTotal > 0
-              ? [{ value: majorTotal, label: majorTotal === 1 ? "major trophy" : "major trophies", tone: "text-gold" }]
+              ? [{
+                  value: fmtNum(majorTotal),
+                  label: majorTotal === 1 ? "major trophy" : "major trophies",
+                  tone: "text-gold",
+                  title: majorHonoursLine ?? undefined,
+                  icon: <TrophyIcon className="text-gold" />,
+                }]
               : []),
             ...(minorTotal > 0
-              ? [{ value: minorTotal, label: minorTotal === 1 ? "minor trophy" : "minor trophies", detail: "shields & world" }]
+              ? [{ value: fmtNum(minorTotal), label: minorTotal === 1 ? "minor trophy" : "minor trophies", detail: "shields & world" }]
               : []),
           ]}
           span={{
             leftLabel: "Took charge",
-            left: <span className="stat-num text-ink">{m.first?.slice(0, 4)}</span>,
-            rightLabel: tenures.some((t) => !t.date_to) ? "Present" : "Last match",
-            right: <span className="stat-num text-ink">{m.last?.slice(0, 4)}</span>,
+            left: <span className="stat-num text-ink">{m.first ? fmtDate(m.first) : "—"}</span>,
+            rightLabel: openTenure ? "In charge" : "Last match",
+            right: <span className="stat-num text-ink">{openTenure ? "present" : m.last ? fmtDate(m.last) : "—"}</span>,
             segments: tenureBands,
             caption: tenureCaption,
             peakSeason:

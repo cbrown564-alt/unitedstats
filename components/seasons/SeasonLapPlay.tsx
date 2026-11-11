@@ -43,7 +43,7 @@ export function SeasonLapPlay({
         size={size}
         className={`cd-lit ${run ? "cd-play" : ""}`}
       />
-      <span aria-hidden className="pointer-events-none absolute grid place-items-center text-center leading-tight">
+      <span aria-hidden className="plate-lap-count pointer-events-none absolute grid place-items-center text-center leading-tight">
         <span className="stat-num text-[11px] font-semibold text-ink">{results.length}</span>
         <span className="text-[9px] uppercase tracking-[0.14em] text-ink-faint">{caption ?? "league"}</span>
         <svg viewBox="0 0 12 12" width="9" height="9" className="mt-0.5 text-devil-bright opacity-60 transition-opacity group-hover:opacity-100 motion-reduce:hidden">

@@ -1,3 +1,4 @@
+import { StoppageKey } from "@/components/glyphs/cord/KeyGlyphs";
 import Link from "next/link";
 import { playerHref } from "@/lib/publishedHref";
 import { familyName } from "@/lib/names";
@@ -379,7 +380,7 @@ export function MatchFlow({
       <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
         <MatchFlowPlay />
         {zoom > 0 && (
-          <p className="text-[11px] text-ink-faint">Stoppage time is drawn wider than the rest of the clock.</p>
+          <StoppageKey />
         )}
       </div>
 

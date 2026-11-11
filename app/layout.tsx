@@ -8,6 +8,7 @@ import { jsonLdHtml, websiteJsonLd } from "@/lib/structuredData";
 import "./globals.css";
 import "./thread.css";
 import "./cord.css";
+import "./plate.css";
 
 const archivo = Archivo({
   variable: "--font-archivo",

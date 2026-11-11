@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { normalizePortraitSrc } from "../components/PlayerPortrait";
+import { normalizePortraitSrc } from "../lib/portraitSrc";
 
 test("Wikimedia portrait URLs drop legacy cache-buster queries", () => {
   assert.equal(

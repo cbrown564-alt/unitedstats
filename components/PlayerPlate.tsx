@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { matchHref, seasonHref } from "@/lib/publishedHref";
 import { PlayerPortrait } from "@/components/PlayerPortrait";
+import { normalizePortraitSrc } from "@/lib/portraitSrc";
 import { ShirtBadge } from "@/components/ShirtBadge";
-import { ShareCite } from "@/components/ShareCite";
+import { PeakSeasonLink, PlateShell, PlateStats, type PlateCell } from "@/components/IdentityPlate";
 import { fmtDate, fmtNum, scoreline, venuePrefix } from "@/lib/format";
 
 /** A recorded match we can pin a player to — debut, latest, or any endpoint. */
@@ -82,12 +83,12 @@ export function PlayerPlate({
       ? [...shirts].filter((s) => s.shirt === primaryShirt).sort((a, b) => b.apps - a.apps)[0]?.decade ?? null
       : null;
 
-  // Secondary readouts, built only where the number means something — no "—" filler.
-  const secondary: { value: string; label: string; detail?: string; tone?: string }[] = [
+  // Supporting cells, built only where the number means something — no "—" filler.
+  const secondary: PlateCell[] = [
     {
       value: stats.apps ? fmtNum(stats.apps) : "—",
       label: "apps",
-      detail: stats.subs ? `${fmtNum(stats.subs)} sub` : undefined,
+      detail: stats.subs ? `${fmtNum(stats.subs)} off the bench` : undefined,
     },
   ];
   if (defensive) {
@@ -107,114 +108,61 @@ export function PlayerPlate({
     if (stats.multiGoalGames) {
       secondary.push({
         value: fmtNum(stats.multiGoalGames),
-        label: "games with 2+ goals",
+        label: "2+ goal games",
         detail: stats.hatTricks ? `${fmtNum(stats.hatTricks)} hat-trick${stats.hatTricks === 1 ? "" : "s"}` : undefined,
         tone: stats.hatTricks ? "text-gold" : undefined,
       });
     }
     if (stats.assists) {
-      secondary.push({
-        value: fmtNum(stats.assists),
-        label: "assists",
-      });
+      secondary.push({ value: fmtNum(stats.assists), label: "assists" });
     }
   }
 
-  const headlineValue = defensive ? fmtNum(stats.cleanSheets ?? 0) : fmtNum(stats.goals);
-  const headlineLabel = defensive ? "clean sheets" : "goals";
   const peakForArc = (defensive ? span.peakDefensiveSeason : span.peakSeason) ?? null;
 
   return (
-    <section className="player-plate relative overflow-hidden rounded-xl border border-line bg-panel">
-      {/* pitch-line texture + a single restrained floodlight wash from the stand side */}
-      <div className="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden />
-      <div
-        className="pointer-events-none absolute -right-24 -top-28 h-72 w-2/3 rounded-full bg-devil/12 blur-3xl"
-        aria-hidden
-      />
-
-      {share && (
-        <div className="absolute right-4 top-4 z-10">
-          <ShareCite path={share.path} title={share.title} />
-        </div>
-      )}
-
-      <div className="player-plate-body">
-        {/* Portrait, with the kit number patched onto the corner. */}
-        <div className="player-plate-media flex min-w-0 flex-col items-start gap-2">
-          <div className="relative">
-            <PlayerPortrait name={name} src={portrait.src} size="lg" priority className="player-plate-portrait" />
-            {primaryShirt != null && (
-              <span className="absolute -bottom-2.5 -left-2.5 rounded-md bg-pitch p-1 shadow-lg shadow-black/50 ring-1 ring-line">
-                <ShirtBadge number={primaryShirt} decade={primaryDecade} compact />
-              </span>
-            )}
-          </div>
-          {portrait.pageUrl && (
-            <a href={portrait.pageUrl} className="player-plate-attribution inline-flex min-h-11 max-w-44 items-center text-[11px] leading-4 text-ink-faint hover:text-devil-bright focus-ring sm:min-h-0">
-              Wikimedia Commons{portrait.license ? ` · ${portrait.license}` : ""}
-            </a>
+    <PlateShell
+      mediaKind="portrait"
+      mediaBackdrop={normalizePortraitSrc(portrait.src)}
+      media={
+        <>
+          <PlayerPortrait name={name} src={portrait.src} size="lg" priority />
+          {primaryShirt != null && (
+            <span className="absolute bottom-2 left-2 z-10 rounded-md bg-pitch/90 p-1 shadow-lg shadow-black/50 ring-1 ring-line">
+              <ShirtBadge number={primaryShirt} decade={primaryDecade} compact />
+            </span>
           )}
-        </div>
-
-        {/* Identity, followed by one headline answer and a compact support band. */}
-        <div className="player-plate-identity min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-devil-bright">Player</p>
-          <h1 className="display mt-1 break-words text-3xl text-balance sm:text-4xl">{name}</h1>
-          <p className="player-plate-meta stat-num mt-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-sm text-ink-dim">
-            {careerYears && <span>United {careerYears}</span>}
-            {primaryShirt != null && (
-              <>
-                <span aria-hidden className="text-ink-faint">·</span>
-                <span>#{primaryShirt}</span>
-              </>
-            )}
-            {position && (
-              <>
-                <span aria-hidden className="text-ink-faint">·</span>
-                <span>{position}</span>
-              </>
-            )}
-          </p>
-
-        </div>
-
-        {/* One dominant figure beside a hairline ribbon of supporting stats. */}
-        <div className="player-plate-summary">
-            <div className="player-plate-headline leading-none">
-              <div className="player-plate-headline-row">
-                <span className="stat-num text-5xl font-semibold text-devil-bright sm:text-6xl">{headlineValue}</span>
-                <span className="text-sm uppercase tracking-[0.16em] text-ink-faint">{headlineLabel}</span>
-              </div>
-              {!defensive && rank && (
-                <p className="stat-num mt-2 text-xs text-ink-faint">
-                  #{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} goalscorers
-                </p>
-              )}
-            </div>
-            <dl className="player-plate-secondary">
-              {secondary.map((s) => (
-                <div key={s.label} className="leading-none">
-                  <dd className={`stat-num text-xl font-semibold ${s.tone ?? "text-ink"}`}>{s.value}</dd>
-                  <dt className="mt-1.5 text-[11px] uppercase tracking-[0.13em] text-ink-faint">
-                    <span>{s.label}</span>
-                    {s.detail && <span className="mt-1 block normal-case tracking-normal text-ink-dim">{s.detail}</span>}
-                  </dt>
-                </div>
-              ))}
-            </dl>
-        </div>
-
-        {(span.debut || span.latest) && (
-          <div className="player-plate-career">
-            <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} rail={span.rail} />
-          </div>
-        )}
-      </div>
-
-      {/* Footer band: trust note and correction link share one compact row. */}
-      <div className="relative border-t border-line bg-pitch/40 px-5 py-2.5 sm:px-6">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+        </>
+      }
+      mediaNote={
+        portrait.pageUrl ? (
+          <a href={portrait.pageUrl} className="inline-flex min-h-11 items-center hover:text-devil-bright focus-ring md:min-h-0">
+            Wikimedia Commons{portrait.license ? ` · ${portrait.license}` : ""}
+          </a>
+        ) : undefined
+      }
+      share={share}
+      eyebrow="Player"
+      title={name}
+      subtitle={
+        <>
+          {careerYears && <span>United {careerYears}</span>}
+          {primaryShirt != null && (
+            <>
+              <span aria-hidden className="text-ink-faint">·</span>
+              <span>#{primaryShirt}</span>
+            </>
+          )}
+          {position && (
+            <>
+              <span aria-hidden className="text-ink-faint">·</span>
+              <span>{position}</span>
+            </>
+          )}
+        </>
+      }
+      footer={
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 border-t border-line bg-pitch/40 px-4 py-2.5 md:px-6">
           <p className="min-w-0 flex-1 text-[11px] leading-4 text-ink-faint">
             {caveatBrief ?? "Verified competitive record"}
           </p>
@@ -227,8 +175,21 @@ export function PlayerPlate({
             </Link>
           )}
         </div>
-      </div>
-    </section>
+      }
+    >
+      <PlateStats
+        headline={{
+          value: defensive ? fmtNum(stats.cleanSheets ?? 0) : fmtNum(stats.goals),
+          label: defensive ? "clean sheets" : "goals",
+          sub: !defensive && rank ? <>#{fmtNum(rank.goalRank)} of {fmtNum(rank.total)} United goalscorers</> : undefined,
+        }}
+        cells={secondary}
+      />
+
+      {(span.debut || span.latest) && (
+        <CareerArc debut={span.debut} latest={span.latest} peakSeason={peakForArc} defensive={defensive} rail={span.rail} />
+      )}
+    </PlateShell>
   );
 }
 
@@ -256,80 +217,61 @@ function CareerArc({
   const endpoint = (m: MatchRef) =>
     `${venuePrefix(m.venue)} ${m.opponent_name} ${scoreline(m.gf, m.ga)} · ${fmtDate(m.date)}`;
 
-  return (
-    <div className="mt-7 border-t border-line/80 pt-4">
-      <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-        <span>First</span>
-        <span className="text-ink-dim">Career</span>
-        <span>Latest</span>
-      </div>
+  const peakTitle = peakSeason
+    ? defensive
+      ? `Best clean-sheet season: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
+      : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
+    : "";
 
+  const end = (m: MatchRef, label: string, align: "left" | "right") => (
+    <Link
+      href={matchHref(m.id)}
+      prefetch={false}
+      className={`group flex min-w-0 flex-col ${align === "right" ? "items-end text-right" : ""}`}
+      title={endpoint(m)}
+    >
+      <span className="plate-span-label">{label}</span>
+      <span className="stat-num text-ink group-hover:text-devil-bright">{m.season}</span>
+      <span className="mt-0.5 max-w-full truncate leading-4 text-ink-faint group-hover:text-devil-bright">v {m.opponent_name}</span>
+    </Link>
+  );
+
+  return (
+    <div className="plate-span">
       {rail ? (
-        <div className="mt-3">{rail}</div>
+        <div>{rail}</div>
       ) : (
-      <div className="relative mt-3 h-1.5 rounded-full bg-panel-2 ring-1 ring-inset ring-line">
-        <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-devil/45 via-devil/60 to-devil-bright/70" />
-        <span className="absolute -left-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
-        <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
-        {peakPct != null && peakSeason && (
-          <Link
-            href={seasonHref(peakSeason.season)}
-            prefetch={false}
-            className="group/peak absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
-            style={{ left: `${peakPct}%` }}
-            title={
-              defensive
-                ? `Best clean-sheet season: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
-                : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
-            }
-            aria-label={
-              defensive
-                ? `Peak season ${peakSeason.season}: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
-                : `Peak season ${peakSeason.season}: ${fmtNum(peakSeason.goals ?? 0)} goals`
-            }
-          >
-            <span className="block h-3.5 w-3.5 rounded-full border-2 border-pitch bg-gold shadow-[0_0_0_3px_rgb(245_197_24_/0.18)]" aria-hidden />
-            <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden w-max -translate-x-1/2 rounded-md border border-line bg-panel-2 px-2 py-1 text-[11px] text-ink shadow-xl shadow-black/40 group-hover/peak:block">
-              {defensive
-                ? `Peak: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets in ${peakSeason.season}`
-                : `Peak: ${fmtNum(peakSeason.goals ?? 0)} goals in ${peakSeason.season}`}
-            </span>
-          </Link>
-        )}
-      </div>
+        <div className="relative mt-1 h-1.5 rounded-full bg-panel-2 ring-1 ring-inset ring-line">
+          <div className="absolute inset-y-0 left-0 right-0 rounded-full bg-gradient-to-r from-devil/45 via-devil/60 to-devil-bright/70" />
+          <span className="absolute -left-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
+          <span className="absolute -right-0.5 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full border-2 border-pitch bg-devil-bright" aria-hidden />
+          {peakPct != null && peakSeason && (
+            <Link
+              href={seasonHref(peakSeason.season)}
+              prefetch={false}
+              className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full focus-ring"
+              style={{ left: `${peakPct}%` }}
+              title={peakTitle}
+              aria-label={`Peak season ${peakSeason.season}: ${peakTitle}`}
+            >
+              <span className="block h-3.5 w-3.5 rounded-full border-2 border-pitch bg-gold shadow-[0_0_0_3px_rgb(245_197_24_/0.18)]" aria-hidden />
+            </Link>
+          )}
+        </div>
       )}
 
-      <div className="mt-2.5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-3 text-xs">
-        {debut ? (
-          <Link href={matchHref(debut.id)} prefetch={false} className="group flex min-w-0 flex-col gap-1 text-ink-dim hover:text-devil-bright" title={endpoint(debut)}>
-            <span className="stat-num text-ink">{debut.season}</span>
-            <span className="break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {debut.opponent_name}</span>
-          </Link>
-        ) : <span />}
-        {peakSeason && (
-          <Link
-            href={seasonHref(peakSeason.season)}
-            prefetch={false}
-            className="stat-num shrink-0 text-gold/90 hover:text-gold"
-            title={
-              defensive
-                ? `Best clean-sheet season: ${fmtNum(peakSeason.cleanSheets ?? 0)} clean sheets`
-                : `Most prolific season: ${fmtNum(peakSeason.goals ?? 0)} goals`
-            }
-          >
-            <span aria-hidden className="mr-1.5 inline-block h-2 w-2 rounded-full bg-gold align-[1px] shadow-[0_0_0_2.5px_rgb(245_197_24_/0.18)]" />
-            {peakSeason.season}
-            <span className="hidden sm:inline">
-              {defensive ? ": Best clean-sheet season" : ": Most Prolific Season"}
-            </span>
-          </Link>
+      <div className="plate-span-ends">
+        {debut ? end(debut, "First match", "left") : <span />}
+        {peakSeason ? (
+          <PeakSeasonLink
+            season={peakSeason.season}
+            title={peakTitle}
+            label={defensive ? "Best clean-sheet season" : "Most prolific"}
+          />
+        ) : (
+          <span />
         )}
-        {latest ? (
-          <Link href={matchHref(latest.id)} prefetch={false} className="group flex min-w-0 flex-col items-end gap-1 text-right text-ink-dim hover:text-devil-bright" title={endpoint(latest)}>
-            <span className="stat-num text-ink">{latest.season}</span>
-            <span className="max-w-full break-words leading-4 text-ink-faint group-hover:text-devil-bright">v {latest.opponent_name}</span>
-          </Link>
-        ) : <span />}
+        {latest ? end(latest, "Latest", "right") : <span />}
       </div>
     </div>
   );

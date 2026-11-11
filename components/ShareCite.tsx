@@ -66,12 +66,12 @@ export function ShareCite({ path, title }: { path: string; title: string }) {
       {canShare ? (
         <button type="button" onClick={share} className={`${btn} cord-host`}>
           <UtilGlyph id="share" size={14} />
-          Share
+          <span className="share-label">Share</span>
         </button>
       ) : (
         <button type="button" onClick={copyLink} className={btn}>
-          {copied && <UtilGlyph id="sewn" size={14} className="cd-lit cd-now" />}
-          {copied ? "Link copied" : "Copy link"}
+          {copied ? <UtilGlyph id="sewn" size={14} className="cd-lit cd-now" /> : <UtilGlyph id="share" size={14} />}
+          <span className="share-label">{copied ? "Link copied" : "Copy link"}</span>
         </button>
       )}
     </div>

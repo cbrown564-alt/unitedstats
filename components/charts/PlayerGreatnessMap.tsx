@@ -164,9 +164,7 @@ export function PlayerGreatnessMap({ players }: { players: PlayerTotals[] }) {
 
       <figcaption className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-line/70 pt-3 text-[11px] text-ink-faint">
         <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-devil-bright/55" />A player</span>
-        <span className="text-ink-dim">
-          Right = more appearances · up = more goals · hover for career span · click through to the player
-        </span>
+        <span className="ml-auto text-ink-dim">Hover a player for their span; click to open them</span>
       </figcaption>
     </figure>
   );

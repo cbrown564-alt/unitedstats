@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { initialsFor } from "@/lib/names";
+import { normalizePortraitSrc } from "@/lib/portraitSrc";
 
 interface PlayerPortraitProps {
   name: string;
@@ -19,25 +20,6 @@ const SIZES = {
   md: { box: "h-14 w-14 sm:h-16 sm:w-16", pixels: 64, text: "text-lg" },
   lg: { box: "h-40 w-40 sm:h-44 sm:w-44", pixels: 176, text: "text-3xl" },
 };
-
-/**
- * Wikimedia occasionally leaves legacy cache-buster queries on otherwise
- * immutable Commons thumbnails. Strip those before handing the URL to
- * next/image so the strict query-free remote pattern remains enforceable.
- */
-export function normalizePortraitSrc(src: string | null | undefined): string | null | undefined {
-  if (!src?.startsWith("https://")) return src;
-  try {
-    const url = new URL(src);
-    if (url.hostname === "upload.wikimedia.org" && url.pathname.startsWith("/wikipedia/commons/")) {
-      url.search = "";
-      return url.toString();
-    }
-  } catch {
-    // Let next/image surface malformed non-Wikimedia URLs as before.
-  }
-  return src;
-}
 
 export function PlayerPortrait({ name, src, size = "sm", priority = false, className = "" }: PlayerPortraitProps) {
   const config = SIZES[size];

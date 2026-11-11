@@ -12,12 +12,13 @@ import type { CampaignTier } from "@/components/CampaignVerdict";
 import { SeasonCompetitionLane } from "@/components/seasons/SeasonCompetitionLane";
 import { buildCupRun } from "@/lib/cupRun";
 import { ResultSpine } from "@/components/charts/ResultSpine";
-import { IdentityPlate, type PlateHeadline } from "@/components/IdentityPlate";
+import { IdentityPlate, type PlateCell, type PlateHeadline } from "@/components/IdentityPlate";
+import { LapKey } from "@/components/glyphs/cord/KeyGlyphs";
+import { TrophyIcon } from "@/components/CampaignIcons";
 import { DetailSectionTabs } from "@/components/mobile/DetailSectionTabs";
 import { SectionHead } from "@/components/SectionHead";
 import { CoverageNote } from "@/components/CoverageNote";
 import { LeagueTable } from "@/components/LeagueTable";
-import { WdlBar } from "@/components/WdlBar";
 import { SeasonLapPlay } from "@/components/seasons/SeasonLapPlay";
 import { EntityRediscoveryRail } from "@/components/EntityRediscoveryRail";
 import { RediscoveryRail } from "@/components/RediscoveryRail";
@@ -123,9 +124,10 @@ export default async function SeasonPage({
   const champions = league?.position === 1;
 
   // Silverware won this season — drives the section header's honours line.
-  const trophies = [...byComp.entries()].filter(
-    ([comp, list]) => campaignOutcome(summaryByName.get(comp), list)?.tier === "silverware",
-  ).length;
+  const silverware = [...byComp.entries()]
+    .filter(([comp, list]) => campaignOutcome(summaryByName.get(comp), list)?.tier === "silverware")
+    .map(([comp]) => comp);
+  const trophies = silverware.length;
 
   // The league season as a lap: every league match in order, for the plate.
   const leagueResults = matches.filter((m) => m.competition_type === "league").map((m) => m.result);
@@ -142,19 +144,33 @@ export default async function SeasonPage({
         value: ordinal(league.position),
         label: "league finish",
         sub: champions
-          ? `Champions of the ${league.competition_name}`
+          ? `${league.competition_name} champions`
           : league.league_size
             ? `of ${league.league_size} in the ${league.competition_name}`
             : league.competition_name,
         tone: champions ? "text-gold" : "text-ink",
       }
     : undefined;
-  const secondary = headline
-    ? [
-        { label: "Played", value: fmtNum(p) },
-        { label: "Win rate", value: pct(w, p) },
-      ]
-    : [];
+  // One trophy mark per piece of silverware, so a Treble reads as three cups
+  // before the count is read; the competitions are named on hover.
+  const secondary: PlateCell[] = [
+    ...(headline ? [{ label: "Played", value: fmtNum(p), detail: `${pct(w, p)} won` }] : []),
+    ...(trophies > 0
+      ? [
+          {
+            label: trophies === 1 ? "trophy" : "trophies",
+            value: fmtNum(trophies),
+            tone: "text-gold",
+            title: silverware.join(", "),
+            icon: (
+              <span className="inline-flex gap-0.5 text-gold" aria-hidden>
+                {silverware.map((c) => <TrophyIcon key={c} />)}
+              </span>
+            ),
+          },
+        ]
+      : []),
+  ];
 
   const jsonLd = seasonJsonLd(season, {
     played: p,
@@ -209,16 +225,12 @@ export default async function SeasonPage({
         title={season}
         leading={
           leagueResults.length >= 10 ? (
-            <SeasonLapPlay results={leagueResults} champions={champions} season={season} caption="league" size={156} />
+            <div className="plate-lap">
+              <SeasonLapPlay results={leagueResults} champions={champions} season={season} caption="league" size={152} />
+            </div>
           ) : undefined
         }
-        leadingNote={
-          leagueResults.length >= 10 ? (
-            <p className="max-w-[10rem] text-[10px] leading-snug text-ink-faint">
-              Clockwise from the top: out for a win, on the ring for a draw, in for a loss.
-            </p>
-          ) : undefined
-        }
+        leadingNote={leagueResults.length >= 10 ? <LapKey /> : undefined}
         subtitle={
           <>
             <span>{clubName(matches[0].date)}</span>

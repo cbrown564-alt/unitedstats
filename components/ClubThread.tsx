@@ -1,3 +1,4 @@
+import { KeyItem, NoLeagueMark, ReignMark } from "@/components/glyphs/cord/KeyGlyphs";
 import Link from "next/link";
 import { familyName } from "@/lib/names";
 import { seasonHref } from "@/lib/publishedHref";
@@ -254,7 +255,9 @@ export function ClubThread({ points, reigns }: { points: FinishPoint[]; reigns: 
           <span className="ct-bead ct-bead--down" aria-hidden />
           Relegated
         </span>
-        <span className="text-ink-dim">The cord opens where there was no league · managers&rsquo; reigns run beneath · every point opens its season</span>
+        <KeyItem mark={<NoLeagueMark />}>no league</KeyItem>
+        <KeyItem mark={<ReignMark />}>managers&rsquo; reigns</KeyItem>
+        <span className="ml-auto text-ink-dim">Each point opens its season</span>
       </figcaption>
     </figure>
   );

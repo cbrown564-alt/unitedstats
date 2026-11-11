@@ -61,6 +61,10 @@ export function generateStaticParams() {
   return sampleStaticIds(sitemapOpponentIds()).map((id) => ({ id }));
 }
 
+/** "1994–1999", or a single year when a run sat inside one. */
+const yearSpan = (from: string, to: string) =>
+  from.slice(0, 4) === to.slice(0, 4) ? from.slice(0, 4) : `${from.slice(0, 4)}–${to.slice(0, 4)}`;
+
 export default async function OpponentPage({
   params,
 }: {
@@ -150,6 +154,14 @@ export default async function OpponentPage({
           }
           record={o}
           accent={accent}
+          secondary={[
+            ...(unbeaten && unbeaten.length >= 3
+              ? [{ value: fmtNum(unbeaten.length), label: "longest unbeaten", detail: yearSpan(unbeaten.from, unbeaten.to), tone: "text-win" }]
+              : []),
+            ...(winless && winless.length >= 3
+              ? [{ value: fmtNum(winless.length), label: "longest winless", detail: yearSpan(winless.from, winless.to) }]
+              : []),
+          ]}
           span={{
             leftLabel: "First met",
             left: <span className="stat-num text-ink">{o.first?.slice(0, 4)}</span>,

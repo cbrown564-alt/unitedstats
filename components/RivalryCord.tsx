@@ -1,3 +1,4 @@
+import { RivalryKey } from "@/components/glyphs/cord/KeyGlyphs";
 /**
  * A rivalry as one cord: it steps up for every United win and down for every
  * defeat, and holds for a draw, laid along real time from the first meeting
@@ -9,6 +10,7 @@
  * Server-rendered; drawn in a stretched 100-wide viewBox with strokes that keep
  * their pixel weight, like the match flow.
  */
+
 export interface RivalryMeeting {
   date: string;
   result: string;
@@ -127,16 +129,9 @@ export function RivalryCord({ meetings, opponent }: { meetings: RivalryMeeting[]
           </span>
         ))}
       </div>
-      <figcaption className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 text-[11px] text-ink-faint">
-        <span>
-          Up a step for each United win, down for each defeat.{" "}
-          {swaps.length > 0 ? (
-            <>Pale beads mark where the upper hand changed ({swaps.length}).</>
-          ) : (
-            <>The upper hand never changed.</>
-          )}
-        </span>
-        <span className="stat-num text-ink-dim">
+      <figcaption className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <RivalryKey swaps={swaps.length} />
+        <span className="stat-num text-[11px] text-ink-dim">
           Today: {bal === 0 ? "level" : `${bal > 0 ? "United" : opponent} ${signed(Math.abs(bal))}`}
         </span>
       </figcaption>

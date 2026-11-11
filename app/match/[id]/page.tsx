@@ -214,10 +214,10 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const goalsPanel = hasGoalsPanel ? (
     <div className="space-y-5">
       {hasTimedGoals && (
-        // On wide screens, hold the timeline to the lineup block's width (26 + gap
-        // + 16rem) and centre it, so the two read as one column rather than the bar
-        // sprawling the full page.
-        <section className="space-y-2 lg:mx-auto lg:max-w-[43.5rem]">
+        // On wide screens, hold the timeline to the lineup block's width (28 + gap
+        // + 18rem) on the same left edge as the tabs, so the flow and the teamsheet
+        // read as one column under them rather than an island in the middle.
+        <section className="space-y-2 lg:max-w-[47.5rem]">
           <MatchFlow unitedGoals={goals} opponentGoals={opponentGoals} aet={!!m.aet} eventPaths={eventPaths} />
           {!m.events_complete && (
             <p className="text-xs text-ink-dim">Goalscorer data for this match may be incomplete.</p>
@@ -225,7 +225,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
       {!hasTimedGoals && (goals.length > 0 || opponentGoals.length > 0) && (
-        <section className="mx-auto max-w-3xl space-y-5 lg:max-w-[43.5rem]">
+        <section className="max-w-3xl space-y-5 lg:max-w-[47.5rem]">
           {goals.length > 0 && (
             <div>
               <h2 className="display mb-2 text-xl">{club} goals</h2>
@@ -244,7 +244,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
       {goals.length === 0 && m.gf > 0 && (
-        <section className="mx-auto max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
+        <section className="max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
           <h2 className="display text-xl">Goalscorers</h2>
           <p className="mt-1 text-sm text-ink-dim">
             United scored {m.gf}, but this match does not yet have goalscorer events in the canonical record.
@@ -255,7 +255,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         </section>
       )}
       {opponentGoals.length === 0 && m.ga > 0 && (
-        <section className="mx-auto max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
+        <section className="max-w-2xl rounded-lg border border-line bg-panel px-4 py-3">
           <h2 className="display text-xl">{m.opponent_name} goals</h2>
           <p className="mt-1 text-sm text-ink-dim">
             {m.opponent_name} scored {m.ga}, but opposition goalscorer events are not recorded for this match yet.
@@ -271,9 +271,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   const teamsheetPanel = hasTeamsheet ? (
     canPitch ? (
       usedSubs.length > 0 || bench.length > 0 ? (
-        // No card; the column group centres on wide screens (justify-content,
-        // since the tracks are fixed-width) so it isn't marooned to the left.
-        <div className="grid items-start gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,26rem)_minmax(12rem,16rem)] lg:justify-center lg:gap-x-6">
+        // No card; the pitch and bench share the flow's left edge and width.
+        <div className="grid items-start gap-x-5 gap-y-5 lg:grid-cols-[minmax(0,28rem)_minmax(12rem,18rem)] lg:gap-x-6">
           <div>
             <h3 className="display mb-3 text-lg">Starting XI</h3>
             <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
@@ -281,7 +280,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
           <Bench used={usedSubs} unused={bench} decade={m.date.slice(0, 4)} marks={marks} />
         </div>
       ) : (
-        <div className="max-w-md lg:mx-auto">
+        <div className="max-w-md">
           <h3 className="display mb-3 text-lg">Starting XI</h3>
           <FormationPitch starters={starters} decade={m.date.slice(0, 4)} marks={marks} />
         </div>
@@ -429,7 +428,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   // left. The story column above (timeline/lineup) sits a touch tighter; both
   // centre on the same axis.
   const detailsPanel = (
-    <div className="mx-auto max-w-3xl">{matchDetailsBody}</div>
+    <div className="max-w-3xl">{matchDetailsBody}</div>
   );
 
   const contextBody = (
@@ -482,7 +481,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   );
 
   const contextPanel = (
-    <div className="mx-auto max-w-3xl">{contextBody}</div>
+    <div className="max-w-3xl">{contextBody}</div>
   );
 
   const sourcesBody = (
@@ -507,7 +506,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
   );
 
   const sourcesPanel = sources.length > 0 ? (
-    <div className="mx-auto max-w-3xl">{sourcesBody}</div>
+    <div className="max-w-3xl">{sourcesBody}</div>
   ) : null;
 
   return (
