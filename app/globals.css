@@ -1241,6 +1241,30 @@ select {
   }
 }
 
+/* Trophy and medal marks (`CampaignIcons`). Drawn as a mask over currentColor so
+   each mark is one element: /seasons alone shows ~120 of them, and React repeats
+   every node in the page payload. The masks are the cord glyphs at their
+   `cd-solid` tones (plate 0.42 x 1.8, cord at the 14px / 13px optical stroke). */
+@layer components {
+  .cd-mask {
+    display: inline-block;
+    flex-shrink: 0;
+    background-color: currentColor;
+    mask: var(--cd-mask) center / contain no-repeat;
+    forced-color-adjust: none;
+  }
+  .cd-mask--trophy {
+    --cd-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-opacity='.756' d='M6.4 3H17.6V8.6A5.6 5.6 0 0 1 6.4 8.6ZM8.6 19H15.4V21.6H8.6Z'/%3E%3Cpath fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='M6.4 4.8H3.6C3.6 8.8 5.8 11 9 11.6M17.6 4.8H20.4C20.4 8.8 18.2 11 15 11.6M12 14.2V19'/%3E%3C/svg%3E");
+    width: 14px;
+    height: 14px;
+  }
+  .cd-mask--medal {
+    --cd-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-opacity='.756' fill-rule='evenodd' d='M12 10A5.6 5.6 0 1 1 11.99 10ZM12 13A2.6 2.6 0 1 0 12.01 13Z'/%3E%3Cpath fill='none' stroke='%23000' stroke-width='2.58' stroke-linecap='round' stroke-linejoin='round' d='M6.6 2.6L12 10L17.4 2.6'/%3E%3C/svg%3E");
+    width: 13px;
+    height: 13px;
+  }
+}
+
 /* Season ledger (`SeasonLedgerGrid`, `FinishLadder`, `CupCell`). These repeat
    once per season on /seasons, so their utilities live here once instead of in
    every row's markup (and again in the page's flight payload). */

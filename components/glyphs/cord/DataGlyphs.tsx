@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Bead, Cord, CordSvg, Plate, Strand, opticalStroke, type CordBeadKind } from "@/components/glyphs/cord/primitives";
 
 /*
@@ -274,24 +275,53 @@ export function SeasonLapMini({
   };
   const pts = results.map((r, i) => at(start + (i / Math.max(1, n - 1)) * sweep, R + lift[r]));
   const knot = at(start + sweep + 9, R);
-  // Midpoint smoothing (quadratics through the beads' midpoints): smooth enough
-  // to read as a shape, and half the bytes of a cubic spline.
   const all = champions ? [...pts, knot] : pts;
-  let path = `M${t1(all[0][0])} ${t1(all[0][1])}`;
-  for (let i = 1; i < all.length - 1; i++) {
-    const [mx, my] = [(all[i][0] + all[i + 1][0]) / 2, (all[i][1] + all[i + 1][1]) / 2];
-    path += `Q${t1(all[i][0])} ${t1(all[i][1])} ${t1(mx)} ${t1(my)}`;
-  }
-  const last = all[all.length - 1];
-  path += `L${t1(last[0])} ${t1(last[1])}`;
   return (
     <CordSvg size={size} unit={80} viewBox="0 0 80 80" className={className} label={label}>
       <Strand d={`M${C} ${C - R}A${R} ${R} 0 1 1 ${C - 0.01} ${C - R}`} dashed />
-      {/* No needle-head twin: a hundred of these sit on one page. */}
-      <path className="cd-cord" d={path} pathLength={1} />
+      {/* No needle-head twin: a hundred of these sit on one page. The cord is
+          drawn at double scale so its path can use whole numbers (see lapPath),
+          with the stroke doubled to match. */}
+      <g transform="scale(.5)" style={{ "--cd-sw": r1(opticalStroke(size, 80) * 2) } as CSSProperties}>
+        <path className="cd-cord" d={lapPath(all)} pathLength={1} />
+      </g>
       {champions && <Bead cx={t1(knot[0])} cy={t1(knot[1])} r={6} t={1} />}
     </CordSvg>
   );
+}
+
+/**
+ * Midpoint smoothing (quadratics through the beads' midpoints): smooth enough to
+ * read as a shape, and half the bytes of a cubic spline. Coordinates are doubled
+ * and rounded to whole numbers (≤0.25 unit error, under 0.2px at lap size), then
+ * written relative to the previous point. /seasons draws ~125 laps and React
+ * repeats every path in its payload, so the path digits were a third of the page's
+ * compressed weight; whole relative numbers cut that by a fifth.
+ */
+function lapPath(all: Pt[]): string {
+  const q = (v: number) => Math.round(v * 2);
+  const seq: [number, number][] = [[q(all[0][0]), q(all[0][1])]];
+  for (let i = 1; i < all.length - 1; i++) {
+    seq.push([q(all[i][0]), q(all[i][1])]);
+    seq.push([q((all[i][0] + all[i + 1][0]) / 2), q((all[i][1] + all[i + 1][1]) / 2)]);
+  }
+  const last = all[all.length - 1];
+  seq.push([q(last[0]), q(last[1])]);
+
+  let out = `M${seq[0][0]} ${seq[0][1]}`;
+  let cur = seq[0];
+  const nums = (vals: number[]) => vals.map((v, i) => (i > 0 && v >= 0 ? ` ${v}` : `${v}`)).join("");
+  if (seq.length > 2) {
+    const qs: number[] = [];
+    for (let i = 1; i < seq.length - 1; i += 2) {
+      const [c, e] = [seq[i], seq[i + 1]];
+      qs.push(c[0] - cur[0], c[1] - cur[1], e[0] - cur[0], e[1] - cur[1]);
+      cur = e;
+    }
+    out += `q${nums(qs)}`;
+  }
+  const end = seq[seq.length - 1];
+  return `${out}l${nums([end[0] - cur[0], end[1] - cur[1]])}`;
 }
 
 // ---------------------------------------------------------------- loader

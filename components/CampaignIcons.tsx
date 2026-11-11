@@ -13,25 +13,15 @@ const CUP = "M6.4 3H17.6V8.6A5.6 5.6 0 0 1 6.4 8.6Z";
 const BASE = "M8.6 19H15.4V21.6H8.6Z";
 const HANDLES = "M6.4 4.8H3.6C3.6 8.8 5.8 11 9 11.6M17.6 4.8H20.4C20.4 8.8 18.2 11 15 11.6M12 14.2V19";
 
-/** Trophy for a won campaign: a solid cup, its handles and stem one cord. */
+/** Trophy for a won campaign: a solid cup, its handles and stem one cord. A CSS
+ * mask over currentColor (globals.css `.cd-mask--trophy`), so it costs one node. */
 export function TrophyIcon({ className = "" }: { className?: string }) {
-  return (
-    <CordSvg size={14} className={`cd-solid ${className}`}>
-      <Plate d={CUP} strong />
-      <Plate d={BASE} strong />
-      <Cord d={HANDLES} />
-    </CordSvg>
-  );
+  return <span aria-hidden className={`cd-mask cd-mask--trophy ${className}`} />;
 }
 
 /** Medal for a runners-up campaign: the near miss, hung from its ribbon. */
 export function MedalIcon({ className = "" }: { className?: string }) {
-  return (
-    <CordSvg size={13} className={`cd-solid ${className}`}>
-      <Plate d="M12 10A5.6 5.6 0 1 1 11.99 10ZM12 13A2.6 2.6 0 1 0 12.01 13Z" strong />
-      <Cord d="M6.6 2.6L12 10L17.4 2.6" />
-    </CordSvg>
-  );
+  return <span aria-hidden className={`cd-mask cd-mask--medal ${className}`} />;
 }
 
 /** Filled trophy for cabinet walls (manager detail, compare): the cup at full tone. */
