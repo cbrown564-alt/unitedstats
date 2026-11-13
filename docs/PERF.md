@@ -1,5 +1,32 @@
 # Performance
 
+## Astro + EmDash full build — 13 November 2026
+
+The first full-profile hybrid build (`CLOUDFLARE_ENV=production`, branch
+`emdash-migration`), on an 8-core Apple M1 with 16 GB, measured by `/usr/bin/time -l`
+around `scripts/build-site.mjs` (prebuild not included):
+
+| Measure | Astro hybrid | Next export (2026-11-10) |
+| --- | --- | --- |
+| Wall time | 5 min 52 s (`astro build` 5 min 50 s) | about 4 min |
+| Peak memory | 2.5 GB | not measured |
+| Files in `out/` | 11,271 | 25,893 |
+| `out/` size, after postbuild prune | 498 MB | 997 MB |
+| Prerendered outputs (`check:static`) | 10,516 | 10,429 routes |
+| Live-route replay record | 1,162 queries, 7.2 MB | none |
+| Worker upload | 20.0 MiB, 5.4 MiB gzip | static assets only |
+
+The output is about half the size because there is no RSC payload beside each page.
+The build is about 50% slower; most of the time goes to player pages at 0.5–1 s each.
+That fits easily in a GitHub runner (16 GB, 6 h). Revisit it only if deploys start to
+queue behind each other.
+
+`check:perf` now budgets only the chunks a prerendered page can load: those referenced
+from `out/**/*.html`, plus everything they import. The EmDash admin puts 106 chunks
+(17.5 MB raw; its plugin registry alone is 2.1 MB gzip) in `_astro/`. No page loads
+them, so the check lists them but does not budget them. The largest page chunk is the
+shared client at 55 KB gzip, and every HTML file is within 180 KB gzip.
+
 ## Current performance work — 10 November 2026
 
 **Integration scope:** the Lighthouse comparison below was captured before the

@@ -29,7 +29,7 @@
   "env": {
     "production": {
       "name": "unitedstats",
-      "workers_dev": true,
+      "workers_dev": false,
       "routes": [
         { "pattern": "utdred.com", "custom_domain": true },
         { "pattern": "www.utdred.com", "custom_domain": true }

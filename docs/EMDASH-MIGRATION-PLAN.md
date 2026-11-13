@@ -3,7 +3,8 @@
 Status: **Phases 0–2 done** (2026-11-13; findings and the Phase 1 approach in
 [ADR 0006](adr/0006-move-to-astro-for-emdash.md)). The EmDash Worker runs on
 `unitedstats-migration-preview`, with admin set up and the seed loaded. Publishes snapshot
-to git only once the publish workflow is on `master` (Phase 3).
+to git only once the publish workflow is on `master` (Phase 3). Phase 3 branch prep is
+done; the cutover needs the maintainer.
 Supersedes the *conclusion* of
 [ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md), not its measurements.
 
@@ -357,17 +358,69 @@ since `emdash-migration` branched.
      The maintainer resolves it before the docs change lands.
 8. **Open the PR** from `emdash-migration` with CI green.
 
+#### Prep as built (2026-11-13)
+
+- **Packaging.** `scripts/package-assets.mjs` runs at the end of every build. It
+  writes `out/_redirects` from `vercel.json` and merges the API, data and noindex rules
+  into the adapter's `out/_headers`. `_headers` covers only static files, so the
+  Worker sends noindex itself unless `SITE_INDEXABLE` is `"true"`. On the preview:
+  noindex is on every response, all 12 legacy redirects answer 308, and the `/api/*`
+  CORS headers are back.
+- **Config.** The plan had production at the top level; it went the other way. The
+  preview is the default and production is `env.production`, so a build without
+  `CLOUDFLARE_ENV` can never ship to utdred.com. Production sets
+  `workers_dev: false`, so there is no indexable workers.dev copy.
+  `@astrojs/cloudflare` flattens the chosen environment into
+  `dist/server/wrangler.json`, which was verified for both targets.
+- **Full build.** 5 min 52 s, 2.5 GB peak memory, 11,271 files, 498 MB (`PERF.md`).
+  `check:static` now requires each live route to have its twin and no prerendered file
+  shadowing it. `check:perf` budgets only the chunks a page can load, because the
+  admin's bundles exceed the visitor budget.
+- **Checks.** `scripts/check-worker-config.mjs` checks a build against its target.
+  `--deployable` also requires the D1 and KV IDs: without them, Wrangler would create
+  new, empty resources. `--smoke <origin>` checks a deployed site: live render,
+  indexing and the redirects. `wrangler deploy --dry-run` passes for production
+  without the IDs, so CI runs it before the resources exist.
+- **Workflows.**
+  - `deploy.yml` runs on a push to master, by hand, and through `workflow_call`.
+  - `update-results`, `enrich-results` and `publish-editorial` call it with their
+    pushed commit, even when a later step fails.
+  - The Cloudflare token lives in a GitHub environment, `production`, so nothing
+    deploys until that environment exists.
+  - `publish-editorial` reads production D1 (`--env production`) and runs nightly at
+    03:30 UTC.
+- **Scripts.**
+  - `dev` runs `astro dev`; `dev:next` keeps Next.
+  - `start` serves the built Worker.
+  - `deploy:preview` checks, then deploys a default build.
+  - `deploy:cloudflare-preview` and `check:cloudflare` are gone: the first would now
+    overwrite the EmDash preview with the Next build.
+- **Docs.** `PIPELINE.md` (Deploy), `README.md`, `docs/README.md`, `AGENTS.md` and
+  `PERF.md` are updated. `ARCHITECTURE.md` carries a banner only. The full rewrite
+  waits for the maintainer's merge conflict in the main checkout.
+
 #### Cutover (maintainer present, ~1 hour)
 
 1. **Note the current production version** (`wrangler deployments list --name
    unitedstats`) as the rollback target. Tag `master` as `pre-astro-cutover`.
 2. **Create the production resources and secrets.**
-   - Resources: `redthread-editorial`, `redthread-media`, `redthread-session`.
-   - Secrets: a new `EMDASH_ENCRYPTION_KEY`, backed up locally the same way as the
-     preview's, and a new `SETUP_TOKEN`.
-3. **Merge the PR, and deploy** (the workflow, or by hand the first time). Until
-   setup runs, the live routes serve their deploy-time twins (`unseeded`), so visitors
-   see no change.
+   - Resources: `redthread-editorial`, `redthread-media`, `redthread-session`. Put
+     the D1 `database_id` and the KV `id` into `env.production` in `wrangler.jsonc`
+     and commit them to the branch. `check-worker-config.mjs --deployable` refuses
+     a deploy without them.
+   - Worker secrets: a new `EMDASH_ENCRYPTION_KEY`, backed up locally the same way as
+     the preview's, and a new `SETUP_TOKEN`
+     (`wrangler secret put … --env production`).
+   - GitHub:
+     - a `production` environment holding `CLOUDFLARE_API_TOKEN` (Workers scripts,
+       routes and custom domains on utdred.com, plus D1, R2 and KV);
+     - repository secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_D1_EXPORT_TOKEN`
+       (D1 read, for the publish snapshot).
+
+     These must exist before the merge, because the merge deploys.
+3. **Merge the PR.** The push runs `deploy.yml`: build, config check, deploy, smoke
+   test. Until setup runs, the live routes serve their deploy-time twins (`unseeded`),
+   so visitors see no change.
 4. **Admin setup on `https://utdred.com/_emdash/admin/setup`**, through the token
    gate. Include the content. The passkey is for `utdred.com`.
 5. **Smoke test.**
@@ -378,7 +431,6 @@ since `emdash-migration` branched.
      headers and OG images.
    - An Umami pageview. The Google verification TXT record is untouched.
 6. **Wire publishing.**
-   - GitHub secrets for the workflows.
    - In the admin, the record-guard plugin's `githubRepo` and a fine-grained
      `githubToken`: this repository only, Contents read and write. The maintainer
      enters it.

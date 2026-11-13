@@ -29,14 +29,19 @@ if (!existsSync(exportDir)) {
 }
 
 const failures = [];
-const html = checkGzipBudget(walk(exportDir, (file) => file.endsWith(".html")), budgets.htmlGzip, "HTML");
-const js = checkGzipBudget(walk(chunksDir, (file) => file.endsWith(".js")), budgets.jsChunkGzip, "JS chunk");
+const htmlFiles = walk(exportDir, (file) => file.endsWith(".html"));
+const html = checkGzipBudget(htmlFiles, budgets.htmlGzip, "HTML");
+// Budget the chunks a page can load. The EmDash admin's bundles also land in
+// _astro/, but only the Worker-rendered admin loads them.
+const { pageChunks, otherChunks } = splitChunks(htmlFiles, walk(chunksDir, (file) => file.endsWith(".js")));
+const js = checkGzipBudget(pageChunks, budgets.jsChunkGzip, "JS chunk");
 const exportOutput = sumBytes(exportDir);
 
 if (exportOutput > budgets.exportOutput) failures.push(`export output ${fmt(exportOutput)} exceeds budget ${fmt(budgets.exportOutput)}`);
 
 printTop("HTML gzip", html);
 printTop("JS chunk gzip", js);
+console.log(`JS chunks no page loads (admin): ${otherChunks.length}, ${fmt(otherChunks.reduce((n, f) => n + statSync(f).size, 0))} raw, not budgeted`);
 console.log(`export output (${profile}): ${fmt(exportOutput)} (budget ${fmt(budgets.exportOutput)})`);
 
 if (failures.length > 0) {
@@ -76,6 +81,24 @@ function walk(dir, include, out = []) {
     else if (include(file)) out.push(file);
   }
   return out;
+}
+
+/** Chunks a prerendered page references, plus everything they import, statically or not. */
+function splitChunks(pages, chunks) {
+  const reachable = new Set();
+  const queue = [];
+  const visit = (name) => {
+    const file = path.join(chunksDir, name);
+    if (reachable.has(file) || !existsSync(file)) return;
+    reachable.add(file);
+    queue.push(file);
+  };
+  for (const page of pages) for (const [, name] of readFileSync(page, "utf8").matchAll(/\/_astro\/([\w.~-]+\.js)/g)) visit(name);
+  while (queue.length) {
+    const source = readFileSync(queue.pop(), "utf8");
+    for (const [, name] of source.matchAll(/["'`](?:\.\/|\/_astro\/)([\w.~-]+\.js)["'`]/g)) visit(name);
+  }
+  return { pageChunks: chunks.filter((f) => reachable.has(f)), otherChunks: chunks.filter((f) => !reachable.has(f)) };
 }
 
 function checkGzipBudget(files, limit, label) {

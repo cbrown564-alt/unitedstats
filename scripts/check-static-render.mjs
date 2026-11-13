@@ -5,7 +5,7 @@
  *
  *   npm run build && npm run check:static
  */
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 // Pages that must be statically prerendered (one out/<path>.html each).
@@ -76,7 +76,16 @@ const pages = outputs.filter((f) => f.endsWith(".html")).map((f) => "/" + f.repl
 const paths = new Set(pages.map((p) => (p === "/index" ? "/" : p)));
 const failures = [];
 
+// Live routes render on the Worker (src/rt/live-routes.json). A prerendered
+// file at their path would be served first and freeze the live page, so each
+// must have only its twin at /live-snapshot/<name>.
+const live = JSON.parse(readFileSync(path.join(process.cwd(), "src", "rt", "live-routes.json"), "utf8"));
+for (const [route, name] of Object.entries(live)) {
+  if (paths.has(route) || paths.has(`${route === "/" ? "" : route}/index`)) failures.push(`live route shadowed by a prerendered file: ${route}`);
+  if (!paths.has(`/live-snapshot/${name}`)) failures.push(`live route has no prerendered twin: ${route} (/live-snapshot/${name})`);
+}
 for (const r of EXPECTED_STATIC) {
+  if (r in live) continue;
   if (!paths.has(r)) failures.push(`static page not prerendered: ${r}`);
 }
 for (const r of EXPECTED_SSG) {
@@ -97,6 +106,7 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `✓ static-render guard (${buildProfile()}): ${EXPECTED_STATIC.length} static pages, ` +
+  `✓ static-render guard (${buildProfile()}): ${Object.keys(live).length} live routes with twins, ` +
+    `${EXPECTED_STATIC.filter((r) => !(r in live)).length} static pages, ` +
     `${EXPECTED_SSG.length} SSG routes, ${paths.size} pages, ${count} prerendered outputs.`,
 );
