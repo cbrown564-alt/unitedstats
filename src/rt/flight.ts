@@ -14,7 +14,7 @@
 import * as React from "react";
 import { Fragment, Suspense, createElement, isValidElement, type ReactElement, type ReactNode } from "react";
 
-export const CLIENT_REF = "$$rtClient";
+const CLIENT_REF = "$$rtClient";
 
 const REACT_MEMO = Symbol.for("react.memo");
 const REACT_FORWARD_REF = Symbol.for("react.forward_ref");
@@ -42,7 +42,7 @@ type Dispatcher = Record<string, unknown>;
 const internals = (React as unknown as Record<string, { H: Dispatcher | null }>)
   .__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE;
 
-export type ResolveContext = { ids: number };
+export type ResolveContext = { ids: number; values?: Map<object, Promise<unknown>> };
 
 function serverDispatcher(ctx: ResolveContext, name: string): Dispatcher {
   const unsupported = (hook: string) => () => {
@@ -149,18 +149,34 @@ async function resolveProps(props: AnyProps, ctx: ResolveContext, path: string):
   return out;
 }
 
-/** Props may hold elements anywhere (arrays of rows with a JSX cell, etc.). */
-async function resolveValue(v: unknown, ctx: ResolveContext, path: string): Promise<unknown> {
+/**
+ * Props may hold elements anywhere (arrays of rows with a JSX cell, etc.). A value
+ * with no element inside comes back as the same object, and each object resolves
+ * once per tree, so data shared between props stays shared (encodeTree writes it once).
+ */
+function resolveValue(v: unknown, ctx: ResolveContext, path: string): Promise<unknown> | unknown {
   if (v == null || typeof v !== "object") return v;
   if (isValidElement(v) || v instanceof Promise) return resolveNode(v, ctx, path);
-  if (Array.isArray(v)) return Promise.all(v.map((x, i) => resolveValue(x, ctx, `${path}[${i}]`)));
-  if (Object.getPrototypeOf(v) === Object.prototype) {
+  const plain = Array.isArray(v) || Object.getPrototypeOf(v) === Object.prototype;
+  if (!plain) return v;
+  const memo = (ctx.values ??= new Map());
+  const hit = memo.get(v);
+  if (hit) return hit;
+  const done = (async () => {
+    if (Array.isArray(v)) {
+      const items = await Promise.all(v.map((x, i) => resolveValue(x, ctx, `${path}[${i}]`)));
+      return items.every((x, i) => x === v[i]) ? v : items;
+    }
     const o = v as Record<string, unknown>;
+    const keys = Object.keys(o);
+    const vals = await Promise.all(keys.map((k) => resolveValue(o[k], ctx, `${path}.${k}`)));
+    if (vals.every((x, i) => x === o[keys[i]!])) return v;
     const out: Record<string, unknown> = {};
-    await Promise.all(Object.keys(o).map(async (k) => void (out[k] = await resolveValue(o[k], ctx, `${path}.${k}`))));
+    keys.forEach((k, i) => void (out[k] = vals[i]));
     return out;
-  }
-  return v;
+  })();
+  memo.set(v, done);
+  return done;
 }
 
 function cloneWith(el: ReactElement<AnyProps>, props: AnyProps): ReactElement {
@@ -178,43 +194,94 @@ function cloneWith(el: ReactElement<AnyProps>, props: AnyProps): ReactElement {
 //   ["$M", [[k, v], …]]       Map
 //   ["$T", [v, …]]            Set
 //   ["$a", ...items]          an array whose first item is a "$…" string
+//   ["$R", index]             the value at refs[index] (shared, written once)
 // ---------------------------------------------------------------------------
 
-export function encodeTree(v: unknown, path = "root"): unknown {
-  if (v === undefined) return ["$u"];
-  if (v === null || typeof v === "boolean" || typeof v === "string") return v;
-  if (typeof v === "number") {
-    if (Number.isNaN(v)) return ["$n", "NaN"];
-    if (!Number.isFinite(v)) return ["$n", v > 0 ? "Infinity" : "-Infinity"];
-    if (Object.is(v, -0)) return ["$n", "-0"];
-    return v;
+/** Plain objects and arrays reached more than once are written once, as `refs`. */
+function isShareable(v: unknown): v is object {
+  if (v === null || typeof v !== "object" || isValidElement(v)) return false;
+  return Array.isArray(v) || Object.getPrototypeOf(v) === Object.prototype;
+}
+
+function countShared(v: unknown, seen: Map<object, number>): void {
+  if (v === null || typeof v !== "object") return;
+  if (isShareable(v)) {
+    const n = seen.get(v) ?? 0;
+    seen.set(v, n + 1);
+    if (n > 0) return; // already walked
   }
-  if (typeof v === "function") {
-    const id = clientId(v);
-    if (id) return ["$r", id];
-    throw new Error(`Function prop "${v.name || "anonymous"}" passed to a client component at ${path}`);
-  }
-  if (typeof v !== "object") throw new Error(`Cannot serialize ${typeof v} at ${path}`);
-  if (Array.isArray(v)) {
-    const items = v.map((x, i) => encodeTree(x, `${path}[${i}]`));
-    return typeof items[0] === "string" && items[0].startsWith("$") ? ["$a", ...items] : items;
-  }
-  if (v instanceof Date) return ["$D", v.toISOString()];
   if (isValidElement(v)) {
-    const el = v as ReactElement<AnyProps>;
-    const id = clientId(el.type);
-    const type =
-      typeof el.type === "string" ? el.type : el.type === Fragment ? "$F" : el.type === Suspense ? "$S" : id ? ["$c", id] : null;
-    if (type == null) throw new Error(`Unresolved element <${describe(el.type)}> at ${path}`);
-    const props: Record<string, unknown> = {};
-    for (const k of Object.keys(el.props ?? {})) props[k] = encodeTree(el.props[k], `${path}.${k}`);
-    return ["$e", type, el.key ?? null, props];
-  }
-  if (v instanceof Map) return ["$M", [...v].map(([k, x], i) => [encodeTree(k, `${path}<k${i}>`), encodeTree(x, `${path}<${i}>`)])];
-  if (v instanceof Set) return ["$T", [...v].map((x, i) => encodeTree(x, `${path}<${i}>`))];
-  const out: Record<string, unknown> = {};
-  for (const k of Object.keys(v as object)) out[k] = encodeTree((v as Record<string, unknown>)[k], `${path}.${k}`);
-  return out;
+    const props = (v as ReactElement<AnyProps>).props ?? {};
+    for (const k of Object.keys(props)) countShared(props[k], seen);
+  } else if (Array.isArray(v)) for (const x of v) countShared(x, seen);
+  else if (v instanceof Map) for (const [k, x] of v) (countShared(k, seen), countShared(x, seen));
+  else if (v instanceof Set) for (const x of v) countShared(x, seen);
+  else if (!(v instanceof Date)) for (const x of Object.values(v)) countShared(x, seen);
+}
+
+/**
+ * Encode a resolved tree. Returns `{ tree, refs }`: a value used in more than one
+ * place (the same rows handed to a mobile and a desktop chart) is encoded once in
+ * `refs` and pointed at with `["$R", index]`, as React's flight format does.
+ */
+export function encodeTree(root: unknown): { tree: unknown; refs: unknown[] } {
+  const seen = new Map<object, number>();
+  countShared(root, seen);
+  const index = new Map<object, number>();
+  const refs: unknown[] = [];
+
+  const enc = (v: unknown, path: string): unknown => {
+    if (isShareable(v) && (seen.get(v) ?? 0) > 1) {
+      let i = index.get(v);
+      if (i === undefined) {
+        i = refs.length;
+        index.set(v, i);
+        refs.push(null);
+        refs[i] = encodeValue(v, path);
+      }
+      return ["$R", i];
+    }
+    return encodeValue(v, path);
+  };
+
+  const encodeValue = (v: unknown, path: string): unknown => {
+    if (v === undefined) return ["$u"];
+    if (v === null || typeof v === "boolean" || typeof v === "string") return v;
+    if (typeof v === "number") {
+      if (Number.isNaN(v)) return ["$n", "NaN"];
+      if (!Number.isFinite(v)) return ["$n", v > 0 ? "Infinity" : "-Infinity"];
+      if (Object.is(v, -0)) return ["$n", "-0"];
+      return v;
+    }
+    if (typeof v === "function") {
+      const id = clientId(v);
+      if (id) return ["$r", id];
+      throw new Error(`Function prop "${v.name || "anonymous"}" passed to a client component at ${path}`);
+    }
+    if (typeof v !== "object") throw new Error(`Cannot serialize ${typeof v} at ${path}`);
+    if (Array.isArray(v)) {
+      const items = v.map((x, i) => enc(x, `${path}[${i}]`));
+      return typeof items[0] === "string" && items[0].startsWith("$") ? ["$a", ...items] : items;
+    }
+    if (v instanceof Date) return ["$D", v.toISOString()];
+    if (isValidElement(v)) {
+      const el = v as ReactElement<AnyProps>;
+      const id = clientId(el.type);
+      const type =
+        typeof el.type === "string" ? el.type : el.type === Fragment ? "$F" : el.type === Suspense ? "$S" : id ? ["$c", id] : null;
+      if (type == null) throw new Error(`Unresolved element <${describe(el.type)}> at ${path}`);
+      const props: Record<string, unknown> = {};
+      for (const k of Object.keys(el.props ?? {})) props[k] = enc(el.props[k], `${path}.${k}`);
+      return ["$e", type, el.key ?? null, props];
+    }
+    if (v instanceof Map) return ["$M", [...v].map(([k, x], i) => [enc(k, `${path}<k${i}>`), enc(x, `${path}<${i}>`)])];
+    if (v instanceof Set) return ["$T", [...v].map((x, i) => enc(x, `${path}<${i}>`))];
+    const out: Record<string, unknown> = {};
+    for (const k of Object.keys(v as object)) out[k] = enc((v as Record<string, unknown>)[k], `${path}.${k}`);
+    return out;
+  };
+
+  return { tree: enc(root, "root"), refs };
 }
 
 /** Inline-safe JSON for a `<script type="application/json">` body. */

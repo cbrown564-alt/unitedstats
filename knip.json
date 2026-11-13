@@ -8,9 +8,15 @@
     "components/mobile/DetailSectionTabs.tsx",
     "cloudflare.config.ts",
     "wrangler.config.ts",
-    "deploy/cloudflare-worker.ts"
+    "deploy/cloudflare-worker.ts",
+    "src/pages/**/*.{astro,ts}",
+    "src/rt/client.tsx",
+    "src/shims/*.{ts,tsx}"
   ],
   "ignoreBinaries": [
     "ffmpeg"
+  ],
+  "ignore": [
+    ".astro/**"
   ]
 }

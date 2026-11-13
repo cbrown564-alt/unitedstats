@@ -31,7 +31,7 @@ function walk(dir, out) {
   }
 }
 
-export function scanClientModules(root) {
+function scanClientModules(root) {
   const files = [];
   for (const d of SCAN_DIRS) walk(join(root, d), files);
   return files.map((f) => relative(root, f).split(sep).join("/")).sort();

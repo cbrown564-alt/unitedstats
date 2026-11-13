@@ -10,28 +10,29 @@ import { nextParams } from "./routes";
 
 export { staticPaths } from "./routes";
 
-type Handler = (
+// `P` is the route's own params shape; Astro's params for the same pattern fill it.
+type Handler<P> = (
   request: Request,
-  ctx: { params: Promise<Record<string, string>> },
+  ctx: { params: Promise<P> },
 ) => Response | Promise<Response>;
 
-export function routeHandler(mod: { GET?: Handler }): APIRoute {
+export function routeHandler<P>(mod: { GET?: Handler<P> }): APIRoute {
   return async ({ request, params }) => {
     if (!mod.GET) return new Response(null, { status: 405 });
-    return mod.GET(request, { params: Promise.resolve(nextParams(params)) });
+    return mod.GET(request, { params: Promise.resolve(nextParams(params) as P) });
   };
 }
 
-type OgModule = {
+type OgModule<P> = {
   default: (props: {
-    params: Promise<Record<string, string>>;
+    params: Promise<P>;
   }) => Promise<Response | ReactElement> | Response | ReactElement;
 };
 
-export function ogImageHandler(mod: OgModule): APIRoute {
+export function ogImageHandler<P>(mod: OgModule<P>): APIRoute {
   return async ({ params }) => {
     const out = await mod.default({
-      params: Promise.resolve(nextParams(params)),
+      params: Promise.resolve(nextParams(params) as P),
     });
     if (out instanceof Response) return out;
     const { ImageResponse } = await import("@/src/shims/next-og");

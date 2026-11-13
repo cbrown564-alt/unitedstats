@@ -18,9 +18,7 @@ const getSearch = () => location.search;
 
 export function useSearchParams(): URLSearchParams {
   if (isServer) throw new BailoutToClient();
-  // eslint-disable-next-line react-hooks/rules-of-hooks -- the server branch always throws
   const search = useSyncExternalStore(subscribeLocation, getSearch, getSearch);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemo(() => new URLSearchParams(search), [search]);
 }
 

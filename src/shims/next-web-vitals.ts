@@ -4,7 +4,9 @@ import { onCLS, onFCP, onINP, onLCP, onTTFB, type Metric } from "web-vitals";
 
 export function useReportWebVitals(report: (metric: Metric) => void): void {
   const ref = useRef(report);
-  ref.current = report;
+  useEffect(() => {
+    ref.current = report;
+  });
   useEffect(() => {
     const cb = (m: Metric) => ref.current(m);
     onCLS(cb);

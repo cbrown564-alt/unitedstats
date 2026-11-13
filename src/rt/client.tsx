@@ -9,9 +9,11 @@ import { clientModules } from "virtual:rt-client-modules";
 import { CSR_BAILOUT, NavContext, navigate, type NavState } from "./nav";
 
 type Encoded = unknown;
-type Payload = { nav: NavState; tree: Encoded };
+type Payload = { nav: NavState; tree: Encoded; refs?: Encoded[] };
 
 const loaded = new Map<string, unknown>();
+let refs: Encoded[] = [];
+const decodedRefs = new Map<number, unknown>();
 
 function collectIds(v: Encoded, out: Set<string>): void {
   if (!Array.isArray(v)) {
@@ -56,6 +58,11 @@ function decode(v: Encoded): unknown {
     return v;
   }
   switch (v[0]) {
+    case "$R": {
+      const i = v[1] as number;
+      if (!decodedRefs.has(i)) decodedRefs.set(i, decode(refs[i]));
+      return decodedRefs.get(i);
+    }
     case "$e": {
       const [, t, key, rawProps] = v as [string, unknown, string | null, Record<string, Encoded>];
       const type = t === "$F" ? Fragment : t === "$S" ? Suspense : Array.isArray(t) ? ref(t[1] as string) : (t as string);
@@ -102,7 +109,9 @@ async function main(): Promise<void> {
   if (!script || !root) return;
   const payload = JSON.parse(script.textContent ?? "null") as Payload;
   const ids = new Set<string>();
+  refs = payload.refs ?? [];
   collectIds(payload.tree, ids);
+  collectIds(refs, ids);
   await Promise.all([...ids].map(load));
   const tree = decode(payload.tree) as ReactNode;
   interceptSamePathLinks();

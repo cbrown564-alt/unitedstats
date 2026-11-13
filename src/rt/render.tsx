@@ -9,7 +9,7 @@ import NotFoundPage, { metadata as notFoundMetadata } from "@/app/not-found";
 import { ProductAnalytics } from "@/components/ProductAnalytics";
 import { SiteShell } from "@/components/SiteShell";
 import { encodeTree, payloadJson, resolveTree } from "./flight";
-import { renderHead, resolveHead, type Metadata, type OgFile } from "./metadata";
+import { renderHead, resolveHead, type Metadata } from "./metadata";
 import { CSR_BAILOUT, NavContext, NotFoundSignal, RedirectSignal, type NavState } from "./nav";
 import { ogFilesFor } from "./og-files";
 import { nextParams } from "./routes";
@@ -59,7 +59,7 @@ async function build(route: string, nav: NavState, meta: Metadata, page: ReactNo
     status,
     head: renderHead(resolveHead(rootMetadata as Metadata, meta, og, { rootSegment: route === "/", notFound: status === 404 })),
     html,
-    payload: payloadJson({ nav, tree: encodeTree(tree) }),
+    payload: payloadJson({ nav, ...encodeTree(tree) }),
     chromeOff: nav.pathname.startsWith("/stories/"),
   };
 }
@@ -86,5 +86,3 @@ export async function renderPage(
     throw error;
   }
 }
-
-export type { OgFile };

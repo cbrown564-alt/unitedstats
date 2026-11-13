@@ -20,7 +20,6 @@ const OG_ROUTES: Record<string, { hash: string; alt: string }> = {
   "/stories/[slug]": { hash: "c3eccacf1cd3e3fd", alt: "Red Thread story — Manchester United history, evidenced" },
 };
 
-export const OG_IMAGE_ROUTES = Object.keys(OG_ROUTES);
 
 const file = (route: string, path: string): OgFile => ({
   path: path === "/" ? "/opengraph-image" : `${path}/opengraph-image`,

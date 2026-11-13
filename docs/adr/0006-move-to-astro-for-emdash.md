@@ -43,6 +43,40 @@ Astro 7 on the Cloudflare adapter, with EmDash on D1 and R2 in the same Worker.
    on the preview and production hostnames happens with the maintainer present, before
    either URL is shared (Phase 3).
 
+## Phase 1 approach: keep the App Router pages, replace the runtime (2026-11-13)
+
+The plan budgeted Phase 1 as island splits: every React server tree that nests a client
+component would be cut around it, and async server components would move into `.astro`
+frontmatter. We did not do that. The pages in `app/` stay as they are, and a small runtime in
+`src/rt/` does the job Next's RSC renderer did:
+
+- `src/rt/flight.ts` walks the page tree on the server, calling server components (and
+  awaiting async ones) until only host elements and client components remain. Server
+  components get a dispatcher with the hooks RSC allows (`useId`, `useMemo`, `use`, …).
+- The `rt-client-refs` Vite plugin tags each export of a `"use client"` module, which is where
+  the walk stops, and generates the browser's lazy-import table.
+- The resolved tree is rendered to HTML and also encoded into the page as JSON. The browser
+  (`src/rt/client.tsx`) decodes it and hydrates **one** React root. Context providers that wrap
+  server children (`MatchCorrection`, `MatchesCatalog`) keep working, which island splits
+  would have broken.
+- `src/rt/metadata.ts` reproduces Next's metadata merge (title templates, openGraph
+  replacement, own-segment OG images, twitter inheritance), so heads match byte for byte.
+- `next/link`, `next/navigation`, `next/dynamic`, `next/image`, `next/og` and
+  `next/web-vitals` are aliased to shims in `src/shims/`. Navigation is a plain MPA with
+  speculation-rules prefetch and a CSS cross-document view transition. Same-path query
+  changes (`/matches` filters, sorts) stay in the page.
+- `scripts/astro/generate-routes.mjs` writes `src/pages/` from `app/`: one thin `.astro`
+  wrapper per page, and an endpoint per route handler, OG image, sitemap, robots and icon.
+
+Why: it turned an 87-file audit into about 1,400 lines of runtime, shims and route generator, and parity became
+something a script can check (path set, head tags, visible text), not a judgement call. The
+cost is that the shims and the runtime are ours to maintain. Pages can still move to native
+`.astro` one at a time where that pays, starting with the EmDash-backed pages in Phase 2.
+
+Measured on the preview profile: the home page ships 368 KB against Next's 418 KB, and the
+only text or head differences are accepted ones (the dev pages now render the not-found page,
+`/questions` is an Astro redirect page, and `/surprise` picks at random).
+
 ## Consequences
 
 - EmDash owns editorial content only. Facts stay in `data/canonical/`.

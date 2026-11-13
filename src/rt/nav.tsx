@@ -51,7 +51,7 @@ export function subscribeLocation(cb: () => void): () => void {
   };
 }
 
-export function notifyLocation(): void {
+function notifyLocation(): void {
   for (const cb of listeners) cb();
 }
 

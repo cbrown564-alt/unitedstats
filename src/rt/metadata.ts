@@ -39,7 +39,6 @@ export type Metadata = {
   [k: string]: unknown;
 };
 
-export type Viewport = { themeColor?: string; [k: string]: unknown };
 
 export type OgFile = { path: string; hash: string; alt?: string; size?: { width: number; height: number }; contentType?: string };
 
