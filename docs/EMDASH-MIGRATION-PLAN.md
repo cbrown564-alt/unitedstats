@@ -1,6 +1,9 @@
 # Astro + EmDash migration plan
 
-Status: **Phase 0 done** (2026-11-13; findings in [ADR 0006](adr/0006-move-to-astro-for-emdash.md)). Phase 1 in progress. Supersedes the *conclusion* of
+Status: **Phase 0 and Phase 1 done** (2026-11-13; findings and the Phase 1 approach in
+[ADR 0006](adr/0006-move-to-astro-for-emdash.md)). The Astro build is live, static, on
+`unitedstats-migration-preview`. Phase 2 in progress: the Tier 1 registries read
+`content/emdash/seed.json`. Supersedes the *conclusion* of
 [ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md), not its measurements.
 
 ## Why now, when ADR 0005 said stay

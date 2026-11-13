@@ -38,9 +38,10 @@ const EXPECTED_SSG = [
   "/stories/[slug]",
 ];
 
-// A floor on total prerendered paths so a wholesale collapse to dynamic is
-// caught even if the named routes happen to survive. The campaign produces
-// ~7,400; 5,000 leaves room for data growth/shrinkage without false alarms.
+// A floor on total prerendered outputs (pages, API JSON, OG images and other
+// endpoints; files copied from public/ and the _astro bundle excluded) so a
+// wholesale collapse to dynamic is caught even if the named routes survive.
+// The full build produces ~10,400; 5,000 leaves room for data growth.
 // Preview builds sample ~24 paths per heavy route (~200 total) for fast deploys.
 function buildProfile() {
   const explicit = process.env.UNITEDSTATS_BUILD_PROFILE;
@@ -56,14 +57,22 @@ if (!existsSync(out)) {
   process.exit(1);
 }
 
-const pages = [];
-(function walk(dir) {
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    const file = path.join(dir, entry.name);
-    if (entry.isDirectory()) walk(file);
-    else if (entry.name.endsWith(".html")) pages.push("/" + path.relative(out, file).split(path.sep).join("/").replace(/\.html$/, ""));
-  }
-})(out);
+function files(root) {
+  const found = [];
+  (function walk(dir) {
+    if (!existsSync(dir)) return;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const file = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(file);
+      else found.push(path.relative(root, file).split(path.sep).join("/"));
+    }
+  })(root);
+  return found;
+}
+
+const copied = new Set(files(path.join(process.cwd(), "public")));
+const outputs = files(out).filter((f) => !f.startsWith("_astro/") && !copied.has(f));
+const pages = outputs.filter((f) => f.endsWith(".html")).map((f) => "/" + f.replace(/\.html$/, ""));
 const paths = new Set(pages.map((p) => (p === "/index" ? "/" : p)));
 const failures = [];
 
@@ -75,7 +84,7 @@ for (const r of EXPECTED_SSG) {
   if (![...paths].some((p) => p.startsWith(prefix + "/"))) failures.push(`SSG route has no pages (dropped generateStaticParams?): ${r}`);
 }
 
-const count = paths.size;
+const count = outputs.length;
 if (count < MIN_PRERENDERED) {
   failures.push(`only ${count} prerendered paths (expected >= ${MIN_PRERENDERED})`);
 }
@@ -89,5 +98,5 @@ if (failures.length > 0) {
 
 console.log(
   `✓ static-render guard (${buildProfile()}): ${EXPECTED_STATIC.length} static pages, ` +
-    `${EXPECTED_SSG.length} SSG routes, ${count} prerendered paths.`,
+    `${EXPECTED_SSG.length} SSG routes, ${paths.size} pages, ${count} prerendered outputs.`,
 );
