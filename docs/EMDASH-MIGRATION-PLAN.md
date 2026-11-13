@@ -240,14 +240,13 @@ references record IDs and renders the existing component. The facts asserted in
 - **Cost.** It should fit the free tier at current traffic. Sandboxed (third-party)
   plugins need Workers Paid ($5/mo); our own plugin is native.
 
-## Decisions needed
+## Decisions (2026-11-13)
 
-1. **Who edits?** If it is only the maintainer, roles and moderation stay minimal. If it
-   includes collaborators, add the Editor or Contributor workflow and review before
-   publish.
-2. **Publish model.** Use the recommended live SSR on four editorial routes plus a
-   snapshot deploy, or keep fully static with publish → rebuild. The fully static option
-   is simpler and has no runtime DB on public pages, but every edit waits a full build
-   (~minutes), and previews still need SSR.
-3. **Are story bodies in scope (Phase 4)?**
-4. **Timing** against the pre-Reddit launch fixes.
+1. **Editors: the maintainer only.** One Administrator account; no Editor or Contributor
+   workflow, no pre-publish review queue. The record-guard plugin and the publish
+   workflow are the review.
+2. **Publish model: the recommended hybrid.** Live SSR on `/`, `/explore`, `/stories`
+   and `/compare`; everything else prerendered; every publish snapshots to git and
+   deploys.
+3. **Story bodies are in scope.** Phase 4 runs.
+4. **Timing: first priority.** The migration goes ahead of the pre-Reddit launch fixes.
