@@ -41,6 +41,7 @@ export default function ExplorePage() {
   ];
   const flagships = EXPLORE_DEBATES.flatMap(({ mode, index }) => {
     const d = CURATED_DEBATES[mode][index];
+    if (!d) return []; // unpublished in the admin
     const c: Comparison | null =
       mode === "players" ? comparePlayers(d.a, d.b) : compareManagers(d.a, d.b);
     return c ? [{ c, label: d.label, hook: d.hook, href: debateHref(mode, d) }] : [];

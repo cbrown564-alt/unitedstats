@@ -41,6 +41,11 @@ export async function recordQueries<T>(fn: () => Promise<T>): Promise<{ value: T
   return { value, queries };
 }
 
+/** True inside `recordQueries`: module caches must query, or the record misses what they hold. */
+export function isRecordingQueries(): boolean {
+  return recordings.getStore() !== undefined;
+}
+
 function recordable(conn: Database.Database): Database.Database {
   const prepare = conn.prepare.bind(conn);
   conn.prepare = ((sql: string) => {

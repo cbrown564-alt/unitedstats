@@ -11,7 +11,7 @@ import { env } from "cloudflare:workers";
 import { defineMiddleware } from "astro:middleware";
 import { installReplay, replayInstalled, trackMisses, type ReplayTable } from "@/lib/dbReplay";
 import LIVE_ROUTES from "@/src/rt/live-routes.json";
-import { loadEditorial, withEditorial } from "@/src/rt/editorial-scope";
+import { EditorialUnseeded, loadEditorial, withEditorial } from "@/src/rt/editorial-scope";
 
 const live = LIVE_ROUTES as Record<string, string>;
 const assets = () => (env as { ASSETS: { fetch(req: Request | URL): Promise<Response> } }).ASSETS;
@@ -42,7 +42,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     editorial = await loadEditorial();
   } catch (error) {
     console.error("live route: falling back to snapshot", error);
-    return snapshot(name, context.url, "unavailable");
+    return snapshot(name, context.url, error instanceof EditorialUnseeded ? "unseeded" : "unavailable");
   }
 
   const { value, missed, error } = await trackMisses(() => withEditorial(editorial, () => next()));

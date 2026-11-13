@@ -22,7 +22,10 @@ jobs:
       # expected fallback cases.
       - run: npm run cache:media -- --reconcile-only
       - run: npm run check:media
+      - run: npm run emdash:index
       - run: npm test
+      - run: npm run copy:extract
+      - run: npm run copy:lint
       - run: npm run build:cloudflare
       - run: npm run check:cloudflare
       - run: npm run check:static

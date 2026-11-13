@@ -16,10 +16,20 @@ const scope = new AsyncLocalStorage<Editorial>();
   get: (collection: EditorialCollection) => scope.getStore()?.get(collection),
 };
 
+/** EmDash answered but holds no editorial entries: D1 was never seeded or was wiped. */
+export class EditorialUnseeded extends Error {
+  constructor() {
+    super("EmDash holds no editorial entries; seed D1 from content/emdash/seed.json");
+    this.name = "EditorialUnseeded";
+  }
+}
+
 /**
  * Every editorial collection as this request sees it: published entries, or
  * with a valid `_preview` token EmDash's draft revisions over them. A failed
- * query throws; the caller then serves the deploy-time snapshot.
+ * query throws; so does an empty D1, which would otherwise render bare
+ * shelves as if the editor had unpublished everything. Either way the caller
+ * serves the deploy-time snapshot.
  */
 export async function loadEditorial(): Promise<Editorial> {
   const results = await Promise.all(
@@ -35,6 +45,7 @@ export async function loadEditorial(): Promise<Editorial> {
       ] as const;
     }),
   );
+  if (results.every(([, list]) => list.length === 0)) throw new EditorialUnseeded();
   return new Map(results);
 }
 

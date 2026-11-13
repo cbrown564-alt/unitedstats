@@ -1,9 +1,11 @@
 # Astro + EmDash migration plan
 
-Status: **Phase 0 and Phase 1 done** (2026-11-13; findings and the Phase 1 approach in
-[ADR 0006](adr/0006-move-to-astro-for-emdash.md)). The Astro build is live, static, on
-`unitedstats-migration-preview`. Phase 2 in progress: the Tier 1 registries read
-`content/emdash/seed.json`. Supersedes the *conclusion* of
+Status: **Phase 0 and Phase 1 done; Phase 2 built and verified locally** (2026-11-13;
+findings and the Phase 1 approach in [ADR 0006](adr/0006-move-to-astro-for-emdash.md)).
+The static Astro build is live on `unitedstats-migration-preview`. The EmDash Worker is
+not deployed anywhere yet: that needs the maintainer present (D1/R2 creation, the
+encryption key, passkey setup) and a decision on Workers Paid (see "Phase 2 as built").
+Supersedes the *conclusion* of
 [ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md), not its measurements.
 
 ## Why now, when ADR 0005 said stay
@@ -122,7 +124,7 @@ asset-first, so the bulk of traffic never invokes the Worker.
 
 **Recommended default:** server-render only the four editorial routes above. Everything
 else keeps today's static behaviour and updates on deploy. This leaves the measured perf
-corpus intact, keeps the free tier comfortable at current traffic (~280 visitors in 6
+corpus intact, keeps Worker requests few at current traffic (~280 visitors in 6
 weeks), and gives live publish where an editor would notice it.
 
 ## Phases and exit gates
@@ -205,6 +207,67 @@ Gate, on preview:
 - An entry with a bad match ID is rejected in the admin.
 - Restoring D1 from the committed seed reproduces the site.
 
+#### Phase 2 as built (2026-11-13)
+
+How the live routes work. The Worker has no SQLite, so it cannot run the record queries
+behind `/`, `/explore`, `/stories` and `/compare`. Instead:
+
+- Each live route has a prerendered twin (`src/pages/live-snapshot/<name>.astro`).
+  Rendering the twin records every query it makes (`recordQueries` in `lib/db.ts`).
+  The build merges them into `out/live-snapshot/record.json`: about 1,160 queries,
+  about 7 MB.
+- On the Worker, `lib/db.ts` resolves to `lib/dbReplay.ts`, which answers from that
+  record. `src/middleware.ts` renders with the request's EmDash content
+  (`src/rt/editorial-scope.ts`).
+- If the render needs a query the deploy never recorded (`record-miss`), the
+  middleware serves the twin. It does the same if EmDash cannot be read
+  (`unavailable`), holds no entries (`unseeded`), or the render throws (`error`).
+  For example, a night added in the admin points at a match the deploy has not
+  recorded. The twin never guesses at the record.
+- The response header `x-redthread-live` says `live` or `snapshot; <reason>`.
+- `cachedQuery` (`lib/queryCache.ts`) skips its cache while recording, so a cache hit
+  cannot hide a query from the record.
+
+Verified locally: the built Worker under `wrangler dev`, with local D1 seeded from
+`content/emdash/seed.json`.
+- All four routes render live, byte-identical to their twins.
+- A stakes edit in D1 shows on `/` on the next request.
+- A night pointing at an unrecorded match serves the twin (`record-miss`).
+- An empty D1 serves the twins (`unseeded`).
+- Seed → D1 → `emdash export-seed` → `scripts/emdash/snapshot-seed.mts` reproduces the
+  seed byte for byte.
+
+Not yet verified (each needs the deployed preview):
+- Rejection inside the admin UI. The guard itself is unit-tested in
+  `tests/editorial.test.ts`.
+- A snapshot commit landing from a real publish.
+
+Deviations from the steps above:
+- **Copy smells are not save-blocking.** `lib/copySmells.ts` flags copy for human
+  review rather than rejecting it. `copy:lint` now runs in CI and in the publish
+  workflow instead. The guard blocks only references the record does not hold.
+- **Copy Studio stays.** It also covers page copy outside the six Tier 1
+  collections. Retire it when a `page_copy` collection exists.
+- **No generated `.emdash/types.ts`.** `lib/editorial.ts` types the six collections by
+  hand, and `tests/editorial.test.ts` checks them against the seed. `.astro/` and
+  `.emdash/` are build output and are gitignored.
+- **No deploy step in the publish workflow.** `.github/workflows/publish-editorial.yml`
+  pushes the seed. The push triggers the Cloudflare Git build, as the results
+  workflows do. It needs the `CLOUDFLARE_D1_EXPORT_TOKEN` (D1 read) and
+  `CLOUDFLARE_ACCOUNT_ID` secrets, plus the D1 `database_id` in `wrangler.jsonc`.
+- **The seed's committed shape is owned by two scripts.**
+  `scripts/emdash/seed-from-registries.ts` owns the schema. `snapshot-seed.mts` turns
+  each export back into that shape: committed entry order, EmDash's
+  `collection:slug` IDs, and EmDash's default taxonomies dropped. A publish therefore
+  diffs only what changed. The script fails loudly if the editor used something the
+  site does not read (a menu, a block type, a new collection).
+
+**Open decision: Workers Paid.** The EmDash Worker uploads 5.5 MB gzipped (Wrangler dry
+run). The Workers Free limit is 3 MB; Paid ($5/mo) allows 10 MB. EmDash itself is
+nearly all of it: the Phase 0 spike measured the same 5.6 MB with no Red Thread code.
+The largest pieces are its MCP server, its admin i18n catalogs and its middleware.
+Trimming would mean patching EmDash, so the realistic path is Workers Paid.
+
 ### Phase 3: production cutover (~2 days)
 
 1. Back up and freeze.
@@ -240,8 +303,9 @@ references record IDs and renders the existing component. The facts asserted in
 - **Runtime surface.** The site gains a login endpoint, a database and cron. That means
   admin hardening, robots exclusion, D1 Time Travel or backups, and secrets
   (`EMDASH_ENCRYPTION_KEY`).
-- **Cost.** It should fit the free tier at current traffic. Sandboxed (third-party)
-  plugins need Workers Paid ($5/mo); our own plugin is native.
+- **Cost.** The EmDash Worker is 5.5 MB gzipped, over the Workers Free 3 MB limit, so
+  it needs Workers Paid ($5/mo), whatever the traffic. Sandboxed (third-party)
+  plugins would need it too; our own plugin is native.
 
 ## Decisions (2026-11-13)
 

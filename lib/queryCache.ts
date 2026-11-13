@@ -1,3 +1,5 @@
+import { isRecordingQueries } from "./db";
+
 type CacheEntry<T> = { value: T; expiresAt: number };
 
 const store = new Map<string, CacheEntry<unknown>>();
@@ -7,6 +9,8 @@ const store = new Map<string, CacheEntry<unknown>>();
  * use react `cache()` separately if per-request dedup is also needed.
  */
 export function cachedQuery<T>(key: string, ttlMs: number, fn: () => T): T {
+  // The build is recording a live route's queries (lib/db.ts): a cache hit would hide one.
+  if (isRecordingQueries()) return fn();
   const now = Date.now();
   const hit = store.get(key);
   if (hit && hit.expiresAt > now) return hit.value as T;

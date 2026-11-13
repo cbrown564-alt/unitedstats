@@ -84,3 +84,8 @@ only text or head differences are accepted ones (the dev pages now render the no
   pages and tests.
 - The Next runtime, `next/font`, `next/og` and the `.next` manifest guards are replaced
   (Phase 1).
+- The live editorial routes run on a Worker with no SQLite. They replay the record queries
+  their prerendered twins made at build time. A render that needs anything else serves the
+  twin, so a live page never shows a guessed record (Phase 2; details in the plan).
+- The EmDash Worker is 5.5 MB gzipped, nearly all of it EmDash. That is over the Workers
+  Free 3 MB limit, so going live with the CMS means Workers Paid.

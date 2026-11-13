@@ -51,6 +51,11 @@ export async function trackMisses<T>(fn: () => Promise<T>): Promise<{ value: T |
   }
 }
 
+/** The Worker never records (lib/db.ts). */
+export function isRecordingQueries(): boolean {
+  return false;
+}
+
 function look(method: "all" | "get", sql: string, args: unknown[]): unknown {
   if (!table) throw new Error("record snapshot not installed");
   const key = replayKey(method, sql, args);

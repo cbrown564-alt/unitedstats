@@ -140,12 +140,12 @@ if (collections.map((c) => c.slug).join() !== EDITORIAL_COLLECTIONS.join()) {
   throw new Error("seed-from-registries: collections out of step with lib/editorial.ts EDITORIAL_COLLECTIONS");
 }
 
-const entry = (id: string, slug: string, data: Record<string, unknown>) => ({ id, slug, status: "published" as const, data });
+const entry = (slug: string, data: Record<string, unknown>) => ({ slug, status: "published" as const, data });
 
 const content = {
-  nights: CURATED_NIGHTS.map((n, i) => entry(`night-${n.id}`, n.id, { match_id: n.id, stakes: n.stakes, group: n.group, position: i })),
+  nights: CURATED_NIGHTS.map((n, i) => entry(n.id, { match_id: n.id, stakes: n.stakes, group: n.group, position: i })),
   stories: storyShelf().map((s, i) =>
-    entry(`story-${s.slug}`, s.slug, {
+    entry(s.slug, {
       number: s.number,
       title: s.title,
       ...(s.shelfTitle ? { shelf_title: s.shelfTitle } : {}),
@@ -156,18 +156,23 @@ const content = {
     }),
   ),
   questions: allQuestionMeta().map((q, i) =>
-    entry(`question-${q.slug}`, q.slug, { label: q.label, question: q.question, summary: q.summary, shelf: q.shelf, position: i }),
+    entry(q.slug, { label: q.label, question: q.question, summary: q.summary, shelf: q.shelf, position: i }),
   ),
   debates: (Object.keys(CURATED_DEBATES) as CompareMode[]).flatMap((mode) =>
     CURATED_DEBATES[mode].map((d, i) =>
-      entry(`debate-${mode}-${d.a}-${d.b}`, `${mode}-${d.a}-${d.b}`, { mode, label: d.label, a: d.a, b: d.b, hook: d.hook, position: i }),
+      entry(`${mode}-${d.a}-${d.b}`, { mode, label: d.label, a: d.a, b: d.b, hook: d.hook, position: i }),
     ),
   ),
   cuts: CURATED_CUTS.map((c, i) =>
-    entry(`cut-${c.slug}`, c.slug, { eyebrow: c.eyebrow, title: c.title, blurb: c.blurb, dimension: c.dimension, metric: c.metric, position: i }),
+    entry(c.slug, { eyebrow: c.eyebrow, title: c.title, blurb: c.blurb, dimension: c.dimension, metric: c.metric, position: i }),
   ),
-  transfer_notes: TRANSFER_NOTES.map((t, i) => entry(`transfer-${t.transferId}`, t.transferId, { transfer_id: t.transferId, line: t.line, position: i })),
+  transfer_notes: TRANSFER_NOTES.map((t, i) => entry(t.transferId, { transfer_id: t.transferId, line: t.line, position: i })),
 };
+
+/** EmDash's own entry IDs (`collection:slug`), as `emdash export-seed` writes them. */
+const withIds = Object.fromEntries(
+  Object.entries(content).map(([collection, list]) => [collection, list.map((e) => ({ id: `${collection}:${e.slug}`, ...e }))]),
+);
 
 const seed = {
   $schema: "https://emdashcms.com/seed.schema.json",
@@ -175,7 +180,7 @@ const seed = {
   meta: { name: "Red Thread", description: "Editorial content for Red Thread. Facts live in data/canonical/." },
   settings: { title: "Red Thread", tagline: "Every Manchester United match since 1886" },
   collections,
-  content,
+  content: withIds,
 };
 
 const out = path.join(process.cwd(), "content", "emdash", "seed.json");
