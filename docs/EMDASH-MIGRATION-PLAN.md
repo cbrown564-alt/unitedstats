@@ -286,19 +286,133 @@ nearly all of it: the Phase 0 spike measured the same 5.6 MB with no Red Thread 
 The largest pieces are its MCP server, its admin i18n catalogs and its middleware.
 Trimming would mean patching EmDash.
 
-### Phase 3: production cutover (~2 days)
+### Phase 3: production cutover (planned 2026-11-13)
 
-1. Back up and freeze.
-2. Deploy the Astro Worker to `unitedstats` and `utdred.com`, then run admin setup on
-   the prod hostname.
-3. Watch Cloudflare observability and Umami for a week. Re-run the Lighthouse corpus on a
-   quiet machine and record it in `PERF.md`.
-4. Update the owner docs: `ARCHITECTURE.md`, `PIPELINE.md`, `PERF.md`, `README.md`,
-   `docs/README.md` and `AGENTS.md` (which tells agents to read the Next docs).
-5. Remove the `next` and `@next/*` dependencies.
+Production today: `unitedstats` serves the static Next export on `utdred.com` and
+`www.utdred.com`. It is packaged by `scripts/build-cloudflare.mjs` and deployed with
+`cf deploy`. The last two deploys (2026-11-11) were manual uploads, and master has
+commits since then that are not live. Pushes to master do not deploy, so the weekly
+data release only reaches the site when someone deploys by hand. `master` has not moved
+since `emdash-migration` branched.
 
-Rollback: the previous static `out/` stays deployable as a Worker version until the week
-is clean.
+#### Decisions (maintainer)
+
+1. **How production deploys.** Recommended: a GitHub Actions `deploy` workflow. It runs
+   on push to master, by hand, and as the last job of the data and publish workflows.
+   The build needs `data/united.db` and the media reconcile, which already run in
+   Actions.
+   - The alternatives are Workers Builds (its own build image and time limits) or
+     staying manual. Manual means a publish never reaches the prerendered pages.
+   - A push made with `GITHUB_TOKEN` starts no other workflow. So the data and publish
+     workflows call `deploy` as a reusable workflow; they do not rely on their push
+     triggering it.
+2. **Keep the preview as staging.** Recommended: yes. It has its own D1 and admin, and
+   it is where EmDash upgrades get tried first.
+3. **When Next goes.** Recommended: Phase 3b, after a clean week. Rollback is a Worker
+   version, not a rebuild, so keeping Next in the tree buys nothing. Removing it only
+   adds risk to cutover day.
+
+#### Before cutover, on the branch (no maintainer needed, ~1–2 days)
+
+1. **Packaging parity.** The hybrid build skips `build-cloudflare.mjs` packaging, so the
+   EmDash preview currently lacks:
+   - its noindex header;
+   - the 12 permanent redirects from `vercel.json`;
+   - the `/api/*` CORS headers and the `/data/*` cache headers.
+
+   Move that packaging into a shared step the hybrid build runs per mode. Add a check
+   that every legacy redirect answers 308, then redeploy the preview.
+2. **One Wrangler config, two environments.** Production at the top level: `unitedstats`,
+   custom domains `utdred.com` and `www.utdred.com`, production D1/R2/KV, trace
+   sampling 0.01 as today. The preview goes under `env.preview`. Check that
+   `@astrojs/cloudflare` builds the right environment from `CLOUDFLARE_ENV`; if it
+   cannot, use two config files.
+3. **Full-profile hybrid build.** Every route so far was proven on the preview profile.
+   Measure the full profile:
+   - build time, memory, asset count and the size of the record replay;
+   - `check:static` and `check:perf`.
+
+   Gate: it builds in CI within the runner's limits.
+4. **CI on the Astro build.** `ci.yml` still runs the Next packaging
+   (`build:cloudflare`, `check:cloudflare`). Swap in the hybrid build and
+   `wrangler deploy --dry-run` for both environments.
+5. **The deploy workflow (decision 1).**
+   - Triggers: `push` to master, `workflow_dispatch`, `workflow_call`.
+   - Steps: build the data, build the site, run the guards, then
+     `wrangler deploy --env ''`.
+   - Secrets: `CLOUDFLARE_API_TOKEN` (Workers deploy, D1 read for the publish
+     snapshot) and `CLOUDFLARE_ACCOUNT_ID`.
+   - `update-results.yml`, `enrich-results.yml` and `publish-editorial.yml` call it
+     after their push.
+6. **The publish workflow, for production.**
+   - Target `redthread-editorial`.
+   - Add a nightly schedule. It commits any drift between D1 and the seed, so a missed
+     dispatch heals itself. This closes the drift risk listed under Risks.
+7. **Scripts and owner docs.**
+   - Scripts: `dev` becomes `astro dev`, and `start` serves the built Worker.
+   - Docs: `ARCHITECTURE.md`, `PIPELINE.md`, `PERF.md`, `README.md`,
+     `docs/README.md` and `AGENTS.md`. `AGENTS.md` still tells agents to read the
+     Next docs.
+   - The main checkout has an unresolved merge conflict in `docs/ARCHITECTURE.md`.
+     The maintainer resolves it before the docs change lands.
+8. **Open the PR** from `emdash-migration` with CI green.
+
+#### Cutover (maintainer present, ~1 hour)
+
+1. **Note the current production version** (`wrangler deployments list --name
+   unitedstats`) as the rollback target. Tag `master` as `pre-astro-cutover`.
+2. **Create the production resources and secrets.**
+   - Resources: `redthread-editorial`, `redthread-media`, `redthread-session`.
+   - Secrets: a new `EMDASH_ENCRYPTION_KEY`, backed up locally the same way as the
+     preview's, and a new `SETUP_TOKEN`.
+3. **Merge the PR, and deploy** (the workflow, or by hand the first time). Until
+   setup runs, the live routes serve their deploy-time twins (`unseeded`), so visitors
+   see no change.
+4. **Admin setup on `https://utdred.com/_emdash/admin/setup`**, through the token
+   gate. Include the content. The passkey is for `utdred.com`.
+5. **Smoke test.**
+   - The four live routes answer `live`, byte-identical to their twins.
+   - Entity pages, the record-reader redirects and the 404 page.
+   - The legacy redirects and the www → apex 308.
+   - `robots.txt` (indexable; `/_emdash/` disallowed), `sitemap.xml`, the `/api`
+     headers and OG images.
+   - An Umami pageview. The Google verification TXT record is untouched.
+6. **Wire publishing.**
+   - GitHub secrets for the workflows.
+   - In the admin, the record-guard plugin's `githubRepo` and a fine-grained
+     `githubToken`: this repository only, Contents read and write. The maintainer
+     enters it.
+7. **Prove the loop.** Edit a night and publish. Expect:
+   - the dispatch runs;
+   - the seed commit lands;
+   - the deploy runs;
+   - the twin and record replay include the change.
+
+**Rollback:** `wrangler rollback <noted version>` restores the static Next Worker at once,
+with its assets; D1 is untouched. Revert the merge on master if the cause is in code.
+
+#### The watch week
+
+- Each day: Cloudflare observability (errors, CPU time) and the `x-redthread-live`
+  snapshot rate in the logs.
+- The weekly data release must deploy by itself.
+- Compare Search Console with the November baseline.
+- Re-run the Lighthouse corpus on a quiet machine and record it in `PERF.md`.
+
+#### Phase 3b: remove Next (after a clean week, ~1 day)
+
+- **Types:**
+  - Point TypeScript at the shims for `next/*` (tsconfig `paths`).
+  - Replace the `Metadata` and `MetadataRoute` type imports (34 files) with local
+    types.
+- **Lint:** replace `eslint-config-next` with typescript-eslint, react-hooks and
+  jsx-a11y.
+- **Files:**
+  - Delete `next.config.ts`, `next-env.d.ts`, `cloudflare.config.ts`,
+    `wrangler.config.ts` and `deploy/cloudflare-worker.ts`.
+  - Remove the `cf` package.
+  - Move the `vercel.json` redirects into the packaging step's own file.
+- **Dependencies:** remove `next` and `eslint-config-next`.
 
 ### Phase 4: story bodies in Portable Text (gated, optional)
 
@@ -314,8 +428,8 @@ references record IDs and renders the existing component. The facts asserted in
 - **Port cost and freeze.** Phase 1 is most of the work and delivers nothing visible.
   It competes with the Reddit launch work. Sequence it deliberately.
 - **Content provenance drift.** If the publish snapshot ever fails silently, git and D1
-  diverge. The publish workflow must fail loudly. Add a nightly diff check: live
-  export vs committed seed.
+  diverge. The publish workflow fails loudly, and its nightly run (Phase 3) commits any
+  drift it finds.
 - **The easy content is small; the rich content is hard.** Tier 1 moves cleanly, but the
   stories carry most of the prose and are the hardest part to move (Phase 4).
 - **Runtime surface.** The site gains a login endpoint, a database and cron. That means
