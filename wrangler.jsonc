@@ -1,15 +1,21 @@
 // The EmDash Worker (Phase 2 of docs/EMDASH-MIGRATION-PLAN.md), read by
 // @astrojs/cloudflare for `astro dev` and `astro build`. The static Phase 1
 // deploy still uses cloudflare.config.ts until cutover.
-// D1 and R2 IDs are added when the resources are created on the account.
+// These are the preview's own resources: a passkey is bound to its hostname, so
+// production gets a fresh D1 seeded from content/emdash/seed.json at cutover.
+// Secrets (wrangler secret put): EMDASH_ENCRYPTION_KEY, and SETUP_TOKEN until
+// admin setup is done (src/worker.ts).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "unitedstats-migration-preview",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-10-07",
   "compatibility_flags": ["nodejs_compat"],
-  "d1_databases": [{ "binding": "DB", "database_name": "redthread-editorial" }],
-  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media" }],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "redthread-editorial-preview", "database_id": "a3da659c-1479-4c4b-82d4-5c8cbd07541b" }
+  ],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media-preview" }],
+  "kv_namespaces": [{ "binding": "SESSION", "id": "691449bca886494a969fe5d306d924db" }],
   "triggers": { "crons": ["*/5 * * * *"] },
   "observability": { "enabled": true }
 }

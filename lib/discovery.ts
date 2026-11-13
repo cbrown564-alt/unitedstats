@@ -32,6 +32,7 @@ const ROBOTS_DISALLOW_PATHS = [
   "/cut",
   "/on-this-day",
   "/dev/",
+  "/_emdash/", // the EmDash admin and its API
 ] as const;
 
 export function sitemapStaticPaths(): string[] {

@@ -1,10 +1,9 @@
 # Astro + EmDash migration plan
 
-Status: **Phase 0 and Phase 1 done; Phase 2 built and verified locally** (2026-11-13;
-findings and the Phase 1 approach in [ADR 0006](adr/0006-move-to-astro-for-emdash.md)).
-The static Astro build is live on `unitedstats-migration-preview`. The EmDash Worker is
-not deployed anywhere yet: that needs the maintainer present (D1/R2 creation, the
-encryption key, passkey setup) and a decision on Workers Paid (see "Phase 2 as built").
+Status: **Phases 0–2 done** (2026-11-13; findings and the Phase 1 approach in
+[ADR 0006](adr/0006-move-to-astro-for-emdash.md)). The EmDash Worker runs on
+`unitedstats-migration-preview`, with admin set up and the seed loaded. Publishes snapshot
+to git only once the publish workflow is on `master` (Phase 3).
 Supersedes the *conclusion* of
 [ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md), not its measurements.
 
@@ -237,10 +236,28 @@ Verified locally: the built Worker under `wrangler dev`, with local D1 seeded fr
 - Seed → D1 → `emdash export-seed` → `scripts/emdash/snapshot-seed.mts` reproduces the
   seed byte for byte.
 
-Not yet verified (each needs the deployed preview):
-- Rejection inside the admin UI. The guard itself is unit-tested in
-  `tests/editorial.test.ts`.
-- A snapshot commit landing from a real publish.
+Verified on the preview (2026-11-13):
+- Setup loaded the seed: 54 entries. All four routes render live, byte-identical to
+  their twins.
+- A stakes edit published in the admin showed on `/` on the next request.
+- The admin refused a night with an unknown match ID.
+
+Preview resources: D1 `redthread-editorial-preview`, R2 `redthread-media-preview` and KV
+`redthread-session-preview`. Their IDs are in `wrangler.jsonc`. A passkey is bound to
+its hostname, so production gets its own D1, seeded from git at cutover.
+`EMDASH_ENCRYPTION_KEY` has a local backup in the gitignored `.env.emdash-preview`. Plugin
+secrets cannot be decrypted without it.
+
+EmDash's setup wizard makes its first visitor the admin. While the `SETUP_TOKEN` secret
+is set, `src/worker.ts` returns 404 for the wizard unless the browser first opened it
+with that token. Run production setup the same way.
+
+Still open, for Phase 3:
+- A snapshot commit landing from a real publish. GitHub runs `repository_dispatch`
+  workflows only from the default branch.
+- The publish workflow needs the `CLOUDFLARE_D1_EXPORT_TOKEN` and
+  `CLOUDFLARE_ACCOUNT_ID` secrets, and the production D1 name.
+- The plugin's `githubRepo` and `githubToken` settings, entered in the admin.
 
 Deviations from the steps above:
 - **Copy smells are not save-blocking.** `lib/copySmells.ts` flags copy for human
@@ -262,11 +279,12 @@ Deviations from the steps above:
   diffs only what changed. The script fails loudly if the editor used something the
   site does not read (a menu, a block type, a new collection).
 
-**Open decision: Workers Paid.** The EmDash Worker uploads 5.5 MB gzipped (Wrangler dry
-run). The Workers Free limit is 3 MB; Paid ($5/mo) allows 10 MB. EmDash itself is
+**Workers Paid.** The EmDash Worker uploads 5.5 MB gzipped. The Workers Free limit is
+3 MB; Paid ($5/mo) allows 10 MB. The account accepted the upload, so no plan change was
+needed. EmDash itself is
 nearly all of it: the Phase 0 spike measured the same 5.6 MB with no Red Thread code.
 The largest pieces are its MCP server, its admin i18n catalogs and its middleware.
-Trimming would mean patching EmDash, so the realistic path is Workers Paid.
+Trimming would mean patching EmDash.
 
 ### Phase 3: production cutover (~2 days)
 
