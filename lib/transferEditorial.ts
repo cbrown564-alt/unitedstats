@@ -1,17 +1,17 @@
+import { liveList } from "./editorial";
 import { fmtMonthYear } from "./format";
 import type { TransferRow } from "./queries";
 
 /** Curated one-liners for record deals — the hybrid override when we have a line. */
-const CURATED: Record<string, string> = {
-  "2016-08-09-paul-pogba-in":
-    "Left on a free in 2012; bought back for £80m in 2016.",
-  "2009-07-01-cristiano-ronaldo-out":
-    "£80m to Real Madrid after six seasons — still the club's record sale.",
-};
+/** Edited in EmDash (`transfer_notes`). */
+export const TRANSFER_NOTES: readonly { transferId: string; line: string }[] = liveList("transfer_notes", (e) => ({
+  transferId: e.data.transfer_id,
+  line: e.data.line,
+}));
 
 /** One editorial line for a featured deal: curated when we have it, otherwise from transfer fields. */
 export function transferEditorialLine(t: TransferRow): string {
-  const curated = CURATED[t.id];
+  const curated = TRANSFER_NOTES.find((n) => n.transferId === t.id)?.line;
   if (curated) return curated;
 
   const when =

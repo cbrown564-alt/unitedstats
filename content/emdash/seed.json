@@ -1,0 +1,989 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Red Thread",
+    "description": "Editorial content for Red Thread. Facts live in data/canonical/."
+  },
+  "settings": {
+    "title": "Red Thread",
+    "tagline": "Every Manchester United match since 1886"
+  },
+  "collections": [
+    {
+      "slug": "nights",
+      "label": "Nights",
+      "labelSingular": "Night",
+      "description": "Curated great nights: the homepage spark, rediscovery and on-this-day. Each references one match.",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "titleField": "match_id",
+      "fields": [
+        {
+          "slug": "match_id",
+          "label": "Match ID",
+          "type": "string",
+          "required": true,
+          "unique": true
+        },
+        {
+          "slug": "stakes",
+          "label": "Stakes",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "group",
+          "label": "Group",
+          "type": "select",
+          "required": true,
+          "validation": {
+            "options": [
+              "european",
+              "finals",
+              "drama",
+              "modern"
+            ]
+          }
+        },
+        {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "slug": "stories",
+      "label": "Stories",
+      "labelSingular": "Story",
+      "description": "The stories shelf. Bodies stay in code until Phase 4.",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "number",
+          "label": "Number",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "shelf_title",
+          "label": "Shelf title (optional override)",
+          "type": "string"
+        },
+        {
+          "slug": "description",
+          "label": "Description",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "kicker",
+          "label": "Kicker",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "prompt",
+          "label": "Prompt",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "slug": "questions",
+      "label": "Questions",
+      "labelSingular": "Question",
+      "description": "Question metadata. The answer modules stay in code, keyed by slug.",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "titleField": "question",
+      "fields": [
+        {
+          "slug": "label",
+          "label": "Label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "question",
+          "label": "Question",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "summary",
+          "label": "Summary (evergreen, no counts)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "shelf",
+          "label": "Shelf",
+          "type": "select",
+          "required": true,
+          "validation": {
+            "options": [
+              "front-door",
+              "archived"
+            ]
+          }
+        },
+        {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "slug": "debates",
+      "label": "Debates",
+      "labelSingular": "Debate",
+      "description": "Curated head-to-heads for /compare and /explore. Subjects are player, manager or era IDs.",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "titleField": "label",
+      "fields": [
+        {
+          "slug": "mode",
+          "label": "Mode",
+          "type": "select",
+          "required": true,
+          "validation": {
+            "options": [
+              "players",
+              "managers",
+              "eras"
+            ]
+          }
+        },
+        {
+          "slug": "label",
+          "label": "Label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "a",
+          "label": "Subject A",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "b",
+          "label": "Subject B",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "hook",
+          "label": "Hook",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "slug": "cuts",
+      "label": "Cuts",
+      "labelSingular": "Cut",
+      "description": "Curated cuts. Dimension and metric are what the code implements.",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "titleField": "title",
+      "fields": [
+        {
+          "slug": "eyebrow",
+          "label": "Eyebrow",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "blurb",
+          "label": "Blurb",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "dimension",
+          "label": "Dimension",
+          "type": "select",
+          "required": true,
+          "validation": {
+            "options": [
+              "season",
+              "decade",
+              "type",
+              "competition",
+              "venue",
+              "opponent",
+              "result",
+              "manager",
+              "player"
+            ]
+          }
+        },
+        {
+          "slug": "metric",
+          "label": "Metric",
+          "type": "select",
+          "required": true,
+          "validation": {
+            "options": [
+              "winrate",
+              "ppg",
+              "gd",
+              "matches",
+              "goals",
+              "apps",
+              "starts",
+              "goalsperapp"
+            ]
+          }
+        },
+        {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    },
+    {
+      "slug": "transfer_notes",
+      "label": "Transfer notes",
+      "labelSingular": "Transfer note",
+      "description": "One-liners for featured deals. Deals without one get the line built from the record.",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview"
+      ],
+      "titleField": "transfer_id",
+      "fields": [
+        {
+          "slug": "transfer_id",
+          "label": "Transfer ID",
+          "type": "string",
+          "required": true,
+          "unique": true
+        },
+        {
+          "slug": "line",
+          "label": "Line",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "content": {
+    "nights": [
+      {
+        "id": "night-1968-05-29-benfica-n",
+        "slug": "1968-05-29-benfica-n",
+        "status": "published",
+        "data": {
+          "match_id": "1968-05-29-benfica-n",
+          "stakes": "Ten years after Munich, United became the first English club to win the European Cup.",
+          "group": "european",
+          "position": 0
+        }
+      },
+      {
+        "id": "night-1999-05-26-bayern-munich-n",
+        "slug": "1999-05-26-bayern-munich-n",
+        "status": "published",
+        "data": {
+          "match_id": "1999-05-26-bayern-munich-n",
+          "stakes": "Bayern led from the sixth minute. Two stoppage-time goals completed the Treble.",
+          "group": "european",
+          "position": 1
+        }
+      },
+      {
+        "id": "night-2008-05-21-chelsea-n",
+        "slug": "2008-05-21-chelsea-n",
+        "status": "published",
+        "data": {
+          "match_id": "2008-05-21-chelsea-n",
+          "stakes": "United won their third European Cup on penalties in Moscow.",
+          "group": "european",
+          "position": 2
+        }
+      },
+      {
+        "id": "night-1991-05-15-barcelona-n",
+        "slug": "1991-05-15-barcelona-n",
+        "status": "published",
+        "data": {
+          "match_id": "1991-05-15-barcelona-n",
+          "stakes": "Mark Hughes scored twice against his former club as United won the Cup Winners’ Cup.",
+          "group": "european",
+          "position": 3
+        }
+      },
+      {
+        "id": "night-2017-05-24-afc-ajax-n",
+        "slug": "2017-05-24-afc-ajax-n",
+        "status": "published",
+        "data": {
+          "match_id": "2017-05-24-afc-ajax-n",
+          "stakes": "Winning the Europa League completed United’s set of major European trophies.",
+          "group": "european",
+          "position": 4
+        }
+      },
+      {
+        "id": "night-1948-04-24-blackpool-n",
+        "slug": "1948-04-24-blackpool-n",
+        "status": "published",
+        "data": {
+          "match_id": "1948-04-24-blackpool-n",
+          "stakes": "The FA Cup at Wembley gave Matt Busby his first trophy as United manager.",
+          "group": "finals",
+          "position": 5
+        }
+      },
+      {
+        "id": "night-1963-05-25-leicester-city-n",
+        "slug": "1963-05-25-leicester-city-n",
+        "status": "published",
+        "data": {
+          "match_id": "1963-05-25-leicester-city-n",
+          "stakes": "United won the FA Cup five years after Munich.",
+          "group": "finals",
+          "position": 6
+        }
+      },
+      {
+        "id": "night-1977-05-21-liverpool-n",
+        "slug": "1977-05-21-liverpool-n",
+        "status": "published",
+        "data": {
+          "match_id": "1977-05-21-liverpool-n",
+          "stakes": "United won the FA Cup and stopped Liverpool completing the Treble.",
+          "group": "finals",
+          "position": 7
+        }
+      },
+      {
+        "id": "night-1990-05-17-crystal-palace-n",
+        "slug": "1990-05-17-crystal-palace-n",
+        "status": "published",
+        "data": {
+          "match_id": "1990-05-17-crystal-palace-n",
+          "stakes": "The FA Cup replay gave Alex Ferguson his first trophy as United manager.",
+          "group": "finals",
+          "position": 8
+        }
+      },
+      {
+        "id": "night-1994-05-14-chelsea-n",
+        "slug": "1994-05-14-chelsea-n",
+        "status": "published",
+        "data": {
+          "match_id": "1994-05-14-chelsea-n",
+          "stakes": "United completed their first League and FA Cup Double.",
+          "group": "finals",
+          "position": 9
+        }
+      },
+      {
+        "id": "night-1996-05-11-liverpool-n",
+        "slug": "1996-05-11-liverpool-n",
+        "status": "published",
+        "data": {
+          "match_id": "1996-05-11-liverpool-n",
+          "stakes": "Eric Cantona’s late goal completed United’s second Double in three seasons.",
+          "group": "finals",
+          "position": 10
+        }
+      },
+      {
+        "id": "night-1999-05-22-newcastle-united-n",
+        "slug": "1999-05-22-newcastle-united-n",
+        "status": "published",
+        "data": {
+          "match_id": "1999-05-22-newcastle-united-n",
+          "stakes": "Five days after winning the league, United kept the Treble alive with the FA Cup.",
+          "group": "finals",
+          "position": 11
+        }
+      },
+      {
+        "id": "night-2024-05-25-manchester-city-n",
+        "slug": "2024-05-25-manchester-city-n",
+        "status": "published",
+        "data": {
+          "match_id": "2024-05-25-manchester-city-n",
+          "stakes": "United beat Manchester City to win the FA Cup and secure the season’s silverware.",
+          "group": "finals",
+          "position": 12
+        }
+      },
+      {
+        "id": "night-1993-04-10-sheffield-wednesday-h",
+        "slug": "1993-04-10-sheffield-wednesday-h",
+        "status": "published",
+        "data": {
+          "match_id": "1993-04-10-sheffield-wednesday-h",
+          "stakes": "Two late Steve Bruce headers put a first league title in twenty-six years within reach.",
+          "group": "drama",
+          "position": 13
+        }
+      },
+      {
+        "id": "night-1999-04-14-arsenal-n",
+        "slug": "1999-04-14-arsenal-n",
+        "status": "published",
+        "data": {
+          "match_id": "1999-04-14-arsenal-n",
+          "stakes": "Ryan Giggs scored from his own half to win the FA Cup semi-final and keep the Treble alive.",
+          "group": "drama",
+          "position": 14
+        }
+      },
+      {
+        "id": "night-1999-05-16-tottenham-hotspur-h",
+        "slug": "1999-05-16-tottenham-hotspur-h",
+        "status": "published",
+        "data": {
+          "match_id": "1999-05-16-tottenham-hotspur-h",
+          "stakes": "United came from behind on the final day to win the league, the Treble’s first part.",
+          "group": "drama",
+          "position": 15
+        }
+      },
+      {
+        "id": "night-2001-09-29-tottenham-hotspur-a",
+        "slug": "2001-09-29-tottenham-hotspur-a",
+        "status": "published",
+        "data": {
+          "match_id": "2001-09-29-tottenham-hotspur-a",
+          "stakes": "Three down at half-time at White Hart Lane, United scored five after the break.",
+          "group": "drama",
+          "position": 16
+        }
+      },
+      {
+        "id": "night-2011-08-28-arsenal-h",
+        "slug": "2011-08-28-arsenal-h",
+        "status": "published",
+        "data": {
+          "match_id": "2011-08-28-arsenal-h",
+          "stakes": "United scored eight against Arsenal at Old Trafford.",
+          "group": "modern",
+          "position": 17
+        }
+      },
+      {
+        "id": "night-2009-09-20-manchester-city-h",
+        "slug": "2009-09-20-manchester-city-h",
+        "status": "published",
+        "data": {
+          "match_id": "2009-09-20-manchester-city-h",
+          "stakes": "Michael Owen’s stoppage-time goal settled a 4–3 Manchester derby.",
+          "group": "modern",
+          "position": 18
+        }
+      },
+      {
+        "id": "night-2019-03-06-paris-saint-germain-a",
+        "slug": "2019-03-06-paris-saint-germain-a",
+        "status": "published",
+        "data": {
+          "match_id": "2019-03-06-paris-saint-germain-a",
+          "stakes": "Two goals down from the first leg, United went through on a stoppage-time penalty in Paris.",
+          "group": "modern",
+          "position": 19
+        }
+      },
+      {
+        "id": "night-2013-04-22-aston-villa-h",
+        "slug": "2013-04-22-aston-villa-h",
+        "status": "published",
+        "data": {
+          "match_id": "2013-04-22-aston-villa-h",
+          "stakes": "Robin van Persie’s volley helped secure United’s twentieth league title, Alex Ferguson’s last.",
+          "group": "modern",
+          "position": 20
+        }
+      }
+    ],
+    "stories": [
+      {
+        "id": "story-two-no-7s",
+        "slug": "two-no-7s",
+        "status": "published",
+        "data": {
+          "number": "01",
+          "title": "Two No. 7s",
+          "description": "George Best and Cristiano Ronaldo: the same shirt, fifth season, European Cup and final goal.",
+          "kicker": "1968 · 2008",
+          "prompt": "Two careers. One shirt. The same fifth season.",
+          "position": 0
+        }
+      },
+      {
+        "id": "story-eleven-days-in-may",
+        "slug": "eleven-days-in-may",
+        "status": "published",
+        "data": {
+          "number": "02",
+          "title": "Eleven days in May",
+          "description": "The Treble's three must-wins: two comebacks, all decided from the bench.",
+          "kicker": "16—26 May 1999",
+          "prompt": "Three must-win nights, decided from the bench.",
+          "position": 1
+        }
+      },
+      {
+        "id": "story-fortress-ot",
+        "slug": "fortress-ot",
+        "status": "published",
+        "data": {
+          "number": "03",
+          "title": "Fortress OT",
+          "description": "Since 1984, just three home league leads have turned into deficits — each rescued.",
+          "kicker": "Old Trafford · since 1984",
+          "prompt": "The lead bent three times. It never broke.",
+          "position": 2
+        }
+      },
+      {
+        "id": "story-fergie-time",
+        "slug": "fergie-time",
+        "status": "published",
+        "data": {
+          "number": "04",
+          "title": "Fergie time",
+          "description": "Three 2–1 comebacks, thirty years apart — the last one came a decade after Ferguson left.",
+          "kicker": "1993 · 1999 · 2023",
+          "prompt": "Three comebacks. Thirty years. The same impossible clock.",
+          "position": 3
+        }
+      },
+      {
+        "id": "story-a-thread-of-nights",
+        "slug": "a-thread-of-nights",
+        "status": "published",
+        "data": {
+          "number": "05",
+          "title": "A thread of nights",
+          "shelf_title": "10 nights. 115 years.",
+          "description": "Ten surprising Manchester United matches, from the first FA Cup to Amad at 120′.",
+          "kicker": "1909—2024",
+          "prompt": "Ten nights that changed the shape of the record.",
+          "position": 4
+        }
+      }
+    ],
+    "questions": [
+      {
+        "id": "question-ferguson-era",
+        "slug": "ferguson-era",
+        "status": "published",
+        "data": {
+          "label": "Ferguson era",
+          "question": "What happened after Ferguson left?",
+          "summary": "Thirteen league titles under Ferguson, none since — finishes season by season, every successor on the same scale.",
+          "shelf": "front-door",
+          "position": 0
+        }
+      },
+      {
+        "id": "question-treble",
+        "slug": "treble",
+        "status": "published",
+        "data": {
+          "label": "The Treble",
+          "question": "How did United win the Treble?",
+          "summary": "1998-99 in full: Premier League, FA Cup, Champions League — each run down to the deciding nights.",
+          "shelf": "front-door",
+          "position": 1
+        }
+      },
+      {
+        "id": "question-fortress",
+        "slug": "fortress",
+        "status": "published",
+        "data": {
+          "label": "Fortress OT",
+          "question": "How much of a fortress is Old Trafford?",
+          "summary": "Home league games led at half-time: the wins, the draws, the rare losses, and the unbeaten run since 1984.",
+          "shelf": "front-door",
+          "position": 2
+        }
+      },
+      {
+        "id": "question-late-goals",
+        "slug": "late-goals",
+        "status": "published",
+        "data": {
+          "label": "Fergie time",
+          "question": "Was Fergie time unique to Fergie?",
+          "summary": "Late-goal share rose under Ferguson and kept rising after — habit plus longer added time, with a Busby-era hint.",
+          "shelf": "front-door",
+          "position": 3
+        }
+      },
+      {
+        "id": "question-europe",
+        "slug": "europe",
+        "status": "published",
+        "data": {
+          "label": "United in Europe",
+          "question": "What is United's European record by era?",
+          "summary": "European matches by decade — wins, finals, trophies — from the Busby Babes to the Champions League.",
+          "shelf": "archived",
+          "position": 4
+        }
+      },
+      {
+        "id": "question-manager-bounce",
+        "slug": "manager-bounce",
+        "status": "published",
+        "data": {
+          "label": "Manager bounce",
+          "question": "Is the new-manager bounce real?",
+          "summary": "Each manager's first ten matches against the ten before they arrived.",
+          "shelf": "archived",
+          "position": 5
+        }
+      },
+      {
+        "id": "question-comebacks",
+        "slug": "comebacks",
+        "status": "published",
+        "data": {
+          "label": "Comeback kings",
+          "question": "Are United really the comeback kings?",
+          "summary": "How often United fell behind and still took a point or three — minute by minute where the record allows.",
+          "shelf": "archived",
+          "position": 6
+        }
+      },
+      {
+        "id": "question-runs",
+        "slug": "runs",
+        "status": "published",
+        "data": {
+          "label": "Unbeaten streaks",
+          "question": "How long are United's longest runs?",
+          "summary": "Winning runs, scoring streaks, clean sheets, and matches without defeat across the full record.",
+          "shelf": "archived",
+          "position": 7
+        }
+      },
+      {
+        "id": "question-cup-specialists",
+        "slug": "cup-specialists",
+        "status": "published",
+        "data": {
+          "label": "Cup specialists",
+          "question": "Who saved their goals for cup nights?",
+          "summary": "Goalscorers whose share of goals in cups sits well above the club average.",
+          "shelf": "archived",
+          "position": 8
+        }
+      },
+      {
+        "id": "question-own-goals",
+        "slug": "own-goals",
+        "status": "published",
+        "data": {
+          "label": "Own goals",
+          "question": "Is “Own Goal” one of United’s top goalscorers?",
+          "summary": "Own goals credited to United, ranked against the club's leading scorers.",
+          "shelf": "archived",
+          "position": 9
+        }
+      },
+      {
+        "id": "question-away-days",
+        "slug": "away-days",
+        "status": "published",
+        "data": {
+          "label": "Away days",
+          "question": "How far do away days take United?",
+          "summary": "Away grounds since 1886 — distance from Manchester, by season and by country.",
+          "shelf": "archived",
+          "position": 10
+        }
+      }
+    ],
+    "debates": [
+      {
+        "id": "debate-players-wayne-rooney-bobby-charlton",
+        "slug": "players-wayne-rooney-bobby-charlton",
+        "status": "published",
+        "data": {
+          "mode": "players",
+          "label": "Rooney vs Charlton",
+          "a": "wayne-rooney",
+          "b": "bobby-charlton",
+          "hook": "All-time scoring charts — goals, apps, and the years between them.",
+          "position": 0
+        }
+      },
+      {
+        "id": "debate-players-peter-schmeichel-edwin-van-der-sar",
+        "slug": "players-peter-schmeichel-edwin-van-der-sar",
+        "status": "published",
+        "data": {
+          "mode": "players",
+          "label": "Schmeichel vs Van der Sar",
+          "a": "peter-schmeichel",
+          "b": "edwin-van-der-sar",
+          "hook": "Two European Cup winners in goal — clean sheets and goals conceded per game.",
+          "position": 1
+        }
+      },
+      {
+        "id": "debate-players-nemanja-vidic-gary-pallister",
+        "slug": "players-nemanja-vidic-gary-pallister",
+        "status": "published",
+        "data": {
+          "mode": "players",
+          "label": "Vidic vs Pallister",
+          "a": "nemanja-vidic",
+          "b": "gary-pallister",
+          "hook": "Centre-backs a generation apart — defensive record and silverware.",
+          "position": 2
+        }
+      },
+      {
+        "id": "debate-players-cristiano-ronaldo-george-best",
+        "slug": "players-cristiano-ronaldo-george-best",
+        "status": "published",
+        "data": {
+          "mode": "players",
+          "label": "Ronaldo vs Best",
+          "a": "cristiano-ronaldo",
+          "b": "george-best",
+          "hook": "Two No. 7s — goals, apps, and the eras they defined.",
+          "position": 3
+        }
+      },
+      {
+        "id": "debate-players-ryan-giggs-paul-scholes",
+        "slug": "players-ryan-giggs-paul-scholes",
+        "status": "published",
+        "data": {
+          "mode": "players",
+          "label": "Giggs vs Scholes",
+          "a": "ryan-giggs",
+          "b": "paul-scholes",
+          "hook": "Academy spine of the Ferguson years, season by season.",
+          "position": 4
+        }
+      },
+      {
+        "id": "debate-players-eric-cantona-robin-van-persie",
+        "slug": "players-eric-cantona-robin-van-persie",
+        "status": "published",
+        "data": {
+          "mode": "players",
+          "label": "Cantona vs Van Persie",
+          "a": "eric-cantona",
+          "b": "robin-van-persie",
+          "hook": "Two arrivals that shifted a title race in their first seasons.",
+          "position": 5
+        }
+      },
+      {
+        "id": "debate-managers-alex-ferguson-matt-busby",
+        "slug": "managers-alex-ferguson-matt-busby",
+        "status": "published",
+        "data": {
+          "mode": "managers",
+          "label": "Ferguson vs Busby",
+          "a": "alex-ferguson",
+          "b": "matt-busby",
+          "hook": "Two long reigns — trophies, win rate, and tenure side by side.",
+          "position": 0
+        }
+      },
+      {
+        "id": "debate-managers-alex-ferguson-jose-mourinho",
+        "slug": "managers-alex-ferguson-jose-mourinho",
+        "status": "published",
+        "data": {
+          "mode": "managers",
+          "label": "Ferguson vs Mourinho",
+          "a": "alex-ferguson",
+          "b": "jose-mourinho",
+          "hook": "Twenty-seven years against three — points, cups, and exits.",
+          "position": 1
+        }
+      },
+      {
+        "id": "debate-managers-matt-busby-ernest-mangnall",
+        "slug": "managers-matt-busby-ernest-mangnall",
+        "status": "published",
+        "data": {
+          "mode": "managers",
+          "label": "Busby vs Mangnall",
+          "a": "matt-busby",
+          "b": "ernest-mangnall",
+          "hook": "The club's first two long title-winning tenures.",
+          "position": 2
+        }
+      },
+      {
+        "id": "debate-eras-busby-ferguson",
+        "slug": "eras-busby-ferguson",
+        "status": "published",
+        "data": {
+          "mode": "eras",
+          "label": "Busby era vs Ferguson era",
+          "a": "busby",
+          "b": "ferguson",
+          "hook": "Two defining reigns — trophy haul and league finishes.",
+          "position": 0
+        }
+      },
+      {
+        "id": "debate-eras-1990s-2010s",
+        "slug": "eras-1990s-2010s",
+        "status": "published",
+        "data": {
+          "mode": "eras",
+          "label": "1990s vs 2010s",
+          "a": "1990s",
+          "b": "2010s",
+          "hook": "Title years of the nineties against the post-Ferguson decade.",
+          "position": 1
+        }
+      },
+      {
+        "id": "debate-eras-1950s-2000s",
+        "slug": "eras-1950s-2000s",
+        "status": "published",
+        "data": {
+          "mode": "eras",
+          "label": "1950s vs 2000s",
+          "a": "1950s",
+          "b": "2000s",
+          "hook": "Busby Babes decade against the Ronaldo-era peak.",
+          "position": 2
+        }
+      }
+    ],
+    "cuts": [
+      {
+        "id": "cut-opponents-by-win-rate",
+        "slug": "opponents-by-win-rate",
+        "status": "published",
+        "data": {
+          "eyebrow": "By opponent",
+          "title": "All opponents, ranked by win rate",
+          "blurb": "Opponents ranked by win rate across the full record — who United beat most, and who held them.",
+          "dimension": "opponent",
+          "metric": "winrate",
+          "position": 0
+        }
+      },
+      {
+        "id": "cut-managers-by-points",
+        "slug": "managers-by-points",
+        "status": "published",
+        "data": {
+          "eyebrow": "By manager",
+          "title": "Managers, ranked by points per game",
+          "blurb": "Every reign on a three-points-for-a-win scale, Mangnall to the present.",
+          "dimension": "manager",
+          "metric": "ppg",
+          "position": 1
+        }
+      },
+      {
+        "id": "cut-seasons-by-points",
+        "slug": "seasons-by-points",
+        "status": "published",
+        "data": {
+          "eyebrow": "By season",
+          "title": "Seasons, ranked by points per game",
+          "blurb": "League campaigns on one points-per-game scale — 120+ seasons, same measure.",
+          "dimension": "season",
+          "metric": "ppg",
+          "position": 2
+        }
+      }
+    ],
+    "transfer_notes": [
+      {
+        "id": "transfer-2016-08-09-paul-pogba-in",
+        "slug": "2016-08-09-paul-pogba-in",
+        "status": "published",
+        "data": {
+          "transfer_id": "2016-08-09-paul-pogba-in",
+          "line": "Left on a free in 2012; bought back for £80m in 2016.",
+          "position": 0
+        }
+      },
+      {
+        "id": "transfer-2009-07-01-cristiano-ronaldo-out",
+        "slug": "2009-07-01-cristiano-ronaldo-out",
+        "status": "published",
+        "data": {
+          "transfer_id": "2009-07-01-cristiano-ronaldo-out",
+          "line": "£80m to Real Madrid after six seasons — still the club's record sale.",
+          "position": 1
+        }
+      }
+    ]
+  }
+}

@@ -6,7 +6,7 @@ import { CompareTable } from "@/components/CompareTable";
 import { DetailBreadcrumb } from "@/components/DetailBreadcrumb";
 import { PageHeader } from "@/components/PageHeader";
 import type { Comparison } from "@/lib/compare";
-import { CURATED_DEBATES, curatedComparisonKey, type CompareMode, type CuratedDebate } from "@/lib/curatedDebates";
+import { curatedComparisonKey, type CompareMode, type CuratedDebate } from "@/lib/curatedDebates";
 import { queryString } from "@/lib/url";
 
 type ComparePageMode = Extract<CompareMode, "players" | "managers">;
@@ -52,7 +52,7 @@ function Suggestions({
   compact = false,
 }: {
   mode: ComparePageMode;
-  suggestions: CuratedDebate[];
+  suggestions: readonly CuratedDebate[];
   compact?: boolean;
 }) {
   const href = (item: { a: string; b: string }) => `/compare${queryString({ mode, a: item.a, b: item.b })}`;
@@ -92,14 +92,19 @@ function Suggestions({
   );
 }
 
+/** Debates per mode, resolved on the server and passed down so hydration matches a live render. */
+export type DebateLists = Record<ComparePageMode, readonly CuratedDebate[]>;
+
 export function ComparePageView({
   curated,
+  debates,
   mode = "players",
   a,
   b,
   rate = true,
 }: {
   curated: Record<string, Comparison>;
+  debates: DebateLists;
   mode?: ComparePageMode;
   a?: string;
   b?: string;
@@ -108,7 +113,7 @@ export function ComparePageView({
   const comparison =
     a && b ? (curated[compareKey(mode, a, b)] ?? curated[compareKey(mode, b, a)] ?? null) : null;
   const unresolved = a && b && !comparison ? a : null;
-  const suggestions = CURATED_DEBATES[mode];
+  const suggestions = debates[mode];
   const rateToggleHref = {
     total: `/compare${queryString({ mode, a, b, rate: "total" })}`,
     rate: `/compare${queryString({ mode, a, b })}`,
@@ -165,12 +170,12 @@ export function ComparePageView({
   );
 }
 
-export function ComparePageClient({ curated }: { curated: Record<string, Comparison> }) {
+export function ComparePageClient({ curated, debates }: { curated: Record<string, Comparison>; debates: DebateLists }) {
   const searchParams = useSearchParams();
   const rawMode = searchParams.get("mode");
   const mode: ComparePageMode = MODES.some((item) => item.key === rawMode) ? (rawMode as ComparePageMode) : "players";
   const a = searchParams.get("a") ?? undefined;
   const b = searchParams.get("b") ?? undefined;
   const rate = searchParams.get("rate") !== "total";
-  return <ComparePageView curated={curated} mode={mode} a={a} b={b} rate={rate} />;
+  return <ComparePageView curated={curated} debates={debates} mode={mode} a={a} b={b} rate={rate} />;
 }

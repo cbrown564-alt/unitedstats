@@ -31,7 +31,7 @@ test("Discover promotes questions and curated comparisons only", () => {
 
 test("Compare exposes no unrestricted creator", () => {
   const html = renderToStaticMarkup(
-    ComparePageView({ curated: curatedComparisons() }) as React.ReactElement,
+    ComparePageView({ curated: curatedComparisons(), debates: CURATED_DEBATES }) as React.ReactElement,
   );
   assert.match(html, /Curated debates/);
   assert.doesNotMatch(html, /<form/);
@@ -43,6 +43,7 @@ test("curated comparison URLs still resolve", () => {
   const html = renderToStaticMarkup(
     ComparePageView({
       curated: curatedComparisons(),
+      debates: CURATED_DEBATES,
       mode: "players",
       a: "wayne-rooney",
       b: "bobby-charlton",
@@ -58,6 +59,7 @@ test("arbitrary comparison URLs no longer resolve", () => {
   const html = renderToStaticMarkup(
     ComparePageView({
       curated: curatedComparisons(),
+      debates: CURATED_DEBATES,
       mode: "players",
       a: "wayne-rooney",
       b: "paul-scholes",
