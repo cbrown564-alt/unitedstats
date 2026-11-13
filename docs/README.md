@@ -21,6 +21,7 @@ Read `PRODUCT.md` and `DESIGN.md` at the repository root before changing the exp
 
 - [`POST-LAUNCH-IMPLEMENTATION-PLAN.md`](POST-LAUNCH-IMPLEMENTATION-PLAN.md) owns the active post-launch phase order, implementation scope, and exit gates.
 - [`TRANSFER-HISTORY-IMPLEMENTATION-PLAN.md`](TRANSFER-HISTORY-IMPLEMENTATION-PLAN.md) owns the bounded transfer-history supporting-feature plan and the gated cost-versus-success research programme.
+- [`EMDASH-MIGRATION-PLAN.md`](EMDASH-MIGRATION-PLAN.md) scopes the Astro + EmDash CMS migration (not started; supersedes ADR 0005's conclusion once ADR 0006 lands).
 - [`HOMEPAGE.md`](HOMEPAGE.md), [`JOURNEY.md`](JOURNEY.md), and [`DETAIL-PAGE-PLAN.md`](DETAIL-PAGE-PLAN.md) own their named experience areas.
 - [`MOBILE.md`](MOBILE.md) owns mobile behavior.
 - [`COPY-RUBRIC.md`](COPY-RUBRIC.md) owns editorial copy review.
