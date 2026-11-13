@@ -61,16 +61,30 @@ function setupGate(request: Request, token: string | undefined): Response | null
 }
 
 type Fetch = typeof handler.fetch;
+type Env = { SETUP_TOKEN?: string; SITE_INDEXABLE?: string };
+
+async function route(...[request, env, ctx]: Parameters<Fetch>): Promise<Response> {
+  const gate = setupGate(request, (env as Env).SETUP_TOKEN);
+  if (gate) return gate;
+  if (request.method === "GET" || request.method === "HEAD") {
+    const redirect = recordReaderRedirect(new URL(request.url));
+    if (redirect) return redirect;
+  }
+  return handler.fetch(request, env, ctx);
+}
 
 export default {
-  async fetch(...[request, env, ctx]: Parameters<Fetch>) {
-    const gate = setupGate(request, (env as { SETUP_TOKEN?: string }).SETUP_TOKEN);
-    if (gate) return gate;
-    if (request.method === "GET" || request.method === "HEAD") {
-      const redirect = recordReaderRedirect(new URL(request.url));
-      if (redirect) return redirect;
-    }
-    return handler.fetch(request, env, ctx);
+  /**
+   * Only production (wrangler.jsonc `SITE_INDEXABLE`) may be indexed. Static
+   * files get the same rule from out/_headers (scripts/package-assets.mjs);
+   * this covers what the Worker renders.
+   */
+  async fetch(...args: Parameters<Fetch>) {
+    const res = await route(...args);
+    if ((args[1] as Env).SITE_INDEXABLE === "true") return res;
+    const noindex = new Response(res.body, res);
+    noindex.headers.set("x-robots-tag", "noindex, nofollow");
+    return noindex;
   },
   scheduled: createScheduledHandler(),
 };

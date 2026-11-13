@@ -1,10 +1,16 @@
-// The EmDash Worker (Phase 2 of docs/EMDASH-MIGRATION-PLAN.md), read by
-// @astrojs/cloudflare for `astro dev` and `astro build`. The static Phase 1
-// deploy still uses cloudflare.config.ts until cutover.
-// These are the preview's own resources: a passkey is bound to its hostname, so
-// production gets a fresh D1 seeded from content/emdash/seed.json at cutover.
-// Secrets (wrangler secret put): EMDASH_ENCRYPTION_KEY, and SETUP_TOKEN until
-// admin setup is done (src/worker.ts).
+// The Red Thread Worker: Astro's hybrid build with EmDash
+// (docs/EMDASH-MIGRATION-PLAN.md). @astrojs/cloudflare reads this at build
+// time. CLOUDFLARE_ENV picks the environment, and `astro build` writes it,
+// flattened, to dist/server/wrangler.json, which is what gets deployed.
+//
+// - Unset: the preview (unitedstats-migration-preview on workers.dev, noindex).
+// - CLOUDFLARE_ENV=production: utdred.com. Only the deploy workflow sets it, so
+//   a bare build can never ship to the live site.
+//
+// Each environment has its own D1, R2 and KV. A passkey is bound to its
+// hostname, so the two admins are separate. Secrets (wrangler secret put):
+// EMDASH_ENCRYPTION_KEY, plus SETUP_TOKEN until admin setup is done
+// (src/worker.ts).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "unitedstats-migration-preview",
@@ -17,5 +23,24 @@
   "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media-preview" }],
   "kv_namespaces": [{ "binding": "SESSION", "id": "691449bca886494a969fe5d306d924db" }],
   "triggers": { "crons": ["*/5 * * * *"] },
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Vars are per environment. Anything but "true" sends noindex (src/worker.ts).
+  "vars": { "SITE_INDEXABLE": "false" },
+  "env": {
+    "production": {
+      "name": "unitedstats",
+      "workers_dev": true,
+      "routes": [
+        { "pattern": "utdred.com", "custom_domain": true },
+        { "pattern": "www.utdred.com", "custom_domain": true }
+      ],
+      // IDs are filled in when the resources are created at cutover.
+      "d1_databases": [{ "binding": "DB", "database_name": "redthread-editorial" }],
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media" }],
+      "kv_namespaces": [{ "binding": "SESSION" }],
+      "triggers": { "crons": ["*/5 * * * *"] },
+      "vars": { "SITE_INDEXABLE": "true" },
+      "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } }
+    }
+  }
 }

@@ -57,7 +57,7 @@ test("sitemap keeps every manager", () => {
 
 test("robots disallows APIs, datasets, and utility crawls", () => {
   const disallow = robotsDisallowPaths();
-  for (const path of ["/api/", "/dataset/", "/search", "/matches", "/surprise", "/compare", "/cut", "/on-this-day", "/dev/", "/_emdash/"]) {
+  for (const path of ["/api/", "/dataset/", "/search", "/matches", "/surprise", "/compare", "/cut", "/on-this-day", "/dev/", "/_emdash/", "/live-snapshot/"]) {
     assert.ok(disallow.includes(path), `robots should disallow ${path}`);
   }
   assert.ok(!disallow.includes("/"));

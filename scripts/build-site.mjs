@@ -35,3 +35,7 @@ const target = path.join("out", "live-snapshot", "record.json");
 mkdirSync(path.dirname(target), { recursive: true });
 writeFileSync(target, JSON.stringify(record));
 console.log(`build: live record ${Object.keys(record).length} queries, ${(statSync(target).size / 1024).toFixed(0)} KB`);
+
+// Headers, legacy redirects and the asset-size limit for the deploy target.
+const packaged = spawnSync(process.execPath, ["scripts/package-assets.mjs"], { stdio: "inherit" });
+if (packaged.status !== 0) process.exit(packaged.status ?? 1);
