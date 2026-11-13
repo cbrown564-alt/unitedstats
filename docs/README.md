@@ -21,14 +21,14 @@ Read `PRODUCT.md` and `DESIGN.md` at the repository root before changing the exp
 
 - [`POST-LAUNCH-IMPLEMENTATION-PLAN.md`](POST-LAUNCH-IMPLEMENTATION-PLAN.md) owns the active post-launch phase order, implementation scope, and exit gates.
 - [`TRANSFER-HISTORY-IMPLEMENTATION-PLAN.md`](TRANSFER-HISTORY-IMPLEMENTATION-PLAN.md) owns the bounded transfer-history supporting-feature plan and the gated cost-versus-success research programme.
-- [`EMDASH-MIGRATION-PLAN.md`](EMDASH-MIGRATION-PLAN.md) scopes the Astro + EmDash CMS migration (not started; supersedes ADR 0005's conclusion once ADR 0006 lands).
+- [`EMDASH-MIGRATION-PLAN.md`](EMDASH-MIGRATION-PLAN.md) owns the Astro + EmDash migration: phases, what was built, and the production cutover runbook. ADR 0006 records the decision and supersedes ADR 0005's conclusion. Until the ARCHITECTURE.md rewrite lands, the plan is the authority on the Worker, the live routes and deploys.
 - [`HOMEPAGE.md`](HOMEPAGE.md), [`JOURNEY.md`](JOURNEY.md), and [`DETAIL-PAGE-PLAN.md`](DETAIL-PAGE-PLAN.md) own their named experience areas.
 - [`MOBILE.md`](MOBILE.md) owns mobile behavior.
 - [`COPY-RUBRIC.md`](COPY-RUBRIC.md) owns editorial copy review.
 - [`PERF.md`](PERF.md) owns performance budgets and checks.
 - [`VERCEL-HOBBY-ASSESSMENT.md`](VERCEL-HOBBY-ASSESSMENT.md) records the
-  crawler-discovery (Move 6) and static-export (Move 7) Hobby path, now
-  implemented.
+  crawler-discovery (Move 6) and static-export (Move 7) Hobby path. It is
+  history now: the site left Vercel for Cloudflare.
 - Dated reviews and incidents are evidence records. They do not replace the canonical owner documents.
 
 When documents conflict, current code and tests own implemented behavior; the canonical document for the concern owns intended behavior. Resolve the conflict explicitly rather than keeping both claims active.

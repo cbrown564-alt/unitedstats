@@ -132,20 +132,23 @@ reintroduce `UNITEDSTATS_DB_BLOB_URL`. After a deploy, `node
 scripts/smoke-check.mjs` checks the health snapshot, core pages, and the
 Worker's record redirect on `https://utdred.com` (pass `--site` for a preview).
 
-## Cloudflare migration
+## Deploy (Cloudflare Workers)
 
-`cloudflare.config.ts` owns the account, Worker, asset behavior and observability. `wrangler.config.ts` supplies the existing `out/` directory to Wrangler’s installed `cf-wrangler` static build delegate; it does not convert Next.js into a Worker framework. Node 24.19 is pinned for native build compatibility.
+The site is one Worker: Astro's hybrid build with EmDash (docs/EMDASH-MIGRATION-PLAN.md). `wrangler.jsonc` holds both targets, and `CLOUDFLARE_ENV` at build time picks one. `astro build` writes the chosen environment, flattened, to `dist/server/wrangler.json`, and that file is what gets deployed. Static files go to `out/`, and the Worker serves everything else.
 
-- `npm run build:cloudflare` runs the full existing Next.js build and packages an isolated `unitedstats-migration-preview` with noindex. It uses the canonical `https://utdred.com` URL and does not run ingest or remote media refresh.
-- `npm run build:cloudflare -- production` packages `unitedstats` with indexing enabled.
-- `npm run deploy:cloudflare-preview` / `npm run deploy:cloudflare` deploy the matching prebuilt mode. Build first; cf does not execute package scripts. Its beta framework detection calls `next build` and rejects modes, so the packaging script calls the installed `cf-wrangler build --mode …` delegate directly after Next.js has finished. Publishing still uses `cf deploy --prebuilt`.
-- `npm run check:cloudflare` generates platform types, checks configuration/handler types and validates the preview deployment without uploading.
+- Unset: the preview, `unitedstats-migration-preview` on workers.dev, with its own D1, R2 and KV. Noindex on every response. `npm run build`, then `npm run deploy:preview`.
+- `CLOUDFLARE_ENV=production`: `unitedstats` on utdred.com and www.utdred.com. Only `.github/workflows/deploy.yml` deploys it. That workflow runs on a push to master and by hand, and the data and publish workflows call it after their own push (a push made with `GITHUB_TOKEN` starts no other workflow). Its token lives in the `production` GitHub environment.
+- `npm start` serves the built Worker locally, with D1 state under `.wrangler/local-d1`.
 
-The packaging step preserves the permanent redirects from `vercel.json`, restores API CORS and data/static cache headers, and rejects individual assets above 25 MiB. Existing prerendered entity pages take precedence; unprerendered match/player/opponent/season URLs redirect to the existing browser-backed record reader. Unknown pages return the exported 404 page.
+`scripts/package-assets.mjs` runs at the end of the build. It writes `out/_redirects` from the permanent redirects in `vercel.json`, merges API CORS, data caching and noindex into the adapter's `out/_headers`, and fails on any asset over 25 MiB. `_headers` covers only static files, so the Worker sends noindex itself unless `SITE_INDEXABLE` is `"true"`, which only production sets. Unprerendered match/player/opponent/season URLs redirect to the browser-backed record reader (`src/worker.ts`).
+
+`scripts/check-worker-config.mjs <preview|production>` checks a build against its target: Worker name, domains, indexing, bindings and redirects. `--deployable` also requires the D1 and KV IDs, because without them Wrangler would create new, empty resources. With `--smoke <origin>` it checks a deployed site instead: the home page renders live, indexing is right, and every legacy redirect answers 308. CI runs the production build, the config check and `wrangler deploy --dry-run`.
+
+The Next build (`npm run build:cloudflare -- production`, `npm run deploy:cloudflare`) remains only as a fallback until Phase 3b; to roll back, use `wrangler rollback` first.
 
 Umami pageviews and bounded product events remain. Vercel Web Analytics and Speed Insights scripts are removed because their endpoints depend on the old host. Their historical measurements remain evidence; no field-performance improvement is claimed. Blob upload/revalidation scripts remain dormant manual recovery tools and are not required by the build or weekly update workflow.
 
-The production configuration attaches `utdred.com` and `www.utdred.com`. A zone Single Redirect rule preserves the existing 308 from www to the apex, including path and query. The separate Google verification TXT record must be preserved. The Monday 18:00 UTC data workflow stays unchanged; its normal master push starts a Cloudflare production rebuild once native Git deployment is connected. Workers Builds must run `npm run build:cloudflare -- production`, then `npx cf deploy --prebuilt --mode production`.
+The production configuration attaches `utdred.com` and `www.utdred.com`. A zone Single Redirect rule preserves the existing 308 from www to the apex, including path and query. The separate Google verification TXT record must be preserved. The Monday 18:00 UTC data workflow calls the Deploy workflow after it pushes.
 
 Preview testing reproduced an existing record-navigation defect on Vercel: selecting another record after client navigation could retain the previous result. `RecordClient` now reads pathname/query from Next.js route hooks instead of listening only to browser `popstate`; the existing loading, abort, failure/retry and record-data behavior remain.
 
