@@ -794,27 +794,24 @@ body {
   text-decoration-skip-ink: none;
 }
 /* Cross-page continuity: a quick, gentle fade between routes (opacity only —
-   no positional movement, which is the main motion-sensitivity trigger). The
-   sticky header is lifted out of the snapshot so it stays put as content fades. */
+   no positional movement, which is the main motion-sensitivity trigger). */
+@view-transition {
+  navigation: auto;
+}
+
 ::view-transition-old(*),
 ::view-transition-new(*) {
   animation-duration: 200ms;
   animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* Only the sticky site chrome is lifted out of the snapshot so it stays put as
-   content fades. The `view-transition-name: site-header` is applied by React's
-   <ViewTransition name="site-header"> in SiteShell — not a raw CSS rule — so the
-   name is owned by exactly one live element across the old/new trees and cannot
-   collide with itself mid-navigation (a raw CSS name does, and the browser aborts
-   the transition with "multiple elements found"). These rules suppress its
-   animation by matching that same name. */
-::view-transition-group(site-header) {
-  animation: none;
-}
-::view-transition-old(site-header) {
-  display: none;
-}
-::view-transition-new(site-header) {
+/* Like the old in-app cross-fade, only the page content fades; the chrome
+   (sidebar, bottom pill) stays put. The root snapshot does not animate, and
+   <main> is captured as `page`. The name is set by the pageswap/pagereveal
+   script in src/rt/Document.astro for the length of the transition only, so
+   <main> is not a stacking context the rest of the time. */
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-group(page) {
   animation: none;
 }
 

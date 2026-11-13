@@ -1,16 +1,14 @@
 /**
- * Guards the static-rendering campaign (see docs/ARCHITECTURE.md): fails the build if a
- * route that should be prerendered has regressed to server-rendered-on-demand.
- * A stray `searchParams`/`cookies()`/`headers()` read, or a dropped
- * `generateStaticParams`, silently flips a page back to dynamic — this catches
- * that. Run after `next build`:
+ * Guards the static-rendering campaign (see docs/ARCHITECTURE.md): fails the
+ * build if a page that should be prerendered is missing from out/, or a
+ * generateStaticParams family collapsed. Run after the build:
  *
  *   npm run build && npm run check:static
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 
-// Pages that must be statically prerendered (○ in the build output).
+// Pages that must be statically prerendered (one out/<path>.html each).
 const EXPECTED_STATIC = [
   "/",
   "/analytics",
@@ -27,7 +25,7 @@ const EXPECTED_STATIC = [
   "/transfers",
 ];
 
-// Route patterns that must be statically generated via generateStaticParams (●).
+// Route patterns that must be statically generated via generateStaticParams (a directory of pages).
 const EXPECTED_SSG = [
   "/cut/[slug]",
   "/manager/[id]",
@@ -52,28 +50,32 @@ function buildProfile() {
 
 const MIN_PRERENDERED = buildProfile() === "preview" ? 50 : 5000;
 
-const file = path.join(process.cwd(), ".next", "prerender-manifest.json");
-
-let manifest;
-try {
-  manifest = JSON.parse(readFileSync(file, "utf8"));
-} catch {
-  console.error(`check:static — cannot read ${file}. Run \`npm run build\` first.`);
+const out = path.join(process.cwd(), "out");
+if (!existsSync(out)) {
+  console.error("check:static — out/ is missing. Run `npm run build` first.");
   process.exit(1);
 }
 
-const routes = manifest.routes ?? {};
-const dynamicRoutes = manifest.dynamicRoutes ?? {};
+const pages = [];
+(function walk(dir) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const file = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(file);
+    else if (entry.name.endsWith(".html")) pages.push("/" + path.relative(out, file).split(path.sep).join("/").replace(/\.html$/, ""));
+  }
+})(out);
+const paths = new Set(pages.map((p) => (p === "/index" ? "/" : p)));
 const failures = [];
 
 for (const r of EXPECTED_STATIC) {
-  if (!(r in routes)) failures.push(`static page not prerendered (now dynamic?): ${r}`);
+  if (!paths.has(r)) failures.push(`static page not prerendered: ${r}`);
 }
 for (const r of EXPECTED_SSG) {
-  if (!(r in dynamicRoutes)) failures.push(`SSG route missing (dropped generateStaticParams?): ${r}`);
+  const prefix = r.slice(0, r.indexOf("/["));
+  if (![...paths].some((p) => p.startsWith(prefix + "/"))) failures.push(`SSG route has no pages (dropped generateStaticParams?): ${r}`);
 }
 
-const count = Object.keys(routes).length;
+const count = paths.size;
 if (count < MIN_PRERENDERED) {
   failures.push(`only ${count} prerendered paths (expected >= ${MIN_PRERENDERED})`);
 }

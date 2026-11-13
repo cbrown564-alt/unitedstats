@@ -1,7 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export const ROOT = path.resolve(__dirname, "..");
+// tsx runs scripts as CommonJS (`__dirname`); the Astro build bundles this
+// module into ESM chunks under out/, where the repository root is the cwd.
+export const ROOT = typeof __dirname !== "undefined" ? path.resolve(__dirname, "..") : process.cwd();
 export const CANONICAL = process.env.UNITEDSTATS_CANONICAL_DIR
   ? path.resolve(process.env.UNITEDSTATS_CANONICAL_DIR)
   : path.join(ROOT, "data", "canonical");

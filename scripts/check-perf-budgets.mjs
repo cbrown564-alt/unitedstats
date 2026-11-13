@@ -1,18 +1,17 @@
 /**
  * Post-build performance budgets. This intentionally inspects the built
- * artifacts rather than source estimates so hidden HTML/RSC growth and chunky
- * client bundles fail loudly after `next build`.
+ * artifacts rather than source estimates so hidden HTML/payload growth and chunky
+ * client bundles fail loudly after the build. Pages inline their hydration
+ * payload (src/rt/flight.ts), so the HTML budget covers it, as it covered Next's
+ * inlined RSC stream.
  */
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
 
 const root = process.cwd();
-const nextDir = path.join(root, ".next");
 const exportDir = path.join(root, "out");
-const appDir = path.join(nextDir, "server", "app");
-const chunksDir = path.join(nextDir, "static", "chunks");
-const ignoredRootEntries = new Set(["dev", "cache"]);
+const chunksDir = path.join(exportDir, "_astro");
 
 const KB = 1024;
 const MB = 1024 * KB;
@@ -20,34 +19,24 @@ const profile = buildProfile();
 
 const budgets = {
   htmlGzip: bytesFromEnv("PERF_MAX_HTML_GZIP", 180 * KB),
-  rscGzip: bytesFromEnv("PERF_MAX_RSC_GZIP", 120 * KB),
   jsChunkGzip: bytesFromEnv("PERF_MAX_JS_CHUNK_GZIP", 120 * KB),
-  nextOutput: bytesFromEnv("PERF_MAX_NEXT_OUTPUT", (profile === "full" ? 1300 : 500) * MB),
   exportOutput: bytesFromEnv("PERF_MAX_EXPORT_OUTPUT", (profile === "full" ? 1200 : 500) * MB),
 };
 
-if (!existsSync(nextDir)) {
-  console.error("check:perf — .next is missing. Run `npm run build` first.");
+if (!existsSync(exportDir)) {
+  console.error("check:perf — out/ is missing. Run `npm run build` first.");
   process.exit(1);
 }
 
 const failures = [];
-const html = checkGzipBudget(walk(appDir, (file) => file.endsWith(".html")), budgets.htmlGzip, "HTML");
-const rsc = checkGzipBudget(walk(appDir, (file) => file.endsWith(".rsc")), budgets.rscGzip, "RSC");
+const html = checkGzipBudget(walk(exportDir, (file) => file.endsWith(".html")), budgets.htmlGzip, "HTML");
 const js = checkGzipBudget(walk(chunksDir, (file) => file.endsWith(".js")), budgets.jsChunkGzip, "JS chunk");
-const nextOutput = sumBytes(nextDir);
-const exportOutput = existsSync(exportDir) ? sumBytes(exportDir) : 0;
+const exportOutput = sumBytes(exportDir);
 
-if (nextOutput > budgets.nextOutput) {
-  failures.push(`.next output ${fmt(nextOutput)} exceeds budget ${fmt(budgets.nextOutput)}`);
-}
-if (!existsSync(exportDir)) failures.push("out/ is missing. Run `npm run build` first.");
-else if (exportOutput > budgets.exportOutput) failures.push(`export output ${fmt(exportOutput)} exceeds budget ${fmt(budgets.exportOutput)}`);
+if (exportOutput > budgets.exportOutput) failures.push(`export output ${fmt(exportOutput)} exceeds budget ${fmt(budgets.exportOutput)}`);
 
 printTop("HTML gzip", html);
-printTop("RSC gzip", rsc);
 printTop("JS chunk gzip", js);
-console.log(`.next output (${profile}): ${fmt(nextOutput)} (budget ${fmt(budgets.nextOutput)})`);
 console.log(`export output (${profile}): ${fmt(exportOutput)} (budget ${fmt(budgets.exportOutput)})`);
 
 if (failures.length > 0) {
@@ -57,8 +46,8 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `✓ perf budgets: HTML ≤ ${fmt(budgets.htmlGzip)}, RSC ≤ ${fmt(budgets.rscGzip)}, ` +
-    `JS chunks ≤ ${fmt(budgets.jsChunkGzip)}, .next ≤ ${fmt(budgets.nextOutput)}, out ≤ ${fmt(budgets.exportOutput)}.`,
+  `✓ perf budgets: HTML ≤ ${fmt(budgets.htmlGzip)}, JS chunks ≤ ${fmt(budgets.jsChunkGzip)}, ` +
+    `out ≤ ${fmt(budgets.exportOutput)}.`,
 );
 
 function bytesFromEnv(name, fallback) {
@@ -113,7 +102,6 @@ function gzipSize(file) {
 function sumBytes(dir) {
   let total = 0;
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (dir === nextDir && ignoredRootEntries.has(entry.name)) continue;
     const file = path.join(dir, entry.name);
     if (entry.isDirectory()) total += sumBytes(file);
     else total += statSync(file).size;

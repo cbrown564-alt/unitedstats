@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { resolveSitemap } from "next/dist/build/webpack/loaders/metadata/resolve-route-data";
+import { sitemapXml } from "../src/rt/endpoints";
 import sitemap from "../app/sitemap";
 import { GET as llmsTxtRoute } from "../app/llms.txt/route";
 
@@ -12,7 +12,7 @@ test("sitemap lists canonical pages without saved-query receipts", () => {
   assert.ok(sitemap().every((entry) => !new URL(entry.url.replaceAll("&amp;", "&")).search));
   assert.ok(sitemapPaths().every((path) => path !== "/cut"));
 
-  const xml = resolveSitemap(sitemap());
+  const xml = sitemapXml(sitemap());
   assert.doesNotMatch(xml, /<loc>[^<]*&(?!amp;)[^<]*<\/loc>/);
 });
 

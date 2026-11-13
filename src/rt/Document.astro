@@ -1,0 +1,63 @@
+---
+/**
+ * The document every page shares: what app/layout.tsx and Next's head printed.
+ * The React tree renders into #rt-root (display: contents, so the body's flex
+ * column still lays out SiteShell's children) and hydrates from #rt-payload.
+ */
+import { Font } from "astro:assets";
+import { jsonLdHtml, websiteJsonLd } from "@/lib/structuredData";
+import type { RenderedPage } from "./render";
+import "@/app/globals.css";
+import "@/app/thread.css";
+import "@/app/cord.css";
+import "@/app/plate.css";
+
+interface Props {
+  page: Extract<RenderedPage, { kind: "page" }>;
+}
+
+const { page } = Astro.props;
+// Cross-document view transitions (globals.css): capture <main> as `page` for
+// the transition only, and swallow the promise Chrome rejects when a transition
+// is skipped (e.g. "Page already revealed" on a back/forward restore).
+const viewTransitionScript = `(() => {
+  const name = (vt) => {
+    const main = document.querySelector(".site-main");
+    if (!main) return;
+    main.style.viewTransitionName = "page";
+    vt.finished.catch(() => {}).then(() => { main.style.viewTransitionName = ""; });
+  };
+  const quiet = (vt) => { for (const p of [vt.ready, vt.finished, vt.updateCallbackDone]) p && p.catch(() => {}); };
+  addEventListener("pageswap", (e) => { if (e.viewTransition) { quiet(e.viewTransition); name(e.viewTransition); } });
+  addEventListener("pagereveal", (e) => { if (e.viewTransition) { quiet(e.viewTransition); name(e.viewTransition); } });
+})();`;
+const speculation = JSON.stringify({ prefetch: [{ where: { href_matches: "/*" }, eagerness: "moderate" }] });
+---
+<!doctype html>
+<html lang="en" class="h-full antialiased" data-chrome={page.chromeOff ? "off" : undefined}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Font cssVariable="--font-archivo" preload />
+    <Font cssVariable="--font-plex-mono" preload />
+    <Fragment set:html={page.head} />
+    <script is:inline set:html={viewTransitionScript} />
+    <script is:inline type="speculationrules" set:html={speculation} />
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="d08bc90f-d7b2-4ed8-b3a8-4e334b54b18b"
+      data-domains="utdred.com,www.utdred.com"
+      data-exclude-search="true"
+      data-exclude-hash="true"></script>
+  </head>
+  <body class="min-h-full flex flex-col font-sans">
+    <script is:inline type="application/ld+json" set:html={jsonLdHtml(websiteJsonLd())} />
+    <div id="rt-root" style="display:contents" set:html={page.html} />
+    <script is:inline type="application/json" id="rt-payload" set:html={page.payload} />
+    <script>
+      import "./client";
+    </script>
+  </body>
+</html>
