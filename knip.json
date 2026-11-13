@@ -11,12 +11,17 @@
     "deploy/cloudflare-worker.ts",
     "src/pages/**/*.{astro,ts}",
     "src/rt/client.tsx",
-    "src/shims/*.{ts,tsx}"
+    "src/shims/*.{ts,tsx}",
+    "src/live.config.ts",
+    "src/shims/*.mjs",
+    "plugins/*/index.mjs",
+    "lib/dbReplay.ts"
   ],
   "ignoreBinaries": [
     "ffmpeg"
   ],
-  "ignore": [
-    ".astro/**"
+  "ignoreDependencies": [
+    "@redthread/record-guard",
+    "cloudflare"
   ]
 }

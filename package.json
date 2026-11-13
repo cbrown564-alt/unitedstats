@@ -1,5 +1,9 @@
 {
   "name": "unitedstats",
+  "emdash": {
+    "label": "Red Thread",
+    "seed": "content/emdash/seed.json"
+  },
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -47,6 +51,8 @@
     "build:db": "tsx scripts/build-db.ts",
     "export:dataset": "tsx scripts/export-dataset.ts",
     "export:client-data": "tsx scripts/export-client-data.ts",
+    "emdash:index": "tsx scripts/emdash/write-record-index.ts",
+    "emdash:seed-schema": "tsx scripts/emdash/seed-from-registries.ts",
     "validate": "tsx scripts/validate.ts",
     "copy:extract": "tsx scripts/extract-copy-catalog.ts",
     "copy:persist": "tsx scripts/persist-copy-queue.ts",
@@ -93,10 +99,14 @@
     "astro:preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "14.4.7",
     "@astrojs/react": "^7.1.8",
+    "@emdash-cms/cloudflare": "1.5.0",
+    "@redthread/record-guard": "file:plugins/record-guard",
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^7.4.11",
     "better-sqlite3": "^12.10.0",
+    "emdash": "1.5.0",
     "next": "16.2.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",

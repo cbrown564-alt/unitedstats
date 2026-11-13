@@ -78,6 +78,28 @@ function entries<C extends EditorialCollection>(collection: C): Entry<C>[] {
     .sort((a, b) => (a.data.position ?? 0) - (b.data.position ?? 0));
 }
 
+function rawOf(collection: EditorialCollection): unknown {
+  return source()?.get(collection) ?? seeded[collection];
+}
+
+/**
+ * Memoize a value derived from a collection: recomputed only when that
+ * collection's entries change (a new request's live entries, or never for the seed).
+ */
+export function liveMemo<T>(collection: EditorialCollection, compute: () => T): () => T {
+  const unset = Symbol();
+  let lastRaw: unknown = unset;
+  let value: T;
+  return () => {
+    const raw = rawOf(collection);
+    if (raw !== lastRaw) {
+      value = compute();
+      lastRaw = raw;
+    }
+    return value;
+  };
+}
+
 const views = new WeakMap<object, () => unknown[]>();
 
 /**
@@ -93,7 +115,7 @@ export function liveList<C extends EditorialCollection, T>(
   let lastRaw: unknown;
   let last: T[] = [];
   const resolve = (): T[] => {
-    const raw = source()?.get(collection) ?? seeded[collection];
+    const raw = rawOf(collection);
     if (raw !== lastRaw) {
       lastRaw = raw;
       last = entries(collection).filter(where).map(map);

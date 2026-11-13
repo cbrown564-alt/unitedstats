@@ -6,7 +6,7 @@ import { liveList } from "./editorial";
 
 /** Stories whose bodies are in code (components/journey); until Phase 4 a story
  *  entry in EmDash only reaches the shelf when its slug is listed here. */
-const STORY_SLUGS = ["two-no-7s", "eleven-days-in-may", "fortress-ot", "fergie-time", "a-thread-of-nights"] as const;
+export const STORY_SLUGS = ["two-no-7s", "eleven-days-in-may", "fortress-ot", "fergie-time", "a-thread-of-nights"] as const;
 export type JourneyChapterSlug = (typeof STORY_SLUGS)[number];
 
 const isStorySlug = (slug: string): slug is JourneyChapterSlug => (STORY_SLUGS as readonly string[]).includes(slug);

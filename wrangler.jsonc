@@ -1,0 +1,15 @@
+// The EmDash Worker (Phase 2 of docs/EMDASH-MIGRATION-PLAN.md), read by
+// @astrojs/cloudflare for `astro dev` and `astro build`. The static Phase 1
+// deploy still uses cloudflare.config.ts until cutover.
+// D1 and R2 IDs are added when the resources are created on the account.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "unitedstats-migration-preview",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-10-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{ "binding": "DB", "database_name": "redthread-editorial" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media" }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "enabled": true }
+}

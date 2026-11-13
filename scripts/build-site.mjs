@@ -5,6 +5,7 @@
  * full build.
  */
 import { spawnSync } from "node:child_process";
+import { mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 
@@ -14,6 +15,8 @@ const profile = explicit === "preview" ? "preview" : "full";
 const args = process.argv.slice(2);
 
 console.log(`build: profile=${profile}; framework=astro`);
+const recordDir = path.join(".astro", "live-record");
+rmSync(recordDir, { recursive: true, force: true });
 for (const [label, cmd] of [
   ["routes", [process.execPath, ["scripts/astro/generate-routes.mjs"]]],
   ["astro build", [process.execPath, [path.join(path.dirname(require.resolve("astro/package.json")), "bin", "astro.mjs"), "build", ...args]]],
@@ -23,3 +26,12 @@ for (const [label, cmd] of [
   if (result.error) throw result.error;
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
+
+// The live routes' recorded queries, merged into one asset the Worker replays
+// (src/rt/snapshot.ts records them; lib/dbReplay.ts reads them).
+const record = {};
+for (const file of readdirSync(recordDir)) Object.assign(record, JSON.parse(readFileSync(path.join(recordDir, file), "utf8")));
+const target = path.join("out", "live-snapshot", "record.json");
+mkdirSync(path.dirname(target), { recursive: true });
+writeFileSync(target, JSON.stringify(record));
+console.log(`build: live record ${Object.keys(record).length} queries, ${(statSync(target).size / 1024).toFixed(0)} KB`);

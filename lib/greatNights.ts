@@ -4,6 +4,7 @@ import { clubRecords } from "./trails";
 import { getDb } from "./db";
 import { scoreline, scoreNote, fmtRound, resultTone } from "./format";
 import { CURATED_NIGHTS } from "./curatedNights";
+import { liveMemo } from "./editorial";
 import {
   dayOfYear,
   monthDayOfDate,
@@ -248,11 +249,9 @@ export function greatNights(
   return { nights: [], seed: 0 };
 }
 
-let homepageCatalogCache: HomepageNightCatalog | null = null;
-
-/** Build-time catalog so the homepage can re-pick today's night in the browser. */
-export function homepageNightCatalog(): HomepageNightCatalog {
-  if (homepageCatalogCache) return homepageCatalogCache;
+/** Build-time catalog so the homepage can re-pick today's night in the browser.
+ *  Recomputed when the nights collection changes (a live render's entries). */
+export const homepageNightCatalog = liveMemo("nights", (): HomepageNightCatalog => {
   const pool: GreatNight[] = CURATED_NIGHTS.map((curated) => {
     const match = matchById(curated.id);
     return match ? build(match, "great-night", curated.stakes, false) : null;
@@ -275,6 +274,5 @@ export function homepageNightCatalog(): HomepageNightCatalog {
       if (row && qualifiesAsLead(row)) leadByMonthDay[key] = build(row, "on-this-day", null, true);
     }
   }
-  homepageCatalogCache = { pool, leadByMonthDay };
-  return homepageCatalogCache;
-}
+  return { pool, leadByMonthDay };
+});
