@@ -65,4 +65,4 @@ jobs:
       - name: Smoke-test utdred.com
         run: |
           node scripts/smoke-check.mjs
-          node scripts/check-worker-config.mjs production --smoke https://utdred.com
+          node scripts/check-worker-config.mjs production --smoke https://utdred.com --allow-setup

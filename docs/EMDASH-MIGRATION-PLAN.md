@@ -271,7 +271,7 @@ Deviations from the steps above:
   `.emdash/` are build output and are gitignored.
 - **No deploy step in the publish workflow.** `.github/workflows/publish-editorial.yml`
   pushes the seed. The push triggers the Cloudflare Git build, as the results
-  workflows do. It needs the `CLOUDFLARE_D1_EXPORT_TOKEN` (D1 read) and
+  workflows do. It needs the `CLOUDFLARE_D1_EXPORT_TOKEN` (D1 Edit) and
   `CLOUDFLARE_ACCOUNT_ID` secrets, plus the D1 `database_id` in `wrangler.jsonc`.
 - **The seed's committed shape is owned by two scripts.**
   `scripts/emdash/seed-from-registries.ts` owns the schema. `snapshot-seed.mts` turns
@@ -415,9 +415,29 @@ since `emdash-migration` branched.
      - a `production` environment holding `CLOUDFLARE_API_TOKEN` (Workers scripts,
        routes and custom domains on utdred.com, plus D1, R2 and KV);
      - repository secrets `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_D1_EXPORT_TOKEN`
-       (D1 read, for the publish snapshot).
+       (D1 Edit, for the publish snapshot; exports require a database lock).
 
      These must exist before the merge, because the merge deploys.
+   Provisioned on 2026-11-14 for PR #79: D1 `redthread-editorial`
+   (`fb1c72c0-e380-4d58-9b17-41ff1702a8b9`), R2 `redthread-media`, and KV
+   `redthread-session` (`75ef7b607fa64bf288396a4fd8bf9fa1`). Both Worker secrets
+   are installed on `unitedstats`; their backup is the gitignored
+   `.env.emdash-production` in the migration worktree (mode 0600). Preserve this
+   file before retiring that worktree. `CLOUDFLARE_ACCOUNT_ID` is set in GitHub;
+   the existing `Production` environment is used for the deploy token.
+   The maintainer must still create and store both API tokens before merging.
+
+   Rollback target recorded before changing secrets:
+   `63d96e54-3a78-4b34-aec9-a8ab76b95c3b` (static Next Worker).
+   Remote tag `pre-astro-cutover` points to master
+   `572a368e3976a8302ff7e32991861b1c209331df`.
+
+   The export token needs **D1 Edit**, despite the earlier read-only wording:
+   [Cloudflare requires Write for export because it locks the database](https://developers.cloudflare.com/d1/observability/debug-d1/#error-10000-and-token-permissions).
+   The deploy smoke check permits `snapshot; unseeded` only while the status API
+   reports pending setup with seed content and the wizard returns 404 without its
+   token. After setup, the same check requires live rendering.
+
 3. **Merge the PR.** The push runs `deploy.yml`: build, config check, deploy, smoke
    test. Until setup runs, the live routes serve their deploy-time twins (`unseeded`),
    so visitors see no change.

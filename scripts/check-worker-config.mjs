@@ -12,6 +12,8 @@
  *
  * --smoke requests a deployed origin: the home page must render live, and must
  * be indexable only on production, and the legacy redirects must answer 308.
+ * --allow-setup accepts the unseeded twin only while EmDash reports pending
+ * setup with seed content available and the wizard refuses unauthenticated access.
  * scripts/smoke-check.mjs covers the health snapshot and core pages.
  */
 import { existsSync, readFileSync } from "node:fs";
@@ -78,7 +80,18 @@ async function checkDeployed(origin) {
   const home = await get("/");
   const live = home.headers.get("x-redthread-live") ?? "";
   if (home.status !== 200) failures.push(`/ answered ${home.status}`);
-  if (live !== "live") failures.push(`/ was not rendered live (x-redthread-live: ${live || "absent"})`);
+  if (live !== "live") {
+    let pendingSetup = false;
+    if (rest.includes("--allow-setup") && live === "snapshot; unseeded") {
+      const status = await get("/_emdash/api/setup/status");
+      const body = await status.json().catch(() => null);
+      const wizard = await get("/_emdash/admin/setup");
+      pendingSetup = status.status === 200 && body?.success === true &&
+        body.data?.needsSetup === true && body.data?.seedInfo?.hasContent === true && wizard.status === 404;
+      if (pendingSetup) console.log("check-worker-config: serving the unseeded twin; protected admin setup is pending");
+    }
+    if (!pendingSetup) failures.push(`/ was not rendered live (x-redthread-live: ${live || "absent"})`);
+  }
   const noindex = /noindex/.test(home.headers.get("x-robots-tag") ?? "");
   if (noindex === target.indexable) failures.push(`/ ${noindex ? "sends" : "does not send"} noindex`);
 

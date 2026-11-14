@@ -34,10 +34,10 @@
         { "pattern": "utdred.com", "custom_domain": true },
         { "pattern": "www.utdred.com", "custom_domain": true }
       ],
-      // IDs are filled in when the resources are created at cutover.
-      "d1_databases": [{ "binding": "DB", "database_name": "redthread-editorial" }],
+      // Production resources provisioned at cutover on 2026-11-14.
+      "d1_databases": [{ "binding": "DB", "database_name": "redthread-editorial", "database_id": "fb1c72c0-e380-4d58-9b17-41ff1702a8b9" }],
       "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media" }],
-      "kv_namespaces": [{ "binding": "SESSION" }],
+      "kv_namespaces": [{ "binding": "SESSION", "id": "75ef7b607fa64bf288396a4fd8bf9fa1" }],
       "triggers": { "crons": ["*/5 * * * *"] },
       "vars": { "SITE_INDEXABLE": "true" },
       "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } }

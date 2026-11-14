@@ -27,11 +27,11 @@ jobs:
       - run: npm run copy:extract
       - run: npm run copy:lint
       # The build Deploy ships: the full profile for utdred.com. postbuild runs
-      # check:perf. The production D1 and KV IDs are only required to deploy.
+      # check:perf. Production D1 and KV resources are provisioned at cutover.
       - name: Build the site (production target)
         env:
           CLOUDFLARE_ENV: production
         run: npm run build
-      - run: node scripts/check-worker-config.mjs production
+      - run: node scripts/check-worker-config.mjs production --deployable
       - run: npx wrangler deploy --config dist/server/wrangler.json --dry-run
       - run: npm run check:static
