@@ -12,7 +12,7 @@ Red Thread name and voice.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+npm run dev        # http://localhost:4321
 ```
 
 `npm run dev` runs `build:db` automatically if `data/united.db` is missing.
@@ -42,13 +42,14 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
    reference files for players, transfers, media, positions, and more), compiled
    to SQLite. See `docs/DATA-MODEL.md`.
 2. **Update pipeline** — GitHub Actions cron pulls new results from openfootball,
-   validates, rebuilds, exports, and triggers a normal hosting deployment
-   containing the refreshed database — no paid APIs, no servers. See
+   validates, rebuilds, exports, commits, and calls the deploy workflow — no paid APIs, no servers. See
    `docs/PIPELINE.md`.
-3. **Web UI** — Next.js 16 App Router + Tailwind 4, server components querying
-   SQLite read-only. Elo and aggregates are precomputed at build time; discovery
-   surfaces (questions, compare, cuts) sit on top of the same record. See
-   `docs/ARCHITECTURE.md`.
+3. **Web UI** — Astro 7 + React + Tailwind 4 on one Cloudflare Worker. Pages
+   prerender from SQLite at build time, and Elo and aggregates are precomputed.
+   `/`, `/explore`, `/stories` and `/compare` render live from the EmDash
+   editorial content in D1. Discovery surfaces (questions, compare, cuts) sit on
+   top of the same record. See `docs/ARCHITECTURE.md` and
+   `docs/EMDASH-MIGRATION-PLAN.md`.
 
 ## Scripts
 
@@ -56,11 +57,10 @@ For a production-parity build: `npm run build:db && npm run cache:media && npm r
 
 | Command | Does |
 |---|---|
-| `npm run dev` | Next dev server (`predev` builds DB if missing) |
-| `npm run build:cloudflare` | Full static build + isolated Cloudflare preview packaging |
-| `npm run build:cloudflare -- production` | Full static build + Cloudflare production packaging |
-| `npm run build` | Production build (`prebuild`: DB + tracked-media reconciliation + dataset export) |
-| `npm run start` | Serve production build |
+| `npm run dev` | Astro dev server (`predev` builds DB if missing) |
+| `npm run build` | Hybrid Astro build (`prebuild`: DB + tracked-media reconciliation + dataset export). Targets the preview unless `CLOUDFLARE_ENV=production` |
+| `npm run start` | Serve the built Worker locally (`wrangler dev`) |
+| `npm run deploy:preview` | Deploy a preview build; production deploys only through `.github/workflows/deploy.yml` |
 | `npm test` | Unit tests (`tests/*.test.ts`) |
 | `npm run lint` | ESLint |
 | `npm run knip` | Unused files/exports check (CI) |

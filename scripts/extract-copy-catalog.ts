@@ -35,6 +35,7 @@ import {
   questionSlugs,
 } from "../lib/questions";
 import { SITE_TAGLINE } from "../lib/site";
+import { TRANSFER_NOTES } from "../lib/transferEditorial";
 
 const ROOT = process.cwd();
 
@@ -314,23 +315,19 @@ function extractTransferEditorial(): CopyItem[] {
   const file = "lib/transferEditorial.ts";
   const src = read(file);
   const items: CopyItem[] = [];
-  const curatedBlock = src.match(/const CURATED[^=]*=\s*\{([\s\S]*?)\n\};/);
-  if (curatedBlock) {
-    const re = /"([^"]+)":\s*\n\s*"([^"]+)"/g;
-    let m: RegExpExecArray | null;
-    while ((m = re.exec(curatedBlock[1]))) {
-      items.push(
-        item({
-          id: `transfers:editorial:${m[1]}`,
-          group: "transfers",
-          tier: "B",
-          route: "/transfers",
-          file,
-          kind: "editorial",
-          text: unquoteDouble(m[2]),
-        }),
-      );
-    }
+  // Curated lines live in the EmDash seed (content/emdash/seed.json), read through the registry.
+  for (const note of TRANSFER_NOTES) {
+    items.push(
+      item({
+        id: `transfers:editorial:${note.transferId}`,
+        group: "transfers",
+        tier: "B",
+        route: "/transfers",
+        file: "content/emdash/seed.json",
+        kind: "editorial",
+        text: note.line,
+      }),
+    );
   }
   const fallbacks = [...src.matchAll(/`((?:Signed|Sold)[^`]*)`/g)];
   fallbacks.forEach((t, i) => {

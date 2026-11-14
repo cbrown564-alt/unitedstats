@@ -1052,6 +1052,9 @@ const ERA_CATALOGUE: EraDef[] = [
   })),
 ];
 
+/** Every era key a comparison accepts (the record guard checks debates against it). */
+export const ERA_KEYS: readonly string[] = ERA_CATALOGUE.map((e) => e.key);
+
 function eraByKey(key: string): EraDef | undefined {
   return ERA_CATALOGUE.find((e) => e.key === key);
 }

@@ -1,5 +1,11 @@
 # Architecture
 
+> **Being rewritten for the Astro + EmDash Worker.** This page still describes the
+> Next static export on Vercel. The site now builds with Astro, renders `/`, `/explore`,
+> `/stories` and `/compare` live on a Cloudflare Worker, and deploys through
+> `.github/workflows/deploy.yml`. Until this page is rewritten, `docs/EMDASH-MIGRATION-PLAN.md`
+> and `docs/PIPELINE.md` (Deploy) are the authority on those parts.
+
 **Red Thread** is the exhaustive history of Manchester United — every match since
 1886, with progressively deeper lineups and goal contributions for every
 competition. Repository name: **unitedstats**. A spiritual successor to

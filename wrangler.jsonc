@@ -1,0 +1,46 @@
+// The Red Thread Worker: Astro's hybrid build with EmDash
+// (docs/EMDASH-MIGRATION-PLAN.md). @astrojs/cloudflare reads this at build
+// time. CLOUDFLARE_ENV picks the environment, and `astro build` writes it,
+// flattened, to dist/server/wrangler.json, which is what gets deployed.
+//
+// - Unset: the preview (unitedstats-migration-preview on workers.dev, noindex).
+// - CLOUDFLARE_ENV=production: utdred.com. Only the deploy workflow sets it, so
+//   a bare build can never ship to the live site.
+//
+// Each environment has its own D1, R2 and KV. A passkey is bound to its
+// hostname, so the two admins are separate. Secrets (wrangler secret put):
+// EMDASH_ENCRYPTION_KEY, plus SETUP_TOKEN until admin setup is done
+// (src/worker.ts).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "unitedstats-migration-preview",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-10-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "redthread-editorial-preview", "database_id": "a3da659c-1479-4c4b-82d4-5c8cbd07541b" }
+  ],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media-preview" }],
+  "kv_namespaces": [{ "binding": "SESSION", "id": "691449bca886494a969fe5d306d924db" }],
+  "triggers": { "crons": ["*/5 * * * *"] },
+  "observability": { "enabled": true },
+  // Vars are per environment. Anything but "true" sends noindex (src/worker.ts).
+  "vars": { "SITE_INDEXABLE": "false" },
+  "env": {
+    "production": {
+      "name": "unitedstats",
+      "workers_dev": false,
+      "routes": [
+        { "pattern": "utdred.com", "custom_domain": true },
+        { "pattern": "www.utdred.com", "custom_domain": true }
+      ],
+      // Production resources provisioned at cutover on 2026-11-14.
+      "d1_databases": [{ "binding": "DB", "database_name": "redthread-editorial", "database_id": "fb1c72c0-e380-4d58-9b17-41ff1702a8b9" }],
+      "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "redthread-media" }],
+      "kv_namespaces": [{ "binding": "SESSION", "id": "75ef7b607fa64bf288396a4fd8bf9fa1" }],
+      "triggers": { "crons": ["*/5 * * * *"] },
+      "vars": { "SITE_INDEXABLE": "true" },
+      "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } }
+    }
+  }
+}

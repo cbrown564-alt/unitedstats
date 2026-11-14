@@ -17,8 +17,11 @@ export default {
         return Response.redirect(destination.toString(), 307);
       }
     }
-    const missing = new URL("/404.html", url);
+    // `/404`, not `/404.html`: auto-trailing-slash answers the .html path with a 307.
+    const missing = new URL("/404", url);
     const response = await env.ASSETS.fetch(new Request(missing, request));
-    return new Response(response.body, { status: 404, headers: response.headers });
+    const headers = new Headers(response.headers);
+    headers.delete("location");
+    return new Response(response.body, { status: 404, headers });
   },
 } satisfies ExportedHandler<Env>;

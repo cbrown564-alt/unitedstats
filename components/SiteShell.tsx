@@ -1,7 +1,5 @@
-/// <reference types="react/canary" />
 "use client";
 
-import { ViewTransition } from "react";
 import { SidebarNav } from "@/components/SidebarNav";
 import { CommandPaletteLoader } from "@/components/CommandPaletteLoader";
 import { SlashSearchShortcut } from "@/components/SlashSearchShortcut";
@@ -13,8 +11,9 @@ const reportVitals = Boolean(process.env.NEXT_PUBLIC_WEB_VITALS_ENDPOINT) || pro
 
 /**
  * The site chrome — sidebar, search, footer — wrapping every page. Pages stay
- * server components (passed as children); this shell is the one client boundary,
- * owning the cross-fade ViewTransition on navigation.
+ * server components (passed as children); this shell is the one client boundary.
+ * Navigations cross-fade through CSS cross-document view transitions
+ * (`@view-transition` in globals.css).
  *
  * Below lg, the sidebar is hidden and a floating bottom pill provides section
  * picker, search, and menu — an app-like mobile shell. Between sm and lg the
@@ -29,7 +28,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <CommandPaletteLoader />
         {reportVitals && <WebVitals />}
         <main className="site-main mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
-          <ViewTransition>{children}</ViewTransition>
+          {children}
         </main>
         <footer className="site-footer mt-10 border-t border-line lg:mt-16">
           <div className="mx-auto max-w-6xl space-y-1 px-4 py-6 text-xs text-ink-faint sm:px-6 lg:py-8">

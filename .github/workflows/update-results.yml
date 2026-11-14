@@ -14,6 +14,8 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.push.outputs.sha }}
     steps:
       - uses: actions/checkout@v5
 
@@ -51,6 +53,7 @@ jobs:
           npm run export:dataset
 
       - name: Commit and push
+        id: push
         if: steps.fetch.outputs.new != '0' || steps.fetch.outputs.schedule != '0'
         run: |
           git config user.name "unitedstats-bot"
@@ -62,3 +65,13 @@ jobs:
             git commit -m "data: upcoming schedule through $(date -u +%F)"
           fi
           git push
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  # Its push does not start the Deploy workflow (GITHUB_TOKEN), so call it.
+  deploy:
+    needs: update
+    if: always() && needs.update.outputs.sha != ''
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ref: ${{ needs.update.outputs.sha }}
+    secrets: inherit

@@ -18,7 +18,7 @@ for (const args of [["exec", "--", "cf", "workers", "types"], ["exec", "--", "ts
   Content-Type: application/json; charset=utf-8
 /api/health
   Cache-Control: no-store
-/_next/static/*
+/_astro/*
   Cache-Control: public, max-age=31536000, immutable
 `);
     let files = 0;

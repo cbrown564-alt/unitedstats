@@ -9,29 +9,6 @@ export const metadata: Metadata = seoMetadata(
   { alternates: { canonical: "/stories" } },
 );
 
-const STORY_DETAILS: Record<JourneyChapterSlug, { kicker: string; prompt: string }> = {
-  "two-no-7s": {
-    kicker: "1968 · 2008",
-    prompt: "Two careers. One shirt. The same fifth season.",
-  },
-  "eleven-days-in-may": {
-    kicker: "16—26 May 1999",
-    prompt: "Three must-win nights, decided from the bench.",
-  },
-  "fortress-ot": {
-    kicker: "Old Trafford · since 1984",
-    prompt: "The lead bent three times. It never broke.",
-  },
-  "fergie-time": {
-    kicker: "1993 · 1999 · 2023",
-    prompt: "Three comebacks. Thirty years. The same impossible clock.",
-  },
-  "a-thread-of-nights": {
-    kicker: "1909—2024",
-    prompt: "Ten nights that changed the shape of the record.",
-  },
-};
-
 function StoryMark({ slug }: { slug: JourneyChapterSlug }) {
   if (slug === "two-no-7s") {
     return (
@@ -103,7 +80,6 @@ export default function StoriesPage() {
 
         <ol className="stories-thread-list">
           {JOURNEY_CHAPTERS.map((chapter) => {
-            const detail = STORY_DETAILS[chapter.slug];
             return (
               <li id={`story-${chapter.number}`} key={chapter.slug} className="stories-knot">
                 <Link href={chapter.href} className="stories-knot-link group focus-ring">
@@ -111,12 +87,12 @@ export default function StoriesPage() {
                   <div className="stories-knot-copy">
                     <p className="stories-knot-kicker">
                       <span>Red Thread / {chapter.number}</span>
-                      <span>{detail.kicker}</span>
+                      <span>{chapter.kicker}</span>
                     </p>
                     <h2 className="display">
-                      {chapter.slug === "a-thread-of-nights" ? "10 nights. 115 years." : chapter.title}
+                      {chapter.shelfTitle ?? chapter.title}
                     </h2>
-                    <p>{detail.prompt}</p>
+                    <p>{chapter.prompt}</p>
                     <span className="stories-knot-action">
                       Read the story <span aria-hidden>→</span>
                     </span>

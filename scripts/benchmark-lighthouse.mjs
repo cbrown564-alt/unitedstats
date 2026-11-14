@@ -24,7 +24,7 @@ const manifest = {
   mode: process.env.BUILD_MODE ?? "production-static",
   commit: command("git", ["rev-parse", "HEAD"]),
   dirty: command("git", ["status", "--short"]),
-  buildId: process.env.BENCHMARK_BUILD_ID ?? (process.env.BUILD_MODE === "development" ? null : readFileSync(".next/BUILD_ID", "utf8").trim()),
+  buildId: process.env.BENCHMARK_BUILD_ID ?? null,
   note: process.env.BENCHMARK_NOTE ?? null,
   node: process.version, platform: `${os.platform()} ${os.release()} ${os.arch()}`,
   cpu: os.cpus()[0].model, memoryGB: Math.round(os.totalmem() / 1024 ** 3),

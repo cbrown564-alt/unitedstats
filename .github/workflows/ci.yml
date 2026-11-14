@@ -22,8 +22,16 @@ jobs:
       # expected fallback cases.
       - run: npm run cache:media -- --reconcile-only
       - run: npm run check:media
+      - run: npm run emdash:index
       - run: npm test
-      - run: npm run build:cloudflare
-      - run: npm run check:cloudflare
+      - run: npm run copy:extract
+      - run: npm run copy:lint
+      # The build Deploy ships: the full profile for utdred.com. postbuild runs
+      # check:perf. Production D1 and KV resources are provisioned at cutover.
+      - name: Build the site (production target)
+        env:
+          CLOUDFLARE_ENV: production
+        run: npm run build
+      - run: node scripts/check-worker-config.mjs production --deployable
+      - run: npx wrangler deploy --config dist/server/wrangler.json --dry-run
       - run: npm run check:static
-      - run: npm run check:perf

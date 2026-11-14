@@ -2,49 +2,48 @@ import { matchById, eventsForMatch, lineupForMatch, type EventRow, type LineupRo
 import type { MatchMarks } from "@/components/FormationPitch";
 import { scoreline } from "./format";
 import { leadHeldAtHome } from "./trails";
+import { liveList } from "./editorial";
+
+/** Stories whose bodies are in code (components/journey); until Phase 4 a story
+ *  entry in EmDash only reaches the shelf when its slug is listed here. */
+export const STORY_SLUGS = ["two-no-7s", "eleven-days-in-may", "fortress-ot", "fergie-time", "a-thread-of-nights"] as const;
+export type JourneyChapterSlug = (typeof STORY_SLUGS)[number];
+
+const isStorySlug = (slug: string): slug is JourneyChapterSlug => (STORY_SLUGS as readonly string[]).includes(slug);
+
+export interface JourneyChapter {
+  slug: JourneyChapterSlug;
+  number: string;
+  title: string;
+  href: string;
+  description: string;
+  /** The stories shelf's kicker and prompt. */
+  kicker: string;
+  prompt: string;
+  /** The shelf's heading when it differs from the title. */
+  shelfTitle?: string;
+}
 
 /**
  * The journey's chapter registry — one entry per shipped chapter, feeding the
  * quiet cross-links on each chapter's door (the "light index" packaging call in
  * docs/JOURNEY.md §4b). Numbers match the stage kickers ("Red Thread / 01").
+ * Edited in EmDash (`stories`).
  */
-export const JOURNEY_CHAPTERS = [
-  {
-    slug: "two-no-7s",
-    number: "01",
-    title: "Two No. 7s",
-    href: "/stories/two-no-7s",
-    description: "George Best and Cristiano Ronaldo: the same shirt, fifth season, European Cup and final goal.",
-  },
-  {
-    slug: "eleven-days-in-may",
-    number: "02",
-    title: "Eleven days in May",
-    href: "/stories/eleven-days-in-may",
-    description: "The Treble's three must-wins: two comebacks, all decided from the bench.",
-  },
-  {
-    slug: "fortress-ot",
-    number: "03",
-    title: "Fortress OT",
-    href: "/stories/fortress-ot",
-    description: "Since 1984, just three home league leads have turned into deficits — each rescued.",
-  },
-  {
-    slug: "fergie-time",
-    number: "04",
-    title: "Fergie time",
-    href: "/stories/fergie-time",
-    description: "Three 2–1 comebacks, thirty years apart — the last one came a decade after Ferguson left.",
-  },
-  {
-    slug: "a-thread-of-nights",
-    number: "05",
-    title: "A thread of nights",
-    href: "/stories/a-thread-of-nights",
-    description: "Ten surprising Manchester United matches, from the first FA Cup to Amad at 120′.",
-  },
-] as const;
+export const JOURNEY_CHAPTERS: readonly JourneyChapter[] = liveList(
+  "stories",
+  (e) => ({
+    slug: e.slug as JourneyChapterSlug,
+    number: e.data.number,
+    title: e.data.title,
+    href: `/stories/${e.slug}`,
+    description: e.data.description,
+    kicker: e.data.kicker,
+    prompt: e.data.prompt,
+    ...(e.data.shelf_title ? { shelfTitle: e.data.shelf_title } : {}),
+  }),
+  (e) => isStorySlug(e.slug),
+);
 
 /**
  * The B-story's deliberately authored rediscovery set. These are not a ranking
@@ -65,7 +64,10 @@ export const THREAD_OF_NIGHTS = [
   { key: "liverpool-120", id: "2024-03-17-liverpool-h", side: "right" },
 ] as const;
 
-export type JourneyChapterSlug = (typeof JOURNEY_CHAPTERS)[number]["slug"];
+/** The stories shelf: each chapter with its shelf kicker and prompt. */
+export function storyShelf(): readonly JourneyChapter[] {
+  return JOURNEY_CHAPTERS;
+}
 
 /** Resolve one published standalone story from its canonical URL segment. */
 export function journeyChapterBySlug(slug: string) {

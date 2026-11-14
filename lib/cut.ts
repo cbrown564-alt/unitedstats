@@ -2,6 +2,7 @@ import { getDb } from "./db";
 import { matchWhere, type MatchFilter, type Record_ } from "./queries";
 import { COMPETITION_TYPE_LABELS, fmtNum, resultLabel, homeAwayLabel } from "./format";
 import { queryString } from "./url";
+import { CUT_DIMENSIONS, CUT_METRICS, liveList } from "./editorial";
 
 /**
  * The Cut — the keystone of the discovery layer.
@@ -675,7 +676,7 @@ export function cutHref(cut: {
   metric: CutMetric;
   filters?: CutFilters;
 }): string {
-  const curated = CURATED_BY_KEY.get(canonicalKey(cut));
+  const curated = curatedByKey().get(canonicalKey(cut));
   if (curated) return `/cut/${curated.slug}`;
   return `/cut${queryString({
     subject: cut.subject === "player" ? "player" : undefined,
@@ -715,44 +716,34 @@ export interface CuratedCut {
 /**
  * Stable cut definitions retained for the answer API, citations, and saved
  * receipts. They are not promoted on Discover and every `/cut` page is noindex.
+ * Edited in EmDash (`cuts`).
  */
-export const CURATED_CUTS: CuratedCut[] = [
-  {
-    slug: "opponents-by-win-rate",
-    eyebrow: "By opponent",
-    title: "All opponents, ranked by win rate",
-    blurb: "Opponents ranked by win rate across the full record — who United beat most, and who held them.",
-    dimension: "opponent",
-    metric: "winrate",
-  },
-  {
-    slug: "managers-by-points",
-    eyebrow: "By manager",
-    title: "Managers, ranked by points per game",
-    blurb: "Every reign on a three-points-for-a-win scale, Mangnall to the present.",
-    dimension: "manager",
-    metric: "ppg",
-  },
-  {
-    slug: "seasons-by-points",
-    eyebrow: "By season",
-    title: "Seasons, ranked by points per game",
-    blurb: "League campaigns on one points-per-game scale — 120+ seasons, same measure.",
-    dimension: "season",
-    metric: "ppg",
-  },
-];
+export const CURATED_CUTS: readonly CuratedCut[] = liveList("cuts", (e) => ({
+  slug: e.slug,
+  eyebrow: e.data.eyebrow,
+  title: e.data.title,
+  blurb: e.data.blurb,
+  dimension: e.data.dimension,
+  metric: e.data.metric,
+}));
 
-const CURATED_BY_KEY = new Map(CURATED_CUTS.map((c) => [canonicalKey(c), c]));
+// The admin's dimension and metric options must be exactly what this module implements.
+type Same<A, B> = [A] extends [B] ? ([B] extends [A] ? true : never) : never;
+const _dimensionsMatch: Same<(typeof CUT_DIMENSIONS)[number], CutDimension> = true;
+const _metricsMatch: Same<(typeof CUT_METRICS)[number], CutMetric> = true;
+void _dimensionsMatch;
+void _metricsMatch;
+
+const curatedByKey = () => new Map(CURATED_CUTS.map((c) => [canonicalKey(c), c]));
 
 /** Does this cut exactly match a registered curated cut? (Drives indexability.) */
 export function isCurated(cut: { subject?: CutSubject; dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): boolean {
-  return CURATED_BY_KEY.has(canonicalKey(cut));
+  return curatedByKey().has(canonicalKey(cut));
 }
 
 /** The curated entry a cut matches, if any — its prose, title, and slug. */
 export function curatedFor(cut: { subject?: CutSubject; dimension: CutDimension; metric: CutMetric; filters?: CutFilters }): CuratedCut | undefined {
-  return CURATED_BY_KEY.get(canonicalKey(cut));
+  return curatedByKey().get(canonicalKey(cut));
 }
 
 /** The Cut a curated entry describes. (All curated cuts are team cuts for now.) */

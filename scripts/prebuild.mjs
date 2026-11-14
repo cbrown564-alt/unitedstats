@@ -30,6 +30,7 @@ if (process.env.UNITEDSTATS_CACHE_MEDIA === "1") {
 }
 
 run("export:client-data", ["export:client-data"]);
+run("emdash:index", ["emdash:index"]);
 if (mode === "full") {
   run("export:dataset", ["export:dataset"]);
 } else {
