@@ -10,6 +10,7 @@ const redirects = JSON.parse(readFileSync("vercel.json", "utf8")).redirects as {
 test("deployment smoke accepts only protected, pending setup before the first seed", async (t) => {
   const cases = [
     { name: "live production", live: "live", allow: false, pending: false, protected: false, content: true, expected: 0 },
+    { name: "a healthy homepage cannot hide a failed stories route", live: "live", allow: false, pending: false, protected: false, content: true, badStories: true, expected: 1 },
     { name: "strict check rejects an unseeded twin", live: "snapshot; unseeded", allow: false, pending: true, protected: true, content: true, expected: 1 },
     { name: "protected first setup", live: "snapshot; unseeded", allow: true, pending: true, protected: true, content: true, expected: 0 },
     { name: "empty content after setup", live: "snapshot; unseeded", allow: true, pending: false, protected: true, content: true, expected: 1 },
@@ -20,7 +21,9 @@ test("deployment smoke accepts only protected, pending setup before the first se
   for (const scenario of cases) await t.test(scenario.name, async () => {
     const server = createServer((req, res) => {
       const redirect = redirects.find((r) => r.source === req.url);
-      if (redirect) {
+      if (scenario.badStories && req.url === "/stories") {
+        res.writeHead(503).end("CMS unavailable");
+      } else if (redirect) {
         res.writeHead(308, { location: redirect.destination }).end();
       } else if (req.url === "/_emdash/api/setup/status") {
         res.setHeader("content-type", "application/json");

@@ -10,7 +10,7 @@
  * ID: without one, `wrangler deploy` creates a new, empty resource and binds
  * it. CI leaves it off while the production resources do not exist yet.
  *
- * --smoke requests a deployed origin: the home page must render live, and must
+ * --smoke requests a deployed origin: the editorial pages must render live, and must
  * be indexable only on production, and the legacy redirects must answer 308.
  * --allow-setup accepts the unseeded twin only while EmDash reports pending
  * setup with seed content available and the wizard refuses unauthenticated access.
@@ -75,25 +75,27 @@ function checkBuild(deployable) {
 }
 
 async function checkDeployed(origin) {
-  const get = (path) => fetch(new URL(path, origin), { redirect: "manual", headers: { "user-agent": "redthread-deploy-check" } });
+  const get = (path) => fetch(new URL(path, origin), { redirect: "manual", signal: AbortSignal.timeout(15000), headers: { "user-agent": "redthread-deploy-check" } });
 
-  const home = await get("/");
-  const live = home.headers.get("x-redthread-live") ?? "";
-  if (home.status !== 200) failures.push(`/ answered ${home.status}`);
-  if (live !== "live") {
-    let pendingSetup = false;
-    if (rest.includes("--allow-setup") && live === "snapshot; unseeded") {
-      const status = await get("/_emdash/api/setup/status");
-      const body = await status.json().catch(() => null);
-      const wizard = await get("/_emdash/admin/setup");
-      pendingSetup = status.status === 200 && body?.success === true &&
-        body.data?.needsSetup === true && body.data?.seedInfo?.hasContent === true && wizard.status === 404;
-      if (pendingSetup) console.log("check-worker-config: serving the unseeded twin; protected admin setup is pending");
+  for (const path of ["/", "/explore", "/stories", "/compare"]) {
+    const home = await get(path);
+    const live = home.headers.get("x-redthread-live") ?? "";
+    if (home.status !== 200) failures.push(`${path} answered ${home.status}`);
+    if (live !== "live") {
+      let pendingSetup = false;
+      if (rest.includes("--allow-setup") && live === "snapshot; unseeded") {
+        const status = await get("/_emdash/api/setup/status");
+        const body = await status.json().catch(() => null);
+        const wizard = await get("/_emdash/admin/setup");
+        pendingSetup = status.status === 200 && body?.success === true &&
+          body.data?.needsSetup === true && body.data?.seedInfo?.hasContent === true && wizard.status === 404;
+        if (pendingSetup) console.log("check-worker-config: serving the unseeded twin; protected admin setup is pending");
+      }
+      if (!pendingSetup) failures.push(`${path} was not rendered live (x-redthread-live: ${live || "absent"})`);
     }
-    if (!pendingSetup) failures.push(`/ was not rendered live (x-redthread-live: ${live || "absent"})`);
+    const noindex = /noindex/.test(home.headers.get("x-robots-tag") ?? "");
+    if (noindex === target.indexable) failures.push(`${path} ${noindex ? "sends" : "does not send"} noindex`);
   }
-  const noindex = /noindex/.test(home.headers.get("x-robots-tag") ?? "");
-  if (noindex === target.indexable) failures.push(`/ ${noindex ? "sends" : "does not send"} noindex`);
 
   for (const { source, destination } of redirects) {
     const res = await get(source);

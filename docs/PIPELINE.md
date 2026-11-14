@@ -144,6 +144,15 @@ The site is one Worker: Astro's hybrid build with EmDash (docs/EMDASH-MIGRATION-
 
 `scripts/check-worker-config.mjs <preview|production>` checks a build against its target: Worker name, domains, indexing, bindings and redirects. `--deployable` also requires the D1 and KV IDs, because without them Wrangler would create new, empty resources. With `--smoke <origin>` it checks a deployed site instead: the home page renders live, indexing is right, and every legacy redirect answers 308. CI runs the production build, the config check and `wrangler deploy --dry-run`.
 
+EmDash uses `migrations.runtime: "check"` in deployed Workers (`dev` remains
+`auto`). The deployment checks `.emdash/migrations.json` against production D1
+before uploading code. Apply pending migrations explicitly with `emdash migrate`
+and its expected target fingerprint before retrying a deploy. Do not initialize
+a new production database through visitor traffic: concurrent cold requests can
+contend on the migration lock and return 503. Private snapshot assets keep
+`noindex`; their public fallback responses remove that asset header and use the
+Worker environment's indexing policy instead.
+
 The Next build (`npm run build:cloudflare -- production`, `npm run deploy:cloudflare`) remains only as a fallback until Phase 3b; to roll back, use `wrangler rollback` first.
 
 Umami pageviews and bounded product events remain. Vercel Web Analytics and Speed Insights scripts are removed because their endpoints depend on the old host. Their historical measurements remain evidence; no field-performance improvement is claimed. Blob upload/revalidation scripts remain dormant manual recovery tools and are not required by the build or weekly update workflow.

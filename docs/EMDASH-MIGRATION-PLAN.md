@@ -425,7 +425,7 @@ since `emdash-migration` branched.
    `.env.emdash-production` in the migration worktree (mode 0600). Preserve this
    file before retiring that worktree. `CLOUDFLARE_ACCOUNT_ID` is set in GitHub;
    the existing `Production` environment is used for the deploy token.
-   The maintainer must still create and store both API tokens before merging.
+   Both API tokens were created through Safari and stored in their GitHub secrets on 2026-11-14.
 
    Rollback target recorded before changing secrets:
    `63d96e54-3a78-4b34-aec9-a8ab76b95c3b` (static Next Worker).
@@ -462,6 +462,25 @@ since `emdash-migration` branched.
 
 **Rollback:** `wrangler rollback <noted version>` restores the static Next Worker at once,
 with its assets; D1 is untouched. Revert the merge on master if the cause is in code.
+
+#### First cutover attempt (2026-11-14)
+
+PR #79 merged as `f83cb836bd33e6a575ccd4f401c19f06d59549a5` after both
+CI runs passed. The Worker upload succeeded, but live checks found two problems:
+public fallbacks inherited `noindex` from `/live-snapshot/*`, and concurrent
+cold requests failed while the fresh D1 database was migrating. The Worker logs
+reported the migration lock held since `2026-11-14T08:19:40.475Z`.
+
+Production was restored to static Worker version
+`2e9482b0-4d07-4b5c-b12b-8900de3c6210`, which preserves the new Worker secrets.
+The deployment workflow was cancelled after rollback. The homepage, stories,
+compare and health endpoint then returned 200 without `noindex`.
+
+All 96 EmDash migrations are now applied in production D1, with no pending or
+unknown migrations and no held lock. Recovery changes remove the private asset's
+indexing header from public fallbacks and move schema checks before code upload.
+Runtime requests check migrations rather than running them. Admin passkey setup
+and the publish loop remain pending.
 
 #### The watch week
 

@@ -22,7 +22,7 @@ function fail(message) {
 
 async function check(path, { expectStatus = 200, redirectTo } = {}) {
   try {
-    const res = await fetch(`${site}${path}`, { cache: "no-store", redirect: "manual" });
+    const res = await fetch(`${site}${path}`, { cache: "no-store", redirect: "manual", signal: AbortSignal.timeout(15000) });
     if (res.status !== expectStatus) return fail(`GET ${path} ${res.status}, expected ${expectStatus}`);
     if (redirectTo) {
       const location = res.headers.get("location") ?? "";
