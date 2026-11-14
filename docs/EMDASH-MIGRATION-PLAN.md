@@ -482,6 +482,46 @@ indexing header from public fallbacks and move schema checks before code upload.
 Runtime requests check migrations rather than running them. Admin passkey setup
 and the publish loop remain pending.
 
+#### Production admin and deployment ownership (2026-11-14)
+
+The verified CMS release `848ed3aa-43e2-40cc-b236-a8bad2b4e172` was
+subsequently overwritten by Cloudflare Workers Builds. The old `Deploy production`
+trigger still watched `master`, ran `npm run build:cloudflare -- production`, and
+uploaded a static-only Worker with `npx cf deploy --prebuilt --mode production`.
+Its builds for PRs #79 and #80 finished after the GitHub deployment. The earlier
+statement that pushes did not deploy was incorrect.
+
+On 2026-11-14, **Disable builds** was saved in the production Worker's Cloudflare
+Builds settings. The repository connection and old configuration were preserved;
+GitHub Actions now owns production deployments. The CMS version above was restored.
+Do not re-enable the legacy build while the hybrid Worker is in use.
+
+The maintainer completed the production passkey setup and imported all 54 entries.
+The CMS site URL is `https://utdred.com`, timezone is `Europe/London`, and site
+visibility is Live. The strict four-route live check and public-site smoke check
+passed after setup. The encrypted record-guard plugin setting points to
+`cbrown564-alt/unitedstats`. Its fine-grained token,
+`redthread-production-editorial`, has Contents read/write on this repository only
+and expires on **14 November 2027**. Renew it in the plugin settings before expiry.
+The punctuation-only test publish completed the full loop: live D1 content,
+repository dispatch, checked seed commit
+`5fa82d7917c7e3b2007e255594388dd6be08a45a`, and production deployment with
+passing smoke checks ([run 43582224401](https://github.com/cbrown564-alt/unitedstats/actions/runs/43582224401)).
+The deployed fallback snapshot contained the test edit too. The original sentence
+was restored in the admin and committed as
+`fbb77afaf019ab86667af0701552b6807513c366`; its
+[snapshot and production deployment](https://github.com/cbrown564-alt/unitedstats/actions/runs/43583137315)
+also passed. Direct requests confirmed the exact original text in both the live
+homepage and the deployed fallback snapshot. The only lasting seed change from
+setup is the `Europe/London` timezone. Verification evidence is retained under
+`output/cutover-2026-11-14/` in the migration worktree.
+
+After that first successful publish deployment, the one-time `SETUP_TOKEN` was
+deleted from the Worker and the local mode-600 secret backup. Only
+`EMDASH_ENCRYPTION_KEY` remains in the Worker secret list. The strict live check
+passed again after removal. No Cloudflare Workers Build started for the snapshot
+commit.
+
 #### The watch week
 
 - Each day: Cloudflare observability (errors, CPU time) and the `x-redthread-live`

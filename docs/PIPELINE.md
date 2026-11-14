@@ -140,6 +140,11 @@ The site is one Worker: Astro's hybrid build with EmDash (docs/EMDASH-MIGRATION-
 - `CLOUDFLARE_ENV=production`: `unitedstats` on utdred.com and www.utdred.com. Only `.github/workflows/deploy.yml` deploys it. That workflow runs on a push to master and by hand, and the data and publish workflows call it after their own push (a push made with `GITHUB_TOKEN` starts no other workflow). Its token lives in the `production` GitHub environment.
 - `npm start` serves the built Worker locally, with D1 state under `.wrangler/local-d1`.
 
+The legacy Cloudflare Workers Builds connection is retained with **Disable builds**
+on. It previously watched `master` and deployed the old static packaging after
+GitHub's hybrid deployment, removing the CMS routes. Keep that build disabled;
+GitHub Actions is the production deployment owner.
+
 `scripts/package-assets.mjs` runs at the end of the build. It writes `out/_redirects` from the permanent redirects in `vercel.json`, merges API CORS, data caching and noindex into the adapter's `out/_headers`, and fails on any asset over 25 MiB. `_headers` covers only static files, so the Worker sends noindex itself unless `SITE_INDEXABLE` is `"true"`, which only production sets. Unprerendered match/player/opponent/season URLs redirect to the browser-backed record reader (`src/worker.ts`).
 
 `scripts/check-worker-config.mjs <preview|production>` checks a build against its target: Worker name, domains, indexing, bindings and redirects. `--deployable` also requires the D1 and KV IDs, because without them Wrangler would create new, empty resources. With `--smoke <origin>` it checks a deployed site instead: the home page renders live, indexing is right, and every legacy redirect answers 308. CI runs the production build, the config check and `wrangler deploy --dry-run`.
