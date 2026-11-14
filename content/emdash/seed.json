@@ -7,7 +7,8 @@
   },
   "settings": {
     "title": "Red Thread",
-    "tagline": "Every Manchester United match since 1886"
+    "tagline": "Every Manchester United match since 1886",
+    "timezone": "Europe/London"
   },
   "collections": [
     {
@@ -556,7 +557,7 @@
         "status": "published",
         "data": {
           "match_id": "2013-04-22-aston-villa-h",
-          "stakes": "Robin van Persie’s volley helped secure United’s twentieth league title, Alex Ferguson’s last.",
+          "stakes": "Robin van Persie’s volley helped secure United’s twentieth league title, Alex Ferguson’s last",
           "group": "modern",
           "position": 20
         }
