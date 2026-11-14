@@ -65,6 +65,9 @@ export default defineConfig({
   integrations: [
     react(),
     emdash({
+      // Deployment verifies the schema before upload. Visitor requests must
+      // never compete to run migrations on a fresh production database.
+      migrations: { runtime: "check", dev: "auto" },
       database: d1({ binding: "DB", session: "auto", coalesce: true }),
       storage: r2({ binding: "MEDIA" }),
       plugins: [{ id: "record-guard", version: "0.1.0", entrypoint: "@redthread/record-guard", format: "native" }],

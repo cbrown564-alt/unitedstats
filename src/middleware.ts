@@ -12,6 +12,7 @@ import { defineMiddleware } from "astro:middleware";
 import { installReplay, replayInstalled, trackMisses, type ReplayTable } from "@/lib/dbReplay";
 import LIVE_ROUTES from "@/src/rt/live-routes.json";
 import { EditorialUnseeded, loadEditorial, withEditorial } from "@/src/rt/editorial-scope";
+import { snapshotResponse } from "@/src/rt/snapshot-response";
 
 const live = LIVE_ROUTES as Record<string, string>;
 const assets = () => (env as { ASSETS: { fetch(req: Request | URL): Promise<Response> } }).ASSETS;
@@ -25,10 +26,7 @@ async function ensureReplay(origin: URL): Promise<void> {
 
 async function snapshot(name: string, origin: URL, reason: string): Promise<Response> {
   const res = await assets().fetch(new URL(`/live-snapshot/${name}`, origin));
-  const headers = new Headers(res.headers);
-  headers.set("x-redthread-live", `snapshot; ${reason}`);
-  headers.set("cache-control", "no-store");
-  return new Response(res.body, { status: res.ok ? 200 : 500, headers });
+  return snapshotResponse(res, reason);
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {
