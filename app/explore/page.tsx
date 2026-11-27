@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { JOURNEY_CHAPTERS } from "@/lib/journey";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { QUESTIONS } from "@/lib/questions";
 import { questionHeadlines } from "@/lib/questionHeadlines";
 import {

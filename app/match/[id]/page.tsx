@@ -1,7 +1,7 @@
 import { RecordNext } from "@/components/record/RecordNext";
 import Link from "next/link";
 import { matchHref, opponentHref, playerHref, seasonHref } from "@/lib/publishedHref";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { notFound } from "next/navigation";
 import {
   matchById, eventsForMatch, lineupForMatch, eloForMatch, h2hBefore, formBefore,

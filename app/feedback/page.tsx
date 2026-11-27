@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import Link from "next/link";
 import { PageHeader } from "@/components/PageHeader";
 import { FeedbackPageClient } from "@/components/feedback/FeedbackPageClient";

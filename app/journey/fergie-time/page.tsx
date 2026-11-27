@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FergieTimeLoop } from "@/components/journey/FergieTimeLoop";

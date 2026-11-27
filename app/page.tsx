@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { IntentLink as Link } from "@/components/IntentLink";
 import {
   allTimeRecord, getMeta, recentMatches, recordByCompetitionType,

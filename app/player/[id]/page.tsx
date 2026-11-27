@@ -2,7 +2,7 @@ import { sampleStaticIds } from "@/lib/static-build";
 import { RecordNext } from "@/components/record/RecordNext";
 import Link from "next/link";
 import { matchHref, seasonHref } from "@/lib/publishedHref";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import {

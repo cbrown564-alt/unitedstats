@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 /**
  * Build-time snapshot of the bundled database. The live export does not open
- * SQLite; this JSON is generated during `next build`.
+ * SQLite; this JSON is generated during the build.
  */
 export async function GET() {
   try {

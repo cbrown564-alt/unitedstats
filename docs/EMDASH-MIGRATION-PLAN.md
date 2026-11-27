@@ -1,10 +1,10 @@
 # Astro + EmDash migration plan
 
-Status: **Phases 0–2 done** (2026-11-13; findings and the Phase 1 approach in
-[ADR 0006](adr/0006-move-to-astro-for-emdash.md)). The EmDash Worker runs on
-`unitedstats-migration-preview`, with admin set up and the seed loaded. Publishes snapshot
-to git only once the publish workflow is on `master` (Phase 3). Phase 3 branch prep is
-done; the cutover needs the maintainer.
+Status: **Phases 0–3b done.** Phases 0–2 finished on 2026-11-13 (findings and the
+Phase 1 approach in [ADR 0006](adr/0006-move-to-astro-for-emdash.md)). Production cut
+over to the EmDash Worker on 2026-11-14. The watch week was clean on the checks run
+(Cloudflare error rates, Search Console and Lighthouse were not re-checked). Phase 3b removed
+Next on 2026-11-27. Phase 4 is gated and optional.
 Supersedes the *conclusion* of
 [ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md), not its measurements.
 
@@ -530,7 +530,26 @@ commit.
 - Compare Search Console with the November baseline.
 - Re-run the Lighthouse corpus on a quiet machine and record it in `PERF.md`.
 
-#### Phase 3b: remove Next (after a clean week, ~1 day)
+#### Phase 3b: remove Next (done 2026-11-27)
+
+Outcome:
+
+- `next`, `eslint-config-next`, `cf` and `@tailwindcss/postcss` are gone, along with
+  the Next and OpenNext config files, the Vercel files, `scripts/build-cloudflare.mjs`
+  and the static-export test. `node_modules` went from 2.1 GB to 1.4 GB.
+- `tsconfig.json` maps each `next/*` import to its shim. `Metadata` comes from
+  `src/rt/metadata.ts`; `SitemapEntry` and `Robots` come from `src/rt/endpoints.ts`.
+- `eslint.config.mjs` builds the same rule set from the underlying plugins. The
+  effective rules match the old config except the 21 `@next/next/*` rules, and lint
+  gives the same 0 errors and 49 warnings.
+- The 12 legacy redirects moved to `scripts/legacy-redirects.json`, with a test.
+
+Watch-week result: the nightly publish ran clean every night; both weekly enrich
+releases deployed by themselves; production smoke checks and the four live routes
+passed. Cloudflare error rates, Search Console and the Lighthouse corpus were not
+re-checked by the agent.
+
+The plan as written:
 
 - **Types:**
   - Point TypeScript at the shims for `next/*` (tsconfig `paths`).

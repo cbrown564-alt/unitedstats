@@ -1,6 +1,6 @@
 /**
  * Static-asset rules for the Worker deploy, written into out/ after the build:
- * - `_redirects`: the permanent legacy redirects kept in vercel.json.
+ * - `_redirects`: the permanent legacy redirects in scripts/legacy-redirects.json.
  * - `_headers`: API CORS, data and asset caching. Every target except
  *   production also gets noindex. The prerendered twins of the live routes
  *   (/live-snapshot/) always get noindex; they are fallbacks, not pages.
@@ -19,7 +19,7 @@ const production = process.env.CLOUDFLARE_ENV === "production";
 const BEGIN = "# --- redthread rules (scripts/package-assets.mjs) ---";
 const END = "# --- end redthread rules ---";
 
-const legacy = JSON.parse(readFileSync("vercel.json", "utf8"));
+const legacy = JSON.parse(readFileSync("scripts/legacy-redirects.json", "utf8"));
 const redirects = legacy.redirects.map(({ source, destination, permanent }) => `${source} ${destination} ${permanent ? 308 : 307}`);
 writeFileSync(path.join(OUT, "_redirects"), redirects.join("\n") + "\n");
 

@@ -17,7 +17,8 @@ export type LinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & 
   passHref?: boolean;
   legacyBehavior?: boolean;
   locale?: string | false;
-  onNavigate?: unknown;
+  /** Accepted for compatibility and dropped: src/rt/client.tsx handles same-page navigation. */
+  onNavigate?: (event: { preventDefault(): void }) => void;
   ref?: Ref<HTMLAnchorElement>;
 };
 

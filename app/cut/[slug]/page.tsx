@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { notFound } from "next/navigation";
 import { CutReceipt, cutDescription, cutTitle } from "@/components/cut/CutReceipt";
 import { CURATED_CUTS, curatedCut, cutHref } from "@/lib/cut";

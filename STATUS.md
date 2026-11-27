@@ -137,7 +137,7 @@ pinned by `tests/journey.test.ts`.
 ### Development and quality gates
 
 CI currently runs `knip`, canonical-data validation, database build, media
-cache/check, unit tests, the production Next build, and the static-render
+cache/check, unit tests, the production Astro build, and the static-render
 disposition check on Node 24. The scheduled updater separately fetches and
 commits new results when available.
 

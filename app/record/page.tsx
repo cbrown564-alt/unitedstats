@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { RecordClient } from "@/components/record/RecordClient";
 
 export const metadata: Metadata = {

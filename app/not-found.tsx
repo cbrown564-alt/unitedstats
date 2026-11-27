@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import Link from "next/link";
 import { LooseThread } from "@/components/LooseThread";
 import { PageHeader } from "@/components/PageHeader";

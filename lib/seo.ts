@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { clubNames, opponentNames } from "./clubNames";
 import {
   clubName,

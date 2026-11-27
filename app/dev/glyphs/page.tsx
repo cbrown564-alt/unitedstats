@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { notFound } from "next/navigation";
 import { CordGallery, type GalleryLap, type GalleryMatch } from "@/components/dev/CordGallery";
 import type { ThreadGoal } from "@/components/glyphs/cord/DataGlyphs";

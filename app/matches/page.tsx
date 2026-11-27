@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { PageHeader } from "@/components/PageHeader";
 import { MatchesCatalogProvider } from "@/components/matches/MatchesCatalogContext";
 import { MatchesPageClient } from "@/components/matches/MatchesPageClient";

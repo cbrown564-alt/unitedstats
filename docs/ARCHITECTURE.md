@@ -1,11 +1,5 @@
 # Architecture
 
-> **Being rewritten for the Astro + EmDash Worker.** This page still describes the
-> Next static export on Vercel. The site now builds with Astro, renders `/`, `/explore`,
-> `/stories` and `/compare` live on a Cloudflare Worker, and deploys through
-> `.github/workflows/deploy.yml`. Until this page is rewritten, `docs/EMDASH-MIGRATION-PLAN.md`
-> and `docs/PIPELINE.md` (Deploy) are the authority on those parts.
-
 **Red Thread** is the exhaustive history of Manchester United — every match since
 1886, with progressively deeper lineups and goal contributions for every
 competition. Repository name: **unitedstats**. A spiritual successor to
@@ -29,43 +23,51 @@ pipeline, and a public dataset/API.
 ```
 ┌─────────────────────────  GitHub repo (single source of truth)  ─────────────────────────┐
 │                                                                                          │
-│  data/canonical/            pipeline/                 data/united.db        app/         │
-│  ├─ matches/<season>.json   ├─ update.ts  (cron) ──►  (SQLite, built  ──►   Next.js 16   │
-│  ├─ players.json            ├─ build-db.ts            from canonical        App Router   │
+│  data/canonical/            pipeline/ + scripts/      data/united.db        app/ + src/  │
+│  ├─ matches/<season>.json   ├─ update.ts  (cron) ──►  (SQLite, built  ──►   Astro 7      │
+│  ├─ players.json            ├─ build-db.ts            from canonical        + React 19   │
 │  ├─ transfers.json          ├─ ingest/* (one-off      JSON at build         + Tailwind 4 │
-│  ├─ player-media.json       │   historical loaders)   time, read-only       reads the DB │
-│  └─ …reference files        └─ validate.ts            at runtime)           server-side  │
+│  ├─ player-media.json       │   historical loaders)   time, read only       + EmDash 1.5 │
+│  └─ …reference files        └─ validate.ts            during prerender)                  │
 │                                                                                          │
-│  public/dataset/  ◄── export:dataset (CSV/JSON flat files for download)                │
-│  public/media/    ◄── cache:media (explicit refresh; builds reconcile tracked WebPs)      │
+│  content/emdash/seed.json ◄── publish-editorial (snapshot of the CMS's D1 content)       │
+│  public/dataset/  ◄── export:dataset (CSV/JSON flat files for download)                  │
+│  public/media/    ◄── cache:media (explicit refresh; builds reconcile tracked WebPs)     │
 └──────────────┬───────────────────────────────────────────────────────────────────────────┘
-               │ GitHub Actions cron (post-match windows)
+               │ GitHub Actions: weekly results, Monday sheet check, editorial publish
                ▼
    openfootball/england (free, maintained, no key)
    transfermarkt-datasets (modern enrichment)
    MUFCInfo / Wikipedia / Wikidata (historical depth)
-   Transfermarkt + MUFCInfo (free match-sheet enrichment)
                │
                ▼
-   Vercel: static export (`out/`); every data commit produces a complete
-           production build and deployment
+   Cloudflare: one Worker (`unitedstats`) on utdred.com
+     static assets  out/          every prerendered page, JSON export and image
+     Worker         dist/server   EmDash admin, the four live routes, redirects
+     bindings       D1 (DB)       CMS content, users and settings
+                    R2 (MEDIA)    CMS uploads
+                    KV (SESSION)  admin sessions
 ```
+
+The move from a Next static export on Vercel to this Worker is recorded in
+[ADR 0006](adr/0006-move-to-astro-for-emdash.md) and
+`docs/EMDASH-MIGRATION-PLAN.md`. EmDash is the editorial CMS, and it runs only
+inside Astro.
 
 ### Key decisions
 
-**The database is a build artifact; the live site is a static export.**
+**The database is a build artifact. The record is prerendered.**
 
-- `data/canonical/matches/<season>.json` — one file per season (126 seasons),
-  human-readable, diff-friendly. Every match with its events, lineup, and metadata.
+- `data/canonical/matches/<season>.json`: one file per season (126 seasons),
+  human-readable and diff-friendly. Every match with its events, lineup and metadata.
 - Reference files alongside seasons: `players.json`, `managers.json`,
   `transfers.json`, `player-media.json`, `player-positions.json`, and more.
-- `scripts/build-db.ts` compiles canonical JSON → `data/united.db` (SQLite)
-  and precomputes analytics tables (Elo, aggregates, search index). Runs in
+- `scripts/build-db.ts` compiles canonical JSON into `data/united.db` (SQLite)
+  and precomputes analytics tables (Elo, aggregates, search index). It runs in
   `prebuild`.
-- `next build` with `output: "export"` queries SQLite read-only via
-  `better-sqlite3` and writes HTML, RSC, JSON, and media into `out/`. There is
-  no runtime database, no Vercel Functions, and no ISR. No connection strings,
-  no cost.
+- `astro build` queries SQLite read-only through `better-sqlite3` while it
+  prerenders, and writes HTML, JSON and media into `out/`. The Worker has no
+  SQLite and no hosted database.
 
 **Why SQLite-in-repo instead of Postgres?**
 
@@ -73,32 +75,60 @@ pipeline, and a public dataset/API.
   and overwhelmingly read. A serverful DB adds cost and ops burden for zero
   benefit. Git gives us versioning, review, and rollback of the *data itself*.
 
-**Deploy-time database freshness.**
+**Record freshness follows deployments.**
 
-- `prebuild` compiles `data/united.db` from canonical JSON; `next build`
-  reads that file once and writes the static export. The live site never
-  opens SQLite.
-- Data commits trigger ordinary production deployments. The previous Blob
-  freshness path is gone: do not reintroduce `UNITEDSTATS_DB_BLOB_URL`. See
-  `docs/PIPELINE.md` and `docs/VERCEL-HOBBY-ASSESSMENT.md`.
+- A data commit on `master` runs `.github/workflows/deploy.yml`, which rebuilds
+  the database, the prerendered pages and the Worker, then deploys. Do not
+  reintroduce `UNITEDSTATS_DB_BLOB_URL` or a hosted SQL database. See
+  `docs/PIPELINE.md`.
 
 **Update pipeline = GitHub Actions, not a server.**
 
-- A weekly Monday workflow pulls the latest
-  results from openfootball, appends to season JSON, validates, rebuilds the DB,
-  exports flat files, and commits. Vercel deploys that commit normally.
+- A weekly Monday workflow pulls the latest results from openfootball, appends
+  to season JSON, validates, rebuilds the DB, exports flat files, commits, and
+  calls Deploy.
 - `transfermarkt-datasets` is the preferred modern enrichment source for events,
   cards, substitutions, and lineups. Historical depth comes from MUFCInfo match
   pages, Wikipedia season and match articles, and Wikidata/Commons media.
 
+**Editorial content lives in EmDash and is snapshotted to git.**
+
+- Great nights, stories, questions, debates, cuts and transfer notes are edited
+  in the EmDash admin (`/_emdash/admin`) and stored in D1. `lib/editorial.ts`
+  reads them.
+- A publish dispatches `.github/workflows/publish-editorial.yml` through the
+  `record-guard` plugin (`plugins/record-guard`). The workflow snapshots
+  production D1 into `content/emdash/seed.json`, checks it, commits, and calls
+  Deploy, so prerendered pages and the record replay catch up. A nightly run
+  catches a lost event.
+- Prerendering, tests and the browser read the committed seed, never D1.
+
 **Rendering strategy.**
 
-- Historical data is immutable between ingests, so the site is a real
-  `output: "export"` build: HTML, RSC, JavaScript, JSON, and pre-sized media
-  with no Vercel Functions, ISR, or runtime SQLite. Full builds prerender every
-  player, opponent, season, and manager, plus selected matches and API exports;
-  CI enforces coverage with `npm run check:static`. Publication scope is owned by
+- Page code lives in `app/` as React server and client components.
+  `scripts/astro/generate-routes.mjs` writes one Astro wrapper per page into
+  `src/pages/` (committed, so knip sees them as entries), and `src/rt/` renders
+  each page: `render.tsx` resolves the tree, `flight.ts` embeds a hydration
+  payload, and `client.tsx` hydrates only the client components on the page.
+- The page code's `next/*` imports (`next/link`, `next/navigation`,
+  `next/image`, `next/og`, …) resolve to small shims in
+  `src/shims/`, through Vite aliases in `astro.config.mjs` and `paths` in
+  `tsconfig.json`. Next itself is not installed.
+- **Prerendered:** every page except the live four. Full builds prerender every
+  player, opponent, season and manager, plus selected matches and the API
+  exports. Entity URLs outside the build's scope (preview builds, unselected
+  matches) redirect to the browser-backed record reader at `/record` or
+  `/matches?season=…` (`src/worker.ts`). Publication scope is owned by
   `docs/INDEXABLE-RECORDS-SCOPE.md`.
+- **Live:** `/`, `/explore`, `/stories` and `/compare`
+  (`src/rt/live-routes.json`) render on the Worker for each request, with that
+  request's EmDash content, so a publish shows at once. They read the record by
+  replaying the queries the build recorded (`lib/dbReplay.ts`,
+  `out/live-snapshot/record.json`). Each has a prerendered twin at
+  `/live-snapshot/<name>`. If a live render needs record data the deploy lacks
+  or EmDash cannot be read, `src/middleware.ts` serves the twin instead, so a
+  live page never shows a guessed record. Responses carry
+  `x-redthread-live: live` or `snapshot`.
 - Date-based homepage spark selection and Surprise re-rolls run in the browser
   over build-generated catalogs. Search, match filters, and curated compares
   read exported JSON (`public/data/search-index.json`,
@@ -114,24 +144,11 @@ pipeline, and a public dataset/API.
 - The archive reads URL state behind a small, empty Suspense fallback so its
   server-rendered list stays in place during hydration. Pagination, sort links,
   and facet controls update browser history over the local catalog; they do not
-  request another page payload. Other route links retain normal Next navigation.
-  Catalog decoding yields between batches, and shared number formatting reuses
-  an `Intl.NumberFormat` instance for long chart and ledger labels.
-- Data freshness follows deployments. Do not reintroduce
-  `UNITEDSTATS_DB_BLOB_URL` or a hosted SQL database.
-- Full production builds use Next's supported Webpack bundler (`npm run build`);
-  preview builds and development retain Turbopack. `scripts/build-site.mjs`
-  follows the existing build-profile selection and preserves explicit CLI
-  bundler overrides. The November performance
-  comparison found smaller navigation script transfers with Webpack while the
-  same pages and interactions retained their appearance. Keep this choice tied
-  to the measured route budgets in `docs/PERF.md`, and compare again when
-  upgrading Next. Webpack's local build cache increases `.next` disk usage;
-  deployable files remain in `out/`.
-  Turbopack builds remove any previous Webpack disk cache before compilation.
-  Successful production builds remove compiler disk cache before artifact checks,
-  so the expanded publication scope stays within the existing limits without
-  treating disposable compiler cache as deployable output.
+  request another page payload. Catalog decoding yields between batches, and
+  shared number formatting reuses an `Intl.NumberFormat` instance for long chart
+  and ledger labels.
+- `UNITEDSTATS_BUILD_PROFILE=preview` samples the heavy route families
+  (`lib/build-profile.ts`) for fast preview deploys. Anything else is a full build.
 
 ## Route map
 
@@ -139,8 +156,9 @@ pipeline, and a public dataset/API.
 
 | Route | Role |
 |---|---|
-| `/` | Front door: 20-second opening thread → served match-night → record skyline + search |
-| `/explore` | Discover hub: authored questions and curated debates |
+| `/` | Front door (live): 20-second opening thread → served match-night → record skyline + search |
+| `/explore` | Discover hub (live): authored questions and curated debates |
+| `/stories`, `/stories/[slug]` | Authored stories (Two No. 7s, Treble, Fortress, Fergie Time, …) |
 | `/matches` | Filterable full fixture record |
 | `/match/[id]` | Match detail: flow, lineup, events, correction pickables |
 | `/seasons`, `/seasons/[season]` | Season ledger and single-season depth |
@@ -150,57 +168,65 @@ pipeline, and a public dataset/API.
 | `/analytics` | Elo timeline, reliability curve, Monte Carlo season replay |
 | `/transfers` | Transfer ledger and record deals |
 | `/data` | Coverage ledger, sources, gaps queue, dataset downloads |
-| `/compare` | Curated debates (query-string pairs resolve from build-time payloads) |
+| `/compare` | Curated debates, live (query-string pairs resolve from build-time payloads) |
 | `/cut`, `/cut/[slug]` | `noindex` saved/API receipts for registered cuts |
 | `/questions/[slug]` | Authored myth/answer depth pages (4 active; archived slugs noindex) |
 | `/surprise` | Reviewed match-night rediscovery with re-roll |
 | `/on-this-day`, `/on-this-day/[monthDay]` | Exact match/transfer calendar moments with an explicitly nearby reviewed fallback |
 | `/search` | Full-text search + entity browse |
+| `/record` | Browser-backed reader for match, player and opponent records outside the build's scope |
 | `/corrections` | Structured correction builder → GitHub issues |
 | `/feedback` | General feedback via embedded Google Form |
 
-### Redirects (`vercel.json`)
+### Redirects (`scripts/legacy-redirects.json`)
 
-Static export cannot use `next.config` redirects. Legacy paths are host
-redirects:
+Legacy paths answer a permanent 308. `scripts/package-assets.mjs` writes them
+into `out/_redirects`, and `tests/legacy-redirects.test.ts` pins them:
 
 - `/questions/ferguson`, `/questions/decline` → `/questions/ferguson-era`
 - `/opponents` → `/search`
 - `/analytics/odds` → `/analytics`
 - `/analytics/travel` → `/questions/away-days`
 - `/journey` and `/journey/*` → the published `/stories/*` homes
+- `/api/v1` → `/api/v1.json`
+
+The record-reader redirects for entity pages outside the build (307) are in
+`src/worker.ts`. A zone rule sends www.utdred.com to the apex.
 
 ### Route render-mode disposition
 
-Every App Router page is statically generated. Enforced by
-`scripts/check-static-render.mjs` after `npm run build`.
+`scripts/check-static-render.mjs` (`npm run check:static`) enforces this after
+`npm run build`.
 
 | Mode | Routes | Notes |
 |---|---|---|
-| **Static** | `/`, `/analytics`, `/data`, `/explore`, `/managers`, `/transfers`, `/matches`, `/players`, `/seasons`, `/search`, `/compare`, `/cut`, `/surprise` | Prerendered HTML; URL state is applied on the client |
-| **SSG `●`** | `/match/[id]`, `/player/[id]`, `/manager/[id]`, `/opponent/[id]`, `/seasons/[season]`, `/questions/[slug]`, `/on-this-day/[monthDay]`, `/cut/[slug]` | `generateStaticParams` + `dynamicParams = false`; preview builds sample heavy routes |
+| **Live** | `/`, `/explore`, `/stories`, `/compare` | Rendered on the Worker per request; prerendered twin at `/live-snapshot/<name>` |
+| **Static** | `/analytics`, `/data`, `/managers`, `/transfers`, `/matches`, `/players`, `/seasons`, `/search`, `/cut`, `/surprise`, … | Prerendered HTML; URL state is applied on the client |
+| **Prerendered families** | `/match/[id]`, `/player/[id]`, `/manager/[id]`, `/opponent/[id]`, `/seasons/[season]`, `/questions/[slug]`, `/stories/[slug]`, `/on-this-day/[monthDay]`, `/cut/[slug]` | `generateStaticParams`; preview builds sample heavy routes |
 | **API** | `/api/v1/*`, `/api/health` | Build-generated JSON files; query-shaped match/search APIs were replaced by client catalogs |
+| **Worker only** | `/_emdash/*` | EmDash admin and its API |
 
 ### Regression guards (CI)
 
-- `npm run check:static` — reads `.next/prerender-manifest.json` and fails if an
-  expected static/SSG route regresses to dynamic or the prerendered-path count
-  collapses below 5,000 (50 on preview builds).
-- `npm run check:perf` — fails on built-artifact regressions: max gzipped HTML
-  180 KB, max gzipped RSC 120 KB, max gzipped JS chunk 120 KB, and a 500 MB
-  deployable export ceiling. Selected match, player, opponent, and season pages
-  hold down the aggregate output; the complete records remain in build-generated
-  JSON, the match browser, and downloadable files.
+- `npm run check:static` fails if an expected page is missing from `out/`, a
+  prerendered family collapses, or the prerendered-path count drops below 5,000
+  (50 on preview builds).
+- `npm run check:perf` (also run in `postbuild`) fails on built-artifact
+  regressions: max gzipped HTML 180 KB, max gzipped JS chunk 120 KB, and an
+  output ceiling (1,200 MB full, 500 MB preview). Selected match, player,
+  opponent, and season pages hold down the aggregate output; the complete
+  records remain in build-generated JSON, the match browser, and downloadable
+  files. `package-assets.mjs` also fails on any asset over Cloudflare's 25 MiB limit.
+- `scripts/check-worker-config.mjs` checks a build against its target (Worker
+  name, domains, indexing, bindings, redirects) and, with `--smoke`, a deployed
+  site. CI runs it with `wrangler deploy --dry-run`.
 - Charts are hand-drawn and server-rendered (`components/charts/PlotShell.tsx`,
   `plot.ts`); only `ChartInspector` hydrates, for hover, keyboard and tap-to-pin
-  inspection (ADR 0004). Fonts self-host via `next/font/google`; fixed-size portraits
-  are served directly from cached local WebP files (`public/media/**`) with
-  `next/image` transformation disabled, avoiding paid variants.
-- `.vercelignore` owns CLI deployment inputs. It excludes local credentials,
-  raw ingest downloads, renders, audio bake-offs, screenshots, tests, and review
-  artifacts while preserving canonical data, build scripts, web assets, and the
-  small `video/` source tree required by TypeScript. Remote prebuild recreates
-  the bundled SQLite floor.
+  inspection (ADR 0004). Fonts self-host through Astro's font config
+  (`astro.config.mjs`) and load in `src/rt/Document.astro`.
+  Fixed-size portraits are served directly from cached local WebP files
+  (`public/media/**`), with no image transformation.
+- Only production sets `SITE_INDEXABLE`. Every other Worker sends noindex.
 
 ## UI architecture
 
@@ -209,8 +235,8 @@ sidebar (`SidebarNav` + `lib/navSections.ts`), mobile floating glass pill nav
 (`components/mobile/MobileBottomNav.tsx`), command-palette search, and footer
 utilities. Stories, Discover, Matches, Seasons, and Players are primary;
 Managers, Analytics, Transfers, and Data live under one More disclosure.
-Data/downloads, API, corrections, and feedback remain in the footer. View transitions are enabled via
-`experimental.viewTransition` in `next.config.ts`.
+Data/downloads, API, corrections, and feedback remain in the footer. Page
+navigations use cross-document view transitions, set up in `src/rt/Document.astro`.
 
 **Three product layers** (see `PRODUCT.md`, `CONTEXT.md`):
 
@@ -230,19 +256,21 @@ ledger cards on list views.
 ## Repository layout
 
 ```
-app/                    Next.js App Router pages
-  page.tsx              homepage (static spark; client re-picks today's night)
-  explore/              discover hub
+app/                    page code (React server + client components)
+  page.tsx              homepage (live; client re-picks today's night)
+  explore/              discover hub (live)
+  stories/              authored stories (index live)
   matches/              filterable archive
   match/[id]/           match detail
   seasons/              season index + [season]
   players/              player register + [id]
   managers/             manager index + [id]
   opponent/[id]/        opponent entity (no index)
+  record/               browser-backed record reader
   analytics/            Elo + reliability + replay
   transfers/            transfer ledger
   data/                 coverage ledger + downloads
-  compare/              head-to-head lenses
+  compare/              head-to-head lenses (live)
   cut/                  curated cuts only
   questions/[slug]/     authored myth pages
   surprise/             curated wanderer
@@ -251,8 +279,16 @@ app/                    Next.js App Router pages
   corrections/          correction builder
   feedback/             feedback form
   api/                  static GET dumps (health, v1 REST); no search/revalidate
+src/
+  pages/                generated Astro wrappers, one per app/ page (committed)
+  rt/                   render, hydration, live-route snapshot and editorial scope
+  shims/                next/* stand-ins the page code imports
+  middleware.ts         live routes: render with EmDash content, or serve the twin
+  worker.ts             Worker entry: setup gate, record-reader redirects, EmDash
 components/             UI components (charts, match archive, mobile shell, …)
-lib/                    db access (db.ts, build-time only), queries, format, questions, cut, compare, …
+lib/                    db access (db.ts at build time, dbReplay.ts on the Worker), queries, format, …
+content/emdash/         seed.json: the git snapshot of the CMS content
+plugins/record-guard/   EmDash plugin: publish dispatch and record checks
 data/
   canonical/            source of truth (JSON, in git)
   raw/                  downloaded open datasets (gitignored, reproducible)
@@ -260,9 +296,10 @@ data/
 public/
   dataset/              exported CSV/JSON flat files (gitignored on preview builds)
   media/                cached WebP portraits (gitignored; rebuilt in prebuild)
-scripts/                build-db.ts, validate.ts, ingest/*, check-*, export-*
-pipeline/               update.ts — the recurring fetch-and-append job
-.github/workflows/      update-results.yml (cron), enrich-results.yml (Monday sheet check), ci.yml
+scripts/                build-site.mjs, build-db.ts, validate.ts, ingest/*, check-*, export-*, emdash/*
+pipeline/               update.ts, the recurring fetch-and-append job
+wrangler.jsonc          Worker config: preview by default, `env.production` for utdred.com
+.github/workflows/      ci.yml, deploy.yml, update-results.yml, enrich-results.yml, publish-editorial.yml
 docs/                   this folder
 ```
 
@@ -340,7 +377,7 @@ Manchester United match history*.
 - **`/data`** — coverage matrix, source register, gaps queue with per-row
   explanations, developer appendix with API/file references.
 - **`/corrections`** — structured builder that opens a GitHub issue. Deep-link
-  prefill from match pickables is not available on the static export.
+  prefill from match pickables is not available on prerendered pages.
   Contract: `docs/CORRECTIONS.md`.
 - **`/feedback`** — general product feedback via embedded Google Form.
 - Every aggregate in the UI carries a coverage grade where interpretation
@@ -352,6 +389,7 @@ Manchester United match history*.
 |---|---|
 | `docs/DATA-MODEL.md` | Schema of record |
 | `docs/PIPELINE.md` | Auto-update, validation, build, and deployment |
+| `docs/EMDASH-MIGRATION-PLAN.md` | The Astro + EmDash move and the CMS setup |
 | `docs/SOURCE-AUDIT.md` | Coverage limits and provenance |
 | `docs/CORRECTIONS.md` | Public correction workflow |
 | `docs/MOBILE.md` | Mobile shell patterns |
@@ -362,4 +400,4 @@ Manchester United match history*.
 
 ### Shared record UX (September 2026)
 
-`RecordClient` observes query changes with Next's `useSearchParams` beneath Suspense. The existing per-record JSON exports supply its data, so enriched identity, context, sources, portraits and related links do not require new server functions or one HTML document per entity. Page titles update after the record loads. Query-based shared pages retain generic crawler/social metadata; the prerendered featured legacy routes remain the richer share-preview entry points.
+`RecordClient` observes query changes with `useSearchParams` (the `next/navigation` shim) beneath Suspense. The existing per-record JSON exports supply its data, so enriched identity, context, sources, portraits and related links do not require new server functions or one HTML document per entity. Page titles update after the record loads. Query-based shared pages retain generic crawler/social metadata; the prerendered featured legacy routes remain the richer share-preview entry points.
