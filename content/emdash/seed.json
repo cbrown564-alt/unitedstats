@@ -199,7 +199,7 @@
       "slug": "stories",
       "label": "Stories",
       "labelSingular": "Story",
-      "description": "The stories shelf. A thread of nights takes its body from night blocks; the other bodies are in code.",
+      "description": "The stories shelf. Bodies stay in code until Phase 4.",
       "supports": [
         "drafts",
         "revisions",
@@ -243,6 +243,12 @@
           "required": true
         },
         {
+          "slug": "position",
+          "label": "Position",
+          "type": "integer",
+          "required": true
+        },
+        {
           "slug": "body",
           "label": "Body",
           "type": "blocks",
@@ -254,12 +260,6 @@
             "minItems": 0,
             "maxItems": 100
           }
-        },
-        {
-          "slug": "position",
-          "label": "Position",
-          "type": "integer",
-          "required": true
         }
       ]
     },
@@ -724,8 +724,8 @@
           "description": "George Best and Cristiano Ronaldo: the same shirt, fifth season, European Cup and final goal.",
           "kicker": "1968 · 2008",
           "prompt": "Two careers. One shirt. The same fifth season.",
-          "body": [],
-          "position": 0
+          "position": 0,
+          "body": []
         }
       },
       {
@@ -738,8 +738,8 @@
           "description": "The Treble's three must-wins: two comebacks, all decided from the bench.",
           "kicker": "16—26 May 1999",
           "prompt": "Three must-win nights, decided from the bench.",
-          "body": [],
-          "position": 1
+          "position": 1,
+          "body": []
         }
       },
       {
@@ -752,8 +752,8 @@
           "description": "Since 1984, just three home league leads have turned into deficits — each rescued.",
           "kicker": "Old Trafford · since 1984",
           "prompt": "The lead bent three times. It never broke.",
-          "body": [],
-          "position": 2
+          "position": 2,
+          "body": []
         }
       },
       {
@@ -766,8 +766,8 @@
           "description": "Three 2–1 comebacks, thirty years apart — the last one came a decade after Ferguson left.",
           "kicker": "1993 · 1999 · 2023",
           "prompt": "Three comebacks. Thirty years. The same impossible clock.",
-          "body": [],
-          "position": 3
+          "position": 3,
+          "body": []
         }
       },
       {
@@ -781,6 +781,7 @@
           "description": "Ten surprising Manchester United matches, from the first FA Cup to Amad at 120′.",
           "kicker": "1909—2024",
           "prompt": "Ten nights that changed the shape of the record.",
+          "position": 4,
           "body": [
             {
               "_type": "night",
@@ -946,8 +947,7 @@
               "memory_src": "/media/players/amad-diallo.webp",
               "memory_position": "50% 22%"
             }
-          ],
-          "position": 4
+          ]
         }
       }
     ],
