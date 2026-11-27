@@ -72,7 +72,7 @@ function resolveCopy(night: { key: string }, receipt: MatchReceipt, copy: string
   return out;
 }
 
-export interface ResolvedReceipt {
+interface ResolvedReceipt {
   receipt: MatchReceipt;
   caption: string;
   label: string;

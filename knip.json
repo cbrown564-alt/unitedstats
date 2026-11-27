@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
-    "scripts/**/*.{ts,mjs}",
+    "scripts/**/*.{ts,mts,mjs}",
     "pipeline/**/*.ts",
     "remotion.config.ts",
     "video/index.ts",

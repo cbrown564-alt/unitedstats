@@ -23,7 +23,7 @@ export const NIGHT_MOTIFS = ["single", "comeback", "torrent", "cut", "paired", "
 export type Motif = (typeof NIGHT_MOTIFS)[number];
 
 /** A receipt shown before the night's own, e.g. the drawn final before a replay. */
-export interface EarlierReceipt {
+interface EarlierReceipt {
   match_id: string;
   caption: string;
   label: string;

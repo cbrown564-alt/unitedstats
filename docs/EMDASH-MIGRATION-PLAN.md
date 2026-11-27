@@ -4,7 +4,8 @@ Status: **Phases 0–3b done.** Phases 0–2 finished on 2026-11-13 (findings an
 Phase 1 approach in [ADR 0006](adr/0006-move-to-astro-for-emdash.md)). Production cut
 over to the EmDash Worker on 2026-11-14. The watch week was clean on the checks run
 (Cloudflare error rates, Search Console and Lighthouse were not re-checked). Phase 3b removed
-Next on 2026-11-27. Phase 4 is gated and optional.
+Next on 2026-11-27. Phase 4 moved one story (Forgotten Night) to EmDash blocks and
+stopped there, as planned.
 Supersedes the *conclusion* of
 [ADR 0005](adr/0005-stay-on-next-after-astro-seasons-spike.md), not its measurements.
 
@@ -572,6 +573,28 @@ building"). The bodies interleave prose with data-driven client visuals (`Treble
 references record IDs and renders the existing component. The facts asserted in
 `tests/journey.test.ts` must keep passing against the snapshot. Start with one story
 (Forgotten Night) and stop if the block set grows past a handful.
+
+**Outcome (2026-11-27): Forgotten Night done; stopped there.**
+
+- *A thread of nights* reads its ten stations from `night` blocks: one block type, in
+  a `blocks` field on `stories`. The opening and the close stay in code.
+- Facts come from the record. A block names its match by ID, and its copy uses tokens
+  (`{goal:Name}`, `{name:Name}`, `{minute:Name}`, `{goals:side}`, `{count:side}`,
+  `{score}`, `{score:id}`). An unknown token, or one the record can't answer, fails
+  the render and `npm test`. Some titles still carry typed numbers ("Chelsea 5",
+  "Palace 78"), as they did in code.
+- Plain Portable Text was not used. A station is a headline, a line and a receipt,
+  not prose with marks, so flat fields fit it better.
+- The rendered copy matched production for all ten stations before the switch. That
+  check found one wrong fact: the opening said 82′ for Turnbull's 22′ goal. The
+  opening's three minutes now come from the record.
+- Why stop: the other four stories use 3–4 bespoke visuals each (`TrebleSpinoff`,
+  `BenchLatency`, `ThreeCracks`, `FortressSpinoff`, `LeadHeldDotplot`,
+  `FergieTimeLoop`, `StoppageEcho`…). Moving them would take about a dozen block
+  types, well past a handful. Their bodies stay in code.
+- Schema changes need a step CI doesn't run: `scripts/emdash/apply-schema.mts`
+  against production (ARCHITECTURE.md, "Schema changes"). The publish snapshot
+  refuses a D1 that lacks the seed's block types or fields.
 
 ## Risks
 

@@ -63,7 +63,7 @@ const exportedBlockTypes = exported.blockTypes ?? [];
 if (canonical(exportedBlockTypes) !== canonical(committedBlockTypes)) {
   throw new Error(
     exportedBlockTypes.length < committedBlockTypes.length
-      ? "snapshot-seed: D1 lacks block types the seed declares. Apply the schema to D1 first (docs/ARCHITECTURE.md, Schema changes)."
+      ? "snapshot-seed: D1 lacks block types the seed declares. Apply the schema to D1 first (the Schema changes section of docs/ARCHITECTURE.md)."
       : "snapshot-seed: D1's block types differ from the seed's. Change block types in scripts/emdash/seed-from-registries.ts, not the admin.",
   );
 }
@@ -73,7 +73,7 @@ const collections = EDITORIAL_COLLECTIONS.map((slug) => {
   if (!c) throw new Error(`snapshot-seed: the export has no ${slug} collection`);
   const missing = (committed.collections.find((x) => x.slug === slug)?.fields ?? []).filter((f) => !c.fields.some((x) => x.slug === f.slug));
   if (missing.length > 0) {
-    throw new Error(`snapshot-seed: D1's ${slug} collection lacks ${missing.map((f) => f.slug).join(", ")}. Apply the schema to D1 first (docs/ARCHITECTURE.md, Schema changes).`);
+    throw new Error(`snapshot-seed: D1's ${slug} collection lacks ${missing.map((f) => f.slug).join(", ")}. Apply the schema to D1 first (the Schema changes section of docs/ARCHITECTURE.md).`);
   }
   return c;
 });
