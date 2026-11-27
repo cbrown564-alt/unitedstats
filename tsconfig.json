@@ -17,31 +17,42 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "next/link": [
+        "./src/shims/next-link.tsx"
+      ],
+      "next/navigation": [
+        "./src/shims/next-navigation.ts"
+      ],
+      "next/image": [
+        "./src/shims/next-image.tsx"
+      ],
+      "next/dynamic": [
+        "./src/shims/next-dynamic.tsx"
+      ],
+      "next/server": [
+        "./src/shims/next-server.ts"
+      ],
+      "next/og": [
+        "./src/shims/next-og.tsx"
+      ],
+      "next/web-vitals": [
+        "./src/shims/next-web-vitals.ts"
       ]
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    ".astro/types.d.ts"
   ],
   "exclude": [
     "node_modules",
-    "deploy",
-    "cloudflare.config.ts",
-    "wrangler.config.ts",
-    ".cloudflare",
+    "dist",
     ".wrangler"
   ]
 }

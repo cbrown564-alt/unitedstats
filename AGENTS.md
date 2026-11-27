@@ -1,6 +1,6 @@
 # Astro + EmDash
 
-The site is Astro 7 with EmDash 1.5 on one Cloudflare Worker (`docs/EMDASH-MIGRATION-PLAN.md`). Page code still lives in `app/`. Its `next/*` imports resolve to the shims in `src/shims/` until Phase 3b removes Next. Before changing framework APIs, read the installed source and types in `node_modules/astro`, `node_modules/@astrojs/cloudflare` and `node_modules/emdash`. Do not rely on remembered conventions. `wrangler.jsonc` defaults to the preview; only `.github/workflows/deploy.yml` builds and deploys production.
+The site is Astro 7 with EmDash 1.5 on one Cloudflare Worker (`docs/EMDASH-MIGRATION-PLAN.md`). Page code still lives in `app/`. Its `next/*` imports resolve to the shims in `src/shims/`; Next itself is not installed. Before changing framework APIs, read the installed source and types in `node_modules/astro`, `node_modules/@astrojs/cloudflare` and `node_modules/emdash`. Do not rely on remembered conventions. `wrangler.jsonc` defaults to the preview; only `.github/workflows/deploy.yml` builds and deploys production.
 
 # Red Thread
 

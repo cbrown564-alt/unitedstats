@@ -1,5 +1,5 @@
 import { sampleStaticIds } from "@/lib/static-build";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import {

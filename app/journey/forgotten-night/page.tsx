@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";

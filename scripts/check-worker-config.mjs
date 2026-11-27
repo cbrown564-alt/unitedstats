@@ -31,7 +31,7 @@ if (!target) {
 }
 const smoke = rest.includes("--smoke") ? rest[rest.indexOf("--smoke") + 1] : null;
 const failures = [];
-const redirects = JSON.parse(readFileSync("vercel.json", "utf8")).redirects;
+const redirects = JSON.parse(readFileSync("scripts/legacy-redirects.json", "utf8")).redirects;
 
 if (smoke) await checkDeployed(new URL(smoke));
 else checkBuild(rest.includes("--deployable"));
@@ -71,7 +71,7 @@ function checkBuild(deployable) {
   const noindexAll = /^\/\*\n\s+X-Robots-Tag: noindex/m.test(headers);
   if (noindexAll === target.indexable) failures.push(`out/_headers ${noindexAll ? "sends" : "does not send"} noindex on every path`);
   const written = existsSync("out/_redirects") ? readFileSync("out/_redirects", "utf8").trim().split("\n").length : 0;
-  if (written !== redirects.length) failures.push(`out/_redirects has ${written} rules, vercel.json has ${redirects.length}`);
+  if (written !== redirects.length) failures.push(`out/_redirects has ${written} rules, scripts/legacy-redirects.json has ${redirects.length}`);
 }
 
 async function checkDeployed(origin) {

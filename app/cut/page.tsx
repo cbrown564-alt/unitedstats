@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { PageHeader } from "@/components/PageHeader";
 import { CURATED_CUTS } from "@/lib/cut";
 

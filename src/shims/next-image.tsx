@@ -46,7 +46,6 @@ export default function Image({
     ? { position: "absolute", height: "100%", width: "100%", left: 0, top: 0, right: 0, bottom: 0 }
     : undefined;
   return (
-    // eslint-disable-next-line @next/next/no-img-element
     <img
       alt={alt}
       {...(priority ? { fetchPriority: "high" as const } : {})}

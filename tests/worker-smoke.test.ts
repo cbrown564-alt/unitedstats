@@ -5,7 +5,7 @@ import { createServer } from "node:http";
 import { once } from "node:events";
 import test from "node:test";
 
-const redirects = JSON.parse(readFileSync("vercel.json", "utf8")).redirects as { source: string; destination: string }[];
+const redirects = JSON.parse(readFileSync("scripts/legacy-redirects.json", "utf8")).redirects as { source: string; destination: string }[];
 
 test("deployment smoke accepts only protected, pending setup before the first seed", async (t) => {
   const cases = [

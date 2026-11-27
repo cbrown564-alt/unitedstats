@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { SearchPageClient } from "@/components/search/SearchPageClient";
 
 const SEARCH_DESCRIPTION =

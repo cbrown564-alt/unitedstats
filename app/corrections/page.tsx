@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { PageHeader } from "@/components/PageHeader";
 import { CorrectionBuilder } from "./CorrectionBuilder";
 import { CORRECTION_STATUS_URL } from "@/lib/corrections";

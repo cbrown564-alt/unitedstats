@@ -47,7 +47,6 @@ export function RedThreadBridge({
 
   return (
     <div ref={rootRef} className={`red-thread-bridge ${className}`} aria-hidden="true">
-      {/* eslint-disable-next-line @next/next/no-img-element -- poster remains visible if video cannot play */}
       <img className="red-thread-bridge__poster" src={media.poster} alt="" />
       <video
         ref={videoRef}

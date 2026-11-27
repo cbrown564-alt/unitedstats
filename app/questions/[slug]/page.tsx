@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { questionBySlug, questionSlugs, isArchivedQuestion } from "@/lib/questions";

@@ -48,7 +48,7 @@ export function appFileHandler(name: string, type: string): APIRoute {
     });
 }
 
-type SitemapEntry = {
+export type SitemapEntry = {
   url: string;
   lastModified?: string | Date;
   changeFrequency?: string;
@@ -58,7 +58,7 @@ type SitemapEntry = {
 const iso = (d: string | Date) =>
   (d instanceof Date ? d : new Date(d)).toISOString();
 
-/** Same XML Next's MetadataRoute.Sitemap serialiser writes. */
+/** The sitemap XML, as Next's MetadataRoute.Sitemap serialiser wrote it. */
 export function sitemapXml(entries: SitemapEntry[]): string {
   let xml =
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
@@ -91,7 +91,7 @@ type RobotsRule = {
   disallow?: string | string[];
   crawlDelay?: number;
 };
-type Robots = {
+export type Robots = {
   rules: RobotsRule | RobotsRule[];
   sitemap?: string | string[];
   host?: string;
@@ -100,7 +100,7 @@ type Robots = {
 const list = (v: string | string[] | undefined) =>
   v == null ? [] : Array.isArray(v) ? v : [v];
 
-/** Same text Next's MetadataRoute.Robots serialiser writes. */
+/** The robots.txt text, as Next's MetadataRoute.Robots serialiser wrote it. */
 export function robotsHandler(build: () => Robots): APIRoute {
   return () => {
     const r = build();

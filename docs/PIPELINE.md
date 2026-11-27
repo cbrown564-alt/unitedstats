@@ -145,7 +145,7 @@ on. It previously watched `master` and deployed the old static packaging after
 GitHub's hybrid deployment, removing the CMS routes. Keep that build disabled;
 GitHub Actions is the production deployment owner.
 
-`scripts/package-assets.mjs` runs at the end of the build. It writes `out/_redirects` from the permanent redirects in `vercel.json`, merges API CORS, data caching and noindex into the adapter's `out/_headers`, and fails on any asset over 25 MiB. `_headers` covers only static files, so the Worker sends noindex itself unless `SITE_INDEXABLE` is `"true"`, which only production sets. Unprerendered match/player/opponent/season URLs redirect to the browser-backed record reader (`src/worker.ts`).
+`scripts/package-assets.mjs` runs at the end of the build. It writes `out/_redirects` from the permanent redirects in `scripts/legacy-redirects.json`, merges API CORS, data caching and noindex into the adapter's `out/_headers`, and fails on any asset over 25 MiB. `_headers` covers only static files, so the Worker sends noindex itself unless `SITE_INDEXABLE` is `"true"`, which only production sets. Unprerendered match/player/opponent/season URLs redirect to the browser-backed record reader (`src/worker.ts`).
 
 `scripts/check-worker-config.mjs <preview|production>` checks a build against its target: Worker name, domains, indexing, bindings and redirects. `--deployable` also requires the D1 and KV IDs, because without them Wrangler would create new, empty resources. With `--smoke <origin>` it checks a deployed site instead: the home page renders live, indexing is right, and every legacy redirect answers 308. CI runs the production build, the config check and `wrangler deploy --dry-run`.
 
@@ -158,12 +158,12 @@ contend on the migration lock and return 503. Private snapshot assets keep
 `noindex`; their public fallback responses remove that asset header and use the
 Worker environment's indexing policy instead.
 
-The Next build (`npm run build:cloudflare -- production`, `npm run deploy:cloudflare`) remains only as a fallback until Phase 3b; to roll back, use `wrangler rollback` first.
+To roll back a deploy, use `wrangler rollback` to an earlier version of the same Worker. The Next build that preceded the Worker was removed in Phase 3b (2026-11-27).
 
 Umami pageviews and bounded product events remain. Vercel Web Analytics and Speed Insights scripts are removed because their endpoints depend on the old host. Their historical measurements remain evidence; no field-performance improvement is claimed. Blob upload/revalidation scripts remain dormant manual recovery tools and are not required by the build or weekly update workflow.
 
 The production configuration attaches `utdred.com` and `www.utdred.com`. A zone Single Redirect rule preserves the existing 308 from www to the apex, including path and query. The separate Google verification TXT record must be preserved. The Monday 18:00 UTC data workflow calls the Deploy workflow after it pushes.
 
-Preview testing reproduced an existing record-navigation defect on Vercel: selecting another record after client navigation could retain the previous result. `RecordClient` now reads pathname/query from Next.js route hooks instead of listening only to browser `popstate`; the existing loading, abort, failure/retry and record-data behavior remain.
+Preview testing reproduced an existing record-navigation defect on Vercel: selecting another record after client navigation could retain the previous result. `RecordClient` now reads pathname/query from the route hooks (today the `next/navigation` shim) instead of listening only to browser `popstate`; the existing loading, abort, failure/retry and record-data behavior remain.
 
 Returning from the archive also exposed Next 16.2.9 reusing a previous query URL from its static route cache. Match, player and opponent record links use native anchors so each selected record gets an exact document URL, including after legacy redirects or a return from another page. Search results and search controls also use document navigation for record destinations. Other site links keep their existing client navigation.

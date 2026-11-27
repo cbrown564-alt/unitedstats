@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { StoryProgress } from "@/components/journey/StoryProgress";
 import type { ComponentType } from "react";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { notFound, redirect } from "next/navigation";
 import TwoNoSevensStory from "@/app/journey/page";
 import ElevenDaysInMayStory from "@/app/journey/treble/page";

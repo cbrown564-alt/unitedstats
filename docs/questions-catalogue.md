@@ -34,7 +34,7 @@ rotation (`featuredLaunchQuestion`), and surprise facts where applicable.
 | `fortress` | Fortress OT | How rarely United lose a home league lead held at half-time |
 | `late-goals` | Fergie time | Whether the late-goal edge is real (mostly 86–90, not stoppage time) |
 
-**Redirects:** `/questions/ferguson` and `/questions/decline` → `/questions/ferguson-era` (`next.config.ts`).
+**Redirects:** `/questions/ferguson` and `/questions/decline` → `/questions/ferguson-era` (`scripts/legacy-redirects.json`).
 
 **Explore home:** `/questions` redirects to `/explore` (canonical catalogue).
 
@@ -165,7 +165,7 @@ Registered in `EASTER_EGGS` — linkable, not in explore catalogue:
 | `components/charts/InspectableBarChart.tsx` | `gap`, `yDomain`, `slantXLabels` |
 | `components/charts.tsx` | `ChartBarDatum.gap` |
 | `components/explore/QuestionSignature.tsx` | Signature visuals per slug |
-| `next.config.ts` | Ferguson/decline redirects, `/questions` → `/explore` |
+| `scripts/legacy-redirects.json` | Ferguson/decline redirects (`/questions` → `/explore` is `app/questions/page.tsx`) |
 | `tests/question-cards.test.ts` | European finals must not include quarter-finals |
 
 ---

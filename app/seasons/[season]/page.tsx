@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { matchHref, opponentHref, seasonHref } from "@/lib/publishedHref";
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { seasonMatches, allSeasons, seasonsIndex, seasonLeagueTable, type MatchRow, type SeasonSummary } from "@/lib/queries";

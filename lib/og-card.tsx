@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element -- ImageResponse requires native img elements. */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { ReactNode } from "react";

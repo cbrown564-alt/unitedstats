@@ -103,14 +103,12 @@ export default defineConfig({
         { find: /^next\/dynamic$/, replacement: shim("next-dynamic.tsx") },
         { find: /^next\/server$/, replacement: shim("next-server.ts") },
         { find: /^next\/og$/, replacement: shim("next-og.tsx") },
-        { find: /^next\/font\/google$/, replacement: shim("next-font-google.ts") },
-        { find: /^next\/script$/, replacement: shim("next-script.tsx") },
         { find: /^next\/web-vitals$/, replacement: shim("next-web-vitals.ts") },
       ],
     },
     ssr: { external: ["better-sqlite3", "sharp", "@resvg/resvg-js"] },
     environments: { prerender: { resolve: { external: ["better-sqlite3", "sharp", "@resvg/resvg-js"] } } },
-    // Tailwind runs as a Vite plugin; postcss.config.mjs stays Next-only.
+    // Tailwind runs as a Vite plugin, so no PostCSS plugins are needed.
     css: { postcss: { plugins: [] } },
     plugins: [environmentSwaps(), tailwindcss(), rtClientRefs()],
   },

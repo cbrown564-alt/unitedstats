@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TrebleSpinoff, type TrebleDecider, type TreblePlaceMonument, type TrebleClimaxAtmosphere } from "@/components/journey/TrebleSpinoff";

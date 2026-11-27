@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata } from "@/src/rt/metadata";
 import { notFound } from "next/navigation";
 import { CopyStudio } from "@/components/dev/CopyStudio";
 import { copyStudioEnabled, loadCopyCatalog, loadCopyQueue } from "@/lib/copyCatalog";

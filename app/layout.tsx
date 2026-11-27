@@ -1,27 +1,8 @@
-import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
-import Script from "next/script";
-import { ProductAnalytics } from "@/components/ProductAnalytics";
-import { SiteShell } from "@/components/SiteShell";
+import type { Metadata } from "@/src/rt/metadata";
 import { SITE_URL } from "@/lib/site";
-import { jsonLdHtml, websiteJsonLd } from "@/lib/structuredData";
-import "./globals.css";
-import "./thread.css";
-import "./cord.css";
-import "./plate.css";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
+// The site-wide metadata every page inherits (src/rt/render.tsx). The document
+// itself, with fonts, analytics and JSON-LD, is src/rt/Document.astro.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "Red Thread — every Manchester United match since 1886", template: "%s · Red Thread" },
@@ -39,33 +20,3 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
 };
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  // suppressHydrationWarning: browser extensions inject data-* attributes onto
-  // <html> before React hydrates (e.g. content filters), which the server HTML
-  // can't match. Scoped to this element's own attributes only — real mismatches
-  // inside the app still surface.
-  return (
-    <html lang="en" suppressHydrationWarning className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
-        {/* Story chapters own the viewport (docs/JOURNEY.md). Path-gated so
-            the story shelf and all other routes stay chrome-on; useJourneyStage
-            covers client navigation. */}
-        <Script id="journey-chrome-off" strategy="beforeInteractive">
-          {`if(location.pathname.startsWith("/stories/"))document.documentElement.dataset.chrome="off"`}
-        </Script>
-        <Script
-          src="https://cloud.umami.is/script.js"
-          data-website-id="d08bc90f-d7b2-4ed8-b3a8-4e334b54b18b"
-          data-domains="utdred.com,www.utdred.com"
-          data-exclude-search="true"
-          data-exclude-hash="true"
-          strategy="afterInteractive"
-        />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdHtml(websiteJsonLd()) }} />
-        <SiteShell>{children}</SiteShell>
-        <ProductAnalytics />
-      </body>
-    </html>
-  );
-}
