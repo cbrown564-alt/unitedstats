@@ -118,10 +118,15 @@ schema change, and before anyone publishes:
 1. In the admin, create an API token with `schema:read`, `schema:write`,
    `content:read` and `content:write`.
 2. Do a dry run: `EMDASH_TOKEN=… npx tsx scripts/emdash/apply-schema.mts https://utdred.com`.
-3. Run it again with `--apply`. It adds missing block types and fields, writes
-   any story body that D1 lacks, and publishes it. The publish dispatch then
-   checks the D1 export against the seed.
+3. Run it again with `--apply`. It adds missing block types and fields,
+   updates collection labels and descriptions that differ, writes any story
+   body that D1 lacks, and publishes it. The publish dispatch then checks the
+   D1 export against the seed.
 4. Revoke the token.
+
+Run it from a checkout of current master, since it reads that seed. D1 appends
+a new field after the existing ones, so add new fields last in the generator,
+or the next snapshot reorders them.
 
 Until then `snapshot-seed.mts` refuses the export: D1 lacks what the seed
 declares. So a publish fails loudly rather than overwriting the seed with less.

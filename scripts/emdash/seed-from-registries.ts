@@ -127,8 +127,9 @@ const collections: Collection[] = [
       { slug: "kicker", label: "Kicker", type: "string", required: true },
       { slug: "prompt", label: "Prompt", type: "text", required: true },
       // EmDash's defaults for a blocks field written out, as `export-seed` writes them.
-      { slug: "body", label: "Body", type: "blocks", validation: { allowedTypes: ["night"], retiredTypes: [], minItems: 0, maxItems: 100 } },
       position,
+      // Last, as D1 appended it: fields added after setup land at the end.
+      { slug: "body", label: "Body", type: "blocks", validation: { allowedTypes: ["night"], retiredTypes: [], minItems: 0, maxItems: 100 } },
     ],
   },
   {
@@ -215,8 +216,8 @@ const content = {
       description: s.description,
       kicker: s.kicker,
       prompt: s.prompt,
-      body: bodyOf(s.slug) ?? [],
       position: i,
+      body: bodyOf(s.slug) ?? [],
     }),
   ),
   questions: allQuestionMeta().map((q, i) =>
