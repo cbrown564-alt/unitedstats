@@ -52,8 +52,27 @@ test("the guard rejects references the record does not hold", () => {
   assert.match(check("debates", { mode: "players", a: "wayne-rooney", b: "matt-busby" }).join(), /Subject B/);
   assert.match(check("debates", { mode: "eras", a: "1990s", b: "1990s" }).join(), /same/);
   assert.match(check("questions", { slug: "who-is-best" }).join(), /No answer module/);
-  assert.match(check("stories", { slug: "a-new-story" }).join(), /Phase 4/);
+  assert.match(check("stories", { slug: "a-new-story" }).join(), /No story page/);
   assert.deepEqual(check("debates", { mode: "managers", a: "alex-ferguson", b: "matt-busby" }), []);
+});
+
+test("the guard checks a thread night's record IDs and tokens", () => {
+  const story = seed.content.stories.find((e) => e.slug === "a-thread-of-nights");
+  assert.ok(story);
+  const [first] = story.data.body as Record<string, unknown>[];
+  const save = (night: Record<string, unknown>, slug = "a-thread-of-nights") => check("stories", { ...story.data, slug, body: [{ ...first, ...night }] }).join(" ");
+  assert.equal(save({}), "");
+  assert.match(save({ match_id: "1909-04-24-bristol-city-x" }), /unknown match ID/);
+  assert.match(save({ detail: "{goals:home} won it." }), /united or opponent/);
+  assert.match(save({ detail: "{scorer:Turnbull} won it." }), /unknown token/);
+  assert.match(save({ detail: "{goal:} won it." }), /needs a scorer/);
+  assert.match(save({ title: "{score:1909-04-24-bristol-city-x}" }), /unknown match ID/);
+  assert.match(save({ detail: "{goal:Turnbull won it." }), /not a complete token/);
+  assert.match(save({ motif: "sparkle" }), /unknown motif/);
+  assert.match(save({ memory_src: "https://example.com/a.jpg" }), /\/media\//);
+  assert.match(save({ earlier: [{ match_id: "nope", caption: "c", label: "l", link_label: "x" }] }), /earlier receipt/);
+  assert.match(save({}, "fortress-ot"), /Only A thread of nights/);
+  assert.deepEqual(check("stories", { slug: "fortress-ot", body: [] }), []);
 });
 
 test("registries follow a live source and fall back to the seed", () => {

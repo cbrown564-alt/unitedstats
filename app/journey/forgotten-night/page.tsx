@@ -7,9 +7,9 @@ import { MatchFlow } from "@/components/MatchFlow";
 import { JourneyChapterNav } from "@/components/journey/JourneyChapterNav";
 import { JourneySourceLink, JourneyThreadAnchor } from "@/components/journey/JourneyBeat";
 import { ThreadOfNights } from "@/components/journey/ThreadOfNights";
-import { THREAD_OF_NIGHTS, matchReceipt, type MatchReceipt } from "@/lib/journey";
-import { familyName } from "@/lib/names";
-import type { EventRow } from "@/lib/queries";
+import type { MatchReceipt } from "@/lib/journey";
+import { goalMinute, resolveNight, type ResolvedNight } from "@/lib/nightCopy";
+import { threadNights, type Motif } from "@/lib/threadOfNights";
 import { RecordGlyph } from "@/components/glyphs/RecordGlyph";
 
 export const metadata: Metadata = {
@@ -18,58 +18,28 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const BRIGHTON_FINAL = "1983-05-21-brighton-and-hove-albion-n";
+/** The opening's three moments: a scorer on a night, with the minute read from the record. */
+const OPENING_MOMENTS = [
+  { key: "first-cup", name: "Turnbull" },
+  { key: "everton-110", name: "Whiteside" },
+  { key: "liverpool-120", name: "Amad" },
+];
 
-type Night = (typeof THREAD_OF_NIGHTS)[number];
-type Motif = "single" | "comeback" | "torrent" | "cut" | "paired" | "late" | "shock" | "reversal" | "memory" | "flare";
-
-const NIGHT_TREATMENTS: Record<Night["key"], { label: string; motif: Motif }> = {
-  "first-cup": { label: "The first Cup", motif: "single" },
-  blackpool: { label: "The lead changed hands", motif: "comeback" },
-  "chelsea-eleven": { label: "The eleven-goal night", motif: "torrent" },
-  "southampton-final": { label: "The final lost", motif: "cut" },
-  "brighton-replay": { label: "Five days later", motif: "paired" },
-  "everton-110": { label: "The wait", motif: "late" },
-  "york-shock": { label: "The shock", motif: "shock" },
-  "spurs-five": { label: "The reversal", motif: "reversal" },
-  "palace-final": { label: "The extra-time answer", motif: "memory" },
-  "liverpool-120": { label: "The final flare", motif: "flare" },
+const MOTIF_BACKGROUNDS: Record<Motif, string> = {
+  single: "radial-gradient(34% 70% at 24% 58%, rgba(245,197,24,0.09), transparent 72%), linear-gradient(115deg, rgba(255,255,255,0.035), transparent 35%)",
+  comeback: "linear-gradient(128deg, rgba(48,45,42,0.36) 0 42%, rgba(145,24,13,0.22) 62%, rgba(255,59,31,0.08) 100%)",
+  torrent: "repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 8.5%), radial-gradient(62% 100% at 50% 50%, rgba(255,59,31,0.13), transparent 75%)",
+  cut: "linear-gradient(104deg, rgba(255,255,255,0.035) 0 72%, transparent 72.3%), linear-gradient(180deg, transparent, rgba(0,0,0,0.28))",
+  paired: "linear-gradient(90deg, rgba(255,255,255,0.04) 0 49.7%, rgba(245,197,24,0.14) 49.8% 50.2%, rgba(255,59,31,0.06) 50.3%)",
+  late: "radial-gradient(20% 82% at 91% 52%, rgba(245,197,24,0.13), transparent 76%), linear-gradient(90deg, transparent 0 72%, rgba(255,59,31,0.06))",
+  shock: "linear-gradient(164deg, transparent 0 52%, rgba(0,0,0,0.42) 52.2%), radial-gradient(48% 90% at 82% 55%, rgba(255,255,255,0.055), transparent 70%)",
+  reversal: "linear-gradient(145deg, rgba(0,0,0,0.34) 0 46%, rgba(255,59,31,0.13) 46.3% 100%)",
+  memory: "radial-gradient(44% 100% at 78% 54%, rgba(245,197,24,0.095), transparent 72%), linear-gradient(120deg, rgba(255,255,255,0.03), transparent 48%)",
+  flare: "radial-gradient(23% 86% at 94% 55%, rgba(245,197,24,0.17), transparent 72%), linear-gradient(90deg, transparent 45%, rgba(255,59,31,0.1))",
 };
 
 function motifBackground(motif: Motif): string {
-  const motifs: Record<Motif, string> = {
-    single: "radial-gradient(34% 70% at 24% 58%, rgba(245,197,24,0.09), transparent 72%), linear-gradient(115deg, rgba(255,255,255,0.035), transparent 35%)",
-    comeback: "linear-gradient(128deg, rgba(48,45,42,0.36) 0 42%, rgba(145,24,13,0.22) 62%, rgba(255,59,31,0.08) 100%)",
-    torrent: "repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 8.5%), radial-gradient(62% 100% at 50% 50%, rgba(255,59,31,0.13), transparent 75%)",
-    cut: "linear-gradient(104deg, rgba(255,255,255,0.035) 0 72%, transparent 72.3%), linear-gradient(180deg, transparent, rgba(0,0,0,0.28))",
-    paired: "linear-gradient(90deg, rgba(255,255,255,0.04) 0 49.7%, rgba(245,197,24,0.14) 49.8% 50.2%, rgba(255,59,31,0.06) 50.3%)",
-    late: "radial-gradient(20% 82% at 91% 52%, rgba(245,197,24,0.13), transparent 76%), linear-gradient(90deg, transparent 0 72%, rgba(255,59,31,0.06))",
-    shock: "linear-gradient(164deg, transparent 0 52%, rgba(0,0,0,0.42) 52.2%), radial-gradient(48% 90% at 82% 55%, rgba(255,255,255,0.055), transparent 70%)",
-    reversal: "linear-gradient(145deg, rgba(0,0,0,0.34) 0 46%, rgba(255,59,31,0.13) 46.3% 100%)",
-    memory: "radial-gradient(44% 100% at 78% 54%, rgba(245,197,24,0.095), transparent 72%), linear-gradient(120deg, rgba(255,255,255,0.03), transparent 48%)",
-    flare: "radial-gradient(23% 86% at 94% 55%, rgba(245,197,24,0.17), transparent 72%), linear-gradient(90deg, transparent 45%, rgba(255,59,31,0.1))",
-  };
-  return motifs[motif];
-}
-
-function clock(goal: EventRow | undefined): string {
-  if (!goal?.minute) return "";
-  return `${goal.minute}${goal.added_time ? `+${goal.added_time}` : ""}′`;
-}
-
-function scorer(goal: EventRow | undefined): string {
-  return familyName(goal?.player_display_name ?? goal?.player_name ?? "");
-}
-
-function goalWithName(receipt: MatchReceipt, name: string, opponent = false): EventRow | undefined {
-  const goals = opponent ? receipt.opponentGoals : receipt.unitedGoals;
-  return goals.find((goal) => (goal.player_display_name ?? goal.player_name ?? "").includes(name));
-}
-
-function goalPhrase(goal: EventRow | undefined): string {
-  const name = scorer(goal);
-  const time = clock(goal);
-  return [name, time].filter(Boolean).join(" ");
+  return MOTIF_BACKGROUNDS[motif];
 }
 
 function ReceiptFlow({
@@ -125,12 +95,12 @@ function NightStation({
   memory,
   children,
 }: {
-  night: Night;
+  night: { key: string; id: string; side: "left" | "right" };
   index: number;
   title: ReactNode;
   detail: string;
   treatment: { label: string; motif: Motif };
-  memory?: { src: string; position?: string };
+  memory?: { src: string; position: string };
   children: ReactNode;
 }) {
   const onLeft = night.side === "left";
@@ -159,7 +129,7 @@ function NightStation({
           className={`pointer-events-none absolute inset-y-0 hidden w-[43vw] max-w-[42rem] overflow-hidden opacity-30 lg:block ${onLeft ? "right-0 [mask-image:linear-gradient(to_left,#000_12%,rgba(0,0,0,0.84)_60%,transparent_100%)]" : "left-0 [mask-image:linear-gradient(to_right,#000_12%,rgba(0,0,0,0.84)_60%,transparent_100%)]"}`}
           aria-hidden
         >
-          <Image src={memory.src} alt="" fill sizes="43vw" className={`object-cover grayscale contrast-125 ${memory.position ?? "object-[50%_25%]"}`} />
+          <Image src={memory.src} alt="" fill sizes="43vw" className="object-cover grayscale contrast-125" style={{ objectPosition: memory.position }} />
           <span className={`absolute inset-0 bg-[linear-gradient(to_bottom,rgba(13,11,10,0.56),transparent_32%,rgba(13,11,10,0.86))] ${onLeft ? "bg-devil/30 mix-blend-color" : "bg-gold/20 mix-blend-color"}`} />
         </div>
       )}
@@ -189,50 +159,62 @@ function NightStation({
   );
 }
 
+/** One night block, laid out: its headline, copy and receipts (an earlier one first, with its own link). */
+function Station({ night, index }: { night: ResolvedNight; index: number }) {
+  const own = night.receipts[night.receipts.length - 1];
+  const flow = (r: (typeof night.receipts)[number]) => (
+    <ReceiptFlow
+      receipt={r.receipt}
+      detail={r.caption}
+      motif={night.motif}
+      label={r.label}
+      sequence={index}
+      focusPlayerIds={r === own ? night.focusPlayerIds : undefined}
+    />
+  );
+  return (
+    <NightStation
+      night={night}
+      index={index}
+      treatment={{ label: night.label, motif: night.motif }}
+      memory={night.memory}
+      title={<>{night.title} <JourneyThreadAnchor>{night.titleAnchor}</JourneyThreadAnchor></>}
+      detail={night.detail}
+    >
+      {night.receipts.length === 1 ? (
+        flow(own)
+      ) : (
+        <div className="grid gap-5">
+          {night.receipts.slice(0, -1).map((r) => (
+            <div key={r.receipt.id}>
+              {flow(r)}
+              <div className="mt-4"><JourneySourceLink href={`/match/${r.receipt.id}`} label={r.link_label ?? "Open the match"} /></div>
+            </div>
+          ))}
+          {flow(own)}
+        </div>
+      )}
+    </NightStation>
+  );
+}
+
 /**
  * Journey chapter 5 — a deliberately smaller prototype of the eventual stitched
  * journey. A single filament descends from 1886 to now, spinning into ten
- * defining matches and then returning to the living archive.
+ * defining matches and then returning to the living archive. The stations are
+ * the story's night blocks in EmDash; the opening and the close stay here.
  */
 export default function ThreadOfNightsJourneyPage() {
-  const byKey = new Map(
-    THREAD_OF_NIGHTS.map((night) => [night.key, matchReceipt(night.id)]),
-  );
-  const firstCup = byKey.get("first-cup");
-  const blackpool = byKey.get("blackpool");
-  const chelsea = byKey.get("chelsea-eleven");
-  const southampton = byKey.get("southampton-final");
-  const brightonReplay = byKey.get("brighton-replay");
-  const everton = byKey.get("everton-110");
-  const york = byKey.get("york-shock");
-  const spurs = byKey.get("spurs-five");
-  const palace = byKey.get("palace-final");
-  const liverpool = byKey.get("liverpool-120");
-  const brightonFinal = matchReceipt(BRIGHTON_FINAL);
-  if (!firstCup || !blackpool || !chelsea || !southampton || !brightonReplay || !brightonFinal || !everton || !york || !spurs || !palace || !liverpool) notFound();
-
-  const firstCupTurnbull = goalWithName(firstCup, "Turnbull");
-  const blackpoolRowley = goalWithName(blackpool, "Rowley");
-  const blackpoolAnderson = goalWithName(blackpool, "Anderson");
-  const viollet = goalWithName(chelsea, "Viollet");
-  const taylor = goalWithName(chelsea, "Taylor");
-  const stokes = goalWithName(southampton, "Stokes", true);
-  const whiteside = goalWithName(everton, "Whiteside");
-  const yorkBarnes = goalWithName(york, "Barnes", true);
-  const yorkBarras = goalWithName(york, "Barras", true);
-  const mata = goalWithName(palace, "Mata");
-  const lingard = goalWithName(palace, "Lingard");
-  const puncheon = goalWithName(palace, "Puncheon", true);
-  const amad = goalWithName(liverpool, "Amad");
-
-  const night = (key: Night["key"]) => {
-    const found = THREAD_OF_NIGHTS.find((entry) => entry.key === key);
-    if (!found) throw new Error(`Missing thread night ${key}`);
-    return found;
-  };
+  const nights = threadNights().map(resolveNight);
+  if (nights.length === 0) notFound();
+  const moments = OPENING_MOMENTS.flatMap(({ key, name }) => {
+    const night = nights.find((n) => n.key === key);
+    const minute = night && goalMinute(night.id, name);
+    return minute ? [{ name, minute }] : [];
+  });
 
   return (
-    <ThreadOfNights knots={THREAD_OF_NIGHTS.map(({ key, side }) => ({ id: key, side }))}>
+    <ThreadOfNights knots={nights.map(({ key, side }) => ({ id: key, side }))}>
       <header className="relative flex min-h-dvh flex-col justify-center px-7 pb-24 pt-20 sm:px-12 lg:px-[11vw]">
         <div className="max-w-4xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-devil-bright">Red Thread / 05</p>
@@ -243,9 +225,9 @@ export default function ThreadOfNightsJourneyPage() {
             A hundred and fifteen years of United, told through the moments that still make a fan stop and remember.
           </p>
           <p className="stat-num mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-ink-dim sm:text-base" aria-label="Three moments on the thread">
-            <span><span className="text-gold">82′</span> Turnbull</span>
-            <span><span className="text-gold">110′</span> Whiteside</span>
-            <span><span className="text-devil-bright">120′</span> Amad</span>
+            {moments.map((m, i) => (
+              <span key={m.name}><span className={i === moments.length - 1 ? "text-devil-bright" : "text-gold"}>{m.minute}</span> {m.name}</span>
+            ))}
           </p>
         </div>
         <div className="mt-20 flex max-w-4xl items-center justify-between text-[10px] font-semibold uppercase tracking-[0.24em] text-ink-faint">
@@ -255,116 +237,9 @@ export default function ThreadOfNightsJourneyPage() {
         </div>
       </header>
 
-      <NightStation
-        night={night("first-cup")}
-        index={1}
-        treatment={NIGHT_TREATMENTS["first-cup"]}
-        memory={{ src: "/media/players/sandy-turnbull.webp", position: "object-[50%_30%]" }}
-        title={<>The first Cup came down to <JourneyThreadAnchor>one goal.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(firstCupTurnbull)} settled it. Bristol City never found a way back.`}
-      >
-        <ReceiptFlow receipt={firstCup} detail="FA Cup final · Crystal Palace" motif="single" label="The first Cup" sequence={1} focusPlayerIds={firstCupTurnbull?.player_id ? [firstCupTurnbull.player_id] : undefined} />
-      </NightStation>
-
-      <NightStation
-        night={night("blackpool")}
-        index={2}
-        treatment={NIGHT_TREATMENTS.blackpool}
-        title={<>Blackpool led twice. <JourneyThreadAnchor>United won 4–2.</JourneyThreadAnchor></>}
-        detail={`${blackpool.opponentGoals.map(goalPhrase).join(". ")}. ${goalPhrase(blackpoolRowley)} began the fightback; ${goalPhrase(blackpoolAnderson)} made sure of it.`}
-      >
-        <ReceiptFlow receipt={blackpool} detail="FA Cup final · Wembley" motif="comeback" label="The lead changed hands" sequence={2} focusPlayerIds={blackpoolRowley?.player_id ? [blackpoolRowley.player_id] : undefined} />
-      </NightStation>
-
-      <NightStation
-        night={night("chelsea-eleven")}
-        index={3}
-        treatment={NIGHT_TREATMENTS["chelsea-eleven"]}
-        memory={{ src: "/media/players/dennis-viollet.webp", position: "object-[50%_22%]" }}
-        title={<>Chelsea 5. <JourneyThreadAnchor>United 6.</JourneyThreadAnchor></>}
-        detail={`An eleven-goal blur at Stamford Bridge. ${scorer(viollet)} struck three times; ${scorer(taylor)} added two more.`}
-      >
-        <ReceiptFlow receipt={chelsea} detail="First Division · Stamford Bridge" motif="torrent" label="The eleven-goal night" sequence={3} focusPlayerIds={[viollet?.player_id, taylor?.player_id].filter((id): id is string => !!id)} />
-      </NightStation>
-
-      <NightStation
-        night={night("southampton-final")}
-        index={4}
-        treatment={NIGHT_TREATMENTS["southampton-final"]}
-        title={<>The final ended <JourneyThreadAnchor>at 83′.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(stokes)}. The only goal in the 1976 FA Cup final.`}
-      >
-        <ReceiptFlow receipt={southampton} detail="FA Cup final · Wembley" motif="cut" label="The final lost" sequence={4} />
-      </NightStation>
-
-      <NightStation
-        night={night("brighton-replay")}
-        index={5}
-        treatment={NIGHT_TREATMENTS["brighton-replay"]}
-        title={<>The cup final replay, <JourneyThreadAnchor>4–0.</JourneyThreadAnchor></>}
-        detail={`${brightonFinal.score} in the first final. Five days later, Robson scored twice, with Whiteside and Mühren completing the answer.`}
-      >
-        <div className="grid gap-5">
-          <div>
-            <ReceiptFlow receipt={brightonFinal} detail="21 May · FA Cup final" motif="paired" label="The first ending" sequence={5} />
-            <div className="mt-4"><JourneySourceLink href={`/match/${brightonFinal.id}`} label="Open the first final" /></div>
-          </div>
-          <ReceiptFlow receipt={brightonReplay} detail="26 May · final replay" motif="paired" label="Five days later" sequence={5} />
-        </div>
-      </NightStation>
-
-      <NightStation
-        night={night("everton-110")}
-        index={6}
-        treatment={NIGHT_TREATMENTS["everton-110"]}
-        memory={{ src: "/media/players/norman-whiteside.webp", position: "object-[50%_20%]" }}
-        title={<>No goal until <JourneyThreadAnchor>110′.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(whiteside)}. One clean finish after 110 minutes of deadlock against Everton.`}
-      >
-        <ReceiptFlow receipt={everton} detail="FA Cup final · Wembley · extra time" motif="late" label="The wait" sequence={6} focusPlayerIds={whiteside?.player_id ? [whiteside.player_id] : undefined} />
-      </NightStation>
-
-      <NightStation
-        night={night("york-shock")}
-        index={7}
-        treatment={NIGHT_TREATMENTS["york-shock"]}
-        title={<>York scored three <JourneyThreadAnchor>at Old Trafford.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(yorkBarnes)} twice, then ${goalPhrase(yorkBarras)}. Old Trafford had no answer.`}
-      >
-        <ReceiptFlow receipt={york} detail="League Cup · second round, first leg" motif="shock" label="The shock" sequence={7} />
-      </NightStation>
-
-      <NightStation
-        night={night("spurs-five")}
-        index={8}
-        treatment={NIGHT_TREATMENTS["spurs-five"]}
-        memory={{ src: "/media/journey/beckham-white-hart-lane.jpg", position: "object-[50%_50%]" }}
-        title={<>Three down at half-time. <JourneyThreadAnchor>Five up at full-time.</JourneyThreadAnchor></>}
-        detail={`${spurs.opponentGoals.length} Tottenham goals before the interval. Then ${spurs.unitedGoals.length} from United, from 46′ to 87′.`}
-      >
-        <ReceiptFlow receipt={spurs} detail="Premier League · White Hart Lane" motif="reversal" label="The reversal" sequence={8} />
-      </NightStation>
-
-      <NightStation
-        night={night("palace-final")}
-        index={9}
-        treatment={NIGHT_TREATMENTS["palace-final"]}
-        title={<>Palace 78. Mata 81. <JourneyThreadAnchor>Lingard 110.</JourneyThreadAnchor></>}
-        detail={`${goalPhrase(puncheon)}. ${goalPhrase(mata)}. ${goalPhrase(lingard)}.`}
-      >
-        <ReceiptFlow receipt={palace} detail="FA Cup final · Wembley · extra time" motif="memory" label="The extra-time answer" sequence={9} focusPlayerIds={lingard?.player_id ? [lingard.player_id] : undefined} />
-      </NightStation>
-
-      <NightStation
-        night={night("liverpool-120")}
-        index={10}
-        treatment={NIGHT_TREATMENTS["liverpool-120"]}
-        memory={{ src: "/media/players/amad-diallo.webp", position: "object-[50%_22%]" }}
-        title={<>Amad. <JourneyThreadAnchor>120′.</JourneyThreadAnchor></>}
-        detail={`${liverpool.score} after extra time. ${goalPhrase(amad)} sent Old Trafford into the night.`}
-      >
-        <ReceiptFlow receipt={liverpool} detail="FA Cup quarter-final · Old Trafford · extra time" motif="flare" label="The final flare" sequence={10} focusPlayerIds={amad?.player_id ? [amad.player_id] : undefined} />
-      </NightStation>
+      {nights.map((night, i) => (
+        <Station key={night.key} night={night} index={i + 1} />
+      ))}
 
       <section className="relative flex min-h-[72vh] items-center px-7 py-24 sm:px-12 lg:px-[11vw]">
         <div className="max-w-3xl">

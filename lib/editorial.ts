@@ -27,6 +27,8 @@ export const CUT_DIMENSIONS = ["season", "decade", "type", "competition", "venue
 export const CUT_METRICS = ["winrate", "ppg", "gd", "matches", "goals", "apps", "starts", "goalsperapp"] as const;
 
 type NightEntry = { match_id: string; stakes: string; group: "european" | "finals" | "drama" | "modern"; position: number };
+/** A stored EmDash block: its type, schema version and stable key, then its fields. */
+export type StoryBlock = { _type: string; _version: number; _key: string } & Record<string, unknown>;
 type StoryEntry = {
   number: string;
   title: string;
@@ -34,6 +36,8 @@ type StoryEntry = {
   description: string;
   kicker: string;
   prompt: string;
+  /** Block body; only a story whose page reads blocks has one (lib/threadOfNights.ts). */
+  body?: StoryBlock[] | null;
   position: number;
 };
 type QuestionEntry = { label: string; question: string; summary: string; shelf: "front-door" | "archived"; position: number };

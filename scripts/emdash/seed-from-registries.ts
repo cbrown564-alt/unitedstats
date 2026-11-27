@@ -10,7 +10,7 @@
  *
  *   npx tsx scripts/emdash/seed-from-registries.ts
  */
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { CURATED_CUTS } from "../../lib/cut";
 import { CURATED_DEBATES, type CompareMode } from "../../lib/curatedDebates";
@@ -19,15 +19,70 @@ import { allQuestionMeta } from "../../lib/questions";
 import { storyShelf } from "../../lib/journey";
 import { TRANSFER_NOTES } from "../../lib/transferEditorial";
 import { CUT_DIMENSIONS, CUT_METRICS, EDITORIAL_COLLECTIONS } from "../../lib/editorial";
+import { NIGHT_MOTIFS, THREAD_STORY_SLUG } from "../../lib/threadOfNights";
 
 type Field = {
   slug: string;
   label: string;
-  type: "string" | "text" | "integer" | "select";
+  type: "string" | "text" | "integer" | "select" | "blocks";
   required?: boolean;
   unique?: boolean;
-  validation?: { options: readonly string[] };
+  validation?: { options: readonly string[] } | { allowedTypes: readonly string[]; retiredTypes: readonly string[]; minItems: number; maxItems: number };
 };
+type BlockField = {
+  slug: string;
+  label: string;
+  type: "string" | "text" | "select" | "repeater";
+  required?: boolean;
+  validation?: { options: readonly string[] } | { subFields: readonly { slug: string; label: string; type: "string"; required?: boolean }[] };
+};
+
+/**
+ * Block types a story body may hold. Each renders an existing component and
+ * names the record by ID; lib/threadOfNights.ts parses it. Phase 4 stopped at
+ * one: every other story's visuals would each need a block of their own.
+ */
+const blockTypes: { slug: string; label: string; description: string; currentVersion: number; versions: { version: number; fields: BlockField[] }[] }[] = [
+  {
+    slug: "night",
+    label: "Night",
+    description:
+      "One station on A thread of nights. Copy may read the record with tokens: {goal:Name}, {name:Name}, {minute:Name}, {goals:united}, {count:opponent}, {score}, {score:match-id}.",
+    currentVersion: 1,
+    versions: [
+      {
+        version: 1,
+        fields: [
+          { slug: "key", label: "Key (thread anchor, e.g. first-cup)", type: "string", required: true },
+          { slug: "match_id", label: "Match ID", type: "string", required: true },
+          { slug: "side", label: "Side", type: "select", required: true, validation: { options: ["left", "right"] } },
+          { slug: "label", label: "Label", type: "string", required: true },
+          { slug: "motif", label: "Motif", type: "select", required: true, validation: { options: NIGHT_MOTIFS } },
+          { slug: "title", label: "Title", type: "string", required: true },
+          { slug: "title_anchor", label: "Title ending (where the thread catches)", type: "string", required: true },
+          { slug: "detail", label: "Detail", type: "text", required: true },
+          { slug: "caption", label: "Receipt caption", type: "string", required: true },
+          { slug: "focus", label: "Highlighted scorers (comma-separated)", type: "string" },
+          { slug: "memory_src", label: "Photo path under /media/", type: "string" },
+          { slug: "memory_position", label: "Photo position (e.g. 50% 30%)", type: "string" },
+          {
+            slug: "earlier",
+            label: "Earlier receipts",
+            type: "repeater",
+            validation: {
+              subFields: [
+                { slug: "match_id", label: "Match ID", type: "string", required: true },
+                { slug: "caption", label: "Caption", type: "string", required: true },
+                { slug: "label", label: "Label", type: "string", required: true },
+                { slug: "link_label", label: "Link label", type: "string", required: true },
+              ],
+            },
+          },
+        ],
+      },
+    ],
+  },
+];
 type Collection = {
   slug: string;
   label: string;
@@ -61,7 +116,7 @@ const collections: Collection[] = [
     slug: "stories",
     label: "Stories",
     labelSingular: "Story",
-    description: "The stories shelf. Bodies stay in code until Phase 4.",
+    description: "The stories shelf. A thread of nights takes its body from night blocks; the other bodies are in code.",
     supports: SUPPORTS,
     titleField: "title",
     fields: [
@@ -71,6 +126,8 @@ const collections: Collection[] = [
       { slug: "description", label: "Description", type: "text", required: true },
       { slug: "kicker", label: "Kicker", type: "string", required: true },
       { slug: "prompt", label: "Prompt", type: "text", required: true },
+      // EmDash's defaults for a blocks field written out, as `export-seed` writes them.
+      { slug: "body", label: "Body", type: "blocks", validation: { allowedTypes: ["night"], retiredTypes: [], minItems: 0, maxItems: 100 } },
       position,
     ],
   },
@@ -142,6 +199,12 @@ if (collections.map((c) => c.slug).join() !== EDITORIAL_COLLECTIONS.join()) {
 
 const entry = (slug: string, data: Record<string, unknown>) => ({ slug, status: "published" as const, data });
 
+// Story bodies are block content no registry rebuilds, so they carry over from the seed.
+const seedPath = path.join(process.cwd(), "content", "emdash", "seed.json");
+const committedStories = (JSON.parse(readFileSync(seedPath, "utf8")) as { content: { stories?: { slug: string; data: { body?: unknown } }[] } }).content.stories ?? [];
+const bodyOf = (slug: string) => committedStories.find((e) => e.slug === slug)?.data.body;
+if (!bodyOf(THREAD_STORY_SLUG)) throw new Error(`seed-from-registries: the seed has no body for ${THREAD_STORY_SLUG}`);
+
 const content = {
   nights: CURATED_NIGHTS.map((n, i) => entry(n.id, { match_id: n.id, stakes: n.stakes, group: n.group, position: i })),
   stories: storyShelf().map((s, i) =>
@@ -152,6 +215,7 @@ const content = {
       description: s.description,
       kicker: s.kicker,
       prompt: s.prompt,
+      body: bodyOf(s.slug) ?? [],
       position: i,
     }),
   ),
@@ -178,12 +242,13 @@ const seed = {
   $schema: "https://emdashcms.com/seed.schema.json",
   version: "1",
   meta: { name: "Red Thread", description: "Editorial content for Red Thread. Facts live in data/canonical/." },
-  settings: { title: "Red Thread", tagline: "Every Manchester United match since 1886" },
+  settings: { title: "Red Thread", tagline: "Every Manchester United match since 1886", timezone: "Europe/London" },
+  blockTypes,
   collections,
   content: withIds,
 };
 
-const out = path.join(process.cwd(), "content", "emdash", "seed.json");
+const out = seedPath;
 writeFileSync(out, JSON.stringify(seed, null, 2) + "\n");
 const counts = Object.entries(content).map(([k, v]) => `${k} ${v.length}`).join(", ");
 console.log(`wrote ${path.relative(process.cwd(), out)}: ${counts}`);
