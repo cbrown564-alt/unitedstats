@@ -102,6 +102,29 @@ inside Astro.
   Deploy, so prerendered pages and the record replay catch up. A nightly run
   catches a lost event.
 - Prerendering, tests and the browser read the committed seed, never D1.
+- Story bodies stay in code except *A thread of nights*. Its ten stations are
+  `night` blocks in its `stories` entry (`lib/threadOfNights.ts`). A block names
+  its match by ID, and its copy reads facts through tokens such as
+  `{goal:Turnbull}`. A token the record can't answer fails the render and the
+  publish workflow's `npm test`. The record guard checks token forms and match
+  IDs on save. `tests/journey.test.ts` pins the ten match IDs in order, so
+  swapping a night needs that test changed too; editing copy doesn't.
+
+**Schema changes.** `scripts/emdash/seed-from-registries.ts` owns the schema,
+meaning collections, fields and block types. Production D1 got it once, from
+the setup wizard, and nothing in CI applies a later change. After merging a
+schema change, and before anyone publishes:
+
+1. In the admin, create an API token with `schema:read`, `schema:write`,
+   `content:read` and `content:write`.
+2. Do a dry run: `EMDASH_TOKEN=… npx tsx scripts/emdash/apply-schema.mts https://utdred.com`.
+3. Run it again with `--apply`. It adds missing block types and fields, writes
+   any story body that D1 lacks, and publishes it. The publish dispatch then
+   checks the D1 export against the seed.
+4. Revoke the token.
+
+Until then `snapshot-seed.mts` refuses the export: D1 lacks what the seed
+declares. So a publish fails loudly rather than overwriting the seed with less.
 
 **Rendering strategy.**
 

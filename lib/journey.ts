@@ -4,8 +4,9 @@ import { scoreline } from "./format";
 import { leadHeldAtHome } from "./trails";
 import { liveList } from "./editorial";
 
-/** Stories whose bodies are in code (components/journey); until Phase 4 a story
- *  entry in EmDash only reaches the shelf when its slug is listed here. */
+/** Stories with a page in code (app/journey); a story entry in EmDash reaches the
+ *  shelf only when its slug is listed here. A thread of nights lays out night
+ *  blocks from its entry's body; the rest keep their bodies in code. */
 export const STORY_SLUGS = ["two-no-7s", "eleven-days-in-may", "fortress-ot", "fergie-time", "a-thread-of-nights"] as const;
 export type JourneyChapterSlug = (typeof STORY_SLUGS)[number];
 
@@ -46,23 +47,13 @@ export const JOURNEY_CHAPTERS: readonly JourneyChapter[] = liveList(
 );
 
 /**
- * The B-story's deliberately authored rediscovery set. These are not a ranking
- * of the club's greatest matches: each knot gives the continuous thread a
- * different shape — firsts, high scores, a final lost, a shock, comebacks and
- * living memory. The page reads every displayed fact back from its receipt.
+ * The B-story's deliberately authored rediscovery set, now the story's night
+ * blocks in EmDash (lib/threadOfNights.ts). These are not a ranking of the
+ * club's greatest matches: each knot gives the continuous thread a different
+ * shape — firsts, high scores, a final lost, a shock, comebacks and living
+ * memory. The page reads every displayed fact back from its receipt.
  */
-export const THREAD_OF_NIGHTS = [
-  { key: "first-cup", id: "1909-04-24-bristol-city-n", side: "left" },
-  { key: "blackpool", id: "1948-04-24-blackpool-n", side: "right" },
-  { key: "chelsea-eleven", id: "1954-10-16-chelsea-a", side: "left" },
-  { key: "southampton-final", id: "1976-05-01-southampton-n", side: "right" },
-  { key: "brighton-replay", id: "1983-05-26-brighton-and-hove-albion-n", side: "left" },
-  { key: "everton-110", id: "1985-05-18-everton-n", side: "right" },
-  { key: "york-shock", id: "1995-09-20-york-city-h", side: "left" },
-  { key: "spurs-five", id: "2001-09-29-tottenham-hotspur-a", side: "right" },
-  { key: "palace-final", id: "2016-05-21-crystal-palace-n", side: "left" },
-  { key: "liverpool-120", id: "2024-03-17-liverpool-h", side: "right" },
-] as const;
+export { THREAD_OF_NIGHTS } from "./threadOfNights";
 
 /** The stories shelf: each chapter with its shelf kicker and prompt. */
 export function storyShelf(): readonly JourneyChapter[] {

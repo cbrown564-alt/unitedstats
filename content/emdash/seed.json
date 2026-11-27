@@ -10,6 +10,143 @@
     "tagline": "Every Manchester United match since 1886",
     "timezone": "Europe/London"
   },
+  "blockTypes": [
+    {
+      "slug": "night",
+      "label": "Night",
+      "description": "One station on A thread of nights. Copy may read the record with tokens: {goal:Name}, {name:Name}, {minute:Name}, {goals:united}, {count:opponent}, {score}, {score:match-id}.",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "key",
+              "label": "Key (thread anchor, e.g. first-cup)",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "match_id",
+              "label": "Match ID",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "side",
+              "label": "Side",
+              "type": "select",
+              "required": true,
+              "validation": {
+                "options": [
+                  "left",
+                  "right"
+                ]
+              }
+            },
+            {
+              "slug": "label",
+              "label": "Label",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "motif",
+              "label": "Motif",
+              "type": "select",
+              "required": true,
+              "validation": {
+                "options": [
+                  "single",
+                  "comeback",
+                  "torrent",
+                  "cut",
+                  "paired",
+                  "late",
+                  "shock",
+                  "reversal",
+                  "memory",
+                  "flare"
+                ]
+              }
+            },
+            {
+              "slug": "title",
+              "label": "Title",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "title_anchor",
+              "label": "Title ending (where the thread catches)",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "detail",
+              "label": "Detail",
+              "type": "text",
+              "required": true
+            },
+            {
+              "slug": "caption",
+              "label": "Receipt caption",
+              "type": "string",
+              "required": true
+            },
+            {
+              "slug": "focus",
+              "label": "Highlighted scorers (comma-separated)",
+              "type": "string"
+            },
+            {
+              "slug": "memory_src",
+              "label": "Photo path under /media/",
+              "type": "string"
+            },
+            {
+              "slug": "memory_position",
+              "label": "Photo position (e.g. 50% 30%)",
+              "type": "string"
+            },
+            {
+              "slug": "earlier",
+              "label": "Earlier receipts",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "match_id",
+                    "label": "Match ID",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "caption",
+                    "label": "Caption",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "label",
+                    "label": "Label",
+                    "type": "string",
+                    "required": true
+                  },
+                  {
+                    "slug": "link_label",
+                    "label": "Link label",
+                    "type": "string",
+                    "required": true
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "collections": [
     {
       "slug": "nights",
@@ -62,7 +199,7 @@
       "slug": "stories",
       "label": "Stories",
       "labelSingular": "Story",
-      "description": "The stories shelf. Bodies stay in code until Phase 4.",
+      "description": "The stories shelf. A thread of nights takes its body from night blocks; the other bodies are in code.",
       "supports": [
         "drafts",
         "revisions",
@@ -104,6 +241,19 @@
           "label": "Prompt",
           "type": "text",
           "required": true
+        },
+        {
+          "slug": "body",
+          "label": "Body",
+          "type": "blocks",
+          "validation": {
+            "allowedTypes": [
+              "night"
+            ],
+            "retiredTypes": [],
+            "minItems": 0,
+            "maxItems": 100
+          }
         },
         {
           "slug": "position",
@@ -574,6 +724,7 @@
           "description": "George Best and Cristiano Ronaldo: the same shirt, fifth season, European Cup and final goal.",
           "kicker": "1968 · 2008",
           "prompt": "Two careers. One shirt. The same fifth season.",
+          "body": [],
           "position": 0
         }
       },
@@ -587,6 +738,7 @@
           "description": "The Treble's three must-wins: two comebacks, all decided from the bench.",
           "kicker": "16—26 May 1999",
           "prompt": "Three must-win nights, decided from the bench.",
+          "body": [],
           "position": 1
         }
       },
@@ -600,6 +752,7 @@
           "description": "Since 1984, just three home league leads have turned into deficits — each rescued.",
           "kicker": "Old Trafford · since 1984",
           "prompt": "The lead bent three times. It never broke.",
+          "body": [],
           "position": 2
         }
       },
@@ -613,6 +766,7 @@
           "description": "Three 2–1 comebacks, thirty years apart — the last one came a decade after Ferguson left.",
           "kicker": "1993 · 1999 · 2023",
           "prompt": "Three comebacks. Thirty years. The same impossible clock.",
+          "body": [],
           "position": 3
         }
       },
@@ -627,6 +781,172 @@
           "description": "Ten surprising Manchester United matches, from the first FA Cup to Amad at 120′.",
           "kicker": "1909—2024",
           "prompt": "Ten nights that changed the shape of the record.",
+          "body": [
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "first-cup",
+              "key": "first-cup",
+              "match_id": "1909-04-24-bristol-city-n",
+              "side": "left",
+              "label": "The first Cup",
+              "motif": "single",
+              "title": "The first Cup came down to",
+              "title_anchor": "one goal.",
+              "detail": "{goal:Turnbull} settled it. Bristol City never found a way back.",
+              "caption": "FA Cup final · Crystal Palace",
+              "focus": "Turnbull",
+              "memory_src": "/media/players/sandy-turnbull.webp",
+              "memory_position": "50% 30%"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "blackpool",
+              "key": "blackpool",
+              "match_id": "1948-04-24-blackpool-n",
+              "side": "right",
+              "label": "The lead changed hands",
+              "motif": "comeback",
+              "title": "Blackpool led twice.",
+              "title_anchor": "United won {score}.",
+              "detail": "{goals:opponent}. {goal:Rowley} began the fightback; {goal:Anderson} made sure of it.",
+              "caption": "FA Cup final · Wembley",
+              "focus": "Rowley"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "chelsea-eleven",
+              "key": "chelsea-eleven",
+              "match_id": "1954-10-16-chelsea-a",
+              "side": "left",
+              "label": "The eleven-goal night",
+              "motif": "torrent",
+              "title": "Chelsea {count:opponent}.",
+              "title_anchor": "United {count:united}.",
+              "detail": "An eleven-goal blur at Stamford Bridge. {name:Viollet} struck three times; {name:Taylor} added two more.",
+              "caption": "First Division · Stamford Bridge",
+              "focus": "Viollet, Taylor",
+              "memory_src": "/media/players/dennis-viollet.webp",
+              "memory_position": "50% 22%"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "southampton-final",
+              "key": "southampton-final",
+              "match_id": "1976-05-01-southampton-n",
+              "side": "right",
+              "label": "The final lost",
+              "motif": "cut",
+              "title": "The final ended",
+              "title_anchor": "at {minute:Stokes}.",
+              "detail": "{goal:Stokes}. The only goal in the 1976 FA Cup final.",
+              "caption": "FA Cup final · Wembley"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "brighton-replay",
+              "key": "brighton-replay",
+              "match_id": "1983-05-26-brighton-and-hove-albion-n",
+              "side": "left",
+              "label": "Five days later",
+              "motif": "paired",
+              "title": "The cup final replay,",
+              "title_anchor": "{score}.",
+              "detail": "{score:1983-05-21-brighton-and-hove-albion-n} in the first final. Five days later, {name:Robson} scored twice, with {name:Whiteside} and {name:Mühren} completing the answer.",
+              "caption": "26 May · final replay",
+              "earlier": [
+                {
+                  "match_id": "1983-05-21-brighton-and-hove-albion-n",
+                  "caption": "21 May · FA Cup final",
+                  "label": "The first ending",
+                  "link_label": "Open the first final"
+                }
+              ]
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "everton-110",
+              "key": "everton-110",
+              "match_id": "1985-05-18-everton-n",
+              "side": "right",
+              "label": "The wait",
+              "motif": "late",
+              "title": "No goal until",
+              "title_anchor": "{minute:Whiteside}.",
+              "detail": "{goal:Whiteside}. One clean finish after 110 minutes of deadlock against Everton.",
+              "caption": "FA Cup final · Wembley · extra time",
+              "focus": "Whiteside",
+              "memory_src": "/media/players/norman-whiteside.webp",
+              "memory_position": "50% 20%"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "york-shock",
+              "key": "york-shock",
+              "match_id": "1995-09-20-york-city-h",
+              "side": "left",
+              "label": "The shock",
+              "motif": "shock",
+              "title": "York scored three",
+              "title_anchor": "at Old Trafford.",
+              "detail": "{goal:Barnes} twice, then {goal:Barras}. Old Trafford had no answer.",
+              "caption": "League Cup · second round, first leg"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "spurs-five",
+              "key": "spurs-five",
+              "match_id": "2001-09-29-tottenham-hotspur-a",
+              "side": "right",
+              "label": "The reversal",
+              "motif": "reversal",
+              "title": "Three down at half-time.",
+              "title_anchor": "Five up at full-time.",
+              "detail": "{count:opponent} Tottenham goals before the interval. Then {count:united} from United, from 46′ to 87′.",
+              "caption": "Premier League · White Hart Lane",
+              "memory_src": "/media/journey/beckham-white-hart-lane.jpg",
+              "memory_position": "50% 50%"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "palace-final",
+              "key": "palace-final",
+              "match_id": "2016-05-21-crystal-palace-n",
+              "side": "left",
+              "label": "The extra-time answer",
+              "motif": "memory",
+              "title": "Palace 78. Mata 81.",
+              "title_anchor": "Lingard 110.",
+              "detail": "{goal:Puncheon}. {goal:Mata}. {goal:Lingard}.",
+              "caption": "FA Cup final · Wembley · extra time",
+              "focus": "Lingard"
+            },
+            {
+              "_type": "night",
+              "_version": 1,
+              "_key": "liverpool-120",
+              "key": "liverpool-120",
+              "match_id": "2024-03-17-liverpool-h",
+              "side": "right",
+              "label": "The final flare",
+              "motif": "flare",
+              "title": "Amad.",
+              "title_anchor": "{minute:Amad}.",
+              "detail": "{score} after extra time. {goal:Amad} sent Old Trafford into the night.",
+              "caption": "FA Cup quarter-final · Old Trafford · extra time",
+              "focus": "Amad",
+              "memory_src": "/media/players/amad-diallo.webp",
+              "memory_position": "50% 22%"
+            }
+          ],
           "position": 4
         }
       }
