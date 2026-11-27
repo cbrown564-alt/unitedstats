@@ -1,13 +1,14 @@
 /**
  * Brings a running site's D1 up to the committed seed's schema through the
  * EmDash admin API: block types it lacks, fields its editorial collections
- * lack, and story bodies the seed holds that D1 doesn't. `emdash seed` writes
+ * lack, collection labels and descriptions that differ, and story bodies the
+ * seed holds that D1 doesn't. `emdash seed` writes
  * only a local SQLite file, and the setup wizard applies the seed once, so a
  * schema change in scripts/emdash/seed-from-registries.ts needs this before the
  * next publish (snapshot-seed refuses an export that is behind the seed).
  *
- * It never changes a block type or field D1 already has, and touches no other
- * content. Without --apply it only reports what it would do.
+ * It never changes a block type or field D1 already has (only a collection's
+ * label and description), and touches no other content. Without --apply it only reports what it would do.
  *
  *   EMDASH_TOKEN=… npx tsx scripts/emdash/apply-schema.mts https://utdred.com [--apply]
  *
@@ -24,7 +25,7 @@ type Field = { slug: string; label: string; type: string; required?: boolean; un
 type BlockType = { slug: string; label: string; description?: string; currentVersion: number; versions: { version: number; fields: unknown[] }[] };
 type Seed = {
   blockTypes?: BlockType[];
-  collections: { slug: string; fields: Field[] }[];
+  collections: { slug: string; label: string; labelSingular?: string; description?: string; fields: Field[] }[];
   content: Record<string, { slug: string; data: Record<string, unknown> }[]>;
 };
 
@@ -74,9 +75,19 @@ for (const bt of seed.blockTypes ?? []) {
   }
 }
 
-// 2. Fields the editorial collections lack.
+// 2. Collection labels and descriptions, and the fields the collections lack.
 for (const slug of EDITORIAL_COLLECTIONS) {
-  const want = seed.collections.find((c) => c.slug === slug)?.fields ?? [];
+  const collection = seed.collections.find((c) => c.slug === slug);
+  if (collection) {
+    const { item: live } = await api<{ item: { label: string; labelSingular?: string | null; description?: string | null } }>("GET", `/schema/collections/${slug}`);
+    const text = { label: collection.label, labelSingular: collection.labelSingular, description: collection.description };
+    const changed = (Object.keys(text) as (keyof typeof text)[]).filter((k) => text[k] !== undefined && text[k] !== (live[k] ?? undefined));
+    if (changed.length > 0) {
+      const update = Object.fromEntries(changed.map((k) => [k, text[k]]));
+      steps.push({ what: `update ${slug} ${changed.join(", ")}`, run: () => api("PUT", `/schema/collections/${slug}`, update) });
+    }
+  }
+  const want = collection?.fields ?? [];
   const { items: have } = await api<{ items: Field[] }>("GET", `/schema/collections/${slug}/fields`);
   for (const f of want) {
     if (have.some((h) => h.slug === f.slug)) continue;
